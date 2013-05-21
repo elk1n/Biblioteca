@@ -12,7 +12,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.PaginaPrincipalController">
   <children>
-    <Pane id="barraCabecera" layoutX="0.0" layoutY="0.0" prefHeight="109.0" prefWidth="1260.0">
+    <Pane id="barraCabecera" prefHeight="116.0" prefWidth="1260.0" AnchorPane.bottomAnchor="652.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
         <ImageView fitHeight="103.0" fitWidth="103.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
           <image>
@@ -24,28 +24,30 @@
             <Font name="System Bold" size="30.0" />
           </font>
         </Label>
-        <MenuButton layoutX="1074.0" layoutY="6.0" mnemonicParsing="false" text="Administrador">
+        <Button id="botonAyuda" layoutX="1229.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleButtonAction" text="?" textFill="WHITE">
           <font>
             <Font name="System Bold" size="14.0" fx:id="x1" />
           </font>
+          <stylesheets>
+            <URL value="@css/estilo.css" />
+          </stylesheets>
+        </Button>
+        <Label font="$x1" layoutX="331.0" layoutY="11.0" text="Buscar" />
+        <TextField layoutX="331.0" layoutY="34.0" prefHeight="28.621193749997474" prefWidth="285.0" promptText="Ingrese el dato a buscar" text="" />
+        <Button font="$x1" layoutX="622.0" layoutY="35.0" mnemonicParsing="false" text="Buscar" />
+        <MenuButton font="$x1" layoutX="1074.0" layoutY="5.0" mnemonicParsing="false" text="Administrador">
           <items>
             <MenuItem mnemonicParsing="false" text="Configuración" />
             <MenuItem mnemonicParsing="false" text="Cerrar Sesión" />
           </items>
         </MenuButton>
-        <Button id="botonAyuda" font="$x1" layoutX="1229.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleButtonAction" text="?" textFill="WHITE">
-          <stylesheets>
-            <URL value="@css/estilo.css" />
-          </stylesheets>
-        </Button>
-        <Label font="$x1" layoutX="399.0" layoutY="11.0" text="Buscar" />
-        <TextField layoutX="399.0" layoutY="34.0" prefHeight="28.62109375" prefWidth="285.0" promptText="Ingrese el dato a buscar" text="" />
-        <Button font="$x1" layoutX="690.0" layoutY="35.0" mnemonicParsing="false" text="Buscar" />
-        <MenuButton layoutX="596.0" layoutY="38.0" mnemonicParsing="false" text="Material">
+        <ComboBox layoutX="529.0" layoutY="38.0" promptText="Material">
           <items>
-            <MenuItem mnemonicParsing="false" text="Usuario" />
+            <FXCollections fx:factory="observableArrayList">
+              <String fx:value="Usuarios" />
+            </FXCollections>
           </items>
-        </MenuButton>
+        </ComboBox>
       </children>
       <stylesheets>
         <URL value="@css/estilo.css" />
