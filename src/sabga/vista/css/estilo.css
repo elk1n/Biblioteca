@@ -1,0 +1,18 @@
+
+root { 
+    display: block;
+}
+
+#botonAyuda{
+    -fx-background-color:
+        linear-gradient(#0D6ABF, #0D6ABF),
+        linear-gradient(#0D6ABF 0%, #0D6ABF 50%, #0D6ABF 100%),
+        linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-background-radius: 40;
+    -fx-background-insets: 0,1,2,3,0;
+    -fx-padding: 05 10 05 10;
+}
+#botonAyuda:hover{
+    -fx-background-color:
+    linear-gradient(#0D6ABF 0%, #0D6ABF 50%, #6CA9DF 100%) 
+}
