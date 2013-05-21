@@ -16,3 +16,16 @@ root {
     -fx-background-color:
     linear-gradient(#0D6ABF 0%, #0D6ABF 50%, #6CA9DF 100%) 
 }
+
+#barraCabecera{
+     -fx-background-color:
+        #000000,
+        linear-gradient(#41484F, #FFF),
+        linear-gradient(#FFF, #FFF),
+        linear-gradient(#FFF, #FFF);
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 3,2,2,2;   
+    -fx-text-fill: linear-gradient(white, #000);
+    -fx-padding: 10 20 10 20;
+    
+}

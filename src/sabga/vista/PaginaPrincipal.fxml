@@ -3,6 +3,7 @@
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -11,14 +12,14 @@
 
 <AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.PaginaPrincipalController">
   <children>
-    <Pane layoutX="0.0" layoutY="0.0" prefHeight="109.0" prefWidth="1260.0">
+    <Pane id="barraCabecera" layoutX="0.0" layoutY="0.0" prefHeight="109.0" prefWidth="1260.0">
       <children>
         <ImageView fitHeight="103.0" fitWidth="103.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@Imagenes/LogoBiblioteca.png" />
           </image>
         </ImageView>
-        <Label layoutX="150.0" layoutY="39.0" text="SABGA">
+        <Label layoutX="151.0" layoutY="27.0" text="SABGA">
           <font>
             <Font name="System Bold" size="30.0" />
           </font>
@@ -37,7 +38,18 @@
             <URL value="@css/estilo.css" />
           </stylesheets>
         </Button>
+        <Label font="$x1" layoutX="399.0" layoutY="11.0" text="Buscar" />
+        <TextField layoutX="399.0" layoutY="34.0" prefHeight="28.62109375" prefWidth="285.0" promptText="Ingrese el dato a buscar" text="" />
+        <Button font="$x1" layoutX="690.0" layoutY="35.0" mnemonicParsing="false" text="Buscar" />
+        <MenuButton layoutX="596.0" layoutY="38.0" mnemonicParsing="false" text="Material">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Usuario" />
+          </items>
+        </MenuButton>
       </children>
+      <stylesheets>
+        <URL value="@css/estilo.css" />
+      </stylesheets>
     </Pane>
   </children>
 </AnchorPane>
