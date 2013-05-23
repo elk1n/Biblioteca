@@ -4,6 +4,7 @@
 <?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.collections.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -12,46 +13,111 @@
 
 <AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.PaginaPrincipalController">
   <children>
-    <Pane id="barraCabecera" prefHeight="116.0" prefWidth="1260.0" AnchorPane.bottomAnchor="652.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <Pane id="barraCabecera" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="1261.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
       <children>
         <ImageView fitHeight="103.0" fitWidth="103.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
           <image>
-            <Image url="@Imagenes/LogoBiblioteca.png" />
+            <Image url="@Imagenes/LogoBiblioteca.png" preserveRatio="false" smooth="false" />
           </image>
         </ImageView>
-        <Label layoutX="151.0" layoutY="27.0" text="SABGA">
+        <Label layoutX="151.0" layoutY="37.0" text="SABGA">
           <font>
             <Font name="System Bold" size="30.0" />
           </font>
         </Label>
-        <Button id="botonAyuda" layoutX="1229.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleButtonAction" text="?" textFill="WHITE">
+        <Label layoutX="331.0" layoutY="13.0" text="Buscar">
           <font>
             <Font name="System Bold" size="14.0" fx:id="x1" />
           </font>
+        </Label>
+        <HBox id="HBox" alignment="CENTER" layoutX="1061.0" layoutY="7.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+          <children>
+            <MenuButton font="$x1" mnemonicParsing="false" text="Administrador">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Configuración" />
+                <MenuItem mnemonicParsing="false" text="Cerrar Sesión" />
+              </items>
+              <HBox.margin>
+                <Insets fx:id="x234" />
+              </HBox.margin>
+            </MenuButton>
+            <Button id="botonAyuda" font="$x1" mnemonicParsing="false" text="?" textFill="WHITE">
+              <stylesheets>
+                <URL value="@css/estilo.css" />
+              </stylesheets>
+              <HBox.margin>
+                <Insets fx:id="x2" />
+              </HBox.margin>
+            </Button>
+          </children>
+        </HBox>
+        <HBox id="HBox" alignment="CENTER" layoutX="331.0" layoutY="38.0" spacing="5.0">
+          <children>
+            <RadioButton fx:id="radioMaterial" font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" selected="true" text="Meterial">
+              <toggleGroup>
+                <ToggleGroup fx:id="busqueda" />
+              </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="radioUsuario" font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" text="Usuarios" toggleGroup="$busqueda" />
+          </children>
+        </HBox>
+        <HBox id="HBox" alignment="CENTER" layoutX="331.0" layoutY="71.0" spacing="5.0">
+          <children>
+            <TextField fx:id="campoBusqueda" onKeyTyped="#mostrarBoton" prefHeight="30.0" prefWidth="469.0" promptText="Ingrese el material o usuario a buscar">
+              <stylesheets>
+                <URL value="@css/estilo.css" />
+              </stylesheets>
+            </TextField>
+            <Button font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" text="Buscar">
+              <rotationAxis>
+                <Point3D />
+              </rotationAxis>
+            </Button>
+          </children>
+        </HBox>
+        <Button fx:id="botonBorrarBusqueda" contentDisplay="CENTER" graphicTextGap="2.0" layoutX="650.0" layoutY="76.0" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#borrarCampo" opacity="0.79" prefHeight="20.0" prefWidth="20.0">
           <stylesheets>
             <URL value="@css/estilo.css" />
           </stylesheets>
         </Button>
-        <Label font="$x1" layoutX="331.0" layoutY="10.0" text="Buscar" />
-        <TextField layoutX="331.0" layoutY="33.0" prefHeight="28.621193749997474" prefWidth="285.0" promptText="Ingrese el dato a buscar" text="" />
-        <Button font="$x1" layoutX="622.0" layoutY="34.0" mnemonicParsing="false" text="Buscar" />
-        <MenuButton font="$x1" layoutX="1074.0" layoutY="5.0" mnemonicParsing="false" text="Administrador">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Configuración" />
-            <MenuItem mnemonicParsing="false" text="Cerrar Sesión" />
-          </items>
-        </MenuButton>
-        <ComboBox layoutX="529.0" layoutY="37.0" promptText="Material">
-          <items>
-            <FXCollections fx:factory="observableArrayList">
-              <String fx:value="Usuarios" />
-            </FXCollections>
-          </items>
-        </ComboBox>
+        <ChoiceBox fx:id="parametroBusqueda" layoutX="676.0" layoutY="76.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" />
       </children>
       <stylesheets>
         <URL value="@css/estilo.css" />
       </stylesheets>
     </Pane>
+    <MenuBar layoutY="115.0" prefHeight="25.0" prefWidth="1262.0">
+      <menus>
+        <Menu mnemonicParsing="false" text="Inicio">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Inicio" />
+            <MenuItem mnemonicParsing="false" text="Cerrar Sesion" />
+            <MenuItem mnemonicParsing="false" text="Salir de SABGA" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Material">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Registrar Material" />
+            <MenuItem mnemonicParsing="false" text="Actualizar Material" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Usuarios">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Registrar Usuario" />
+            <MenuItem mnemonicParsing="false" text="Actualizar Usuario" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Prestamo">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Realizar Prestamo" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Paz y Salvo">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Generar Paz y Salvo" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
   </children>
 </AnchorPane>

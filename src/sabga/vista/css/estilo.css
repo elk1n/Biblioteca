@@ -8,9 +8,10 @@ root {
         linear-gradient(#0D6ABF, #0D6ABF),
         linear-gradient(#0D6ABF 0%, #0D6ABF 50%, #0D6ABF 100%),
         linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
-    -fx-background-radius: 40;
-    -fx-background-insets: 0,1,2,3,0;
-    -fx-padding: 05 10 05 10;
+    -fx-background-radius: 20;
+    -fx-background-insets: 0,1,1,2,0;
+    -fx-padding: 04 8 04 8;
+   
 }
 #botonAyuda:hover{
     -fx-background-color:
@@ -18,14 +19,21 @@ root {
 }
 
 #barraCabecera{
-     -fx-background-color:
-        #000000,
-        linear-gradient(#41484F, #FFF),
-        linear-gradient(#FFF, #FFF),
-        linear-gradient(#FFF, #FFF);
-    -fx-background-insets: 0,1,2,3;
-    -fx-background-radius: 3,2,2,2;   
-    -fx-text-fill: linear-gradient(white, #000);
-    -fx-padding: 10 20 10 20;
+     -fx-background-color: #5982AA,
+        linear-gradient(#5982AA, #5982AA),
+        linear-gradient(#FFF, #5982AA);  
+}
+
+#botonBorrarBusqueda{
+    -fx-background-image: url("../Imagenes/Borrar.png");
+    -fx-background-position:center;
+    -fx-background-repeat:no-repeat;
+    -fx-background-color:transparent;
+    -fx-border-radius:5;
+}
+
+#campoBusqueda {
+    
+-fx-padding: 0px 155px 0px 5px;
     
 }
