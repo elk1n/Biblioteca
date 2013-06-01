@@ -11,16 +11,19 @@ import javafx.stage.Stage;
 
 public class Sabga extends Application {
     
-     private Stage stage1;
+     private Stage ventanaPrincipal;
     
     @Override
     public void start(Stage stage) throws Exception {
+        
         Parent root = FXMLLoader.load(getClass().getResource("vista/PaginaPrincipal.fxml"));
-        stage1 = stage;
+        ventanaPrincipal = stage;
         Scene scene = new Scene(root);
+        stage.getIcons().add(new Image(Sabga.class.getResourceAsStream( "vista/Imagenes/Libraries.png" ))); 
         stage.setTitle("SABGA");
         
-        //stage.getIcons().add(new Image("Libraries.png"));
+       // stage.getIcons().add(new Image("file:Libraries.png"));
+       
         stage.setScene(scene);
         stage.show();
     
@@ -28,7 +31,7 @@ public class Sabga extends Application {
 
     public Stage getStage(){
         
-     return stage1; 
+     return ventanaPrincipal; 
     }
    
     /**

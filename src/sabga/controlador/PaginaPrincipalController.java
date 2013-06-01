@@ -19,8 +19,6 @@ import javafx.scene.input.KeyEvent;
 import sabga.Sabga;
 
 
-
-
 public class PaginaPrincipalController implements Initializable {
     
     @FXML
@@ -67,9 +65,9 @@ public class PaginaPrincipalController implements Initializable {
     @FXML
     private void salir(){
         
-         Sabga prueba = new Sabga();
+         Sabga ventanaPrincipal = new Sabga();
          
-         DialogResponse responder = Dialogs.showConfirmDialog(prueba.getStage(), "Los cambios no guradados se perderan","Realmente desea salir?","Salir de SABGA", DialogOptions.OK_CANCEL);
+         DialogResponse responder = Dialogs.showConfirmDialog(ventanaPrincipal.getStage(), "Los cambios no guradados se perderan","Realmente desea salir?","Salir de SABGA", DialogOptions.OK_CANCEL);
          
          if(responder.equals(responder.OK)){
              

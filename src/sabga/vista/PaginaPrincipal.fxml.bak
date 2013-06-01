@@ -91,8 +91,8 @@
         <Menu mnemonicParsing="false" text="Inicio">
           <items>
             <MenuItem mnemonicParsing="false" text="Inicio" />
-            <MenuItem mnemonicParsing="false" text="Cerrar Sesion" />
-            <MenuItem mnemonicParsing="false" text="Salir de SABGA" />
+            <MenuItem mnemonicParsing="false" text="Cerrar Sesión" />
+            <MenuItem mnemonicParsing="false" onAction="#salir" text="Salir de SABGA" fx:id="salir" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Material">
