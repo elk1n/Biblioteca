@@ -57,7 +57,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
          controlador = screenParent;         
     }
     
-     public void setVentanaPrincipal(Sabga ventanaPrincipal) {
+    public void setVentanaPrincipal(Sabga ventanaPrincipal) {
         
 	this.ventanaPrincipal = ventanaPrincipal;
     } 
@@ -120,8 +120,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         ventanaPrincipal.cambiarVista("paginaRegistroMaterial");
         
     }
-    
-    
+       
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         

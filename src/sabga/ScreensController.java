@@ -52,13 +52,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
-import sabga.Sabga;
 import sabga.configuracion.ControlledScreen;
 
 /**
  *
  * @author Angie
  */
+
 public class ScreensController  extends StackPane {
     //Holds the screens to be displayed
     
@@ -103,13 +103,16 @@ public class ScreensController  extends StackPane {
     //Loads the fxml file, add the screen to the screens collection and
     //finally injects the screenPane to the controller.
     public boolean loadScreen(String name, String resource) {
+        
         try {
+            
             cargadorVista = new FXMLLoader(getClass().getResource(resource));
             Parent loadScreen = (Parent) cargadorVista.load();
             controladorPantalla = ((ControlledScreen) cargadorVista.getController());
             controladorPantalla.setScreenParent(this);
             addScreen(name, loadScreen);
             return true;
+            
         } catch (Exception e) {
             
             System.out.println(e.getMessage());
