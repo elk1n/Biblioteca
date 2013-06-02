@@ -17,9 +17,16 @@ import javafx.scene.control.Dialogs.DialogOptions;
 import javafx.scene.control.Dialogs.DialogResponse;
 import javafx.scene.input.KeyEvent;
 import sabga.Sabga;
+import sabga.configuracion.ControlledScreen;
+import sabga.ScreensController;
 
 
-public class PaginaPrincipalController implements Initializable {
+public class PaginaPrincipalController implements Initializable, ControlledScreen {
+    
+    private Sabga ventanaPrincipal;  
+    private ScreensController controlador;
+    private ObservableList parametroMaterial = FXCollections.observableArrayList();
+    private ObservableList parametroUsuario = FXCollections.observableArrayList();
     
     @FXML
     private TextField campoBusqueda;
@@ -29,9 +36,6 @@ public class PaginaPrincipalController implements Initializable {
     private ChoiceBox parametroBusqueda;
     @FXML 
     private Button botonBorrarBusqueda;
-    
-    private ObservableList parametroMaterial = FXCollections.observableArrayList();
-    private ObservableList parametroUsuario = FXCollections.observableArrayList();
     
     public PaginaPrincipalController(){
                
@@ -46,6 +50,17 @@ public class PaginaPrincipalController implements Initializable {
         parametroUsuario.add("Apellidos");
     
     }
+    
+    @Override
+    public void setScreenParent(ScreensController screenParent) {
+       
+         controlador = screenParent;         
+    }
+    
+     public void setVentanaPrincipal(Sabga ventanaPrincipal) {
+        
+	this.ventanaPrincipal = ventanaPrincipal;
+    } 
     
     @FXML
     private void opcionesBusqueda(ActionEvent event) {
@@ -65,7 +80,7 @@ public class PaginaPrincipalController implements Initializable {
     @FXML
     private void salir(){
         
-         Sabga ventanaPrincipal = new Sabga();
+        ventanaPrincipal = new Sabga();
          
          DialogResponse responder = Dialogs.showConfirmDialog(ventanaPrincipal.getStage(), "Los cambios no guradados se perderan","Realmente desea salir?","Salir de SABGA", DialogOptions.OK_CANCEL);
          
@@ -100,6 +115,13 @@ public class PaginaPrincipalController implements Initializable {
     
     }
    
+    public void ventanaRegistroMaterial(){
+    
+        ventanaPrincipal.cambiarVista("paginaRegistroMaterial");
+        
+    }
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -107,4 +129,6 @@ public class PaginaPrincipalController implements Initializable {
          botonBorrarBusqueda.setVisible(false);
          
     }    
+
+    
 }

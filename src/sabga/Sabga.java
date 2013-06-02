@@ -3,37 +3,83 @@ package sabga;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import sabga.controlador.PaginaPrincipalController;
 
 
 public class Sabga extends Application {
     
-     private Stage ventanaPrincipal;
     
-    @Override
-    public void start(Stage stage) throws Exception {
-        
-        Parent root = FXMLLoader.load(getClass().getResource("vista/PaginaPrincipal.fxml"));
-        ventanaPrincipal = stage;
-        Scene scene = new Scene(root);
-        stage.getIcons().add(new Image(Sabga.class.getResourceAsStream( "vista/Imagenes/Libraries.png" ))); 
-        stage.setTitle("SABGA");
-        
-       // stage.getIcons().add(new Image("file:Libraries.png"));
-       
-        stage.setScene(scene);
-        stage.show();
+    public static String paginaInicioId = "paginaInicial";
+    public static String paginaInicioArchivo = "vista/PaginaInicio.fxml";
+    public static String paginaRegistroMaterialId = "paginaRegistroMaterial";
+    public static String paginaRegistroMaterialArchivo = "vista/RegistroMaterial.fxml";
     
+    private Stage ventanaPrincipal;
+    private BorderPane rootLayout;
+    private ScreensController pantallas;           
+    private ScreensController controller;
+    
+    public Sabga(){
+           
+        pantallas = new ScreensController();
+        pantallas.loadScreen(Sabga.paginaInicioId, Sabga.paginaInicioArchivo);
+        pantallas.loadScreen(Sabga.paginaRegistroMaterialId, Sabga.paginaRegistroMaterialArchivo);
+        pantallas.setScreen(Sabga.paginaInicioId);   
+         
     }
-
+    
     public Stage getStage(){
         
-     return ventanaPrincipal; 
+        return ventanaPrincipal; 
     }
-   
+    
+    public ScreensController getController() {
+        
+        return controller;
+    }
+    
+    public void cambiarVista(String pantalla){
+        
+        pantallas.setScreen(pantalla);
+    }
+    
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        
+        FXMLLoader cargador =  new FXMLLoader(Sabga.class.getResource("vista/PaginaPrincipal.fxml"));
+        rootLayout = (BorderPane) cargador.load();
+        Scene scene = new Scene(rootLayout);
+        primaryStage.setScene(scene);
+        primaryStage.getIcons().add(new Image(Sabga.class.getResourceAsStream( "vista/Imagenes/Libraries.png" )));
+        primaryStage.setTitle("SABGA");
+        primaryStage.show();
+                
+          
+        PaginaPrincipalController controller = cargador.getController();
+        controller.setVentanaPrincipal(this);                
+          
+        mostrarVistas();
+    
+    }
+    
+    public void mostrarVistas(){
+            
+        Group root = new Group();
+        root.getChildren().addAll(pantallas);
+        rootLayout.setCenter(root);
+  
+        ScreensController controladorVistas = new ScreensController();
+        controller = (ScreensController) controladorVistas.getMyScreenControler();
+        controladorVistas.setVentanaPrincipal(this);
+      
+    
+    }
+  
     /**
      * The main() method is ignored in correctly deployed JavaFX application.
      * main() serves only as fallback in case the application can not be

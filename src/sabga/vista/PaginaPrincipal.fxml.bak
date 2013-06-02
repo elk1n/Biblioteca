@@ -11,16 +11,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.PaginaPrincipalController">
-  <children>
-    <Pane id="barraCabecera" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="1261.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+<BorderPane id="BorderPane" prefHeight="768.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.PaginaPrincipalController">
+  <top>
+    <Pane id="barraCabecera" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="1261.0">
       <children>
         <ImageView fitHeight="103.0" fitWidth="103.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@Imagenes/LogoBiblioteca.png" preserveRatio="false" smooth="false" />
           </image>
         </ImageView>
-        <Label layoutX="151.0" layoutY="37.0" text="SABGA">
+        <Label graphicTextGap="6.0" layoutX="151.0" layoutY="37.0" text="SABGA">
           <font>
             <Font name="System Bold" size="30.0" />
           </font>
@@ -38,7 +38,7 @@
                 <MenuItem mnemonicParsing="false" text="Cerrar Sesión" />
               </items>
               <HBox.margin>
-                <Insets fx:id="x234" />
+                <Insets fx:id="x3" />
               </HBox.margin>
             </MenuButton>
             <Button id="botonAyuda" font="$x1" mnemonicParsing="false" text="?" textFill="WHITE">
@@ -53,7 +53,7 @@
         </HBox>
         <HBox id="HBox" alignment="CENTER" layoutX="331.0" layoutY="38.0" spacing="5.0">
           <children>
-            <RadioButton fx:id="radioMaterial" font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" selected="true" text="Meterial">
+            <RadioButton fx:id="radioMaterial" font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" selected="true" text="Material">
               <toggleGroup>
                 <ToggleGroup fx:id="busqueda" />
               </toggleGroup>
@@ -81,43 +81,44 @@
           </stylesheets>
         </Button>
         <ChoiceBox fx:id="parametroBusqueda" layoutX="676.0" layoutY="76.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" />
+        <MenuBar layoutY="114.0" prefHeight="25.0" prefWidth="1261.0">
+          <menus>
+            <Menu mnemonicParsing="false" text="Inicio">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Inicio" />
+                <MenuItem mnemonicParsing="false" text="Cerrar Sesión" />
+                <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem mnemonicParsing="false" onAction="#salir" text="Salir de SABGA" fx:id="salir" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Material">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Registrar Material" />
+                <MenuItem mnemonicParsing="false" text="Actualizar Material" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Usuarios">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Registrar Usuario" />
+                <MenuItem mnemonicParsing="false" text="Actualizar Usuario" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Prestamo">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Realizar Prestamo" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Paz y Salvo">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Generar Paz y Salvo" />
+              </items>
+            </Menu>
+          </menus>
+        </MenuBar>
       </children>
       <stylesheets>
         <URL value="@css/estilo.css" />
       </stylesheets>
     </Pane>
-    <MenuBar layoutY="115.0" prefHeight="25.0" prefWidth="1262.0">
-      <menus>
-        <Menu mnemonicParsing="false" text="Inicio">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Inicio" />
-            <MenuItem mnemonicParsing="false" text="Cerrar Sesión" />
-            <MenuItem mnemonicParsing="false" onAction="#salir" text="Salir de SABGA" fx:id="salir" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Material">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Registrar Material" />
-            <MenuItem mnemonicParsing="false" text="Actualizar Material" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Usuarios">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Registrar Usuario" />
-            <MenuItem mnemonicParsing="false" text="Actualizar Usuario" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Prestamo">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Realizar Prestamo" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Paz y Salvo">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Generar Paz y Salvo" />
-          </items>
-        </Menu>
-      </menus>
-    </MenuBar>
-  </children>
-</AnchorPane>
+  </top>
+</BorderPane>
