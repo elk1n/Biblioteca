@@ -134,7 +134,7 @@ public class ScreensController  extends StackPane {
                 
                 Timeline fade = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
-                        new KeyFrame(new Duration(50), new EventHandler<ActionEvent>() {
+                        new KeyFrame(new Duration(30), new EventHandler<ActionEvent>() {
                             
                     @Override
                     public void handle(ActionEvent t) {
@@ -143,7 +143,7 @@ public class ScreensController  extends StackPane {
                         getChildren().add(0, screens.get(name));     //add the screen
                         Timeline fadeIn = new Timeline(
                                 new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
-                                new KeyFrame(new Duration(50), new KeyValue(opacity, 1.0)));
+                                new KeyFrame(new Duration(30), new KeyValue(opacity, 1.0)));
                         fadeIn.play();
                     }
                 }, new KeyValue(opacity, 0.0)));
@@ -155,7 +155,7 @@ public class ScreensController  extends StackPane {
                 getChildren().add(screens.get(name));       //no one else been displayed, then just show
                 Timeline fadeIn = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
-                        new KeyFrame(new Duration(50), new KeyValue(opacity, 1.0)));
+                        new KeyFrame(new Duration(30), new KeyValue(opacity, 1.0)));
                 fadeIn.play();
             }
             return true;

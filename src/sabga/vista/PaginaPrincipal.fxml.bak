@@ -12,8 +12,11 @@
 <?import javafx.scene.text.*?>
 
 <BorderPane id="BorderPane" prefHeight="768.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.PaginaPrincipalController">
+  <padding>
+    <Insets fx:id="x3" />
+  </padding>
   <top>
-    <Pane id="barraCabecera" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="1261.0">
+    <Pane id="barraCabecera" minHeight="-Infinity" minWidth="-Infinity" padding="$x3" prefHeight="140.0" prefWidth="1261.0" BorderPane.alignment="TOP_CENTER">
       <children>
         <ImageView fitHeight="103.0" fitWidth="103.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
           <image>
@@ -93,7 +96,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Material">
               <items>
-                <MenuItem mnemonicParsing="false" text="Registrar Material" />
+                <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroMaterial" text="Registrar Material" />
                 <MenuItem mnemonicParsing="false" text="Actualizar Material" />
               </items>
             </Menu>
@@ -119,6 +122,9 @@
       <stylesheets>
         <URL value="@css/estilo.css" />
       </stylesheets>
+      <BorderPane.margin>
+        <Insets fx:id="x3" />
+      </BorderPane.margin>
     </Pane>
   </top>
 </BorderPane>

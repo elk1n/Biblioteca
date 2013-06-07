@@ -2,12 +2,122 @@
 
 <?import java.lang.*?>
 <?import java.util.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="560.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.RegistroMaterialController">
+<AnchorPane id="AnchorPane" fx:id="paginaRegistroMaterial" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.RegistroMaterialController">
   <children>
-    <Label layoutX="261.0" layoutY="193.0" text="Esta es la pagina de registro de material" />
+    <TabPane prefHeight="560.0" prefWidth="1260.0" side="TOP" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="30.0" tabMinHeight="30.0" tabMinWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <tabs>
+        <Tab closable="false" text="Registrar Libros">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="560.0" prefWidth="200.0">
+              <children>
+                <GridPane prefHeight="394.0" prefWidth="450.0" AnchorPane.bottomAnchor="83.0" AnchorPane.rightAnchor="751.0">
+                  <children>
+                    <Label text="Código Material" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <TextField fx:id="campoCodigoMaterial" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                    <Label text="Número de Clasificación" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <TextField fx:id="campoNumeroClasificacion" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    <Label text="Título" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                    <TextField fx:id="campoTitulo" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                    <Label text="Año Publicación" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                    <TextField fx:id="campoAnioPublicacion" minWidth="-Infinity" onKeyPressed="#validarNumero" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                    <Label text="Publicación" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                    <TextField fx:id="campoPublicacion" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                    <Label text="Número de Páginas" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+                    <TextField fx:id="campoNumeroPaginas" minWidth="-Infinity" onKeyPressed="#validarNumero" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                    <Label text="Ejemplares Disponibles" GridPane.columnIndex="0" GridPane.rowIndex="12" />
+                    <TextField fx:id="campoEjemplares" minWidth="-Infinity" onKeyPressed="#validarNumero" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                    <Label fx:id="validarCodigo" prefWidth="250.0" text="Validacion" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                      <textFill>
+                        <Color blue="0.000" green="0.000" red="0.800" fx:id="x1" />
+                      </textFill>
+                    </Label>
+                    <Label fx:id="validarClasificacion" prefWidth="250.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <Label fx:id="validarTitulo" prefWidth="250.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                    <Label fx:id="validarAnioPublicacion" prefWidth="250.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                    <Label fx:id="validarPublicacion" prefWidth="250.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                    <Label fx:id="validarPaginas" prefWidth="250.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                    <Label fx:id="validarEjemplares" prefWidth="250.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="0.0" prefWidth="196.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="195.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="110.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="173.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="128.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="56.0" minHeight="0.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="38.0" minHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="62.0" minHeight="0.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                </GridPane>
+                <HBox id="HBox" alignment="CENTER" layoutX="1017.0" layoutY="541.0" spacing="30.0">
+                  <children>
+                    <Button mnemonicParsing="false" text="Cancelar" />
+                    <Button mnemonicParsing="false" onAction="#validarCampos" text="Guardar Libro" />
+                  </children>
+                </HBox>
+                <ScrollPane prefHeight="463.0" prefWidth="630.0" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="576.0" AnchorPane.rightAnchor="54.0">
+                  <content>
+                    <AnchorPane id="Content" fx:id="autoresMaterias" minHeight="0.0" minWidth="0.0" prefHeight="448.0" prefWidth="622.0">
+                      <children>
+                        <Label layoutX="16.0" layoutY="80.0" text="Autor" />
+                        <Button layoutX="360.0" layoutY="78.0" mnemonicParsing="false" text="Buscar" />
+                        <Button id="registrarAutor" fx:id="botonRegistrarAutor" layoutX="482.0" layoutY="78.0" mnemonicParsing="false" onAction="#dialogoRegistrarAutor" text="Registrar Autor" />
+                        <Button layoutX="432.0" layoutY="78.0" mnemonicParsing="false" text="+" />
+                        <HBox id="HBox" fx:id="materias" alignment="CENTER" layoutX="16.0" layoutY="296.0" spacing="15.0">
+                          <children>
+                            <Label text="Materias" />
+                            <TextField prefHeight="30.0" prefWidth="255.0" />
+                            <Button mnemonicParsing="false" text="Buscar" />
+                            <Button mnemonicParsing="false" text="+" />
+                            <Button id="registrarAutor" mnemonicParsing="false" text="Guardar Materia" />
+                          </children>
+                        </HBox>
+                        <Label layoutX="16.0" layoutY="28.0" text="Editorial" />
+                        <TextField fx:id="campoEditorial" layoutX="93.0" layoutY="20.0" prefHeight="30.0" prefWidth="255.0" />
+                        <Button layoutX="359.0" layoutY="23.0" mnemonicParsing="false" prefWidth="139.0" text="Guardar Editorial" />
+                        <TextField fx:id="campoAutor" layoutX="93.0" layoutY="73.0" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="255.0" />
+                        <Label fx:id="validarEditorial" layoutX="97.0" layoutY="53.0" text="Validacion" textFill="$x1" />
+                        <Label layoutX="97.0" layoutY="110.0" text="Validacion" textFill="$x1" />
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </ScrollPane>
+                <ComboBox layoutX="59.0" prefWidth="143.0" promptText="Clase Material" AnchorPane.topAnchor="53.0">
+                  <items>
+                    <FXCollections fx:factory="observableArrayList">
+                      <String fx:value="Común" />
+                      <String fx:value="Reserva" />
+                      <String fx:value="Referencia" />
+                    </FXCollections>
+                  </items>
+                </ComboBox>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab closable="false" text="Registrar Otro Material">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
   </children>
 </AnchorPane>
