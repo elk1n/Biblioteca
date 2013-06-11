@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="205.0" prefWidth="324.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.dialogos.GuardarMateriaController">
+  <children>
+    <GridPane alignment="CENTER_RIGHT" layoutX="30.0" layoutY="11.0" prefHeight="117.0" prefWidth="253.0">
+      <children>
+        <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="253.0" text="Guardar Materia" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
+          <font>
+            <Font name="System Bold" size="18.0" />
+          </font>
+        </Label>
+        <Label text=" Nombre de la Materia" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="34.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+    <HBox id="HBox" alignment="CENTER" layoutX="79.0" layoutY="160.0" spacing="30.0">
+      <children>
+        <Button mnemonicParsing="false" text="Cancelar" />
+        <Button mnemonicParsing="false" text="Guardar Materia" />
+      </children>
+    </HBox>
+  </children>
+</AnchorPane>

@@ -5,8 +5,7 @@ import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
- *
+ * 
  * @author Elk1n
  *
  */

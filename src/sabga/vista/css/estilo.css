@@ -4,6 +4,7 @@ root {
 }
 
 #botonAyuda{
+    
     -fx-background-color:
         linear-gradient(#0D6ABF, #0D6ABF),
         linear-gradient(#0D6ABF 0%, #0D6ABF 50%, #0D6ABF 100%),
@@ -19,21 +20,55 @@ root {
 }
 
 #barraCabecera{
+    
      -fx-background-color: #5982AA,
         linear-gradient(#5982AA, #5982AA),
         linear-gradient(#FFF, #5982AA);  
 }
 
 #botonBorrarBusqueda{
+    
     -fx-background-image: url("../Imagenes/Borrar.png");
     -fx-background-position:center;
     -fx-background-repeat:no-repeat;
     -fx-background-color:transparent;
-    -fx-border-radius:5;
 }
 
 #campoBusqueda {
     
 -fx-padding: 0px 155px 0px 5px;
+    
+}
+
+.botonMenos {
+    
+    -fx-background-image: url("../Imagenes/Menos.png");
+    -fx-background-position:center;
+    -fx-background-repeat:no-repeat;
+    -fx-background-color:transparent;
+      
+}
+
+.botonBuscar {
+    
+    -fx-background-image: url("../Imagenes/Buscar.png");
+    -fx-background-position:center;
+    -fx-background-repeat:no-repeat;
+    -fx-background-color:transparent;
+}
+
+.botonMenos:hover {
+    
+     -fx-background-color:#9A9A9A;
+     -fx-background-radius: 24px;
+     -fx-background-insets: 0,1,2,3,0;
+     
+}
+
+.botonBuscar:hover{
+    
+    -fx-background-color:#9A9A9A;
+     -fx-background-radius: 24px;
+  
     
 }

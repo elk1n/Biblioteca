@@ -7,29 +7,25 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" minHeight="267.0" prefHeight="267.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.dialogos.RegistrarAutoresController">
+<AnchorPane id="AnchorPane" minHeight="267.0" prefHeight="281.0" prefWidth="352.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.dialogos.RegistrarAutoresController">
   <children>
-    <HBox id="HBox" alignment="CENTER" layoutX="160.0" layoutY="232.0" spacing="30.0">
+    <HBox id="HBox" alignment="CENTER" layoutX="111.0" layoutY="223.0" spacing="30.0">
       <children>
         <Button mnemonicParsing="false" text="Cancelar" />
         <Button mnemonicParsing="false" text="Guardar Autor" />
       </children>
     </HBox>
-    <GridPane layoutX="17.0" layoutY="4.0" prefHeight="189.0" prefWidth="253.0">
+    <GridPane alignment="CENTER_RIGHT" layoutX="50.0" layoutY="14.0" prefHeight="189.0" prefWidth="253.0">
       <children>
-        <Label text="Registrar Autor" GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <Label contentDisplay="CENTER" text="Registrar Autor" GridPane.columnIndex="0" GridPane.rowIndex="0">
           <font>
             <Font name="System Bold" size="18.0" />
           </font>
         </Label>
-        <Label text="Nombre" GridPane.columnIndex="0" GridPane.rowIndex="2">
-          <tooltip>
-            <Tooltip autoFix="false" consumeAutoHidingEvents="false" hideOnEscape="false" text="Empty Tooltip" />
-          </tooltip>
-        </Label>
-        <TextField prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <Label text="Nombre" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="0" GridPane.rowIndex="3" />
         <Label text="Apellidos" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-        <TextField prefWidth="219.0" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <TextField prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="0" GridPane.rowIndex="5" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

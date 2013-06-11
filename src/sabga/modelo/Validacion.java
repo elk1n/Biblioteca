@@ -13,15 +13,15 @@ import java.util.GregorianCalendar;
 public class Validacion {
 
    private String codigoMaterial, numeroClasificacion, titulo, anioPublicacion, publicacion, numeroPaginas, ejemplares, editorial,
-           errorCodigoMaterial, errorNumeroClasificacion, errorTitulo, errorAnioPublicacion, errorPublicacion, errorNumeroPaginas,
-           errorEjemplares, errorEditorial;
+           autor, materia,errorCodigoMaterial, errorNumeroClasificacion, errorTitulo, errorAnioPublicacion, errorPublicacion, errorNumeroPaginas,
+           errorEjemplares, errorEditorial, errorAutor, errorMateria;
     
    private Calendar calendario;
    private int anio, numeroDePaginas, numeroDeEjemplares;
    private boolean fechaPublicacion = false, paginas = false, numeroEjemplares = false;
    
    public Validacion(String codigoMaterial, String numeroClasificacion, String titulo, String anioPublicacion, String publicacion,
-                     String numeroPaginas, String ejemplares, String editorial){
+                     String numeroPaginas, String ejemplares, String editorial, String autor, String materia){
        
        
        this.codigoMaterial = codigoMaterial;
@@ -32,6 +32,8 @@ public class Validacion {
        this.numeroPaginas = numeroPaginas;
        this.ejemplares = ejemplares;
        this.editorial = editorial;
+       this.autor = autor;
+       this.materia = materia;
        
        this.calendario = Calendar.getInstance();
        this.calendario = new GregorianCalendar();
@@ -83,6 +85,18 @@ public class Validacion {
     if (this.editorial.length()>32 || this.editorial == null || this.editorial.equals("") ){
         
         this.errorEditorial = "Debe rellenar este campo";
+                
+    }
+    
+    if (this.autor.length()>90 || this.autor == null || this.autor.equals("") ){
+        
+        this.errorAutor = "Debe rellenar este campo";
+                
+    }
+    
+    if (this.materia.length()>45 || this.materia == null || this.materia.equals("") ){
+        
+        this.errorMateria = "Debe rellenar este campo";
                 
     }
         
@@ -213,7 +227,16 @@ public class Validacion {
       
       return this.errorEditorial;
   }
-          
+  
+  public String getErrorAutor(){
+      
+      return this.errorAutor;
+  }
+  
+  public String getErrorMateria(){
+      
+      return this.errorMateria;
+  }
    /*
    public void setPrueba(String dato){
         

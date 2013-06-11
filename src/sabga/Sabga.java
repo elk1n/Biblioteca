@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sabga.controlador.PaginaPrincipalController;
+import sabga.controlador.dialogos.GuardarMateriaController;
 import sabga.controlador.dialogos.RegistrarAutoresController;
 
 public class Sabga extends Application {
@@ -108,6 +109,28 @@ public class Sabga extends Application {
           }
     }
     
+    public void mostrarGuardarMateria() {
+    
+        try {
+    
+            FXMLLoader loader = new FXMLLoader(Sabga.class.getResource("vista/dialogos/GuardarMateria.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Guardar Materia");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+           // dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            GuardarMateriaController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+               // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+          }
+    }
    
   
     /**
