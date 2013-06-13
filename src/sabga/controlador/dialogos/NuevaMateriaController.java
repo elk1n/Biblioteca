@@ -13,7 +13,8 @@ import javafx.stage.Stage;
  *
  * @author Elk1n
  */
-public class GuardarMateriaController {
+
+public class NuevaMateriaController {
 
    private Stage dialogStage;
  
@@ -24,6 +25,6 @@ public class GuardarMateriaController {
  }
 
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
 }

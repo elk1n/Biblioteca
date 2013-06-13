@@ -12,8 +12,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sabga.controlador.PaginaPrincipalController;
-import sabga.controlador.dialogos.GuardarMateriaController;
-import sabga.controlador.dialogos.RegistrarAutoresController;
+import sabga.controlador.dialogos.NuevaMateriaController;
+import sabga.controlador.dialogos.NuevaEditorialController;
+import sabga.controlador.dialogos.NuevoAutorController;
 
 public class Sabga extends Application {
     
@@ -60,7 +61,10 @@ public class Sabga extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("SABGA");
         this.primaryStage.getIcons().add(new Image(Sabga.class.getResourceAsStream( "vista/Imagenes/Libraries.png" )));
-        
+        this.primaryStage.setMinHeight(500);
+        this.primaryStage.setMinWidth(600);
+        this.primaryStage.centerOnScreen();
+
         FXMLLoader cargador =  new FXMLLoader(Sabga.class.getResource("vista/PaginaPrincipal.fxml"));
         rootLayout = (BorderPane) cargador.load();
         Scene scene = new Scene(rootLayout);
@@ -86,21 +90,21 @@ public class Sabga extends Application {
                   
     }
   
-    public void mostrarRegistroAutor() {
+    public void mostrarNuevoAutor() {
     
         try {
     
-            FXMLLoader loader = new FXMLLoader(Sabga.class.getResource("vista/dialogos/RegistrarAutores.fxml"));
+            FXMLLoader loader = new FXMLLoader(Sabga.class.getResource("vista/dialogos/NuevoAutor.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Registrar Autor");
+            dialogStage.setTitle("Nuevo Autor");
             dialogStage.initModality(Modality.WINDOW_MODAL);
            // dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            RegistrarAutoresController controller = loader.getController();
+            NuevoAutorController controller = loader.getController();
             controller.setDialogStage(dialogStage);
                // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -109,21 +113,21 @@ public class Sabga extends Application {
           }
     }
     
-    public void mostrarGuardarMateria() {
+    public void mostrarNuevaMateria() {
     
         try {
     
-            FXMLLoader loader = new FXMLLoader(Sabga.class.getResource("vista/dialogos/GuardarMateria.fxml"));
+            FXMLLoader loader = new FXMLLoader(Sabga.class.getResource("vista/dialogos/NuevaMateria.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Guardar Materia");
+            dialogStage.setTitle("Nueva Materia");
             dialogStage.initModality(Modality.WINDOW_MODAL);
            // dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            GuardarMateriaController controller = loader.getController();
+            NuevaMateriaController controller = loader.getController();
             controller.setDialogStage(dialogStage);
                // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -131,6 +135,29 @@ public class Sabga extends Application {
         } catch (IOException e) {
           }
     }
+    
+    public void mostrarNuevaEditorial() {
+    
+        try {
+    
+            FXMLLoader loader = new FXMLLoader(Sabga.class.getResource("vista/dialogos/NuevaEditorial.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Nueva Editorial");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+           // dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            NuevaEditorialController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+          }
+    }
+   
    
   
     /**

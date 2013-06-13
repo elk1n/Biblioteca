@@ -14,14 +14,16 @@ public class Validacion {
 
    private String codigoMaterial, numeroClasificacion, titulo, anioPublicacion, publicacion, numeroPaginas, ejemplares, editorial,
            autor, materia,errorCodigoMaterial, errorNumeroClasificacion, errorTitulo, errorAnioPublicacion, errorPublicacion, errorNumeroPaginas,
-           errorEjemplares, errorEditorial, errorAutor, errorMateria;
+           errorEjemplares, errorEditorial, errorAutor, errorMateria, codigoMaterialOM, numeroClasificacionOM, tituloOM, materiasOM, 
+           errorCodigoMaterialOM, errorNumeroClasificacionOM, errorTituloOM, errorMateriasOM, errorTipoMaterial, errorClaseMaterialOM, errorClaseMaterial;
     
    private Calendar calendario;
    private int anio, numeroDePaginas, numeroDeEjemplares;
    private boolean fechaPublicacion = false, paginas = false, numeroEjemplares = false;
+   private Object tipoMaterial, claseMaterial, claseMaterialOM;
    
    public Validacion(String codigoMaterial, String numeroClasificacion, String titulo, String anioPublicacion, String publicacion,
-                     String numeroPaginas, String ejemplares, String editorial, String autor, String materia){
+                     String numeroPaginas, String ejemplares, String editorial, String autor, String materia , Object claseMaterial){
        
        
        this.codigoMaterial = codigoMaterial;
@@ -34,12 +36,58 @@ public class Validacion {
        this.editorial = editorial;
        this.autor = autor;
        this.materia = materia;
-       
+       this.claseMaterial = claseMaterial;
        this.calendario = Calendar.getInstance();
        this.calendario = new GregorianCalendar();
-              
-   
+                 
    }
+   
+   public Validacion (String codigoMaterial, String numeroClasificacion, String titulo, String materia, Object tipoMaterial,
+                      Object claseMaterial){
+       
+       this.codigoMaterialOM = codigoMaterial;
+       this.numeroClasificacionOM = numeroClasificacion;
+       this.tituloOM = titulo;
+       this.materiasOM = materia;
+       this.tipoMaterial = tipoMaterial;
+       this.claseMaterialOM = claseMaterial;
+          
+   }
+   
+  public void validarMaterialOM(){
+      
+           
+      if (this.codigoMaterialOM == null || this.codigoMaterialOM.equals("") || this.codigoMaterialOM.length()>32){
+          
+          this.errorCodigoMaterialOM = "Debe rellenar este campo";
+      }
+      
+      if (this.numeroClasificacionOM == null || this.numeroClasificacionOM.equals("") || this.numeroClasificacionOM.length()>45){
+          
+          this.errorNumeroClasificacionOM = "Debe rellenar este campo";
+      }
+      
+      if(this.tituloOM == null || this.tituloOM.equals("") || this.tituloOM.length()>300){
+          
+          this.errorTituloOM = "El material debe llevar un título";
+      }
+  
+      if (this.materiasOM == null || this.materiasOM.equals("") || this.materiasOM.length()>45){
+          
+          this.errorMateriasOM = "Debe rellenar este campo";
+          
+      }
+      
+      if (this.tipoMaterial == null){
+          
+          this.errorTipoMaterial = "Debe seleccionar una opción";
+      }
+      
+      if (this.claseMaterialOM == null ){
+          
+          this.errorClaseMaterialOM = "Debe seleccionar una opción";
+      }
+  }
   
   public void validarMaterial(){
       
@@ -99,6 +147,11 @@ public class Validacion {
         this.errorMateria = "Debe rellenar este campo";
                 
     }
+    
+    if (this.claseMaterial == null){
+        
+        this.errorClaseMaterial = "Debe seleccionar una opción";
+    }
         
   }  
    
@@ -118,7 +171,7 @@ public class Validacion {
        
        }
        catch(NumberFormatException e){   
-         errorAnioPublicacion = e.getMessage();           
+         errorAnioPublicacion = "Debe ser un número";           
        }      
         this.fechaPublicacion=true;
        }
@@ -151,7 +204,7 @@ public class Validacion {
                 }
             catch(NumberFormatException e){
                 
-                this.errorNumeroPaginas = e.getMessage();
+                this.errorNumeroPaginas = "Debe ser un número";
             }            
          this.paginas = true;
        }
@@ -177,7 +230,7 @@ public class Validacion {
                 }
             catch(NumberFormatException e){
                 
-                this.errorEjemplares = e.getMessage();
+                this.errorEjemplares = "Debe ser un número";
             }            
          this.numeroEjemplares = true;
        }
@@ -237,20 +290,40 @@ public class Validacion {
       
       return this.errorMateria;
   }
-   /*
-   public void setPrueba(String dato){
-        
-        prueba = dato;
-        
-        System.out.println(prueba);
-     
-    }
-    */
-   /*
-    public String setLo(){
-        
-        return prueba;             
-    }
-    */
-
+  
+  public String getErrorClaseMaterial(){
+      
+      return this.errorClaseMaterial;
+  }
+  public String getErrorCodigoMaterialOM(){
+      
+      return this.errorCodigoMaterialOM;
+  }
+  
+  public String getErrorNumeroClasificacionOM(){
+      
+      return this.errorNumeroClasificacionOM;
+  }
+  
+  public String getErrorTituloOM(){
+      
+      return this.errorTituloOM;
+  }
+  
+  public String getErrorMateriaOM(){
+      
+      return this.errorMateriasOM;
+  }
+  
+  public String getErrorTipoMaterial(){
+      
+      return this.errorTipoMaterial;
+  }
+  
+  public String getErrorClaseMaterialOM(){
+      
+      return this.errorClaseMaterialOM;
+  }
+  
+ 
  }

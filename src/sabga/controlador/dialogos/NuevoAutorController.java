@@ -10,7 +10,7 @@ import javafx.stage.Stage;
  *
  */
 
-public class RegistrarAutoresController  {
+public class NuevoAutorController  {
 
     private Stage dialogStage;
  

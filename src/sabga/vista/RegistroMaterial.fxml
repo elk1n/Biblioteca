@@ -12,13 +12,13 @@
 
 <AnchorPane id="AnchorPane" fx:id="paginaRegistroMaterial" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.RegistroMaterialController">
   <children>
-    <TabPane prefHeight="520.0" prefWidth="1260.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="30.0" tabMinHeight="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+    <TabPane pickOnBounds="true" prefHeight="520.0" prefWidth="1260.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="30.0" tabMinHeight="30.0">
       <tabs>
         <Tab closable="false" text="Registrar Libros">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="572.0" prefWidth="1260.0">
               <children>
-                <ComboBox fx:id="comboClaseMaterial" layoutX="55.0" onAction="#validarClaseMaterial" prefWidth="143.0" promptText="Clase De Material" AnchorPane.topAnchor="24.0">
+                <ComboBox fx:id="comboClaseMaterial" layoutX="55.0" prefWidth="143.0" promptText="Clase De Material" AnchorPane.topAnchor="24.0">
                   <items>
                     <FXCollections fx:factory="observableArrayList">
                       <String fx:value="Común" />
@@ -32,7 +32,7 @@
                     <Color blue="0.000" green="0.000" red="0.800" fx:id="x1" />
                   </textFill>
                 </Label>
-                <GridPane prefHeight="394.0" prefWidth="450.0" AnchorPane.bottomAnchor="27.0" AnchorPane.rightAnchor="755.0">
+                <GridPane prefHeight="394.0" prefWidth="450.0" AnchorPane.bottomAnchor="27.0" AnchorPane.rightAnchor="754.0">
                   <children>
                     <Label text="Código Material" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                     <TextField fx:id="campoCodigoMaterial" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
@@ -41,13 +41,13 @@
                     <Label text="Título" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                     <TextField fx:id="campoTitulo" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                     <Label text="Año Publicación" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-                    <TextField fx:id="campoAnioPublicacion" minWidth="-Infinity" onKeyPressed="#validarNumero" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                    <TextField fx:id="campoAnioPublicacion" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                     <Label text="Publicación" GridPane.columnIndex="0" GridPane.rowIndex="8" />
                     <TextField fx:id="campoPublicacion" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                     <Label text="Número de Páginas" GridPane.columnIndex="0" GridPane.rowIndex="10" />
-                    <TextField fx:id="campoNumeroPaginas" minWidth="-Infinity" onKeyPressed="#validarNumero" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                    <TextField fx:id="campoNumeroPaginas" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                     <Label text="Ejemplares Disponibles" GridPane.columnIndex="0" GridPane.rowIndex="12" />
-                    <TextField fx:id="campoEjemplares" minWidth="-Infinity" onKeyPressed="#validarNumero" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                    <TextField fx:id="campoEjemplares" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
                     <Label fx:id="validarCodigo" prefWidth="250.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     <Label fx:id="validarClasificacion" prefWidth="250.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                     <Label fx:id="validarTitulo" prefWidth="250.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
@@ -77,7 +77,7 @@
                     <RowConstraints maxHeight="62.0" minHeight="0.0" prefHeight="15.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                 </GridPane>
-                <SplitPane dividerPositions="0.5" focusTraversable="true" layoutX="570.0" layoutY="35.0" orientation="VERTICAL" prefHeight="394.0" prefWidth="659.0">
+                <SplitPane dividerPositions="0.5" focusTraversable="true" layoutX="570.0" layoutY="35.0" orientation="VERTICAL" prefHeight="394.0" prefWidth="630.0">
                   <items>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                       <children>
@@ -85,19 +85,19 @@
                           <content>
                             <AnchorPane id="Content" fx:id="autores" maxHeight="600.0" minHeight="0.0" minWidth="0.0" prefHeight="186.0" prefWidth="625.0">
                               <children>
-                                <Group id="Group" fx:id="grupoEditorial" layoutX="15.0" layoutY="20.0" scaleX="1.0" scaleY="1.0">
+                                <Group id="Group" fx:id="grupoEditorial" layoutX="15.0" layoutY="20.0">
                                   <children>
                                     <Label layoutY="8.0" text="Editorial" />
-                                    <TextField fx:id="campoEditorial" layoutX="83.0" layoutY="0.0" prefHeight="30.0" prefWidth="350.0" />
-                                    <Button layoutX="436.0" layoutY="3.0" mnemonicParsing="false" prefWidth="139.0" text="Guardar Editorial" />
+                                    <TextField fx:id="campoEditorial" layoutX="83.0" prefHeight="30.0" prefWidth="350.0" />
+                                    <Button layoutX="437.0" layoutY="3.0" mnemonicParsing="false" onAction="#dialogoNuevaEditorial" prefWidth="139.0" text="Nueva Editorial" />
                                     <Label fx:id="validarEditorial" layoutX="82.0" layoutY="33.0" text="Validacion" textFill="$x1" />
                                   </children>
                                 </Group>
                                 <Group id="Group" fx:id="grupoAutor" layoutX="15.0" layoutY="73.0">
                                   <children>
-                                    <TextField fx:id="campoAutor" layoutX="82.0" onKeyTyped="#mostrarCampoAutores2" prefHeight="30.0" prefWidth="350.0" />
+                                    <TextField fx:id="campoAutor" layoutX="82.0" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" />
                                     <Label layoutY="7.0" text="Autor" />
-                                    <Button id="registrarAutor" fx:id="botonRegistrarAutor" layoutX="436.0" layoutY="5.0" mnemonicParsing="false" onAction="#dialogoRegistrarAutor" text="Nuevo Autor" />
+                                    <Button id="registrarAutor" fx:id="botonRegistrarAutor" layoutX="436.0" layoutY="5.0" mnemonicParsing="false" onAction="#dialogoNuevoAutor" text="Nuevo Autor" />
                                     <Button layoutX="405.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                                       <stylesheets>
                                         <URL value="@css/estilo.css" />
@@ -113,7 +113,7 @@
                                         <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
-                                    <TextField id="campoAutor" fx:id="campoAutor2" onKeyTyped="#mostrarCampoAutores3" prefHeight="30.0" prefWidth="350.0" promptText="Autor" />
+                                    <TextField fx:id="campoAutor2" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Autor" />
                                     <Button fx:id="buscarAutor2" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="null, botonBuscar">
                                       <stylesheets>
                                         <URL value="@css/estilo.css" />
@@ -128,7 +128,7 @@
                                         <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
-                                    <TextField id="campoAutor" fx:id="campoAutor3" onKeyTyped="#mostrarCampoAutores4" prefHeight="30.0" prefWidth="350.0" promptText="Autor" />
+                                    <TextField fx:id="campoAutor3" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Autor" />
                                     <Button id="buscarAutor2" fx:id="buscarAutor3" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                                       <stylesheets>
                                         <URL value="@css/estilo.css" />
@@ -143,7 +143,7 @@
                                         <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
-                                    <TextField id="campoAutor" fx:id="campoAutor4" onKeyTyped="#mostrarCampoAutores5" prefHeight="30.0" prefWidth="350.0" promptText="Autor" />
+                                    <TextField fx:id="campoAutor4" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Autor" />
                                     <Button id="buscarAutor2" fx:id="buscarAutor4" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                                       <stylesheets>
                                         <URL value="@css/estilo.css" />
@@ -158,7 +158,7 @@
                                         <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
-                                    <TextField id="campoAutor" fx:id="campoAutor5" onKeyTyped="#mostrarCampoAutores6" prefHeight="30.0" prefWidth="350.0" promptText="Autor" />
+                                    <TextField fx:id="campoAutor5" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Autor" />
                                     <Button id="buscarAutor2" fx:id="buscarAutor5" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                                       <stylesheets>
                                         <URL value="@css/estilo.css" />
@@ -173,7 +173,7 @@
                                         <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
-                                    <TextField id="campoAutor" fx:id="campoAutor6" onKeyTyped="#mostrarCampoAutores7" prefHeight="30.0" prefWidth="350.0" promptText="Autor" />
+                                    <TextField fx:id="campoAutor6" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Autor" />
                                     <Button id="buscarAutor2" fx:id="buscarAutor6" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                                       <stylesheets>
                                         <URL value="@css/estilo.css" />
@@ -188,7 +188,7 @@
                                         <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
-                                    <TextField id="campoAutor" fx:id="campoAutor7" onKeyTyped="#mostrarCampoAutores8" prefHeight="30.0" prefWidth="350.0" promptText="Autor" />
+                                    <TextField fx:id="campoAutor7" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Autor" />
                                     <Button id="buscarAutor2" fx:id="buscarAutor7" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                                       <stylesheets>
                                         <URL value="@css/estilo.css" />
@@ -203,7 +203,7 @@
                                         <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
-                                    <TextField id="campoAutor" fx:id="campoAutor8" onKeyTyped="#mostrarCampoAutores9" prefHeight="30.0" prefWidth="350.0" promptText="Autor" />
+                                    <TextField fx:id="campoAutor8" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Autor" />
                                     <Button id="buscarAutor2" fx:id="buscarAutor8" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                                       <stylesheets>
                                         <URL value="@css/estilo.css" />
@@ -218,7 +218,7 @@
                                         <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
-                                    <TextField id="campoAutor" fx:id="campoAutor9" onKeyTyped="#mostrarCampoAutores10" prefHeight="30.0" prefWidth="350.0" promptText="Autor" />
+                                    <TextField fx:id="campoAutor9" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Autor" />
                                     <Button id="buscarAutor2" fx:id="buscarAutor9" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                                       <stylesheets>
                                         <URL value="@css/estilo.css" />
@@ -233,7 +233,7 @@
                                         <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
-                                    <TextField id="campoAutor" fx:id="campoAutor10" prefHeight="30.0" prefWidth="350.0" promptText="Autor" />
+                                    <TextField fx:id="campoAutor10" prefHeight="30.0" prefWidth="350.0" promptText="Autor" />
                                     <Button id="buscarAutor2" fx:id="buscarAutor10" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                                       <stylesheets>
                                         <URL value="@css/estilo.css" />
@@ -252,13 +252,13 @@
                       <children>
                         <ScrollPane prefHeight="193.0" prefWidth="657.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <content>
-                            <AnchorPane id="Content" fx:id="materias" maxHeight="550.0" minHeight="0.0" minWidth="0.0" prefHeight="156.0" prefWidth="654.0">
+                            <AnchorPane id="Content" fx:id="materias" maxHeight="550.0" minHeight="0.0" minWidth="0.0" prefHeight="156.0" prefWidth="614.0">
                               <children>
                                 <Group id="Group" fx:id="grupoMateria" layoutX="14.0" layoutY="14.0">
                                   <children>
                                     <Label layoutY="7.0" text="Materias" />
-                                    <TextField fx:id="campoMateria" layoutX="83.0" onKeyTyped="#mostrarCampoMateria2" prefHeight="30.0" prefWidth="350.0" />
-                                    <Button id="registrarAutor" layoutX="437.0" layoutY="4.0" mnemonicParsing="false" onAction="#dialogoGuardarMateria" text="Nueva Materia" />
+                                    <TextField fx:id="campoMateria" layoutX="83.0" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" />
+                                    <Button id="registrarAutor" layoutX="437.0" layoutY="4.0" mnemonicParsing="false" onAction="#dialogoNuevaMateria" text="Nueva Materia" />
                                     <Button layoutX="406.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                                       <stylesheets>
                                         <URL value="@css/estilo.css" />
@@ -274,7 +274,7 @@
                                         <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
-                                    <TextField id="campoAutor" fx:id="campoMateria2" onKeyTyped="#mostrarCampoMateria3" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
+                                    <TextField fx:id="campoMateria2" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
                                     <Button id="buscarAutor2" fx:id="buscarMateria2" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                                       <stylesheets>
                                         <URL value="@css/estilo.css" />
@@ -286,13 +286,13 @@
                                   <children>
                                     <Button id="quitarAutor2" fx:id="quitarMateria3" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
                                       <stylesheets>
-                                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                        <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
-                                    <TextField id="campoAutor" fx:id="campoMateria3" onKeyTyped="#mostrarCampoMateria4" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
+                                    <TextField fx:id="campoMateria3" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
                                     <Button id="buscarAutor2" fx:id="buscarMateria3" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                                       <stylesheets>
-                                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                        <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
                                   </children>
@@ -301,13 +301,13 @@
                                   <children>
                                     <Button id="quitarAutor2" fx:id="quitarMateria4" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
                                       <stylesheets>
-                                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                        <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
-                                    <TextField id="campoAutor" fx:id="campoMateria4" onKeyTyped="#mostrarCampoMateria5" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
+                                    <TextField fx:id="campoMateria4" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
                                     <Button id="buscarAutor2" fx:id="buscarMateria4" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                                       <stylesheets>
-                                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                        <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
                                   </children>
@@ -316,13 +316,13 @@
                                   <children>
                                     <Button id="quitarAutor2" fx:id="quitarMateria5" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
                                       <stylesheets>
-                                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                        <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
-                                    <TextField id="campoAutor" fx:id="campoMateria5" onKeyTyped="#mostrarCampoMateria6" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
+                                    <TextField fx:id="campoMateria5" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
                                     <Button id="buscarAutor2" fx:id="buscarMateria5" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                                       <stylesheets>
-                                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                        <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
                                   </children>
@@ -331,13 +331,13 @@
                                   <children>
                                     <Button id="quitarAutor2" fx:id="quitarMateria6" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
                                       <stylesheets>
-                                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                        <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
-                                    <TextField id="campoAutor" fx:id="campoMateria6" onKeyTyped="#mostrarCampoMateria7" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
+                                    <TextField fx:id="campoMateria6" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
                                     <Button id="buscarAutor2" fx:id="buscarMateria6" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                                       <stylesheets>
-                                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                        <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
                                   </children>
@@ -346,13 +346,13 @@
                                   <children>
                                     <Button id="quitarAutor2" fx:id="quitarMateria7" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
                                       <stylesheets>
-                                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                        <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
-                                    <TextField id="campoAutor" fx:id="campoMateria7" onKeyTyped="#mostrarCampoMateria8" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
+                                    <TextField fx:id="campoMateria7" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
                                     <Button id="buscarAutor2" fx:id="buscarMateria7" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                                       <stylesheets>
-                                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                        <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
                                   </children>
@@ -361,13 +361,13 @@
                                   <children>
                                     <Button id="quitarAutor2" fx:id="quitarMateria8" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
                                       <stylesheets>
-                                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                        <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
-                                    <TextField id="campoAutor" fx:id="campoMateria8" onKeyTyped="#mostrarCampoMateria9" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
+                                    <TextField fx:id="campoMateria8" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
                                     <Button id="buscarAutor2" fx:id="buscarMateria8" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                                       <stylesheets>
-                                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                        <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
                                   </children>
@@ -376,13 +376,13 @@
                                   <children>
                                     <Button id="quitarAutor2" fx:id="quitarMateria9" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
                                       <stylesheets>
-                                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                        <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
-                                    <TextField id="campoAutor" fx:id="campoMateria9" onKeyTyped="#mostrarCampoMateria10" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
+                                    <TextField fx:id="campoMateria9" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
                                     <Button id="buscarAutor2" fx:id="buscarMateria9" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                                       <stylesheets>
-                                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                        <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
                                   </children>
@@ -391,16 +391,16 @@
                                   <children>
                                     <Button id="quitarAutor2" fx:id="quitarMateria10" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
                                       <stylesheets>
-                                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                        <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
-                                    <TextField id="campoAutor" fx:id="campoMateria10" onKeyTyped="#mostrarCampoAutores10" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
+                                    <TextField fx:id="campoMateria10" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
                                     <Button id="buscarAutor2" fx:id="buscarMateria10" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                                       <stylesheets>
-                                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                        <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
-                                    <Label fx:id="validarMateria10" layoutX="0.0" layoutY="32.0" text="Validacion" textFill="$x1" />
+                                    <Label fx:id="validarMateria10" layoutY="32.0" text="Validacion" textFill="$x1" />
                                   </children>
                                 </Group>
                               </children>
@@ -411,7 +411,7 @@
                     </AnchorPane>
                   </items>
                 </SplitPane>
-                <HBox id="HBox" alignment="CENTER" layoutX="1038.0" layoutY="446.0" spacing="30.0">
+                <HBox id="HBox" alignment="CENTER" layoutX="983.0" layoutY="443.0" spacing="30.0">
                   <children>
                     <Button mnemonicParsing="false" text="Cancelar" />
                     <Button mnemonicParsing="false" onAction="#validarCampos" text="Guardar Libro" />
@@ -425,39 +425,43 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <ComboBox layoutX="90.0" layoutY="52.0" prefHeight="21.0" prefWidth="152.0" promptText="Tipo De Material">
-                  <items>
-                    <FXCollections fx:factory="observableArrayList">
-                      <String fx:value="Folletos" />
-                      <String fx:value="CD-Rom" />
-                      <String fx:value="Videos" />
-                    </FXCollections>
-                  </items>
-                </ComboBox>
-                <ComboBox id="comboClaseMaterial" layoutX="384.0" onAction="#validarClaseMaterial" prefWidth="143.0" promptText="Clase De Material" AnchorPane.topAnchor="52.0">
-                  <items>
-                    <FXCollections fx:factory="observableArrayList">
-                      <String fx:value="Común" />
-                      <String fx:value="Reserva" />
-                      <String fx:value="Referencia" />
-                    </FXCollections>
-                  </items>
-                </ComboBox>
-                <GridPane id="GridPane" gridLinesVisible="false" layoutX="90.0" layoutY="140.0" prefHeight="163.0" prefWidth="465.0">
+                <HBox id="HBox" alignment="CENTER" layoutX="90.0" layoutY="60.0" spacing="140.0">
+                  <children>
+                    <ComboBox fx:id="comboTipoMaterial" prefHeight="21.0" prefWidth="152.0" promptText="Tipo De Material">
+                      <items>
+                        <FXCollections fx:factory="observableArrayList">
+                          <String fx:value="Folletos" />
+                          <String fx:value="CD-Rom" />
+                          <String fx:value="Videos" />
+                        </FXCollections>
+                      </items>
+                    </ComboBox>
+                    <ComboBox id="comboClaseMaterial" fx:id="comboClaseMaterialOM" prefWidth="143.0" promptText="Clase De Material">
+                      <items>
+                        <FXCollections fx:factory="observableArrayList">
+                          <String fx:value="Común" />
+                          <String fx:value="Reserva" />
+                          <String fx:value="Referencia" />
+                        </FXCollections>
+                      </items>
+                    </ComboBox>
+                  </children>
+                </HBox>
+                <GridPane id="GridPane" layoutX="90.0" layoutY="164.0" prefHeight="163.0" prefWidth="465.0">
                   <children>
                     <Label text="Número de Clasificacion" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                     <Label text="Título" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                    <TextField prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                    <TextField prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                    <TextField prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                    <TextField fx:id="campoCodigoMaterialOM" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                    <TextField fx:id="campoNumeroClasificacionOM" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    <TextField fx:id="campoTituloOM" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                     <Label text="Código Material" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                    <Label text="Validacion" textFill="#cc3100" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                    <Label text="Validacion" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <Label id="validarClaseMaterialOM" fx:id="validarCodigoMaterialOM" text="Validacion" GridPane.columnIndex="1" GridPane.rowIndex="1">
                       <textFill>
-                        <Color blue="0.000" green="0.192" red="0.800" fx:id="x2" />
+                        <Color blue="0.000" green="0.192" red="0.800" fx:id="x3" />
                       </textFill>
                     </Label>
-                    <Label text="Validacion" textFill="$x2" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                    <Label id="validarNumeroMaterialOM" fx:id="validarNumeroClasificacionOM" text="Validacion" textFill="$x3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <Label fx:id="validarTituloOM" text="Validacion" textFill="$x3" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   </children>
                   <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="182.0" />
@@ -472,169 +476,171 @@
                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                 </GridPane>
-                <HBox id="HBox" alignment="CENTER" layoutX="974.0" layoutY="436.0" spacing="30.0">
-                  <children>
-                    <Button mnemonicParsing="false" text="Cancelar" />
-                    <Button mnemonicParsing="false" onAction="#validarCampos" text="Guardar Material" />
-                  </children>
-                </HBox>
-                <ScrollPane layoutX="623.0" layoutY="47.0" prefHeight="366.0" prefWidth="557.0">
+                <ScrollPane layoutX="623.0" layoutY="60.0" prefHeight="340.0" prefWidth="587.0">
                   <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="358.0" prefWidth="549.0">
+                    <AnchorPane id="Content" fx:id="materiasOM" maxHeight="600.0" minHeight="0.0" minWidth="0.0" prefHeight="324.9999000000025" prefWidth="572.0">
                       <children>
-                        <Group id="Group" fx:id="grupoMaterialOM" layoutX="7.0" layoutY="18.0">
+                        <Group id="Group" fx:id="grupoMateriaOM" layoutX="7.0" layoutY="18.0">
                           <children>
                             <Label layoutY="7.0" text="Materias" />
-                            <TextField id="campoMateria" layoutX="83.0" onKeyTyped="#mostrarCampoMateria2" prefHeight="30.0" prefWidth="350.0" />
-                            <Button id="registrarAutor" layoutX="437.0" layoutY="4.0" mnemonicParsing="false" onAction="#dialogoGuardarMateria" text="Nueva Materia" />
-                            <Button layoutX="406.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
+                            <TextField fx:id="campoMateriaOM" layoutX="83.0" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" />
+                            <Button id="registrarAutor" fx:id="nuevaMateriaOM" layoutX="437.0" layoutY="4.0" mnemonicParsing="false" onAction="#dialogoNuevaMateria" text="Nueva Materia" />
+                            <Button fx:id="bucarMateriaOM" layoutX="406.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                               <stylesheets>
                                 <URL value="@css/estilo.css" />
                               </stylesheets>
                             </Button>
-                            <Label id="validarMateria" layoutX="82.0" layoutY="35.0" text="Validacion" textFill="$x1" />
+                            <Label id="validarMateria" fx:id="validarMateriaOM" layoutX="82.0" layoutY="35.0" text="Validacion" textFill="$x1" />
                           </children>
                         </Group>
-                        <Group id="Group" layoutX="90.0" layoutY="76.0">
+                        <Group id="Group" fx:id="grupoMateriaOM2" layoutX="90.0" layoutY="76.0">
                           <children>
-                            <Button id="quitarAutor2" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
+                            <Button id="quitarAutor2" fx:id="quitarMateriaOM2" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
                               <stylesheets>
-                                <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                <URL value="@css/estilo.css" />
                               </stylesheets>
                             </Button>
-                            <TextField id="campoAutor" onKeyTyped="#mostrarCampoMateria6" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
-                            <Button id="buscarAutor2" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
+                            <TextField fx:id="campoMateriaOM2" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
+                            <Button id="buscarAutor2" fx:id="buscarMateriaOM2" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                               <stylesheets>
-                                <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
-                              </stylesheets>
-                            </Button>
-                          </children>
-                        </Group>
-                        <Group id="Group" layoutX="100.0" layoutY="86.0">
-                          <children>
-                            <Button id="quitarAutor2" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
-                              <stylesheets>
-                                <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
-                              </stylesheets>
-                            </Button>
-                            <TextField id="campoAutor" onKeyTyped="#mostrarCampoMateria6" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
-                            <Button id="buscarAutor2" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
-                              <stylesheets>
-                                <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                <URL value="@css/estilo.css" />
                               </stylesheets>
                             </Button>
                           </children>
                         </Group>
-                        <Group id="Group" layoutX="110.0" layoutY="96.0">
+                        <Group id="Group" fx:id="grupoMateriaOM3" layoutX="100.0" layoutY="86.0">
                           <children>
-                            <Button id="quitarAutor2" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
+                            <Button id="quitarAutor2" fx:id="quitarMateriaOM3" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
                               <stylesheets>
-                                <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                <URL value="@css/estilo.css" />
                               </stylesheets>
                             </Button>
-                            <TextField id="campoAutor" onKeyTyped="#mostrarCampoMateria6" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
-                            <Button id="buscarAutor2" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
+                            <TextField fx:id="campoMateriaOM3" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
+                            <Button id="buscarAutor2" fx:id="buscarMateriaOM3" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                               <stylesheets>
-                                <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                <URL value="@css/estilo.css" />
                               </stylesheets>
                             </Button>
                           </children>
                         </Group>
-                        <Group id="Group" layoutX="120.0" layoutY="106.0">
+                        <Group id="Group" fx:id="grupoMateriaOM4" layoutX="110.0" layoutY="96.0">
                           <children>
-                            <Button id="quitarAutor2" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
+                            <Button id="quitarAutor2" fx:id="quitarMateriaOM4" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
                               <stylesheets>
-                                <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                <URL value="@css/estilo.css" />
                               </stylesheets>
                             </Button>
-                            <TextField id="campoAutor" onKeyTyped="#mostrarCampoMateria6" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
-                            <Button id="buscarAutor2" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
+                            <TextField fx:id="campoMateriaOM4" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
+                            <Button id="buscarAutor2" fx:id="buscarMateriaOM4" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                               <stylesheets>
-                                <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                <URL value="@css/estilo.css" />
                               </stylesheets>
                             </Button>
                           </children>
                         </Group>
-                        <Group id="Group" layoutX="130.0" layoutY="116.0">
+                        <Group id="Group" fx:id="grupoMateriaOM5" layoutX="120.0" layoutY="106.0">
                           <children>
-                            <Button id="quitarAutor2" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
+                            <Button id="quitarAutor2" fx:id="quitarMateriaOM5" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
                               <stylesheets>
-                                <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                <URL value="@css/estilo.css" />
                               </stylesheets>
                             </Button>
-                            <TextField id="campoAutor" onKeyTyped="#mostrarCampoMateria6" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
-                            <Button id="buscarAutor2" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
+                            <TextField fx:id="campoMateriaOM5" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
+                            <Button id="buscarAutor2" fx:id="buscarMateriaOM5" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                               <stylesheets>
-                                <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                <URL value="@css/estilo.css" />
                               </stylesheets>
                             </Button>
                           </children>
                         </Group>
-                        <Group id="Group" layoutX="140.0" layoutY="126.0">
+                        <Group id="Group" fx:id="grupoMateriaOM6" layoutX="130.0" layoutY="116.0">
                           <children>
-                            <Button id="quitarAutor2" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
+                            <Button id="quitarAutor2" fx:id="quitarMateriaOM6" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
                               <stylesheets>
-                                <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                <URL value="@css/estilo.css" />
                               </stylesheets>
                             </Button>
-                            <TextField id="campoAutor" onKeyTyped="#mostrarCampoMateria6" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
-                            <Button id="buscarAutor2" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
+                            <TextField fx:id="campoMateriaOM6" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
+                            <Button id="buscarAutor2" fx:id="buscarMateriaOM6" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                               <stylesheets>
-                                <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                <URL value="@css/estilo.css" />
                               </stylesheets>
                             </Button>
                           </children>
                         </Group>
-                        <Group id="Group" layoutX="150.0" layoutY="136.0">
+                        <Group id="Group" fx:id="grupoMateriaOM7" layoutX="140.0" layoutY="126.0">
                           <children>
-                            <Button id="quitarAutor2" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
+                            <Button id="quitarAutor2" fx:id="quitarMateriaOM7" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
                               <stylesheets>
-                                <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                <URL value="@css/estilo.css" />
                               </stylesheets>
                             </Button>
-                            <TextField id="campoAutor" onKeyTyped="#mostrarCampoMateria6" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
-                            <Button id="buscarAutor2" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
+                            <TextField fx:id="campoMateriaOM7" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
+                            <Button id="buscarAutor2" fx:id="buscarMateriaOM7" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                               <stylesheets>
-                                <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                <URL value="@css/estilo.css" />
                               </stylesheets>
                             </Button>
                           </children>
                         </Group>
-                        <Group id="Group" layoutX="160.0" layoutY="146.0">
+                        <Group id="Group" fx:id="grupoMateriaOM8" layoutX="150.0" layoutY="136.0">
                           <children>
-                            <Button id="quitarAutor2" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
+                            <Button id="quitarAutor2" fx:id="quitarMateriaOM8" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
                               <stylesheets>
-                                <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                <URL value="@css/estilo.css" />
                               </stylesheets>
                             </Button>
-                            <TextField id="campoAutor" onKeyTyped="#mostrarCampoMateria6" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
-                            <Button id="buscarAutor2" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
+                            <TextField fx:id="campoMateriaOM8" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
+                            <Button id="buscarAutor2" fx:id="buscarMateriaOM8" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                               <stylesheets>
-                                <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                <URL value="@css/estilo.css" />
                               </stylesheets>
                             </Button>
                           </children>
                         </Group>
-                        <Group id="Group" layoutX="170.0" layoutY="166.0" scaleX="1.0" scaleY="1.0">
+                        <Group id="Group" fx:id="grupoMateriaOM9" layoutX="160.0" layoutY="146.0">
                           <children>
-                            <Button id="quitarAutor2" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
+                            <Button id="quitarAutor2" fx:id="quitarMateriaOM9" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
                               <stylesheets>
-                                <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                <URL value="@css/estilo.css" />
                               </stylesheets>
                             </Button>
-                            <TextField id="campoAutor" onKeyTyped="#mostrarCampoAutores10" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
-                            <Button id="buscarAutor2" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
+                            <TextField fx:id="campoMateriaOM9" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
+                            <Button id="buscarAutor2" fx:id="buscarMateriaOM9" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                               <stylesheets>
-                                <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                                <URL value="@css/estilo.css" />
                               </stylesheets>
                             </Button>
-                            <Label id="validarMateria10" layoutX="0.0" layoutY="32.0" text="Validacion" textFill="$x1" />
+                          </children>
+                        </Group>
+                        <Group id="Group" fx:id="grupoMateriaOM10" layoutX="170.0" layoutY="166.0">
+                          <children>
+                            <Button id="quitarAutor2" fx:id="quitarMateriaOM10" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
+                              <stylesheets>
+                                <URL value="@css/estilo.css" />
+                              </stylesheets>
+                            </Button>
+                            <TextField fx:id="campoMateriaOM10" prefHeight="30.0" prefWidth="350.0" promptText="Materia" />
+                            <Button id="buscarAutor2" fx:id="buscarMateriaOM10" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
+                              <stylesheets>
+                                <URL value="@css/estilo.css" />
+                              </stylesheets>
+                            </Button>
+                            <Label id="validarMateria10" fx:id="validarMateriaOM10" layoutY="32.0" text="Validacion" textFill="$x1" />
                           </children>
                         </Group>
                       </children>
                     </AnchorPane>
                   </content>
                 </ScrollPane>
+                <HBox id="HBox" alignment="CENTER" layoutX="974.0" layoutY="436.0" spacing="30.0">
+                  <children>
+                    <Button mnemonicParsing="false" text="Cancelar" />
+                    <Button mnemonicParsing="false" onAction="#validarCamposOM" text="Guardar Material" />
+                  </children>
+                </HBox>
+                <Label id="validarClaseMaterialOM" fx:id="validarTipoMaterialOM" layoutX="90.0" layoutY="95.0" text="Validacion" textFill="$x3" />
+                <Label fx:id="validarClaseMaterialOM" layoutX="382.0" layoutY="92.0" text="Validacion" textFill="#cc3100" />
               </children>
             </AnchorPane>
           </content>
