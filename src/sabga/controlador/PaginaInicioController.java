@@ -26,6 +26,14 @@ public class PaginaInicioController implements Initializable, ControlledScreen {
         controlador = screenParent;
 
      }
+    
+    public void setVentanaPrincipal(Sabga principal) {
+
+        this.paginaPrincipal = principal;
+
+    } 
+    
+    
     /**
      * Initializes the controller class.
      */
@@ -33,12 +41,5 @@ public class PaginaInicioController implements Initializable, ControlledScreen {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
-     
-    public void setVentanaPrincipal(Sabga principal) {
-
-        this.paginaPrincipal = principal;
-
-    } 
-    
+   
 }

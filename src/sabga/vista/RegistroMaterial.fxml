@@ -10,7 +10,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="paginaRegistroMaterial" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.RegistroMaterialController">
+<AnchorPane id="AnchorPane" fx:id="paginaRegistroMaterial" layoutY="0.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.RegistroMaterialController">
   <children>
     <TabPane pickOnBounds="true" prefHeight="520.0" prefWidth="1260.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="30.0" tabMinHeight="30.0">
       <tabs>
@@ -633,7 +633,7 @@
                     </AnchorPane>
                   </content>
                 </ScrollPane>
-                <HBox id="HBox" alignment="CENTER" layoutX="974.0" layoutY="436.0" spacing="30.0">
+                <HBox id="HBox" alignment="CENTER" layoutX="976.0" layoutY="448.0" spacing="30.0">
                   <children>
                     <Button mnemonicParsing="false" text="Cancelar" />
                     <Button mnemonicParsing="false" onAction="#validarCamposOM" text="Guardar Material" />

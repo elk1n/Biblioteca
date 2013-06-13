@@ -83,7 +83,6 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         ventanaPrincipal = new Sabga();
          
          DialogResponse responder = Dialogs.showConfirmDialog(ventanaPrincipal.getStage(), "Los cambios no guradados se perderan","Realmente desea salir?","Salir de SABGA", DialogOptions.OK_CANCEL);
-         
          if(responder.equals(responder.OK)){
              
              System.exit(0);
@@ -117,8 +116,17 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
    
     public void ventanaRegistroMaterial(){
     
-        ventanaPrincipal.cambiarVista("paginaRegistroMaterial");
+        ventanaPrincipal.cambiarVista("paginaRegistroMaterial");        
+    }
+    
+    public void ventanaInicio(){
         
+        ventanaPrincipal.cambiarVista("paginaInicial");
+    }
+    
+    public void ventanaActualizarMaterial(){
+        
+        ventanaPrincipal.cambiarVista("paginaActualizarMaterial");
     }
        
     @Override

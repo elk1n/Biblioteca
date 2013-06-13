@@ -88,7 +88,7 @@
           <menus>
             <Menu mnemonicParsing="false" text="Inicio">
               <items>
-                <MenuItem mnemonicParsing="false" text="Inicio" />
+                <MenuItem mnemonicParsing="false" onAction="#ventanaInicio" text="Inicio" />
                 <MenuItem mnemonicParsing="false" text="Cerrar Sesión" />
                 <SeparatorMenuItem mnemonicParsing="false" />
                 <MenuItem mnemonicParsing="false" onAction="#salir" text="Salir de SABGA" fx:id="salir" />
@@ -97,7 +97,7 @@
             <Menu mnemonicParsing="false" text="Material">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroMaterial" text="Registrar Material" />
-                <MenuItem mnemonicParsing="false" text="Actualizar Material" />
+                <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarMaterial" text="Actualizar Material" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Usuarios">
@@ -126,7 +126,7 @@
         <URL value="@css/estilo.css" />
       </stylesheets>
       <BorderPane.margin>
-        <Insets bottom="100.0" />
+        <Insets fx:id="x3" />
       </BorderPane.margin>
     </Pane>
   </top>
