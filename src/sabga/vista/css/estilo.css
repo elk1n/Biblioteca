@@ -15,6 +15,7 @@ root {
    
 }
 #botonAyuda:hover{
+    
     -fx-background-color:
     linear-gradient(#0D6ABF 0%, #0D6ABF 50%, #6CA9DF 100%) 
 }
@@ -68,7 +69,29 @@ root {
 .botonBuscar:hover{
     
     -fx-background-color:#9A9A9A;
-     -fx-background-radius: 24px;
-  
-    
+    -fx-background-radius: 24px;
+}
+
+.resultado{
+   
+    -fx-background-color: 
+        linear-gradient(#f2f2f2, #d6d6d6),
+        linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),
+        linear-gradient(#dddddd 0%, #f6f6f6 50%);
+      -fx-background-radius: 5px;   
+}
+
+.estiloBoton {
+    -fx-background-color:#000000,
+       linear-gradient(#7ebcea, #2f4b8f),
+       linear-gradient(#426ab7, #263e75),
+       linear-gradient(#395cab, #223768);
+   -fx-background-insets: 0,1,2,3;
+   -fx-background-radius: 3,2,2,2;
+   -fx-padding: 12 30 12 30;
+   -fx-text-fill: white;
+   -fx-font-size: 14;    
+   -fx-font-family: "System";
+   -fx-text-fill: linear-gradient(white, #d0d0d0);
+   -fx-padding: 10 20 10 20;
 }

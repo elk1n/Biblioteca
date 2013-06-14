@@ -42,7 +42,6 @@
                   </font>
                 </Hyperlink>
                 <Label font="$x1" layoutX="493.0" layoutY="46.0" text="Ejemplares" />
-                <Label font="$x1" layoutX="493.0" layoutY="27.0" text="Referencia" />
               </children>
               <stylesheets>
                 <URL value="@css/estilo.css" />

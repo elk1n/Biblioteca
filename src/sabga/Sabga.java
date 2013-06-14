@@ -63,7 +63,7 @@ public class Sabga extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("SABGA");
         this.primaryStage.getIcons().add(new Image(Sabga.class.getResourceAsStream( "vista/Imagenes/Libraries.png" )));
-        this.primaryStage.setMinHeight(700);
+        this.primaryStage.setMinHeight(650);
         this.primaryStage.setMinWidth(1000);
         this.primaryStage.centerOnScreen();
         FXMLLoader cargador =  new FXMLLoader(Sabga.class.getResource("vista/PaginaPrincipal.fxml"));
@@ -150,6 +150,7 @@ public class Sabga extends Application {
             dialogStage.setTitle("Nueva Editorial");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.centerOnScreen();
+           
            // dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
