@@ -105,7 +105,7 @@
         </FXCollections>
       </items>
     </ComboBox>
-    <ComboBox layoutX="224.0" layoutY="20.0" prefHeight="21.0" prefWidth="164.0" promptText="Ordenar Alfabeticamente">
+    <ComboBox layoutX="232.0" layoutY="21.0" prefHeight="21.0" prefWidth="164.0" promptText="Ordenar Alfabeticamente">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="Ascendente" />
@@ -165,7 +165,7 @@
     </Accordion>
     <Button layoutX="964.0" layoutY="479.0" mnemonicParsing="false" text="Guardar Cambios" />
     <Button layoutX="856.0" layoutY="479.0" mnemonicParsing="false" text="Cancelar" />
-    <ComboBox layoutX="16.0" layoutY="21.0" prefHeight="21.0" prefWidth="164.0" promptText="Listar">
+    <ComboBox layoutX="22.0" layoutY="21.0" prefHeight="21.0" prefWidth="164.0" promptText="Listar">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="Autores" />

@@ -43,6 +43,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         parametroMaterial.add("Título");
         parametroMaterial.add("Autor");
         parametroMaterial.add("Materia");
+        parametroMaterial.add("Editorial");
         
         parametroUsuario.add("General");
         parametroUsuario.add("Documento");
@@ -123,6 +124,11 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     public void ventanaActualizarMaterial(){
         
         ventanaPrincipal.cambiarVista("paginaActualizarMaterial");
+    }
+    
+    public void ventanaActualizarEMA(){
+        
+        ventanaPrincipal.cambiarVista("paginaActualizarEMA");
     }
     
     @FXML

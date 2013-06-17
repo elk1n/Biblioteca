@@ -16,9 +16,9 @@
       <tabs>
         <Tab closable="false" text="Registrar Libros">
           <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="572.0" prefWidth="1260.0">
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="510.0" prefWidth="1260.0">
               <children>
-                <ComboBox fx:id="comboClaseMaterial" layoutX="55.0" prefWidth="143.0" promptText="Clase De Material" AnchorPane.topAnchor="24.0">
+                <ComboBox fx:id="comboClaseMaterial" layoutX="55.0" prefWidth="143.0" promptText="Clase De Material" AnchorPane.topAnchor="15.0">
                   <items>
                     <FXCollections fx:factory="observableArrayList">
                       <String fx:value="Común" />
@@ -27,12 +27,12 @@
                     </FXCollections>
                   </items>
                 </ComboBox>
-                <Label id="validarCodigo" fx:id="validarClaseMaterial" layoutX="251.0" layoutY="27.0" prefWidth="250.0" text="Validacion">
+                <Label id="validarCodigo" fx:id="validarClaseMaterial" layoutX="251.0" layoutY="18.0" prefWidth="250.0" text="Validacion">
                   <textFill>
                     <Color blue="0.000" green="0.000" red="0.800" fx:id="x1" />
                   </textFill>
                 </Label>
-                <GridPane prefHeight="394.0" prefWidth="450.0" AnchorPane.bottomAnchor="27.0" AnchorPane.rightAnchor="754.0">
+                <GridPane prefHeight="394.0" prefWidth="450.0" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="754.0">
                   <children>
                     <Label text="Código Material" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                     <TextField fx:id="campoCodigoMaterial" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
@@ -41,13 +41,13 @@
                     <Label text="Título" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                     <TextField fx:id="campoTitulo" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                     <Label text="Año Publicación" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-                    <TextField fx:id="campoAnioPublicacion" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                    <TextField fx:id="campoAnioPublicacion" alignment="CENTER_RIGHT" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                     <Label text="Publicación" GridPane.columnIndex="0" GridPane.rowIndex="8" />
                     <TextField fx:id="campoPublicacion" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                     <Label text="Número de Páginas" GridPane.columnIndex="0" GridPane.rowIndex="10" />
-                    <TextField fx:id="campoNumeroPaginas" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                    <TextField fx:id="campoNumeroPaginas" alignment="CENTER_RIGHT" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                     <Label text="Ejemplares Disponibles" GridPane.columnIndex="0" GridPane.rowIndex="12" />
-                    <TextField fx:id="campoEjemplares" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                    <TextField fx:id="campoEjemplares" alignment="CENTER_RIGHT" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
                     <Label fx:id="validarCodigo" alignment="CENTER_RIGHT" prefWidth="250.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     <Label fx:id="validarClasificacion" alignment="CENTER_RIGHT" prefWidth="250.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                     <Label fx:id="validarTitulo" alignment="CENTER_RIGHT" prefWidth="250.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
@@ -57,8 +57,8 @@
                     <Label fx:id="validarEjemplares" alignment="CENTER_RIGHT" prefWidth="250.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="13" />
                   </children>
                   <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="0.0" prefWidth="196.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="195.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="0.0" prefWidth="195.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="255.0" />
                   </columnConstraints>
                   <rowConstraints>
                     <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
@@ -95,6 +95,11 @@
                                       </stylesheets>
                                     </Button>
                                     <Label fx:id="validarEditorial" alignment="CENTER_RIGHT" layoutX="82.0" layoutY="33.0" prefWidth="349.0" text="Validacion" textFill="$x1" />
+                                    <Button layoutX="407.0" layoutY="4.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
+                                      <stylesheets>
+                                        <URL value="@css/estilo.css" />
+                                      </stylesheets>
+                                    </Button>
                                   </children>
                                 </Group>
                                 <Group id="Group" fx:id="grupoAutor" layoutX="15.0" layoutY="73.0">
@@ -431,7 +436,7 @@
         </Tab>
         <Tab closable="false" text="Registrar Otro Material">
           <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="488.0" prefWidth="1260.0">
               <children>
                 <HBox id="HBox" alignment="CENTER" layoutX="90.0" layoutY="60.0" spacing="140.0">
                   <children>
@@ -623,7 +628,7 @@
                         </Group>
                         <Group id="Group" fx:id="grupoMateriaOM10" layoutX="170.0" layoutY="166.0">
                           <children>
-                            <Button id="quitarAutor2" fx:id="quitarMateriaOM10" layoutX="355.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
+                            <Button id="quitarAutor2" fx:id="quitarMateriaOM10" contentDisplay="CENTER" layoutX="355.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="42.0" prefWidth="36.0" styleClass="bontonMenos, botonMenos">
                               <stylesheets>
                                 <URL value="@css/estilo.css" />
                               </stylesheets>

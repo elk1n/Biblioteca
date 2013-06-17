@@ -46,8 +46,7 @@ root {
     -fx-background-image: url("../Imagenes/Menos.png");
     -fx-background-position:center;
     -fx-background-repeat:no-repeat;
-    -fx-background-color:transparent;
-      
+    -fx-background-color:transparent;      
 }
 
 .botonBuscar {
@@ -61,15 +60,14 @@ root {
 .botonMenos:hover {
     
      -fx-background-color:#9A9A9A;
-     -fx-background-radius: 24px;
-     -fx-background-insets: 0,1,2,3,0;
+     -fx-background-radius: 12px;
      
 }
 
 .botonBuscar:hover{
     
     -fx-background-color:#9A9A9A;
-    -fx-background-radius: 24px;
+    -fx-background-radius: 23px;
 }
 
 .resultado{

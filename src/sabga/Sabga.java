@@ -25,6 +25,8 @@ public class Sabga extends Application {
     public static String paginaRegistroMaterialArchivo = "vista/RegistroMaterial.fxml";
     public static String paginaActualizarMaterialId = "paginaActualizarMaterial";
     public static String paginaActualizarMaterialArchivo = "vista/ActualizarMaterial.fxml" ;
+    public static String paginaActualizarEMAId = "paginaActualizarEMA";
+    public static String paginaActualizarEMAArchivo = "vista/ActualizarEMA.fxml";
     
     private Stage ventanaPrincipal;
     private BorderPane rootLayout;
@@ -39,6 +41,7 @@ public class Sabga extends Application {
         pantallas.loadScreen(Sabga.paginaInicioId, Sabga.paginaInicioArchivo);
         pantallas.loadScreen(Sabga.paginaRegistroMaterialId, Sabga.paginaRegistroMaterialArchivo);
         pantallas.loadScreen(Sabga.paginaActualizarMaterialId, Sabga.paginaActualizarMaterialArchivo);
+        pantallas.loadScreen(Sabga.paginaActualizarEMAId, Sabga.paginaActualizarEMAArchivo);
         pantallas.setScreen(Sabga.paginaInicioId);   
          
     }
@@ -64,7 +67,7 @@ public class Sabga extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("SABGA");
         this.primaryStage.getIcons().add(new Image(Sabga.class.getResourceAsStream( "vista/Imagenes/Libraries.png" )));
-        this.primaryStage.setMinHeight(650);
+        this.primaryStage.setMinHeight(700);
         this.primaryStage.setMinWidth(1000);
         this.primaryStage.centerOnScreen();
         FXMLLoader cargador =  new FXMLLoader(Sabga.class.getResource("vista/PaginaPrincipal.fxml"));
