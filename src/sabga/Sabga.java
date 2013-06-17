@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sabga.controlador.PaginaPrincipalController;
+import sabga.controlador.dialogos.DetalleMaterialController;
 import sabga.controlador.dialogos.NuevaMateriaController;
 import sabga.controlador.dialogos.NuevaEditorialController;
 import sabga.controlador.dialogos.NuevoAutorController;
@@ -85,6 +86,7 @@ public class Sabga extends Application {
         Group root = new Group();
         root.getChildren().addAll(pantallas);
         root.setLayoutY(140);
+        
         rootLayout.setCenter(root);
         controladorVistas = new ScreensController();
         controller = (ScreensController) controladorVistas.getMyScreenControler();
@@ -162,7 +164,32 @@ public class Sabga extends Application {
 
         } catch (IOException e) {
           }
-    }  
+    } 
+    
+    public void dialogoDetalleMaterial(){
+        
+          try {
+    
+            FXMLLoader loader = new FXMLLoader(Sabga.class.getResource("vista/dialogos/DetalleMaterial.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Detalle Material");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.centerOnScreen();
+           
+           // dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            DetalleMaterialController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+          }
+        
+    }
   
     /**
      * The main() method is ignored in correctly deployed JavaFX application.

@@ -79,16 +79,12 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     @FXML
     private void salir(){
-        
-        ventanaPrincipal = new Sabga();
-         
+
          DialogResponse responder = Dialogs.showConfirmDialog(ventanaPrincipal.getStage(), "Los cambios no guradados se perderan","Realmente desea salir?","Salir de SABGA", DialogOptions.OK_CANCEL);
          if(responder.equals(responder.OK)){
              
-             System.exit(0);
-         
-         } 
-    
+             System.exit(0);         
+         }     
     }
     
     @FXML
@@ -115,7 +111,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     }
    
     public void ventanaRegistroMaterial(){
-    
+        
         ventanaPrincipal.cambiarVista("paginaRegistroMaterial");        
     }
     
@@ -127,6 +123,24 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     public void ventanaActualizarMaterial(){
         
         ventanaPrincipal.cambiarVista("paginaActualizarMaterial");
+    }
+    
+    @FXML
+    public void dialogoNuevoAutor(){
+        
+        ventanaPrincipal.mostrarNuevoAutor();
+    }
+    
+    @FXML
+    public void dialogoNuevaMateria(){
+
+        ventanaPrincipal.mostrarNuevaMateria();
+    }
+    
+    @FXML
+    public void dialogoNuevaEditorial(){
+        
+        ventanaPrincipal.mostrarNuevaEditorial();
     }
        
     @Override

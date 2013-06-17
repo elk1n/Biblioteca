@@ -23,9 +23,9 @@
             <Image url="@Imagenes/LogoBiblioteca.png" preserveRatio="false" smooth="false" />
           </image>
         </ImageView>
-        <Label graphicTextGap="6.0" layoutX="151.0" layoutY="37.0" text="SABGA">
+        <Label graphicTextGap="6.0" layoutX="151.0" layoutY="37.0" prefWidth="103.00009999999747" text="SABGA">
           <font>
-            <Font name="System Bold" size="30.0" />
+            <Font name="Helvetica Neue UltraLight" size="30.0" />
           </font>
         </Label>
         <Label layoutX="331.0" layoutY="13.0" text="Buscar">
@@ -96,8 +96,26 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Material">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroMaterial" text="Registrar Material" />
+                <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroMaterial" text="Nuevo Material" />
                 <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarMaterial" text="Actualizar Material" />
+                <Menu mnemonicParsing="false" text="Autores">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#dialogoNuevoAutor" text="Nuevo Autor" />
+                    <MenuItem mnemonicParsing="false" text="Actualizar Autor" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Materias">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#dialogoNuevaMateria" text="Nueva Materia" />
+                    <MenuItem mnemonicParsing="false" text="Actualizar Materia" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Editoriales">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#dialogoNuevaEditorial" text="Nueva Editorial" />
+                    <MenuItem mnemonicParsing="false" text="Actulizar Editorial" />
+                  </items>
+                </Menu>
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Usuarios">

@@ -33,7 +33,11 @@
     <HBox id="HBox" alignment="CENTER" layoutX="92.0" layoutY="181.0" spacing="30.0">
       <children>
         <Button mnemonicParsing="false" text="Cancelar" />
-        <Button mnemonicParsing="false" text="Guardar Editorial" />
+        <Button mnemonicParsing="false" text="Guardar Editorial">
+          <tooltip>
+            <Tooltip text="Esto es una prueba" />
+          </tooltip>
+        </Button>
       </children>
     </HBox>
   </children>

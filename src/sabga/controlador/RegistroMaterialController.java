@@ -53,6 +53,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     
     public RegistroMaterialController(){
     
+  
     }
        
     @Override

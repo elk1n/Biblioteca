@@ -3,6 +3,7 @@
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
@@ -42,6 +43,7 @@
                   </font>
                 </Hyperlink>
                 <Label font="$x1" layoutX="493.0" layoutY="46.0" text="Ejemplares" />
+                <Label font="$x1" layoutX="493.0" layoutY="27.0" text="Referencia" />
               </children>
               <stylesheets>
                 <URL value="@css/estilo.css" />
@@ -75,5 +77,127 @@
         </AnchorPane>
       </content>
     </ScrollPane>
+    <Accordion layoutX="630.0" layoutY="14.0" prefHeight="443.0" prefWidth="616.0">
+      <expandedPane>
+        <TitledPane fx:id="x4" animated="false" text="General">
+          <content>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="352.0" prefWidth="599.0">
+                  <children>
+                    <GridPane id="GridPane" layoutX="10.0" layoutY="0.0" prefHeight="373.0">
+                      <children>
+                        <Label text="Número Clasificación" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <TextField prefHeight="30.0" prefWidth="250.0" promptText="Número Clasificación" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Label text="Título" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                        <TextField prefHeight="30.0" prefWidth="250.0" promptText="Título" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                        <Label text="Año Publicación" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                        <TextField prefHeight="30.0" prefWidth="250.0" promptText="Año Publicación" text="" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                        <Label text="Publicación" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+                        <TextField prefHeight="30.0" prefWidth="250.0" promptText="Publicacion" text="" GridPane.columnIndex="0" GridPane.rowIndex="11" />
+                        <Label text="Número Páginas" GridPane.columnIndex="0" GridPane.rowIndex="13" />
+                        <TextField prefHeight="30.0" prefWidth="250.0" promptText="Número de Páginas" text="" GridPane.columnIndex="0" GridPane.rowIndex="14" />
+                        <ComboBox id="comboTipoMaterial" prefHeight="21.0" prefWidth="152.0" promptText="Tipo De Material" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                          <items>
+                            <FXCollections fx:factory="observableArrayList">
+                              <String fx:value="Folletos" />
+                              <String fx:value="CD-Rom" />
+                              <String fx:value="Videos" />
+                            </FXCollections>
+                          </items>
+                        </ComboBox>
+                        <Label alignment="CENTER_RIGHT" prefWidth="250.0" text="Validación" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                          <textFill>
+                            <Color blue="0.000" green="0.000" red="0.800" fx:id="x5" />
+                          </textFill>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" prefWidth="250.0" text="Validación" textFill="$x5" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                        <Label alignment="CENTER_RIGHT" prefWidth="250.0" text="Validación" textFill="$x5" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+                        <Label alignment="CENTER_RIGHT" prefWidth="250.0" text="Validación" textFill="$x5" GridPane.columnIndex="0" GridPane.rowIndex="12" />
+                        <Label alignment="CENTER_RIGHT" prefWidth="250.0" text="Validación" textFill="$x5" GridPane.columnIndex="0" GridPane.rowIndex="15" />
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="15.0" minHeight="2.0" prefHeight="3.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="16.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="16.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="16.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="16.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="16.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="16.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="16.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="16.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="16.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                    <GridPane id="GridPane" layoutX="300.0" layoutY="154.0" prefHeight="198.0" prefWidth="250.0">
+                      <children>
+                        <Label text="Ejemplares Disponibles" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <TextField prefHeight="30.0" prefWidth="50.0" promptText="" text="" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label text="Estado" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <CheckBox mnemonicParsing="false" text="Habilitado" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <CheckBox mnemonicParsing="false" text="Deshabilitado" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <CheckBox mnemonicParsing="false" text="Mantenimiento" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                        <TextField prefHeight="30.0" prefWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField prefHeight="30.0" prefWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField prefHeight="30.0" prefWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="203.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="47.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                    <Label layoutX="302.0" layoutY="55.0" text="Editorial" />
+                    <TextField layoutX="302.0" layoutY="71.0" prefHeight="30.0" prefWidth="250.0" promptText="Editorial" />
+                    <ComboBox id="comboClaseMaterial" layoutX="302.0" layoutY="17.0" prefWidth="143.0" promptText="Clase De Material">
+                      <items>
+                        <FXCollections fx:factory="observableArrayList">
+                          <String fx:value="Común" />
+                          <String fx:value="Reserva" />
+                          <String fx:value="Referencia" />
+                        </FXCollections>
+                      </items>
+                    </ComboBox>
+                    <Button layoutX="451.0" layoutY="124.0" mnemonicParsing="false" onAction="#dialogoNuevaEditorial" text="Nueva Editorial" />
+                    <Label alignment="CENTER_RIGHT" layoutX="301.0" layoutY="101.0" prefWidth="250.0" text="Validación" textFill="$x5" />
+                    <Label alignment="CENTER_RIGHT" layoutX="300.0" layoutY="349.0" prefWidth="250.0" text="Validación" textFill="$x5" />
+                  </children>
+                </AnchorPane>
+              </content>
+            </ScrollPane>
+          </content>
+        </TitledPane>
+      </expandedPane>
+      <panes>
+        <fx:reference source="x4" />
+        <TitledPane fx:id="x3" animated="false" content="$null" text="Autores" />
+        <TitledPane animated="false" text="Materias">
+          <content>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="607.0" prefWidth="200.0" />
+              </content>
+            </ScrollPane>
+          </content>
+        </TitledPane>
+      </panes>
+    </Accordion>
+    <Button layoutX="1182.0" layoutY="479.0" mnemonicParsing="false" text="Guardar" />
+    <Button layoutX="1090.0" layoutY="480.0" mnemonicParsing="false" text="Cancelar" />
   </children>
 </AnchorPane>
