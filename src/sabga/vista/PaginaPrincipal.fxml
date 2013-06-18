@@ -64,7 +64,7 @@
             <RadioButton fx:id="radioUsuario" font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" text="Usuarios" toggleGroup="$busqueda" />
           </children>
         </HBox>
-        <HBox id="HBox" alignment="CENTER" layoutX="331.0" layoutY="71.0" spacing="5.0">
+        <HBox id="HBox" alignment="CENTER" layoutX="331.0" layoutY="71.0" spacing="15.0">
           <children>
             <TextField fx:id="campoBusqueda" onKeyTyped="#mostrarBoton" prefHeight="30.0" prefWidth="469.0" promptText="Ingrese el material o usuario a buscar">
               <stylesheets>
@@ -75,6 +75,9 @@
               <rotationAxis>
                 <Point3D />
               </rotationAxis>
+              <stylesheets>
+                <URL value="@css/estilo.css" />
+              </stylesheets>
             </Button>
           </children>
         </HBox>
@@ -83,7 +86,11 @@
             <URL value="@css/estilo.css" />
           </stylesheets>
         </Button>
-        <ChoiceBox fx:id="parametroBusqueda" layoutX="676.0" layoutY="76.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" />
+        <ChoiceBox fx:id="parametroBusqueda" layoutX="676.0" layoutY="76.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0">
+          <stylesheets>
+            <URL value="@css/estilo.css" />
+          </stylesheets>
+        </ChoiceBox>
         <MenuBar layoutY="114.0" prefHeight="25.0" prefWidth="1261.0">
           <menus>
             <Menu mnemonicParsing="false" text="Inicio">

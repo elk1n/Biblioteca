@@ -36,7 +36,7 @@
                   <children>
                     <Label text="Código Material" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                     <TextField fx:id="campoCodigoMaterial" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-                    <Label text="Número de Clasificación" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <Label text="Código de Clasificación" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                     <TextField fx:id="campoNumeroClasificacion" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     <Label text="Título" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                     <TextField fx:id="campoTitulo" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
@@ -462,7 +462,7 @@
                 </HBox>
                 <GridPane id="GridPane" layoutX="90.0" layoutY="164.0" prefHeight="163.0" prefWidth="465.0">
                   <children>
-                    <Label text="Número de Clasificacion" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <Label text="Código de Clasificacion" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                     <Label text="Título" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                     <TextField fx:id="campoCodigoMaterialOM" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                     <TextField fx:id="campoNumeroClasificacionOM" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />

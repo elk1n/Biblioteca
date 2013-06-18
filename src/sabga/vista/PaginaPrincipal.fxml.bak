@@ -25,7 +25,7 @@
         </ImageView>
         <Label graphicTextGap="6.0" layoutX="151.0" layoutY="37.0" prefWidth="103.00009999999747" text="SABGA">
           <font>
-            <Font name="Helvetica Neue UltraLight" size="30.0" />
+            <Font size="30.0" />
           </font>
         </Label>
         <Label layoutX="331.0" layoutY="13.0" text="Buscar">
@@ -71,10 +71,13 @@
                 <URL value="@css/estilo.css" />
               </stylesheets>
             </TextField>
-            <Button font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" text="Buscar">
+            <Button font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" styleClass="botonGeneral" text="Buscar">
               <rotationAxis>
                 <Point3D />
               </rotationAxis>
+              <stylesheets>
+                <URL value="@css/estilo.css" />
+              </stylesheets>
             </Button>
           </children>
         </HBox>
@@ -83,7 +86,11 @@
             <URL value="@css/estilo.css" />
           </stylesheets>
         </Button>
-        <ChoiceBox fx:id="parametroBusqueda" layoutX="676.0" layoutY="76.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" />
+        <ChoiceBox fx:id="parametroBusqueda" layoutX="676.0" layoutY="76.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0">
+          <stylesheets>
+            <URL value="@css/estilo.css" />
+          </stylesheets>
+        </ChoiceBox>
         <MenuBar layoutY="114.0" prefHeight="25.0" prefWidth="1261.0">
           <menus>
             <Menu mnemonicParsing="false" text="Inicio">
@@ -101,19 +108,19 @@
                 <Menu mnemonicParsing="false" text="Autores">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#dialogoNuevoAutor" text="Nuevo Autor" />
-                    <MenuItem mnemonicParsing="false" text="Actualizar Autor" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarEMA" text="Actualizar Autor" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Materias">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#dialogoNuevaMateria" text="Nueva Materia" />
-                    <MenuItem mnemonicParsing="false" text="Actualizar Materia" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarEMA" text="Actualizar Materia" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Editoriales">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#dialogoNuevaEditorial" text="Nueva Editorial" />
-                    <MenuItem mnemonicParsing="false" text="Actulizar Editorial" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarEMA" text="Actulizar Editorial" />
                   </items>
                 </Menu>
               </items>

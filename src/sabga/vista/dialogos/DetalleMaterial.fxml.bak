@@ -16,7 +16,7 @@
             <Font name="System Bold" size="14.0" fx:id="x1" />
           </font>
         </Label>
-        <Label font="$x1" text="Código de Clasificacion:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label font="$x1" text="Numero de Clasificacion:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
         <Label font="$x1" text="Clase Material:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
         <Label font="$x1" text="Publicacion:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
         <Label font="$x1" text="Año de Publicacion:" GridPane.columnIndex="0" GridPane.rowIndex="8" />

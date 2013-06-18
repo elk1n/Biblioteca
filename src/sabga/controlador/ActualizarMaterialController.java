@@ -7,8 +7,11 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import sabga.Sabga;
 import sabga.ScreensController;
@@ -25,13 +28,24 @@ public class ActualizarMaterialController implements Initializable, ControlledSc
     private Sabga ventanaPrincipal;
     private ScreensController controlador;
     
+    @FXML private Label validarCodigoClasifiacionAC, validarTituloAC, validarAnioPublicacionAC, validarPublicacionAC, validarNumeroPaginasAC,
+                        validarEditorialAC, validarEstadoAC, validarAutoresAC, validarMateriasAC;
+    
+    @FXML private TextField campoCodigoClasificacionAC, campoTituloAC, campoAnioPublicacionAC, campoPublicacionAC, campoNumeroPaginasAC,
+                            campoEditorialAC, campoEjemplaresDisponiblesAC, campoHabilitadoAC, campoDeshabilitadoAC, campoMantenimientoAC,
+                            campoAutor1AC, campoAutor2AC, campoAutor3AC, campoAutor4AC, campoAutor5AC, campoAutor6AC, campoAutor7AC, campoAutor8AC,
+                            campoAutor9AC, campoAutor10AC, campoMateria1AC , campoMateria2AC, campoMateria3AC, campoMateria4AC, campoMateria5AC,
+                            campoMateria6AC, campoMateria7AC, campoMateria8AC, campoMateria9AC, campoMateria10AC;
+    
+    @FXML private CheckBox checkboxHabilitadoAC, checkboxDeshabilitadoAC, checkboxMantenimientoAC;
+    
     @FXML private Button botonNuevaEditorial;
     
     @FXML private  Tooltip est;
     
     public ActualizarMaterialController(){
 
-
+     
     }
     
      @Override
@@ -84,9 +98,9 @@ public class ActualizarMaterialController implements Initializable, ControlledSc
       
         
         Platform.runLater(new Runnable() {public void run() { 
-        est= new Tooltip("Esto es una puta prueba, esto es una una prueba, esto es una prueba");
+        est= new Tooltip("Esto es una prueba de un Tooltip, esto es otra prueba, esto es otra otra prueba");
          botonNuevaEditorial.setTooltip(est); 
-            MenuItem h = new MenuItem("esto es otra prueba");
+            MenuItem h = new MenuItem("Esto es una prueba de un menú contextual ");
             ContextMenu es = new ContextMenu(h);            
             botonNuevaEditorial.setContextMenu(es);
             

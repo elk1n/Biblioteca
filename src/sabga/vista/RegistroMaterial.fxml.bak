@@ -36,7 +36,7 @@
                   <children>
                     <Label text="Código Material" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                     <TextField fx:id="campoCodigoMaterial" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-                    <Label text="Número de Clasificación" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <Label text="Código de Clasificación" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                     <TextField fx:id="campoNumeroClasificacion" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     <Label text="Título" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                     <TextField fx:id="campoTitulo" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
@@ -628,7 +628,7 @@
                         </Group>
                         <Group id="Group" fx:id="grupoMateriaOM10" layoutX="170.0" layoutY="166.0">
                           <children>
-                            <Button id="quitarAutor2" fx:id="quitarMateriaOM10" contentDisplay="CENTER" layoutX="355.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="42.0" prefWidth="36.0" styleClass="bontonMenos, botonMenos">
+                            <Button id="quitarAutor2" fx:id="quitarMateriaOM10" contentDisplay="CENTER" layoutX="355.0" layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonMenos, botonMenos">
                               <stylesheets>
                                 <URL value="@css/estilo.css" />
                               </stylesheets>

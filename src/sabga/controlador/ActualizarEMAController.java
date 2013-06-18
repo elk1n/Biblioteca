@@ -17,7 +17,7 @@ public class ActualizarEMAController implements Initializable, ControlledScreen 
   
     private Sabga ventanaPrincipal;
     private ScreensController controlador;
-    
+        
     
     public ActualizarEMAController(){
         
