@@ -3,10 +3,16 @@ package sabga.controlador;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.configuracion.ControlledScreen;
+import sabga.modelo.Validacion;
 
 /**
  * FXML Controller class
@@ -17,7 +23,12 @@ public class ActualizarEMAController implements Initializable, ControlledScreen 
   
     private Sabga ventanaPrincipal;
     private ScreensController controlador;
-        
+    
+    @FXML private Label validarNombreAutor, validarApellidosAutor, validarEditorial, validarMateria;
+    
+    @FXML private TextField campoNombreAutor, campoApellidosAutor, campoEditorial, campoMateria;
+    
+    @FXML private TitledPane acordeonAutor, acordeonEditorial, acordeonMateria;
     
     public ActualizarEMAController(){
         
@@ -34,6 +45,29 @@ public class ActualizarEMAController implements Initializable, ControlledScreen 
         this.ventanaPrincipal = ventanaPrincipal;
     }
     
+    public void validarActualizarEMA(ActionEvent evento){
+        
+        Validacion validar = new Validacion(campoNombreAutor.getText(), campoApellidosAutor.getText(), campoEditorial.getText(), campoMateria.getText());
+        
+       if(acordeonAutor.isExpanded()){
+           validar.validarAutorAC();
+           validarNombreAutor.setText(validar.getErrorNombreAutor());
+           validarApellidosAutor.setText(validar.getErrorApellidosAutor());
+       }
+       
+       else if (acordeonEditorial.isExpanded()){
+           validar.validarEditorialAC();
+           validarEditorial.setText(validar.getErrorNombreEditorial());
+       }
+       
+       else if(acordeonMateria.isExpanded()){
+           validar.validarMateriaAC();
+           validarMateria.setText(validar.getErrorNombreMateria());
+       }
+       
+       
+      
+    }
     
     /**
      * Initializes the controller class.

@@ -17,8 +17,8 @@
           </font>
         </Label>
         <Label text=" Nombre de la Materia" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <TextField prefHeight="30.0" prefWidth="250.0" promptText="Nombre de la nueva materia" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <Label text="Validacion" textFill="#cc0000" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <TextField fx:id="campoNuevaMateria" prefHeight="30.0" prefWidth="250.0" promptText="Nombre de la nueva materia" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label fx:id="validarNuevaMateria" alignment="CENTER_RIGHT" prefWidth="253.0" text="Validacion" textFill="#cc0000" GridPane.columnIndex="0" GridPane.rowIndex="3" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -33,7 +33,7 @@
     <HBox id="HBox" alignment="CENTER" layoutX="80.0" layoutY="181.0" spacing="30.0">
       <children>
         <Button mnemonicParsing="false" text="Cancelar" />
-        <Button mnemonicParsing="false" text="Guardar Materia" />
+        <Button mnemonicParsing="false" onAction="#validarCampos" text="Guardar Materia" />
       </children>
     </HBox>
   </children>

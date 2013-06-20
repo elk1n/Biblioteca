@@ -24,6 +24,7 @@
                     <Color blue="1.000" green="0.400" red="0.000" fx:id="x1" />
                   </textFill>
                 </Hyperlink>
+                <Label layoutX="425.0" layoutY="6.0" text="Editorial" />
               </children>
               <stylesheets>
                 <URL value="@css/estilo.css" />
@@ -33,6 +34,7 @@
               <children>
                 <Label layoutX="7.0" layoutY="6.0" prefWidth="475.0" text="Nombre del Autor Materia o Edtiorial" />
                 <Hyperlink layoutX="359.0" layoutY="21.0" text="Editar Información" textFill="$x1" />
+                <Label layoutX="426.0" layoutY="0.0" text="Editorial" />
               </children>
               <stylesheets>
                 <URL value="@css/estilo.css" />
@@ -42,6 +44,7 @@
               <children>
                 <Label layoutX="7.0" layoutY="6.0" prefWidth="475.0" text="Nombre del Autor Materia o Edtiorial" />
                 <Hyperlink layoutX="359.0" layoutY="19.0" text="Editar Información" textFill="$x1" />
+                <Label layoutX="425.0" layoutY="-3.0" text="Editorial" />
               </children>
               <stylesheets>
                 <URL value="@css/estilo.css" />
@@ -51,6 +54,7 @@
               <children>
                 <Label layoutX="7.0" layoutY="6.0" prefWidth="475.0" text="Nombre del Autor Materia o Edtiorial" />
                 <Hyperlink layoutX="359.0" layoutY="22.0" text="Editar Información" textFill="$x1" />
+                <Label layoutX="425.0" layoutY="0.0" text="Editorial" />
               </children>
               <stylesheets>
                 <URL value="@css/estilo.css" />
@@ -60,6 +64,7 @@
               <children>
                 <Label layoutX="7.0" layoutY="6.0" prefWidth="475.0" text="Nombre del Autor Materia o Edtiorial" />
                 <Hyperlink layoutX="359.0" layoutY="21.0" text="Editar Información" textFill="$x1" />
+                <Label layoutX="427.0" layoutY="0.0" text="Editorial" />
               </children>
               <stylesheets>
                 <URL value="@css/estilo.css" />
@@ -69,6 +74,7 @@
               <children>
                 <Label layoutX="7.0" layoutY="6.0" prefWidth="475.0" text="Nombre del Autor Materia o Edtiorial" />
                 <Hyperlink layoutX="360.0" layoutY="22.0" text="Editar Información" textFill="$x1" />
+                <Label layoutX="430.0" layoutY="-1.0" text="Materia" />
               </children>
               <stylesheets>
                 <URL value="@css/estilo.css" />
@@ -78,6 +84,7 @@
               <children>
                 <Label layoutX="7.0" layoutY="6.0" prefWidth="475.0" text="Nombre del Autor Materia o Edtiorial" />
                 <Hyperlink layoutX="361.0" layoutY="21.0" text="Editar Información" textFill="$x1" />
+                <Label layoutX="443.0" layoutY="0.0" text="Autor" />
               </children>
               <stylesheets>
                 <URL value="@css/estilo.css" />
@@ -87,6 +94,7 @@
               <children>
                 <Label layoutX="7.0" layoutY="7.0" prefWidth="475.0" text="Nombre del Autor Materia o Edtiorial" />
                 <Hyperlink layoutX="360.0" layoutY="21.0" text="Editar Información" textFill="$x1" />
+                <Label layoutX="430.0" layoutY="4.0" text="Materia" />
               </children>
               <stylesheets>
                 <URL value="@css/estilo.css" />
@@ -115,17 +123,17 @@
     </ComboBox>
     <Accordion layoutX="568.0" layoutY="61.0" prefHeight="360.9998779296875" prefWidth="516.0">
       <expandedPane>
-        <TitledPane fx:id="x4" animated="false" text="Editorial">
+        <TitledPane id="x5" fx:id="acordeonMateria" animated="false" expanded="true" text="Materia">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <Label layoutX="60.0" layoutY="102.0" text="Nombre de la Editorial:" />
-                <TextField layoutX="60.0" layoutY="125.0" prefHeight="30.0" prefWidth="350.0" />
-                <Label layoutX="343.0" layoutY="157.0" text="Validación">
+                <Label layoutX="61.0" layoutY="95.0" text="Nombre de la Materia:" />
+                <Label fx:id="validarMateria" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="61.0" layoutY="151.0" prefWidth="350.0" text="Validación">
                   <textFill>
                     <Color blue="0.000" green="0.000" red="0.600" fx:id="x2" />
                   </textFill>
                 </Label>
+                <TextField fx:id="campoMateria" layoutX="61.0" layoutY="118.0" prefHeight="30.0" prefWidth="350.0" />
               </children>
             </AnchorPane>
           </content>
@@ -135,35 +143,35 @@
         </TitledPane>
       </expandedPane>
       <panes>
-        <TitledPane animated="false" font="$x3" text="Autor">
+        <TitledPane id="x6" fx:id="acordeonAutor" animated="false" font="$x3" text="Autor">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
                 <Label layoutX="64.0" layoutY="54.0" text="Nombre:" />
                 <Label layoutX="65.0" layoutY="148.0" text="Apellidos:" />
-                <TextField layoutX="63.0" layoutY="76.0" prefHeight="30.0" prefWidth="350.0" promptText="Nombre del Autor" />
-                <TextField layoutX="63.0" layoutY="170.0" prefHeight="30.0" prefWidth="350.0" promptText="Apellidos de Autor" />
-                <Label layoutX="346.0" layoutY="108.0" text="Validación" textFill="$x2" />
-                <Label layoutX="346.0" layoutY="202.0" text="Validación" textFill="$x2" />
+                <TextField id="campoAutor" fx:id="campoNombreAutor" layoutX="63.0" layoutY="76.0" prefHeight="30.0" prefWidth="350.0" promptText="Nombre del Autor" />
+                <TextField id="campoApellidoAutor" fx:id="campoApellidosAutor" layoutX="63.0" layoutY="170.0" prefHeight="30.0" prefWidth="350.0" promptText="Apellidos de Autor" />
+                <Label fx:id="validarNombreAutor" alignment="CENTER_RIGHT" layoutX="62.0" layoutY="108.0" prefWidth="350.0" text="Validación" textFill="$x2" />
+                <Label fx:id="validarApellidosAutor" alignment="CENTER_RIGHT" layoutX="62.0" layoutY="202.0" prefWidth="350.0" text="Validación" textFill="$x2" />
               </children>
             </AnchorPane>
           </content>
         </TitledPane>
-        <fx:reference source="x4" />
-        <TitledPane fx:id="x5" animated="false" expanded="false" font="$x3" text="Materia">
+        <TitledPane id="x4" fx:id="acordeonEditorial" animated="false" font="$x3" text="Editorial">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <Label layoutX="61.0" layoutY="95.0" text="Nombre de la Materia:" />
-                <Label layoutX="345.0" layoutY="151.0" text="Validación" textFill="$x2" />
-                <TextField layoutX="61.0" layoutY="118.0" prefHeight="30.0" prefWidth="350.0" />
+                <Label layoutX="60.0" layoutY="102.0" text="Nombre de la Editorial:" />
+                <TextField fx:id="campoEditorial" layoutX="60.0" layoutY="125.0" prefHeight="30.0" prefWidth="350.0" />
+                <Label fx:id="validarEditorial" alignment="CENTER_RIGHT" layoutX="59.0" layoutY="157.0" prefWidth="350.0" text="Validación" textFill="$x2" />
               </children>
             </AnchorPane>
           </content>
         </TitledPane>
+        <fx:reference source="acordeonMateria" />
       </panes>
     </Accordion>
-    <Button layoutX="947.0" layoutY="467.0" mnemonicParsing="false" prefHeight="-1.0" prefWidth="-1.0" text="Guardar Cambios" textFill="BLACK" wrapText="false">
+    <Button layoutX="947.0" layoutY="467.0" mnemonicParsing="false" onAction="#validarActualizarEMA" prefHeight="-1.0" prefWidth="-1.0" text="Guardar Cambios" textFill="BLACK" wrapText="false">
       <stylesheets>
         <URL value="@css/estilo.css" />
       </stylesheets>

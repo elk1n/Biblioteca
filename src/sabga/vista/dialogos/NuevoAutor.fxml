@@ -5,17 +5,18 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane id="AnchorPane" minHeight="267.0" prefHeight="281.0" prefWidth="403.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.dialogos.NuevoAutorController">
   <children>
-    <HBox id="HBox" alignment="CENTER" layoutX="156.0" layoutY="223.0" spacing="30.0">
+    <HBox id="HBox" alignment="CENTER" layoutX="156.0" layoutY="234.0" spacing="30.0">
       <children>
         <Button mnemonicParsing="false" text="Cancelar" />
-        <Button mnemonicParsing="false" text="Guardar Autor" />
+        <Button mnemonicParsing="false" onAction="#validarCampos" text="Guardar Autor" />
       </children>
     </HBox>
-    <GridPane alignment="CENTER_RIGHT" layoutX="56.0" layoutY="18.0" prefHeight="189.0" prefWidth="292.0">
+    <GridPane alignment="CENTER_RIGHT" layoutX="56.0" layoutY="18.0" prefHeight="199.0" prefWidth="292.0">
       <children>
         <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="292.0" text="Nuevo Autor" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
           <font>
@@ -23,10 +24,15 @@
           </font>
         </Label>
         <Label text="Nombre" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <TextField prefHeight="30.0" prefWidth="250.0" promptText="Nombre del nuevo autor" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <Label text="Apellidos" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-        <TextField prefHeight="30.0" prefWidth="250.0" promptText="Apellidos del nuevo autor" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-        <Label text="Validacion" textFill="#cc0000" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <TextField id="nombreNuevoAutor" fx:id="campoNombreNuevoAutor" prefHeight="30.0" prefWidth="250.0" promptText="Nombre del nuevo autor" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label text="Apellidos" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <TextField id="ap" fx:id="campoApellidosNuevoAutor" prefHeight="30.0" prefWidth="250.0" promptText="Apellidos del nuevo autor" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <Label fx:id="validarApellidosAutor" alignment="CENTER_RIGHT" prefWidth="292.0" text="Validacion" GridPane.columnIndex="0" GridPane.rowIndex="6">
+          <textFill>
+            <Color blue="0.000" green="0.000" red="0.800" fx:id="x1" />
+          </textFill>
+        </Label>
+        <Label fx:id="validarNombreAutor" alignment="CENTER_RIGHT" prefWidth="292.0" text="Validacion" textFill="$x1" GridPane.columnIndex="0" GridPane.rowIndex="3" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -35,6 +41,7 @@
         <RowConstraints maxHeight="53.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="34.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />

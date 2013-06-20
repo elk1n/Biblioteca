@@ -66,7 +66,7 @@ public class Sabga extends Application {
         
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("SABGA");
-        this.primaryStage.getIcons().add(new Image(Sabga.class.getResourceAsStream( "vista/Imagenes/Libraries.png" )));
+        this.primaryStage.getIcons().add(new Image(Sabga.class.getResourceAsStream( "vista/Imagenes/LogoBiblioteca1.png" )));
         this.primaryStage.setMinHeight(700);
         this.primaryStage.setMinWidth(1000);
         this.primaryStage.centerOnScreen();
