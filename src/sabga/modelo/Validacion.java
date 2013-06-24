@@ -29,7 +29,7 @@ public class Validacion {
    private Calendar calendario;
    private int anioPubli, numeroDePaginas, numeroDeEjemplares, anioAC, paginasAC, numeroEjemplaresAC, habilitado, deshabilitado, mantenimiento;
    private boolean fechaPublicacion = false, paginas = false, numeroEjemplares = false, fechaPublicacionAC = false, paginasbAC = false,
-                    numeroDeEjemplaresAC = false, estadoAC = false;
+                   estadoAC = false;
    private Object tipoMaterial, claseMaterial, claseMaterialOM;
    
       
@@ -53,7 +53,7 @@ public class Validacion {
    }
    
    public Validacion (String codigoMaterial, String numeroClasificacion, String titulo, String materia, Object tipoMaterial,
-                      Object claseMaterial){
+                      Object claseMaterial, String copias){
        
        this.codigoMaterialOM = codigoMaterial;
        this.numeroClasificacionOM = numeroClasificacion;
@@ -61,6 +61,7 @@ public class Validacion {
        this.materiasOM = materia;
        this.tipoMaterial = tipoMaterial;
        this.claseMaterialOM = claseMaterial;
+       this.ejemplares = copias;
           
    }
    
@@ -114,8 +115,59 @@ public class Validacion {
        this.apellidosAutor = apellidosAutor;
        this.nombreEditorial = nombreEditorial;
        this.nombreMateria = nombreMateria;
-       
+        
    }
+   
+   public Validacion( String codigoClasificacionAC, String tituloAC, String ejemplaresDisponiblesAC, String habilitadoAC, String deshabilitadoAC, 
+                      String mantenimientoAC, String materia0AC, String materia1AC, String materia2AC, String materia3AC,
+                      String materia4AC,String materia5AC, String materia6AC, String materia7AC, String materia8AC, String materia9AC){
+       
+       this.codigoClasificacionAC = codigoClasificacionAC;
+       this.tituloAC = tituloAC;
+       this.ejemplaresDisponiblesAC = ejemplaresDisponiblesAC;
+       this.habilitadoAC = habilitadoAC;
+       this.deshabilitadoAC = deshabilitadoAC;
+       this.mantenimientoAC = mantenimientoAC;
+       
+       this.materia1AC = materia0AC;
+       this.materia2AC = materia1AC;
+       this.materia3AC = materia2AC;
+       this.materia4AC = materia3AC;
+       this.materia5AC = materia4AC;
+       this.materia6AC = materia5AC;
+       this.materia7AC = materia6AC;
+       this.materia8AC = materia7AC;
+       this.materia9AC = materia8AC;
+       this.materia10AC = materia9AC;
+   
+   
+   }
+   
+    public void validarActualizacionOM(){
+        
+        if(this.codigoClasificacionAC == null || this.codigoClasificacionAC.equals("") || this.codigoClasificacionAC.length()>45 ){
+          
+          this.errorCodigoClasificacionAC = "Debe rellenar este campo";
+        }
+      
+        if (this.tituloAC == null || this.tituloAC.equals("") || this.tituloAC.length()>300){
+          
+          this.errorTituloAC = "Debe rellenar este campo";
+        }
+        
+        if (validarEstadoEjemplaresAC() == false){
+          
+          this.errorEstadoAC = "Debe rellenar estos campos";
+        }
+        
+        if(validarMultiplesCampos(this.materia1AC, this.materia2AC, this.materia3AC, this.materia4AC, this.materia5AC, this.materia6AC,
+                                this.materia7AC, this.materia8AC, this.materia9AC, this.materia10AC, 45)==false){
+      
+        this.errorMateriaAC = "Debe seleccionar al menos una metaria";
+      
+      } 
+    
+    }
   
     public void validarActualizacionMaterial(){
       
@@ -166,8 +218,7 @@ public class Validacion {
       
         this.errorMateriaAC = "Debe seleccionar al menos una metaria";
       
-      }
-      
+      }     
    
   }
   
@@ -180,6 +231,7 @@ public class Validacion {
       }
         
   }
+    
     public void validarAutorAC(){
         
          if (this.nombreAutor == null || this.nombreAutor.equals("") || this.nombreAutor.length()>45 || this.nombreAutor.isEmpty()){
@@ -236,6 +288,12 @@ public class Validacion {
           
           this.errorClaseMaterialOM = "Debe seleccionar una opción";
       }
+      
+      if (validarEjemplares()==false){
+        
+        this.errorEjemplares = "Debe rellenar este campo";
+     }
+      
   }
   
     public void validarMaterial(){
@@ -350,7 +408,7 @@ public class Validacion {
        if (this.anioPubli>calendario.get(Calendar.YEAR)){
           
            this.fechaPublicacion = false;
-           this.errorAnioPublicacion = "Al parecer el libro aún no se publicado";
+           this.errorAnioPublicacion = "Al parecer el libro aún no se ha publicado";
         }
        
        }
@@ -476,7 +534,7 @@ public class Validacion {
                    this.habilitado+this.deshabilitado+this.mantenimiento>this.numeroEjemplaresAC){
              
                     this.estadoAC = false;
-                    this.errorEstadoAC = "El número de ejemplares no coinciden";
+                    this.errorEstadoAC = "El número de ejemplares no coincide";
              
                     
                 }

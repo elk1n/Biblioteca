@@ -8,7 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -40,9 +40,10 @@ public class ActualizarMaterialController implements Initializable, ControlledSc
                             campoAutor9AC, campoAutor10AC, campoMateria1AC , campoMateria2AC, campoMateria3AC, campoMateria4AC, campoMateria5AC,
                             campoMateria6AC, campoMateria7AC, campoMateria8AC, campoMateria9AC, campoMateria10AC;
     
-    @FXML private CheckBox checkboxHabilitadoAC, checkboxDeshabilitadoAC, checkboxMantenimientoAC;
     
     @FXML private Button botonNuevaEditorial;
+    
+    @FXML private ComboBox comboTipoMaterial, comboClaseMaterial;
     
     @FXML private TitledPane acordeonGeneral, acordeonAutores, acordeonMaterias;
     
@@ -95,7 +96,9 @@ public class ActualizarMaterialController implements Initializable, ControlledSc
     @FXML
     public void validarCamposAC(ActionEvent evento){
         
-        Validacion validarActualizacion = new Validacion(campoCodigoClasificacionAC.getText(), campoTituloAC.getText(), campoAnioPublicacionAC.getText(),
+        if(comboTipoMaterial.getSelectionModel().getSelectedIndex()==0){
+            
+            Validacion validarActualizacion = new Validacion(campoCodigoClasificacionAC.getText(), campoTituloAC.getText(), campoAnioPublicacionAC.getText(),
                                                          campoPublicacionAC.getText(), campoNumeroPaginasAC.getText(), campoEditorialAC.getText(),
                                                          campoEjemplaresDisponiblesAC.getText(), campoHabilitadoAC.getText(), campoDeshabilitadoAC.getText(),
                                                          campoMantenimientoAC.getText(),campoAutor1AC.getText(), campoAutor2AC.getText(),campoAutor3AC.getText(),
@@ -104,42 +107,77 @@ public class ActualizarMaterialController implements Initializable, ControlledSc
                                                          campoMateria1AC.getText(), campoMateria2AC.getText(), campoMateria3AC.getText(), campoMateria4AC.getText(),
                                                          campoMateria5AC.getText(), campoMateria6AC.getText(), campoMateria7AC.getText(), campoMateria8AC.getText(),
                                                          campoMateria9AC.getText(), campoMateria10AC.getText()); 
-        
-        validarActualizacion.validarActualizacionMaterial();
-        validarCodigoClasificacionAC.setText(validarActualizacion.getErrorCodigoClasificacionAC());
-        validarTituloAC.setText(validarActualizacion.getErrorTituloAC());
-        validarAnioPublicacionAC.setText(validarActualizacion.getErrorAnioPublicacionAC());
-        validarPublicacionAC.setText(validarActualizacion.getErrorPublicacionAC());
-        validarNumeroPaginasAC.setText(validarActualizacion.getErrorNumeroPaginasAC());
-        validarEditorialAC.setText(validarActualizacion.getErrorEditorialAC());
-        validarEstadoAC.setText(validarActualizacion.getErrorEstadoAC());
-        validarAutoresAC.setText(validarActualizacion.getErrorAutorAC());
-        validarMateriasAC.setText(validarActualizacion.getErrorMateriaAC());
-        
-        
-        if (acordeonMaterias.isExpanded()==false && validarMateriasAC.getText()!=null){
+
+            validarActualizacion.validarActualizacionMaterial();
+            validarCodigoClasificacionAC.setText(validarActualizacion.getErrorCodigoClasificacionAC());
+            validarTituloAC.setText(validarActualizacion.getErrorTituloAC());
+            validarAnioPublicacionAC.setText(validarActualizacion.getErrorAnioPublicacionAC());
+            validarPublicacionAC.setText(validarActualizacion.getErrorPublicacionAC());
+            validarNumeroPaginasAC.setText(validarActualizacion.getErrorNumeroPaginasAC());
+            validarEditorialAC.setText(validarActualizacion.getErrorEditorialAC());
+            validarEstadoAC.setText(validarActualizacion.getErrorEstadoAC());
+            validarAutoresAC.setText(validarActualizacion.getErrorAutorAC());
+            validarMateriasAC.setText(validarActualizacion.getErrorMateriaAC());
+            
+
+            if (acordeonMaterias.isExpanded()==false && validarMateriasAC.getText()!=null){
+
+                acordeonMaterias.setText("Materias"+"                se ha encontrado un error!");
+            }       
+            else{
+
+                acordeonMaterias.setText("Materias");
+            }
+            if(acordeonAutores.isExpanded()==false && validarAutoresAC.getText()!=null){
+
+                acordeonAutores.setText("Autores"+"                 se ha encontrado un error!");         
+            }
+            else{
+                acordeonAutores.setText("Autores");
+
+           }
+            if(acordeonGeneral.isExpanded()==false && errorAcordeon() == false){
+
+                acordeonGeneral.setText("General"+"                 se ha encontrado un error!");        
+            }
+            else{
+                acordeonGeneral.setText("General");
+            }
+
+        }
+       
+        if (comboTipoMaterial.getSelectionModel().getSelectedIndex()==1 || comboTipoMaterial.getSelectionModel().getSelectedIndex()==2 ||
+            comboTipoMaterial.getSelectionModel().getSelectedIndex()==3){
+            
+            Validacion validarActualizacionOM = new Validacion(campoCodigoClasificacionAC.getText(), campoTituloAC.getText(),campoEjemplaresDisponiblesAC.getText(),
+                                                               campoHabilitadoAC.getText(), campoDeshabilitadoAC.getText(), campoMantenimientoAC.getText(), campoMateria1AC.getText(), 
+                                                               campoMateria2AC.getText(), campoMateria3AC.getText(), campoMateria4AC.getText(), campoMateria5AC.getText(), campoMateria6AC.getText(), 
+                                                               campoMateria7AC.getText(), campoMateria8AC.getText(),campoMateria9AC.getText(), campoMateria10AC.getText());
+            
+            validarActualizacionOM.validarActualizacionOM();
+            validarCodigoClasificacionAC.setText(validarActualizacionOM.getErrorCodigoClasificacionAC());
+            validarTituloAC.setText(validarActualizacionOM.getErrorTituloAC());
+            validarEstadoAC.setText(validarActualizacionOM.getErrorEstadoAC());
+            validarMateriasAC.setText(validarActualizacionOM.getErrorMateriaAC());
+            
+            if (acordeonMaterias.isExpanded()==false && validarMateriasAC.getText()!=null){
             
             acordeonMaterias.setText("Materias"+"                se ha encontrado un error!");
-        }       
-        else{
-            
-            acordeonMaterias.setText("Materias");
-        }
-        if(acordeonAutores.isExpanded()==false && validarAutoresAC.getText()!=null){
-            
-            acordeonAutores.setText("Autores"+"                 se ha encontrado un error!");         
-        }
-        else{
-            acordeonAutores.setText("Autores");
+            }       
+            else {
 
-       }
-        if(acordeonGeneral.isExpanded()==false && errorAcordeon() == false){
+                acordeonMaterias.setText("Materias");
+            }
+            if(acordeonGeneral.isExpanded()==false && errorAcordeon() == false){
             
             acordeonGeneral.setText("General"+"                 se ha encontrado un error!");        
+            }
+            else{
+                acordeonGeneral.setText("General");
+            }
+
         }
-        else{
-            acordeonGeneral.setText("General");
-        }
+             
     }
     
   

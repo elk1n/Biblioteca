@@ -297,12 +297,13 @@
               <children>
                 <GridPane id="GridPane" layoutX="29.0" layoutY="-6.0" prefHeight="384.0">
                   <children>
-                    <ComboBox id="comboTipoMaterial" prefHeight="21.0" prefWidth="152.0" promptText="Tipo De Material" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <ComboBox fx:id="comboTipoMaterial" prefHeight="21.0" prefWidth="152.0" promptText="Tipo De Material" GridPane.columnIndex="0" GridPane.rowIndex="0">
                       <items>
                         <FXCollections fx:factory="observableArrayList">
-                          <String fx:value="Folletos" />
+                          <String fx:value="Libro" />
+                          <String fx:value="Folleto" />
                           <String fx:value="CD-Rom" />
-                          <String fx:value="Videos" />
+                          <String fx:value="Video" />
                         </FXCollections>
                       </items>
                     </ComboBox>
@@ -348,7 +349,7 @@
                     <RowConstraints maxHeight="16.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                 </GridPane>
-                <ComboBox id="comboClaseMaterial" layoutX="335.0" layoutY="11.0" prefWidth="143.0" promptText="Clase De Material">
+                <ComboBox fx:id="comboClaseMaterial" layoutX="335.0" layoutY="11.0" prefWidth="143.0" promptText="Clase De Material">
                   <items>
                     <FXCollections fx:factory="observableArrayList">
                       <String fx:value="Común" />
@@ -456,7 +457,7 @@
                     <URL value="@css/estilo.css" />
                   </stylesheets>
                 </Button>
-                <Label fx:id="validarAutoresAC" layoutX="104.0" layoutY="24.0" prefWidth="350.0" text="Validación" textFill="$x9" />
+                <Label fx:id="validarAutoresAC" layoutX="104.0" layoutY="24.0" prefWidth="350.0" text="" textFill="$x9" />
               </children>
             </AnchorPane>
           </content>

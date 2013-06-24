@@ -13,7 +13,7 @@
 
 <BorderPane id="BorderPane" prefHeight="750.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.PaginaPrincipalController">
   <padding>
-    <Insets fx:id="x3" />
+    <Insets fx:id="x4" />
   </padding>
   <top>
     <Pane id="barraCabecera" minHeight="140.0" minWidth="-Infinity" prefHeight="140.0" prefWidth="1260.0" BorderPane.alignment="TOP_CENTER">
@@ -38,6 +38,7 @@
             <MenuButton font="$x1" mnemonicParsing="false" text="Administrador">
               <items>
                 <MenuItem mnemonicParsing="false" text="Configuración" />
+                <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroAdmin" text="Registrar Administrador" />
                 <MenuItem mnemonicParsing="false" text="Cerrar Sesión" />
               </items>
               <HBox.margin>
@@ -127,13 +128,13 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Usuarios">
               <items>
-                <MenuItem mnemonicParsing="false" text="Registrar Usuario" />
-                <MenuItem mnemonicParsing="false" text="Actualizar Usuario" />
+                <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroUsuarios" text="Registrar Usuario" />
+                <MenuItem mnemonicParsing="false" onAction="#ventanaEstadoUsuario" text="Actualizar Estado del  Usuario" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Prestamo">
               <items>
-                <MenuItem mnemonicParsing="false" text="Realizar Prestamo" />
+                <MenuItem mnemonicParsing="false" onAction="#ventanaPrestamo" text="Realizar Prestamo" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Paz y Salvo">
@@ -145,13 +146,13 @@
         </MenuBar>
       </children>
       <padding>
-        <Insets fx:id="x3" />
+        <Insets fx:id="x5" />
       </padding>
       <stylesheets>
         <URL value="@css/estilo.css" />
       </stylesheets>
       <BorderPane.margin>
-        <Insets fx:id="x3" />
+        <Insets fx:id="x6" />
       </BorderPane.margin>
     </Pane>
   </top>

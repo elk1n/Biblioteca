@@ -39,14 +39,14 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     @FXML private Label validarCodigo, validarClasificacion, validarTitulo, validarAnioPublicacion, validarPublicacion, validarPaginas,
                         validarEjemplares, validarEditorial, validarClaseMaterial, validarAutor, validarAutor10, validarMateria, validarMateria10,
                         validarMateriaOM10, validarTipoMaterialOM, validarClaseMaterialOM, validarCodigoMaterialOM, validarNumeroClasificacionOM,
-                        validarTituloOM, validarMateriaOM;
+                        validarTituloOM, validarMateriaOM, validarNumeroCopiasOM;
     
     @FXML private TextField campoCodigoMaterial, campoNumeroClasificacion, campoTitulo, campoAnioPublicacion, campoPublicacion, 
                             campoNumeroPaginas, campoEjemplares, campoEditorial, campoAutor, campoAutor2, campoAutor3, campoAutor4, campoAutor5,
                             campoAutor6, campoAutor7, campoAutor8, campoAutor9, campoAutor10, campoMateria, campoMateria2, campoMateria3, campoMateria4,
-                            campoMateria5, campoMateria6, campoMateria7, campoMateria8, campoMateria9, campoMateria10,campoCodigoMaterialOM, 
+                            campoMateria5, campoMateria6, campoMateria7, campoMateria8, campoMateria9, campoMateria10, campoCodigoMaterialOM, 
                             campoNumeroClasificacionOM, campoTituloOM, campoMateriaOM, campoMateriaOM2, campoMateriaOM3, campoMateriaOM4, campoMateriaOM5,
-                            campoMateriaOM6, campoMateriaOM7, campoMateriaOM8, campoMateriaOM9, campoMateriaOM10;
+                            campoMateriaOM6, campoMateriaOM7, campoMateriaOM8, campoMateriaOM9, campoMateriaOM10, campoNumeroCopias;
     
     @FXML private ComboBox comboClaseMaterial, comboClaseMaterialOM, comboTipoMaterial;
     
@@ -115,7 +115,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             
         Validacion validarMaterialOM = new Validacion(campoCodigoMaterialOM.getText(), campoNumeroClasificacionOM.getText(), campoTituloOM.getText(),
                                                       campoMateriaOM.getText(), comboTipoMaterial.getSelectionModel().getSelectedItem(),
-                                                      comboClaseMaterialOM.getSelectionModel().getSelectedItem());
+                                                      comboClaseMaterialOM.getSelectionModel().getSelectedItem(), campoNumeroCopias.getText());
         
         validarMaterialOM.validarMaterialOM();
         validarCodigoMaterialOM.setText(validarMaterialOM.getErrorCodigoMaterialOM());
@@ -124,6 +124,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         validarMateriaOM.setText(validarMaterialOM.getErrorMateriaOM());
         validarTipoMaterialOM.setText(validarMaterialOM.getErrorTipoMaterial());
         validarClaseMaterialOM.setText(validarMaterialOM.getErrorClaseMaterialOM());
+        validarNumeroCopiasOM.setText(validarMaterialOM.getErrorNumeroEjemplares());
     
     }
     
@@ -132,7 +133,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         
         Pattern patron = Pattern.compile("[0-9]+");
         Matcher matcher;
-        String objeto = evento.getSource().toString();
+       // String objeto = evento.getSource().toString();
       
         if(getDesencadenador(evento).equals(campoAnioPublicacion.getId())){
             

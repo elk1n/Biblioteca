@@ -62,8 +62,66 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         
 	this.ventanaPrincipal = ventanaPrincipal;
     } 
+       
+    public void ventanaRegistroMaterial(){
+        
+        ventanaPrincipal.cambiarVista("paginaRegistroMaterial");        
+    }
+    
+    public void ventanaInicio(){
+        
+        ventanaPrincipal.cambiarVista("paginaInicio1");
+    }
+    
+    public void ventanaActualizarMaterial(){
+        
+        ventanaPrincipal.cambiarVista("paginaActualizarMaterial");
+    }
+    
+    public void ventanaActualizarEMA(){
+        
+        ventanaPrincipal.cambiarVista("paginaActualizarEMA");
+    }
+    
+    public void ventanaPrestamo(){
+        
+        ventanaPrincipal.cambiarVista("paginaPrestamo");
+    }
+    
+    public void ventanaRegistroUsuarios(){
+        
+        ventanaPrincipal.cambiarVista("paginaRegistroUsuarios");
+    }
+    
+    public void ventanaEstadoUsuario(){
+        
+        ventanaPrincipal.cambiarVista("paginaEstadoUsuario");
+    }
+    
+    public void ventanaRegistroAdmin(){
+       
+        ventanaPrincipal.cambiarVista("paginaRegistroAdmin");
+    }
     
     @FXML
+    public void dialogoNuevoAutor(){
+        
+        ventanaPrincipal.mostrarNuevoAutor();
+    }
+    
+    @FXML
+    public void dialogoNuevaMateria(){
+
+        ventanaPrincipal.mostrarNuevaMateria();
+    }
+    
+    @FXML
+    public void dialogoNuevaEditorial(){
+        
+        ventanaPrincipal.mostrarNuevaEditorial();
+    }
+    
+     @FXML
     private void opcionesBusqueda(ActionEvent event) {
         
         if(radioUsuario.isSelected()){
@@ -109,44 +167,6 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
            botonBorrarBusqueda.setVisible(true); 
         }
     
-    }
-   
-    public void ventanaRegistroMaterial(){
-        
-        ventanaPrincipal.cambiarVista("paginaRegistroMaterial");        
-    }
-    
-    public void ventanaInicio(){
-        
-        ventanaPrincipal.cambiarVista("paginaInicial");
-    }
-    
-    public void ventanaActualizarMaterial(){
-        
-        ventanaPrincipal.cambiarVista("paginaActualizarMaterial");
-    }
-    
-    public void ventanaActualizarEMA(){
-        
-        ventanaPrincipal.cambiarVista("paginaActualizarEMA");
-    }
-    
-    @FXML
-    public void dialogoNuevoAutor(){
-        
-        ventanaPrincipal.mostrarNuevoAutor();
-    }
-    
-    @FXML
-    public void dialogoNuevaMateria(){
-
-        ventanaPrincipal.mostrarNuevaMateria();
-    }
-    
-    @FXML
-    public void dialogoNuevaEditorial(){
-        
-        ventanaPrincipal.mostrarNuevaEditorial();
     }
        
     @Override

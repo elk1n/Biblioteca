@@ -120,23 +120,3 @@ root {
       -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.2) , 1, 0.0 , 0 , 1);
  }
  
- .dark-blue {
-     
-    -fx-background-color: #395cab,
-        linear-gradient(#2f4b8f 0%, #426ab7 20%, #263e75 100%),
-        linear-gradient(#7ebcea, #263E75),
-        radial-gradient(center 50% 0%, radius 100%, rgba(62,72,149,0.9), rgba(255,255,255,0));
-    -fx-background-radius: 6,5,4,6;
-    -fx-background-insets: 0,1,2,0;
-    -fx-text-fill: white;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-    -fx-font-family: "Helvetica";
-    -fx-text-fill: linear-gradient(white, #d0d0d0);
-    -fx-font-size: 12px;
-    -fx-padding: 08 20 08 20;
-}
-
-.dark-blue Text {
-    
-    -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.9) , 1, 0.0 , 0 , 1 );
-}

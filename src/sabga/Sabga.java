@@ -17,6 +17,12 @@ import sabga.controlador.dialogos.NuevaMateriaController;
 import sabga.controlador.dialogos.NuevaEditorialController;
 import sabga.controlador.dialogos.NuevoAutorController;
 
+/**
+ *
+ * @author Elk1n
+ */
+
+
 public class Sabga extends Application {
         
     public static String paginaInicioId = "paginaInicial";
@@ -27,6 +33,16 @@ public class Sabga extends Application {
     public static String paginaActualizarMaterialArchivo = "vista/ActualizarMaterial.fxml" ;
     public static String paginaActualizarEMAId = "paginaActualizarEMA";
     public static String paginaActualizarEMAArchivo = "vista/ActualizarEMA.fxml";
+    public static String paginaPrestamoId = "paginaPrestamo";
+    public static String paginaPrestamoArchivo = "vista/PaginaPrestamo.fxml";
+    public static String paginaInicialId = "paginaInicio1";
+    public static String paginaInicialArchivo = "vista/PaginaInicio1.fxml";
+    public static String paginaRegistroUsuariosId = "paginaRegistroUsuarios";
+    public static String paginaRegistroUsuariosArchivo = "vista/RegistroUsuario.fxml";
+    public static String paginaEstadoUsuarioId = "paginaEstadoUsuario";
+    public static String paginaEstadoUsuarioArchivo = "vista/EstadoUsuario.fxml";
+    public static String paginaRegistroAdminId = "paginaRegistroAdmin";
+    public static String paginaRegistroAdminArchivo = "vista/RegistroAdministrador.fxml";
     
     private Stage ventanaPrincipal;
     private BorderPane rootLayout;
@@ -38,11 +54,16 @@ public class Sabga extends Application {
     public Sabga(){
            
         pantallas = new ScreensController();
-        pantallas.loadScreen(Sabga.paginaInicioId, Sabga.paginaInicioArchivo);
+     // pantallas.loadScreen(Sabga.paginaInicioId, Sabga.paginaInicioArchivo);
+        pantallas.loadScreen(Sabga.paginaInicialId, Sabga.paginaInicialArchivo);
         pantallas.loadScreen(Sabga.paginaRegistroMaterialId, Sabga.paginaRegistroMaterialArchivo);
         pantallas.loadScreen(Sabga.paginaActualizarMaterialId, Sabga.paginaActualizarMaterialArchivo);
         pantallas.loadScreen(Sabga.paginaActualizarEMAId, Sabga.paginaActualizarEMAArchivo);
-        pantallas.setScreen(Sabga.paginaInicioId);   
+        pantallas.loadScreen(Sabga.paginaPrestamoId, Sabga.paginaPrestamoArchivo);
+        pantallas.loadScreen(Sabga.paginaRegistroUsuariosId, Sabga.paginaRegistroUsuariosArchivo);
+        pantallas.loadScreen(Sabga.paginaEstadoUsuarioId, Sabga.paginaEstadoUsuarioArchivo);
+        pantallas.loadScreen(Sabga.paginaRegistroAdminId, Sabga.paginaRegistroAdminArchivo);
+        pantallas.setScreen(Sabga.paginaInicialId);   
          
     }
     

@@ -64,14 +64,14 @@
             <RadioButton fx:id="radioUsuario" font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" text="Usuarios" toggleGroup="$busqueda" />
           </children>
         </HBox>
-        <HBox id="HBox" alignment="CENTER" layoutX="331.0" layoutY="71.0" spacing="5.0">
+        <HBox id="HBox" alignment="CENTER" layoutX="331.0" layoutY="71.0" spacing="15.0">
           <children>
             <TextField fx:id="campoBusqueda" onKeyTyped="#mostrarBoton" prefHeight="30.0" prefWidth="469.0" promptText="Ingrese el material o usuario a buscar">
               <stylesheets>
                 <URL value="@css/estilo.css" />
               </stylesheets>
             </TextField>
-            <Button font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" styleClass="botonGeneral" text="Buscar">
+            <Button font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" text="Buscar">
               <rotationAxis>
                 <Point3D />
               </rotationAxis>
@@ -127,13 +127,13 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Usuarios">
               <items>
-                <MenuItem mnemonicParsing="false" text="Registrar Usuario" />
-                <MenuItem mnemonicParsing="false" text="Actualizar Usuario" />
+                <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroUsuarios" text="Registrar Usuario" />
+                <MenuItem mnemonicParsing="false" onAction="#ventanaEstadoUsuario" text="Actualizar Estado del  Usuario" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Prestamo">
               <items>
-                <MenuItem mnemonicParsing="false" text="Realizar Prestamo" />
+                <MenuItem mnemonicParsing="false" onAction="#ventanaPrestamo" text="Realizar Prestamo" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Paz y Salvo">
