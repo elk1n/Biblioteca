@@ -50,6 +50,7 @@ public class Sabga extends Application {
     private ScreensController controller;
     private ScreensController controladorVistas;
     private Stage primaryStage;
+    private Stage stage;
   
     public Sabga(){
            
@@ -85,7 +86,7 @@ public class Sabga extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         
-        this.primaryStage = primaryStage;
+        this.primaryStage = primaryStage;        
         this.primaryStage.setTitle("SABGA");
         this.primaryStage.getIcons().add(new Image(Sabga.class.getResourceAsStream( "vista/Imagenes/LogoBiblioteca1.png" )));
         this.primaryStage.setMinHeight(700);
@@ -95,7 +96,6 @@ public class Sabga extends Application {
         rootLayout = (BorderPane) cargador.load();
         Scene scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
-        
         primaryStage.show();        
           
         PaginaPrincipalController controller = cargador.getController();
@@ -214,7 +214,7 @@ public class Sabga extends Application {
           }
         
     }
-  
+        
     /**
      * The main() method is ignored in correctly deployed JavaFX application.
      * main() serves only as fallback in case the application can not be

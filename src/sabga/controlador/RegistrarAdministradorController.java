@@ -22,6 +22,7 @@ import javafx.scene.layout.GridPane;
 import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.configuracion.ControlledScreen;
+import sabga.modelo.ValidarUsuario;
 
 /**
  *
@@ -32,7 +33,7 @@ public class RegistrarAdministradorController implements Initializable, Controll
     private Sabga ventanaPrincipal;
     private ScreensController controlador;
     
-   @FXML private GridPane camposG;
+   @FXML private GridPane camposG ,camposG2;
     
     // Declaramos los botones
     @FXML private Button registrarBT;
@@ -78,16 +79,18 @@ public class RegistrarAdministradorController implements Initializable, Controll
     public int posicionAdminEnTabla;
     
     //Declaramos los label de las validaciones
-    @FXML private Label vtip;
-    @FXML private Label vnom;
-    @FXML private Label vap;
-    @FXML private Label vmail;
-    @FXML private Label vcu;
-    @FXML private Label vgrup;
-    @FXML private Label vdoc;
-    @FXML private Label vjor;
-    @FXML private Label vtel;
-    @FXML private Label vdir;
+    @FXML private Label validarNombre;
+    @FXML private Label validarApellidos;
+    @FXML private Label validarUsuario;
+    @FXML private Label validarContrasenia;
+    @FXML private Label validarCurso;
+    @FXML private Label validarGrupo;
+    @FXML private Label validarCorreo;
+    @FXML private Label validarDocumento;
+    @FXML private Label validarJornada;
+    @FXML private Label validarTelefono;
+    @FXML private Label validarDireccion;
+    @FXML private Label validarEstado;
     
     
      @Override
@@ -113,6 +116,7 @@ public class RegistrarAdministradorController implements Initializable, Controll
             if(valorTipo.equals("Administrador"))
         {
         camposG.setVisible(true);
+        camposG2.setVisible(true);
         cursoCB.setDisable(true);
         grupoCB.setDisable(true);
         jornadaCB.setDisable(true);
@@ -135,7 +139,8 @@ public class RegistrarAdministradorController implements Initializable, Controll
         estadoCB.setValue("");
         }
        else{
-        camposG.setVisible(true);    
+        camposG.setVisible(true);
+        camposG2.setVisible(true);
         cursoCB.setDisable(false);
         grupoCB.setDisable(false);
         jornadaCB.setDisable(false);
@@ -161,23 +166,87 @@ public class RegistrarAdministradorController implements Initializable, Controll
        
     
      @FXML private void registrar(ActionEvent event) {
-          RegistroAdministrador persona = new RegistroAdministrador();
-        persona.tipo.set((String) tipoCB.getValue());  
-        persona.nombre.set(nombreTF.getText());
-        persona.apellido.set(apellidoTF.getText());
-        persona.usuario.set(usuarioTF.getText());
-        persona.contrasenia.set(contraseniaTF.getText());
-        persona.grado.set((String) cursoCB.getValue());
-        persona.grupo.set((String) grupoCB.getValue());
-        persona.mail.set(mailTF.getText());
-        persona.documento.set(documentoTF.getText());
-        persona.jornada.set((String) jornadaCB.getValue());
-        persona.telefono.set(telefonoTF.getText());
-        persona.direccion.set(direccionTF.getText());
-        persona.estado.set((String) estadoCB.getValue());
-         usu.add(persona);
          
+        if (tipoCB.getSelectionModel().getSelectedIndex() == 0){
+            
+            ValidarUsuario validarAuxiliar = new ValidarUsuario(nombreTF.getText(), apellidoTF.getText(), usuarioTF.getText(), contraseniaTF.getText(),
+                                                                cursoCB.getSelectionModel().getSelectedItem(),grupoCB.getSelectionModel().getSelectedItem(),
+                                                                mailTF.getText(), documentoTF.getText(), jornadaCB.getSelectionModel().getSelectedItem(),
+                                                                telefonoTF.getText(),direccionTF.getText(),estadoCB.getSelectionModel().getSelectedItem());
+            
+            validarAuxiliar.validarAdminAxiliar();
+            validarNombre.setText(validarAuxiliar.getErrorNombreUsuario());
+            validarApellidos.setText(validarAuxiliar.getErrorApellidosUsuario());
+            validarUsuario.setText(validarAuxiliar.getErrorUsuario());
+            validarContrasenia.setText(validarAuxiliar.getErrorContrasenia());
+            validarCurso.setText(validarAuxiliar.getErrorCursoUsuario());
+            validarGrupo.setText(validarAuxiliar.getErrorGrupoUsuario());
+            validarCorreo.setText(validarAuxiliar.getErrorCorreoUsuario());
+            validarDocumento.setText(validarAuxiliar.getErrorDocumentoUsuario());
+            validarJornada.setText(validarAuxiliar.getErrorJornadaUsuario());
+            validarTelefono.setText(validarAuxiliar.getErrorTelefonoUsuario());
+            validarDireccion.setText(validarAuxiliar.getErrorDireccionUsuario());
+            validarEstado.setText(validarAuxiliar.getErrorEstadoUsuario());
+            
+            if (validarAuxiliar.validarAdminAxiliar()==true){
+                
+                RegistroAdministrador persona = new RegistroAdministrador();
+                persona.tipo.set((String) tipoCB.getValue());  
+                persona.nombre.set(nombreTF.getText());
+                persona.apellido.set(apellidoTF.getText());
+                persona.usuario.set(usuarioTF.getText());
+                persona.contrasenia.set(contraseniaTF.getText());
+                persona.grado.set((String) cursoCB.getValue());
+                persona.grupo.set((String) grupoCB.getValue());
+                persona.mail.set(mailTF.getText());
+                persona.documento.set(documentoTF.getText());
+                persona.jornada.set((String) jornadaCB.getValue());
+                persona.telefono.set(telefonoTF.getText());
+                persona.direccion.set(direccionTF.getText());
+                persona.estado.set((String) estadoCB.getValue());
+                usu.add(persona);
+                
+            }
         
+        }
+        else if (tipoCB.getSelectionModel().getSelectedIndex()==1){
+            
+                ValidarUsuario validarAuxiliar = new ValidarUsuario(nombreTF.getText(), apellidoTF.getText(), usuarioTF.getText(), contraseniaTF.getText(), 
+                                                                    mailTF.getText(), documentoTF.getText(), estadoCB.getSelectionModel().getSelectedItem());
+
+                validarAuxiliar.validarAdminAxiliar();
+                validarNombre.setText(validarAuxiliar.getErrorNombreUsuario());
+                validarApellidos.setText(validarAuxiliar.getErrorApellidosUsuario());
+                validarUsuario.setText(validarAuxiliar.getErrorUsuario());
+                validarContrasenia.setText(validarAuxiliar.getErrorContrasenia());      
+                validarCorreo.setText(validarAuxiliar.getErrorCorreoUsuario());
+                validarDocumento.setText(validarAuxiliar.getErrorDocumentoUsuario());
+                validarEstado.setText(validarAuxiliar.getErrorEstadoUsuario());
+
+             if (validarAuxiliar.validarAdminAxiliar()==true){
+                
+                    RegistroAdministrador persona = new RegistroAdministrador();
+                    persona.tipo.set((String) tipoCB.getValue());  
+                    persona.nombre.set(nombreTF.getText());
+                    persona.apellido.set(apellidoTF.getText());
+                    persona.usuario.set(usuarioTF.getText());
+                    persona.contrasenia.set(contraseniaTF.getText());
+                    persona.grado.set((String) cursoCB.getValue());
+                    persona.grupo.set((String) grupoCB.getValue());
+                    persona.mail.set(mailTF.getText());
+                    persona.documento.set(documentoTF.getText());
+                    persona.jornada.set((String) jornadaCB.getValue());
+                    persona.telefono.set(telefonoTF.getText());
+                    persona.direccion.set(direccionTF.getText());
+                    persona.estado.set((String) estadoCB.getValue());
+                    usu.add(persona);
+                
+            }
+        
+        
+        }
+        
+         
      }
      
      /**
@@ -192,7 +261,8 @@ public class RegistrarAdministradorController implements Initializable, Controll
             
             if(valorTipo.equals("Administrador"))
         {
-        camposG.setVisible(true);    
+        camposG.setVisible(true);
+        camposG2.setVisible(true);
         cursoCB.setDisable(false);
         grupoCB.setDisable(false);
         jornadaCB.setDisable(false);
@@ -201,38 +271,82 @@ public class RegistrarAdministradorController implements Initializable, Controll
         registrarBT.setVisible(true);
         modificarBT.setVisible(true);
         
-        persona.tipo.set((String) tipoCB.getValue());
-        persona.nombre.set(nombreTF.getText());
-        persona.apellido.set(apellidoTF.getText());     
-        persona.usuario.set(usuarioTF.getText());
-        persona.contrasenia.set(contraseniaTF.getText());
-        persona.mail.set(mailTF.getText());
-        persona.documento.set(documentoTF.getText());
-        persona.estado.set((String) estadoCB.getValue());
-        }
-       else{
-        camposG.setVisible(true);
-        cursoCB.setDisable(true);
-        grupoCB.setDisable(true);
-        jornadaCB.setDisable(true);
-        direccionTF.setDisable(true);
-        telefonoTF.setDisable(true);
-        registrarBT.setVisible(true);
-        modificarBT.setVisible(true);
+         ValidarUsuario validarAuxiliar = new ValidarUsuario(nombreTF.getText(), apellidoTF.getText(), usuarioTF.getText(), contraseniaTF.getText(), 
+                                                                    mailTF.getText(), documentoTF.getText(), estadoCB.getSelectionModel().getSelectedItem());
+
+                validarAuxiliar.validarAdminAxiliar();
+                validarNombre.setText(validarAuxiliar.getErrorNombreUsuario());
+                validarApellidos.setText(validarAuxiliar.getErrorApellidosUsuario());
+                validarUsuario.setText(validarAuxiliar.getErrorUsuario());
+                validarContrasenia.setText(validarAuxiliar.getErrorContrasenia());      
+                validarCorreo.setText(validarAuxiliar.getErrorCorreoUsuario());
+                validarDocumento.setText(validarAuxiliar.getErrorDocumentoUsuario());
+                validarEstado.setText(validarAuxiliar.getErrorEstadoUsuario());
+                
+                  if (validarAuxiliar.validarAdminAxiliar()==true){
+              
+                        persona.tipo.set((String) tipoCB.getValue());
+                        persona.nombre.set(nombreTF.getText());
+                        persona.apellido.set(apellidoTF.getText());     
+                        persona.usuario.set(usuarioTF.getText());
+                        persona.contrasenia.set(contraseniaTF.getText());
+                        persona.mail.set(mailTF.getText());
+                        persona.documento.set(documentoTF.getText());
+                        persona.estado.set((String) estadoCB.getValue());
         
-        persona.tipo.set((String) tipoCB.getValue());
-        persona.nombre.set(nombreTF.getText());
-        persona.apellido.set(apellidoTF.getText());
-        persona.usuario.set(usuarioTF.getText());
-        persona.contrasenia.set(contraseniaTF.getText());
-        persona.grado.set((String) cursoCB.getValue());
-        persona.grupo.set((String) grupoCB.getValue());
-        persona.mail.set(mailTF.getText());
-        persona.documento.set(documentoTF.getText());
-        persona.jornada.set((String) jornadaCB.getValue());
-        persona.telefono.set(telefonoTF.getText()); 
-        persona.direccion.set(direccionTF.getText());
-        persona.estado.set((String) estadoCB.getValue());
+                  }
+        
+            }
+            else {
+        
+                camposG.setVisible(true);
+                camposG2.setVisible(true);
+                cursoCB.setDisable(true);
+                grupoCB.setDisable(true);
+                jornadaCB.setDisable(true);
+                direccionTF.setDisable(true);
+                telefonoTF.setDisable(true);
+                registrarBT.setVisible(true);
+                modificarBT.setVisible(true);
+                
+                 ValidarUsuario validarAuxiliar = new ValidarUsuario(nombreTF.getText(), apellidoTF.getText(), usuarioTF.getText(), contraseniaTF.getText(),
+                                                                cursoCB.getSelectionModel().getSelectedItem(),grupoCB.getSelectionModel().getSelectedItem(),
+                                                                mailTF.getText(), documentoTF.getText(), jornadaCB.getSelectionModel().getSelectedItem(),
+                                                                telefonoTF.getText(),direccionTF.getText(),estadoCB.getSelectionModel().getSelectedItem());
+            
+            validarAuxiliar.validarAdminAxiliar();
+            validarNombre.setText(validarAuxiliar.getErrorNombreUsuario());
+            validarApellidos.setText(validarAuxiliar.getErrorApellidosUsuario());
+            validarUsuario.setText(validarAuxiliar.getErrorUsuario());
+            validarContrasenia.setText(validarAuxiliar.getErrorContrasenia());
+            validarCurso.setText(validarAuxiliar.getErrorCursoUsuario());
+            validarGrupo.setText(validarAuxiliar.getErrorGrupoUsuario());
+            validarCorreo.setText(validarAuxiliar.getErrorCorreoUsuario());
+            validarDocumento.setText(validarAuxiliar.getErrorDocumentoUsuario());
+            validarJornada.setText(validarAuxiliar.getErrorJornadaUsuario());
+            validarTelefono.setText(validarAuxiliar.getErrorTelefonoUsuario());
+            validarDireccion.setText(validarAuxiliar.getErrorDireccionUsuario());
+            validarEstado.setText(validarAuxiliar.getErrorEstadoUsuario());
+                
+            
+             if (validarAuxiliar.validarAdminAxiliar()==true){
+                
+                persona.tipo.set((String) tipoCB.getValue());  
+                persona.nombre.set(nombreTF.getText());
+                persona.apellido.set(apellidoTF.getText());
+                persona.usuario.set(usuarioTF.getText());
+                persona.contrasenia.set(contraseniaTF.getText());
+                persona.grado.set((String) cursoCB.getValue());
+                persona.grupo.set((String) grupoCB.getValue());
+                persona.mail.set(mailTF.getText());
+                persona.documento.set(documentoTF.getText());
+                persona.jornada.set((String) jornadaCB.getValue());
+                persona.telefono.set(telefonoTF.getText());
+                persona.direccion.set(direccionTF.getText());
+                persona.estado.set((String) estadoCB.getValue());            
+                
+            }
+        
             }
             usu.set(posicionAdminEnTabla, persona);
     }

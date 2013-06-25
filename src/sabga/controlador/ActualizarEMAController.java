@@ -30,9 +30,11 @@ public class ActualizarEMAController implements Initializable, ControlledScreen 
     
     @FXML private TitledPane acordeonAutor, acordeonEditorial, acordeonMateria;
     
+        
     public ActualizarEMAController(){
         
     }
+    
 
     @Override
     public void setScreenParent(ScreensController screenParent) {
