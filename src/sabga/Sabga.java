@@ -13,6 +13,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sabga.controlador.PaginaPrincipalController;
 import sabga.controlador.dialogos.DetalleMaterialController;
+import sabga.controlador.dialogos.DetalleUsuarioController;
 import sabga.controlador.dialogos.NuevaMateriaController;
 import sabga.controlador.dialogos.NuevaEditorialController;
 import sabga.controlador.dialogos.NuevoAutorController;
@@ -215,7 +216,31 @@ public class Sabga extends Application {
           }
         
     }
+    
+    public void dialogoDetalleUsuario(){
         
+          try {
+    
+            FXMLLoader loader = new FXMLLoader(Sabga.class.getResource("vista/dialogos/DetalleUsuario.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Información Detallada del Usuario");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.centerOnScreen();
+           
+           // dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            DetalleUsuarioController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+          }
+        
+    }
     /**
      * The main() method is ignored in correctly deployed JavaFX application.
      * main() serves only as fallback in case the application can not be

@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -28,52 +29,18 @@ import sabga.modelo.ValidarUsuario;
  *
  * @author Nanny
  */
-public class RegistrarAdministradorController implements Initializable, ControlledScreen {
+public class RegistroAdministradorController implements Initializable, ControlledScreen {
     
     private Sabga ventanaPrincipal;
     private ScreensController controlador;
     
-   @FXML private GridPane camposG ,camposG2;
+    @FXML private TextField campoNombre, campoApellidos, campoUsuario;
     
-    // Declaramos los botones
-    @FXML private Button registrarBT;
-    @FXML private Button aceptarBT;
-    @FXML private Button modificarBT;
-       
-    // Declaramos los textfileds
-    @FXML private TextField nombreTF;
-    @FXML private TextField apellidoTF; 
-    @FXML public TextField mailTF;
-    @FXML public TextField documentoTF;    
-    @FXML public TextField telefonoTF;
-    @FXML public TextField direccionTF;
-    @FXML public TextField usuarioTF;
-    @FXML public TextField contraseniaTF;
-       
-    //Declaramos los combobox
+    @FXML private PasswordField campoContrasenia, campoContrasenia2;
+    
     @FXML public ComboBox jornadaCB;
-    @FXML public ComboBox tipoCB;
-    @FXML public ComboBox cursoCB;
-    @FXML public ComboBox grupoCB;
-    @FXML public ComboBox estadoCB;
-   
-    
-       // Declaramos la tabla y las columnas
-    @FXML private TableView<RegistroAdministrador> tablaAdmin;
-    
-        @FXML private TableColumn tipoCL;
-        @FXML private TableColumn nombreCL;
-        @FXML private TableColumn apellidoCL;
-        @FXML private TableColumn usuarioCL;
-        @FXML private TableColumn contraseniaCL;
-        @FXML private TableColumn cursoCL;
-        @FXML private TableColumn grupoCL;
-        @FXML private TableColumn correoCL;
-        @FXML private TableColumn documentoCL;
-        @FXML private TableColumn jornadaCL;
-        @FXML private TableColumn telefonoCL;
-        @FXML private TableColumn direccionCL;
-        @FXML private TableColumn estadoCL;  
+  
+ 
     
     ObservableList<RegistroAdministrador> usu;
     public int posicionAdminEnTabla;

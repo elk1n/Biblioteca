@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="458.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.dialogos.DetalleMaterialController">
   <children>
-    <GridPane id="GridPane" prefHeight="380.0" prefWidth="483.0" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="386.0">
+    <GridPane id="GridPane" prefHeight="391.0" prefWidth="483.0" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="386.0">
       <children>
         <Label text="Titulo:" GridPane.columnIndex="0" GridPane.rowIndex="0">
           <font>
@@ -54,7 +54,7 @@
         <RowConstraints maxHeight="61.0" minHeight="10.0" percentHeight="8.0" prefHeight="42.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="17.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="32.0" minHeight="10.0" percentHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="9.0" minHeight="9.0" prefHeight="9.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="17.0" minHeight="9.0" prefHeight="17.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="48.0" minHeight="10.0" percentHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>

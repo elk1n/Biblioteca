@@ -16,12 +16,12 @@ import javafx.stage.Stage;
 public class DetalleMaterialController implements Initializable {
 
     private Stage dialogStage;
-    
-    
+        
     public void setDialogStage(Stage dialogStage) {
      
-     this.dialogStage = dialogStage;	
- }
+        this.dialogStage = dialogStage;	
+    
+    }
     
     /**
      * Initializes the controller class.

@@ -1,21 +1,470 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="512.0" prefWidth="718.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.dialogos.DetalleUsuarioController">
+<AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="1100.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.dialogos.DetalleUsuarioController">
   <children>
-    <Label layoutX="46.0" layoutY="44.0" text="Tipo de Usuario" />
-    <Label layoutX="37.0" layoutY="309.0" text="Correo Electrónico" />
-    <Label layoutX="37.0" layoutY="202.0" text="Dirección" />
-    <Label layoutX="36.0" layoutY="281.0" text="Grupo" />
-    <Label layoutX="36.0" layoutY="240.0" text="Curso" />
-    <Label layoutX="36.0" layoutY="79.0" text="Nombre" />
-    <Label layoutX="37.0" layoutY="170.0" text="Teléfono" />
-    <Label layoutX="37.0" layoutY="110.0" text="Apellidos" />
-    <Label layoutX="37.0" layoutY="140.0" text="Documento" />
+    <Accordion layoutX="22.0" layoutY="40.0" prefHeight="422.0" prefWidth="1057.0">
+      <expandedPane>
+        <TitledPane fx:id="x4" animated="false" font="$x3" text="Reservas">
+          <content>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="378.0" prefWidth="1038.0">
+                  <children>
+                    <Pane layoutX="10.0" layoutY="14.0" prefHeight="78.0" prefWidth="1015.0" styleClass="resultado">
+                      <children>
+                        <GridPane id="GridPane" layoutX="14.0" layoutY="5.0" prefHeight="59.0" prefWidth="999.0">
+                          <children>
+                            <Label text="Título" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                              <font>
+                                <Font name="System Bold" size="13.0" fx:id="x3" />
+                              </font>
+                            </Label>
+                            <Label font="$x3" text="Tipo Material" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Fecha Reserva" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Estado Reserva" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Nombre Usuario" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                            <Label text="Label" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="262.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="213.0" minWidth="10.0" prefWidth="111.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="129.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="215.0" minWidth="10.0" prefWidth="127.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="174.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </children>
+                      <stylesheets>
+                        <URL value="@../css/estilo.css" />
+                      </stylesheets>
+                    </Pane>
+                    <Pane layoutX="9.0" layoutY="100.0" prefHeight="78.0" prefWidth="1015.0" styleClass="resultado">
+                      <children>
+                        <GridPane id="GridPane" layoutX="14.0" layoutY="5.0" prefHeight="59.0" prefWidth="999.0">
+                          <children>
+                            <Label font="$x3" text="Título" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Tipo Material" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Fecha Reserva" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Estado Reserva" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Nombre Usuario" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                            <Label text="Label" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="262.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="213.0" minWidth="10.0" prefWidth="111.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="129.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="215.0" minWidth="10.0" prefWidth="127.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="174.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </children>
+                      <stylesheets>
+                        <URL value="@../css/estilo.css" />
+                      </stylesheets>
+                    </Pane>
+                    <Pane layoutX="9.0" layoutY="188.0" prefHeight="78.0" prefWidth="1015.0" styleClass="resultado">
+                      <children>
+                        <GridPane id="GridPane" layoutX="14.0" layoutY="5.0" prefHeight="59.0" prefWidth="999.0">
+                          <children>
+                            <Label font="$x3" text="Título" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Tipo Material" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Fecha Reserva" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Estado Reserva" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Nombre Usuario" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                            <Label text="Label" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="262.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="213.0" minWidth="10.0" prefWidth="111.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="129.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="215.0" minWidth="10.0" prefWidth="127.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="174.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </children>
+                      <stylesheets>
+                        <URL value="@../css/estilo.css" />
+                      </stylesheets>
+                    </Pane>
+                    <Pane layoutX="9.0" layoutY="276.0" prefHeight="78.0" prefWidth="1015.0" styleClass="resultado">
+                      <children>
+                        <GridPane id="GridPane" layoutX="14.0" layoutY="5.0" prefHeight="59.0" prefWidth="999.0">
+                          <children>
+                            <Label font="$x3" text="Título" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Tipo Material" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Fecha Reserva" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Estado Reserva" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Nombre Usuario" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                            <Label text="Label" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="262.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="213.0" minWidth="10.0" prefWidth="111.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="129.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="215.0" minWidth="10.0" prefWidth="127.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="174.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </children>
+                      <stylesheets>
+                        <URL value="@../css/estilo.css" />
+                      </stylesheets>
+                    </Pane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </ScrollPane>
+          </content>
+        </TitledPane>
+      </expandedPane>
+      <panes>
+        <TitledPane animated="false" expanded="false" font="$x3" styleClass="first-titled-pane" text="Datos del Usuario">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <GridPane id="GridPane" layoutX="66.0" layoutY="7.0" prefHeight="335.0" prefWidth="505.0">
+                  <children>
+                    <Label text="Tipo de Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                      <font>
+                        <Font name="System Bold" size="14.0" fx:id="x1" />
+                      </font>
+                    </Label>
+                    <Label font="$x1" text="Apellidos:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                    <Label font="$x1" text="Documento:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                    <Label font="$x1" text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <Label font="$x1" text="Teléfono:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+                    <Label font="$x1" text="Correo Electrónico:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                    <Label prefWidth="491.0" text="Label" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                      <font>
+                        <Font size="14.0" fx:id="x2" />
+                      </font>
+                    </Label>
+                    <Label font="$x2" prefWidth="491.0" text="Label" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                    <Label font="$x2" prefWidth="491.0" text="Label" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                    <Label font="$x2" prefWidth="491.0" text="Label" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                    <Label font="$x2" prefWidth="491.0" text="Label" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+                    <Label font="$x2" prefWidth="491.0" text="Label" GridPane.columnIndex="0" GridPane.rowIndex="11" />
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                </GridPane>
+                <GridPane id="GridPane" layoutX="593.0" layoutY="7.0" prefHeight="335.0" prefWidth="446.0">
+                  <children>
+                    <Label font="$x1" text="Curso:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <Label font="$x1" text="Dirección:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <Label font="$x1" text="Jornada:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                    <Label font="$x1" text="Grupo:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                    <Label font="$x1" text="Estado:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                    <Label font="$x1" text="Total Multa:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+                    <Label font="$x2" prefWidth="432.0" text="Label" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <Label font="$x2" prefWidth="432.0" text="Label" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                    <Label font="$x2" prefWidth="432.0" text="Label" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                    <Label font="$x2" prefWidth="432.0" text="Label" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                    <Label font="$x2" prefWidth="432.0" text="Label" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+                    <Label font="$x2" prefWidth="432.0" text="Label" GridPane.columnIndex="0" GridPane.rowIndex="11" />
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                </GridPane>
+              </children>
+            </AnchorPane>
+          </content>
+        </TitledPane>
+        <TitledPane fx:id="x5" animated="false" font="$x3" prefHeight="280.0" prefWidth="382.0" text="Prestamos">
+          <content>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="373.0" prefWidth="1040.0">
+                  <children>
+                    <Pane layoutX="11.0" layoutY="14.0" prefHeight="78.0" prefWidth="1015.0" styleClass="resultado">
+                      <children>
+                        <GridPane id="GridPane" layoutX="14.0" layoutY="5.0" prefHeight="59.0" prefWidth="999.0">
+                          <children>
+                            <Label font="$x3" text="Título" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Tipo Material" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Fecha Devolución" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Fecha Prestamo" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Estado Prestamo" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Multa" GridPane.columnIndex="6" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Nombre Usuario" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+                            <Label text="Label" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="262.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="213.0" minWidth="10.0" prefWidth="111.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="129.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="134.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="215.0" minWidth="10.0" prefWidth="127.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="174.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="93.0" minWidth="10.0" prefWidth="62.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </children>
+                      <stylesheets>
+                        <URL value="@../css/estilo.css" />
+                      </stylesheets>
+                    </Pane>
+                    <Pane layoutX="14.0" layoutY="101.0" prefHeight="78.0" prefWidth="1015.0" styleClass="resultado">
+                      <children>
+                        <GridPane id="GridPane" layoutX="14.0" layoutY="5.0" prefHeight="59.0" prefWidth="999.0">
+                          <children>
+                            <Label font="$x3" text="Título" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Tipo Material" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Fecha Devolución" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Fecha Prestamo" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Estado Prestamo" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Multa" GridPane.columnIndex="6" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Nombre Usuario" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+                            <Label text="Label" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="262.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="213.0" minWidth="10.0" prefWidth="111.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="129.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="134.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="215.0" minWidth="10.0" prefWidth="127.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="174.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="93.0" minWidth="10.0" prefWidth="62.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </children>
+                      <stylesheets>
+                        <URL value="@../css/estilo.css" />
+                      </stylesheets>
+                    </Pane>
+                    <Pane layoutX="16.0" layoutY="188.0" prefHeight="78.0" prefWidth="1015.0" styleClass="resultado">
+                      <children>
+                        <GridPane id="GridPane" layoutX="14.0" layoutY="5.0" prefHeight="59.0" prefWidth="999.0">
+                          <children>
+                            <Label font="$x3" text="Título" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Tipo Material" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Fecha Devolución" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Fecha Prestamo" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Estado Prestamo" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Multa" GridPane.columnIndex="6" GridPane.rowIndex="0" />
+                            <Label font="$x3" text="Nombre Usuario" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+                            <Label text="Label" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                            <Label text="Label" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                            <Label text="Label" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="262.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="213.0" minWidth="10.0" prefWidth="111.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="129.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="134.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="215.0" minWidth="10.0" prefWidth="127.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="174.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="93.0" minWidth="10.0" prefWidth="62.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                        <Pane layoutX="-1.0" layoutY="92.0" prefHeight="78.0" prefWidth="1015.0" styleClass="resultado">
+                          <children>
+                            <GridPane id="GridPane" layoutX="14.0" layoutY="5.0" prefHeight="59.0" prefWidth="999.0">
+                              <children>
+                                <Label font="$x3" text="Título" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                <Label font="$x3" text="Tipo Material" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <Label font="$x3" text="Fecha Devolución" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                                <Label font="$x3" text="Fecha Prestamo" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                                <Label font="$x3" text="Estado Prestamo" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                                <Label font="$x3" text="Multa" GridPane.columnIndex="6" GridPane.rowIndex="0" />
+                                <Label font="$x3" text="Nombre Usuario" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+                                <Label text="Label" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                                <Label text="Label" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                                <Label text="Label" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                                <Label text="Label" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                                <Label text="Label" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                                <Label text="Label" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+                              </children>
+                              <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="262.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="213.0" minWidth="10.0" prefWidth="111.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="129.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="134.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="215.0" minWidth="10.0" prefWidth="127.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="174.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="93.0" minWidth="10.0" prefWidth="62.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                            </GridPane>
+                          </children>
+                          <stylesheets>
+                            <URL value="@../css/estilo.css" />
+                          </stylesheets>
+                        </Pane>
+                      </children>
+                      <stylesheets>
+                        <URL value="@../css/estilo.css" />
+                      </stylesheets>
+                    </Pane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </ScrollPane>
+          </content>
+        </TitledPane>
+        <fx:reference source="x4" />
+      </panes>
+    </Accordion>
+    <Button layoutX="1015.0" layoutY="479.0" mnemonicParsing="false" text="Cerrar" />
+    <Button layoutX="834.0" layoutY="479.0" mnemonicParsing="false" text="Editar Información" />
+    <Label font="$x3" layoutX="25.0" layoutY="14.0" prefWidth="492.0" text="Nombre del Usuario" />
   </children>
 </AnchorPane>

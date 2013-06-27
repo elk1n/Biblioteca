@@ -18,7 +18,7 @@
           <children>
             <Pane layoutX="7.0" layoutY="14.0" prefHeight="94.0" prefWidth="595.0" styleClass="resultado">
               <children>
-                <Hyperlink layoutX="7.0" layoutY="3.0" text="Nombres y Apellidos" textFill="#3385ff" />
+                <Hyperlink layoutX="7.0" layoutY="3.0" onAction="#dialogoDetalleUsuario" text="Nombres y Apellidos" textFill="#3385ff" />
                 <Label layoutX="11.0" layoutY="24.0" prefHeight="21.3105553222631" text="Documento" />
                 <Label layoutX="11.0" layoutY="45.0" prefHeight="21.3105553222631" text="Correo" />
                 <Label layoutX="11.0" layoutY="66.0" text="Curso y Grupo  y Jornada" />

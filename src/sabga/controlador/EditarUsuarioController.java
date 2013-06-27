@@ -52,6 +52,13 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
         campoMulta.setDisable(false);
     }
     
+     @FXML
+    public void dialogoDetalleUsuario(){
+        
+        paginaPrincipal = new Sabga();
+        paginaPrincipal.dialogoDetalleUsuario();        
+    }
+    
     public void validarDatos(){
         
         ValidarUsuario validarDatosUsuario = new ValidarUsuario(campoNombre.getText(), campoApellidos.getText(), campoDocumento.getText(),

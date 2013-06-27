@@ -9,194 +9,87 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="540.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.RegistrarAdministradorController">
+<AnchorPane id="AnchorPane" prefHeight="540.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.RegistroAdministradorController">
   <children>
-    <SplitPane dividerPositions="" focusTraversable="true" prefHeight="540.0" prefWidth="1260.0">
+    <Label layoutX="56.0" layoutY="35.0" text="Registro Administrador Auxiliar">
+      <font>
+        <Font name="System Bold" size="16.0" />
+      </font>
+    </Label>
+    <ComboBox id="tipoCB" fx:id="comboTipoAdmin" layoutX="473.0" layoutY="34.0" prefHeight="21.0" prefWidth="179.0" promptText="Tipo de Administrador">
       <items>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-          <children>
-            <SplitPane dividerPositions="0.5354477611940298" focusTraversable="true" orientation="VERTICAL" prefHeight="538.0" prefWidth="858.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="-3.0">
-              <items>
-                <ScrollPane prefHeight="200.0" prefWidth="200.0">
-                  <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="1241.0">
-                      <children>
-                        <Label layoutX="451.0" layoutY="9.0" text="REGISTRO DE ADMINISTRADOR AUXILIAR">
-                          <font>
-                            <Font name="System Bold" size="16.0" />
-                          </font>
-                        </Label>
-                        <Label layoutX="438.0" layoutY="44.0" text="Tipo de Administrador:" />
-                        <ComboBox fx:id="tipoCB" layoutX="598.0" layoutY="41.0" prefHeight="21.0" prefWidth="119.0">
-                          <items>
-                            <FXCollections fx:factory="observableArrayList">
-                              <String fx:value="Auxiliar" />
-                              <String fx:value="Administrador" />
-                            </FXCollections>
-                          </items>
-                        </ComboBox>
-                        <Button id="aceptarB" fx:id="aceptarBT" layoutX="748.0" layoutY="41.0" mnemonicParsing="false" onAction="#aceptar" text="Aceptar" />
-                        <GridPane fx:id="camposG" layoutX="150.0" layoutY="83.0" prefHeight="389.0" prefWidth="428.0" visible="false">
-                          <children>
-                            <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                            <Label text="Apellidos:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                            <Label text="Curso:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
-                            <Label text="Grupo:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
-                            <TextField fx:id="nombreTF" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                            <TextField fx:id="apellidoTF" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                            <TextField fx:id="usuarioTF" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                            <TextField fx:id="contraseniaTF" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                            <ComboBox fx:id="cursoCB" prefHeight="21.0" prefWidth="119.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
-                              <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                  <String fx:value="1" />
-                                  <String fx:value="2" />
-                                  <String fx:value="3" />
-                                  <String fx:value="4" />
-                                  <String fx:value="5" />
-                                  <String fx:value="6" />
-                                  <String fx:value="7" />
-                                  <String fx:value="8" />
-                                  <String fx:value="9" />
-                                  <String fx:value="10" />
-                                  <String fx:value="11" />
-                                </FXCollections>
-                              </items>
-                            </ComboBox>
-                            <ComboBox fx:id="grupoCB" prefHeight="21.0" prefWidth="119.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
-                              <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                  <String fx:value="A" />
-                                  <String fx:value="B" />
-                                  <String fx:value="C" />
-                                  <String fx:value="D" />
-                                  <String fx:value="E" />                            
-                                </FXCollections>
-                              </items>
-                            </ComboBox>
-                            <Label text="Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                            <Label text="Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-                            <Label id="validarNpmbre" fx:id="validarNombre" prefWidth="213.0" text="Validacion" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                              <textFill>
-                                <Color blue="0.000" green="0.000" red="0.600" fx:id="x1" />
-                              </textFill>
-                            </Label>
-                            <Label fx:id="validarApellidos" prefWidth="213.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                            <Label fx:id="validarUsuario" prefWidth="213.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                            <Label fx:id="validarContrasenia" prefWidth="213.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                            <Label fx:id="validarCurso" prefWidth="213.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                            <Label fx:id="validarGrupo" prefWidth="213.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                            <Label text="E-mail:" GridPane.columnIndex="0" GridPane.rowIndex="12" />
-                            <TextField fx:id="mailTF" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-                            <Label fx:id="validarCorreo" prefWidth="213.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="13" />
-                          </children>
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="127.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="250.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="33.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="62.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="72.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="101.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="93.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="141.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
-                        <Button fx:id="modificarBT" layoutX="900.0" layoutY="440.0" mnemonicParsing="false" onAction="#modificar" text="Modificar" visible="false" />
-                        <Button id="registrar" fx:id="registrarBT" layoutX="1045.0" layoutY="439.0" mnemonicParsing="false" onAction="#registrar" text="Registrar" visible="false" />
-                        <GridPane fx:id="camposG2" layoutX="677.0" layoutY="90.0" prefHeight="339.0" prefWidth="447.0" visible="false">
-                          <children>
-                            <Label text="Estado del  Auxiliar:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
-                            <ComboBox fx:id="estadoCB" prefHeight="21.0" prefWidth="119.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
-                              <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                  <String fx:value="Habilitado" />
-                                  <String fx:value="Deshabilitado" />
-                                </FXCollections>
-                              </items>
-                            </ComboBox>
-                            <Label text="Dirección:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-                            <TextField fx:id="direccionTF" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                            <Label text="Telefono:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                            <TextField fx:id="telefonoTF" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                            <Label fx:id="validarTelefono" prefWidth="213.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                            <Label fx:id="validarDireccion" prefWidth="213.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                            <Label fx:id="validarEstado" prefWidth="213.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                            <Label fx:id="validarJornada" prefWidth="213.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                            <Label text="Jornada:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                            <ComboBox fx:id="jornadaCB" prefHeight="21.0" prefWidth="119.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                              <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                  <String fx:value="Mañana" />
-                                  <String fx:value="Tarde" />
-                                  <String fx:value="Noche" />
-                                </FXCollections>
-                              </items>
-                            </ComboBox>
-                            <Label text="Documento:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                            <TextField fx:id="documentoTF" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                            <Label fx:id="validarDocumento" prefWidth="213.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                          </children>
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="174.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="209.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="32.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
-                      </children>
-                    </AnchorPane>
-                  </content>
-                </ScrollPane>
-                <ScrollPane prefHeight="229.0" prefWidth="856.0">
-                  <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="276.0" prefWidth="1241.0">
-                      <children>
-                        <TableView id="tablaUsuarios" fx:id="tablaAdmin" layoutX="42.0" layoutY="26.0" prefHeight="200.0" prefWidth="1158.0">
-                          <columns>
-                            <TableColumn id="tipoCL" prefWidth="95.0" text="Tipo de Admin." fx:id="tipoCL" />
-                            <TableColumn prefWidth="75.0" text="Nombre" fx:id="nombreCL" />
-                            <TableColumn prefWidth="75.0" text="Apellidos" fx:id="apellidoCL" />
-                            <TableColumn prefWidth="75.0" text="Usuario" fx:id="usuarioCL" />
-                            <TableColumn prefWidth="75.0" text="Contraseña" fx:id="contraseniaCL" />
-                            <TableColumn prefWidth="60.0" text="Curso" fx:id="cursoCL" />
-                            <TableColumn prefWidth="60.0" text="Grupo" fx:id="grupoCL" />
-                            <TableColumn prefWidth="60.0" text="E-mail" fx:id="correoCL" />
-                            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="101.0" text="Documento" fx:id="documentoCL" />
-                            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="87.0" text="Jornada" fx:id="jornadaCL" />
-                            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="103.0" text="Telefono" fx:id="telefonoCL" />
-                            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="118.0" text="Dirección" fx:id="direccionCL" />
-                            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="167.0" text="Estado" fx:id="estadoCL" />
-                          </columns>
-                        </TableView>
-                      </children>
-                    </AnchorPane>
-                  </content>
-                </ScrollPane>
-              </items>
-            </SplitPane>
-          </children>
-        </AnchorPane>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Auxiliar" />
+          <String fx:value="Administrador" />
+        </FXCollections>
       </items>
-    </SplitPane>
+    </ComboBox>
+    <GridPane fx:id="camposG" layoutX="100.0" layoutY="117.0" prefHeight="343.0" prefWidth="463.0" visible="true">
+      <children>
+        <Label text="Nombre" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <Label text="Apellidos" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField id="nombreTF" fx:id="campoNombre" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <TextField id="apellidoTF" fx:id="campoApellidos" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <TextField id="usuarioTF" fx:id="campUsuario" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <Label text="Usuario" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <Label text="Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <Label id="validarNpmbre" fx:id="validarNombre" alignment="CENTER_RIGHT" prefWidth="292.0" text="Validacion" GridPane.columnIndex="1" GridPane.rowIndex="1">
+          <textFill>
+            <Color blue="0.000" green="0.000" red="0.600" fx:id="x1" />
+          </textFill>
+        </Label>
+        <Label fx:id="validarApellidos" alignment="CENTER_RIGHT" prefWidth="292.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label fx:id="validarUsuario" alignment="CENTER_RIGHT" prefWidth="292.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Label fx:id="validarContrasenia" alignment="CENTER_RIGHT" prefWidth="292.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <Label id="validarGrupo" fx:id="validarContrasenia2" alignment="CENTER_RIGHT" prefWidth="292.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+        <PasswordField fx:id="campoContrasenia" prefHeight="30.0" prefWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+        <Label text="Reescribir Contraseña" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+        <PasswordField fx:id="campoContrasenia2" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.0" minWidth="10.0" prefWidth="164.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="266.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+    <GridPane fx:id="camposG2" layoutX="667.0" layoutY="194.0" prefHeight="189.0" prefWidth="496.0" visible="true">
+      <children>
+        <Label text="Telefono" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <TextField id="mailTF" fx:id="campoCorreo" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Label fx:id="validarTelefono" alignment="CENTER_RIGHT" prefWidth="300.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Label text="Documento" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField id="documentoTF" fx:id="campoDocumento" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <TextField id="telefonoTF" fx:id="campoTelefono" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <Label fx:id="validarDocumento" alignment="CENTER_RIGHT" prefWidth="300.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label fx:id="validarCorreo" alignment="CENTER_RIGHT" prefWidth="300.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label text="Correo Electronico" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="174.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="300.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+    <Button id="modificarBT" layoutX="775.0" layoutY="439.0" mnemonicParsing="false" text="Cancelar" visible="true" />
+    <Button id="registrar" layoutX="923.0" layoutY="439.0" mnemonicParsing="false" text="Guardar Nuevo Adiministrador" visible="true" />
+    <Label id="validarNpmbre" fx:id="validarTipoAdmin" alignment="CENTER_LEFT" layoutX="667.0" layoutY="37.0" prefWidth="292.0" text="Validacion" textFill="$x1" />
   </children>
 </AnchorPane>
