@@ -15,7 +15,7 @@ import javafx.scene.input.KeyEvent;
 import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.configuracion.ControlledScreen;
-import sabga.modelo.Validacion;
+import sabga.modelo.ValidarMaterial;
 import java.util.regex.*;
 
 /**
@@ -90,7 +90,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     @FXML
     public void validarCampos(ActionEvent evento){
                         
-       Validacion validarMaterial = new Validacion(campoCodigoMaterial.getText(), campoNumeroClasificacion.getText(), campoTitulo.getText(),
+       ValidarMaterial validarMaterial = new ValidarMaterial(campoCodigoMaterial.getText(), campoNumeroClasificacion.getText(), campoTitulo.getText(),
                                                     campoAnioPublicacion.getText(), campoPublicacion.getText(), campoNumeroPaginas.getText(),
                                                     campoEjemplares.getText(), campoEditorial.getText(),campoAutor.getText(),
                                                     campoMateria.getText(), comboClaseMaterial.getSelectionModel().getSelectedItem());
@@ -113,7 +113,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     @FXML
     public void validarCamposOM(){
             
-        Validacion validarMaterialOM = new Validacion(campoCodigoMaterialOM.getText(), campoNumeroClasificacionOM.getText(), campoTituloOM.getText(),
+        ValidarMaterial validarMaterialOM = new ValidarMaterial(campoCodigoMaterialOM.getText(), campoNumeroClasificacionOM.getText(), campoTituloOM.getText(),
                                                       campoMateriaOM.getText(), comboTipoMaterial.getSelectionModel().getSelectedItem(),
                                                       comboClaseMaterialOM.getSelectionModel().getSelectedItem(), campoNumeroCopias.getText());
         

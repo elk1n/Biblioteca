@@ -20,6 +20,7 @@ import sabga.controlador.dialogos.NuevoAutorController;
 /**
  *
  * @author Elk1n
+ * 
  */
 
 
@@ -30,9 +31,9 @@ public class Sabga extends Application {
     public static String paginaRegistroMaterialId = "paginaRegistroMaterial";
     public static String paginaRegistroMaterialArchivo = "vista/RegistroMaterial.fxml";
     public static String paginaActualizarMaterialId = "paginaActualizarMaterial";
-    public static String paginaActualizarMaterialArchivo = "vista/ActualizarMaterial.fxml" ;
+    public static String paginaActualizarMaterialArchivo = "vista/EditarMaterial.fxml" ;
     public static String paginaActualizarEMAId = "paginaActualizarEMA";
-    public static String paginaActualizarEMAArchivo = "vista/ActualizarEMA.fxml";
+    public static String paginaActualizarEMAArchivo = "vista/EditarEMA.fxml";
     public static String paginaPrestamoId = "paginaPrestamo";
     public static String paginaPrestamoArchivo = "vista/PaginaPrestamo.fxml";
     public static String paginaInicialId = "paginaInicio1";
@@ -40,7 +41,7 @@ public class Sabga extends Application {
     public static String paginaRegistroUsuariosId = "paginaRegistroUsuarios";
     public static String paginaRegistroUsuariosArchivo = "vista/RegistroUsuario.fxml";
     public static String paginaEstadoUsuarioId = "paginaEstadoUsuario";
-    public static String paginaEstadoUsuarioArchivo = "vista/EstadoUsuario.fxml";
+    public static String paginaEstadoUsuarioArchivo = "vista/EditarUsuario.fxml";
     public static String paginaRegistroAdminId = "paginaRegistroAdmin";
     public static String paginaRegistroAdminArchivo = "vista/RegistroAdministrador.fxml";
     

@@ -18,7 +18,7 @@ import javafx.scene.control.Tooltip;
 import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.configuracion.ControlledScreen;
-import sabga.modelo.Validacion;
+import sabga.modelo.ValidarMaterial;
 
 /**
  * FXML Controller class
@@ -26,7 +26,7 @@ import sabga.modelo.Validacion;
  * @author Elk1n
  */
 
-public class ActualizarMaterialController implements Initializable, ControlledScreen {
+public class EditarMaterialController implements Initializable, ControlledScreen {
     
     private Sabga ventanaPrincipal;
     private ScreensController controlador;
@@ -49,7 +49,7 @@ public class ActualizarMaterialController implements Initializable, ControlledSc
     
     @FXML private  Tooltip est;
     
-    public ActualizarMaterialController(){
+    public EditarMaterialController(){
 
      
     }
@@ -98,7 +98,7 @@ public class ActualizarMaterialController implements Initializable, ControlledSc
         
         if(comboTipoMaterial.getSelectionModel().getSelectedIndex()==0){
             
-            Validacion validarActualizacion = new Validacion(campoCodigoClasificacionAC.getText(), campoTituloAC.getText(), campoAnioPublicacionAC.getText(),
+            ValidarMaterial validarActualizacion = new ValidarMaterial(campoCodigoClasificacionAC.getText(), campoTituloAC.getText(), campoAnioPublicacionAC.getText(),
                                                          campoPublicacionAC.getText(), campoNumeroPaginasAC.getText(), campoEditorialAC.getText(),
                                                          campoEjemplaresDisponiblesAC.getText(), campoHabilitadoAC.getText(), campoDeshabilitadoAC.getText(),
                                                          campoMantenimientoAC.getText(),campoAutor1AC.getText(), campoAutor2AC.getText(),campoAutor3AC.getText(),
@@ -149,7 +149,7 @@ public class ActualizarMaterialController implements Initializable, ControlledSc
         if (comboTipoMaterial.getSelectionModel().getSelectedIndex()==1 || comboTipoMaterial.getSelectionModel().getSelectedIndex()==2 ||
             comboTipoMaterial.getSelectionModel().getSelectedIndex()==3){
             
-            Validacion validarActualizacionOM = new Validacion(campoCodigoClasificacionAC.getText(), campoTituloAC.getText(),campoEjemplaresDisponiblesAC.getText(),
+            ValidarMaterial validarActualizacionOM = new ValidarMaterial(campoCodigoClasificacionAC.getText(), campoTituloAC.getText(),campoEjemplaresDisponiblesAC.getText(),
                                                                campoHabilitadoAC.getText(), campoDeshabilitadoAC.getText(), campoMantenimientoAC.getText(), campoMateria1AC.getText(), 
                                                                campoMateria2AC.getText(), campoMateria3AC.getText(), campoMateria4AC.getText(), campoMateria5AC.getText(), campoMateria6AC.getText(), 
                                                                campoMateria7AC.getText(), campoMateria8AC.getText(),campoMateria9AC.getText(), campoMateria10AC.getText());

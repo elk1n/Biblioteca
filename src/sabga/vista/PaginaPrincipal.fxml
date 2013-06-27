@@ -92,7 +92,7 @@
             <URL value="@css/estilo.css" />
           </stylesheets>
         </ChoiceBox>
-        <MenuBar layoutY="114.0" prefHeight="25.0" prefWidth="1261.0">
+        <MenuBar layoutY="114.0" maxWidth="1300.0" prefHeight="25.0" prefWidth="1261.0">
           <menus>
             <Menu mnemonicParsing="false" text="Inicio">
               <items>
@@ -105,7 +105,7 @@
             <Menu mnemonicParsing="false" text="Material">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroMaterial" text="Nuevo Material" />
-                <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarMaterial" text="Actualizar Material" />
+                <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarMaterial" text="Editar Material" />
                 <Menu mnemonicParsing="false" text="Autores">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#dialogoNuevoAutor" text="Nuevo Autor" />
@@ -129,7 +129,7 @@
             <Menu mnemonicParsing="false" text="Usuarios">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroUsuarios" text="Registrar Usuario" />
-                <MenuItem mnemonicParsing="false" onAction="#ventanaEstadoUsuario" text="Actualizar Estado del  Usuario" />
+                <MenuItem mnemonicParsing="false" onAction="#ventanaEstadoUsuario" text="Editar Usuario" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Prestamo">

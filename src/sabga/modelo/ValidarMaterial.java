@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
  *
  */
 
-public class Validacion {
+public class ValidarMaterial {
 
    private String codigoMaterial, numeroClasificacion, titulo, anioPublicacion, publicacion, numeroPaginas, ejemplares, editorial,
            autor, materia,errorCodigoMaterial, errorNumeroClasificacion, errorTitulo, errorAnioPublicacion, errorPublicacion, errorNumeroPaginas,
@@ -33,7 +33,7 @@ public class Validacion {
    private Object tipoMaterial, claseMaterial, claseMaterialOM;
    
       
-   public Validacion(String codigoMaterial, String numeroClasificacion, String titulo, String anioPublicacion, String publicacion,
+   public ValidarMaterial(String codigoMaterial, String numeroClasificacion, String titulo, String anioPublicacion, String publicacion,
                      String numeroPaginas, String ejemplares, String editorial, String autor, String materia , Object claseMaterial){
          
        this.codigoMaterial = codigoMaterial;
@@ -52,7 +52,7 @@ public class Validacion {
                  
    }
    
-   public Validacion (String codigoMaterial, String numeroClasificacion, String titulo, String materia, Object tipoMaterial,
+   public ValidarMaterial (String codigoMaterial, String numeroClasificacion, String titulo, String materia, Object tipoMaterial,
                       Object claseMaterial, String copias){
        
        this.codigoMaterialOM = codigoMaterial;
@@ -65,7 +65,7 @@ public class Validacion {
           
    }
    
-   public Validacion(String codigoClasificacionAC, String tituloAC, String anioPublicacionAC, String publicacionAC, String numeroPaginasAC,
+   public ValidarMaterial(String codigoClasificacionAC, String tituloAC, String anioPublicacionAC, String publicacionAC, String numeroPaginasAC,
                      String editorialAC, String ejemplaresDisponiblesAC, String habilitadoAC, String deshabilitadoAC, String mantenimientoAC,
                      String autor1AC, String autor2AC, String autor3AC, String autor4AC, String autor5AC, String autor6AC, String autor7AC,
                      String autor8AC, String autor9AC, String autor10AC, String materia1AC, String materia2AC, String materia3AC, String materia4AC,
@@ -109,7 +109,7 @@ public class Validacion {
                   
    }
    
-   public Validacion(String nombreAutor, String apellidosAutor, String nombreEditorial, String nombreMateria){
+   public ValidarMaterial(String nombreAutor, String apellidosAutor, String nombreEditorial, String nombreMateria){
        
        this.nombreAutor = nombreAutor;
        this.apellidosAutor = apellidosAutor;
@@ -118,7 +118,7 @@ public class Validacion {
         
    }
    
-   public Validacion( String codigoClasificacionAC, String tituloAC, String ejemplaresDisponiblesAC, String habilitadoAC, String deshabilitadoAC, 
+   public ValidarMaterial( String codigoClasificacionAC, String tituloAC, String ejemplaresDisponiblesAC, String habilitadoAC, String deshabilitadoAC, 
                       String mantenimientoAC, String materia0AC, String materia1AC, String materia2AC, String materia3AC,
                       String materia4AC,String materia5AC, String materia6AC, String materia7AC, String materia8AC, String materia9AC){
        

@@ -12,14 +12,14 @@ import javafx.scene.control.TitledPane;
 import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.configuracion.ControlledScreen;
-import sabga.modelo.Validacion;
+import sabga.modelo.ValidarMaterial;
 
 /**
  * FXML Controller class
  *
  * @author Elk1n
  */
-public class ActualizarEMAController implements Initializable, ControlledScreen {
+public class EditarEMAController implements Initializable, ControlledScreen {
   
     private Sabga ventanaPrincipal;
     private ScreensController controlador;
@@ -31,7 +31,7 @@ public class ActualizarEMAController implements Initializable, ControlledScreen 
     @FXML private TitledPane acordeonAutor, acordeonEditorial, acordeonMateria;
     
         
-    public ActualizarEMAController(){
+    public EditarEMAController(){
         
     }
     
@@ -49,7 +49,7 @@ public class ActualizarEMAController implements Initializable, ControlledScreen 
     
     public void validarActualizarEMA(ActionEvent evento){
         
-        Validacion validar = new Validacion(campoNombreAutor.getText(), campoApellidosAutor.getText(), campoEditorial.getText(), campoMateria.getText());
+        ValidarMaterial validar = new ValidarMaterial(campoNombreAutor.getText(), campoApellidosAutor.getText(), campoEditorial.getText(), campoMateria.getText());
         
        if(acordeonAutor.isExpanded()){
            validar.validarAutorAC();

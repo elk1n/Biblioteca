@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="512.0" prefWidth="718.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.dialogos.DetalleUsuarioController">
+  <children>
+    <Label layoutX="46.0" layoutY="44.0" text="Tipo de Usuario" />
+    <Label layoutX="37.0" layoutY="309.0" text="Correo Electrónico" />
+    <Label layoutX="37.0" layoutY="202.0" text="Dirección" />
+    <Label layoutX="36.0" layoutY="281.0" text="Grupo" />
+    <Label layoutX="36.0" layoutY="240.0" text="Curso" />
+    <Label layoutX="36.0" layoutY="79.0" text="Nombre" />
+    <Label layoutX="37.0" layoutY="170.0" text="Teléfono" />
+    <Label layoutX="37.0" layoutY="110.0" text="Apellidos" />
+    <Label layoutX="37.0" layoutY="140.0" text="Documento" />
+  </children>
+</AnchorPane>
