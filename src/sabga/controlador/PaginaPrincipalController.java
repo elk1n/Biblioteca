@@ -103,6 +103,11 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         ventanaPrincipal.cambiarVista("paginaRegistroAdmin");
     }
     
+    public void vantanaEditarAdmin(){
+        
+        ventanaPrincipal.cambiarVista("paginaEditarAdministrador");
+    }
+    
     @FXML
     public void dialogoNuevoAutor(){
         

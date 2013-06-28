@@ -195,10 +195,13 @@
               </children>
             </AnchorPane>
           </content>
+          <font>
+            <Font name="System Bold" size="13.0" fx:id="x6" />
+          </font>
         </TitledPane>
       </expandedPane>
       <panes>
-        <TitledPane fx:id="x4" animated="false" text="Información Personal">
+        <TitledPane fx:id="x4" animated="false" font="$x6" text="Información Personal">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>

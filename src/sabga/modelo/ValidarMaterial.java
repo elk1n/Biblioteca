@@ -17,7 +17,7 @@ public class ValidarMaterial {
            errorEjemplares, errorEditorial, errorAutor, errorMateria, codigoMaterialOM, numeroClasificacionOM, tituloOM, materiasOM, 
            errorCodigoMaterialOM, errorNumeroClasificacionOM, errorTituloOM, errorMateriasOM, errorTipoMaterial, errorClaseMaterialOM, errorClaseMaterial,
            errorCodigoClasificacionAC, errorTituloAC, errorAnioPublicacionAC, errorPublicacionAC, errorNumeroPaginasAC, errorEditorialAC, errorEstadoAC,
-           errorAutorAC, errorMateriaAC,
+           errorAutorAC, errorMateriaAC, mensajeError,
            codigoClasificacionAC, tituloAC, anioPublicacionAC, publicacionAC, numeroPaginasAC, editorialAC, ejemplaresDisponiblesAC, habilitadoAC,
            deshabilitadoAC, mantenimientoAC, autor1AC, autor2AC, autor3AC, autor4AC, autor5AC, autor6AC, autor7AC, autor8AC, autor9AC, autor10AC,
            materia1AC, materia2AC, materia3AC, materia4AC, materia5AC, materia6AC, materia7AC, materia8AC, materia9AC, materia10AC,
@@ -145,14 +145,14 @@ public class ValidarMaterial {
    
     public void validarActualizacionOM(){
         
-        if(this.codigoClasificacionAC == null || this.codigoClasificacionAC.equals("") || this.codigoClasificacionAC.length()>45 ){
+        if(validarCampoTexto(this.codigoClasificacionAC, 45)==false ){
           
-          this.errorCodigoClasificacionAC = "Debe rellenar este campo";
+          this.errorCodigoClasificacionAC = getMensajeError();
         }
       
-        if (this.tituloAC == null || this.tituloAC.equals("") || this.tituloAC.length()>300){
+        if (validarCampoTexto(this.tituloAC, 300) == false){
           
-          this.errorTituloAC = "Debe rellenar este campo";
+          this.errorTituloAC = getMensajeError();
         }
         
         if (validarEstadoEjemplaresAC() == false){
@@ -557,7 +557,9 @@ public class ValidarMaterial {
       return this.estadoAC;
     }
   
-  
+    public String getMensajeError(){
+        return this.mensajeError;
+    }
   
     public String getErrorCodigoMaterial(){      
       return this.errorCodigoMaterial;
@@ -772,4 +774,66 @@ public class ValidarMaterial {
   }
    
   
-  }
+  
+
+    public boolean validarCampoTexto(String campoTexto, int numeroCaracteres){
+                   
+        if (campoTexto == null || campoTexto.equals("") || campoTexto.isEmpty()){
+            
+            this.mensajeError = "Debe rellenar este campo"; 
+            return false;        
+        }
+        
+        else if ( campoTexto.length() > numeroCaracteres){
+            
+            this.mensajeError = "Máximo "+numeroCaracteres+" caracteres";
+            return false;
+        }
+        
+        else if(campoTexto.trim().equals("")){
+            
+            this.mensajeError = "No unicamente espacios en blanco";
+            return false;
+        }
+        
+        else {
+            
+            this.mensajeError = "";
+            return true;          
+        }
+          
+        
+    }
+    
+    public boolean validarCampoTextoNull(String campoTexto, int numeroCaracteres){
+        
+        if ( campoTexto.isEmpty()==false){
+            
+            if (campoTexto.length()>numeroCaracteres){
+                
+                this.mensajeError = "Máximo "+numeroCaracteres+" caracteres";
+                return false;        
+            }
+            
+            else if(campoTexto.trim().equals("")){
+            
+                this.mensajeError = "No unicamente espacios en blanco";
+                return false;
+            }
+               
+            else {
+            
+                this.mensajeError = "";
+                return true;
+            }            
+        }
+       
+        else {
+            
+            this.mensajeError = "";
+            return true;
+        }
+    }
+
+
+}

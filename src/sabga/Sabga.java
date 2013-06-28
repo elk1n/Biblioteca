@@ -45,6 +45,8 @@ public class Sabga extends Application {
     public static String paginaEstadoUsuarioArchivo = "vista/EditarUsuario.fxml";
     public static String paginaRegistroAdminId = "paginaRegistroAdmin";
     public static String paginaRegistroAdminArchivo = "vista/RegistroAdministrador.fxml";
+    public static String paginEdicionAdminId = "paginaEditarAdministrador";
+    public static String paginEdicionAdminArchivo = "vista/EditarAdministrador.fxml";
     
     private Stage ventanaPrincipal;
     private BorderPane rootLayout;
@@ -52,7 +54,6 @@ public class Sabga extends Application {
     private ScreensController controller;
     private ScreensController controladorVistas;
     private Stage primaryStage;
-    private Stage stage;
   
     public Sabga(){
            
@@ -66,8 +67,9 @@ public class Sabga extends Application {
         pantallas.loadScreen(Sabga.paginaRegistroUsuariosId, Sabga.paginaRegistroUsuariosArchivo);
         pantallas.loadScreen(Sabga.paginaEstadoUsuarioId, Sabga.paginaEstadoUsuarioArchivo);
         pantallas.loadScreen(Sabga.paginaRegistroAdminId, Sabga.paginaRegistroAdminArchivo);
-        pantallas.setScreen(Sabga.paginaInicialId);   
-         
+        pantallas.loadScreen(Sabga.paginEdicionAdminId, Sabga.paginEdicionAdminArchivo);
+        pantallas.setScreen(Sabga.paginaInicialId);
+                 
     }
     
     public Stage getStage(){
@@ -83,6 +85,11 @@ public class Sabga extends Application {
     public void cambiarVista(String pantalla){
         
         pantallas.setScreen(pantalla);
+    }
+    
+    public void descargarPantalla(String pantallaId){
+        
+        pantallas.unloadScreen(pantallaId);
     }
     
     @Override
