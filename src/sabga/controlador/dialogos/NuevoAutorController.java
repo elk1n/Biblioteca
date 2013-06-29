@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sabga.modelo.ValidarMaterial;
 
 /**
  * 
@@ -13,7 +14,7 @@ import javafx.stage.Stage;
  *
  */
 
-public class NuevoAutorController  {
+public class NuevoAutorController extends ValidarMaterial{
 
     private Stage dialogStage;
     
@@ -28,22 +29,16 @@ public class NuevoAutorController  {
  
  public void validarCampos(ActionEvent evento){
      
-     if (campoNombreNuevoAutor == null || campoNombreNuevoAutor.getText().equals("") || campoNombreNuevoAutor.getText().length()>45 || campoNombreNuevoAutor.getText().isEmpty()){
-          
-          validarNombreAutor.setText("Debe rellenar este campo");         
-      }
-     else{
+     if (validarCampoTexto(campoNombreNuevoAutor.getText(), 45) == false){
          
-         validarNombreAutor.setText(""); 
+         validarNombreAutor.setText(getMensajeError());         
      }
-     if (campoApellidosNuevoAutor == null || campoApellidosNuevoAutor.getText().equals("") || campoApellidosNuevoAutor.getText().length()>45 || campoApellidosNuevoAutor.getText().isEmpty()){
+    
+     if (validarCampoTexto(campoApellidosNuevoAutor.getText(), 45) == false){
           
-          validarApellidosAutor.setText("Debe rellenar este campo");         
+          validarApellidosAutor.setText(getMensajeError());         
       }
-     else{
-          validarApellidosAutor.setText("");
-     }
- 
+   
  }
  
     @FXML

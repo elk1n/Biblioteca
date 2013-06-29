@@ -95,7 +95,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                                                     campoEjemplares.getText(), campoEditorial.getText(),campoAutor.getText(),
                                                     campoMateria.getText(), comboClaseMaterial.getSelectionModel().getSelectedItem());
        
-       validarMaterial.validarMaterial();
+       validarMaterial.validarNuevoMaterial();
        validarCodigo.setText(validarMaterial.getErrorCodigoMaterial());
        validarClasificacion.setText(validarMaterial.getErrorNumeroClasificacion());
        validarTitulo.setText(validarMaterial.getErrorTitulo());
