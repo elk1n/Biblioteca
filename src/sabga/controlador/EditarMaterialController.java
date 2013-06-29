@@ -109,15 +109,15 @@ public class EditarMaterialController implements Initializable, ControlledScreen
                                                          campoMateria9AC.getText(), campoMateria10AC.getText()); 
 
             validarActualizacion.validarActualizacionMaterial();
-            validarCodigoClasificacionAC.setText(validarActualizacion.getErrorCodigoClasificacionAC());
-            validarTituloAC.setText(validarActualizacion.getErrorTituloAC());
-            validarAnioPublicacionAC.setText(validarActualizacion.getErrorAnioPublicacionAC());
-            validarPublicacionAC.setText(validarActualizacion.getErrorPublicacionAC());
-            validarNumeroPaginasAC.setText(validarActualizacion.getErrorNumeroPaginasAC());
-            validarEditorialAC.setText(validarActualizacion.getErrorEditorialAC());
-            validarEstadoAC.setText(validarActualizacion.getErrorEstadoAC());
-            validarAutoresAC.setText(validarActualizacion.getErrorAutorAC());
-            validarMateriasAC.setText(validarActualizacion.getErrorMateriaAC());
+            validarCodigoClasificacionAC.setText(validarActualizacion.getErrorCodigoClasificacion());
+            validarTituloAC.setText(validarActualizacion.getErrorTitulo());
+            validarAnioPublicacionAC.setText(validarActualizacion.getErrorAnioPublicacion());
+            validarPublicacionAC.setText(validarActualizacion.getErrorPublicacion());
+            validarNumeroPaginasAC.setText(validarActualizacion.getErrorNumeroPaginas());
+            validarEditorialAC.setText(validarActualizacion.getErrorEditorial());
+            validarEstadoAC.setText(validarActualizacion.getErrorEstado());
+            validarAutoresAC.setText(validarActualizacion.getErrorAutor());
+            validarMateriasAC.setText(validarActualizacion.getErrorMateria());
             
 
             if (acordeonMaterias.isExpanded()==false && validarMateriasAC.getText()!=null){
