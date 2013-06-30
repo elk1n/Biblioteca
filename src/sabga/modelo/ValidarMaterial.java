@@ -368,7 +368,7 @@ public class ValidarMaterial {
       return this.errorCodigoMaterial;
     }
   
-    public String getErrorNumeroClasificacion(){      
+    public String getErrorCodigoClasificacion(){      
       return this.errorCodigoClasificacion;
     }
   

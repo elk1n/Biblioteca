@@ -97,7 +97,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
        
        validarMaterial.validarNuevoMaterial();
        validarCodigo.setText(validarMaterial.getErrorCodigoMaterial());
-       validarClasificacion.setText(validarMaterial.getErrorNumeroClasificacion());
+       validarClasificacion.setText(validarMaterial.getErrorCodigoClasificacion());
        validarTitulo.setText(validarMaterial.getErrorTitulo());
        validarAnioPublicacion.setText(validarMaterial.getErrorAnioPublicacion());
        validarPublicacion.setText(validarMaterial.getErrorPublicacion());
@@ -118,12 +118,12 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                                                       comboClaseMaterialOM.getSelectionModel().getSelectedItem(), campoNumeroCopias.getText());
         
         validarMaterialOM.validarMaterialOM();
-        validarCodigoMaterialOM.setText(validarMaterialOM.getErrorCodigoMaterialOM());
-        validarNumeroClasificacionOM.setText(validarMaterialOM.getErrorNumeroClasificacionOM());
-        validarTituloOM.setText(validarMaterialOM.getErrorTituloOM());
-        validarMateriaOM.setText(validarMaterialOM.getErrorMateriaOM());
+        validarCodigoMaterialOM.setText(validarMaterialOM.getErrorCodigoMaterial());
+        validarNumeroClasificacionOM.setText(validarMaterialOM.getErrorCodigoClasificacion());
+        validarTituloOM.setText(validarMaterialOM.getErrorTitulo());
+        validarMateriaOM.setText(validarMaterialOM.getErrorMateria());
         validarTipoMaterialOM.setText(validarMaterialOM.getErrorTipoMaterial());
-        validarClaseMaterialOM.setText(validarMaterialOM.getErrorClaseMaterialOM());
+        validarClaseMaterialOM.setText(validarMaterialOM.getErrorClaseMaterial());
         validarNumeroCopiasOM.setText(validarMaterialOM.getErrorNumeroEjemplares());
     
     }

@@ -155,10 +155,10 @@ public class EditarMaterialController implements Initializable, ControlledScreen
                                                                campoMateria7AC.getText(), campoMateria8AC.getText(),campoMateria9AC.getText(), campoMateria10AC.getText());
             
             validarActualizacionOM.validarActualizacionOM();
-            validarCodigoClasificacionAC.setText(validarActualizacionOM.getErrorCodigoClasificacionAC());
-            validarTituloAC.setText(validarActualizacionOM.getErrorTituloAC());
-            validarEstadoAC.setText(validarActualizacionOM.getErrorEstadoAC());
-            validarMateriasAC.setText(validarActualizacionOM.getErrorMateriaAC());
+            validarCodigoClasificacionAC.setText(validarActualizacionOM.getErrorCodigoClasificacion());
+            validarTituloAC.setText(validarActualizacionOM.getErrorTitulo());
+            validarEstadoAC.setText(validarActualizacionOM.getErrorEstado());
+            validarMateriasAC.setText(validarActualizacionOM.getErrorMateria());
             
             if (acordeonMaterias.isExpanded()==false && validarMateriasAC.getText()!=null){
             
