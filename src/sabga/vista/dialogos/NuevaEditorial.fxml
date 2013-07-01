@@ -32,8 +32,8 @@
     </GridPane>
     <HBox id="HBox" alignment="CENTER" layoutX="92.0" layoutY="181.0" spacing="30.0">
       <children>
-        <Button mnemonicParsing="false" text="Cancelar" />
-        <Button mnemonicParsing="false" onAction="#validarCampos" text="Guardar Editorial">
+        <Button mnemonicParsing="false" cancelButton="false"  text="Cancelar" />
+        <Button mnemonicParsing="false" onAction="#guardarNuevaEditorial" text="Guardar Editorial">
           <tooltip>
             <Tooltip text="Esto es una prueba" />
           </tooltip>

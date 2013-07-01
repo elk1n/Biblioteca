@@ -14,7 +14,7 @@ import sabga.modelo.ValidarMaterial;
  *
  */
 
-public class NuevoAutorController extends ValidarMaterial{
+public class NuevoAutorController{
 
     private Stage dialogStage;
     
@@ -27,19 +27,23 @@ public class NuevoAutorController extends ValidarMaterial{
      this.dialogStage = dialogStage;	
  }
  
- public void validarCampos(ActionEvent evento){
+ @FXML
+ public void guardarNuevoAutor(ActionEvent evento){
      
-     if (validarCampoTexto(campoNombreNuevoAutor.getText(), 45) == false){
-         
-         validarNombreAutor.setText(getMensajeError());         
-     }
-    
-     if (validarCampoTexto(campoApellidosNuevoAutor.getText(), 45) == false){
-          
-          validarApellidosAutor.setText(getMensajeError());         
-      }
-   
+     nuevoAutor();
+ 
  }
+ 
+  public void nuevoAutor(){
+      
+      ValidarMaterial validarNuevoAutor = new ValidarMaterial(campoNombreNuevoAutor.getText(), campoApellidosNuevoAutor.getText());
+      
+      validarNuevoAutor.validarAutorAC();
+      validarNombreAutor.setText(validarNuevoAutor.getErrorNombreAutor());
+      validarApellidosAutor.setText(validarNuevoAutor.getErrorApellidosAutor());
+      
+  }
+ 
  
     @FXML
     public void initialize() {

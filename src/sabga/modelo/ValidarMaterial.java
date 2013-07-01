@@ -16,15 +16,12 @@ public class ValidarMaterial {
 
    private String codigoMaterial, codigoClasificacion, titulo, anioPublicacion, publicacion, numeroPaginas, ejemplares, 
            editorial, autor, materia, habilitado, inhabilitado, mantenimiento, nombreAutor, apellidosAutor, nombreEditorial,
-           nombreMateria,           
-           autor0, autor1, autor2, autor3, autor4, autor5, autor6, autor7, autor8, autor9,
+           nombreMateria, autor0, autor1, autor2, autor3, autor4, autor5, autor6, autor7, autor8, autor9,
            materia0, materia1, materia2, materia3, materia4, materia5, materia6, materia7, materia8, materia9,
            
            errorCodigoMaterial, errorCodigoClasificacion, errorTitulo, errorAnioPublicacion, errorPublicacion, errorNumeroPaginas,
-           errorEjemplares, errorEditorial, errorAutor, errorMateria, errorTipoMaterial, errorClaseMaterial,
-           errorEstado, mensajeError,
-          
-           errorNombreAutor, errorApellidosAutor, errorNombreEditorial, errorNombreMateria;
+           errorEjemplares, errorEditorial, errorAutor, errorMateria, errorTipoMaterial, errorClaseMaterial, errorEstado, 
+           mensajeError, errorNombreAutor, errorApellidosAutor, errorNombreEditorial, errorNombreMateria;
         
    private Calendar calendario;
    private Object tipoMaterial, claseMaterial;
@@ -153,6 +150,22 @@ public class ValidarMaterial {
         
    }
    
+   //           CONSTRUCTOR PARA VALIDAR UN NUEVO AUTOR         ---
+   
+   public ValidarMaterial(String nombreAutor, String apellidosAutor){
+       
+       this.nombreAutor = nombreAutor;
+       this.apellidosAutor = apellidosAutor;
+   }
+   
+   //           CONSTRUCTOR PARA VALIDAR UNA NUEVA MATERIA O UNA EDITORIAL          ---
+   
+   public ValidarMaterial(String nombre){
+       
+       this.nombreEditorial = nombre;
+       
+   }
+     
     public void validarActualizacionOM(){
         
         if(validarCampoTexto(this.codigoClasificacion, 45)==false ){

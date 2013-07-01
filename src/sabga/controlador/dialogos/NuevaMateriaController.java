@@ -6,10 +6,12 @@ package sabga.controlador.dialogos;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sabga.modelo.ValidarMaterial;
 
 /**
  * FXML Controller class
@@ -30,18 +32,20 @@ public class NuevaMateriaController {
      this.dialogStage = dialogStage;	
  }
 
- public void validarCampos(){
+ @FXML
+ public void guardarNuevaMateria(ActionEvent evento){
      
-     if (campoNuevaMateria== null || campoNuevaMateria.getText().equals("") || campoNuevaMateria.getText().length()>45 || campoNuevaMateria.getText().isEmpty()){
-          
-          validarNuevaMateria.setText("Debe rellenar este campo");         
-      }
-     else{
-         
-         validarNuevaMateria.setText(""); 
-     }
+   nuevaMateria();
+  
  }
  
+ public void nuevaMateria(){
+     
+     ValidarMaterial validarMateria = new ValidarMaterial(campoNuevaMateria.getText());
+     
+     validarMateria.validarEditorialAC();
+     validarNuevaMateria.setText(validarMateria.getErrorNombreEditorial());
+ }
  
  
     public void initialize(URL url, ResourceBundle rb) {

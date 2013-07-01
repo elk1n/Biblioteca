@@ -3,10 +3,12 @@ package sabga.controlador.dialogos;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sabga.modelo.ValidarMaterial;
 
 /**
  *
@@ -25,16 +27,20 @@ public class NuevaEditorialController {
      this.dialogStage = dialogStage;	
  }
 
- public void validarCampos(){
+ @FXML
+ public void guardarNuevaEditorial(ActionEvent evento){
      
-     if (campoNuevaEditorial == null || campoNuevaEditorial.getText().equals("") || campoNuevaEditorial.getText().length()>45 || campoNuevaEditorial.getText().isEmpty()){
-          
-          validarNuevaEditorial.setText("Debe rellenar este campo");         
-      }
-     else{
-         
-         validarNuevaEditorial.setText(""); 
-     }
+     nuevaEditorial();
+ }
+ 
+ 
+ public void nuevaEditorial(){
+     
+     ValidarMaterial validarEditorial = new ValidarMaterial(campoNuevaEditorial.getText());
+     
+     validarEditorial.validarEditorialAC();
+     validarNuevaEditorial.setText(validarEditorial.getErrorNombreEditorial());
+     
  }
     /**
      * Initializes the controller class.

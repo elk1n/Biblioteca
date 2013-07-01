@@ -33,7 +33,7 @@
     <HBox id="HBox" alignment="CENTER" layoutX="80.0" layoutY="181.0" spacing="30.0">
       <children>
         <Button mnemonicParsing="false" text="Cancelar" />
-        <Button mnemonicParsing="false" onAction="#validarCampos" text="Guardar Materia" />
+        <Button mnemonicParsing="false" onAction="#guardarNuevaMateria" text="Guardar Materia" />
       </children>
     </HBox>
   </children>
