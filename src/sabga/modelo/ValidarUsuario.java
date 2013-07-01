@@ -106,6 +106,45 @@ public class ValidarUsuario {
         this.confirmacion = confirmacion;
     }
     
+    public ValidarUsuario(String contrasenia, String confirmacion){
+        
+        this.nuevaContrasenia = contrasenia;
+        this.confirmacion = confirmacion;
+        
+    }
+    
+    public void  validarContrasenia(){
+        
+        if(validarContrasenia(this.nuevaContrasenia, this.confirmacion, 20) == false){
+            
+            this.errorNuevaContrasenia = getMensajeError();
+            this.errorConfirmacion = getMensajeError();
+        }
+    
+    }
+    
+    
+        public boolean validarRestablecer(){
+        
+        if(validarCampoTexto(this.contrasenia, 20) == false){
+            this.errorContrasenia = getMensajeError();
+            return false;
+        }
+        
+        if(validarNumero(this.nuevaContrasenia, 12) == false){
+            this.errorNuevaContrasenia = getMensajeError();
+            return false;
+        }
+        
+        if(validarCorreo(this.confirmacion, 45) == false){
+            this.errorConfirmacion = getMensajeError();
+            return false;
+        }
+        else{
+            return true;
+        }
+    }     
+    
     public void validarNuevaContrasenia(){
         
         if(validarCampoTexto(this.contrasenia, 20) == false){

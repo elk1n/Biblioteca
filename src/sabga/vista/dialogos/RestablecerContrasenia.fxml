@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" minHeight="461.0" prefHeight="560.0" prefWidth="571.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.dialogos.RestablecerContraseniaController">
+  <children>
+    <Label layoutX="200.0" layoutY="14.0" prefHeight="16.999900000002526" text="Restablecer Contraseña">
+      <font>
+        <Font name="System Bold" size="14.0" />
+      </font>
+    </Label>
+    <GridPane id="GridPane" gridLinesVisible="false" layoutX="80.0" layoutY="85.0" prefHeight="168.0" prefWidth="409.0">
+      <children>
+        <Label text="Usuario" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <Label text="Documento" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label text="Correo Electrónico" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <TextField id="campoNombre" fx:id="campoUsuario" prefHeight="30.0" prefWidth="250.0" promptText="Nombre de usuario" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <TextField fx:id="campoDocumento" prefHeight="30.0" prefWidth="250.0" promptText="Documento de indentidad" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <TextField fx:id="campoCorreo" prefHeight="30.0" prefWidth="250.0" promptText="E-mail" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <Label fx:id="validarCorreo" alignment="CENTER_RIGHT" prefWidth="245.0" text="Validacion" GridPane.columnIndex="1" GridPane.rowIndex="5">
+          <textFill>
+            <Color blue="0.000" green="0.145" red="0.600" fx:id="x2" />
+          </textFill>
+        </Label>
+        <Label fx:id="validarDocumento" alignment="CENTER_RIGHT" prefWidth="245.0" text="Validacion" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+          <textFill>
+            <Color blue="0.000" green="0.145" red="0.600" fx:id="x1" />
+          </textFill>
+        </Label>
+        <Label fx:id="validarUsuario" alignment="CENTER_RIGHT" prefWidth="245.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="164.0" minWidth="10.0" prefWidth="164.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="10.0" prefWidth="245.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="18.0" minHeight="10.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="18.0" minHeight="10.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="18.0" minHeight="10.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+    <GridPane id="GridPane" layoutX="80.0" layoutY="298.0" prefHeight="206.0" prefWidth="409.0">
+      <children>
+        <Label fx:id="etiquetaContrasenia" text="Nueva Contraseña" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <PasswordField fx:id="campoContrasenia" prefHeight="30.0" prefWidth="250.0" promptText="Nueva contraseña" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Label fx:id="validarContrasenia" alignment="CENTER_RIGHT" prefWidth="245.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label fx:id="etiquetaConfirmar" text="Confirmar Contraseña" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <PasswordField fx:id="campoConfirmacion" prefHeight="30.0" prefWidth="250.0" promptText="Confirmar la nueva contraseña" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Label fx:id="ValidarConfirmacion" alignment="CENTER_RIGHT" prefWidth="245.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Button mnemonicParsing="false" onAction="#buscarUsuario" text="Buscar Datos" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <Button fx:id="botonRestablecer" mnemonicParsing="false" onAction="#nuevaContrasenia" text="Reestablecer Contraseña" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="168.0" minWidth="10.0" prefWidth="165.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="10.0" prefWidth="244.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="18.0" minHeight="10.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="18.0" minHeight="10.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+    <Label id="ValidarConfirmacion" fx:id="validacion" alignment="CENTER_RIGHT" layoutX="79.0" layoutY="263.0" prefWidth="409.0" text="Validacion" textFill="$x2" wrapText="true" />
+  </children>
+</AnchorPane>
