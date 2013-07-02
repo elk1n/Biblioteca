@@ -14,9 +14,11 @@ import javafx.stage.Stage;
 import sabga.controlador.PaginaPrincipalController;
 import sabga.controlador.dialogos.DetalleMaterialController;
 import sabga.controlador.dialogos.DetalleUsuarioController;
+import sabga.controlador.dialogos.InicioSesionController;
 import sabga.controlador.dialogos.NuevaMateriaController;
 import sabga.controlador.dialogos.NuevaEditorialController;
 import sabga.controlador.dialogos.NuevoAutorController;
+import sabga.controlador.dialogos.RestablecerContraseniaController;
 
 /**
  *
@@ -48,7 +50,7 @@ public class Sabga extends Application {
     public static String paginEdicionAdminId = "paginaEditarAdministrador";
     public static String paginEdicionAdminArchivo = "vista/EditarAdministrador.fxml";
     
-    private Stage ventanaPrincipal;
+    private Stage ventanaPrincipal, inicioDeSesion;
     private BorderPane rootLayout;
     private ScreensController pantallas;           
     private ScreensController controller;
@@ -105,13 +107,22 @@ public class Sabga extends Application {
         rootLayout = (BorderPane) cargador.load();
         Scene scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
-        primaryStage.show();        
+        
+        dialogoInicioSesion();
+        
+      //primaryStage.show();        
           
         PaginaPrincipalController controller = cargador.getController();
         controller.setVentanaPrincipal(this);
         
         mostrarVistas();
     
+    }
+    
+    public void inciarSesion(){
+   
+        primaryStage.show();
+        inicioDeSesion.close();
     }
     
     public void mostrarVistas(){
@@ -245,9 +256,59 @@ public class Sabga extends Application {
             dialogStage.showAndWait();
 
         } catch (IOException e) {
-          }
-        
+          
+        }
     }
+    
+    public void dialogoInicioSesion(){
+        
+         try {
+    
+            FXMLLoader loader = new FXMLLoader(Sabga.class.getResource("vista/dialogos/InicioSesion.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            inicioDeSesion = new Stage();
+            inicioDeSesion.setTitle("Inicio De Sesión");
+            inicioDeSesion.initModality(Modality.WINDOW_MODAL);
+            inicioDeSesion.centerOnScreen();           
+           // dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
+            inicioDeSesion.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            inicioDeSesion.setScene(scene);
+            
+            InicioSesionController controller = loader.getController();
+            controller.setVentanaPrincipal(this);
+            inicioDeSesion.show();
+           
+
+        } catch (IOException e) {
+          
+        }
+    }
+    
+     public void dialogoRestablecerContrasenia(){
+        
+         try {
+    
+            FXMLLoader loader = new FXMLLoader(Sabga.class.getResource("vista/dialogos/RestablecerContrasenia.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            inicioDeSesion = new Stage();
+            inicioDeSesion.setTitle("Restablecer Contraseña");
+            inicioDeSesion.initModality(Modality.WINDOW_MODAL);
+            inicioDeSesion.centerOnScreen();           
+           // dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
+            inicioDeSesion.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            inicioDeSesion.setScene(scene);
+            
+            RestablecerContraseniaController controller = loader.getController();
+            controller.setVentanaPrincipal(this);
+            inicioDeSesion.show();
+           
+
+        } catch (IOException e) {
+          
+        }
+     }
     /**
      * The main() method is ignored in correctly deployed JavaFX application.
      * main() serves only as fallback in case the application can not be

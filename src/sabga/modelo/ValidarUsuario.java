@@ -113,7 +113,22 @@ public class ValidarUsuario {
         
     }
     
-    public void  validarContrasenia(){
+    public void validarUsuario(String usuario, String contrasenia){
+        
+        this.nombreUsuario = usuario;
+        this.contrasenia = contrasenia;
+        
+        if (validarCampoTexto(this.nombreUsuario, 20) == false){
+            this.errorNombreUsuario = getMensajeError();
+        }
+        
+        if (validarCampoTexto(this.contrasenia, 20) == false){
+            this.errorContrasenia = getMensajeError();
+        }
+    
+    }
+    
+    public void validarContrasenia(){
         
         if(validarContrasenia(this.nuevaContrasenia, this.confirmacion, 20) == false){
             
@@ -122,27 +137,22 @@ public class ValidarUsuario {
         }
     
     }
-    
-    
-        public boolean validarRestablecer(){
+   
+    public void validarRestablecer(){
         
+                     
         if(validarCampoTexto(this.contrasenia, 20) == false){
             this.errorContrasenia = getMensajeError();
-            return false;
         }
         
         if(validarNumero(this.nuevaContrasenia, 12) == false){
             this.errorNuevaContrasenia = getMensajeError();
-            return false;
         }
         
         if(validarCorreo(this.confirmacion, 45) == false){
             this.errorConfirmacion = getMensajeError();
-            return false;
         }
-        else{
-            return true;
-        }
+        
     }     
     
     public void validarNuevaContrasenia(){
@@ -370,6 +380,7 @@ public class ValidarUsuario {
             
             this.mensajeError = "Máximo "+numeroCaracteres+" caracteres";
             return false;
+            
         }
         
         else if(campoTexto.trim().equals("")){

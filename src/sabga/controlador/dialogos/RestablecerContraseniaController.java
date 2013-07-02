@@ -10,10 +10,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import sabga.Sabga;
+import sabga.modelo.ConfirmarUsuario;
 import sabga.modelo.ValidarUsuario;
 
 
 public class RestablecerContraseniaController implements Initializable {
+    
+    private Sabga ventanaPrincipal; 
 
     @FXML private Label validarUsuario, validarDocumento, validarCorreo, validarContrasenia, validarConfirmacion, 
                         etiquetaContrasenia, etiquetaConfirmar;
@@ -25,10 +29,27 @@ public class RestablecerContraseniaController implements Initializable {
     @FXML private PasswordField campoContrasenia, campoConfirmacion;
     
     
+    public void setVentanaPrincipal(Sabga ventanaPrincipal) {
+        
+	this.ventanaPrincipal = ventanaPrincipal;
+    }
     @FXML
     public void buscarUsuario(ActionEvent evento){
         
         validarDatos();
+         ConfirmarUsuario confirmar = new ConfirmarUsuario();
+         if(confirmar.confirmarDatosUsuario(campoUsuario.getText(), campoDocumento.getText(), campoCorreo.getText())){
+            
+            etiquetaContrasenia.setVisible(true);
+            etiquetaConfirmar.setVisible(true);
+            campoContrasenia.setVisible(true);
+            campoConfirmacion.setVisible(true);
+            botonRestablecer.setVisible(true);
+            campoUsuario.setDisable(true);
+            campoDocumento.setDisable(true);
+            campoCorreo.setDisable(true);
+         }
+        
     
     }
     
@@ -41,22 +62,11 @@ public class RestablecerContraseniaController implements Initializable {
     public void validarDatos(){
         
         ValidarUsuario validarDatos = new ValidarUsuario(campoUsuario.getText(), campoDocumento.getText(), campoCorreo.getText());
-        if( validarDatos.validarRestablecer()){
-            
-            etiquetaContrasenia.setVisible(true);
-            etiquetaConfirmar.setVisible(true);
-            campoContrasenia.setVisible(true);
-            campoConfirmacion.setVisible(true);
-            botonRestablecer.setVisible(true);
-            
-        }
-        else{
-            
-            validarUsuario.setText(validarDatos.getErrorContrasenia());
-            validarDocumento.setText(validarDatos.getErrorNuevaContrasenia());
-            validarCorreo.setText(validarDatos.getErrorConfirmacion());
-        }          
-        
+        validarDatos.validarRestablecer();
+        validarUsuario.setText(validarDatos.getErrorContrasenia());
+        validarDocumento.setText(validarDatos.getErrorNuevaContrasenia());
+        validarCorreo.setText(validarDatos.getErrorConfirmacion());
+      
     }
     
     public void validarNuevaContrasenia(){
