@@ -62,72 +62,86 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         
 	this.ventanaPrincipal = ventanaPrincipal;
     } 
-       
-    public void ventanaRegistroMaterial(){
+    
+    @FXML
+    public void ventanaRegistroMaterial(ActionEvent evento){
         
         ventanaPrincipal.cambiarVista("paginaRegistroMaterial");        
     }
     
-    public void ventanaInicio(){
+    @FXML
+    public void ventanaInicio(ActionEvent evento){
         
         ventanaPrincipal.cambiarVista("paginaInicio1");
     }
     
-    public void ventanaActualizarMaterial(){
+    @FXML
+    public void ventanaActualizarMaterial(ActionEvent evento){
         
         ventanaPrincipal.cambiarVista("paginaActualizarMaterial");
     }
     
-    public void ventanaActualizarEMA(){
+    @FXML
+    public void ventanaActualizarEMA(ActionEvent evento){
         
         ventanaPrincipal.cambiarVista("paginaActualizarEMA");
     }
     
-    public void ventanaPrestamo(){
+    @FXML
+    public void ventanaPrestamo(ActionEvent evento){
         
         ventanaPrincipal.cambiarVista("paginaPrestamo");
     }
     
-    public void ventanaRegistroUsuarios(){
+    @FXML
+    public void ventanaRegistroUsuarios(ActionEvent evento){
         
         ventanaPrincipal.cambiarVista("paginaRegistroUsuarios");
     }
     
-    public void ventanaEstadoUsuario(){
+    @FXML
+    public void ventanaEstadoUsuario(ActionEvent evento){
         
         ventanaPrincipal.cambiarVista("paginaEstadoUsuario");
     }
     
-    public void ventanaRegistroAdmin(){
+    @FXML
+    public void ventanaRegistroAdmin(ActionEvent evento){
        
         ventanaPrincipal.cambiarVista("paginaRegistroAdmin");
     }
     
-    public void vantanaEditarAdmin(){
+    @FXML
+    public void vantanaEditarAdmin(ActionEvent evento){
         
         ventanaPrincipal.cambiarVista("paginaEditarAdministrador");
     }
     
     @FXML
-    public void dialogoNuevoAutor(){
+    public void ventanaDevolucion(ActionEvent evento){
+        
+        ventanaPrincipal.cambiarVista("paginaDevolucion");
+    }
+    @FXML
+    public void dialogoNuevoAutor(ActionEvent evento){
         
         ventanaPrincipal.mostrarNuevoAutor();
     }
     
     @FXML
-    public void dialogoNuevaMateria(){
+    public void dialogoNuevaMateria(ActionEvent evento){
 
         ventanaPrincipal.mostrarNuevaMateria();
     }
     
     @FXML
-    public void dialogoNuevaEditorial(){
+    public void dialogoNuevaEditorial(ActionEvent evento){
         
         ventanaPrincipal.mostrarNuevaEditorial();
     }
     
-     @FXML
-    private void opcionesBusqueda(ActionEvent event) {
+   @FXML
+    private void opcionesBusqueda(ActionEvent evento) {
         
         if(radioUsuario.isSelected()){
             
@@ -142,13 +156,19 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     }
     
     @FXML
-    private void salir(){
+    private void salir(ActionEvent evento){
 
          DialogResponse responder = Dialogs.showConfirmDialog(ventanaPrincipal.getStage(), "Los cambios no guradados se perderan","Realmente desea salir?","Salir de SABGA", DialogOptions.OK_CANCEL);
          if(responder.equals(responder.OK)){
              
              System.exit(0);         
          }     
+    }
+    
+    @FXML
+    public void cerrarSesion(ActionEvent evento){
+        
+        ventanaPrincipal.cerrarSesion();
     }
     
     @FXML

@@ -4,6 +4,7 @@ package sabga.controlador;
 import java.net.URL;
 
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -47,19 +48,20 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     } 
     
     @FXML
-    public void habilitarMulta(){
+    public void habilitarMulta(ActionEvent evento){
         
         campoMulta.setDisable(false);
     }
     
-     @FXML
-    public void dialogoDetalleUsuario(){
+    @FXML
+    public void dialogoDetalleUsuario(ActionEvent evento){
         
         paginaPrincipal = new Sabga();
         paginaPrincipal.dialogoDetalleUsuario();        
     }
     
-    public void validarDatos(){
+    @FXML
+    public void validarDatos(ActionEvent evento){
         
         ValidarUsuario validarDatosUsuario = new ValidarUsuario(campoNombre.getText(), campoApellidos.getText(), campoDocumento.getText(),
                                                                 campoCorreo.getText(), campoTelefono.getText(), campoDireccion.getText(),campoMulta.getText());
@@ -80,8 +82,7 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
         campoMulta.setText("5500");
         comboTipoUsuario.getSelectionModel().selectFirst();
         comboGrupo.getSelectionModel().selectLast();
-        
-    
+            
     }
 }
     

@@ -21,9 +21,9 @@ import sabga.configuracion.ControlledScreen;
 import sabga.modelo.ValidarMaterial;
 
 /**
- * FXML Controller class
  *
  * @author Elk1n
+ * 
  */
 
 public class EditarMaterialController implements Initializable, ControlledScreen {
@@ -66,28 +66,28 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     }
     
     @FXML
-     public void dialogoNuevaEditorial(){
+     public void dialogoNuevaEditorial(ActionEvent evento){
         
         ventanaPrincipal = new Sabga();
         ventanaPrincipal.mostrarNuevaEditorial();
      }
     
     @FXML
-    public void dialogoNuevoAutor(){
+    public void dialogoNuevoAutor(ActionEvent evento){
         
         ventanaPrincipal = new Sabga();
         ventanaPrincipal.mostrarNuevoAutor();
     }
     
     @FXML
-    public void dialogoNuevaMateria(){
+    public void dialogoNuevaMateria(ActionEvent evento){
         
         ventanaPrincipal = new Sabga();
         ventanaPrincipal.mostrarNuevaMateria();
     }
     
     @FXML
-    public void dialogoDetalleMaterial(){
+    public void dialogoDetalleMaterial(ActionEvent evento){
         
         ventanaPrincipal = new Sabga();
         ventanaPrincipal.dialogoDetalleMaterial();        

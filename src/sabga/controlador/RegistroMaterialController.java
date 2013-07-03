@@ -82,7 +82,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     }
     
      @FXML
-     public void dialogoNuevaEditorial(){
+     public void dialogoNuevaEditorial(ActionEvent evento){
         ventanaPrincipal = new Sabga();
         ventanaPrincipal.mostrarNuevaEditorial();
      }
@@ -111,7 +111,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
    }
    
     @FXML
-    public void validarCamposOM(){
+    public void validarCamposOM(ActionEvent evento){
             
         ValidarMaterial validarMaterialOM = new ValidarMaterial(campoCodigoMaterialOM.getText(), campoNumeroClasificacionOM.getText(), campoTituloOM.getText(),
                                                       campoMateriaOM.getText(), comboTipoMaterial.getSelectionModel().getSelectedItem(),

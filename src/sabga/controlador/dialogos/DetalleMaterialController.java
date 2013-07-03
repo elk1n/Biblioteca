@@ -7,7 +7,6 @@ import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
  *
  * @author Elk1n
  * 

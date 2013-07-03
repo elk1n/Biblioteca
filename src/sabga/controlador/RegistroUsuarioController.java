@@ -52,6 +52,7 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
 
     }
     
+    @FXML
     public void registrarNuevoUsuario(ActionEvent evento){
         
         if(comboTipoUsuario.getSelectionModel().getSelectedIndex() == 0){
@@ -90,7 +91,8 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
         
     }
     
-    public void mostrarGrid(){
+    @FXML
+    public void mostrarGrid(ActionEvent evento){
         
         if (comboTipoUsuario.getSelectionModel().getSelectedIndex()==0){
             

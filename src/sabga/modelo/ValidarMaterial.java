@@ -7,9 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *
  * @author Elk1n
- *
  */
 
 public class ValidarMaterial {

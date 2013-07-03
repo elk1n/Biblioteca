@@ -43,7 +43,7 @@
                     <MenuItem mnemonicParsing="false" onAction="#vantanaEditarAdmin" text="Editar Administrador" />
                   </items>
                 </Menu>
-                <MenuItem mnemonicParsing="false" text="Cerrar Sesión" />
+                <MenuItem mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" />
               </items>
               <HBox.margin>
                 <Insets fx:id="x3" />
@@ -138,7 +138,8 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Prestamo">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#ventanaPrestamo" text="Realizar Prestamo" />
+                <MenuItem mnemonicParsing="false" onAction="#ventanaPrestamo" text="Prestamo" />
+                <MenuItem mnemonicParsing="false" onAction="#ventanaDevolucion" text="Devolución" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Paz y Salvo">

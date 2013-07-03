@@ -3,6 +3,7 @@ package sabga.controlador;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -48,7 +49,8 @@ public class EditarAdministradorController implements Initializable, ControlledS
 	this.ventanaPrincipal = ventanaPrincipal;
     } 
     
-    public void validarDatos(){
+    @FXML
+    public void validarDatos(ActionEvent evento){
         
         ValidarUsuario validarEdicion = new ValidarUsuario(campoNombre.getText(), campoApellidos.getText(), campoUsuario.getText(), campoCorreo.getText(),
                                                            campoDocumento.getText(), campoTelefono.getText(), comboEstado.getSelectionModel().getSelectedItem());
@@ -63,7 +65,8 @@ public class EditarAdministradorController implements Initializable, ControlledS
     
     } 
     
-    public void validarNuevaContrasenia(){
+    @FXML
+    public void validarNuevaContrasenia(ActionEvent evento){
         
         ValidarUsuario validarNuevaContra = new ValidarUsuario(campoContrasenia.getText(), campoNuevaContrasenia.getText(), campoConfirmacion.getText());
         

@@ -26,7 +26,7 @@ public class InicioSesionController implements Initializable{
     @FXML private Label validarUsuario, validacion;
     
     @FXML private ComboBox comboTipoAdmin;
-      
+ 
    
     public void setVentanaPrincipal(Sabga ventanaPrincipal) {
         
@@ -40,13 +40,15 @@ public class InicioSesionController implements Initializable{
         ConfirmarUsuario confirmar = new ConfirmarUsuario();
         
         if(confirmar.confirmarUsuario(campoUsuario.getText(), campoContrasenia.getText())){
-           this.ventanaPrincipal.inciarSesion(); 
+           this.ventanaPrincipal.inciarSesion();
+           campoUsuario.clear();
+           campoContrasenia.clear();
         }
                  
     }
     
     @FXML
-    public void restablecerContrasenia(){
+    public void restablecerContrasenia(ActionEvent evento){
         
        this.ventanaPrincipal.dialogoRestablecerContrasenia();
         

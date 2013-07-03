@@ -33,7 +33,6 @@ public class NuevaEditorialController {
      nuevaEditorial();
  }
  
- 
  public void nuevaEditorial(){
      
      ValidarMaterial validarEditorial = new ValidarMaterial(campoNuevaEditorial.getText());

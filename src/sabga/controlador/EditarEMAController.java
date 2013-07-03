@@ -15,10 +15,11 @@ import sabga.configuracion.ControlledScreen;
 import sabga.modelo.ValidarMaterial;
 
 /**
- * FXML Controller class
  *
  * @author Elk1n
+ 
  */
+
 public class EditarEMAController implements Initializable, ControlledScreen {
   
     private Sabga ventanaPrincipal;
@@ -47,6 +48,7 @@ public class EditarEMAController implements Initializable, ControlledScreen {
         this.ventanaPrincipal = ventanaPrincipal;
     }
     
+    @FXML
     public void validarActualizarEMA(ActionEvent evento){
         
         ValidarMaterial validar = new ValidarMaterial(campoNombreAutor.getText(), campoApellidosAutor.getText(), campoEditorial.getText(), campoMateria.getText());
@@ -65,9 +67,7 @@ public class EditarEMAController implements Initializable, ControlledScreen {
        else if(acordeonMateria.isExpanded()){
            validar.validarMateriaAC();
            validarMateria.setText(validar.getErrorNombreMateria());
-       }
-       
-       
+       }      
       
     }
     

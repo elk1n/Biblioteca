@@ -21,11 +21,10 @@ import sabga.controlador.dialogos.NuevoAutorController;
 import sabga.controlador.dialogos.RestablecerContraseniaController;
 
 /**
- *
- * @author Elk1n
  * 
+ * @author Elk1n
+ *
  */
-
 
 public class Sabga extends Application {
         
@@ -38,7 +37,7 @@ public class Sabga extends Application {
     public static String paginaActualizarEMAId = "paginaActualizarEMA";
     public static String paginaActualizarEMAArchivo = "vista/EditarEMA.fxml";
     public static String paginaPrestamoId = "paginaPrestamo";
-    public static String paginaPrestamoArchivo = "vista/PaginaPrestamo.fxml";
+    public static String paginaPrestamoArchivo = "vista/Prestamo.fxml";
     public static String paginaInicialId = "paginaInicio1";
     public static String paginaInicialArchivo = "vista/PaginaInicio1.fxml";
     public static String paginaRegistroUsuariosId = "paginaRegistroUsuarios";
@@ -47,15 +46,16 @@ public class Sabga extends Application {
     public static String paginaEstadoUsuarioArchivo = "vista/EditarUsuario.fxml";
     public static String paginaRegistroAdminId = "paginaRegistroAdmin";
     public static String paginaRegistroAdminArchivo = "vista/RegistroAdministrador.fxml";
-    public static String paginEdicionAdminId = "paginaEditarAdministrador";
-    public static String paginEdicionAdminArchivo = "vista/EditarAdministrador.fxml";
+    public static String paginaEdicionAdminId = "paginaEditarAdministrador";
+    public static String paginaEdicionAdminArchivo = "vista/EditarAdministrador.fxml";
+    public static String paginaDevolucionId = "paginaDevolucion";
+    public static String paginaDevolucionArchivo = "vista/Devolucion.fxml";
     
-    private Stage ventanaPrincipal, inicioDeSesion;
+    private Stage ventanaPrincipal, inicioDeSesion, primaryStage;
     private BorderPane rootLayout;
     private ScreensController pantallas;           
     private ScreensController controller;
     private ScreensController controladorVistas;
-    private Stage primaryStage;
   
     public Sabga(){
            
@@ -69,7 +69,8 @@ public class Sabga extends Application {
         pantallas.loadScreen(Sabga.paginaRegistroUsuariosId, Sabga.paginaRegistroUsuariosArchivo);
         pantallas.loadScreen(Sabga.paginaEstadoUsuarioId, Sabga.paginaEstadoUsuarioArchivo);
         pantallas.loadScreen(Sabga.paginaRegistroAdminId, Sabga.paginaRegistroAdminArchivo);
-        pantallas.loadScreen(Sabga.paginEdicionAdminId, Sabga.paginEdicionAdminArchivo);
+        pantallas.loadScreen(Sabga.paginaEdicionAdminId, Sabga.paginaEdicionAdminArchivo);
+        pantallas.loadScreen(Sabga.paginaDevolucionId, Sabga.paginaDevolucionArchivo);
         pantallas.setScreen(Sabga.paginaInicialId);
                  
     }
@@ -106,11 +107,9 @@ public class Sabga extends Application {
         FXMLLoader cargador =  new FXMLLoader(Sabga.class.getResource("vista/PaginaPrincipal.fxml"));
         rootLayout = (BorderPane) cargador.load();
         Scene scene = new Scene(rootLayout);
-        primaryStage.setScene(scene);
-        
-        dialogoInicioSesion();
-        
-      //primaryStage.show();        
+        primaryStage.setScene(scene);        
+        //dialogoInicioSesion();        
+        primaryStage.show();        
           
         PaginaPrincipalController controller = cargador.getController();
         controller.setVentanaPrincipal(this);
@@ -123,6 +122,14 @@ public class Sabga extends Application {
    
         primaryStage.show();
         inicioDeSesion.close();
+        
+    }
+    
+    public void cerrarSesion(){
+        
+        primaryStage.close();
+        inicioDeSesion.show();
+     
     }
     
     public void mostrarVistas(){
@@ -285,7 +292,7 @@ public class Sabga extends Application {
         }
     }
     
-     public void dialogoRestablecerContrasenia(){
+    public void dialogoRestablecerContrasenia(){
         
          try {
     
@@ -309,6 +316,7 @@ public class Sabga extends Application {
           
         }
      }
+    
     /**
      * The main() method is ignored in correctly deployed JavaFX application.
      * main() serves only as fallback in case the application can not be

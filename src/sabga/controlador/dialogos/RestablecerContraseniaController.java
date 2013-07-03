@@ -86,5 +86,6 @@ public class RestablecerContraseniaController implements Initializable {
         campoContrasenia.setVisible(false);
         campoConfirmacion.setVisible(false);
         botonRestablecer.setVisible(false);
+        
     }    
 }
