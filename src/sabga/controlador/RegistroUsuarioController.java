@@ -2,7 +2,12 @@
 package sabga.controlador;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import sabga.Sabga;
 import sabga.ScreensController;
+import sabga.configuracion.Conexion;
 import sabga.configuracion.ControlledScreen;
 import sabga.modelo.ValidarUsuario;
 
@@ -38,6 +44,13 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
     
     @FXML private Label validarNombre, validarApellidos, validarCurso, validarGrupo, validarCorreo, validarDocumento, validarJornada,
                         validarTelefono, validarDireccion, etiquetaCurso, etiquetaGrupo, etiquetaJornada;
+    
+    private ObservableList grado;
+    
+    public RegistroUsuarioController() {
+        
+        this.grado = FXCollections.observableArrayList();
+    }
 
     @Override
     public void setScreenParent(ScreensController screenParent) {
@@ -111,6 +124,7 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
             validarJornada.setVisible(true);
             botonCancelar.setVisible(true);
             botonGuardarUsuario.setVisible(true);
+            cargarCombo();
             
                        
         }
@@ -134,7 +148,7 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
             
         }
     }
-
+        
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -143,7 +157,31 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
         botonCancelar.setVisible(false);
         botonGuardarUsuario.setVisible(false);
         
+        
         }
+    
+    
+        public void cargarCombo() {
+            
+        try {   
+         
+            Conexion con = new Conexion();
+            con.conectar();
+            con.setResultado(con.getStatement().executeQuery("SELECT * FROM tbl_CURSO"));
+
+            while (con.getResultado().next()) {
+                
+                grado.add(con.getResultado().getObject("curso"));
+                
+            }
+            comboGrupo.setItems(grado);
+            con.desconectar(); 
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(RegistroUsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
       
     }
         

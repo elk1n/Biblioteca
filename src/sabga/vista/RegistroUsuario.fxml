@@ -65,11 +65,7 @@
         <ComboBox id="grupoCB" fx:id="comboGrupo" prefHeight="21.0" prefWidth="158.0" promptText="Seleccione un grupo" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
           <items>
             <FXCollections fx:factory="observableArrayList">
-              <String fx:value="A" />
-              <String fx:value="B" />
-              <String fx:value="C" />
-              <String fx:value="D" />
-              <String fx:value="E" />
+            
             </FXCollections>
           </items>
         </ComboBox>
