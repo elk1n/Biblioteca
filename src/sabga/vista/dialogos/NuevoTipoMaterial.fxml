@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="280.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.dialogos.NuevoTipoMaterialController">
+  <children>
+    <GridPane alignment="CENTER" layoutX="27.0" layoutY="37.0" prefHeight="167.0" prefWidth="337.0">
+      <children>
+        <Label alignment="CENTER" prefWidth="337.0" text="Nuevo Tipo de Material" GridPane.columnIndex="0" GridPane.rowIndex="0">
+          <font>
+            <Font name="System Bold" size="18.0" />
+          </font>
+        </Label>
+        <Label contentDisplay="RIGHT" text="Nombre del Tipo de  Material" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField id="campoNuevoTipo" fx:id="campoNuevoTipoM" prefHeight="30.0" prefWidth="250.0" promptText="Nombre del Nuevo Tipo de Material" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label fx:id="validarNuevoTipoM" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="337.0" text="Validacion" textFill="#cc0000" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="67.0" minHeight="10.0" prefHeight="36.0" valignment="CENTER" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="102.0" minHeight="7.0" prefHeight="52.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+    <HBox id="HBox" alignment="CENTER" layoutX="97.0" layoutY="228.0" spacing="30.0">
+      <children>
+        <Button mnemonicParsing="false" text="Cancelar" />
+        <Button mnemonicParsing="false" text="Guardar Tipo Material" />
+      </children>
+    </HBox>
+  </children>
+</AnchorPane>

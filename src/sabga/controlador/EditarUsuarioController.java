@@ -13,19 +13,18 @@ import javafx.scene.control.TextField;
 import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.configuracion.ControlledScreen;
+import sabga.configuracion.Dialogo;
 import sabga.modelo.ValidarUsuario;
 
 /**
- *
  * @author Nanny
- * 
  */
 
 public class EditarUsuarioController implements Initializable, ControlledScreen {
     
-    private Sabga paginaPrincipal;
-    
+    private Sabga paginaPrincipal;    
     private ScreensController controlador;
+    private Dialogo dialogo;
     
     @FXML private TextField campoNombre, campoApellidos, campoDocumento, campoCorreo, campoTelefono, campoDireccion, campoMulta;
     
@@ -33,7 +32,11 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     
     @FXML private Label validarNombre, validarApellidos, validarDocumento, validarCorreo, validarTelefono, validarDireccion, validarMulta;
    
-
+    public EditarUsuarioController(){
+    
+        dialogo = new Dialogo(); 
+    }
+    
     @Override
     public void setScreenParent(ScreensController screenParent) {
 
@@ -44,7 +47,6 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     public void setVentanaPrincipal(Sabga principal) {
 
         this.paginaPrincipal = principal;
-
     } 
     
     @FXML
@@ -57,7 +59,7 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     public void dialogoDetalleUsuario(ActionEvent evento){
         
         paginaPrincipal = new Sabga();
-        paginaPrincipal.dialogoDetalleUsuario();        
+        dialogo.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información Detallada del Usuario", paginaPrincipal.getPrimaryStage(), null,5);       
     }
     
     @FXML

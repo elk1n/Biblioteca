@@ -50,6 +50,7 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
     public RegistroUsuarioController() {
         
         this.grado = FXCollections.observableArrayList();
+        
     }
 
     @Override
@@ -98,8 +99,7 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
             validarDocumento.setText(validarNuevoEmpleado.getErrorDocumentoUsuario());
             validarTelefono.setText(validarNuevoEmpleado.getErrorTelefonoUsuario());
             validarDireccion.setText(validarNuevoEmpleado.getErrorDireccionUsuario());
-            
-            
+                     
         }
         
     }
@@ -124,7 +124,7 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
             validarJornada.setVisible(true);
             botonCancelar.setVisible(true);
             botonGuardarUsuario.setVisible(true);
-            cargarCombo();
+        
             
                        
         }
@@ -144,11 +144,10 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
             gridRegistrar1.setLayoutY(comboTipoUsuario.getLayoutY()+150);
             gridRegistrar2.setLayoutY(comboTipoUsuario.getLayoutY()+82);
             botonCancelar.setVisible(true);
-            botonGuardarUsuario.setVisible(true);
-            
+            botonGuardarUsuario.setVisible(true);            
         }
     }
-        
+     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -156,8 +155,8 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
         gridRegistrar2.setVisible(false);
         botonCancelar.setVisible(false);
         botonGuardarUsuario.setVisible(false);
-        
-        
+        cargarCombo();
+     
         }
     
     

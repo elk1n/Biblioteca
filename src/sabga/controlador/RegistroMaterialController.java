@@ -17,6 +17,7 @@ import sabga.ScreensController;
 import sabga.configuracion.ControlledScreen;
 import sabga.modelo.ValidarMaterial;
 import java.util.regex.*;
+import sabga.configuracion.Dialogo;
 
 /**
  *
@@ -28,6 +29,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
 
     private Sabga ventanaPrincipal;  
     private ScreensController controlador;
+    private Dialogo dialogo;
 
     @FXML private AnchorPane autores, materias, materiasOM;
     
@@ -52,7 +54,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     
     
     public RegistroMaterialController(){
-    
+        
+        dialogo = new Dialogo();
   
     }
        
@@ -71,20 +74,20 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     public void dialogoNuevoAutor (ActionEvent evento){
         
         ventanaPrincipal = new Sabga();
-        ventanaPrincipal.mostrarNuevoAutor();
+        dialogo.mostrarDialogo("vista/dialogos/NuevoAutor.fxml", "Nuevo Autor", ventanaPrincipal.getPrimaryStage(), null, 1);
     }
     
      @FXML
     public void dialogoNuevaMateria (ActionEvent evento){
         
         ventanaPrincipal = new Sabga();
-        ventanaPrincipal.mostrarNuevaMateria();
+        dialogo.mostrarDialogo("vista/dialogos/NuevaMateria.fxml", "Nueva Materia", ventanaPrincipal.getPrimaryStage(), null, 2);
     }
     
      @FXML
      public void dialogoNuevaEditorial(ActionEvent evento){
         ventanaPrincipal = new Sabga();
-        ventanaPrincipal.mostrarNuevaEditorial();
+         dialogo.mostrarDialogo("vista/dialogos/NuevaEditorial.fxml", "Nueva Editorial", ventanaPrincipal.getPrimaryStage(), null,3);
      }
                
     @FXML

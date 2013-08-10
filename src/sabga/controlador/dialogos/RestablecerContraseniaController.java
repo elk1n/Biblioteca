@@ -33,6 +33,7 @@ public class RestablecerContraseniaController implements Initializable {
         
 	this.ventanaPrincipal = ventanaPrincipal;
     }
+    
     @FXML
     public void buscarUsuario(ActionEvent evento){
         

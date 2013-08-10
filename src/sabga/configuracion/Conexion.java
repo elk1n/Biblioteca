@@ -13,16 +13,15 @@ import java.sql.Statement;
 
 public class Conexion {
     
-    
-  private String puerto = "8889/";
+  private String puerto = "8889/"; 
   private String nombreBaseDatos= "SABGAB";
   private String usuario= "root";
-  private String contrasenia= "root";
+  private String contrasenia="root";
   private String url="jdbc:mysql://localhost:";
   private String driver= "com.mysql.jdbc.Driver";
   
   private Connection conexion=null;
-  private Statement stm =null;
+  private Statement stm =null;     
   private ResultSet resultado = null ;
   
   private String cadenaConexion=url+puerto+nombreBaseDatos;

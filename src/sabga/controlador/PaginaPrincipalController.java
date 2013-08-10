@@ -16,6 +16,7 @@ import javafx.scene.input.KeyEvent;
 import sabga.Sabga;
 import sabga.configuracion.ControlledScreen;
 import sabga.ScreensController;
+import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
 
 
@@ -25,6 +26,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     private ScreensController controlador;
     private ObservableList parametroMaterial = FXCollections.observableArrayList();
     private ObservableList parametroUsuario = FXCollections.observableArrayList();
+    Dialogo dialogo;
     
     @FXML
     private TextField campoBusqueda;
@@ -36,6 +38,8 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     private Button botonBorrarBusqueda;
     
     public PaginaPrincipalController(){
+        
+        dialogo = new Dialogo();
                
         parametroMaterial.add("General");
         parametroMaterial.add("Título");
@@ -123,19 +127,25 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     @FXML
     public void dialogoNuevoAutor(ActionEvent evento){
         
-        ventanaPrincipal.mostrarNuevoAutor();
+        dialogo.mostrarDialogo("vista/dialogos/NuevoAutor.fxml", "Nuevo Autor", ventanaPrincipal.getPrimaryStage(), null, 1);
     }
     
     @FXML
     public void dialogoNuevaMateria(ActionEvent evento){
 
-        ventanaPrincipal.mostrarNuevaMateria();
+         dialogo.mostrarDialogo("vista/dialogos/NuevaMateria.fxml", "Nueva Materia", ventanaPrincipal.getPrimaryStage(), null, 2);
     }
     
     @FXML
     public void dialogoNuevaEditorial(ActionEvent evento){
         
-        ventanaPrincipal.mostrarNuevaEditorial();
+             dialogo.mostrarDialogo("vista/dialogos/NuevaEditorial.fxml", "Nueva Editorial", ventanaPrincipal.getPrimaryStage(), null, 3);
+    }
+    
+    @FXML
+    public void dialogoNuevoTipoMaterial(ActionEvent evento){
+        
+             dialogo.mostrarDialogo("vista/dialogos/NuevoTipoMaterial.fxml", "Nuevo Tipo de Material", ventanaPrincipal.getPrimaryStage(), null, 8);
     }
     
    @FXML

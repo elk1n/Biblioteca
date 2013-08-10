@@ -1,24 +1,15 @@
 
 package sabga;
 
-import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
+import sabga.configuracion.Dialogo;
 import sabga.controlador.PaginaPrincipalController;
-import sabga.controlador.dialogos.DetalleMaterialController;
-import sabga.controlador.dialogos.DetalleUsuarioController;
-import sabga.controlador.dialogos.InicioSesionController;
-import sabga.controlador.dialogos.NuevaMateriaController;
-import sabga.controlador.dialogos.NuevaEditorialController;
-import sabga.controlador.dialogos.NuevoAutorController;
-import sabga.controlador.dialogos.RestablecerContraseniaController;
 
 /**
  * 
@@ -51,13 +42,13 @@ public class Sabga extends Application {
     public static String paginaDevolucionId = "paginaDevolucion";
     public static String paginaDevolucionArchivo = "vista/Devolucion.fxml";
     
-    private Stage ventanaPrincipal, inicioDeSesion, primaryStage;
+    private Stage ventanaPrincipal, primaryStage;
     private BorderPane rootLayout;
     private ScreensController pantallas;           
     private ScreensController controller;
     private ScreensController controladorVistas;
+    private Dialogo dialogo; 
     
-  
     public Sabga(){
            
         pantallas = new ScreensController();
@@ -73,6 +64,7 @@ public class Sabga extends Application {
         pantallas.loadScreen(Sabga.paginaEdicionAdminId, Sabga.paginaEdicionAdminArchivo);
         pantallas.loadScreen(Sabga.paginaDevolucionId, Sabga.paginaDevolucionArchivo);
         pantallas.setScreen(Sabga.paginaInicialId);
+        dialogo = new Dialogo();
                  
     }
     
@@ -81,6 +73,11 @@ public class Sabga extends Application {
         return ventanaPrincipal; 
     }
     
+    public Stage getPrimaryStage(){
+        
+        return this.primaryStage;
+    }
+        
     public ScreensController getController() {
         
         return controller;
@@ -108,7 +105,8 @@ public class Sabga extends Application {
         FXMLLoader cargador =  new FXMLLoader(Sabga.class.getResource("vista/PaginaPrincipal.fxml"));
         rootLayout = (BorderPane) cargador.load();
         Scene scene = new Scene(rootLayout);
-        primaryStage.setScene(scene);        
+        primaryStage.setScene(scene);
+        // Quitar el comentario para habilitar la pàgina de login o inicio de sesión
         //dialogoInicioSesion();        
         primaryStage.show();        
           
@@ -122,15 +120,13 @@ public class Sabga extends Application {
     public void inciarSesion(){
    
         primaryStage.show();
-        inicioDeSesion.close();
-        
+        dialogo.getDialogStage().close();   
     }
     
     public void cerrarSesion(){
         
         primaryStage.close();
-        inicioDeSesion.show();
-     
+        dialogo.getDialogStage().show();        
     }
     
     public void mostrarVistas(){
@@ -145,177 +141,15 @@ public class Sabga extends Application {
         controladorVistas.setVentanaPrincipal(this);
                   
     }
-  
-    public void mostrarNuevoAutor() {
-    
-        try {
-    
-            FXMLLoader loader = new FXMLLoader(Sabga.class.getResource("vista/dialogos/NuevoAutor.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Nuevo Autor");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.centerOnScreen();
-           // dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            NuevoAutorController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-               // Show the dialog and wait until the user closes it
-            dialogStage.showAndWait();
-
-        } catch (IOException e) {
-          }
-    }
-    
-    public void mostrarNuevaMateria() {
-    
-        try {
-    
-            FXMLLoader loader = new FXMLLoader(Sabga.class.getResource("vista/dialogos/NuevaMateria.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Nueva Materia");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.centerOnScreen();
-           // dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            NuevaMateriaController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-               // Show the dialog and wait until the user closes it
-            dialogStage.showAndWait();
-
-        } catch (IOException e) {
-          }
-    }
-    
-    public void mostrarNuevaEditorial() {
-    
-        try {
-    
-            FXMLLoader loader = new FXMLLoader(Sabga.class.getResource("vista/dialogos/NuevaEditorial.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Nueva Editorial");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.centerOnScreen();
-           
-           // dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            NuevaEditorialController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            dialogStage.showAndWait();
-
-        } catch (IOException e) {
-          }
-    } 
-    
-    public void dialogoDetalleMaterial(){
-        
-          try {
-    
-            FXMLLoader loader = new FXMLLoader(Sabga.class.getResource("vista/dialogos/DetalleMaterial.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Detalle Material");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.centerOnScreen();
-           
-           // dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            DetalleMaterialController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            dialogStage.showAndWait();
-
-        } catch (IOException e) {
-          }
-        
-    }
-    
-    public void dialogoDetalleUsuario(){
-        
-          try {
-    
-            FXMLLoader loader = new FXMLLoader(Sabga.class.getResource("vista/dialogos/DetalleUsuario.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Información Detallada del Usuario");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.centerOnScreen();
-           
-           // dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            DetalleUsuarioController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            dialogStage.showAndWait();
-
-        } catch (IOException e) {
           
-        }
-    }
-    
     public void dialogoInicioSesion(){
         
-         try {
-    
-            FXMLLoader loader = new FXMLLoader(Sabga.class.getResource("vista/dialogos/InicioSesion.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-            inicioDeSesion = new Stage();
-            inicioDeSesion.setTitle("Inicio De Sesión");
-            inicioDeSesion.initModality(Modality.WINDOW_MODAL);
-            inicioDeSesion.centerOnScreen();           
-           // dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
-            inicioDeSesion.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            inicioDeSesion.setScene(scene);
-            
-            InicioSesionController controller = loader.getController();
-            controller.setVentanaPrincipal(this);
-            inicioDeSesion.show();
-           
-
-        } catch (IOException e) {
-          
-        }
+        dialogo.mostrarDialogo("vista/dialogos/InicioSesion.fxml","Inicio De Sesión", this.primaryStage, this, 6);
     }
     
     public void dialogoRestablecerContrasenia(){
         
-         try {
-    
-            FXMLLoader loader = new FXMLLoader(Sabga.class.getResource("vista/dialogos/RestablecerContrasenia.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-            inicioDeSesion = new Stage();
-            inicioDeSesion.setTitle("Restablecer Contraseña");
-            inicioDeSesion.initModality(Modality.WINDOW_MODAL);
-            inicioDeSesion.centerOnScreen();           
-           // dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
-            inicioDeSesion.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            inicioDeSesion.setScene(scene);
-            
-            RestablecerContraseniaController controller = loader.getController();
-            controller.setVentanaPrincipal(this);
-            inicioDeSesion.show();
-           
-
-        } catch (IOException e) {
-          
-        }
+        dialogo.mostrarDialogo("vista/dialogos/RestablecerContrasenia.fxml","Restablecer Contraseña", this.primaryStage, this, 7);  
      }
     
     /**

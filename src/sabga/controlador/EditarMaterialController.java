@@ -18,6 +18,7 @@ import javafx.scene.control.Tooltip;
 import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.configuracion.ControlledScreen;
+import sabga.configuracion.Dialogo;
 import sabga.modelo.ValidarMaterial;
 
 /**
@@ -30,6 +31,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     
     private Sabga ventanaPrincipal;
     private ScreensController controlador;
+    private Dialogo dialogo;
     
     @FXML private Label validarCodigoClasificacionAC, validarTituloAC, validarAnioPublicacionAC, validarPublicacionAC, validarNumeroPaginasAC,
                         validarEditorialAC, validarEstadoAC, validarAutoresAC, validarMateriasAC;
@@ -51,7 +53,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     
     public EditarMaterialController(){
 
-     
+        dialogo = new Dialogo();
     }
     
      @Override
@@ -69,28 +71,28 @@ public class EditarMaterialController implements Initializable, ControlledScreen
      public void dialogoNuevaEditorial(ActionEvent evento){
         
         ventanaPrincipal = new Sabga();
-        ventanaPrincipal.mostrarNuevaEditorial();
+         dialogo.mostrarDialogo("vista/dialogos/NuevaEditorial.fxml", "Nueva Editorial", ventanaPrincipal.getPrimaryStage(), null, 3);
      }
     
     @FXML
     public void dialogoNuevoAutor(ActionEvent evento){
         
         ventanaPrincipal = new Sabga();
-        ventanaPrincipal.mostrarNuevoAutor();
+        dialogo.mostrarDialogo("vista/dialogos/NuevoAutor.fxml", "Nuevo Autor", ventanaPrincipal.getPrimaryStage(), null, 1);
     }
     
     @FXML
     public void dialogoNuevaMateria(ActionEvent evento){
         
         ventanaPrincipal = new Sabga();
-        ventanaPrincipal.mostrarNuevaMateria();
+        dialogo.mostrarDialogo("vista/dialogos/NuevaMateria.fxml", "Nueva Materia",ventanaPrincipal.getPrimaryStage(), null, 2);
     }
     
     @FXML
     public void dialogoDetalleMaterial(ActionEvent evento){
         
         ventanaPrincipal = new Sabga();
-        ventanaPrincipal.dialogoDetalleMaterial();        
+        dialogo.mostrarDialogo("vista/dialogos/DetalleMaterial.fxml", "Detalle Material", ventanaPrincipal.getPrimaryStage(), null, 4);        
     }
     
     @FXML
@@ -260,6 +262,5 @@ public class EditarMaterialController implements Initializable, ControlledScreen
            retorno = false;
        }
         return retorno;
-    }
-    
+    }   
 }
