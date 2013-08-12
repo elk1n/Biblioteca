@@ -10,7 +10,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="paginaRegistroMaterial" layoutY="0.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.RegistroMaterialController">
+<AnchorPane id="AnchorPane" fx:id="paginaRegistroMaterial" layoutY="0.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2"   fx:controller="sabga.controlador.RegistroMaterialController">
   <children>
     <TabPane layoutY="0.0" pickOnBounds="true" prefHeight="510.0" prefWidth="1260.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="30.0" tabMinHeight="30.0">
       <tabs>
@@ -89,7 +89,7 @@
                                   <children>
                                     <Label layoutY="8.0" text="Editorial" />
                                     <TextField fx:id="campoEditorial" layoutX="83.0" prefHeight="30.0" prefWidth="350.0" />
-                                    <Button layoutX="437.0" layoutY="3.0" mnemonicParsing="false" onAction="#dialogoNuevaEditorial" prefWidth="139.0" text="Nueva Editorial">
+                                    <Button fx:id="btnNuevaEditorial" defaultButton="true" focusTraversable="false" layoutX="437.0" layoutY="3.0" mnemonicParsing="false" onAction="#dialogoNuevaEditorial" prefWidth="139.0" text="Nueva Editorial">
                                       <stylesheets>
                                         <URL value="@css/estilo.css" />
                                       </stylesheets>
@@ -106,7 +106,7 @@
                                   <children>
                                     <TextField fx:id="campoAutor" layoutX="82.0" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" />
                                     <Label layoutY="7.0" text="Autor" />
-                                    <Button id="registrarAutor" fx:id="botonRegistrarAutor" layoutX="436.0" layoutY="5.0" mnemonicParsing="false" onAction="#dialogoNuevoAutor" text="Nuevo Autor" />
+                                    <Button id="registrarAutor" fx:id="botonRegistrarAutor" defaultButton="true" layoutX="436.0" layoutY="5.0" mnemonicParsing="false" onAction="#dialogoNuevoAutor" text="Nuevo Autor" />
                                     <Button layoutX="405.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                                       <stylesheets>
                                         <URL value="@css/estilo.css" />
@@ -267,7 +267,7 @@
                                   <children>
                                     <Label layoutY="7.0" text="Materias" />
                                     <TextField fx:id="campoMateria" layoutX="83.0" onKeyTyped="#mostrarCampos" prefHeight="30.0" prefWidth="350.0" />
-                                    <Button id="registrarAutor" layoutX="437.0" layoutY="4.0" mnemonicParsing="false" onAction="#dialogoNuevaMateria" text="Nueva Materia" />
+                                    <Button id="registrarAutor" defaultButton="true" layoutX="437.0" layoutY="4.0" mnemonicParsing="false" onAction="#dialogoNuevaMateria" text="Nueva Materia" />
                                     <Button layoutX="406.0" layoutY="3.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="bontonBuscar, botonBuscar">
                                       <stylesheets>
                                         <URL value="@css/estilo.css" />
@@ -422,8 +422,8 @@
                 </SplitPane>
                 <HBox id="HBox" alignment="CENTER" layoutX="983.0" layoutY="443.0" spacing="30.0">
                   <children>
-                    <Button mnemonicParsing="false" text="Cancelar" />
-                    <Button mnemonicParsing="false" onAction="#validarCampos" text="Guardar Libro">
+                    <Button cancelButton="true" mnemonicParsing="false" text="Cancelar" />
+                    <Button defaultButton="true" mnemonicParsing="false" onAction="#validarCampos" text="Guardar Libro">
                       <stylesheets>
                         <URL value="@css/estilo.css" />
                       </stylesheets>

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="231.0" prefWidth="333.0000999999975" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.dialogos.NuevaMateriaController">
+<AnchorPane id="AnchorPane" prefHeight="230.0" prefWidth="340.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.dialogos.NuevaMateriaController">
   <children>
     <GridPane alignment="CENTER_RIGHT" layoutX="40.0" layoutY="14.0" prefHeight="152.0" prefWidth="253.0">
       <children>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="280.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.dialogos.NuevoCursoController">
+  <children>
+    <GridPane layoutX="43.0" layoutY="14.0" prefHeight="174.0" prefWidth="315.0">
+      <children>
+        <Label alignment="CENTER" prefWidth="329.0" text="Nuevo Curso" GridPane.columnIndex="0" GridPane.rowIndex="0">
+          <font>
+            <Font name="System Bold" size="18.0" />
+          </font>
+        </Label>
+        <Label text="Nombre o Identificador del Nuevo Curso" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label fx:id="validarNuevoCurso" alignment="CENTER_RIGHT" prefWidth="329.0" text="Validacion" textFill="#cc0000" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <TextField fx:id="campoNuevoCurso" prefHeight="30.0" prefWidth="250.0" promptText="Nombre o identificador pare el nuevo curso" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="48.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+    <HBox id="HBox" alignment="CENTER" layoutX="137.0" layoutY="223.0" spacing="30.0">
+      <children>
+        <Button mnemonicParsing="false" text="Cancelar" />
+        <Button mnemonicParsing="false" text="Guardar Curso" />
+      </children>
+    </HBox>
+  </children>
+</AnchorPane>

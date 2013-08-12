@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="280.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.dialogos.NuevoGradoController">
+  <children>
+    <GridPane layoutX="38.0" layoutY="14.0" prefHeight="180.0" prefWidth="324.0">
+      <children>
+        <Label alignment="CENTER" prefWidth="351.0" text="Nuevo Grado" GridPane.columnIndex="0" GridPane.rowIndex="0">
+          <font>
+            <Font name="System Bold" size="18.0" />
+          </font>
+        </Label>
+        <Label prefWidth="289.0" text="Nombre o Identificador del Nuevo Grado " GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="campoNuevoGrado" prefHeight="30.0" prefWidth="250.0" promptText="Nombre o Identificador para el nuevo grado" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label fx:id="validarNuevoGrado" alignment="CENTER_RIGHT" prefWidth="351.0" text="Validacion" textFill="#cc0000" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="69.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+    <HBox id="HBox" alignment="CENTER" layoutX="140.0" layoutY="215.0" spacing="30.0">
+      <children>
+        <Button mnemonicParsing="false" text="Cancelar" />
+        <Button mnemonicParsing="false" text="Guardar Grado" />
+      </children>
+    </HBox>
+  </children>
+</AnchorPane>

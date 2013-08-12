@@ -12,9 +12,7 @@ import sabga.configuracion.Dialogo;
 import sabga.controlador.PaginaPrincipalController;
 
 /**
- * 
  * @author Elk1n
- *
  */
 
 public class Sabga extends Application {
@@ -67,12 +65,7 @@ public class Sabga extends Application {
         dialogo = new Dialogo();
                  
     }
-    
-    public Stage getStage(){
         
-        return ventanaPrincipal; 
-    }
-    
     public Stage getPrimaryStage(){
         
         return this.primaryStage;
@@ -141,7 +134,7 @@ public class Sabga extends Application {
         controladorVistas.setVentanaPrincipal(this);
                   
     }
-          
+      
     public void dialogoInicioSesion(){
         
         dialogo.mostrarDialogo("vista/dialogos/InicioSesion.fxml","Inicio De Sesión", this.primaryStage, this, 6);

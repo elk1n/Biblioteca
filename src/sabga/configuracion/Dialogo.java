@@ -11,11 +11,17 @@ import sabga.Sabga;
 import sabga.controlador.dialogos.DetalleMaterialController;
 import sabga.controlador.dialogos.DetalleUsuarioController;
 import sabga.controlador.dialogos.InicioSesionController;
+import sabga.controlador.dialogos.NuevaClaseMaterialController;
 import sabga.controlador.dialogos.NuevaEditorialController;
+import sabga.controlador.dialogos.NuevaJornadaController;
 import sabga.controlador.dialogos.NuevaMateriaController;
 import sabga.controlador.dialogos.NuevoAutorController;
+import sabga.controlador.dialogos.NuevoCursoController;
+import sabga.controlador.dialogos.NuevoGradoController;
 import sabga.controlador.dialogos.NuevoTipoMaterialController;
+import sabga.controlador.dialogos.NuevoTipoUsuarioController;
 import sabga.controlador.dialogos.RestablecerContraseniaController;
+import sabga.controlador.dialogos.EditarOpcionesUsuarioController;
 
 /**
  * @author Elk1n
@@ -47,7 +53,7 @@ public class Dialogo {
             dialogStage.initOwner(owner);
             scene = new Scene(page);
             dialogStage.setScene(scene);
-
+           
             seleccionControlador(sabga, controlador);
             
         } catch (IOException e) {
@@ -89,8 +95,33 @@ public class Dialogo {
                break;
                
            case 8:
-               controladorNuevoTipoMateril();
+               controladorNuevoTipoMaterial();
                break;
+               
+           case 9:
+               controladorNuevaClaseMaterial();
+               break;
+               
+           case 10:
+               controladorNuevoGrado();
+               break;
+               
+           case 11:
+               controladorNuevoCurso();
+               break;
+               
+           case 12:
+               controladorNuevaJornada();
+               break;
+               
+           case 13:
+               controladorNuevoTipoUsu(); 
+               break;
+               
+           case 14:
+               controladorEditarOpcionesUsuario();
+               break;
+               
        }
    }
    
@@ -129,9 +160,51 @@ public class Dialogo {
         dialogStage.showAndWait();
     }
     
-     private void controladorNuevoTipoMateril(){
+    private void controladorNuevoTipoMaterial(){
     
         NuevoTipoMaterialController controller = loader.getController();
+        controller.setDialogStage(dialogStage);
+        dialogStage.showAndWait();
+    }
+     
+    private void controladorNuevaClaseMaterial(){
+        
+        NuevaClaseMaterialController controller = loader.getController();
+        controller.setDialogStage(dialogStage);
+        dialogStage.showAndWait();
+    }
+    
+    private void controladorNuevoGrado(){
+    
+        NuevoGradoController controller = loader.getController();
+        controller.setDialogStage(dialogStage);
+        dialogStage.showAndWait();
+    }
+    
+    private void controladorNuevoCurso(){
+    
+        NuevoCursoController controller = loader.getController();
+        controller.setDialogStage(dialogStage);
+        dialogStage.showAndWait();
+    }
+    
+    private void controladorNuevaJornada(){
+    
+        NuevaJornadaController controller = loader.getController();
+        controller.setDialogStage(dialogStage);
+        dialogStage.showAndWait();
+    }
+    
+    private void controladorNuevoTipoUsu(){
+    
+        NuevoTipoUsuarioController controller = loader.getController();
+        controller.setDialogStage(dialogStage);
+        dialogStage.showAndWait();
+    }
+    
+    private void controladorEditarOpcionesUsuario(){
+    
+        EditarOpcionesUsuarioController controller= loader.getController();
         controller.setDialogStage(dialogStage);
         dialogStage.showAndWait();
     }
@@ -148,7 +221,6 @@ public class Dialogo {
         RestablecerContraseniaController controller = loader.getController();
         controller.setVentanaPrincipal(sabga);
         dialogStage.show();
-
     }
     
    

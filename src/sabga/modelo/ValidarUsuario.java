@@ -385,7 +385,7 @@ public class ValidarUsuario {
         
         else if(campoTexto.trim().equals("")){
             
-            this.mensajeError = "No unicamente espacios en blanco";
+            this.mensajeError = "No deben ser sólo espacios en blanco";
             return false;
         }
         
@@ -410,7 +410,7 @@ public class ValidarUsuario {
             
             else if(campoTexto.trim().equals("")){
             
-                this.mensajeError = "No unicamente espacios en blanco";
+                this.mensajeError = "No deben ser sólo espacios en blanco";
                 return false;
             }
                
@@ -577,7 +577,7 @@ public class ValidarUsuario {
         
         else if(campoTexto.trim().equals("") || confirmacion.trim().equals("")){
             
-            this.mensajeError = "No unicamente espacios en blanco";
+            this.mensajeError = "No deben ser sólo espacios en blanco";
             return false;
         }
                 

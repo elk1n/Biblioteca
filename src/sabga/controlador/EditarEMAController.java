@@ -25,18 +25,17 @@ public class EditarEMAController implements Initializable, ControlledScreen {
     private Sabga ventanaPrincipal;
     private ScreensController controlador;
     
-    @FXML private Label validarNombreAutor, validarApellidosAutor, validarEditorial, validarMateria;
+    @FXML private Label validarNombreAutor, validarApellidosAutor, validarEditorial, validarMateria, validarClaseMaterial, validarTipoMaterial;
     
-    @FXML private TextField campoNombreAutor, campoApellidosAutor, campoEditorial, campoMateria;
+    @FXML private TextField campoNombreAutor, campoApellidosAutor, campoEditorial, campoMateria, campoTipoMaterial, campoClaseMaterial;
     
-    @FXML private TitledPane acordeonAutor, acordeonEditorial, acordeonMateria;
+    @FXML private TitledPane acordeonAutor, acordeonEditorial, acordeonMateria, acordeonTipo, acordeonClase;
     
         
     public EditarEMAController(){
         
     }
-    
-
+   
     @Override
     public void setScreenParent(ScreensController screenParent) {
         
@@ -51,7 +50,8 @@ public class EditarEMAController implements Initializable, ControlledScreen {
     @FXML
     public void validarActualizarEMA(ActionEvent evento){
         
-        ValidarMaterial validar = new ValidarMaterial(campoNombreAutor.getText(), campoApellidosAutor.getText(), campoEditorial.getText(), campoMateria.getText());
+        ValidarMaterial validar = new ValidarMaterial(campoNombreAutor.getText(), campoApellidosAutor.getText(), campoEditorial.getText(), 
+                                                      campoMateria.getText(), campoTipoMaterial.getText(), campoClaseMaterial.getText());
         
        if(acordeonAutor.isExpanded()){
            validar.validarAutorAC();
@@ -67,14 +67,18 @@ public class EditarEMAController implements Initializable, ControlledScreen {
        else if(acordeonMateria.isExpanded()){
            validar.validarMateriaAC();
            validarMateria.setText(validar.getErrorNombreMateria());
-       }      
+       }
+       
+        else if(acordeonTipo.isExpanded()){
+           validar.validarNuevoTipoMaterial();
+           validarTipoMaterial.setText(validar.getErrorNuevoTipoMaterial());
+       } 
       
+        else if(acordeonClase.isExpanded()){
+           validar.validarNuevaClaseMaterial();
+           validarClaseMaterial.setText(validar.getErrorNuevaClaseMaterial());
+       } 
     }
-    
-    /**
-     * Initializes the controller class.
-     */
-    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyEvent;
 import sabga.Sabga;
 import sabga.configuracion.ControlledScreen;
@@ -36,6 +37,14 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     private ChoiceBox parametroBusqueda;
     @FXML 
     private Button botonBorrarBusqueda;
+    @FXML
+    private MenuItem menuNuevoAutor;
+    
+    public MenuItem getMenu(){
+    
+   
+    return menuNuevoAutor;
+    }
     
     public PaginaPrincipalController(){
         
@@ -124,6 +133,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         
         ventanaPrincipal.cambiarVista("paginaDevolucion");
     }
+    
     @FXML
     public void dialogoNuevoAutor(ActionEvent evento){
         
@@ -139,13 +149,49 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     @FXML
     public void dialogoNuevaEditorial(ActionEvent evento){
         
-             dialogo.mostrarDialogo("vista/dialogos/NuevaEditorial.fxml", "Nueva Editorial", ventanaPrincipal.getPrimaryStage(), null, 3);
+        dialogo.mostrarDialogo("vista/dialogos/NuevaEditorial.fxml", "Nueva Editorial", ventanaPrincipal.getPrimaryStage(), null, 3);
     }
     
     @FXML
     public void dialogoNuevoTipoMaterial(ActionEvent evento){
         
-             dialogo.mostrarDialogo("vista/dialogos/NuevoTipoMaterial.fxml", "Nuevo Tipo de Material", ventanaPrincipal.getPrimaryStage(), null, 8);
+        dialogo.mostrarDialogo("vista/dialogos/NuevoTipoMaterial.fxml", "Nuevo Tipo de Material", ventanaPrincipal.getPrimaryStage(), null, 8);
+    }
+    
+    @FXML
+    public void dialogoNuevaClaseMaterial(ActionEvent evento){
+        
+        dialogo.mostrarDialogo("vista/dialogos/NuevaClaseMaterial.fxml", "Nueva Clase de Material", ventanaPrincipal.getPrimaryStage(), null, 9);
+    }
+    
+    @FXML
+    public void dialogoNuevoGrado(ActionEvent evento){
+        
+        dialogo.mostrarDialogo("vista/dialogos/NuevoGrado.fxml", "Nuevo Grado", ventanaPrincipal.getPrimaryStage(), null, 10);
+    }
+    
+    @FXML
+    public void dialogoNuevoCurso(ActionEvent evento){
+        
+        dialogo.mostrarDialogo("vista/dialogos/NuevoCurso.fxml", "Nuevo Curso", ventanaPrincipal.getPrimaryStage(), null, 11);
+    }
+    
+    @FXML
+    public void dialogoNuevaJornada(ActionEvent evento){
+        
+        dialogo.mostrarDialogo("vista/dialogos/NuevaJornada.fxml", "Nueva Jornada", ventanaPrincipal.getPrimaryStage(), null, 12);
+    }
+    
+    @FXML
+    public void dialogoNuevoTipoUsuario(ActionEvent evento){
+        
+        dialogo.mostrarDialogo("vista/dialogos/NuevoTipoUsuario.fxml", "Nuevo Tipo de Usuario", ventanaPrincipal.getPrimaryStage(), null, 13);
+    }
+     
+    @FXML
+    public void dialogoEditarOpcionesUsuario(ActionEvent evento){
+        
+        dialogo.mostrarDialogo("vista/dialogos/EditarOpcionesUsuario.fxml", "Editar Opciones de Usuario", ventanaPrincipal.getPrimaryStage(), null, 14);
     }
     
    @FXML
@@ -159,14 +205,13 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         else if(radioMaterial.isSelected()){
             
             parametroBusqueda.setItems(parametroMaterial);
-        }
-        
+        }        
     }
     
     @FXML
     private void salir(ActionEvent evento){
 
-        Utilidades.mensajeConfirmacion(ventanaPrincipal.getStage(), "Los cambios no guradados se perderan", "Realmente desea salir?","Salir de SABGA");
+        Utilidades.mensajeConfirmacion(ventanaPrincipal.getPrimaryStage(), "Los cambios no guradados se perderan", "Realmente desea salir?","Salir de SABGA");
          if(Utilidades.getMensajeConfimacion().equals(Utilidades.getMensajeConfimacion().OK)){
              
              System.exit(0);         

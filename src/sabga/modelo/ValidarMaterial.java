@@ -14,12 +14,13 @@ public class ValidarMaterial {
 
    private String codigoMaterial, codigoClasificacion, titulo, anioPublicacion, publicacion, numeroPaginas, ejemplares, 
            editorial, autor, materia, habilitado, inhabilitado, mantenimiento, nombreAutor, apellidosAutor, nombreEditorial,
-           nombreMateria, autor0, autor1, autor2, autor3, autor4, autor5, autor6, autor7, autor8, autor9,
+           nombreMateria, nuevoTipoMaterial, nuevaClaseMaterial, autor0, autor1, autor2, autor3, autor4, autor5, autor6, autor7, autor8, autor9,
            materia0, materia1, materia2, materia3, materia4, materia5, materia6, materia7, materia8, materia9,
            
            errorCodigoMaterial, errorCodigoClasificacion, errorTitulo, errorAnioPublicacion, errorPublicacion, errorNumeroPaginas,
            errorEjemplares, errorEditorial, errorAutor, errorMateria, errorTipoMaterial, errorClaseMaterial, errorEstado, 
-           mensajeError, errorNombreAutor, errorApellidosAutor, errorNombreEditorial, errorNombreMateria;
+           mensajeError, errorNombreAutor, errorApellidosAutor, errorNombreEditorial, errorNombreMateria, errorNuevoTipoMaterial,
+           errorNuevaClaseMaterial;
         
    private Calendar calendario;
    private Object tipoMaterial, claseMaterial;
@@ -137,14 +138,16 @@ public class ValidarMaterial {
   
    }
    
-   //           CONSTRUCTOR PARA ACTUALIZAR LOS ATORES LAS EDITORIALES Y LAS MATERIAS           ---
+   //           CONSTRUCTOR PARA ACTUALIZAR LOS ATORES LAS EDITORIALES, LAS MATERIAS, LOS TIPOS DE MATERIALES Y LAS CLASE DE MATERIAL           ---
    
-   public ValidarMaterial(String nombreAutor, String apellidosAutor, String nombreEditorial, String nombreMateria){
+   public ValidarMaterial(String nombreAutor, String apellidosAutor, String nombreEditorial, String nombreMateria, String tipoMaterial, String claseMaterial){
        
        this.nombreAutor = nombreAutor;
        this.apellidosAutor = apellidosAutor;
        this.nombreEditorial = nombreEditorial;
        this.nombreMateria = nombreMateria;
+       this.nuevoTipoMaterial = tipoMaterial;
+       this.nuevaClaseMaterial = claseMaterial;
         
    }
    
@@ -241,9 +244,22 @@ public class ValidarMaterial {
       
       if (validarCampoTexto(this.nombreMateria, 45) == false){          
           this.errorNombreMateria = getMensajeError();         
-      }
-        
-  }
+      }        
+    }
+    
+    public void validarNuevoTipoMaterial(){
+    
+        if(!validarCampoTexto(this.nuevoTipoMaterial, 90)){        
+            this.errorNuevoTipoMaterial = getMensajeError();
+        }
+    }
+    
+    public void validarNuevaClaseMaterial(){
+    
+        if(!validarCampoTexto(this.nuevaClaseMaterial, 45)){        
+            this.errorNuevaClaseMaterial = getMensajeError();
+        }
+    }
     
     public void validarAutorAC(){
         
@@ -439,6 +455,14 @@ public class ValidarMaterial {
         return this.errorNombreMateria;
     }
     
+    public String getErrorNuevoTipoMaterial(){
+        return this.errorNuevoTipoMaterial;
+    }
+    
+    public String getErrorNuevaClaseMaterial(){
+        return this.errorNuevaClaseMaterial;
+    }
+    
     public String getErrorEstado(){
         return this.errorEstado;
     }
@@ -550,7 +574,7 @@ public class ValidarMaterial {
         
         else if(campoTexto.trim().equals("")){
             
-            this.mensajeError = "No unicamente espacios en blanco";
+            this.mensajeError = "No deben ser sólo espacios en blanco";
             return false;
         }
         
@@ -574,7 +598,7 @@ public class ValidarMaterial {
             
             else if(campoTexto.trim().equals("")){
             
-                this.mensajeError = "No unicamente espacios en blanco";
+                this.mensajeError = "No deben ser sólo espacios en blanco";
                 return false;
             }
                
@@ -653,7 +677,7 @@ public class ValidarMaterial {
          
     }
     
-     public boolean validarUnAnio(String campoTexto, int numeroCaracteres){
+    public boolean validarUnAnio(String campoTexto, int numeroCaracteres){
          
         int anio;
         

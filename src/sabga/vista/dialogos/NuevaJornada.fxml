@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="280.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.dialogos.NuevaJornadaController">
+  <children>
+    <GridPane layoutX="29.0" layoutY="14.0" prefHeight="197.0" prefWidth="336.0">
+      <children>
+        <Label alignment="CENTER" prefWidth="336.0" text="Nueva Jornada" GridPane.columnIndex="0" GridPane.rowIndex="0">
+          <font>
+            <Font name="System Bold" size="18.0" />
+          </font>
+        </Label>
+        <Label text="Nombre de la Nueva Jornada " GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label fx:id="validarNuevaJornada" alignment="CENTER_RIGHT" prefWidth="336.0" text="Validacion" textFill="#cc0000" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <TextField fx:id="campoNuevaJornada" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="73.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="69.0" minHeight="10.0" prefHeight="69.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+    <HBox id="HBox" alignment="CENTER" layoutX="133.0" layoutY="232.0" spacing="30.0">
+      <children>
+        <Button mnemonicParsing="false" text="Cancelar" />
+        <Button mnemonicParsing="false" text="Guardar Jornada" />
+      </children>
+    </HBox>
+  </children>
+</AnchorPane>

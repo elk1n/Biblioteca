@@ -8,10 +8,11 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
+<?import javafx.scene.input.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane id="BorderPane" prefHeight="750.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.PaginaPrincipalController">
+<BorderPane id="BorderPane" prefHeight="750.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.PaginaPrincipalController">
   <padding>
     <Insets fx:id="x4" />
   </padding>
@@ -103,7 +104,11 @@
                 <MenuItem mnemonicParsing="false" onAction="#ventanaInicio" text="Inicio" />
                 <MenuItem mnemonicParsing="false" text="Cerrar Sesión" />
                 <SeparatorMenuItem mnemonicParsing="false" />
-                <MenuItem mnemonicParsing="false" onAction="#salir" text="Salir de SABGA" fx:id="salir" />
+                <MenuItem mnemonicParsing="false" onAction="#salir" text="Salir de SABGA" fx:id="salir">
+                  <accelerator>
+                    <KeyCodeCombination alt="UP" code="Q" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                  </accelerator>
+                </MenuItem>
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Material">
@@ -112,7 +117,7 @@
                 <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarMaterial" text="Editar Material" />
                 <Menu mnemonicParsing="false" text="Autores">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#dialogoNuevoAutor" text="Nuevo Autor" />
+                    <MenuItem mnemonicParsing="false" onAction="#dialogoNuevoAutor" text="Nuevo Autor" fx:id="menuNuevoAutor" />
                     <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarEMA" text="Actualizar Autor" />
                   </items>
                 </Menu>
@@ -128,9 +133,11 @@
                     <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarEMA" text="Actulizar Editorial" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Opciones De Material">
+                <Menu mnemonicParsing="false" text="Opciones de Material">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#dialogoNuevoTipoMaterial" text="Nuevo Tipo de Material" />
+                    <MenuItem mnemonicParsing="false" onAction="#dialogoNuevaClaseMaterial" text="Nueva Clase de Material" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarEMA" text="Editar Opciones de Material" />
                   </items>
                 </Menu>
               </items>
@@ -139,6 +146,15 @@
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroUsuarios" text="Registrar Usuario" />
                 <MenuItem mnemonicParsing="false" onAction="#ventanaEstadoUsuario" text="Editar Usuario" />
+                <Menu mnemonicParsing="false" text="Opciones de Usuario">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#dialogoNuevoGrado" text="Registrar Grado" />
+                    <MenuItem mnemonicParsing="false" onAction="#dialogoNuevoCurso" text="Registrar Curso" />
+                    <MenuItem mnemonicParsing="false" onAction="#dialogoNuevaJornada" text="Registrar Jornada" />
+                    <MenuItem mnemonicParsing="false" onAction="#dialogoNuevoTipoUsuario" text="Registrar Tipo de Usuario" />
+                    <MenuItem mnemonicParsing="false" onAction="#dialogoEditarOpcionesUsuario" text="Editar Opciones de Usuario" />
+                  </items>
+                </Menu>
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Prestamo">
