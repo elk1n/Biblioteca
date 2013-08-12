@@ -190,7 +190,7 @@ public class Validacion {
             return true;
         }     
     }
-    
+        
     public boolean validarNuevaContrasenia(String campoTexto, String confirmacion, int numeroCaracteres){
         
         if (campoTexto == null || campoTexto.equals("") || campoTexto.isEmpty() || confirmacion == null || confirmacion.equals("") || confirmacion.isEmpty()){
@@ -239,15 +239,13 @@ public class Validacion {
                 this.mensajeError = "El año es mayor al actual";
                 return false;
             }
-
             return true;
         } else {
             return false;
         }
     }
     
-    public String getMensajeError(){
-        
+    public String getMensajeError(){        
         return this.mensajeError;
     }
 }

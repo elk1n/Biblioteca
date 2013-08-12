@@ -27,7 +27,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     private ScreensController controlador;
     private ObservableList parametroMaterial = FXCollections.observableArrayList();
     private ObservableList parametroUsuario = FXCollections.observableArrayList();
-    Dialogo dialogo;
+    private Dialogo dialogo;
     
     @FXML
     private TextField campoBusqueda;
