@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
  * @author Nanny
  */
 public class pagina {
+    
  public SimpleStringProperty documento = new SimpleStringProperty();
     public SimpleStringProperty tipo = new SimpleStringProperty();    
     public SimpleStringProperty titulo = new SimpleStringProperty();

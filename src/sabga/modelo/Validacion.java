@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.scene.input.KeyEvent;
 
 /**
  * @author Elk1n
@@ -244,6 +245,33 @@ public class Validacion {
             return false;
         }
     }
+    
+    public String getDesencadenador(KeyEvent eventos){
+        
+        String objeto = eventos.getSource().toString();        
+        Pattern patron = Pattern.compile("[id=]([a-zA-Z0-9]+)[,]");
+        Matcher matcher = patron.matcher(objeto);
+        matcher.find();        
+        String source = matcher.group(1);        
+        return source;      
+    }
+    
+     public void validarNumeros(String contenido){
+        
+        Pattern patron = Pattern.compile("[0-9]+");
+        Matcher matcher;
+                 
+              matcher = patron.matcher(contenido);
+            
+             if(matcher.matches() || contenido.equals("")){
+                 
+                 this.mensajeError = "";
+             }
+             else{
+                 
+                 this.mensajeError = "Debe ser un número";
+             }          
+     }
     
     public String getMensajeError(){        
         return this.mensajeError;

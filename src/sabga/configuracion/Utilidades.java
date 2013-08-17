@@ -10,8 +10,9 @@ import javafx.stage.Stage;
 
 public class Utilidades {
     
-   private static  Dialogs.DialogResponse mensajeError;
-   private static  Dialogs.DialogResponse mensajeConfimacion;
+   private static Dialogs.DialogResponse mensajeError;
+   private static Dialogs.DialogResponse mensajeConfimacion;
+   private static Dialogs.DialogResponse mensajeInformacion;
 
    public static Dialogs.DialogResponse getMensajeConfimacion() {
         return mensajeConfimacion;
@@ -47,4 +48,9 @@ public class Utilidades {
                         
          mensajeConfimacion = Dialogs.showConfirmDialog(propietario, mensanje, encabezado, titulo, Dialogs.DialogOptions.OK_CANCEL);        
     }
+    
+    public static void mensajeAdvertencia(Stage propietario, String mensanje, String encabezado, String titulo){
+    
+        mensajeInformacion = Dialogs.showWarningDialog(propietario, mensanje, encabezado, titulo, Dialogs.DialogOptions.OK);
+    } 
 }
