@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  * @author Elk1n
  */
 
-public class ValidarMaterial {
+public class ValidarMaterial extends Validacion{
 
    private String codigoMaterial, codigoClasificacion, titulo, anioPublicacion, publicacion, numeroPaginas, ejemplares, 
            editorial, autor, materia, habilitado, inhabilitado, mantenimiento, nombreAutor, apellidosAutor, nombreEditorial,
@@ -165,6 +165,19 @@ public class ValidarMaterial {
        
        this.nombreEditorial = nombre;
        
+   }
+   
+   //
+   public void validarNuevoAutor(String nombre, String apellidos){
+       
+       if(!validarCampoTexto(nombre, 90)){
+           this.errorNombreAutor = getMensajeError();
+          
+       }
+       if(!validarCampoTexto(apellidos, 90)){
+           this.errorApellidosAutor = getMensajeError();
+       }
+
    }
      
     public void validarActualizacionOM(){

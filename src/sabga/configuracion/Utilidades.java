@@ -15,10 +15,11 @@ public class Utilidades {
    private static Dialogs.DialogResponse mensajeInformacion;
 
    public static Dialogs.DialogResponse getMensajeConfimacion() {
+       
         return mensajeConfimacion;
     }
 
-    public String initCap(String string) {
+    public static String initCap(String string) {
 
         char[] letras = string.toLowerCase().toCharArray();
 
@@ -52,5 +53,12 @@ public class Utilidades {
     public static void mensajeAdvertencia(Stage propietario, String mensanje, String encabezado, String titulo){
     
         mensajeInformacion = Dialogs.showWarningDialog(propietario, mensanje, encabezado, titulo, Dialogs.DialogOptions.OK);
-    } 
+    }
+    
+    public static void mensaje(Stage propietario, String mensanje, String encabezado, String titulo){
+    
+       Dialogs.showInformationDialog(propietario, mensanje, encabezado, titulo);
+        
+    }
+    
 }

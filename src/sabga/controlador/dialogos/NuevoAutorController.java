@@ -1,10 +1,19 @@
 package sabga.controlador.dialogos;
 
+
+import java.sql.SQLException;
+import java.sql.CallableStatement;
+import java.sql.Types;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sabga.configuracion.Conexion;
+import sabga.configuracion.Utilidades;
+import sabga.modelo.ConfirmarMaterial;
 import sabga.modelo.ValidarMaterial;
 
 /**
@@ -18,7 +27,16 @@ public class NuevoAutorController {
     private Label validarNombreAutor, validarApellidosAutor;
     @FXML
     private TextField campoNombreNuevoAutor, campoApellidosNuevoAutor;
-
+    
+    private ValidarMaterial validarNuevoAutor;
+    private Conexion con;
+    private String mensaje;
+        
+    public NuevoAutorController(){
+    
+         con = new Conexion();
+    }
+    
     public void setDialogStage(Stage dialogStage) {
 
         this.dialogStage = dialogStage;
@@ -27,22 +45,78 @@ public class NuevoAutorController {
     @FXML
     public void guardarNuevoAutor(ActionEvent evento) {
 
-        nuevoAutor();
-
+        procesarNuevoAutor();
     }
+    
+    public void procesarNuevoAutor(){
+    
+        validarCampos();
+        ConfirmarMaterial nuevoAutor= new ConfirmarMaterial();
+        if(nuevoAutor.confirmarNuevoAutor(campoNombreNuevoAutor.getText(), campoApellidosNuevoAutor.getText())){
+            
+            try {
+                registarAutor();
+                if(mensaje!=null){
+                    
+                     Utilidades.mensajeAdvertencia(null, mensaje, "Error al tratar de registrar el autor", "Error Guardar Autor");
+                }
+                else{
+                    //dialogStage.setOpacity(0);
+                    Utilidades.mensaje(null, "El autor se ha registrado correctamente", "Registrando Autor", "Reistro Exitoso");
+                    dialogStage.close();
+                }
+            } catch (SQLException ex) {
+                
+                Utilidades.mensajeError(null, ex.getMessage(), "Error al tratar de registrar el autor", "Error Guardar Autor");  
+            }
+        } 
+    }
+    
+    public void registarAutor() throws SQLException {
+  
+        try {
 
-    public void nuevoAutor() {
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL registrarAutor(?,?,?) }");
 
-        ValidarMaterial validarNuevoAutor = new ValidarMaterial(campoNombreNuevoAutor.getText(), campoApellidosNuevoAutor.getText());
+            con.getProcedimiento().setString("nombreAutor", campoNombreNuevoAutor.getText().trim());
+            con.getProcedimiento().setString("apellidosAutor", campoApellidosNuevoAutor.getText().trim());
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
 
-        validarNuevoAutor.validarAutorAC();
+            con.getProcedimiento().execute();
+            con.getConexion().commit();
+            mensaje=con.getProcedimiento().getString("mensaje");
+
+        } catch (SQLException e) {
+
+            con.getConexion().rollback();
+            Utilidades.mensajeError(null, e.getMessage(), "Error al tratar de registrar el autor", "Error Guardar Autor");  
+
+        } finally {
+            con.desconectar();
+        }
+    }
+        
+    public void validarCampos() {
+        
+        validarNuevoAutor = new ValidarMaterial();
+        validarNuevoAutor.validarNuevoAutor(campoNombreNuevoAutor.getText(),campoApellidosNuevoAutor.getText());
         validarNombreAutor.setText(validarNuevoAutor.getErrorNombreAutor());
         validarApellidosAutor.setText(validarNuevoAutor.getErrorApellidosAutor());
 
     }
+    
+    @FXML
+    public void cancelar(ActionEvent evento){
+    
+        campoApellidosNuevoAutor.clear();
+        campoNombreNuevoAutor.clear();
+        this.dialogStage.close();    
+    }
 
     @FXML
     public void initialize() {
-        // TODO
+   
     }
 }

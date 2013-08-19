@@ -10,7 +10,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import sabga.configuracion.Dialogo;
 import sabga.controlador.PaginaPrincipalController;
-import sabga.controlador.RegistroMaterialController;
 
 /**
  * @author Elk1n

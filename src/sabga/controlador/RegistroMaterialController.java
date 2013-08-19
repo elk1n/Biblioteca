@@ -14,11 +14,8 @@ import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.configuracion.ControlledScreen;
 import sabga.modelo.ValidarMaterial;
-import java.util.regex.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.control.TableColumn;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.TableView;
@@ -28,8 +25,8 @@ import sabga.configuracion.Dialogo;
 import np.com.ngopal.control.AutoFillTextBox;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.Autor;
+import sabga.modelo.Materia;
 import sabga.modelo.Validacion;
-
 
 /**
  * @author Elk1n
@@ -40,27 +37,28 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private Sabga ventanaPrincipal;  
     private ScreensController controlador;
     private Dialogo dialogo;
-    private AutoFillTextBox buscarAutor, buscarMateria, buscarMateriaOM;
+    private AutoFillTextBox buscarAutor, buscarMateria, buscarMateriaOM, buscarEditorial;
     private Validacion validar;
     
     private ObservableList data; 
-    private ObservableList <Autor> autores;
+    private ObservableList<Autor> autores;
+    private ObservableList<Materia> materias;
+    private ObservableList<Materia> materiasOM;
      
     @FXML
-    public HBox hboxAutor, hboxMaterias, hboxMateriasOM;
+    private HBox hboxAutor, hboxMaterias, hboxMateriasOM, hboxEditorial;
     @FXML
-    private AnchorPane contenedorAutores;
+    private AnchorPane contenedorAutores, contenedorMaterias, contenedorMateriasOM;
     @FXML
-    public TableView tablaAutores;    
+    private TableView tablaAutores, tablaMaterias, tablaMateriasOM;    
     @FXML
-    public TableColumn clmnNombre, clmnApellidos;    
+    private TableColumn clmnNombre, clmnApellidos, clmnNombreMateria, clmnNombreMateriaOM;    
        
-    @FXML private Label validarCodigo, validarClasificacion, validarTitulo, validarAnioPublicacion, validarPublicacion, validarPaginas,
-                        validarEjemplares, validarEditorial, validarClaseMaterial, validarAutor, validarAutor10, validarMateria, validarMateria10,
-                        validarMateriaOM10, validarTipoMaterialOM, validarClaseMaterialOM, validarCodigoMaterialOM, validarNumeroClasificacionOM,
-                        validarTituloOM, validarMateriaOM, validarNumeroCopiasOM;
+    @FXML private Label validarClasificacion, validarTitulo, validarAnioPublicacion, validarPublicacion, validarPaginas, validarEjemplares, 
+                        validarEditorial, validarClaseMaterial, validarAutor, validarMateria, validarTipoMaterialOM, validarClaseMaterialOM, 
+                        validarCodigoMaterialOM, validarNumeroClasificacionOM, validarTituloOM, validarMateriaOM, validarNumeroCopiasOM;
     
-    @FXML private TextField campoCodigoMaterial, campoNumeroClasificacion, campoTitulo, campoAnioPublicacion, campoPublicacion, 
+    @FXML private TextField campoNumeroClasificacion, campoTitulo, campoAnioPublicacion, campoPublicacion, 
                             campoNumeroPaginas, campoEjemplares, campoEditorial, campoCodigoMaterialOM, campoAutor, campoMateria,
                             campoNumeroClasificacionOM, campoTituloOM, campoMateriaOM, campoNumeroCopias;
     
@@ -68,12 +66,12 @@ public class RegistroMaterialController implements Initializable, ControlledScre
        
     
     String[] s = new String[]{"apple","ball","cat","doll","elephant","arbol","amazonas","arcade","años","apesta","animal","añora","alejar",
-            "fight","georgeous","height","ice","jug","apuesta","acortar",
-             "aplogize","bank","call","done","ego",
+            "fight","georgeous","height","ice","jug","apuesta","acortar","alcanzar","Alicante","Arroz",
+             "apologize","bank","call","done","ego",
              "finger","giant","hollow","internet","jumbo",
              "kilo","lion","for","length","primary","stage",
              "scene","zoo","jumble","auto","text",
-            "root","box","items","hip-hop","himalaya","nepal",
+            "root","box","items","hip-hop","himalaya","nepal","Archivo",
             "kathmandu","kirtipur","everest","buddha","epic","hotel"};
     
     public RegistroMaterialController(){
@@ -82,15 +80,86 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         buscarAutor = new AutoFillTextBox();
         buscarMateria = new AutoFillTextBox();
         buscarMateriaOM = new AutoFillTextBox();
+        buscarEditorial = new AutoFillTextBox();
+        
         data = FXCollections.observableArrayList();
         autores = FXCollections.observableArrayList();
+        materias = FXCollections.observableArrayList();
+        materiasOM = FXCollections.observableArrayList();
         validar = new Validacion();
    
     }
+    
+    public void cargarNombreMateriaOM() {
+
+        if (validar.validarCampoTexto(buscarMateriaOM.getText(), 90)) {
+
+            obtenerMateriaOM();
+
+        } else {
+            Utilidades.mensajeAdvertencia(null, "Debe buscar y seleccionar una materia", "Para adicionar una materia a la lista", "Seleccionar Materia");
+        }
+
+    }
+
+    public void obtenerMateriaOM() {
+
+        materiasOM.add(new Materia(buscarMateriaOM.getText()));
+        contenedorMateriasOM.setPrefHeight(contenedorMateriasOM.getPrefHeight() + 25);
+        tablaMateriasOM.setPrefHeight(tablaMateriasOM.getPrefHeight() + 25);
+
+    }
+    
+     public void removerMateriaOM(){
         
+       if(tablaMateriasOM.getSelectionModel().getSelectedItem()!= null){
+           
+            materiasOM.remove(tablaMateriasOM.getSelectionModel().getSelectedIndex());
+            contenedorMateriasOM.setPrefHeight(contenedorMateriasOM.getPrefHeight() - 25);
+            tablaMateriasOM.setPrefHeight(tablaMateriasOM.getPrefHeight() - 25);
+       }
+       else{
+           Utilidades.mensajeAdvertencia(null, "Debe seleccionar uno de la lista", "Pare remover una materia", "Remover Materia");
+       }
+                                                   
+    } 
     @FXML
-    public void cargarNombreApellidoAutor(ActionEvent evento){
-            
+    public void cargarNombreMateria(ActionEvent evento){
+        
+         if (validar.validarCampoTexto(buscarMateria.getText(), 90)) {
+
+            obtenerMateria();
+
+        } else {
+            Utilidades.mensajeAdvertencia(null, "Debe buscar y seleccionar una materia", "Para adicionar una materia a la lista", "Seleccionar Materia");
+        }
+    }
+       
+    public void obtenerMateria(){
+
+        materias.add(new Materia(buscarMateria.getText()));
+        contenedorMaterias.setPrefHeight(contenedorMaterias.getPrefHeight()+25);
+        tablaMaterias.setPrefHeight(tablaMaterias.getPrefHeight()+25);     
+  
+    }
+    
+    public void removerMateria(){
+        
+       if(tablaMaterias.getSelectionModel().getSelectedItem()!=null){
+           
+            materias.remove(tablaMaterias.getSelectionModel().getSelectedIndex());
+            contenedorMaterias.setPrefHeight(contenedorMaterias.getPrefHeight()-25);
+            tablaMaterias.setPrefHeight(tablaMaterias.getPrefHeight()-25);  
+       }
+       else{
+           Utilidades.mensajeAdvertencia(null, "Debe seleccionar uno de la lista", "Pare remover una materia", "Remover Materia");
+       }
+                                                   
+    }
+     
+    @FXML
+    public void cargarNombreApellidoAutor(ActionEvent evento) {
+
         if (validar.validarCampoTexto(buscarAutor.getText(), 300)) {
 
             obtenerAutor();
@@ -103,8 +172,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     public void obtenerAutor(){
 
         autores.add(new Autor(buscarAutor.getText(), buscarAutor.getText()));
-        contenedorAutores.setPrefHeight(contenedorAutores.getPrefHeight()+40);
-        tablaAutores.setPrefHeight(tablaAutores.getPrefHeight()+40);     
+        contenedorAutores.setPrefHeight(contenedorAutores.getPrefHeight()+25);
+        tablaAutores.setPrefHeight(tablaAutores.getPrefHeight()+25);     
   
     }
     
@@ -112,7 +181,9 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         
        if(tablaAutores.getSelectionModel().getSelectedItem()!=null){
            
-           autores.remove(tablaAutores.getSelectionModel().getSelectedIndex());  
+           autores.remove(tablaAutores.getSelectionModel().getSelectedIndex());
+           contenedorAutores.setPrefHeight(contenedorAutores.getPrefHeight()-25);
+           tablaAutores.setPrefHeight(tablaAutores.getPrefHeight()-25); 
        }
        else{
            Utilidades.mensajeAdvertencia(null, "Debe seleccionar uno de la lista", "Pare remover un autor", "Remover Autor");
@@ -121,25 +192,34 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     }
     
     @FXML 
-    public void  preparaTablaAutores(){
+    public void  prepararTablas(){
     
         clmnNombre.setCellValueFactory(new PropertyValueFactory<Autor,String>("nombreAutor"));
         clmnApellidos.setCellValueFactory(new PropertyValueFactory<Autor,String>("apellidosAutor"));
         tablaAutores.setEditable(true);	
         tablaAutores.setItems(autores);
+        
+        clmnNombreMateria.setCellValueFactory(new PropertyValueFactory<Materia, String>("nombreMateria"));
+        tablaMaterias.setEditable(true);	
+        tablaMaterias.setItems(materias);
+        
+        clmnNombreMateriaOM.setCellValueFactory(new PropertyValueFactory<Materia, String>("nombreMateria"));
+        tablaMateriasOM.setEditable(true);	
+        tablaMateriasOM.setItems(materiasOM);
+        
 
     }
     
     @FXML
     public void validarCampos(ActionEvent evento){
                         
-       ValidarMaterial validarMaterial = new ValidarMaterial(campoCodigoMaterial.getText(), campoNumeroClasificacion.getText(), campoTitulo.getText(),
+       ValidarMaterial validarMaterial = new ValidarMaterial(campoNumeroClasificacion.getText(), campoNumeroClasificacion.getText(), campoTitulo.getText(),
                                                     campoAnioPublicacion.getText(), campoPublicacion.getText(), campoNumeroPaginas.getText(),
                                                     campoEjemplares.getText(), campoEditorial.getText(),campoAutor.getText(),
                                                     campoMateria.getText(), comboClaseMaterial.getSelectionModel().getSelectedItem());
        
        validarMaterial.validarNuevoMaterial();
-       validarCodigo.setText(validarMaterial.getErrorCodigoMaterial());
+       validarClasificacion.setText(validarMaterial.getErrorCodigoMaterial());
        validarClasificacion.setText(validarMaterial.getErrorCodigoClasificacion());
        validarTitulo.setText(validarMaterial.getErrorTitulo());
        validarAnioPublicacion.setText(validarMaterial.getErrorAnioPublicacion());
@@ -199,15 +279,15 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         dialogo.mostrarDialogo("vista/dialogos/NuevoAutor.fxml", "Nuevo Autor", ventanaPrincipal.getPrimaryStage(), null, 1);     
     }
     
-     @FXML
+    @FXML
     public void dialogoNuevaMateria (ActionEvent evento){
          
         ventanaPrincipal = new Sabga();    
         dialogo.mostrarDialogo("vista/dialogos/NuevaMateria.fxml", "Nueva Materia", ventanaPrincipal.getPrimaryStage(), null, 2);
     }
     
-     @FXML
-     public void dialogoNuevaEditorial(ActionEvent evento){
+    @FXML
+    public void dialogoNuevaEditorial(ActionEvent evento){
          
          ventanaPrincipal = new Sabga();
          dialogo.mostrarDialogo("vista/dialogos/NuevaEditorial.fxml", "Nueva Editorial", ventanaPrincipal.getPrimaryStage(), null,3);
@@ -227,28 +307,36 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     @Override
     public void initialize(URL url, ResourceBundle rb) {
            
-        preparaTablaAutores();
+        prepararTablas();
+        
 
         for(int j=0; j<s.length; j++){
                 data.add(s[j]);
             }
-       
+        data.add("Fabián");
+        data.add("Áreas");
+        data.add("área");
+        data.add("aárea");
+        data.add("AÁreas");
         buscarAutor.setPrefSize(350, 30);
         buscarMateria.setPrefSize(350, 30);
         buscarMateriaOM.setPrefSize(350, 30);
+        buscarEditorial.setPrefSize(350, 30);
+        buscarAutor.getTextbox().setPromptText("Buscar Autor");
+        buscarMateria.getTextbox().setPromptText("Buscar Materias");
+        buscarMateriaOM.getTextbox().setPromptText("Buscar Materias");
+        buscarEditorial.getTextbox().setPromptText("Buscar Editorial");
+        
         buscarAutor.setData(data);
         buscarMateria.setData(data);
         buscarMateriaOM.setData(data);
-        
-        buscarAutor.setListLimit(10);     
-        buscarMateria.setListLimit(10);
-        
-        buscarMateriaOM.setListLimit(10);
-        
+        buscarEditorial.setData(data);
+      
         hboxAutor.getChildren().add(buscarAutor);
         hboxMaterias.getChildren().add(buscarMateria);
         hboxMateriasOM.getChildren().add(buscarMateriaOM);
-  
+        hboxEditorial.getChildren().add(buscarEditorial);
+ 
     }    
     
 }

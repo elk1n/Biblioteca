@@ -8,12 +8,12 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" minHeight="267.0" prefHeight="280.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.dialogos.NuevoAutorController">
+<AnchorPane id="AnchorPane" minHeight="267.0" prefHeight="280.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.dialogos.NuevoAutorController">
   <children>
-    <HBox id="HBox" alignment="CENTER" layoutX="156.0" layoutY="234.0" spacing="30.0">
+    <HBox id="HBox" alignment="CENTER" layoutX="121.0" layoutY="234.0" spacing="30.0">
       <children>
-        <Button mnemonicParsing="false" text="Cancelar" />
-        <Button mnemonicParsing="false" onAction="#guardarNuevoAutor" text="Guardar Autor" />
+        <Button cancelButton="true" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" text="Cancelar" />
+        <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarNuevoAutor" prefHeight="25.0" prefWidth="120.0" text="Guardar Autor" />
       </children>
     </HBox>
     <GridPane alignment="CENTER_RIGHT" layoutX="56.0" layoutY="18.0" prefHeight="199.0" prefWidth="292.0">

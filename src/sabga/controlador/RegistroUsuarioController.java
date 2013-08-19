@@ -4,8 +4,6 @@ package sabga.controlador;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,12 +18,11 @@ import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.configuracion.Conexion;
 import sabga.configuracion.ControlledScreen;
+import sabga.configuracion.Utilidades;
 import sabga.modelo.ValidarUsuario;
 
 /**
- *
  * @author Elk1n
- * 
  */
 
 public class RegistroUsuarioController implements Initializable, ControlledScreen {
@@ -177,7 +174,7 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
             con.desconectar(); 
         } catch (SQLException ex) {
             
-            Logger.getLogger(RegistroUsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error"); 
         }
     }
 
