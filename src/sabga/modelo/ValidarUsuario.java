@@ -1,18 +1,16 @@
 
 package sabga.modelo;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
- *
  * @author Elk1n
- * 
  */
 
-public class ValidarUsuario {
+public class ValidarUsuario extends Validacion{
     
-    private String  mensajeError, nombreUsuario, apellidosUsuario, correoUsuario, documentoUsuario, telefonoUsuario,  direccionUsuario, usuario,
+    private String  errorJornada, errorCurso, errorGrado, errorNuevoTipoUsuario,
+            
+                    mensajeError,
+                    nombreUsuario, apellidosUsuario, correoUsuario, documentoUsuario, telefonoUsuario,  direccionUsuario, usuario,
                     contrasenia, nuevaContrasenia ,confirmacion, multa,
             
                     errorNombreUsuario, errorApellidosUsuario, errorCursoUsuario, errorGrupoUsuario, errorCorreoUsuario, errorDocumentoUsuario,
@@ -111,6 +109,35 @@ public class ValidarUsuario {
         this.nuevaContrasenia = contrasenia;
         this.confirmacion = confirmacion;
         
+    }
+    
+    //
+    public void validarNuevaJornada(String jornada){
+        
+        if(!validarCampoTexto(jornada, 32)){        
+            this.errorJornada = getMensajeError();
+        }
+    }
+    //
+    public void validarNuevoCurso(String curso){
+        
+        if(!validarCampoTexto(curso, 32)){        
+            this.errorCurso = getMensajeError();
+        }
+    }
+   // 
+    public void validarNuevoGrado(String grado){
+        
+        if(!validarCampoTexto(grado, 32)){        
+            this.errorGrado = getMensajeError();
+        }
+    }
+    //
+    public void validarNuevoTipoUsuario(String usuario){
+        
+        if(!validarCampoTexto(usuario, 32)){        
+            this.errorNuevoTipoUsuario = getMensajeError();
+        }
     }
     
     public void validarUsuario(String usuario, String contrasenia){
@@ -367,194 +394,7 @@ public class ValidarUsuario {
             this.errorMulta = getMensajeError();
         }
     }
-     
-    public boolean validarCampoTexto(String campoTexto, int numeroCaracteres){
-                   
-        if (campoTexto == null || campoTexto.equals("") || campoTexto.isEmpty()){
-            
-            this.mensajeError = "Debe rellenar este campo"; 
-            return false;        
-        }
         
-        else if ( campoTexto.length() > numeroCaracteres){
-            
-            this.mensajeError = "Máximo "+numeroCaracteres+" caracteres";
-            return false;
-            
-        }
-        
-        else if(campoTexto.trim().equals("")){
-            
-            this.mensajeError = "No deben ser sólo espacios en blanco";
-            return false;
-        }
-        
-        else {
-            
-            this.mensajeError = "";
-            return true;          
-        }
-          
-        
-    }
-    
-    public boolean validarCampoTextoNull(String campoTexto, int numeroCaracteres){
-        
-        if ( campoTexto.isEmpty()==false){
-            
-            if (campoTexto.length()>numeroCaracteres){
-                
-                this.mensajeError = "Máximo "+numeroCaracteres+" caracteres";
-                return false;        
-            }
-            
-            else if(campoTexto.trim().equals("")){
-            
-                this.mensajeError = "No deben ser sólo espacios en blanco";
-                return false;
-            }
-               
-            else {
-            
-                this.mensajeError = "";
-                return true;
-            }            
-        }
-       
-        else {
-            
-            this.mensajeError = "";
-            return true;
-        }
-    }
-        
-    public boolean validarCorreo(String correoElectronico, int numeroCaracteres){
-        
-        Pattern patron = Pattern.compile("[\\w-\\.]{3,}@([\\w-]{2,}\\.)*([\\w-]{2,}\\.)[\\w-]{2,4}");
-        Matcher matcher = patron.matcher(correoElectronico);
-        
-        if (correoElectronico == null || correoElectronico.equals("") || correoElectronico.isEmpty()){
-            
-            this.mensajeError = "Debe rellenar este campo";
-            return false;            
-        }
-        
-        else if(correoElectronico.length()>numeroCaracteres){
-            
-            this.mensajeError = "Máximo "+numeroCaracteres+" caracteres";
-            return false;            
-        }
-        
-        else if(!matcher.matches()){
-            
-            this.mensajeError = "No es un E-mail";
-            return false;            
-        }
-        
-        else{
-            
-            this.mensajeError = "";
-            return true;
-        }   
-                
-    }
-    
-    public boolean validarCorreoNull(String correoElectronico, int numeroCaracteres){
-        
-        Pattern patron = Pattern.compile("[\\w-\\.]{3,}@([\\w-]{2,}\\.)*([\\w-]{2,}\\.)[\\w-]{2,4}");
-        Matcher matcher = patron.matcher(correoElectronico);
-        
-        if ( correoElectronico.isEmpty()==false){
-            
-            if(correoElectronico.length()>numeroCaracteres){
-            
-            this.mensajeError = "Máximo "+numeroCaracteres+" caracteres";
-            return false;            
-            
-            }
-            
-            else if(!matcher.matches()){
-            
-            this.mensajeError = "No es un E-mail";
-            return false;            
-        
-            }
-            
-            else {
-                this.mensajeError = "";
-                return true;
-            }                      
-        }
-       
-        else {
-            
-            this.mensajeError = "";
-            return true;
-        }
-        
-    }
-    
-    public boolean validarNumero(String campoTexto, int numeroCaracteres){
-        
-        Pattern patron = Pattern.compile("[0-9]+");
-        Matcher matcher = patron.matcher(campoTexto);
-        
-        if (campoTexto == null || campoTexto.equals("") || campoTexto.isEmpty()){
-            
-            this.mensajeError = "Debe rellenar este campo";
-            return false;
-        }
-        else if(campoTexto.length()>numeroCaracteres){
-            
-            this.mensajeError = "Máximo "+numeroCaracteres+" caracteres";
-            return false;
-        }
-        
-        else if(!matcher.matches()){
-            
-            this.mensajeError = "No es un número";
-            return false;
-            
-        }else{
-            this.mensajeError = "";
-            return true;
-        }           
-        
-    }
-    
-    public boolean validarNumeroNull(String campoTexto, int numeroCaracteres){
-        
-         Pattern patron = Pattern.compile("[0-9]+");
-         Matcher matcher = patron.matcher(campoTexto);
-         
-         if (campoTexto.isEmpty()==false){
-        
-                if(campoTexto.length()>numeroCaracteres){
-            
-                    this.mensajeError = "Máximo "+numeroCaracteres+" caracteres";
-                    return false;
-            
-                }
-             
-                else if(!matcher.matches()){
-            
-                    this.mensajeError = "No es un número";
-                    return false;
-            
-                }
-                else{
-                    this.mensajeError = "";
-                    return true;       
-                }
-         }
-         else {
-            
-            this.mensajeError = "";
-            return true;
-        }
-         
-    }
-    
     public boolean validarContrasenia(String campoTexto, String confirmacion, int numeroCaracteres){
         
         if (campoTexto == null || campoTexto.equals("") || campoTexto.isEmpty() || confirmacion == null || confirmacion.equals("") || confirmacion.isEmpty()){
@@ -587,6 +427,23 @@ public class ValidarUsuario {
             return true;          
         }
         
+    }
+    
+    //
+    public String getErrorJornada(){
+        return this.errorJornada;
+    }
+    //
+    public String getErrorCurso(){
+        return this.errorCurso;
+    }
+    //
+    public String getErrorGrado(){
+        return this.errorGrado;
+    }
+    //
+    public String getErrorTipoUsuario(){
+        return this.errorNuevoTipoUsuario;    
     }
     
     public String getErrorNombreUsuario() {
@@ -650,10 +507,6 @@ public class ValidarUsuario {
     
     public String getErrorTipoAdmin(){
         return this.errorTipoAdmin;
-    }
-        
-    public String getMensajeError(){
-        return this.mensajeError;
     }
     
     

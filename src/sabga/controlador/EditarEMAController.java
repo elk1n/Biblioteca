@@ -15,9 +15,7 @@ import sabga.configuracion.ControlledScreen;
 import sabga.modelo.ValidarMaterial;
 
 /**
- *
  * @author Elk1n
- 
  */
 
 public class EditarEMAController implements Initializable, ControlledScreen {
@@ -61,7 +59,7 @@ public class EditarEMAController implements Initializable, ControlledScreen {
        
        else if (acordeonEditorial.isExpanded()){
            validar.validarEditorialAC();
-           validarEditorial.setText(validar.getErrorNombreEditorial());
+//           validarEditorial.setText(validar.getErrorNombreEditorial());
        }
        
        else if(acordeonMateria.isExpanded()){
@@ -70,12 +68,12 @@ public class EditarEMAController implements Initializable, ControlledScreen {
        }
        
         else if(acordeonTipo.isExpanded()){
-           validar.validarNuevoTipoMaterial();
-           validarTipoMaterial.setText(validar.getErrorNuevoTipoMaterial());
+       //    validar.validarNuevoTipoMaterial();
+         //  validarTipoMaterial.setText(validar.getErrorNuevoTipoMaterial());
        } 
       
         else if(acordeonClase.isExpanded()){
-           validar.validarNuevaClaseMaterial();
+          // validar.validarNuevaClaseMaterial();
            validarClaseMaterial.setText(validar.getErrorNuevaClaseMaterial());
        } 
     }

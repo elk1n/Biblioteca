@@ -14,9 +14,7 @@ import sabga.configuracion.ControlledScreen;
 import sabga.modelo.ValidarMaterial;
 
 /**
- * 
  * @author Elk1n
- * 
  */
 
 public class DevolucionController implements Initializable, ControlledScreen {
@@ -47,9 +45,9 @@ public class DevolucionController implements Initializable, ControlledScreen {
     
     public void buscar(){
        
-        ValidarMaterial validarBuscar = new ValidarMaterial(campoBusqueda.getText());
-        validarBuscar.validarEditorialAC();
-        validarBusqueda.setText(validarBuscar.getErrorNombreEditorial());
+      //  ValidarMaterial validarBuscar = new ValidarMaterial(campoBusqueda.getText());
+       // validarBuscar.validarEditorialAC();
+       // validarBusqueda.setText(validarBuscar.getErrorNombreEditorial());
               
     }
     

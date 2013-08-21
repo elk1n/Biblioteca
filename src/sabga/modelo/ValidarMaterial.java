@@ -3,8 +3,6 @@ package sabga.modelo;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @author Elk1n
@@ -12,15 +10,18 @@ import java.util.regex.Pattern;
 
 public class ValidarMaterial extends Validacion{
 
-   private String codigoMaterial, codigoClasificacion, titulo, anioPublicacion, publicacion, numeroPaginas, ejemplares, 
+   private String errorNombreAutor, errorApellidosAutor, errorEditorial, errorNombreMateria, errorNuevaClaseMaterial, errorMaterial,
+           
+           
+     
+           codigoMaterial, codigoClasificacion, titulo, anioPublicacion, publicacion, numeroPaginas, ejemplares, 
            editorial, autor, materia, habilitado, inhabilitado, mantenimiento, nombreAutor, apellidosAutor, nombreEditorial,
-           nombreMateria, nuevoTipoMaterial, nuevaClaseMaterial, autor0, autor1, autor2, autor3, autor4, autor5, autor6, autor7, autor8, autor9,
-           materia0, materia1, materia2, materia3, materia4, materia5, materia6, materia7, materia8, materia9,
+           nombreMateria, nuevoTipoMaterial, nuevaClaseMaterial, 
            
            errorCodigoMaterial, errorCodigoClasificacion, errorTitulo, errorAnioPublicacion, errorPublicacion, errorNumeroPaginas,
-           errorEjemplares, errorEditorial, errorAutor, errorMateria, errorTipoMaterial, errorClaseMaterial, errorEstado, 
-           mensajeError, errorNombreAutor, errorApellidosAutor, errorNombreEditorial, errorNombreMateria, errorNuevoTipoMaterial,
-           errorNuevaClaseMaterial;
+           errorEjemplares,  errorAutor, errorMateria, errorTipoMaterial, errorClaseMaterial, errorEstado, 
+             errorNombreEditorial,  errorNuevoTipoMaterial,
+            errorCantidadEjemplares, errorAnio;
         
    private Calendar calendario;
    private Object tipoMaterial, claseMaterial;
@@ -83,7 +84,7 @@ public class ValidarMaterial extends Validacion{
        this.habilitado = habilitado;
        this.inhabilitado = inhabilitado;
        this.mantenimiento = mantenimiento;
-       
+       /*
        this.autor0 = autor0;
        this.autor1 = autor1;
        this.autor2 = autor2;
@@ -105,7 +106,7 @@ public class ValidarMaterial extends Validacion{
        this.materia7 = materia7;
        this.materia8 = materia8;
        this.materia9 = materia9;
-       
+       */
        this.calendario = Calendar.getInstance();
        this.calendario = new GregorianCalendar();
                   
@@ -125,6 +126,7 @@ public class ValidarMaterial extends Validacion{
        this.inhabilitado = inhabilitado;
        this.mantenimiento = mantenimiento;
        
+       /*
        this.materia0 = materia0;
        this.materia1 = materia1;
        this.materia2 = materia2;
@@ -135,7 +137,7 @@ public class ValidarMaterial extends Validacion{
        this.materia7 = materia7;
        this.materia8 = materia8;
        this.materia9 = materia9;
-  
+  */
    }
    
    //           CONSTRUCTOR PARA ACTUALIZAR LOS ATORES LAS EDITORIALES, LAS MATERIAS, LOS TIPOS DE MATERIALES Y LAS CLASE DE MATERIAL           ---
@@ -149,37 +151,48 @@ public class ValidarMaterial extends Validacion{
        this.nuevoTipoMaterial = tipoMaterial;
        this.nuevaClaseMaterial = claseMaterial;
         
-   }
+   } 
    
-   //           CONSTRUCTOR PARA VALIDAR UN NUEVO AUTOR         ---
-   
-   public ValidarMaterial(String nombreAutor, String apellidosAutor){
-       
-       this.nombreAutor = nombreAutor;
-       this.apellidosAutor = apellidosAutor;
-   }
-   
-   //           CONSTRUCTOR PARA VALIDAR UNA NUEVA MATERIA O UNA EDITORIAL          ---
-   
-   public ValidarMaterial(String nombre){
-       
-       this.nombreEditorial = nombre;
-       
-   }
-   
-   //
+   //   METODO FINAL (ESO ESPEREO) PARA VALIDAR UN NUEVO AUTOR  
    public void validarNuevoAutor(String nombre, String apellidos){
        
        if(!validarCampoTexto(nombre, 90)){
            this.errorNombreAutor = getMensajeError();
-          
        }
        if(!validarCampoTexto(apellidos, 90)){
            this.errorApellidosAutor = getMensajeError();
        }
-
    }
-     
+   
+   //   METODO FINAL PARA VALIDAR UNA NUEVA MATERIA V.4
+   public void validarNuevaMateria(String materia){
+   
+       if(!validarCampoTexto(materia, 90))
+           this.errorNombreMateria = getMensajeError();
+   }
+   
+   // METODO FINAL PARA VALIDAR UNA NUEVA EDITORIAL   
+   public void validarNuevaEditorial(String editorial){
+   
+       if(!validarCampoTexto(editorial, 90))
+           this.errorEditorial = getMensajeError();
+   }
+   
+   // VALIDAR NUEVA CLASE DE MATERIAL
+   public void validarNuevaClaseMaterial(String material){
+   
+       if(!validarCampoTexto(material, 45)){
+           this.errorNuevaClaseMaterial = getMensajeError();      
+       }
+   }
+ // VALIDAR NUEVO TIPO MATERIAL
+   public void validarTipoMaterial(String material){
+       
+       if(!validarCampoTexto(material, 90)){
+           this.errorTipoMaterial = getMensajeError();      
+       }
+   }
+   
     public void validarActualizacionOM(){
         
         if(validarCampoTexto(this.codigoClasificacion, 45)==false ){
@@ -196,14 +209,14 @@ public class ValidarMaterial extends Validacion{
           
           this.errorEstado = getMensajeError();
         }
-        
+        /*
         if(validarMultiplesCampos(this.materia0, this.materia1, this.materia2, this.materia3, this.materia4, this.materia5,
                                 this.materia6, this.materia7, this.materia8, this.materia9, 45)==false){
       
         this.errorMateria = "Debe seleccionar al menos una metaria";
       
       } 
-    
+    */
     }
   
     public void validarActualizacionMaterial(){
@@ -237,7 +250,7 @@ public class ValidarMaterial extends Validacion{
           
           this.errorEstado = getMensajeError();
       }
-      
+      /*
       if (validarMultiplesCampos(this.autor0, this.autor1, this.autor2, this.autor3, this.autor4, this.autor5,
                                  this.autor6, this.autor7, this.autor8, this.autor9, 90)==false ){
       
@@ -250,7 +263,7 @@ public class ValidarMaterial extends Validacion{
         this.errorMateria = "Debe seleccionar al menos una metaria";
       
       }     
-   
+   */
   }
   
     public void validarMateriaAC(){
@@ -259,21 +272,7 @@ public class ValidarMaterial extends Validacion{
           this.errorNombreMateria = getMensajeError();         
       }        
     }
-    
-    public void validarNuevoTipoMaterial(){
-    
-        if(!validarCampoTexto(this.nuevoTipoMaterial, 90)){        
-            this.errorNuevoTipoMaterial = getMensajeError();
-        }
-    }
-    
-    public void validarNuevaClaseMaterial(){
-    
-        if(!validarCampoTexto(this.nuevaClaseMaterial, 45)){        
-            this.errorNuevaClaseMaterial = getMensajeError();
-        }
-    }
-    
+       
     public void validarAutorAC(){
         
          if (validarCampoTexto(this.nombreAutor, 45) == false ){                    
@@ -388,7 +387,7 @@ public class ValidarMaterial extends Validacion{
                 if (ejemplatesHabilitados + ejemplaresInhabilitados + ejemplarsMantenimiento < numeroTotalEjemplares || 
                     ejemplatesHabilitados + ejemplaresInhabilitados + ejemplarsMantenimiento > numeroTotalEjemplares ){
                     
-                    this.mensajeError = "El número de ejemplares no coincide";
+                    this.errorCantidadEjemplares = "El número de ejemplares no coincide";
                     
                     return false;
                 }
@@ -399,11 +398,7 @@ public class ValidarMaterial extends Validacion{
             return false;
         }
     }
-  
-    public String getMensajeError(){
-        return this.mensajeError;
-    }
-  
+    
     public String getErrorCodigoMaterial(){      
       return this.errorCodigoMaterial;
     }
@@ -431,7 +426,7 @@ public class ValidarMaterial extends Validacion{
     public String getErrorNumeroEjemplares(){     
       return this.errorEjemplares;
     }
-  
+    //
     public String getErrorEditorial(){      
       return this.errorEditorial;
     }
@@ -447,31 +442,25 @@ public class ValidarMaterial extends Validacion{
     public String getErrorClaseMaterial(){      
       return this.errorClaseMaterial;
     }
-  
+   //
     public String getErrorTipoMaterial(){      
       return this.errorTipoMaterial;
     }
-    
+    //
     public String getErrorNombreAutor() {
         return this.errorNombreAutor;
     }
-
+    //
     public String getErrorApellidosAutor() {
         return this.errorApellidosAutor;
     }
-
-    public String getErrorNombreEditorial() {
-        return this.errorNombreEditorial;
-    }
-
+    
+    //
     public String getErrorNombreMateria() {
         return this.errorNombreMateria;
     }
     
-    public String getErrorNuevoTipoMaterial(){
-        return this.errorNuevoTipoMaterial;
-    }
-    
+    //
     public String getErrorNuevaClaseMaterial(){
         return this.errorNuevaClaseMaterial;
     }
@@ -571,125 +560,6 @@ public class ValidarMaterial extends Validacion{
      return estado;
   }
    
-    public boolean validarCampoTexto(String campoTexto, int numeroCaracteres){
-                   
-        if (campoTexto == null || campoTexto.equals("") || campoTexto.isEmpty()){
-            
-            this.mensajeError = "Debe rellenar este campo"; 
-            return false;        
-        }
-        
-        else if ( campoTexto.length() > numeroCaracteres){
-            
-            this.mensajeError = "Máximo "+numeroCaracteres+" caracteres";
-            return false;
-        }
-        
-        else if(campoTexto.trim().equals("")){
-            
-            this.mensajeError = "No deben ser sólo espacios en blanco";
-            return false;
-        }
-        
-        else {
-            
-            this.mensajeError = "";
-            return true;          
-        }       
-        
-    }
-    
-    public boolean validarCampoTextoNull(String campoTexto, int numeroCaracteres){
-        
-        if ( campoTexto.isEmpty()==false){
-            
-            if (campoTexto.length()>numeroCaracteres){
-                
-                this.mensajeError = "Máximo "+numeroCaracteres+" caracteres";
-                return false;        
-            }
-            
-            else if(campoTexto.trim().equals("")){
-            
-                this.mensajeError = "No deben ser sólo espacios en blanco";
-                return false;
-            }
-               
-            else {
-            
-                this.mensajeError = "";
-                return true;
-            }            
-        }
-       
-        else {
-            
-            this.mensajeError = "";
-            return true;
-        }
-    }
-    
-    public boolean validarNumero(String campoTexto, int numeroCaracteres){
-        
-        Pattern patron = Pattern.compile("[0-9]+");
-        Matcher matcher = patron.matcher(campoTexto);
-        
-        if (campoTexto == null || campoTexto.equals("") || campoTexto.isEmpty()){
-            
-            this.mensajeError = "Debe rellenar este campo";
-            return false;
-        }
-        else if(campoTexto.length()>numeroCaracteres){
-            
-            this.mensajeError = "Máximo "+numeroCaracteres+" caracteres";
-            return false;
-        }
-        
-        else if(!matcher.matches()){
-            
-            this.mensajeError = "No es un número";
-            return false;
-            
-        }else{
-            this.mensajeError = "";
-            return true;
-        }           
-        
-    }
-    
-    public boolean validarNumeroNull(String campoTexto, int numeroCaracteres){
-        
-         Pattern patron = Pattern.compile("[0-9]+");
-         Matcher matcher = patron.matcher(campoTexto);
-         
-         if (campoTexto.isEmpty()==false){
-        
-                if(campoTexto.length()>numeroCaracteres){
-            
-                    this.mensajeError = "Máximo "+numeroCaracteres+" caracteres";
-                    return false;
-            
-                }
-             
-                else if(!matcher.matches()){
-            
-                    this.mensajeError = "No es un número";
-                    return false;
-            
-                }
-                else{
-                    this.mensajeError = "";
-                    return true;       
-                }
-         }
-         else {
-            
-            this.mensajeError = "";
-            return true;
-        }
-         
-    }
-    
     public boolean validarUnAnio(String campoTexto, int numeroCaracteres){
          
         int anio;
@@ -700,7 +570,7 @@ public class ValidarMaterial extends Validacion{
             
             if (anio>calendario.get(Calendar.YEAR)){
            
-                this.mensajeError = "El año es mayor al actual";
+                this.errorAnio = "El año es mayor al actual";
                 return false;
             }
             

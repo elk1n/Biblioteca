@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="280.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.dialogos.NuevoCursoController">
+<AnchorPane id="AnchorPane" prefHeight="280.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.dialogos.NuevoCursoController">
   <children>
     <GridPane layoutX="43.0" layoutY="14.0" prefHeight="174.0" prefWidth="315.0">
       <children>
@@ -30,10 +30,10 @@
         <RowConstraints maxHeight="48.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <HBox id="HBox" alignment="CENTER" layoutX="137.0" layoutY="223.0" spacing="30.0">
+    <HBox id="HBox" alignment="CENTER" layoutX="131.0" layoutY="223.0" spacing="30.0">
       <children>
-        <Button mnemonicParsing="false" text="Cancelar" />
-        <Button mnemonicParsing="false" text="Guardar Curso" />
+        <Button cancelButton="true" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" text="Cancelar" />
+        <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarCurso" prefHeight="25.0" prefWidth="120.0" text="Guardar Curso" />
       </children>
     </HBox>
   </children>

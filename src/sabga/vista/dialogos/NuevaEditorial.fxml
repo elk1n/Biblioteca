@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="233.0" prefWidth="342.0000999999975" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.dialogos.NuevaEditorialController">
+<AnchorPane id="AnchorPane" prefHeight="233.0" prefWidth="342.0000999999975" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.dialogos.NuevaEditorialController">
   <children>
     <GridPane alignment="CENTER_RIGHT" layoutX="45.0" layoutY="7.0" prefHeight="155.0" prefWidth="253.0">
       <children>
@@ -30,10 +30,10 @@
         <RowConstraints maxHeight="34.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <HBox id="HBox" alignment="CENTER" layoutX="92.0" layoutY="181.0" spacing="30.0">
+    <HBox id="HBox" alignment="CENTER" layoutX="61.0" layoutY="181.0" spacing="30.0">
       <children>
-        <Button mnemonicParsing="false" cancelButton="false"  text="Cancelar" />
-        <Button mnemonicParsing="false" onAction="#guardarNuevaEditorial" text="Guardar Editorial">
+        <Button cancelButton="false" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" text="Cancelar" />
+        <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarNuevaEditorial" prefHeight="25.0" prefWidth="130.0" text="Guardar Editorial">
           <tooltip>
             <Tooltip text="Esto es una prueba" />
           </tooltip>

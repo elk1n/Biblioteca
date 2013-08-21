@@ -40,10 +40,10 @@ public class PrestamoController implements Initializable, ControlledScreen{
     @FXML
     public void buscarMaterial(ActionEvent evento){
         
-        ValidarMaterial validar = new ValidarMaterial(campoBusqueda.getText());
+       // ValidarMaterial validar = new ValidarMaterial(campoBusqueda.getText());
         
-        validar.validarEditorialAC();
-        validarBusqueda.setText(validar.getErrorNombreEditorial());
+       // validar.validarEditorialAC();
+       // validarBusqueda.setText(validar.getErrorNombreEditorial());
         
     }
     

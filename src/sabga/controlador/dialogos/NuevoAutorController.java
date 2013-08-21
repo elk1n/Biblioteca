@@ -2,10 +2,7 @@ package sabga.controlador.dialogos;
 
 
 import java.sql.SQLException;
-import java.sql.CallableStatement;
 import java.sql.Types;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -29,6 +26,7 @@ public class NuevoAutorController {
     private TextField campoNombreNuevoAutor, campoApellidosNuevoAutor;
     
     private ValidarMaterial validarNuevoAutor;
+    private ConfirmarMaterial nuevoAutor;
     private Conexion con;
     private String mensaje;
         
@@ -51,7 +49,7 @@ public class NuevoAutorController {
     public void procesarNuevoAutor(){
     
         validarCampos();
-        ConfirmarMaterial nuevoAutor= new ConfirmarMaterial();
+        nuevoAutor = new ConfirmarMaterial();
         if(nuevoAutor.confirmarNuevoAutor(campoNombreNuevoAutor.getText(), campoApellidosNuevoAutor.getText())){
             
             try {
@@ -62,7 +60,7 @@ public class NuevoAutorController {
                 }
                 else{
                     //dialogStage.setOpacity(0);
-                    Utilidades.mensaje(null, "El autor se ha registrado correctamente", "Registrando Autor", "Reistro Exitoso");
+                    Utilidades.mensaje(null, "El autor se ha registrado correctamente", "Registrando Autor", "Registro Exitoso");
                     dialogStage.close();
                 }
             } catch (SQLException ex) {
