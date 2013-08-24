@@ -1,5 +1,5 @@
 
-package sabga.modelo;
+package sabga.atributos;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -33,6 +33,11 @@ public class Autor {
     
     public void setApellidos(String apellidos){    
         this.apellidosAutor.set(apellidos);
+    }
+    
+    @Override
+    public String toString() {
+        return this.getNombreAutor() + this.getApellidosAutor();
     }
     
 }

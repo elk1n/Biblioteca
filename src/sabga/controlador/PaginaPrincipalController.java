@@ -237,14 +237,12 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
        
         if ("".equals(campoBusqueda.getText())){
             
-            botonBorrarBusqueda.setVisible(false);
-       
+            botonBorrarBusqueda.setVisible(false);      
         }
         else {
             
            botonBorrarBusqueda.setVisible(true); 
-        }
-    
+        }    
     }
        
     @Override

@@ -32,7 +32,6 @@ public class Conexion {
             stm = conexion.createStatement();
 
         } catch (SQLException | ClassNotFoundException ex) {
-
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
         }
     }
@@ -45,7 +44,6 @@ public class Conexion {
             this.stm.close();
 
         } catch (Exception e) {
-
             Utilidades.mensajeError(null, e.getMessage(), "Error al desconectarse de la base de datos", "Error");
         }
     }
@@ -55,8 +53,7 @@ public class Conexion {
             this.procedimiento = conexion.prepareCall(procedimientoAlmacenado);
         } catch (SQLException ex) {
              Utilidades.mensajeError(null, ex.getMessage(), "Error al ejecutar el procedimiento", "Error");
-        }
-    
+        } 
     }
     
     public CallableStatement getProcedimiento(){

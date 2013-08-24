@@ -24,8 +24,8 @@ import javafx.scene.layout.AnchorPane;
 import sabga.configuracion.Dialogo;
 import np.com.ngopal.control.AutoFillTextBox;
 import sabga.configuracion.Utilidades;
-import sabga.modelo.Autor;
-import sabga.modelo.Materia;
+import sabga.atributos.Autor;
+import sabga.atributos.Materia;
 import sabga.modelo.Validacion;
 
 /**
@@ -93,13 +93,10 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     public void cargarNombreMateriaOM() {
 
         if (validar.validarCampoTexto(buscarMateriaOM.getText(), 90)) {
-
             obtenerMateriaOM();
-
         } else {
             Utilidades.mensajeAdvertencia(null, "Debe buscar y seleccionar una materia", "Para adicionar una materia a la lista", "Seleccionar Materia");
         }
-
     }
 
     public void obtenerMateriaOM() {
@@ -110,7 +107,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
 
     }
     
-     public void removerMateriaOM(){
+    public void removerMateriaOM(){
         
        if(tablaMateriasOM.getSelectionModel().getSelectedItem()!= null){
            
@@ -120,16 +117,13 @@ public class RegistroMaterialController implements Initializable, ControlledScre
        }
        else{
            Utilidades.mensajeAdvertencia(null, "Debe seleccionar uno de la lista", "Pare remover una materia", "Remover Materia");
-       }
-                                                   
+       }                                                   
     } 
     @FXML
     public void cargarNombreMateria(ActionEvent evento){
         
          if (validar.validarCampoTexto(buscarMateria.getText(), 90)) {
-
             obtenerMateria();
-
         } else {
             Utilidades.mensajeAdvertencia(null, "Debe buscar y seleccionar una materia", "Para adicionar una materia a la lista", "Seleccionar Materia");
         }

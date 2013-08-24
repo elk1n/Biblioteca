@@ -1,5 +1,5 @@
 
-package sabga.modelo;
+package sabga.atributos;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -18,12 +18,10 @@ public class Materia {
     }
     
     public String getNombreMateria(){    
-        return nombreMateria.get();
+        return this.nombreMateria.get();
     }
     
     public void  setNombreMateria(String materia){
         this.nombreMateria.set(materia);
-    }
-   
-    
+    }       
 }

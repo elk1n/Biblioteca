@@ -118,19 +118,19 @@
                 <Menu mnemonicParsing="false" text="Autores">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#dialogoNuevoAutor" text="Nuevo Autor" fx:id="menuNuevoAutor" />
-                    <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarEMA" text="Actualizar Autor" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarEMA" text="Editar Autor" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Materias">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#dialogoNuevaMateria" text="Nueva Materia" />
-                    <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarEMA" text="Actualizar Materia" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarEMA" text="Editar Materia" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Editoriales">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#dialogoNuevaEditorial" text="Nueva Editorial" />
-                    <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarEMA" text="Actulizar Editorial" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarEMA" text="Editar Editorial" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Opciones de Material">

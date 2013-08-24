@@ -67,7 +67,6 @@ public class Validacion {
         }
        
         else {
-            
             this.mensajeError = "";
             return true;
         }
