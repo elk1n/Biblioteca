@@ -60,5 +60,5 @@ public class Utilidades {
        Dialogs.showInformationDialog(propietario, mensanje, encabezado, titulo);
         
     }
-    
+       
 }

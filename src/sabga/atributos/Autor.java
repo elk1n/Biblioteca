@@ -18,7 +18,7 @@ public class Autor {
           this.nombreAutor = new SimpleStringProperty(nombre);
           this.apellidosAutor = new SimpleStringProperty(apellidos);     
     }
-    
+        
     public String getNombreAutor(){    
         return nombreAutor.get();
     }
@@ -27,7 +27,7 @@ public class Autor {
         return apellidosAutor.get();
     }
     
-    public void  setNombreAutor(String nombre){
+    public void setNombreAutor(String nombre){
         this.nombreAutor.set(nombre);
     }
     
@@ -37,7 +37,7 @@ public class Autor {
     
     @Override
     public String toString() {
-        return this.getNombreAutor() + this.getApellidosAutor();
+        return this.getNombreAutor();
     }
     
 }

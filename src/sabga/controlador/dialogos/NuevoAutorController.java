@@ -84,7 +84,7 @@ public class NuevoAutorController {
 
             con.getProcedimiento().execute();
             con.getConexion().commit();
-            mensaje=con.getProcedimiento().getString("mensaje");
+            mensaje = con.getProcedimiento().getString("mensaje");
 
         } catch (SQLException e) {
 

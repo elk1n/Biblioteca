@@ -20,7 +20,7 @@ public class ValidarMaterial extends Validacion{
            
            errorCodigoMaterial, errorCodigoClasificacion, errorTitulo, errorAnioPublicacion, errorPublicacion, errorNumeroPaginas,
            errorEjemplares,  errorAutor, errorMateria, errorTipoMaterial, errorClaseMaterial, errorEstado, 
-             errorNombreEditorial,  errorNuevoTipoMaterial,
+           errorNombreEditorial,  errorNuevoTipoMaterial,
             errorCantidadEjemplares, errorAnio;
         
    private Calendar calendario;
@@ -139,19 +139,6 @@ public class ValidarMaterial extends Validacion{
        this.materia9 = materia9;
   */
    }
-   
-   //           CONSTRUCTOR PARA ACTUALIZAR LOS ATORES LAS EDITORIALES, LAS MATERIAS, LOS TIPOS DE MATERIALES Y LAS CLASE DE MATERIAL           ---
-   
-   public ValidarMaterial(String nombreAutor, String apellidosAutor, String nombreEditorial, String nombreMateria, String tipoMaterial, String claseMaterial){
-       
-       this.nombreAutor = nombreAutor;
-       this.apellidosAutor = apellidosAutor;
-       this.nombreEditorial = nombreEditorial;
-       this.nombreMateria = nombreMateria;
-       this.nuevoTipoMaterial = tipoMaterial;
-       this.nuevaClaseMaterial = claseMaterial;
-        
-   } 
    
    //   METODO FINAL (ESO ESPEREO) PARA VALIDAR UN NUEVO AUTOR  
    public void validarNuevoAutor(String nombre, String apellidos){

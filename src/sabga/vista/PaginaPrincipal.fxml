@@ -87,7 +87,7 @@
             </Button>
           </children>
         </HBox>
-        <Button fx:id="botonBorrarBusqueda" contentDisplay="CENTER" graphicTextGap="2.0" layoutX="650.0" layoutY="76.0" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#borrarCampo" opacity="0.79" prefHeight="20.0" prefWidth="20.0">
+        <Button fx:id="botonBorrarBusqueda" contentDisplay="CENTER" graphicTextGap="2.0" layoutX="650.0" layoutY="76.0" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#borrarCampo" opacity="0.79" prefHeight="20.0" prefWidth="20.0" styleClass="botonBorrarBusqueda">
           <stylesheets>
             <URL value="@css/estilo.css" />
           </stylesheets>

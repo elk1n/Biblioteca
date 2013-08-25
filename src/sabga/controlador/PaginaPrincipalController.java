@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyEvent;
 import sabga.Sabga;
@@ -211,8 +212,8 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     @FXML
     private void salir(ActionEvent evento){
 
-        Utilidades.mensajeConfirmacion(ventanaPrincipal.getPrimaryStage(), "Los cambios no guradados se perderan", "Realmente desea salir?","Salir de SABGA");
-         if(Utilidades.getMensajeConfimacion().equals(Utilidades.getMensajeConfimacion().OK)){
+        Utilidades.mensajeConfirmacion(ventanaPrincipal.getPrimaryStage(), "Los cambios no guardados se perderan", "Realmente desea salir?","Salir de SABGA");
+         if(Utilidades.getMensajeConfimacion() == Dialogs.DialogResponse.OK){
              
              System.exit(0);         
          }     

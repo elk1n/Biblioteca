@@ -27,9 +27,17 @@ root {
         linear-gradient(#FFF, #5982AA);  
 }
 
-#botonBorrarBusqueda{
+.botonBorrarBusqueda{
     
     -fx-background-image: url("../Imagenes/Borrar.png");
+    -fx-background-position:center;
+    -fx-background-repeat:no-repeat;
+    -fx-background-color:transparent;
+}
+
+.botonBorrar{
+    
+    -fx-background-image: url("../Imagenes/x4.png");
     -fx-background-position:center;
     -fx-background-repeat:no-repeat;
     -fx-background-color:transparent;
@@ -38,6 +46,12 @@ root {
 #campoBusqueda {
     
 -fx-padding: 0px 155px 0px 5px;
+    
+}
+
+.campoBusqueda {
+    
+-fx-padding: 0px 27px 0px 5px;
     
 }
 
