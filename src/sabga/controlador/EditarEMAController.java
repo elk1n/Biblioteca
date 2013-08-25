@@ -104,29 +104,63 @@ public class EditarEMAController implements Initializable, ControlledScreen {
     @FXML
     public void eliminar(ActionEvent evento){
     
-       if(tablaResultados.getSelectionModel().getSelectedItem()!=null){
-           if(comboListar.getSelectionModel().getSelectedIndex()==0){
-               try {
-                   eliminarAutor();
-                   if (mensaje != null) {
-                       Utilidades.mensajeAdvertencia(null, mensaje, "Error al eliminar el autor", "Error Eliminar Autor");
-                   } else {                       
-                       campoNombreAutor.setText(null);
-                       campoApellidosAutor.setText(null);
-                       llenarAutores();                    
-                       Utilidades.mensaje(null, "El autor se ha eliminado correctamente", "Eliminado Autor", "Eliminación Exitosa");
-                       
-                   }
-               } catch (SQLException ex) {
-                   Utilidades.mensajeError(null, ex.getMessage(), "Error eliminar autor", "Error Eliminar Autor");
-               }
-           }       
+       eliminar();
+    }
+    
+    private void eliminar(){
+        
+         if (tablaResultados.getSelectionModel().getSelectedItem() != null) {
+            if (comboListar.getSelectionModel().getSelectedIndex() == 0) {
+                eliminacionAutor();
+            }
+            if (comboListar.getSelectionModel().getSelectedIndex() == 1) {
+                obtenerId("SELECT id_editorial FROM tbl_EDITORIAL WHERE nombre_editorial=", "'" + nombre + "'", "id_editorial");
+                eliminarOtros("{ CALL editarEditorial(?,?,?,?) }", null, 2);
+                campoEditorial.setText(null);
+                listarDatos("SELECT * FROM tbl_EDITORIAL", "nombre_editorial");
+            }
+            if (comboListar.getSelectionModel().getSelectedIndex() == 2) {
+                obtenerId("SELECT id_materia FROM tbl_MATERIA WHERE nombre_materia=", "'" + nombre + "'", "id_materia");
+                eliminarOtros("{ CALL editarMateria(?,?,?,?) }", null, 2);
+                campoMateria.setText(null);
+                listarDatos("SELECT * FROM tbl_MATERIA", "nombre_materia");
+            }
+            if (comboListar.getSelectionModel().getSelectedIndex() == 3) {
+                obtenerId("SELECT id_clase_material FROM tbl_CLASE_MATERIAL WHERE clase_material=", "'" + nombre + "'", "id_clase_material");
+                eliminarOtros("{ CALL editarClaseMaterial(?,?,?,?) }", null, 2);
+                campoClaseMaterial.setText(null);
+                listarDatos("SELECT * FROM tbl_CLASE_MATERIAL", "clase_material");
+            }
+            if (comboListar.getSelectionModel().getSelectedIndex() == 4) {
+                obtenerId("SELECT id_tipo_material FROM tbl_TIPO_MATERIAL WHERE tipo_material=", "'" + nombre + "'", "id_tipo_material");
+                eliminarOtros("{ CALL editarTipoMaterial(?,?,?,?) }", null, 2);
+                campoClaseMaterial.setText(null);
+                listarDatos("SELECT * FROM tbl_TIPO_MATERIAL", "tipo_material");
+
+            }
        }
        else{
              Utilidades.mensaje(null, "Debe seleccionar un item de la lista", "Para eliminar un item", "Seleccionar");
-       }
+       }    
     
+        
+    }
     
+    private void eliminacionAutor(){
+      
+        try {
+            eliminarAutor();
+            if (mensaje != null) {
+                Utilidades.mensajeAdvertencia(null, mensaje, "Error al eliminar el autor", "Error Eliminar Autor");
+            } else {
+                campoNombreAutor.setText(null);
+                campoApellidosAutor.setText(null);
+                llenarAutores();
+                Utilidades.mensaje(null, "El autor se ha eliminado correctamente", "Eliminado Autor", "Eliminación Exitosa");
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "Error eliminar autor", "Error Eliminar Autor");
+        }
     }
     
     private void eliminarAutor() throws SQLException{
@@ -221,53 +255,53 @@ public class EditarEMAController implements Initializable, ControlledScreen {
     
     }
     
+    private void eliminarOtros(String procedimiento, String campos, int seleccion){
+        
+        try {
+                guardarEdicion(procedimiento, campos , seleccion);
+                if (mensaje != null) {
+
+                    Utilidades.mensajeAdvertencia(null, mensaje, "Error al editar la selección", "Error Guardar Cambios");
+                } else {
+                    
+                    Utilidades.mensaje(null, "la selección se ha eliminado correctamente", "Editando Selección", "Actualización Exitosa");
+                }
+            } catch (SQLException ex) {
+
+                Utilidades.mensajeError(null, ex.getMessage(), "Error al actualizar la información", "Error Guardar Cambios");
+            }
+        
+    }
+    
+    private void edicionAutor(int seleccion){
+      
+        try {
+            guardarEdicion(seleccion);
+            if (mensaje != null) {
+
+                Utilidades.mensajeAdvertencia(null, mensaje, "Error al editar el autor", "Error Guardar Cambios Autor");
+            } else {
+                Utilidades.mensaje(null, "Los cambios se han guardado correctamente", "Editando Autor", "Actualizacion Exitosa");
+            }
+        } catch (SQLException ex) {
+
+            Utilidades.mensajeError(null, ex.getMessage(), "Error al tratar de actualizar la información del autor", "Error Guardar Cambios Autor");
+        }
+    }
+    
     public void editar() {
 
         int opcion;
 
         if (!nombre.equalsIgnoreCase(campoNombreAutor.getText().trim()) && !apellido.equalsIgnoreCase(campoApellidosAutor.getText().trim())) {
             opcion = 3;
-            try {
-                guardarEdicion(opcion);
-                if (mensaje != null) {
-
-                    Utilidades.mensajeAdvertencia(null, mensaje, "Error al editar el autor", "Error Guardar Cambios Autor");
-                } else {
-                    Utilidades.mensaje(null, "Los cambios se han guardado correctamente", "Editando Autor", "Actualizacion Exitosa");
-                }
-            } catch (SQLException ex) {
-
-                Utilidades.mensajeError(null, ex.getMessage(), "Error al tratar de actualizar la información del autor", "Error Guardar Cambios Autor");
-            }
+            edicionAutor(opcion);
         } else if (!nombre.equalsIgnoreCase(campoNombreAutor.getText().trim())) {
             opcion = 1;
-            try {
-                guardarEdicion(opcion);
-                if (mensaje != null) {
-
-                    Utilidades.mensajeAdvertencia(null, mensaje, "Error al editar el autor", "Error Guardar Cambios Autor");
-                } else {
-                    Utilidades.mensaje(null, "Los cambios se han guardado correctamente", "Editando Autor", "Actualizacion Exitosa");
-                }
-            } catch (SQLException ex) {
-
-                Utilidades.mensajeError(null, ex.getMessage(), "Error al tratar de actualziar la información del autor", "Error Guardar Cambios Autor");
-            }
-
+            edicionAutor(opcion);
         } else if (!apellido.equalsIgnoreCase(campoApellidosAutor.getText().trim())) {
             opcion = 2;
-            try {
-                guardarEdicion(opcion);
-                if (mensaje != null) {
-
-                    Utilidades.mensajeAdvertencia(null, mensaje, "Error al editar el autor", "Error Guardar Cambios Autor");
-                } else {
-                    Utilidades.mensaje(null, "Los cambios se han guardado correctamente", "Editando Autor", "Actualización Exitosa");
-                }
-            } catch (SQLException ex) {
-
-                Utilidades.mensajeError(null, ex.getMessage(), "Error al tratar de actualziar la información del autor", "Error Guardar Cambios Autor");
-            }
+            edicionAutor(opcion);
         } else {
 
             Utilidades.mensaje(null, "No se han presentado cambios", "Editando Autor", "Ediatar Autor");
@@ -436,6 +470,7 @@ public class EditarEMAController implements Initializable, ControlledScreen {
             campoFiltrar.setPromptText("Buscar Tipo de Material");
             btnEliminar.setText("Eliminar Tipo");
         }
+        
 
     }
 
