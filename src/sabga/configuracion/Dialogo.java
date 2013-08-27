@@ -206,7 +206,7 @@ public class Dialogo {
     
         EditarOpcionesUsuarioController controller= loader.getController();
         controller.setDialogStage(dialogStage);
-        dialogStage.showAndWait();
+        dialogStage.show();
     }
     
     private void controladorInicioSesion(Sabga sabga) {

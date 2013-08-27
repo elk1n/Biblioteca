@@ -126,17 +126,16 @@ public class EditarEMAController implements Initializable, ControlledScreen {
                 listarDatos("SELECT * FROM tbl_MATERIA", "nombre_materia");
             }
             if (comboListar.getSelectionModel().getSelectedIndex() == 3) {
+                obtenerId("SELECT id_tipo_material FROM tbl_TIPO_MATERIAL WHERE tipo_material=", "'" + nombre + "'", "id_tipo_material");
+                eliminarOtros("{ CALL editarTipoMaterial(?,?,?,?) }", null, 2);
+                campoTipoMaterial.setText(null);
+                listarDatos("SELECT * FROM tbl_TIPO_MATERIAL", "tipo_material");
+            }
+            if (comboListar.getSelectionModel().getSelectedIndex() == 4) {
                 obtenerId("SELECT id_clase_material FROM tbl_CLASE_MATERIAL WHERE clase_material=", "'" + nombre + "'", "id_clase_material");
                 eliminarOtros("{ CALL editarClaseMaterial(?,?,?,?) }", null, 2);
                 campoClaseMaterial.setText(null);
                 listarDatos("SELECT * FROM tbl_CLASE_MATERIAL", "clase_material");
-            }
-            if (comboListar.getSelectionModel().getSelectedIndex() == 4) {
-                obtenerId("SELECT id_tipo_material FROM tbl_TIPO_MATERIAL WHERE tipo_material=", "'" + nombre + "'", "id_tipo_material");
-                eliminarOtros("{ CALL editarTipoMaterial(?,?,?,?) }", null, 2);
-                campoClaseMaterial.setText(null);
-                listarDatos("SELECT * FROM tbl_TIPO_MATERIAL", "tipo_material");
-
             }
        }
        else{
@@ -260,17 +259,13 @@ public class EditarEMAController implements Initializable, ControlledScreen {
         try {
                 guardarEdicion(procedimiento, campos , seleccion);
                 if (mensaje != null) {
-
                     Utilidades.mensajeAdvertencia(null, mensaje, "Error al editar la selección", "Error Guardar Cambios");
-                } else {
-                    
+                } else {                    
                     Utilidades.mensaje(null, "la selección se ha eliminado correctamente", "Editando Selección", "Actualización Exitosa");
                 }
             } catch (SQLException ex) {
-
                 Utilidades.mensajeError(null, ex.getMessage(), "Error al actualizar la información", "Error Guardar Cambios");
-            }
-        
+            }        
     }
     
     private void edicionAutor(int seleccion){
@@ -361,8 +356,7 @@ public class EditarEMAController implements Initializable, ControlledScreen {
 
         } finally {
             con.desconectar();
-        }
-    
+        }    
     }
 
     public void obtenerId(String consulta, String nombre, String columna) {
@@ -370,18 +364,14 @@ public class EditarEMAController implements Initializable, ControlledScreen {
         try {
             con.conectar();
             con.setResultado(con.getStatement().executeQuery(consulta + nombre));
-
+            
             if (con.getResultado().first()) {
-
                 id = con.getResultado().getInt(columna);
             }
 
         } catch (SQLException ex) {
-
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
-
         } finally {
-
             con.desconectar();
         }
 
@@ -460,15 +450,15 @@ public class EditarEMAController implements Initializable, ControlledScreen {
         }
 
         if (comboListar.getSelectionModel().getSelectedIndex() == 3) {
-            listarDatos("SELECT * FROM tbl_CLASE_MATERIAL", "clase_material");
-            campoFiltrar.setPromptText("Buscar Clase de Material");
-            btnEliminar.setText("Eliminar Clase");
-        }
-
-        if (comboListar.getSelectionModel().getSelectedIndex() == 4) {
             listarDatos("SELECT * FROM tbl_TIPO_MATERIAL", "tipo_material");
             campoFiltrar.setPromptText("Buscar Tipo de Material");
             btnEliminar.setText("Eliminar Tipo");
+        }
+         
+        if (comboListar.getSelectionModel().getSelectedIndex() == 4) {
+            listarDatos("SELECT * FROM tbl_CLASE_MATERIAL", "clase_material");
+            campoFiltrar.setPromptText("Buscar Clase de Material");
+            btnEliminar.setText("Eliminar Clase");
         }
         
 
@@ -725,10 +715,7 @@ public class EditarEMAController implements Initializable, ControlledScreen {
                     String oldValue, String newValue) {
                 mostrarBoton();
                 updateFilteredData();
-
             }
         });
-
-
     }
 }

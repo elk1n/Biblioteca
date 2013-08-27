@@ -15,7 +15,7 @@ public class Conexion {
     private String puerto = "8889/";
     private String nombreBaseDatos = "SABGAB";
     private String usuario = "root";
-    private String contrasenia = "root";
+    private String contrasenia = "";
     private String url = "jdbc:mysql://localhost:";
     private String driver = "com.mysql.jdbc.Driver";
     private Connection conexion = null;
@@ -30,7 +30,6 @@ public class Conexion {
             Class.forName(driver);
             conexion = DriverManager.getConnection(cadenaConexion, usuario, contrasenia);
             stm = conexion.createStatement();
-
         } catch (SQLException | ClassNotFoundException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
         }

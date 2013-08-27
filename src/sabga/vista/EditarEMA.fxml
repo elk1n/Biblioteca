@@ -102,8 +102,8 @@
           <String fx:value="Autores" />
           <String fx:value="Editoriales" />
           <String fx:value="Materias" />
-          <String fx:value="Clase de Material" />
           <String fx:value="Tipos de Material" />
+          <String fx:value="Clase de Material" />         
         </FXCollections>
       </items>
     </ComboBox>
