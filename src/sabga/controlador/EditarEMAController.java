@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.DepthTest;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -137,6 +138,7 @@ public class EditarEMAController implements Initializable, ControlledScreen {
                 campoClaseMaterial.setText(null);
                 listarDatos("SELECT * FROM tbl_CLASE_MATERIAL", "clase_material");
             }
+            resetear();
        }
        else{
              Utilidades.mensaje(null, "Debe seleccionar un item de la lista", "Para eliminar un item", "Seleccionar");
@@ -192,8 +194,38 @@ public class EditarEMAController implements Initializable, ControlledScreen {
         }
         
     }
+   
+    private void eliminarOtros(String procedimiento, String campos, int seleccion){
+        
+        try {
+                guardarEdicion(procedimiento, campos , seleccion);
+                if (mensaje != null) {
+                    Utilidades.mensajeAdvertencia(null, mensaje, "Error al eliminar la selección", "Error Guardar Cambios");
+                } else {                    
+                    Utilidades.mensaje(null, "La selección se ha eliminado correctamente", "Eliminado Selección", "Actualización Exitosa");
+                }
+            } catch (SQLException ex) {
+                Utilidades.mensajeError(null, ex.getMessage(), "Error al actualizar la información", "Error Guardar Cambios");
+            }        
+    }
+    
+    private void edicionAutor(int seleccion){
+      
+        try {
+            guardarEdicion(seleccion);
+            if (mensaje != null) {
 
-    public void edicion() {
+                Utilidades.mensajeAdvertencia(null, mensaje, "Error al editar el autor", "Error Guardar Cambios Autor");
+            } else {
+                Utilidades.mensaje(null, "Los cambios se han guardado correctamente", "Editando Autor", "Actualizacion Exitosa");
+            }
+        } catch (SQLException ex) {
+
+            Utilidades.mensajeError(null, ex.getMessage(), "Error al tratar de actualizar la información del autor", "Error Guardar Cambios Autor");
+        }
+    }
+    
+     public void edicion() {
          
         ConfirmarMaterial verificar = new ConfirmarMaterial();
         
@@ -228,60 +260,29 @@ public class EditarEMAController implements Initializable, ControlledScreen {
                 editarOtros(campoClaseMaterial.getText().trim(), "{ CALL editarClaseMaterial(?,?,?,?) }",campoClaseMaterial.getText().trim(), 1);
             }
         }
-
+        resetear();
+        listar(null);
     }
     
     public void editarOtros(String campo, String procedimiento, String campos ,int seleccion ){
         
-        if(!nombre.equalsIgnoreCase(campo)){
-            try {
-                guardarEdicion(procedimiento, campos , seleccion);
-                if (mensaje != null) {
+           if(!nombre.equalsIgnoreCase(campo)){
+                try {
+                    guardarEdicion(procedimiento, campos , seleccion);
+                    if (mensaje != null) {
 
-                    Utilidades.mensajeAdvertencia(null, mensaje, "Error al editar la selección", "Error Guardar Cambios");
-                } else {
-                    Utilidades.mensaje(null, "Los cambios se han guardado correctamente", "Editando Selección", "Actualización Exitosa");
-                }
-            } catch (SQLException ex) {
+                        Utilidades.mensajeAdvertencia(null, mensaje, "Error al editar la selección", "Error Guardar Cambios");
+                    } else {
+                        Utilidades.mensaje(null, "Los cambios se han guardado correctamente", "Editando Selección", "Actualización Exitosa");
+                    }
+                } catch (SQLException ex) {
 
-                Utilidades.mensajeError(null, ex.getMessage(), "Error al actualizar la información", "Error Guardar Cambios");
+                    Utilidades.mensajeError(null, ex.getMessage(), "Error al actualizar la información", "Error Guardar Cambios");
+                }            
+            }else {
+                Utilidades.mensaje(null, "No se han presentado cambios", "Editando Selección", "Editar Selección");
             }
-            
-        }else {
-
-            Utilidades.mensaje(null, "No se han presentado cambios", "Editando Selección", "Editar Selección");
-        }
-    
-    }
-    
-    private void eliminarOtros(String procedimiento, String campos, int seleccion){
-        
-        try {
-                guardarEdicion(procedimiento, campos , seleccion);
-                if (mensaje != null) {
-                    Utilidades.mensajeAdvertencia(null, mensaje, "Error al editar la selección", "Error Guardar Cambios");
-                } else {                    
-                    Utilidades.mensaje(null, "la selección se ha eliminado correctamente", "Editando Selección", "Actualización Exitosa");
-                }
-            } catch (SQLException ex) {
-                Utilidades.mensajeError(null, ex.getMessage(), "Error al actualizar la información", "Error Guardar Cambios");
-            }        
-    }
-    
-    private void edicionAutor(int seleccion){
-      
-        try {
-            guardarEdicion(seleccion);
-            if (mensaje != null) {
-
-                Utilidades.mensajeAdvertencia(null, mensaje, "Error al editar el autor", "Error Guardar Cambios Autor");
-            } else {
-                Utilidades.mensaje(null, "Los cambios se han guardado correctamente", "Editando Autor", "Actualizacion Exitosa");
-            }
-        } catch (SQLException ex) {
-
-            Utilidades.mensajeError(null, ex.getMessage(), "Error al tratar de actualizar la información del autor", "Error Guardar Cambios Autor");
-        }
+  
     }
     
     public void editar() {
@@ -429,7 +430,7 @@ public class EditarEMAController implements Initializable, ControlledScreen {
     public void listar(ActionEvent evento) {
 
         campoFiltrar.setText(null);
-
+        resetear();
         if (comboListar.getSelectionModel().getSelectedIndex() == 0) {
             tablaAutores();
             llenarAutores();
@@ -460,8 +461,7 @@ public class EditarEMAController implements Initializable, ControlledScreen {
             campoFiltrar.setPromptText("Buscar Clase de Material");
             btnEliminar.setText("Eliminar Clase");
         }
-        
-
+      
     }
 
     public void listarDatos(String tabla, String consulta) {
@@ -499,27 +499,20 @@ public class EditarEMAController implements Initializable, ControlledScreen {
             acordeonAutor.setExpanded(true);
             campoNombreAutor.setText(filtrarAutores.get(tablaResultados.getSelectionModel().getSelectedIndex()).getNombreAutor());
             campoApellidosAutor.setText(filtrarAutores.get(tablaResultados.getSelectionModel().getSelectedIndex()).getApellidosAutor());
-
+            campoNombreAutor.setDisable(false);
+            campoApellidosAutor.setDisable(false);
+            
             nombre = filtrarAutores.get(tablaResultados.getSelectionModel().getSelectedIndex()).getNombreAutor();
             apellido = filtrarAutores.get(tablaResultados.getSelectionModel().getSelectedIndex()).getApellidosAutor();
-
-            campoEditorial.setText(null);
-            campoMateria.setText(null);
-            campoTipoMaterial.setText(null);
-            campoClaseMaterial.setText(null);
+            
         }
 
         if (comboListar.getSelectionModel().getSelectedIndex() == 1) {
             acordeonEditorial.setExpanded(true);
             campoEditorial.setText(tablaResultados.getSelectionModel().getSelectedItem().toString());
-
-            nombre = tablaResultados.getSelectionModel().getSelectedItem().toString();
-
-            campoNombreAutor.setText(null);
-            campoApellidosAutor.setText(null);
-            campoMateria.setText(null);
-            campoTipoMaterial.setText(null);
-            campoClaseMaterial.setText(null);
+            campoEditorial.setDisable(false);
+            
+            nombre = tablaResultados.getSelectionModel().getSelectedItem().toString();         
             // campoEditorial.setText(listaDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).toString());
             //  System.out.println(listaDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()));
         }
@@ -527,41 +520,25 @@ public class EditarEMAController implements Initializable, ControlledScreen {
         if (comboListar.getSelectionModel().getSelectedIndex() == 2) {
             acordeonMateria.setExpanded(true);
             campoMateria.setText(tablaResultados.getSelectionModel().getSelectedItem().toString());
-
+            campoMateria.setDisable(false);
+            
             nombre = tablaResultados.getSelectionModel().getSelectedItem().toString();
-
-            campoNombreAutor.setText(null);
-            campoApellidosAutor.setText(null);
-            campoEditorial.setText(null);
-            campoTipoMaterial.setText(null);
-            campoClaseMaterial.setText(null);
         }
 
         if (comboListar.getSelectionModel().getSelectedIndex() == 3) {
             acordeonTipo.setExpanded(true);
             campoTipoMaterial.setText(tablaResultados.getSelectionModel().getSelectedItem().toString());
-
+            campoTipoMaterial.setDisable(false);
+            
             nombre = tablaResultados.getSelectionModel().getSelectedItem().toString();
-
-            campoNombreAutor.setText(null);
-            campoApellidosAutor.setText(null);
-            campoEditorial.setText(null);
-            campoMateria.setText(null);
-            campoClaseMaterial.setText(null);
         }
 
         if (comboListar.getSelectionModel().getSelectedIndex() == 4) {
             acordeonClase.setExpanded(true);
             campoClaseMaterial.setText(tablaResultados.getSelectionModel().getSelectedItem().toString());
-
+            campoClaseMaterial.setDisable(false);
+            
             nombre = tablaResultados.getSelectionModel().getSelectedItem().toString();
-
-            campoNombreAutor.setText(null);
-            campoApellidosAutor.setText(null);
-            campoEditorial.setText(null);
-            campoMateria.setText(null);
-            campoTipoMaterial.setText(null);
-
         }
     }
 
@@ -703,12 +680,29 @@ public class EditarEMAController implements Initializable, ControlledScreen {
             btnBorrar.setVisible(true);
         }
     }
+    
+    private void resetear(){
+        
+        campoNombreAutor.setText(null);
+        campoNombreAutor.setDisable(true);
+        campoApellidosAutor.setText(null);
+        campoApellidosAutor.setDisable(true);
+        campoEditorial.setText(null);
+        campoEditorial.setDisable(true);
+        campoMateria.setText(null);
+        campoMateria.setDisable(true);
+        campoTipoMaterial.setText(null);
+        campoTipoMaterial.setDisable(true);
+        campoClaseMaterial.setText(null);
+        campoClaseMaterial.setDisable(true);
+    
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         btnBorrar.setVisible(false);
-
+        resetear();
         campoFiltrar.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable,

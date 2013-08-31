@@ -37,7 +37,7 @@ public class Autor {
     
     @Override
     public String toString() {
-        return this.getNombreAutor();
+        return this.getNombreAutor()+" "+this.getApellidosAutor();
     }
     
 }

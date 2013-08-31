@@ -2,6 +2,8 @@
 package sabga.controlador;
 
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +28,7 @@ import np.com.ngopal.control.AutoFillTextBox;
 import sabga.configuracion.Utilidades;
 import sabga.atributos.Autor;
 import sabga.atributos.Materia;
+import sabga.configuracion.Conexion;
 import sabga.modelo.Validacion;
 
 /**
@@ -34,17 +37,6 @@ import sabga.modelo.Validacion;
 
 public class RegistroMaterialController implements Initializable, ControlledScreen {
 
-    private Sabga ventanaPrincipal;  
-    private ScreensController controlador;
-    private Dialogo dialogo;
-    private AutoFillTextBox buscarAutor, buscarMateria, buscarMateriaOM, buscarEditorial;
-    private Validacion validar;
-    
-    private ObservableList data; 
-    private ObservableList<Autor> autores;
-    private ObservableList<Materia> materias;
-    private ObservableList<Materia> materiasOM;
-     
     @FXML
     private HBox hboxAutor, hboxMaterias, hboxMateriasOM, hboxEditorial;
     @FXML
@@ -63,32 +55,86 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                             campoNumeroClasificacionOM, campoTituloOM, campoMateriaOM, campoNumeroCopias;
     
     @FXML private ComboBox comboClaseMaterial, comboClaseMaterialOM, comboTipoMaterial;
-       
     
-    String[] s = new String[]{"apple","ball","cat","doll","elephant","arbol","amazonas","arcade","años","apesta","animal","añora","alejar",
-            "fight","georgeous","height","ice","jug","apuesta","acortar","alcanzar","Alicante","Arroz",
-             "apologize","bank","call","done","ego",
-             "finger","giant","hollow","internet","jumbo",
-             "kilo","lion","for","length","primary","stage",
-             "scene","zoo","jumble","auto","text",
-            "root","box","items","hip-hop","himalaya","nepal","Archivo",
-            "kathmandu","kirtipur","everest","buddha","epic","hotel"};
+    private Sabga ventanaPrincipal;  
+    private ScreensController controlador;
+    private Dialogo dialogo;
+    private AutoFillTextBox buscarAutor, buscarMateria, buscarMateriaOM, buscarEditorial;
+    private Validacion validar;
     
+    private Conexion con;
+    
+    private ObservableList listaAutores;
+    private ObservableList<Autor> obtenerAutores;
+    private ObservableList listaMaterias;
+    private ObservableList listaEditoriales;
+    private ObservableList<Autor> autores;
+    private ObservableList<Materia> materias;
+    private ObservableList<Materia> materiasOM;
+     
+        
     public RegistroMaterialController(){
         
+        con = new Conexion();
         dialogo = new Dialogo();
         buscarAutor = new AutoFillTextBox();
         buscarMateria = new AutoFillTextBox();
         buscarMateriaOM = new AutoFillTextBox();
         buscarEditorial = new AutoFillTextBox();
         
-        data = FXCollections.observableArrayList();
+        listaMaterias = FXCollections.observableArrayList();
         autores = FXCollections.observableArrayList();
         materias = FXCollections.observableArrayList();
         materiasOM = FXCollections.observableArrayList();
+        listaEditoriales = FXCollections.observableArrayList();
+        listaAutores = FXCollections.observableArrayList();
+        obtenerAutores = FXCollections.observableArrayList();
         validar = new Validacion();
    
     }
+    
+    public void llenarAutores() {
+
+        try {
+
+            con.conectar();
+            con.setResultado(con.getStatement().executeQuery("SELECT * FROM tbl_AUTOR"));
+
+            while (con.getResultado().next()) {
+
+                obtenerAutores.add(new Autor(con.getResultado().getString("nombre_autor"), con.getResultado().getString("apellidos_autor")));
+            }
+            con.desconectar();
+            
+            for(Autor datos : obtenerAutores){
+            
+                listaAutores.add(datos.toString());
+            }
+           
+        } catch (SQLException ex) {
+            
+            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+        }
+    }
+    
+    public void listarDatos(ObservableList lista, String tabla, String consulta) {
+
+          try {
+
+            con.conectar();
+            con.setResultado(con.getStatement().executeQuery(tabla));
+
+            while (con.getResultado().next()) {
+
+                lista.add(con.getResultado().getString(consulta));
+            }
+            con.desconectar();
+        
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+        }
+        
+    }  
     
     public void cargarNombreMateriaOM() {
 
@@ -300,18 +346,11 @@ public class RegistroMaterialController implements Initializable, ControlledScre
        
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-           
+             
         prepararTablas();
-        
-
-        for(int j=0; j<s.length; j++){
-                data.add(s[j]);
-            }
-        data.add("Fabián");
-        data.add("Áreas");
-        data.add("área");
-        data.add("aárea");
-        data.add("AÁreas");
+        listarDatos(listaMaterias, "SELECT nombre_materia FROM tbl_MATERIA", "nombre_materia");
+        listarDatos(listaEditoriales, "SELECT nombre_editorial FROM tbl_EDITORIAL", "nombre_editorial");
+        llenarAutores();
         buscarAutor.setPrefSize(350, 30);
         buscarMateria.setPrefSize(350, 30);
         buscarMateriaOM.setPrefSize(350, 30);
@@ -321,10 +360,10 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         buscarMateriaOM.getTextbox().setPromptText("Buscar Materias");
         buscarEditorial.getTextbox().setPromptText("Buscar Editorial");
         
-        buscarAutor.setData(data);
-        buscarMateria.setData(data);
-        buscarMateriaOM.setData(data);
-        buscarEditorial.setData(data);
+        buscarAutor.setData(listaAutores);
+        buscarMateria.setData(listaMaterias);
+        buscarMateriaOM.setData(listaMaterias);
+        buscarEditorial.setData(listaEditoriales);
       
         hboxAutor.getChildren().add(buscarAutor);
         hboxMaterias.getChildren().add(buscarMateria);

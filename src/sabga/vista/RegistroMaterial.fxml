@@ -12,7 +12,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="paginaRegistroMaterial" layoutY="0.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.RegistroMaterialController">
   <children>
-    <TabPane layoutX="0.0" layoutY="1.0" pickOnBounds="true" prefHeight="510.0" prefWidth="1260.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="30.0" tabMinHeight="30.0">
+    <TabPane layoutX="0.0" layoutY="0.0" pickOnBounds="true" prefHeight="510.0" prefWidth="1260.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="30.0" tabMinHeight="30.0">
       <tabs>
         <Tab closable="false" text="Registrar Libros">
           <content>
@@ -72,15 +72,15 @@
                     <RowConstraints maxHeight="62.0" minHeight="0.0" prefHeight="15.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                 </GridPane>
-                <Group id="Group" fx:id="grupoEditorial" layoutX="613.0" layoutY="18.0" scaleX="1.0" scaleY="1.0">
+                <Group id="Group" fx:id="grupoEditorial" layoutX="614.0" layoutY="18.0" scaleX="1.0" scaleY="1.0">
                   <children>
                     <Label layoutY="8.0" text="Editorial" />
-                    <HBox fx:id="hboxEditorial" layoutX="83.0" layoutY="0.0" prefHeight="30.0" prefWidth="350.0">
+                    <HBox fx:id="hboxEditorial" layoutX="74.0" layoutY="0.0" prefHeight="30.0" prefWidth="350.0">
                       <stylesheets>
                         <URL value="@css/estilo.css" />
                       </stylesheets>
                     </HBox>
-                    <Button fx:id="btnNuevaEditorial" defaultButton="true" focusTraversable="false" layoutX="449.0" layoutY="3.0" mnemonicParsing="false" onAction="#dialogoNuevaEditorial" prefHeight="24.999900000002526" prefWidth="120.0" text="Nueva Editorial">
+                    <Button fx:id="btnNuevaEditorial" defaultButton="true" focusTraversable="false" layoutX="443.0" layoutY="3.0" mnemonicParsing="false" onAction="#dialogoNuevaEditorial" prefHeight="24.999900000002526" prefWidth="120.0" text="Nueva Editorial">
                       <stylesheets>
                         <URL value="@css/estilo.css" />
                       </stylesheets>
@@ -100,7 +100,7 @@
                                   <children>
                                     <Group id="Group" fx:id="grupoAutor" layoutX="40.0" layoutY="23.0" scaleX="1.0" scaleY="1.0">
                                       <children>
-                                        <HBox id="hbAutor" fx:id="hboxAutor" layoutX="60.0" layoutY="-5.0" prefHeight="30.0" prefWidth="350.0">
+                                        <HBox id="hbAutor" fx:id="hboxAutor" layoutX="60.0" layoutY="-4.0" prefHeight="30.0" prefWidth="350.0">
                                           <stylesheets>
                                             <URL value="@css/estilo.css" />
                                           </stylesheets>

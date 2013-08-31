@@ -15,20 +15,17 @@
   <children>
     <Accordion layoutX="568.0" layoutY="61.0" prefHeight="360.9998779296875" prefWidth="516.0">
       <expandedPane>
-        <TitledPane id="x6" fx:id="acordeonAutor" animated="false" text="Autor">
+        <TitledPane fx:id="acordeonClase" animated="false" expanded="true" text="Clase de Material">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <Label layoutX="64.0" layoutY="34.0" text="Nombre:" />
-                <Label layoutX="65.0" layoutY="128.0" text="Apellidos:" />
-                <TextField id="campoAutor" fx:id="campoNombreAutor" layoutX="63.0" layoutY="56.0" prefHeight="30.0" prefWidth="350.0" promptText="Nombre del Autor" />
-                <TextField id="campoApellidoAutor" fx:id="campoApellidosAutor" layoutX="63.0" layoutY="150.0" prefHeight="30.0" prefWidth="350.0" promptText="Apellidos de Autor" />
-                <Label fx:id="validarNombreAutor" alignment="CENTER_RIGHT" layoutX="62.0" layoutY="88.0" prefWidth="350.0" text="Validación">
+                <Label layoutX="81.0" layoutY="88.0" text="Clase de Material" />
+                <Label id="validarMateria" fx:id="validarClaseMaterial" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="81.0" layoutY="144.0" prefWidth="350.0" text="Validación">
                   <textFill>
                     <Color blue="0.000" green="0.000" red="0.600" fx:id="x1" />
                   </textFill>
                 </Label>
-                <Label fx:id="validarApellidosAutor" alignment="CENTER_RIGHT" layoutX="62.0" layoutY="182.0" prefWidth="350.0" text="Validación" textFill="$x1" />
+                <TextField id="campoMateria" fx:id="campoClaseMaterial" layoutX="81.0" layoutY="111.0" prefHeight="30.0" prefWidth="350.0" promptText="Clase de material" />
               </children>
             </AnchorPane>
           </content>
@@ -38,13 +35,26 @@
         </TitledPane>
       </expandedPane>
       <panes>
-        <fx:reference source="acordeonAutor" />
+        <TitledPane id="x6" fx:id="acordeonAutor" animated="false" font="$x2" text="Autor">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <Label layoutX="64.0" layoutY="34.0" text="Nombre:" />
+                <Label layoutX="65.0" layoutY="128.0" text="Apellidos:" />
+                <TextField id="campoAutor" fx:id="campoNombreAutor" layoutX="63.0" layoutY="56.0" prefHeight="30.0" prefWidth="350.0" promptText="Nombre del Autor" />
+                <TextField id="campoApellidoAutor" fx:id="campoApellidosAutor" layoutX="63.0" layoutY="150.0" prefHeight="30.0" prefWidth="350.0" promptText="Apellidos de Autor" />
+                <Label fx:id="validarNombreAutor" alignment="CENTER_RIGHT" layoutX="62.0" layoutY="88.0" prefWidth="350.0" text="Validación" textFill="$x1" />
+                <Label fx:id="validarApellidosAutor" alignment="CENTER_RIGHT" layoutX="62.0" layoutY="182.0" prefWidth="350.0" text="Validación" textFill="$x1" />
+              </children>
+            </AnchorPane>
+          </content>
+        </TitledPane>
         <TitledPane id="x4" fx:id="acordeonEditorial" animated="false" font="$x2" text="Editorial">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
                 <Label layoutX="60.0" layoutY="82.0" text="Nombre de la Editorial:" />
-                <TextField fx:id="campoEditorial" layoutX="60.0" layoutY="105.0" prefHeight="30.0" prefWidth="350.0" />
+                <TextField fx:id="campoEditorial" layoutX="60.0" layoutY="105.0" prefHeight="30.0" prefWidth="350.0" promptText="Nombre de la editorial" />
                 <Label fx:id="validarEditorial" alignment="CENTER_RIGHT" layoutX="59.0" layoutY="137.0" prefWidth="350.0" text="Validación" textFill="$x1" />
               </children>
             </AnchorPane>
@@ -56,7 +66,7 @@
               <children>
                 <Label layoutX="61.0" layoutY="75.0" text="Nombre de la Materia:" />
                 <Label fx:id="validarMateria" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="61.0" layoutY="131.0" prefWidth="350.0" text="Validación" textFill="$x1" />
-                <TextField fx:id="campoMateria" layoutX="61.0" layoutY="98.0" prefHeight="30.0" prefWidth="350.0" />
+                <TextField fx:id="campoMateria" layoutX="61.0" layoutY="98.0" prefHeight="30.0" prefWidth="350.0" promptText="Nombre de la materia" />
               </children>
             </AnchorPane>
           </content>
@@ -67,22 +77,12 @@
               <children>
                 <Label layoutX="81.0" layoutY="88.0" text="Tipo de Material" />
                 <Label id="validarMateria" fx:id="validarTipoMaterial" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="81.0" layoutY="144.0" prefWidth="350.0" text="Validación" textFill="$x1" />
-                <TextField id="campoMateria" fx:id="campoTipoMaterial" layoutX="81.0" layoutY="111.0" prefHeight="30.0" prefWidth="350.0" />
+                <TextField id="campoMateria" fx:id="campoTipoMaterial" layoutX="81.0" layoutY="111.0" prefHeight="30.0" prefWidth="350.0" promptText="Tipo de material" />
               </children>
             </AnchorPane>
           </content>
         </TitledPane>
-        <TitledPane fx:id="acordeonClase" animated="false" expanded="false" font="$x2" text="Clase de Material">
-          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-              <children>
-                <Label layoutX="81.0" layoutY="88.0" text="Clase de Material" />
-                <Label id="validarMateria" fx:id="validarClaseMaterial" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="81.0" layoutY="144.0" prefWidth="350.0" text="Validación" textFill="$x1" />
-                <TextField id="campoMateria" fx:id="campoClaseMaterial" layoutX="81.0" layoutY="111.0" prefHeight="30.0" prefWidth="350.0" />
-              </children>
-            </AnchorPane>
-          </content>
-        </TitledPane>
+        <fx:reference source="acordeonClase" />
       </panes>
     </Accordion>
     <HBox id="HBox" alignment="CENTER" layoutX="589.0" layoutY="467.0" spacing="35.0">
@@ -103,7 +103,7 @@
           <String fx:value="Editoriales" />
           <String fx:value="Materias" />
           <String fx:value="Tipos de Material" />
-          <String fx:value="Clase de Material" />         
+          <String fx:value="Clase de Material" />
         </FXCollections>
       </items>
     </ComboBox>

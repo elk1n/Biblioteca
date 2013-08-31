@@ -48,7 +48,7 @@ public class EditarOpcionesUsuarioController implements Initializable {
     private String nombre, mensaje;
     private int id;
     private ObservableList<Listar> listaDatos;    
-     private Conexion con;
+    private Conexion con;
     
     public EditarOpcionesUsuarioController(){ 
         
@@ -69,6 +69,55 @@ public class EditarOpcionesUsuarioController implements Initializable {
     @FXML
     public void eliminar(ActionEvent evento){
     
+        eliminar();
+    }
+    
+    private void eliminar(){
+        
+         if (tablaResultados.getSelectionModel().getSelectedItem() != null) {
+            
+            if (comboListar.getSelectionModel().getSelectedIndex() == 0) {
+                 obtenerId("SELECT id_grado FROM tbl_GRADO WHERE grado =", "'" + nombre + "'", "id_grado");
+                 eliminar("{ CALL editarGrado(?,?,?,?) }", null, 2);
+                 txtfNombre.setText(null);
+                 listarDatos("SELECT * FROM tbl_GRADO", "grado");
+            }
+            if (comboListar.getSelectionModel().getSelectedIndex() == 1) {
+                obtenerId("SELECT id_curso FROM tbl_CURSO WHERE curso=", "'" + nombre + "'", "id_curso");
+                eliminar("{ CALL editarCurso(?,?,?,?) }", null, 2);
+                txtfNombre.setText(null);
+                listarDatos("SELECT * FROM tbl_CURSO", "curso");
+            }
+            if (comboListar.getSelectionModel().getSelectedIndex() == 2) {
+                obtenerId("SELECT id_jornada FROM tbl_JORNADA WHERE jornada=", "'" + nombre + "'", "id_jornada");
+                eliminar("{ CALL editarJornada(?,?,?,?) }", null, 2);
+                txtfNombre.setText(null);
+                listarDatos("SELECT * FROM tbl_JORNADA", "jornada");
+            }
+            if (comboListar.getSelectionModel().getSelectedIndex() == 3) {
+                obtenerId("SELECT id_tipo_usuario FROM tbl_TIPO_USUARIO WHERE tipo_usuario=", "'" + nombre + "'", "id_tipo_usuario");
+                eliminar("{ CALL editarTipoUsuario(?,?,?,?) }", null, 2);
+                txtfNombre.setText(null);
+                listarDatos("SELECT * FROM tbl_TIPO_USUARIO", "tipo_usuario");
+            }
+       }
+       else{
+             Utilidades.mensaje(null, "Debe seleccionar un item de la lista", "Para eliminar un item", "Seleccionar");
+       }            
+    }
+     
+    private void eliminar(String procedimiento, String campos, int seleccion){
+        
+        try {
+                guardarEdicion(procedimiento, campos , seleccion);
+                if (mensaje != null) {
+                    Utilidades.mensajeAdvertencia(null, mensaje, "Error al eliminar la selección", "Error Guardar Cambios");
+                } else {                    
+                    Utilidades.mensaje(null, "La selección se ha eliminado correctamente", "Eliminado Selección", "Actualización Exitosa");
+                }
+            } catch (SQLException ex) {
+                Utilidades.mensajeError(null, ex.getMessage(), "Error al eliminar la información", "Error Guardar Cambios");
+            }        
     }
     
     public void edicion() {
@@ -198,6 +247,8 @@ public class EditarOpcionesUsuarioController implements Initializable {
         if (comboListar.getSelectionModel().getSelectedIndex() == 3) {
             listarDatos("SELECT tipo_usuario FROM tbl_TIPO_USUARIO", "tipo_usuario");
         }
+        txtfNombre.setText("");
+        txtfNombre.setDisable(true);
     }
     
     @FXML
