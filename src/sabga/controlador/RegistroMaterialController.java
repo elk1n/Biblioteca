@@ -145,11 +145,17 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     }
 
     public void obtenerMateriaOM() {
-
+        
+        if(listaMaterias.indexOf(buscarMateriaOM.getText())!=-1){
+            
         materiasOM.add(new Materia(listaMaterias.get(listaMaterias.indexOf(buscarMateriaOM.getText())).toString()));
         contenedorMateriasOM.setPrefHeight(contenedorMateriasOM.getPrefHeight() + 25);
         tablaMateriasOM.setPrefHeight(tablaMateriasOM.getPrefHeight() + 25);
-
+        
+        }
+        else {
+            Utilidades.mensaje(null, "La materia debe ser una de la lista", "Para adicionar una materia a la lista", "Seleccionar Materia");
+        }
     }
     
     public void removerMateriaOM(){
@@ -163,7 +169,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
        else{
            Utilidades.mensajeAdvertencia(null, "Debe seleccionar uno de la lista", "Pare remover una materia", "Remover Materia");
        }                                                   
-    } 
+    }
+    
     @FXML
     public void cargarNombreMateria(ActionEvent evento){
         
@@ -175,11 +182,18 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     }
        
     public void obtenerMateria(){
-
+        
+        
+        if(listaMaterias.indexOf(buscarMateria.getText())!=-1){
+            
         materias.add(new Materia(listaMaterias.get(listaMaterias.indexOf(buscarMateria.getText())).toString()));
         contenedorMaterias.setPrefHeight(contenedorMaterias.getPrefHeight()+25);
         tablaMaterias.setPrefHeight(tablaMaterias.getPrefHeight()+25);     
-  
+        
+        }
+        else {
+            Utilidades.mensaje(null, "La materia debe ser una de la lista", "Para adicionar una materia a la lista", "Seleccionar Materia");
+        }
     }
     
     public void removerMateria(){
@@ -210,9 +224,14 @@ public class RegistroMaterialController implements Initializable, ControlledScre
      
     public void obtenerAutor(){
         
-        autores.add(new Autor(obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getNombreAutor(), obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getApellidosAutor()));
-        contenedorAutores.setPrefHeight(contenedorAutores.getPrefHeight()+25);
-        tablaAutores.setPrefHeight(tablaAutores.getPrefHeight()+25);     
+        if(listaAutores.indexOf(buscarAutor.getText())!=-1){
+            autores.add(new Autor(obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getNombreAutor(), obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getApellidosAutor()));
+            contenedorAutores.setPrefHeight(contenedorAutores.getPrefHeight()+25);
+            tablaAutores.setPrefHeight(tablaAutores.getPrefHeight()+25);       
+
+         } else {
+            Utilidades.mensaje(null, "El autor debe ser uno de la lista", "Para adicionar un autor a la lista", "Seleccionar Autor");
+        }     
   
     }
     
