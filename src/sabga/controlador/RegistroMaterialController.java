@@ -3,7 +3,6 @@ package sabga.controlador;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -98,7 +97,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         try {
 
             con.conectar();
-            con.setResultado(con.getStatement().executeQuery("SELECT * FROM tbl_AUTOR"));
+            con.setResultado(con.getStatement().executeQuery("SELECT * FROM tbl_AUTOR ORDER BY nombre_autor, apellidos_autor"));
 
             while (con.getResultado().next()) {
 
@@ -110,7 +109,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             
                 listaAutores.add(datos.toString());
             }
-           
+                       
         } catch (SQLException ex) {
             
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
@@ -147,7 +146,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
 
     public void obtenerMateriaOM() {
 
-        materiasOM.add(new Materia(buscarMateriaOM.getText()));
+        materiasOM.add(new Materia(listaMaterias.get(listaMaterias.indexOf(buscarMateriaOM.getText())).toString()));
         contenedorMateriasOM.setPrefHeight(contenedorMateriasOM.getPrefHeight() + 25);
         tablaMateriasOM.setPrefHeight(tablaMateriasOM.getPrefHeight() + 25);
 
@@ -177,7 +176,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
        
     public void obtenerMateria(){
 
-        materias.add(new Materia(buscarMateria.getText()));
+        materias.add(new Materia(listaMaterias.get(listaMaterias.indexOf(buscarMateria.getText())).toString()));
         contenedorMaterias.setPrefHeight(contenedorMaterias.getPrefHeight()+25);
         tablaMaterias.setPrefHeight(tablaMaterias.getPrefHeight()+25);     
   
@@ -210,8 +209,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     }
      
     public void obtenerAutor(){
-
-        autores.add(new Autor(buscarAutor.getText(), buscarAutor.getText()));
+        
+        autores.add(new Autor(obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getNombreAutor(), obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getApellidosAutor()));
         contenedorAutores.setPrefHeight(contenedorAutores.getPrefHeight()+25);
         tablaAutores.setPrefHeight(tablaAutores.getPrefHeight()+25);     
   
