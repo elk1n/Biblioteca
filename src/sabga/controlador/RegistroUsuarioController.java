@@ -154,10 +154,9 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
         botonGuardarUsuario.setVisible(false);
         cargarCombo();
      
-        }
+        }    
     
-    
-        public void cargarCombo() {
+    public void cargarCombo() {
             
         try {   
          

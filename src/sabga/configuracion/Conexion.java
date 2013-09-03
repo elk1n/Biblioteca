@@ -15,7 +15,7 @@ public class Conexion {
     private String puerto = "8889/";
     private String nombreBaseDatos = "SABGAB";
     private String usuario = "root";
-    private String contrasenia = "root";
+    private String contrasenia = "";
     private String url = "jdbc:mysql://localhost:";
     private String driver = "com.mysql.jdbc.Driver";
     private Connection conexion = null;
@@ -38,16 +38,15 @@ public class Conexion {
     public void desconectar() {
 
         try {
-
             this.conexion.close();
             this.stm.close();
-
         } catch (Exception e) {
             Utilidades.mensajeError(null, e.getMessage(), "Error al desconectarse de la base de datos", "Error");
         }
     }
     
     public void procedimiento(String procedimientoAlmacenado){
+        
         try {
             this.procedimiento = conexion.prepareCall(procedimientoAlmacenado);
         } catch (SQLException ex) {

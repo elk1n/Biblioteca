@@ -1,4 +1,3 @@
-
 package sabga.modelo;
 
 import java.util.Calendar;
@@ -10,221 +9,181 @@ import javafx.scene.input.KeyEvent;
 /**
  * @author Elk1n
  */
-
 public class Validacion {
-    
+
     private String mensajeError;
     private Calendar calendario;
-        
-    public boolean validarCampoTexto(String campoTexto, int numeroCaracteres){
-                   
-        if (campoTexto == null || campoTexto.equals("") || campoTexto.isEmpty()){
-            
-            this.mensajeError = "Debe rellenar este campo"; 
-            return false;        
-        }
-        
-        else if (campoTexto.length() > numeroCaracteres){
-            
-            this.mensajeError = "Máximo "+numeroCaracteres+" caracteres";
+
+    public boolean validarCampoTexto(String campoTexto, int numeroCaracteres) {
+
+        if (campoTexto == null || campoTexto.equals("") || campoTexto.isEmpty()) {
+
+            this.mensajeError = "Debe rellenar este campo";
             return false;
-        }
-        
-        else if(campoTexto.trim().equals("")){
-            
+        } else if (campoTexto.length() > numeroCaracteres) {
+
+            this.mensajeError = "Máximo " + numeroCaracteres + " caracteres";
+            return false;
+        } else if (campoTexto.trim().equals("")) {
+
             this.mensajeError = "No deben ser sólo espacios en blanco";
             return false;
-        }
-        
-        else {
-            
+        } else {
+
             this.mensajeError = "";
-            return true;          
-        }               
+            return true;
+        }
     }
-    
-    public boolean validarCampoTextoNull(String campoTexto, int numeroCaracteres){
-        
-        if ( campoTexto.isEmpty() == false){
-            
-            if (campoTexto.length() > numeroCaracteres){
-                
-                this.mensajeError = "Máximo "+numeroCaracteres+" caracteres";
-                return false;        
-            }
-            
-            else if(campoTexto.trim().equals("")){
-            
+
+    public boolean validarCampoTextoNull(String campoTexto, int numeroCaracteres) {
+
+        if (campoTexto.isEmpty() == false) {
+
+            if (campoTexto.length() > numeroCaracteres) {
+
+                this.mensajeError = "Máximo " + numeroCaracteres + " caracteres";
+                return false;
+            } else if (campoTexto.trim().equals("")) {
+
                 this.mensajeError = "No deben ser sólo espacios en blanco";
                 return false;
-            }
-               
-            else {
-            
+            } else {
+
                 this.mensajeError = "";
                 return true;
-            }            
-        }
-       
-        else {
+            }
+        } else {
             this.mensajeError = "";
             return true;
         }
     }
-    
-    public boolean validarNumero(String campoTexto, int numeroCaracteres){
-        
+
+    public boolean validarNumero(String campoTexto, int numeroCaracteres) {
+
         Pattern patron = Pattern.compile("[0-9]+");
         Matcher matcher = patron.matcher(campoTexto);
-        
-        if (campoTexto == null || campoTexto.equals("") || campoTexto.isEmpty()){
-            
+
+        if (campoTexto == null || campoTexto.equals("") || campoTexto.isEmpty()) {
+
             this.mensajeError = "Debe rellenar este campo";
             return false;
-        }
-        else if(campoTexto.length()>numeroCaracteres){
-            
-            this.mensajeError = "Máximo "+numeroCaracteres+" caracteres";
+        } else if (campoTexto.length() > numeroCaracteres) {
+
+            this.mensajeError = "Máximo " + numeroCaracteres + " caracteres";
             return false;
-        }
-        
-        else if(!matcher.matches()){
-            
+        } else if (!matcher.matches()) {
+
             this.mensajeError = "No es un número";
             return false;
-            
-        }else{
+
+        } else {
             this.mensajeError = "";
             return true;
-        }           
-        
-    }
-    
-    public boolean validarNumeroNull(String campoTexto, int numeroCaracteres){
-        
-         Pattern patron = Pattern.compile("[0-9]+");
-         Matcher matcher = patron.matcher(campoTexto);
-         
-         if (campoTexto.isEmpty()==false){
-        
-                if(campoTexto.length()>numeroCaracteres){
-            
-                    this.mensajeError = "Máximo "+numeroCaracteres+" caracteres";
-                    return false;            
-                }
-             
-                else if(!matcher.matches()){
-            
-                    this.mensajeError = "No es un número";
-                    return false;            
-                }
-                else{
-                    this.mensajeError = "";
-                    return true;       
-                }
-         }
-         else {
-             
-            this.mensajeError = "";
-            return true;
-        }         
-    }
-    
-    public boolean validarCorreo(String correoElectronico, int numeroCaracteres){
-        
-        Pattern patron = Pattern.compile("[\\w-\\.]{3,}@([\\w-]{2,}\\.)*([\\w-]{2,}\\.)[\\w-]{2,4}");
-        Matcher matcher = patron.matcher(correoElectronico);
-        
-        if (correoElectronico == null || correoElectronico.equals("") || correoElectronico.isEmpty()){
-            
-            this.mensajeError = "Debe rellenar este campo";
-            return false;            
         }
-        
-        else if(correoElectronico.length()>numeroCaracteres){
-            
-            this.mensajeError = "Máximo "+numeroCaracteres+" caracteres";
-            return false;            
-        }
-        
-        else if(!matcher.matches()){
-            
-            this.mensajeError = "No es un E-mail";
-            return false;            
-        }
-        
-        else{            
-            this.mensajeError = "";
-            return true;
-        }                  
+
     }
-    
-    public boolean validarCorreoNull(String correoElectronico, int numeroCaracteres){
-        
-        Pattern patron = Pattern.compile("[\\w-\\.]{3,}@([\\w-]{2,}\\.)*([\\w-]{2,}\\.)[\\w-]{2,4}");
-        Matcher matcher = patron.matcher(correoElectronico);
-        
-        if ( correoElectronico.isEmpty()==false){
-            
-            if(correoElectronico.length()>numeroCaracteres){
-            
-            this.mensajeError = "Máximo "+numeroCaracteres+" caracteres";
-            return false;            
-            
-            }
-            
-            else if(!matcher.matches()){
-                
-            this.mensajeError = "No es un E-mail";
-            return false;                    
-            }
-            
-            else {
+
+    public boolean validarNumeroNull(String campoTexto, int numeroCaracteres) {
+
+        Pattern patron = Pattern.compile("[0-9]+");
+        Matcher matcher = patron.matcher(campoTexto);
+
+        if (campoTexto.isEmpty() == false) {
+
+            if (campoTexto.length() > numeroCaracteres) {
+
+                this.mensajeError = "Máximo " + numeroCaracteres + " caracteres";
+                return false;
+            } else if (!matcher.matches()) {
+
+                this.mensajeError = "No es un número";
+                return false;
+            } else {
                 this.mensajeError = "";
                 return true;
-            }                      
-        }
-        
-        else {            
+            }
+        } else {
+
             this.mensajeError = "";
             return true;
-        }     
-    }
-        
-    public boolean validarNuevaContrasenia(String campoTexto, String confirmacion, int numeroCaracteres){
-        
-        if (campoTexto == null || campoTexto.equals("") || campoTexto.isEmpty() || confirmacion == null || confirmacion.equals("") || confirmacion.isEmpty()){
-            
-            this.mensajeError = "Debe rellenar este campo"; 
-            return false;        
         }
-        
-        else if (!campoTexto.equals(confirmacion)){
-            
+    }
+
+    public boolean validarCorreo(String correoElectronico, int numeroCaracteres) {
+
+        Pattern patron = Pattern.compile("[\\w-\\.]{3,}@([\\w-]{2,}\\.)*([\\w-]{2,}\\.)[\\w-]{2,4}");
+        Matcher matcher = patron.matcher(correoElectronico);
+
+        if (correoElectronico == null || correoElectronico.equals("") || correoElectronico.isEmpty()) {
+
+            this.mensajeError = "Debe rellenar este campo";
+            return false;
+        } else if (correoElectronico.length() > numeroCaracteres) {
+
+            this.mensajeError = "Máximo " + numeroCaracteres + " caracteres";
+            return false;
+        } else if (!matcher.matches()) {
+
+            this.mensajeError = "No es un E-mail";
+            return false;
+        } else {
+            this.mensajeError = "";
+            return true;
+        }
+    }
+
+    public boolean validarCorreoNull(String correoElectronico, int numeroCaracteres) {
+
+        Pattern patron = Pattern.compile("[\\w-\\.]{3,}@([\\w-]{2,}\\.)*([\\w-]{2,}\\.)[\\w-]{2,4}");
+        Matcher matcher = patron.matcher(correoElectronico);
+
+        if (correoElectronico.isEmpty() == false) {
+
+            if (correoElectronico.length() > numeroCaracteres) {
+
+                this.mensajeError = "Máximo " + numeroCaracteres + " caracteres";
+                return false;
+
+            } else if (!matcher.matches()) {
+
+                this.mensajeError = "No es un E-mail";
+                return false;
+            } else {
+                this.mensajeError = "";
+                return true;
+            }
+        } else {
+            this.mensajeError = "";
+            return true;
+        }
+    }
+
+    public boolean validarNuevaContrasenia(String campoTexto, String confirmacion, int numeroCaracteres) {
+
+        if (campoTexto == null || campoTexto.equals("") || campoTexto.isEmpty() || confirmacion == null || confirmacion.equals("") || confirmacion.isEmpty()) {
+
+            this.mensajeError = "Debe rellenar este campo";
+            return false;
+        } else if (!campoTexto.equals(confirmacion)) {
+
             this.mensajeError = "Las contraseñas no coinciden";
             return false;
-        }
-        
-        else if ( campoTexto.length() > numeroCaracteres || confirmacion.length() > numeroCaracteres){
-            
-            this.mensajeError = "Máximo "+numeroCaracteres+" caracteres";
+        } else if (campoTexto.length() > numeroCaracteres || confirmacion.length() > numeroCaracteres) {
+
+            this.mensajeError = "Máximo " + numeroCaracteres + " caracteres";
             return false;
-        }
-        
-        else if(campoTexto.trim().equals("") || confirmacion.trim().equals("")){
-            
+        } else if (campoTexto.trim().equals("") || confirmacion.trim().equals("")) {
+
             this.mensajeError = "No deben ser sólo espacios en blanco";
             return false;
-        }
-                
-        else {            
+        } else {
             this.mensajeError = "";
-            return true;          
-        }       
+            return true;
+        }
     }
-    
+
     public boolean validarAnio(String campoTexto, int numeroCaracteres) {
-        
+
         this.calendario = Calendar.getInstance();
         this.calendario = new GregorianCalendar();
 
@@ -244,35 +203,34 @@ public class Validacion {
             return false;
         }
     }
-    
-    public String getDesencadenador(KeyEvent eventos){
-        
-        String objeto = eventos.getSource().toString();        
+
+    public String getDesencadenador(KeyEvent eventos) {
+
+        String objeto = eventos.getSource().toString();
         Pattern patron = Pattern.compile("[id=]([a-zA-Z0-9]+)[,]");
         Matcher matcher = patron.matcher(objeto);
-        matcher.find();        
-        String source = matcher.group(1);        
-        return source;      
+        matcher.find();
+        String source = matcher.group(1);
+        return source;
     }
-    
-     public void validarNumeros(String contenido){
-        
+
+    public void validarNumeros(String contenido) {
+
         Pattern patron = Pattern.compile("[0-9]+");
         Matcher matcher;
-                 
-              matcher = patron.matcher(contenido);
-            
-             if(matcher.matches() || contenido.equals("")){
-                 
-                 this.mensajeError = "";
-             }
-             else{
-                 
-                 this.mensajeError = "Debe ser un número";
-             }          
-     }
-    
-    public String getMensajeError(){        
+
+        matcher = patron.matcher(contenido);
+
+        if (matcher.matches() || contenido.equals("")) {
+
+            this.mensajeError = "";
+        } else {
+
+            this.mensajeError = "Debe ser un número";
+        }
+    }
+
+    public String getMensajeError() {
         return this.mensajeError;
     }
 }

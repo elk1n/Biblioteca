@@ -3,6 +3,7 @@ package sabga.modelo;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import javafx.collections.ObservableList;
 
 /**
  * @author Elk1n
@@ -11,15 +12,16 @@ import java.util.GregorianCalendar;
 public class ValidarMaterial extends Validacion{
 
    private String errorNombreAutor, errorApellidosAutor, errorEditorial, errorNombreMateria, errorNuevaClaseMaterial, errorMaterial,
-           
+                  errorCodigoClasificacion, errorClaseMaterial, errorTitulo, errorAnioPublicacion, errorPublicacion, errorNumeroPaginas,
+                  errorEjemplares, errorAutor, errorMateria,
            
      
-           codigoMaterial, codigoClasificacion, titulo, anioPublicacion, publicacion, numeroPaginas, ejemplares, 
+           titulo, anioPublicacion, publicacion, numeroPaginas, ejemplares, 
            editorial, autor, materia, habilitado, inhabilitado, mantenimiento, nombreAutor, apellidosAutor, nombreEditorial,
            nombreMateria, nuevoTipoMaterial, nuevaClaseMaterial, 
            
-           errorCodigoMaterial, errorCodigoClasificacion, errorTitulo, errorAnioPublicacion, errorPublicacion, errorNumeroPaginas,
-           errorEjemplares,  errorAutor, errorMateria, errorTipoMaterial, errorClaseMaterial, errorEstado, 
+           
+               errorTipoMaterial,  errorEstado, 
            errorNombreEditorial,  errorNuevoTipoMaterial,
             errorCantidadEjemplares, errorAnio;
         
@@ -28,27 +30,8 @@ public class ValidarMaterial extends Validacion{
    
    public ValidarMaterial(){
        
-   }
-   
-   //           ---         CONSTRUCTOR PARA VALIDAR NUEVO MATERIAL         -----
-     
-   public ValidarMaterial(String codigoMaterial, String codigoClasificacion, String titulo, String anioPublicacion, String publicacion,
-                     String numeroPaginas, String ejemplares, String editorial, String autor, String materia , Object claseMaterial){
-         
-       this.codigoMaterial = codigoMaterial;
-       this.codigoClasificacion = codigoClasificacion;
-       this.titulo = titulo;
-       this.anioPublicacion = anioPublicacion;
-       this.publicacion = publicacion;
-       this.numeroPaginas = numeroPaginas;
-       this.ejemplares = ejemplares;
-       this.editorial = editorial;
-       this.autor = autor;
-       this.materia = materia;
-       this.claseMaterial = claseMaterial;
        this.calendario = Calendar.getInstance();
-       this.calendario = new GregorianCalendar();
-                 
+       this.calendario = new GregorianCalendar();       
    }
    
    //           ---         CONSTRUCTOR PARA VALIDAR OTRA CLASE DE MATERIAL         -----
@@ -56,8 +39,8 @@ public class ValidarMaterial extends Validacion{
    public ValidarMaterial (String codigoMaterial, String codigoClasificacion, String titulo, String materia, Object tipoMaterial,
                       Object claseMaterial, String numeroCopias){
        
-       this.codigoMaterial = codigoMaterial;
-       this.codigoClasificacion = codigoClasificacion;
+      // this.codigoMaterial = codigoMaterial;
+    //   this.codigoClasificacion = codigoClasificacion;
        this.titulo = titulo;
        this.materia = materia;
        this.tipoMaterial = tipoMaterial;
@@ -74,7 +57,7 @@ public class ValidarMaterial extends Validacion{
                      String autor7, String autor8, String autor9, String materia0, String materia1, String materia2, String materia3,
                      String materia4, String materia5, String materia6, String materia7, String materia8, String materia9 ){
        
-       this.codigoClasificacion = codigoClasificacion;
+//       this.codigoClasificacion = codigoClasificacion;
        this.titulo = titulo;
        this.anioPublicacion = anioPublicacion;
        this.publicacion = publicacion;
@@ -119,7 +102,7 @@ public class ValidarMaterial extends Validacion{
                            String materia3,String materia4,String materia5, String materia6, String materia7, 
                            String materia8, String materia9){
        
-       this.codigoClasificacion = codigoClasificacion;
+//       this.codigoClasificacion = codigoClasificacion;
        this.titulo = titulo;
        this.ejemplares = ejemplaresDisponibles;
        this.habilitado = habilitado;
@@ -172,7 +155,8 @@ public class ValidarMaterial extends Validacion{
            this.errorNuevaClaseMaterial = getMensajeError();      
        }
    }
- // VALIDAR NUEVO TIPO MATERIAL
+  
+   // VALIDAR NUEVO TIPO MATERIAL
    public void validarTipoMaterial(String material){
        
        if(!validarCampoTexto(material, 90)){
@@ -180,13 +164,60 @@ public class ValidarMaterial extends Validacion{
        }
    }
    
-    public void validarActualizacionOM(){
+  //  VALIDAR NUEVO LIBRO
+   public void validarNuevoLibro(Object claseMaterial, String codigo, String titulo, String anioPublicacion, String publicacion, 
+                                 String paginas, String ejemplares, String editorial, ObservableList autores, ObservableList  materias ){
         
+     if(claseMaterial == null){
+         this.errorClaseMaterial = "Debe seleccionar una opción";
+     }
+       
+     if (!validarCampoTexto(codigo, 45)){    
+        this.errorCodigoClasificacion = getMensajeError();   
+     }
+     
+     if (!validarCampoTexto(titulo, 255)){
+        this.errorTitulo = getMensajeError();     
+     }
+     
+    if (!validarAnio(anioPublicacion, 4)){                 
+        this.errorAnioPublicacion = getMensajeError();     
+     }
+    
+    if (!validarCampoTextoNull(publicacion, 255)){        
+        this.errorPublicacion = getMensajeError();
+    }
+    
+    if (!validarNumero(paginas, 10)){
+        this.errorNumeroPaginas = getMensajeError();
+    }
+    
+    if (!validarNumero(ejemplares, 10)){       
+        this.errorEjemplares = getMensajeError();
+    }
+    
+    if (!validarCampoTexto(editorial, 90)){      
+        this.errorEditorial = getMensajeError();               
+    }
+    
+    if (autores.isEmpty()){       
+        this.errorAutor = "Debe seleccionar al menos un autor";                
+    }
+    
+    if (materias.isEmpty()){        
+        this.errorMateria = "Debe seleccionar al menos una materia";               
+    }
+
+    
+  } 
+   
+    public void validarActualizacionOM(){
+        /*
         if(validarCampoTexto(this.codigoClasificacion, 45)==false ){
           
           this.errorCodigoClasificacion = getMensajeError();
         }
-      
+      */
         if (validarCampoTexto(this.titulo, 300) == false){
           
           this.errorTitulo = getMensajeError();
@@ -207,20 +238,20 @@ public class ValidarMaterial extends Validacion{
     }
   
     public void validarActualizacionMaterial(){
-      
+      /*
       if (validarCampoTexto(this.codigoClasificacion, 45) == false ){          
           this.errorCodigoClasificacion = getMensajeError();
       }
-      
+      */
       if (validarCampoTexto(this.titulo, 300) == false){          
           this.errorTitulo = getMensajeError();
       }
-      
+      /*
       if (validarUnAnio(this.anioPublicacion, 4) == false){
           
            this.errorAnioPublicacion = getMensajeError();
       }
-      
+      */
       if(validarCampoTextoNull(this.publicacion, 64) == false){          
           this.errorPublicacion = getMensajeError();
       }
@@ -281,14 +312,11 @@ public class ValidarMaterial extends Validacion{
   
     public void validarMaterialOM(){
                  
-      if (validarCampoTexto(this.codigoMaterial, 32) == false){          
-          this.errorCodigoMaterial = getMensajeError();
-      }
-      
+        /*
       if (validarCampoTexto(this.codigoClasificacion, 45) == false){          
           this.errorCodigoClasificacion = getMensajeError();
       }
-      
+      */
       if(validarCampoTexto(this.titulo, 300) == false){          
           this.errorTitulo = getMensajeError();
       }
@@ -310,55 +338,7 @@ public class ValidarMaterial extends Validacion{
      }
       
   }
-  
-    public void validarNuevoMaterial(){
-      
-     if (validarCampoTexto(this.codigoMaterial, 32) == false){         
-         this.errorCodigoMaterial = getMensajeError();         
-     } 
-     
-     if (validarCampoTexto(this.codigoClasificacion, 45) == false){    
-        this.errorCodigoClasificacion = getMensajeError();   
-     }
-     
-     if (validarCampoTexto(this.titulo, 300) == false){
-        this.errorTitulo = getMensajeError();     
-     }
-     
-    if (validarUnAnio(this.anioPublicacion, 4)==false){                 
-        this.errorAnioPublicacion = getMensajeError();     
-     }
-    
-    if (validarCampoTextoNull(this.publicacion, 64) == false){        
-        this.errorPublicacion = getMensajeError();
-    }
-    
-    if (validarNumero(this.numeroPaginas, 8)==false){
-        this.errorNumeroPaginas = getMensajeError();
-    }
-    
-    if (validarNumero(this.ejemplares, 8)==false){       
-        this.errorEjemplares = getMensajeError();
-    }
-    
-    if (validarCampoTexto(this.editorial, 32) == false){      
-        this.errorEditorial = getMensajeError();               
-    }
-    
-    if (validarCampoTexto(this.autor, 90) == false){       
-        this.errorAutor = getMensajeError();                
-    }
-    
-    if (validarCampoTexto(this.materia, 45) == false ){        
-        this.errorMateria = getMensajeError();               
-    }
-    
-    if (this.claseMaterial == null){        
-        this.errorClaseMaterial = "Debe seleccionar una opción";
-    }
-        
-  } 
-         
+       
     public boolean validarEstadoEjemplaresAC(String ejemplares, String habilitado, String inhabilitado, String mantenimineto, int numeroCaracteres){
         
         int numeroTotalEjemplares, ejemplatesHabilitados, ejemplaresInhabilitados, ejemplarsMantenimiento;
@@ -386,18 +366,15 @@ public class ValidarMaterial extends Validacion{
         }
     }
     
-    public String getErrorCodigoMaterial(){      
-      return this.errorCodigoMaterial;
-    }
-  
+    // 
     public String getErrorCodigoClasificacion(){      
       return this.errorCodigoClasificacion;
     }
-  
+   //
     public String getErrorTitulo(){      
       return this.errorTitulo;
     }
-  
+  //
     public String getErrorAnioPublicacion(){      
       return this.errorAnioPublicacion;
     }
@@ -405,11 +382,11 @@ public class ValidarMaterial extends Validacion{
     public String getErrorPublicacion(){      
       return this.errorPublicacion;
     }
-  
+    //
     public String getErrorNumeroPaginas(){      
       return this.errorNumeroPaginas;
     }
-  
+    //
     public String getErrorNumeroEjemplares(){     
       return this.errorEjemplares;
     }
@@ -417,15 +394,15 @@ public class ValidarMaterial extends Validacion{
     public String getErrorEditorial(){      
       return this.errorEditorial;
     }
-  
+   // 
     public String getErrorAutor(){      
       return this.errorAutor;
     }
-  
+   //
     public String getErrorMateria(){      
       return this.errorMateria;
     }
-  
+   //
     public String getErrorClaseMaterial(){      
       return this.errorClaseMaterial;
     }
@@ -440,13 +417,11 @@ public class ValidarMaterial extends Validacion{
     //
     public String getErrorApellidosAutor() {
         return this.errorApellidosAutor;
-    }
-    
+    } 
     //
     public String getErrorNombreMateria() {
         return this.errorNombreMateria;
-    }
-    
+    }   
     //
     public String getErrorNuevaClaseMaterial(){
         return this.errorNuevaClaseMaterial;
@@ -546,28 +521,6 @@ public class ValidarMaterial extends Validacion{
   
      return estado;
   }
-   
-    public boolean validarUnAnio(String campoTexto, int numeroCaracteres){
-         
-        int anio;
-        
-        if (validarNumero(campoTexto, numeroCaracteres)){
-        
-            anio = Integer.parseInt(campoTexto);
-            
-            if (anio>calendario.get(Calendar.YEAR)){
-           
-                this.errorAnio = "El año es mayor al actual";
-                return false;
-            }
-            
-         return true;
-        }
-        else{
-            
-           return false;
-        }
-        
-    }
+  
 
 }

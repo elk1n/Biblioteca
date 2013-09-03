@@ -43,23 +43,23 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     @FXML
     private TableView tablaAutores, tablaMaterias, tablaMateriasOM;    
     @FXML
-    private TableColumn clmnNombre, clmnApellidos, clmnNombreMateria, clmnNombreMateriaOM;    
-       
-    @FXML private Label validarClasificacion, validarTitulo, validarAnioPublicacion, validarPublicacion, validarPaginas, validarEjemplares, 
+    private TableColumn clmnNombre, clmnApellidos, clmnNombreMateria, clmnNombreMateriaOM;           
+    @FXML 
+    private Label validarClasificacion, validarTitulo, validarAnioPublicacion, validarPublicacion, validarPaginas, validarEjemplares, 
                         validarEditorial, validarClaseMaterial, validarAutor, validarMateria, validarTipoMaterialOM, validarClaseMaterialOM, 
                         validarCodigoMaterialOM, validarNumeroClasificacionOM, validarTituloOM, validarMateriaOM, validarNumeroCopiasOM;
-    
-    @FXML private TextField campoNumeroClasificacion, campoTitulo, campoAnioPublicacion, campoPublicacion, 
-                            campoNumeroPaginas, campoEjemplares, campoEditorial, campoCodigoMaterialOM, campoAutor, campoMateria,
-                            campoNumeroClasificacionOM, campoTituloOM, campoMateriaOM, campoNumeroCopias;
-    
-    @FXML private ComboBox comboClaseMaterial, comboClaseMaterialOM, comboTipoMaterial;
+    @FXML 
+    private TextField txtfCodigo, txtfTitulo, txtfAnioPublicacion, txtfPublicacion, txtfPaginas, txtfEjemplares, txtfCodigoOM,
+                            txtfTituloOM, txtfCopias;    
+    @FXML 
+    private ComboBox comboClaseMaterial, comboClaseMaterialOM, comboTipoMaterial;
     
     private Sabga ventanaPrincipal;  
     private ScreensController controlador;
     private Dialogo dialogo;
     private AutoFillTextBox buscarAutor, buscarMateria, buscarMateriaOM, buscarEditorial;
     private Validacion validar;
+    private ValidarMaterial validarMaterial;
     
     private Conexion con;
     
@@ -70,6 +70,9 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private ObservableList<Autor> autores;
     private ObservableList<Materia> materias;
     private ObservableList<Materia> materiasOM;
+    private ObservableList listaClaseMaterial;
+    private ObservableList listaClaseMaterialOM;
+    private ObservableList listaTipoMaterial;
      
         
     public RegistroMaterialController(){
@@ -88,6 +91,9 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         listaEditoriales = FXCollections.observableArrayList();
         listaAutores = FXCollections.observableArrayList();
         obtenerAutores = FXCollections.observableArrayList();
+        listaClaseMaterial = FXCollections.observableArrayList();
+        listaClaseMaterialOM = FXCollections.observableArrayList();
+        listaTipoMaterial = FXCollections.observableArrayList();
         validar = new Validacion();
    
     }
@@ -225,10 +231,11 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     public void obtenerAutor(){
         
         if(listaAutores.indexOf(buscarAutor.getText())!=-1){
+            
             autores.add(new Autor(obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getNombreAutor(), obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getApellidosAutor()));
             contenedorAutores.setPrefHeight(contenedorAutores.getPrefHeight()+25);
-            tablaAutores.setPrefHeight(tablaAutores.getPrefHeight()+25);       
-
+            tablaAutores.setPrefHeight(tablaAutores.getPrefHeight()+25);
+            
          } else {
             Utilidades.mensaje(null, "El autor debe ser uno de la lista", "Para adicionar un autor a la lista", "Seleccionar Autor");
         }     
@@ -269,15 +276,22 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     }
     
     @FXML
-    public void validarCampos(ActionEvent evento){
-                        
-       ValidarMaterial validarMaterial = new ValidarMaterial(campoNumeroClasificacion.getText(), campoNumeroClasificacion.getText(), campoTitulo.getText(),
-                                                    campoAnioPublicacion.getText(), campoPublicacion.getText(), campoNumeroPaginas.getText(),
-                                                    campoEjemplares.getText(), campoEditorial.getText(),campoAutor.getText(),
-                                                    campoMateria.getText(), comboClaseMaterial.getSelectionModel().getSelectedItem());
+    public void guardarLibro(ActionEvent evento){
+        
+        validarCampos();
+       // System.out.println("Vales, esto es una prueba");
        
-       validarMaterial.validarNuevoMaterial();
-       validarClasificacion.setText(validarMaterial.getErrorCodigoMaterial());
+    }
+    
+    public void validarCampos(){
+        
+         validarMaterial = new ValidarMaterial();
+         
+         validarMaterial.validarNuevoLibro(comboClaseMaterial.getSelectionModel().getSelectedItem(), txtfCodigo.getText(), txtfTitulo.getText(),
+                                           txtfAnioPublicacion.getText(), txtfPublicacion.getText(), txtfPaginas.getText(), txtfEjemplares.getText(),
+                                           buscarEditorial.getTextbox().getText(), autores, materias);
+         
+       validarClaseMaterial.setText(validarMaterial.getErrorNuevaClaseMaterial());
        validarClasificacion.setText(validarMaterial.getErrorCodigoClasificacion());
        validarTitulo.setText(validarMaterial.getErrorTitulo());
        validarAnioPublicacion.setText(validarMaterial.getErrorAnioPublicacion());
@@ -287,47 +301,67 @@ public class RegistroMaterialController implements Initializable, ControlledScre
        validarEditorial.setText(validarMaterial.getErrorEditorial());
        validarMateria.setText(validarMaterial.getErrorMateria());
        validarAutor.setText(validarMaterial.getErrorAutor());
-       validarClaseMaterial.setText(validarMaterial.getErrorClaseMaterial());
-       
+      
    }
    
     @FXML
     public void validarCamposOM(ActionEvent evento){
-            
+           /* 
         ValidarMaterial validarMaterialOM = new ValidarMaterial(campoCodigoMaterialOM.getText(), campoNumeroClasificacionOM.getText(), campoTituloOM.getText(),
                                                       campoMateriaOM.getText(), comboTipoMaterial.getSelectionModel().getSelectedItem(),
                                                       comboClaseMaterialOM.getSelectionModel().getSelectedItem(), campoNumeroCopias.getText());
         
         validarMaterialOM.validarMaterialOM();
-        validarCodigoMaterialOM.setText(validarMaterialOM.getErrorCodigoMaterial());
+//        validarCodigoMaterialOM.setText(validarMaterialOM.getErrorCodigoMaterial());
         validarNumeroClasificacionOM.setText(validarMaterialOM.getErrorCodigoClasificacion());
         validarTituloOM.setText(validarMaterialOM.getErrorTitulo());
         validarMateriaOM.setText(validarMaterialOM.getErrorMateria());
         validarTipoMaterialOM.setText(validarMaterialOM.getErrorTipoMaterial());
         validarClaseMaterialOM.setText(validarMaterialOM.getErrorClaseMaterial());
         validarNumeroCopiasOM.setText(validarMaterialOM.getErrorNumeroEjemplares());
-    
+    */
     }
     
     @FXML
     public void validarNumeros(KeyEvent evento){
       
-        if(validar.getDesencadenador(evento).equals(campoAnioPublicacion.getId())){
+        if(validar.getDesencadenador(evento).equals(txtfAnioPublicacion.getId())){
             
-              validar.validarNumeros(campoAnioPublicacion.getText());
+              validar.validarNumeros(txtfAnioPublicacion.getText());
               validarAnioPublicacion.setText(validar.getMensajeError());
         }
         
-        if(validar.getDesencadenador(evento).equals(campoNumeroPaginas.getId())){
-              validar.validarNumeros(campoNumeroPaginas.getText());
+        if(validar.getDesencadenador(evento).equals(txtfPaginas.getId())){
+              validar.validarNumeros(txtfPaginas.getText());
               validarPaginas.setText(validar.getMensajeError()); 
         }
         
-        if(validar.getDesencadenador(evento).equals(campoEjemplares.getId())){
-               validar.validarNumeros(campoEjemplares.getText());
+        if(validar.getDesencadenador(evento).equals(txtfEjemplares.getId())){
+               validar.validarNumeros(txtfEjemplares.getText());
               validarEjemplares.setText(validar.getMensajeError()); 
-        } 
+        }
         
+         if(validar.getDesencadenador(evento).equals(txtfCopias.getId())){
+               validar.validarNumeros(txtfCopias.getText());
+              validarNumeroCopiasOM.setText(validar.getMensajeError()); 
+        }
+        
+    }
+    
+    public void cargarCombo(String consulta, String columna, ObservableList lista, ComboBox combo) {
+            
+        try {   
+
+            con.conectar();
+            con.setResultado(con.getStatement().executeQuery(consulta));
+            while (con.getResultado().next()) {                
+                lista.add(con.getResultado().getObject(columna));               
+            }
+            combo.setItems(lista);
+            con.desconectar(); 
+        } catch (SQLException ex) {            
+             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo cargar la información de la base de datos\nFavor intente más tarde", "Error"); 
+        }
     }
      
     @FXML
@@ -387,6 +421,10 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         hboxMaterias.getChildren().add(buscarMateria);
         hboxMateriasOM.getChildren().add(buscarMateriaOM);
         hboxEditorial.getChildren().add(buscarEditorial);
+        
+        cargarCombo("SELECT * FROM tbl_CLASE_MATERIAL", "clase_material", listaClaseMaterial, comboClaseMaterial);
+        cargarCombo("SELECT * FROM tbl_CLASE_MATERIAL", "clase_material", listaClaseMaterialOM, comboClaseMaterialOM);
+        cargarCombo("SELECT * FROM tbl_TIPO_MATERIAL WHERE tipo_material !='Libro'", "tipo_material", listaTipoMaterial, comboTipoMaterial);
  
     }    
     
