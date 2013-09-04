@@ -419,8 +419,8 @@ public class EditarEMAController implements Initializable, ControlledScreen {
             validarTipoMaterial.setText(validar.getErrorTipoMaterial());
 
         } else if (acordeonClase.isExpanded()) {
-            validar.validarNuevaClaseMaterial(campoClaseMaterial.getText());
-            validarClaseMaterial.setText(validar.getErrorNuevaClaseMaterial());
+            validar.validarClaseMaterial(campoClaseMaterial.getText());
+            validarClaseMaterial.setText(validar.getErrorClaseMaterial());
         }
     }
 

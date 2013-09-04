@@ -103,8 +103,8 @@ public class NuevaClaseMaterialController implements Initializable {
     public void validarCampos() {
         
         validarClaseM = new ValidarMaterial();
-        validarClaseM.validarNuevaClaseMaterial(campoNombreClaseM.getText());
-        validacionClaseM.setText(validarClaseM.getErrorNuevaClaseMaterial());
+        validarClaseM.validarClaseMaterial(campoNombreClaseM.getText());
+        validacionClaseM.setText(validarClaseM.getErrorClaseMaterial());
     }
     
     @FXML

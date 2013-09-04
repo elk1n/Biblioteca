@@ -20,6 +20,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import sabga.configuracion.Dialogo;
@@ -53,6 +54,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                             txtfTituloOM, txtfCopias;    
     @FXML 
     private ComboBox comboClaseMaterial, comboClaseMaterialOM, comboTipoMaterial;
+    @FXML
+    private TitledPane acordeonAutor, acordeonMateria;
     
     private Sabga ventanaPrincipal;  
     private ScreensController controlador;
@@ -279,8 +282,14 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     public void guardarLibro(ActionEvent evento){
         
         validarCampos();
-       // System.out.println("Vales, esto es una prueba");
        
+    }
+    
+    @FXML
+    private void guardarOtroMaterial(ActionEvent evento){
+        
+        validarCamposOM();
+    
     }
     
     public void validarCampos(){
@@ -291,7 +300,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                                            txtfAnioPublicacion.getText(), txtfPublicacion.getText(), txtfPaginas.getText(), txtfEjemplares.getText(),
                                            buscarEditorial.getTextbox().getText(), autores, materias);
          
-       validarClaseMaterial.setText(validarMaterial.getErrorNuevaClaseMaterial());
+       validarClaseMaterial.setText(validarMaterial.getErrorClaseMaterial());
        validarClasificacion.setText(validarMaterial.getErrorCodigoClasificacion());
        validarTitulo.setText(validarMaterial.getErrorTitulo());
        validarAnioPublicacion.setText(validarMaterial.getErrorAnioPublicacion());
@@ -301,25 +310,36 @@ public class RegistroMaterialController implements Initializable, ControlledScre
        validarEditorial.setText(validarMaterial.getErrorEditorial());
        validarMateria.setText(validarMaterial.getErrorMateria());
        validarAutor.setText(validarMaterial.getErrorAutor());
-      
+       
+       if(!acordeonMateria.isExpanded() && materias.isEmpty()){
+           acordeonMateria.setText("Materias   se ha presentado un error!");
+       }
+       else{
+           acordeonMateria.setText("Materias");       
+       }       
+       if(!acordeonAutor.isExpanded() && autores.isEmpty()){
+           acordeonAutor.setText("Autores   se ha presentado un error!");
+       }
+       else{
+           acordeonAutor.setText("Autores");       
+       }
+            
    }
    
-    @FXML
-    public void validarCamposOM(ActionEvent evento){
-           /* 
-        ValidarMaterial validarMaterialOM = new ValidarMaterial(campoCodigoMaterialOM.getText(), campoNumeroClasificacionOM.getText(), campoTituloOM.getText(),
-                                                      campoMateriaOM.getText(), comboTipoMaterial.getSelectionModel().getSelectedItem(),
-                                                      comboClaseMaterialOM.getSelectionModel().getSelectedItem(), campoNumeroCopias.getText());
+    public void validarCamposOM(){
         
-        validarMaterialOM.validarMaterialOM();
-//        validarCodigoMaterialOM.setText(validarMaterialOM.getErrorCodigoMaterial());
-        validarNumeroClasificacionOM.setText(validarMaterialOM.getErrorCodigoClasificacion());
-        validarTituloOM.setText(validarMaterialOM.getErrorTitulo());
-        validarMateriaOM.setText(validarMaterialOM.getErrorMateria());
-        validarTipoMaterialOM.setText(validarMaterialOM.getErrorTipoMaterial());
-        validarClaseMaterialOM.setText(validarMaterialOM.getErrorClaseMaterial());
-        validarNumeroCopiasOM.setText(validarMaterialOM.getErrorNumeroEjemplares());
-    */
+        validarMaterial = new ValidarMaterial();
+        
+        validarMaterial.validarMaterialOM(comboTipoMaterial.getSelectionModel().getSelectedItem(), comboClaseMaterialOM.getSelectionModel().getSelectedItem(),
+                                          txtfCodigoOM.getText(), txtfTituloOM.getText(), txtfCopias.getText(), materiasOM);
+
+        validarTipoMaterialOM.setText(validarMaterial.getErrorTipoMaterial());
+        validarClaseMaterialOM.setText(validarMaterial.getErrorClaseMaterial());
+        validarNumeroClasificacionOM.setText(validarMaterial.getErrorCodigoClasificacion()); 
+        validarTituloOM.setText(validarMaterial.getErrorTitulo());
+        validarNumeroCopiasOM.setText(validarMaterial.getErrorNumeroEjemplares());
+        validarMateriaOM.setText(validarMaterial.getErrorMateria());
+      
     }
     
     @FXML

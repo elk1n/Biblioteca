@@ -11,9 +11,9 @@ import javafx.collections.ObservableList;
 
 public class ValidarMaterial extends Validacion{
 
-   private String errorNombreAutor, errorApellidosAutor, errorEditorial, errorNombreMateria, errorNuevaClaseMaterial, errorMaterial,
-                  errorCodigoClasificacion, errorClaseMaterial, errorTitulo, errorAnioPublicacion, errorPublicacion, errorNumeroPaginas,
-                  errorEjemplares, errorAutor, errorMateria,
+   private String errorNombreAutor, errorApellidosAutor, errorEditorial, errorNombreMateria, errorCodigoClasificacion, errorClaseMaterial, 
+                  errorTitulo, errorAnioPublicacion, errorPublicacion, errorNumeroPaginas, errorEjemplares, errorAutor, errorMateria,
+                  errorTipoMaterial,
            
      
            titulo, anioPublicacion, publicacion, numeroPaginas, ejemplares, 
@@ -21,7 +21,7 @@ public class ValidarMaterial extends Validacion{
            nombreMateria, nuevoTipoMaterial, nuevaClaseMaterial, 
            
            
-               errorTipoMaterial,  errorEstado, 
+           errorEstado, 
            errorNombreEditorial,  errorNuevoTipoMaterial,
             errorCantidadEjemplares, errorAnio;
         
@@ -32,21 +32,6 @@ public class ValidarMaterial extends Validacion{
        
        this.calendario = Calendar.getInstance();
        this.calendario = new GregorianCalendar();       
-   }
-   
-   //           ---         CONSTRUCTOR PARA VALIDAR OTRA CLASE DE MATERIAL         -----
-   
-   public ValidarMaterial (String codigoMaterial, String codigoClasificacion, String titulo, String materia, Object tipoMaterial,
-                      Object claseMaterial, String numeroCopias){
-       
-      // this.codigoMaterial = codigoMaterial;
-    //   this.codigoClasificacion = codigoClasificacion;
-       this.titulo = titulo;
-       this.materia = materia;
-       this.tipoMaterial = tipoMaterial;
-       this.claseMaterial = claseMaterial;
-       this.ejemplares = numeroCopias;
-          
    }
    
    //       ---         CONSTRUCTOR PARA ACTUALIZAR LA INFORMACIÓN DE LOS LIBROS            ---
@@ -149,10 +134,10 @@ public class ValidarMaterial extends Validacion{
    }
    
    // VALIDAR NUEVA CLASE DE MATERIAL
-   public void validarNuevaClaseMaterial(String material){
+   public void validarClaseMaterial(String material){
    
        if(!validarCampoTexto(material, 45)){
-           this.errorNuevaClaseMaterial = getMensajeError();      
+           this.errorClaseMaterial = getMensajeError();      
        }
    }
   
@@ -211,6 +196,36 @@ public class ValidarMaterial extends Validacion{
     
   } 
    
+   // VALIDAR NUEVO MATERIAL (LOS CDS, LOS FOLLETOS Y ESO...)
+   public void validarMaterialOM(Object tipoMaterial, Object claseMaterial, String codigo, String titulo, String copias, ObservableList materias){
+                 
+      if (tipoMaterial == null){          
+          this.errorTipoMaterial = "Debe seleccionar una opción";
+      }
+       
+      if (claseMaterial == null){
+          this.errorClaseMaterial = "Debe seleccionar una opción";
+      }
+     
+      if (!validarCampoTexto(codigo, 45)){          
+          this.errorCodigoClasificacion = getMensajeError();
+      }
+
+      if(!validarCampoTexto(titulo, 255)){          
+          this.errorTitulo = getMensajeError();
+      }
+  
+      if (!validarNumero(copias, 10)){          
+          this.errorEjemplares = getMensajeError();         
+      }
+      
+      if(materias.isEmpty()){
+          this.errorMateria = "Debe seleccionar al menos una materia";        
+      }
+      
+  }
+   
+  
     public void validarActualizacionOM(){
         /*
         if(validarCampoTexto(this.codigoClasificacion, 45)==false ){
@@ -283,62 +298,7 @@ public class ValidarMaterial extends Validacion{
       }     
    */
   }
-  
-    public void validarMateriaAC(){
       
-      if (validarCampoTexto(this.nombreMateria, 45) == false){          
-          this.errorNombreMateria = getMensajeError();         
-      }        
-    }
-       
-    public void validarAutorAC(){
-        
-         if (validarCampoTexto(this.nombreAutor, 45) == false ){                    
-             this.errorNombreAutor = getMensajeError();
-      
-         }
-    
-         if(validarCampoTexto(this.apellidosAutor, 45) == false ){                   
-             this.errorApellidosAutor = getMensajeError();
-      }        
-    }
-    
-    public void validarEditorialAC(){
-        
-         if(validarCampoTexto(this.nombreEditorial ,45) == false){          
-          this.errorNombreEditorial = getMensajeError();      
-         }    
-    }
-  
-    public void validarMaterialOM(){
-                 
-        /*
-      if (validarCampoTexto(this.codigoClasificacion, 45) == false){          
-          this.errorCodigoClasificacion = getMensajeError();
-      }
-      */
-      if(validarCampoTexto(this.titulo, 300) == false){          
-          this.errorTitulo = getMensajeError();
-      }
-  
-      if (validarCampoTexto(this.materia, 45) == false){          
-          this.errorMateria = getMensajeError();         
-      }
-      
-      if (this.tipoMaterial == null){
-          this.errorTipoMaterial = "Debe seleccionar una opción";
-      }
-      
-      if (this.claseMaterial == null ){          
-          this.errorClaseMaterial = "Debe seleccionar una opción";
-      }
-      
-      if (validarNumero(this.ejemplares, 8)==false){       
-        this.errorEjemplares = getMensajeError();
-     }
-      
-  }
-       
     public boolean validarEstadoEjemplaresAC(String ejemplares, String habilitado, String inhabilitado, String mantenimineto, int numeroCaracteres){
         
         int numeroTotalEjemplares, ejemplatesHabilitados, ejemplaresInhabilitados, ejemplarsMantenimiento;
@@ -378,7 +338,7 @@ public class ValidarMaterial extends Validacion{
     public String getErrorAnioPublicacion(){      
       return this.errorAnioPublicacion;
     }
-  
+   //
     public String getErrorPublicacion(){      
       return this.errorPublicacion;
     }
@@ -423,104 +383,9 @@ public class ValidarMaterial extends Validacion{
         return this.errorNombreMateria;
     }   
     //
-    public String getErrorNuevaClaseMaterial(){
-        return this.errorNuevaClaseMaterial;
-    }
     
     public String getErrorEstado(){
         return this.errorEstado;
     }
       
-    public boolean validarMultiplesCampos( String campo0, String campo1, String campo2, String campo3, String campo4, String campo5, String campo6,
-                                          String campo7, String campo8, String campo9, int longitud ){
-      
-       String control="";
-       boolean estado = false;
-       
-       if (campo0 == null || campo0.equals("") || campo0.length()>longitud){
-           
-           control+="S";      
-       }
-       else {
-           control+="N";
-       }
-       if (campo1 == null || campo1.equals("") || campo1.length()>longitud){
-           
-           control+="S"; 
-       }     
-       else {
-           control+="N";
-       }
-       if(campo2 == null || campo2.equals("") || campo2.length()>longitud){
-           
-           control+="S"; 
-       }
-       else {
-           control+="N";
-       }
-       if( campo3 == null || campo3.equals("") || campo3.length()>longitud){
-           
-           control+="S"; 
-       }
-       else {
-           control+="N";
-       }
-       if( campo4 == null || campo4.equals("") || campo4.length()>longitud){
-           
-           control+="S";
-       }
-       else {
-           control+="N";
-       }
-       if( campo5 == null || campo5.equals("") || campo5.length()>longitud){
-           
-            control+="S";  
-       }
-       else {
-           control+="N";
-       }
-       if( campo6 == null || campo6.equals("") || campo6.length()>longitud){
-            
-           control+="S";  
-       }
-       else {
-           control+="N";
-       }
-       if(campo7 == null || campo7.equals("") || campo7.length()>longitud){
-          
-           control+="S"; 
-       }
-       else {
-           control+="N";
-       }
-       if ( campo8 == null || campo8.equals("") || campo8.length()>longitud){
-          
-           control+="S";          
-       }
-       else {
-           control+="N";
-       }
-       if( campo9 == null || campo9.equals("") || campo9.length()>longitud){
-          
-           control+="S"; 
-       }
-       else{
-           
-           control+="N"; 
-       }
-       
-      int auxiliar = control.indexOf("N");
-      
-       if (auxiliar == -1){
-           
-           estado = false;
-       }
-       else{
-           estado = true;
-       }
-  
-     return estado;
-  }
-  
-
 }
