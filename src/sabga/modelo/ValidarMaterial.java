@@ -14,13 +14,11 @@ public class ValidarMaterial extends Validacion{
    private String errorNombreAutor, errorApellidosAutor, errorEditorial, errorNombreMateria, errorCodigoClasificacion, errorClaseMaterial, 
                   errorTitulo, errorAnioPublicacion, errorPublicacion, errorNumeroPaginas, errorEjemplares, errorAutor, errorMateria,
                   errorTipoMaterial,
-           
-     
+               
            titulo, anioPublicacion, publicacion, numeroPaginas, ejemplares, 
            editorial, autor, materia, habilitado, inhabilitado, mantenimiento, nombreAutor, apellidosAutor, nombreEditorial,
            nombreMateria, nuevoTipoMaterial, nuevaClaseMaterial, 
-           
-           
+                     
            errorEstado, 
            errorNombreEditorial,  errorNuevoTipoMaterial,
             errorCantidadEjemplares, errorAnio;
@@ -150,52 +148,52 @@ public class ValidarMaterial extends Validacion{
    }
    
   //  VALIDAR NUEVO LIBRO
-   public void validarNuevoLibro(Object claseMaterial, String codigo, String titulo, String anioPublicacion, String publicacion, 
-                                 String paginas, String ejemplares, String editorial, ObservableList autores, ObservableList  materias ){
-        
-     if(claseMaterial == null){
-         this.errorClaseMaterial = "Debe seleccionar una opción";
-     }
-       
-     if (!validarCampoTexto(codigo, 45)){    
-        this.errorCodigoClasificacion = getMensajeError();   
-     }
-     
-     if (!validarCampoTexto(titulo, 255)){
-        this.errorTitulo = getMensajeError();     
-     }
-     
-    if (!validarAnio(anioPublicacion, 4)){                 
-        this.errorAnioPublicacion = getMensajeError();     
-     }
-    
-    if (!validarCampoTextoNull(publicacion, 255)){        
-        this.errorPublicacion = getMensajeError();
-    }
-    
-    if (!validarNumero(paginas, 10)){
-        this.errorNumeroPaginas = getMensajeError();
-    }
-    
-    if (!validarNumero(ejemplares, 10)){       
-        this.errorEjemplares = getMensajeError();
-    }
-    
-    if (!validarCampoTexto(editorial, 90)){      
-        this.errorEditorial = getMensajeError();               
-    }
-    
-    if (autores.isEmpty()){       
-        this.errorAutor = "Debe seleccionar al menos un autor";                
-    }
-    
-    if (materias.isEmpty()){        
-        this.errorMateria = "Debe seleccionar al menos una materia";               
+    public void validarNuevoLibro(Object claseMaterial, String codigo, String titulo, String anioPublicacion, String publicacion,
+                                  String paginas, String ejemplares, String editorial, ObservableList autores, ObservableList materias) {
+
+        if (claseMaterial == null) {
+            this.errorClaseMaterial = "Debe seleccionar una opción";
+        }
+
+        if (!validarCampoTexto(codigo, 45)) {
+            this.errorCodigoClasificacion = getMensajeError();
+        }
+
+        if (!validarCampoTexto(titulo, 255)) {
+            this.errorTitulo = getMensajeError();
+        }
+
+        if (!validarAnio(anioPublicacion, 4)) {
+            this.errorAnioPublicacion = getMensajeError();
+        }
+
+        if (!validarCampoTextoNull(publicacion, 255)) {
+            this.errorPublicacion = getMensajeError();
+        }
+
+        if (!validarNumero(paginas, 10)) {
+            this.errorNumeroPaginas = getMensajeError();
+        }
+
+        if (!validarNumero(ejemplares, 10)) {
+            this.errorEjemplares = getMensajeError();
+        }
+
+        if (!validarCampoTexto(editorial, 90)) {
+            this.errorEditorial = getMensajeError();
+        }
+
+        if (autores.isEmpty()) {
+            this.errorAutor = "Debe seleccionar al menos un autor";
+        }
+
+        if (materias.isEmpty()) {
+            this.errorMateria = "Debe seleccionar al menos una materia";
+        }
+
+
     }
 
-    
-  } 
-   
    // VALIDAR NUEVO MATERIAL (LOS CDS, LOS FOLLETOS Y ESO...)
    public void validarMaterialOM(Object tipoMaterial, Object claseMaterial, String codigo, String titulo, String copias, ObservableList materias){
                  
@@ -225,7 +223,9 @@ public class ValidarMaterial extends Validacion{
       
   }
    
-  
+ 
+   
+   
     public void validarActualizacionOM(){
         /*
         if(validarCampoTexto(this.codigoClasificacion, 45)==false ){
@@ -298,47 +298,21 @@ public class ValidarMaterial extends Validacion{
       }     
    */
   }
-      
-    public boolean validarEstadoEjemplaresAC(String ejemplares, String habilitado, String inhabilitado, String mantenimineto, int numeroCaracteres){
-        
-        int numeroTotalEjemplares, ejemplatesHabilitados, ejemplaresInhabilitados, ejemplarsMantenimiento;
-    
-        if(validarNumero(ejemplares, numeroCaracteres) && validarNumero(habilitado, numeroCaracteres) &&
-                         validarNumero(inhabilitado, numeroCaracteres) && validarNumero(mantenimineto, numeroCaracteres)){
-                         
-                numeroTotalEjemplares = Integer.parseInt(ejemplares);
-                ejemplatesHabilitados = Integer.parseInt(habilitado);
-                ejemplaresInhabilitados = Integer.parseInt(inhabilitado);
-                ejemplarsMantenimiento = Integer.parseInt(mantenimineto);
-                
-                if (ejemplatesHabilitados + ejemplaresInhabilitados + ejemplarsMantenimiento < numeroTotalEjemplares || 
-                    ejemplatesHabilitados + ejemplaresInhabilitados + ejemplarsMantenimiento > numeroTotalEjemplares ){
-                    
-                    this.errorCantidadEjemplares = "El número de ejemplares no coincide";
-                    
-                    return false;
-                }
-          return true;
-        }
-        else{
-            
-            return false;
-        }
-    }
+     
     
     // 
     public String getErrorCodigoClasificacion(){      
       return this.errorCodigoClasificacion;
     }
-   //
+    //
     public String getErrorTitulo(){      
       return this.errorTitulo;
     }
-  //
+   //
     public String getErrorAnioPublicacion(){      
       return this.errorAnioPublicacion;
     }
-   //
+    //
     public String getErrorPublicacion(){      
       return this.errorPublicacion;
     }
@@ -382,10 +356,36 @@ public class ValidarMaterial extends Validacion{
     public String getErrorNombreMateria() {
         return this.errorNombreMateria;
     }   
-    //
-    
+    //    
     public String getErrorEstado(){
         return this.errorEstado;
+    }
+   
+       public boolean validarEstadoEjemplaresAC(String ejemplares, String habilitado, String inhabilitado, String mantenimineto, int numeroCaracteres){
+        
+        int numeroTotalEjemplares, ejemplatesHabilitados, ejemplaresInhabilitados, ejemplarsMantenimiento;
+    
+        if(validarNumero(ejemplares, numeroCaracteres) && validarNumero(habilitado, numeroCaracteres) &&
+                         validarNumero(inhabilitado, numeroCaracteres) && validarNumero(mantenimineto, numeroCaracteres)){
+                         
+                numeroTotalEjemplares = Integer.parseInt(ejemplares);
+                ejemplatesHabilitados = Integer.parseInt(habilitado);
+                ejemplaresInhabilitados = Integer.parseInt(inhabilitado);
+                ejemplarsMantenimiento = Integer.parseInt(mantenimineto);
+                
+                if (ejemplatesHabilitados + ejemplaresInhabilitados + ejemplarsMantenimiento < numeroTotalEjemplares || 
+                    ejemplatesHabilitados + ejemplaresInhabilitados + ejemplarsMantenimiento > numeroTotalEjemplares ){
+                    
+                    this.errorCantidadEjemplares = "El número de ejemplares no coincide";
+                    
+                    return false;
+                }
+          return true;
+        }
+        else{
+            
+            return false;
+        }
     }
       
 }

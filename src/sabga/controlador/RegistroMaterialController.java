@@ -47,8 +47,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private TableColumn clmnNombre, clmnApellidos, clmnNombreMateria, clmnNombreMateriaOM;           
     @FXML 
     private Label validarClasificacion, validarTitulo, validarAnioPublicacion, validarPublicacion, validarPaginas, validarEjemplares, 
-                        validarEditorial, validarClaseMaterial, validarAutor, validarMateria, validarTipoMaterialOM, validarClaseMaterialOM, 
-                        validarCodigoMaterialOM, validarNumeroClasificacionOM, validarTituloOM, validarMateriaOM, validarNumeroCopiasOM;
+                  validarEditorial, validarClaseMaterial, validarAutor, validarMateria, validarTipoMaterialOM, validarClaseMaterialOM, 
+                  validarNumeroClasificacionOM, validarTituloOM, validarMateriaOM, validarNumeroCopiasOM;
     @FXML 
     private TextField txtfCodigo, txtfTitulo, txtfAnioPublicacion, txtfPublicacion, txtfPaginas, txtfEjemplares, txtfCodigoOM,
                             txtfTituloOM, txtfCopias;    
@@ -100,6 +100,9 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         validar = new Validacion();
    
     }
+    
+    
+    
     
     public void llenarAutores() {
 
@@ -178,7 +181,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
        else{
            Utilidades.mensajeAdvertencia(null, "Debe seleccionar uno de la lista", "Pare remover una materia", "Remover Materia");
        }                                                   
-    }
+    } 
     
     @FXML
     public void cargarNombreMateria(ActionEvent evento){
@@ -286,7 +289,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     }
     
     @FXML
-    private void guardarOtroMaterial(ActionEvent evento){
+    public void guardarOtroMaterial(ActionEvent evento){
         
         validarCamposOM();
     
