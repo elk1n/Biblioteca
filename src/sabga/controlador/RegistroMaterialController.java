@@ -57,6 +57,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     @FXML
     private TitledPane acordeonAutor, acordeonMateria;
     
+    private int idTipoMaterial, idClaseMaterial, idEditorial;
+    
     private Sabga ventanaPrincipal;  
     private ScreensController controlador;
     private Dialogo dialogo;
@@ -102,8 +104,50 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     }
     
     
+    private void guardarLibro(){
+    
+        validarCampos();
+        
+    
+    }
     
     
+    private void obtenerId(){
+    
+        idTipoMaterial = obtenerId("SELECT id_tipo_material FROM tbl_TIPO_MATERIAL WHERE ", "tipo_material LIKE('%libro%')", "id_tipo_material");
+        idClaseMaterial = obtenerId("SELECT id_clase_material FROM tbl_CLASE_MATERIAL WHERE clase_material =", "'"+comboClaseMaterial.getSelectionModel().getSelectedItem().toString()+"'",
+                                    "id_clase_material");     
+    }
+    
+    private void idEditorial(){
+        
+        String editorial = buscarEditorial.getText();
+        if(listaEditoriales.indexOf(editorial)!=-1){
+           idEditorial = obtenerId("SELECT id_editorial FROM tbl_EDITORIAL WHERE nombre_editorial =",  "'"+editorial+"'", "id_editorial"); 
+        }
+        else {
+             Utilidades.mensaje(null, "Debe seleccionar una editorial de la lista", "Para agregar una editorial a un libro", "Seleccionar Editorial");
+             idEditorial=0;
+        }         
+    }
+    
+    private int obtenerId(String consulta, String nombre,String columna) {
+
+        int id=0;
+        try {
+            con.conectar();
+            con.setResultado(con.getStatement().executeQuery(consulta + nombre));            
+            if (con.getResultado().first()) {
+                id = con.getResultado().getInt(columna);
+            }            
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+        } finally {
+            con.desconectar();
+        }
+        return id;
+    }
+        
     public void llenarAutores() {
 
         try {
@@ -194,8 +238,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     }
        
     public void obtenerMateria(){
-        
-        
+               
         if(listaMaterias.indexOf(buscarMateria.getText())!=-1){
             
         materias.add(new Materia(listaMaterias.get(listaMaterias.indexOf(buscarMateria.getText())).toString()));
@@ -263,7 +306,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     }
     
     @FXML 
-    public void  prepararTablas(){
+    public void prepararTablas(){
     
         clmnNombre.setCellValueFactory(new PropertyValueFactory<Autor,String>("nombreAutor"));
         clmnApellidos.setCellValueFactory(new PropertyValueFactory<Autor,String>("apellidosAutor"));
@@ -285,7 +328,12 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     public void guardarLibro(ActionEvent evento){
         
         validarCampos();
-       
+        obtenerId();
+        idEditorial();
+        System.out.println(idTipoMaterial);
+        System.out.println(idClaseMaterial);
+        System.out.println(idEditorial);
+        
     }
     
     @FXML
@@ -447,8 +495,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         
         cargarCombo("SELECT * FROM tbl_CLASE_MATERIAL", "clase_material", listaClaseMaterial, comboClaseMaterial);
         cargarCombo("SELECT * FROM tbl_CLASE_MATERIAL", "clase_material", listaClaseMaterialOM, comboClaseMaterialOM);
-        cargarCombo("SELECT * FROM tbl_TIPO_MATERIAL WHERE tipo_material !='Libro'", "tipo_material", listaTipoMaterial, comboTipoMaterial);
- 
+        cargarCombo("SELECT tipo_material FROM tbl_TIPO_MATERIAL WHERE tipo_material NOT LIKE('%libro%')", "tipo_material", listaTipoMaterial, comboTipoMaterial);
+      
     }    
     
 }
