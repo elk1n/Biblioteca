@@ -3,7 +3,10 @@ package sabga.controlador;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,6 +32,7 @@ import sabga.configuracion.Utilidades;
 import sabga.atributos.Autor;
 import sabga.atributos.Materia;
 import sabga.configuracion.Conexion;
+import sabga.modelo.ConfirmarMaterial;
 import sabga.modelo.Validacion;
 
 /**
@@ -57,7 +61,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     @FXML
     private TitledPane acordeonAutor, acordeonMateria;
     
-    private int idTipoMaterial, idClaseMaterial, idEditorial;
+    private int idTipoMaterial, idClaseMaterial, idEditorial, material;
+    private String mensaje;
     
     private Sabga ventanaPrincipal;  
     private ScreensController controlador;
@@ -65,6 +70,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private AutoFillTextBox buscarAutor, buscarMateria, buscarMateriaOM, buscarEditorial;
     private Validacion validar;
     private ValidarMaterial validarMaterial;
+    private ConfirmarMaterial confirmar;
     
     private Conexion con;
     
@@ -78,6 +84,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private ObservableList listaClaseMaterial;
     private ObservableList listaClaseMaterialOM;
     private ObservableList listaTipoMaterial;
+    private ObservableList<Integer> idAutores;
      
         
     public RegistroMaterialController(){
@@ -99,6 +106,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         listaClaseMaterial = FXCollections.observableArrayList();
         listaClaseMaterialOM = FXCollections.observableArrayList();
         listaTipoMaterial = FXCollections.observableArrayList();
+        idAutores = FXCollections.observableArrayList();
         validar = new Validacion();
    
     }
@@ -107,10 +115,68 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private void guardarLibro(){
     
         validarCampos();
+        confirmar = new ConfirmarMaterial();
         
-    
+        if(confirmar.confirmarNuevoLibro(comboClaseMaterial.getSelectionModel().getSelectedItem(), txtfCodigo.getText(), txtfTitulo.getText(), 
+                                         txtfAnioPublicacion.getText(), txtfPublicacion.getText(), txtfPaginas.getText(),txtfEjemplares.getText(),
+                                         buscarEditorial.getTextbox().getText(), autores, materias) && listaEditoriales.indexOf(buscarEditorial.getText()) !=-1){
+        
+            obtenerId();
+            idEditorial();
+            procedimientoGuardarLibro();
+            
+                            
+        }
+          
+    }
+   
+    private void procedimientoGuardarLibro(){
+        
+        try {
+                registrarLibro();               
+            if(mensaje!=null){                   
+                     Utilidades.mensajeError(null, mensaje, "Error al tratar de registrar el libro", "Error Guardar Libro");
+                }
+                else{
+                    Utilidades.mensaje(null, "El libro se ha registrado correctamente", "Registrando Libro", "Registro Exitoso");
+                }
+            } catch (SQLException ex) {              
+                Utilidades.mensajeError(null, ex.getMessage(), "Error al tratar de registrar el libro", "Error Guardar Libro");  
+            }
     }
     
+    private void registrarLibro() throws SQLException{
+    
+        
+        try {
+
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL registrarMaterial(?,?,?,?,?,?,?,?,?,?,?) }");
+            con.getProcedimiento().setInt("claseMaterial", idClaseMaterial);
+            con.getProcedimiento().setInt("tipoMaterial", idTipoMaterial);
+            con.getProcedimiento().setInt("editorial", idEditorial);            
+            con.getProcedimiento().setString("codigo", txtfCodigo.getText().trim());
+            con.getProcedimiento().setString("titulo", txtfTitulo.getText().trim());
+            con.getProcedimiento().setString("publicacion", txtfPublicacion.getText().trim());
+            con.getProcedimiento().setInt("anioPublicacion", Integer.parseInt(txtfAnioPublicacion.getText().trim()));
+            con.getProcedimiento().setInt("numeroPaginas", Integer.parseInt(txtfPaginas.getText().trim()));
+            con.getProcedimiento().setInt("cantidadEjemplares", Integer.parseInt(txtfEjemplares.getText().trim()));
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("material", Types.INTEGER);
+            con.getProcedimiento().execute();           
+            mensaje = con.getProcedimiento().getString("mensaje");
+            material = con.getProcedimiento().getInt("material");
+            con.getConexion().commit();
+            
+        } catch (SQLException e) {
+            con.getConexion().rollback();
+            Utilidades.mensajeError(null, e.getMessage(), "Error al tratar de registrar el libro", "Error Guardar Libro");  
+        } finally {
+            con.desconectar();
+        }
+    
+    }
     
     private void obtenerId(){
     
@@ -131,6 +197,48 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         }         
     }
     
+    private void llenarTablaDetalle(){
+    
+        for(Integer id : idAutores){
+        
+          try {            
+            con.conectar();
+            con.setResultado(con.getStatement().executeQuery("SELECT * FROM tbl_CURSO"));
+
+            while (con.getResultado().next()) {
+                
+             //   grado.add(con.getResultado().getObject("curso"));
+                
+            }
+         //   comboGrupo.setItems(grado);
+            con.desconectar(); 
+        } catch (SQLException ex) {
+            
+             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error"); 
+        }
+        
+        }
+    
+    }
+    
+    private void obtenerIdAutores(){
+    
+        for (Autor dato : autores) {
+
+            try {
+                con.conectar();
+                con.setResultado(con.getStatement().executeQuery("SELECT id_autor FROM tbl_AUTOR WHERE nombre_autor= '" + dato.getNombreAutor() + "' AND apellidos_autor= '" + dato.getApellidosAutor() + "'"));
+                if (con.getResultado().first()) {
+                    idAutores.add(con.getResultado().getInt("id_autor"));
+                }
+            } catch (SQLException ex) {
+                Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+            } finally {
+                con.desconectar();
+            }
+        }
+    }
+        
     private int obtenerId(String consulta, String nombre,String columna) {
 
         int id=0;
@@ -327,12 +435,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     @FXML
     public void guardarLibro(ActionEvent evento){
         
-        validarCampos();
-        obtenerId();
-        idEditorial();
-        System.out.println(idTipoMaterial);
-        System.out.println(idClaseMaterial);
-        System.out.println(idEditorial);
+        guardarLibro();
         
     }
     
