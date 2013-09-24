@@ -102,6 +102,5 @@ public class ConfirmarMaterial extends ValidarMaterial {
         } else {
             return true;
         }
-
     }
 }

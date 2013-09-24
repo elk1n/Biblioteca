@@ -59,33 +59,32 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     @FXML
     private TitledPane acordeonAutor, acordeonMateria;
     
-    private int idTipoMaterial, idClaseMaterial, idEditorial, material;
+    private int idTipoMaterial, idClaseMaterial, idEditorial, material, idClaseMaterialOM, idTipoMaterialOM;
     private String mensaje;
     
     private Sabga ventanaPrincipal;  
     private ScreensController controlador;
-    private Dialogo dialogo;
-    private AutoFillTextBox buscarAutor, buscarMateria, buscarMateriaOM, buscarEditorial;
-    private Validacion validar;
+    private final Dialogo dialogo;
+    private final AutoFillTextBox buscarAutor, buscarMateria, buscarMateriaOM, buscarEditorial;
+    private final Validacion validar;
     private ValidarMaterial validarMaterial;
     private ConfirmarMaterial confirmar;
     
-    private Conexion con;
+    private final Conexion con;
     
-    private ObservableList listaAutores;
-    private ObservableList<Autor> obtenerAutores;
-    private ObservableList listaMaterias;
-    private ObservableList listaEditoriales;
-    private ObservableList<Autor> autores;
-    private ObservableList<Materia> materias;
-    private ObservableList<Materia> materiasOM;
-    private ObservableList listaClaseMaterial;
-    private ObservableList listaClaseMaterialOM;
-    private ObservableList listaTipoMaterial;
-    private ObservableList<Integer> idAutores;
-    private ObservableList<Integer> idMaterias;
-     
-        
+    private final ObservableList listaAutores;
+    private final ObservableList<Autor> obtenerAutores;
+    private final ObservableList listaMaterias;
+    private final ObservableList listaEditoriales;
+    private final ObservableList<Autor> autores;
+    private final ObservableList<Materia> materias;
+    private final ObservableList<Materia> materiasOM;
+    private final ObservableList listaClaseMaterial;
+    private final ObservableList listaClaseMaterialOM;
+    private final ObservableList listaTipoMaterial;
+    private final ObservableList<Integer> idAutores;
+    private final ObservableList<Integer> idMaterias;
+         
     public RegistroMaterialController(){
         
         con = new Conexion();
@@ -111,6 +110,14 @@ public class RegistroMaterialController implements Initializable, ControlledScre
    
     }
     
+    private void registroOtroMaterial(){
+        validarCamposOM();
+        confirmar = new ConfirmarMaterial();
+        if(confirmar.confirmarOtroMaterial(comboTipoMaterial.getSelectionModel().getSelectedItem(), comboClaseMaterialOM.getSelectionModel().getSelectedItem(),
+                                           txtfCodigoOM.getText(), txtfTituloOM.getText(), txtfCopias.getText(), materiasOM)){        
+            obtenerIdOM();
+        }
+    }
     
     private void guardarLibro(){
     
@@ -123,32 +130,56 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             obtenerId();
             idEditorial();
             procedimientoGuardarLibro();        
-        }
-          
+        }          
     }
    
     private void procedimientoGuardarLibro(){
         
         try {
-                registrarLibro();
-                obtenerIdAutoresMaterias();
-                llenarTablaDetalle();
+            registrarLibro();
             if(mensaje!=null){                   
                      Utilidades.mensajeError(null, mensaje, "Error al tratar de registrar el libro", "Error Guardar Libro");
                 }
                 else{
                     Utilidades.mensaje(null, "El libro se ha registrado correctamente", "Registrando Libro", "Registro Exitoso");
+                    obtenerIdAutoresMaterias();
+                    llenarTablaDetalle();
                 }
             } catch (SQLException ex) {              
                 Utilidades.mensajeError(null, ex.getMessage(), "Error al tratar de registrar el libro", "Error Guardar Libro");  
             }
     }
     
-    private void registrarLibro() throws SQLException{
-    
+    private void registrarOtroMaterial() throws SQLException{
         
         try {
-
+           
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL registrarMaterial(?,?,?,?,?,?,?) }");
+            con.getProcedimiento().setInt("claseMaterial", idClaseMaterialOM);
+            con.getProcedimiento().setInt("tipoMaterial", idTipoMaterialOM);
+            con.getProcedimiento().setString("codigo", txtfCodigoOM.getText().trim());
+            con.getProcedimiento().setString("titulo", txtfTituloOM.getText().trim());
+            con.getProcedimiento().setInt("numeroCopias", Integer.parseInt(txtfCopias.getText().trim()));
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("material", Types.INTEGER);
+            con.getProcedimiento().execute();           
+            mensaje = con.getProcedimiento().getString("mensaje");
+            material = con.getProcedimiento().getInt("material");
+            con.getConexion().commit();
+            
+        } catch (SQLException e) {
+            con.getConexion().rollback();
+            Utilidades.mensajeError(null, e.getMessage(), "Error al tratar de registrar el material", "Error Guardar Material");  
+        } finally {
+            con.desconectar();
+        }
+    }
+    
+    private void registrarLibro() throws SQLException{
+       
+        try {
             con.conectar();
             con.getConexion().setAutoCommit(false);
             con.procedimiento("{ CALL registrarMaterial(?,?,?,?,?,?,?,?,?,?,?) }");
@@ -180,8 +211,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private void obtenerId(){
     
         idTipoMaterial = obtenerId("SELECT id_tipo_material FROM tbl_TIPO_MATERIAL WHERE ", "tipo_material LIKE('%libro%')", "id_tipo_material");
-        idClaseMaterial = obtenerId("SELECT id_clase_material FROM tbl_CLASE_MATERIAL WHERE clase_material =", "'"+comboClaseMaterial.getSelectionModel().getSelectedItem().toString()+"'",
-                                    "id_clase_material");     
+        idClaseMaterial = obtenerId("SELECT id_clase_material FROM tbl_CLASE_MATERIAL WHERE clase_material =",
+                                    "'"+comboClaseMaterial.getSelectionModel().getSelectedItem().toString()+"'","id_clase_material");     
     }
     
     private void idEditorial(){
@@ -265,6 +296,14 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         }
         
         
+    }
+    
+    private void obtenerIdOM(){
+         
+        idTipoMaterialOM = obtenerId("SELECT id_tipo_material FROM tbl_TIPO_MATERIAL WHERE tipo_material = ",
+                                    "'"+comboTipoMaterial.getSelectionModel().getSelectedItem().toString()+"'", "id_tipo_material");
+        idClaseMaterialOM = obtenerId("SELECT id_clase_material FROM tbl_CLASE_MATERIAL WHERE clase_material =", 
+                                    "'"+comboClaseMaterialOM.getSelectionModel().getSelectedItem().toString()+"'", "id_clase_material"); 
     }
         
     private int obtenerId(String consulta, String nombre,String columna) {
@@ -460,17 +499,14 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     }
     
     @FXML
-    public void guardarLibro(ActionEvent evento){
-        
-      guardarLibro();
-       
+    public void guardarLibro(ActionEvent evento){       
+      guardarLibro();       
     }
     
     @FXML
-    public void guardarOtroMaterial(ActionEvent evento){
+    public void guardarOtroMaterial(ActionEvent evento){        
         
         validarCamposOM();
-    
     }
     
     public void validarCampos(){
@@ -596,13 +632,21 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         
 	this.ventanaPrincipal = ventanaPrincipal;
     }
-       
+    
+    public void llenarListaMaterias(){
+        listarDatos(listaMaterias, "SELECT nombre_materia FROM tbl_MATERIA", "nombre_materia");
+    }
+    
+    public void llenarListaEditoriales(){
+        listarDatos(listaEditoriales, "SELECT nombre_editorial FROM tbl_EDITORIAL", "nombre_editorial");
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
              
         prepararTablas();
-        listarDatos(listaMaterias, "SELECT nombre_materia FROM tbl_MATERIA", "nombre_materia");
-        listarDatos(listaEditoriales, "SELECT nombre_editorial FROM tbl_EDITORIAL", "nombre_editorial");
+        llenarListaMaterias();
+        llenarListaEditoriales();
         llenarAutores();
         buscarAutor.setPrefSize(350, 30);
         buscarMateria.setPrefSize(350, 30);

@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import sabga.configuracion.Dialogo;
 import sabga.controlador.PaginaPrincipalController;
+import sabga.controlador.RegistroMaterialController;
 
 /**
  * @author Elk1n
@@ -42,10 +43,10 @@ public class Sabga extends Application {
     
     private Stage ventanaPrincipal, primaryStage;
     private BorderPane rootLayout;
-    private ScreensController pantallas;           
+    private final ScreensController pantallas;           
     private ScreensController controller;
     private ScreensController controladorVistas;
-    private Dialogo dialogo;
+    private final Dialogo dialogo;
     
     public Sabga(){
            
@@ -145,6 +146,11 @@ public class Sabga extends Application {
         dialogo.mostrarDialogo("vista/dialogos/RestablecerContrasenia.fxml","Restablecer Contraseña", this.primaryStage, this, 7);  
      }
     
+    public void prueba(){
+    
+    System.out.println("Esto es una prueba");
+    
+    }
   
     /**
      * The main() method is ignored in correctly deployed JavaFX application.

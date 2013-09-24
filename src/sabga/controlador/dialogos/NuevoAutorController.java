@@ -8,8 +8,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sabga.Sabga;
 import sabga.configuracion.Conexion;
 import sabga.configuracion.Utilidades;
+import sabga.controlador.RegistroMaterialController;
 import sabga.modelo.ConfirmarMaterial;
 import sabga.modelo.ValidarMaterial;
 
@@ -27,7 +29,7 @@ public class NuevoAutorController {
     
     private ValidarMaterial validarNuevoAutor;
     private ConfirmarMaterial nuevoAutor;
-    private Conexion con;
+    private final Conexion con;
     private String mensaje;
         
     public NuevoAutorController(){
@@ -44,6 +46,7 @@ public class NuevoAutorController {
     public void guardarNuevoAutor(ActionEvent evento) {
 
         procesarNuevoAutor();
+          
     }
     
     public void procesarNuevoAutor(){
@@ -54,13 +57,14 @@ public class NuevoAutorController {
             
             try {
                 registarAutor();
-                if(mensaje!=null){
-                    
+                if(mensaje!=null){                    
                      Utilidades.mensajeAdvertencia(null, mensaje, "Error al tratar de registrar el autor", "Error Guardar Autor");
                 }
                 else{
                     //dialogStage.setOpacity(0);
                     Utilidades.mensaje(null, "El autor se ha registrado correctamente", "Registrando Autor", "Registro Exitoso");
+                    RegistroMaterialController actualizarAutor= new RegistroMaterialController();
+                    actualizarAutor.llenarAutores();
                     dialogStage.close();
                 }
             } catch (SQLException ex) {
@@ -115,6 +119,6 @@ public class NuevoAutorController {
 
     @FXML
     public void initialize() {
-   
+            
     }
 }

@@ -191,7 +191,6 @@ public class ValidarMaterial extends Validacion{
             this.errorMateria = "Debe seleccionar al menos una materia";
         }
 
-
     }
 
    // VALIDAR NUEVO MATERIAL (LOS CDS, LOS FOLLETOS Y ESO...)
@@ -222,10 +221,7 @@ public class ValidarMaterial extends Validacion{
       }
       
   }
-   
- 
-   
-   
+  
     public void validarActualizacionOM(){
         /*
         if(validarCampoTexto(this.codigoClasificacion, 45)==false ){
@@ -298,8 +294,7 @@ public class ValidarMaterial extends Validacion{
       }     
    */
   }
-     
-    
+         
     // 
     public String getErrorCodigoClasificacion(){      
       return this.errorCodigoClasificacion;
