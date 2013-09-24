@@ -12,16 +12,16 @@ import java.sql.Statement;
  */
 public class Conexion {
 
-    private String puerto = "8889/";
-    private String nombreBaseDatos = "SABGAB";
-    private String usuario = "root";
-    private String contrasenia = "";
-    private String url = "jdbc:mysql://localhost:";
-    private String driver = "com.mysql.jdbc.Driver";
+    private final String puerto = "3306/";
+    private final String nombreBaseDatos = "SABGAB";
+    private final String usuario = "root";
+    private final String contrasenia = "";
+    private final String url = "jdbc:mysql://localhost:";
+    private final String driver = "com.mysql.jdbc.Driver";
     private Connection conexion = null;
     private Statement stm = null;
     private ResultSet resultado = null;
-    private String cadenaConexion = url + puerto + nombreBaseDatos;
+    private final String cadenaConexion = url + puerto + nombreBaseDatos;
     private CallableStatement procedimiento; 
 
     public void conectar() {
@@ -40,7 +40,7 @@ public class Conexion {
         try {
             this.conexion.close();
             this.stm.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             Utilidades.mensajeError(null, e.getMessage(), "Error al desconectarse de la base de datos", "Error");
         }
     }

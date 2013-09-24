@@ -73,10 +73,15 @@ public class Validacion {
             return false;
         } else if (!matcher.matches()) {
 
-            this.mensajeError = "No es un número";
+            this.mensajeError = "No es un número o no es positivo";
             return false;
 
-        } else {
+        }else if(matcher.matches() && !validarNumero(campoTexto)){
+            this.mensajeError = "El número debe ser mayor o igual a 1";
+            return false;       
+        } 
+               
+        else {
             this.mensajeError = "";
             return true;
         }
@@ -200,6 +205,23 @@ public class Validacion {
             }
             return true;
         } else {
+            return false;
+        }
+    }
+    
+    public boolean validarNumero(String texto){
+        
+        int numero;
+        try {
+            numero = Integer.parseInt(texto);
+            if(numero>=1){
+                return true;
+            }
+            else{
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            this.mensajeError = e.getMessage();
             return false;
         }
     }

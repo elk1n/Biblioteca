@@ -5,8 +5,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -85,6 +83,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private ObservableList listaClaseMaterialOM;
     private ObservableList listaTipoMaterial;
     private ObservableList<Integer> idAutores;
+    private ObservableList<Integer> idMaterias;
      
         
     public RegistroMaterialController(){
@@ -107,6 +106,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         listaClaseMaterialOM = FXCollections.observableArrayList();
         listaTipoMaterial = FXCollections.observableArrayList();
         idAutores = FXCollections.observableArrayList();
+        idMaterias = FXCollections.observableArrayList();
         validar = new Validacion();
    
     }
@@ -119,13 +119,10 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         
         if(confirmar.confirmarNuevoLibro(comboClaseMaterial.getSelectionModel().getSelectedItem(), txtfCodigo.getText(), txtfTitulo.getText(), 
                                          txtfAnioPublicacion.getText(), txtfPublicacion.getText(), txtfPaginas.getText(),txtfEjemplares.getText(),
-                                         buscarEditorial.getTextbox().getText(), autores, materias) && listaEditoriales.indexOf(buscarEditorial.getText()) !=-1){
-        
+                                         buscarEditorial.getTextbox().getText(), autores, materias) && listaEditoriales.indexOf(buscarEditorial.getText()) !=-1){        
             obtenerId();
             idEditorial();
-            procedimientoGuardarLibro();
-            
-                            
+            procedimientoGuardarLibro();        
         }
           
     }
@@ -133,7 +130,9 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private void procedimientoGuardarLibro(){
         
         try {
-                registrarLibro();               
+                registrarLibro();
+                obtenerIdAutoresMaterias();
+                llenarTablaDetalle();
             if(mensaje!=null){                   
                      Utilidades.mensajeError(null, mensaje, "Error al tratar de registrar el libro", "Error Guardar Libro");
                 }
@@ -197,31 +196,43 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         }         
     }
     
-    private void llenarTablaDetalle(){
+    private void llenarTablaDetalle() throws SQLException{
     
         for(Integer id : idAutores){
         
           try {            
             con.conectar();
-            con.setResultado(con.getStatement().executeQuery("SELECT * FROM tbl_CURSO"));
-
-            while (con.getResultado().next()) {
-                
-             //   grado.add(con.getResultado().getObject("curso"));
-                
-            }
-         //   comboGrupo.setItems(grado);
-            con.desconectar(); 
+            con.getConexion().setAutoCommit(false);
+            con.getStatement().executeUpdate("INSERT INTO tbl_AUTOR_MATERIAL (id_autor, id_material) VALUES ("+id+" ,"+material+")");
+            con.getConexion().commit();
         } catch (SQLException ex) {
-            
+             con.getConexion().rollback();
              Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error"); 
         }
+          finally{
+               con.desconectar();
+          }
+        }
         
+        for(Integer idMat : idMaterias){
+        
+          try {            
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.getStatement().executeUpdate("INSERT INTO tbl_MATERIAL_MATERIA (id_material, id_materia) VALUES ("+material+" ,"+idMat+")");
+            con.getConexion().commit();
+        } catch (SQLException ex) {
+             con.getConexion().rollback();
+             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error"); 
+        }
+          finally{
+               con.desconectar();
+          }
         }
     
     }
     
-    private void obtenerIdAutores(){
+    private void obtenerIdAutoresMaterias(){
     
         for (Autor dato : autores) {
 
@@ -237,6 +248,23 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                 con.desconectar();
             }
         }
+        
+        for (Materia mate : materias) {
+
+            try {
+                con.conectar();
+                con.setResultado(con.getStatement().executeQuery("SELECT id_materia FROM tbl_MATERIA WHERE nombre_materia= '" + mate.getNombreMateria()+ "'"));
+                if (con.getResultado().first()) {
+                    idMaterias.add(con.getResultado().getInt("id_materia"));
+                }
+            } catch (SQLException ex) {
+                Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+            } finally {
+                con.desconectar();
+            }
+        }
+        
+        
     }
         
     private int obtenerId(String consulta, String nombre,String columna) {
@@ -310,14 +338,13 @@ public class RegistroMaterialController implements Initializable, ControlledScre
 
     public void obtenerMateriaOM() {
         
-        if(listaMaterias.indexOf(buscarMateriaOM.getText())!=-1){
+        if (listaMaterias.indexOf(buscarMateriaOM.getText()) != -1) {
             
-        materiasOM.add(new Materia(listaMaterias.get(listaMaterias.indexOf(buscarMateriaOM.getText())).toString()));
-        contenedorMateriasOM.setPrefHeight(contenedorMateriasOM.getPrefHeight() + 25);
-        tablaMateriasOM.setPrefHeight(tablaMateriasOM.getPrefHeight() + 25);
-        
-        }
-        else {
+            materiasOM.add(new Materia(listaMaterias.get(listaMaterias.indexOf(buscarMateriaOM.getText())).toString()));
+            contenedorMateriasOM.setPrefHeight(contenedorMateriasOM.getPrefHeight() + 25);
+            tablaMateriasOM.setPrefHeight(tablaMateriasOM.getPrefHeight() + 25);
+            buscarMateriaOM.getTextbox().setText("");
+        } else {
             Utilidades.mensaje(null, "La materia debe ser una de la lista", "Para adicionar una materia a la lista", "Seleccionar Materia");
         }
     }
@@ -347,14 +374,14 @@ public class RegistroMaterialController implements Initializable, ControlledScre
        
     public void obtenerMateria(){
                
-        if(listaMaterias.indexOf(buscarMateria.getText())!=-1){
-            
-        materias.add(new Materia(listaMaterias.get(listaMaterias.indexOf(buscarMateria.getText())).toString()));
-        contenedorMaterias.setPrefHeight(contenedorMaterias.getPrefHeight()+25);
-        tablaMaterias.setPrefHeight(tablaMaterias.getPrefHeight()+25);     
-        
-        }
-        else {
+        if (listaMaterias.indexOf(buscarMateria.getText()) != -1) {
+
+            materias.add(new Materia(listaMaterias.get(listaMaterias.indexOf(buscarMateria.getText())).toString()));
+            contenedorMaterias.setPrefHeight(contenedorMaterias.getPrefHeight() + 25);
+            tablaMaterias.setPrefHeight(tablaMaterias.getPrefHeight() + 25);
+            buscarMateria.getTextbox().setText("");
+
+        } else {
             Utilidades.mensaje(null, "La materia debe ser una de la lista", "Para adicionar una materia a la lista", "Seleccionar Materia");
         }
     }
@@ -379,7 +406,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         if (validar.validarCampoTexto(buscarAutor.getText(), 300)) {
 
             obtenerAutor();
-
+                      
         } else {
             Utilidades.mensajeAdvertencia(null, "Debe buscar y seleccionar un autor", "Para adicionar un autor a la lista", "Seleccionar Autor");
         }
@@ -392,7 +419,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             autores.add(new Autor(obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getNombreAutor(), obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getApellidosAutor()));
             contenedorAutores.setPrefHeight(contenedorAutores.getPrefHeight()+25);
             tablaAutores.setPrefHeight(tablaAutores.getPrefHeight()+25);
-            
+            buscarAutor.getTextbox().setText("");
          } else {
             Utilidades.mensaje(null, "El autor debe ser uno de la lista", "Para adicionar un autor a la lista", "Seleccionar Autor");
         }     
@@ -435,8 +462,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     @FXML
     public void guardarLibro(ActionEvent evento){
         
-        guardarLibro();
-        
+      guardarLibro();
+       
     }
     
     @FXML
