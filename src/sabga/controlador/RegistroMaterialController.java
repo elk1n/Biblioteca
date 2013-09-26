@@ -18,6 +18,7 @@ import sabga.configuracion.ControlledScreen;
 import sabga.modelo.ValidarMaterial;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.TableView;
@@ -58,10 +59,11 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private ComboBox comboClaseMaterial, comboClaseMaterialOM, comboTipoMaterial;
     @FXML
     private TitledPane acordeonAutor, acordeonMateria;
+    @FXML
+    private Button btnNuevoAutor, btnNuevaEditorial, btnNuevaMateria, btnNuevaMateriaOM;
     
-    private int idTipoMaterial, idClaseMaterial, idEditorial, material, idClaseMaterialOM, idTipoMaterialOM;
+    private int idTipoMaterial, idClaseMaterial, idEditorial, material, idClaseMaterialOM, idTipoMaterialOM, materialOM;
     private String mensaje;
-    
     private Sabga ventanaPrincipal;  
     private ScreensController controlador;
     private final Dialogo dialogo;
@@ -84,6 +86,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private final ObservableList listaTipoMaterial;
     private final ObservableList<Integer> idAutores;
     private final ObservableList<Integer> idMaterias;
+    private final ObservableList<Integer> idMateriasOM;
          
     public RegistroMaterialController(){
         
@@ -106,16 +109,18 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         listaTipoMaterial = FXCollections.observableArrayList();
         idAutores = FXCollections.observableArrayList();
         idMaterias = FXCollections.observableArrayList();
+        idMateriasOM = FXCollections.observableArrayList();
         validar = new Validacion();
    
     }
     
     private void registroOtroMaterial(){
+        
         validarCamposOM();
         confirmar = new ConfirmarMaterial();
         if(confirmar.confirmarOtroMaterial(comboTipoMaterial.getSelectionModel().getSelectedItem(), comboClaseMaterialOM.getSelectionModel().getSelectedItem(),
                                            txtfCodigoOM.getText(), txtfTituloOM.getText(), txtfCopias.getText(), materiasOM)){        
-            obtenerIdOM();
+           procedimientoGuardarOtroMaterial();                 
         }
     }
     
@@ -126,10 +131,10 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         
         if(confirmar.confirmarNuevoLibro(comboClaseMaterial.getSelectionModel().getSelectedItem(), txtfCodigo.getText(), txtfTitulo.getText(), 
                                          txtfAnioPublicacion.getText(), txtfPublicacion.getText(), txtfPaginas.getText(),txtfEjemplares.getText(),
-                                         buscarEditorial.getTextbox().getText(), autores, materias) && listaEditoriales.indexOf(buscarEditorial.getText()) !=-1){        
-            obtenerId();
-            idEditorial();
-            procedimientoGuardarLibro();        
+                                         buscarEditorial.getTextbox().getText(), autores, materias) && listaEditoriales.indexOf(buscarEditorial.getText()) !=-1){          
+                obtenerId();
+                idEditorial();
+                procedimientoGuardarLibro();                    
         }          
     }
    
@@ -150,13 +155,33 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             }
     }
     
+    private void procedimientoGuardarOtroMaterial(){
+        
+       if(obtenerIdOM()){          
+           try {
+            registrarOtroMaterial();
+            if(mensaje!=null){                   
+                     Utilidades.mensajeError(null, mensaje, "Error al registrar el material", "Error Guardar Material");
+                }
+                else{
+                    Utilidades.mensaje(null, "El Material se ha registrado correctamente", "Registrando Material", "Registro Exitoso");                   
+                }
+            } catch (SQLException ex) {              
+                Utilidades.mensajeError(null, ex.getMessage(), "Error al tratar de registrar el material", "Error Guardar Material");  
+            }       
+       } 
+       else{
+           Utilidades.mensajeError(null, "No se ha registrado el material", "Error al registrar el material", "Error Guardar Material");
+       }
+   
+    }
+    
     private void registrarOtroMaterial() throws SQLException{
         
-        try {
-           
+        try {           
             con.conectar();
             con.getConexion().setAutoCommit(false);
-            con.procedimiento("{ CALL registrarMaterial(?,?,?,?,?,?,?) }");
+            con.procedimiento("{ CALL registrarOtroMaterial(?,?,?,?,?,?,?) }");
             con.getProcedimiento().setInt("claseMaterial", idClaseMaterialOM);
             con.getProcedimiento().setInt("tipoMaterial", idTipoMaterialOM);
             con.getProcedimiento().setString("codigo", txtfCodigoOM.getText().trim());
@@ -166,11 +191,18 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             con.getProcedimiento().registerOutParameter("material", Types.INTEGER);
             con.getProcedimiento().execute();           
             mensaje = con.getProcedimiento().getString("mensaje");
-            material = con.getProcedimiento().getInt("material");
-            con.getConexion().commit();
+            materialOM = con.getProcedimiento().getInt("material");
             
+            if(obtenerIdMateriasOM() && llenarTablaDetalleOM()){               
+                con.getConexion().commit();
+            }
+            else{
+                con.getConexion().rollback();
+                mensaje = "No se ha guardado el material";
+            }
         } catch (SQLException e) {
             con.getConexion().rollback();
+            mensaje = String.valueOf(e.getErrorCode());
             Utilidades.mensajeError(null, e.getMessage(), "Error al tratar de registrar el material", "Error Guardar Material");  
         } finally {
             con.desconectar();
@@ -227,6 +259,21 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         }         
     }
     
+    private Boolean llenarTablaDetalleOM() throws SQLException{
+              
+          try {            
+            con.getConexion().setAutoCommit(false);
+            for(Integer id: idMateriasOM){
+            con.getStatement().executeUpdate("INSERT INTO tbl_MATERIAL_MATERIA (id_material, id_materia) VALUES ("+materialOM+" ,"+id+")");
+            }
+            return true;
+        } catch (SQLException ex) {
+             con.getConexion().rollback();
+             Utilidades.mensajeError(null, ex.getMessage(), "No se ha registrado el material\nFavor intente más tarde", "Error");
+             return false;              
+        }                  
+    }
+    
     private void llenarTablaDetalle() throws SQLException{
     
         for(Integer id : idAutores){
@@ -263,6 +310,21 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     
     }
     
+    private Boolean obtenerIdMateriasOM() throws SQLException{
+            
+        try {
+            for(Materia mateOM : materiasOM){
+                con.setResultado(con.getStatement().executeQuery("SELECT id_materia FROM tbl_MATERIA WHERE nombre_materia= '" + mateOM.getNombreMateria()+ "'"));
+                if (con.getResultado().first()) {
+                    idMateriasOM.add(con.getResultado().getInt("id_materia"));
+                }
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+        } 
+        return idMateriasOM.size() == materiasOM.size();
+    }
+    
     private void obtenerIdAutoresMaterias(){
     
         for (Autor dato : autores) {
@@ -294,16 +356,15 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                 con.desconectar();
             }
         }
-        
-        
     }
     
-    private void obtenerIdOM(){
+    private Boolean obtenerIdOM(){
          
         idTipoMaterialOM = obtenerId("SELECT id_tipo_material FROM tbl_TIPO_MATERIAL WHERE tipo_material = ",
                                     "'"+comboTipoMaterial.getSelectionModel().getSelectedItem().toString()+"'", "id_tipo_material");
         idClaseMaterialOM = obtenerId("SELECT id_clase_material FROM tbl_CLASE_MATERIAL WHERE clase_material =", 
-                                    "'"+comboClaseMaterialOM.getSelectionModel().getSelectedItem().toString()+"'", "id_clase_material"); 
+                                    "'"+comboClaseMaterialOM.getSelectionModel().getSelectedItem().toString()+"'", "id_clase_material");
+        return idTipoMaterialOM != 0 && idClaseMaterialOM != 0;
     }
         
     private int obtenerId(String consulta, String nombre,String columna) {
@@ -313,7 +374,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             con.conectar();
             con.setResultado(con.getStatement().executeQuery(consulta + nombre));            
             if (con.getResultado().first()) {
-                id = con.getResultado().getInt(columna);
+                id = con.getResultado().getInt(columna);                
             }            
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
@@ -505,8 +566,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     
     @FXML
     public void guardarOtroMaterial(ActionEvent evento){        
-        
-        validarCamposOM();
+           registroOtroMaterial();
     }
     
     public void validarCampos(){
@@ -605,22 +665,30 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     public void dialogoNuevoAutor (ActionEvent evento){
         
         ventanaPrincipal = new Sabga();
-        dialogo.mostrarDialogo("vista/dialogos/NuevoAutor.fxml", "Nuevo Autor", ventanaPrincipal.getPrimaryStage(), null, 1);     
+        btnNuevoAutor.setDisable(true);
+        dialogo.mostrarDialogo("vista/dialogos/NuevoAutor.fxml", "Nuevo Autor", ventanaPrincipal.getPrimaryStage(), null, 1); 
+        btnNuevoAutor.setDisable(false);
     }
     
     @FXML
     public void dialogoNuevaMateria (ActionEvent evento){
          
-        ventanaPrincipal = new Sabga();    
+        ventanaPrincipal = new Sabga();
+        btnNuevaMateria.setDisable(true);
+        btnNuevaMateriaOM.setDisable(true);
         dialogo.mostrarDialogo("vista/dialogos/NuevaMateria.fxml", "Nueva Materia", ventanaPrincipal.getPrimaryStage(), null, 2);
+        btnNuevaMateria.setDisable(false);
+        btnNuevaMateriaOM.setDisable(false);
     }
     
     @FXML
     public void dialogoNuevaEditorial(ActionEvent evento){
          
          ventanaPrincipal = new Sabga();
+         btnNuevaEditorial.setDisable(true);
          dialogo.mostrarDialogo("vista/dialogos/NuevaEditorial.fxml", "Nueva Editorial", ventanaPrincipal.getPrimaryStage(), null,3);
-     }
+         btnNuevaEditorial.setDisable(true);
+    }
           
     @Override
     public void setScreenParent(ScreensController screenParent) {
@@ -670,7 +738,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         cargarCombo("SELECT * FROM tbl_CLASE_MATERIAL", "clase_material", listaClaseMaterial, comboClaseMaterial);
         cargarCombo("SELECT * FROM tbl_CLASE_MATERIAL", "clase_material", listaClaseMaterialOM, comboClaseMaterialOM);
         cargarCombo("SELECT tipo_material FROM tbl_TIPO_MATERIAL WHERE tipo_material NOT LIKE('%libro%')", "tipo_material", listaTipoMaterial, comboTipoMaterial);
-      
+ 
     }    
     
 }

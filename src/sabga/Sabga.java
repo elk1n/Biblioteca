@@ -2,6 +2,8 @@
 package sabga;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -10,7 +12,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import sabga.configuracion.Dialogo;
 import sabga.controlador.PaginaPrincipalController;
-import sabga.controlador.RegistroMaterialController;
 
 /**
  * @author Elk1n
@@ -93,12 +94,14 @@ public class Sabga extends Application {
         this.primaryStage = primaryStage;        
         this.primaryStage.setTitle("SABGA");
         this.primaryStage.getIcons().add(new Image(Sabga.class.getResourceAsStream( "vista/Imagenes/LogoBiblioteca1.png" )));
-        this.primaryStage.setMinHeight(700);
-        this.primaryStage.setMinWidth(1000);
+        this.primaryStage.setMinHeight(720);
+        this.primaryStage.setMinWidth(1100);
         this.primaryStage.centerOnScreen();
+
         FXMLLoader cargador =  new FXMLLoader(Sabga.class.getResource("vista/PaginaPrincipal.fxml"));
         rootLayout = (BorderPane) cargador.load();
         Scene scene = new Scene(rootLayout);
+        
         primaryStage.setScene(scene);
         // Quitar el comentario para habilitar la pàgina de login o inicio de sesión
         //dialogoInicioSesion();        
@@ -107,8 +110,8 @@ public class Sabga extends Application {
         PaginaPrincipalController controller = cargador.getController();
         controller.setVentanaPrincipal(this);
         
-        mostrarVistas();
-           
+        mostrarVistas();  
+       
     }
     
     public void inciarSesion(){

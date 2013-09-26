@@ -13,8 +13,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialogs;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import sabga.Sabga;
 import sabga.configuracion.ControlledScreen;
 import sabga.ScreensController;
@@ -26,9 +28,9 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     private Sabga ventanaPrincipal;  
     private ScreensController controlador;
-    private ObservableList parametroMaterial = FXCollections.observableArrayList();
-    private ObservableList parametroUsuario = FXCollections.observableArrayList();
-    private Dialogo dialogo;
+    private final ObservableList parametroMaterial = FXCollections.observableArrayList();
+    private final ObservableList parametroUsuario = FXCollections.observableArrayList();
+    private final Dialogo dialogo;
     
     @FXML
     private TextField campoBusqueda;
@@ -39,7 +41,11 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     @FXML 
     private Button botonBorrarBusqueda;
     @FXML
+    private MenuBar barraMenu;   
+    @FXML
     private MenuItem menuNuevoAutor;
+    @FXML
+    private HBox hboxAdmin;
     
     public MenuItem getMenu(){
     
@@ -251,7 +257,8 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         
          parametroBusqueda.setItems(parametroMaterial);
          botonBorrarBusqueda.setVisible(false);
-         
+         barraMenu.setPrefWidth(java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth());
+        
     }    
 
     

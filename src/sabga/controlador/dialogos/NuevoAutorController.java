@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sabga.Sabga;
 import sabga.configuracion.Conexion;
 import sabga.configuracion.Utilidades;
 import sabga.controlador.RegistroMaterialController;
@@ -66,6 +65,7 @@ public class NuevoAutorController {
                     RegistroMaterialController actualizarAutor= new RegistroMaterialController();
                     actualizarAutor.llenarAutores();
                     dialogStage.close();
+                    
                 }
             } catch (SQLException ex) {
                 
