@@ -219,8 +219,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     private void salir(ActionEvent evento){
 
         Utilidades.mensajeConfirmacion(ventanaPrincipal.getPrimaryStage(), "Los cambios no guardados se perderan", "Realmente desea salir?","Salir de SABGA");
-         if(Utilidades.getMensajeConfimacion() == Dialogs.DialogResponse.OK){
-             
+         if(Utilidades.getMensajeConfimacion() == Dialogs.DialogResponse.OK){             
              System.exit(0);         
          }     
     }

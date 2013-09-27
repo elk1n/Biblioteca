@@ -94,43 +94,7 @@
                 </Group>
                 <Accordion layoutX="587.0" layoutY="91.0" prefHeight="323.0" prefWidth="640.0">
                   <expandedPane>
-                    <TitledPane id="x5" fx:id="acordeonMateria" animated="false" text="Materias">
-                      <content>
-                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                          <children>
-                            <ScrollPane prefHeight="275.0" prefWidth="636.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                              <content>
-                                <AnchorPane id="Content" fx:id="contenedorMaterias" minHeight="0.0" minWidth="0.0" prefHeight="264.0" prefWidth="625.0">
-                                  <children>
-                                    <Label layoutX="19.0" layoutY="21.0" text="Materias" />
-                                    <HBox id="prueba" fx:id="hboxMaterias" alignment="CENTER" layoutX="100.0" layoutY="14.0" prefHeight="30.0" prefWidth="350.0" spacing="5.0">
-                                      <stylesheets>
-                                        <URL value="@css/estilo.css" />
-                                      </stylesheets>
-                                    </HBox>
-                                    <Button defaultButton="true" layoutX="464.0" layoutY="17.0" mnemonicParsing="false" onAction="#cargarNombreMateria" prefHeight="25.0" prefWidth="120.0" text="Seleccionar" />
-                                    <TableView fx:id="tablaMaterias" layoutX="86.0" layoutY="103.0" prefHeight="48.310638427734375" prefWidth="360.0">
-                                      <columns>
-                                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="344.0" text="Materia" fx:id="clmnNombreMateria" />
-                                      </columns>
-                                    </TableView>
-                                    <Button defaultButton="true" layoutX="464.0" layoutY="102.0" mnemonicParsing="false" onAction="#removerMateria" prefHeight="25.0" prefWidth="120.0" text="Remover" />
-                                    <Button id="registrarAutor" fx:id="btnNuevaMateria" defaultButton="true" layoutX="464.0" layoutY="59.0" mnemonicParsing="false" onAction="#dialogoNuevaMateria" prefHeight="25.0" prefWidth="120.0" text="Nueva Materia" />
-                                    <Label fx:id="validarMateria" alignment="CENTER_RIGHT" layoutX="97.0" layoutY="64.0" prefWidth="350.0" text="Validacion" textFill="$x1" />
-                                  </children>
-                                </AnchorPane>
-                              </content>
-                            </ScrollPane>
-                          </children>
-                        </AnchorPane>
-                      </content>
-                      <font>
-                        <Font name="System Bold" size="13.0" fx:id="x4" />
-                      </font>
-                    </TitledPane>
-                  </expandedPane>
-                  <panes>
-                    <TitledPane id="x2" fx:id="acordeonAutor" animated="false" font="$x4" text="Autores">
+                    <TitledPane id="x2" fx:id="acordeonAutor" animated="false" text="Autores">
                       <content>
                         <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="530.0" prefWidth="610.0">
                           <children>
@@ -169,8 +133,44 @@
                           </children>
                         </AnchorPane>
                       </content>
+                      <font>
+                        <Font name="System Bold" size="13.0" fx:id="x4" />
+                      </font>
                     </TitledPane>
-                    <fx:reference source="acordeonMateria" />
+                  </expandedPane>
+                  <panes>
+                    <fx:reference source="acordeonAutor" />
+                    <TitledPane id="x5" fx:id="acordeonMateria" animated="false" font="$x4" text="Materias">
+                      <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <children>
+                            <ScrollPane prefHeight="275.0" prefWidth="636.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <content>
+                                <AnchorPane id="Content" fx:id="contenedorMaterias" minHeight="0.0" minWidth="0.0" prefHeight="264.0" prefWidth="625.0">
+                                  <children>
+                                    <Label layoutX="19.0" layoutY="21.0" text="Materias" />
+                                    <HBox id="prueba" fx:id="hboxMaterias" alignment="CENTER" layoutX="100.0" layoutY="14.0" prefHeight="30.0" prefWidth="350.0" spacing="5.0">
+                                      <stylesheets>
+                                        <URL value="@css/estilo.css" />
+                                      </stylesheets>
+                                    </HBox>
+                                    <Button defaultButton="true" layoutX="464.0" layoutY="17.0" mnemonicParsing="false" onAction="#cargarNombreMateria" prefHeight="25.0" prefWidth="120.0" text="Seleccionar" />
+                                    <TableView fx:id="tablaMaterias" layoutX="86.0" layoutY="103.0" prefHeight="48.310638427734375" prefWidth="360.0">
+                                      <columns>
+                                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="344.0" text="Materia" fx:id="clmnNombreMateria" />
+                                      </columns>
+                                    </TableView>
+                                    <Button defaultButton="true" layoutX="464.0" layoutY="102.0" mnemonicParsing="false" onAction="#removerMateria" prefHeight="25.0" prefWidth="120.0" text="Remover" />
+                                    <Button id="registrarAutor" fx:id="btnNuevaMateria" defaultButton="true" layoutX="464.0" layoutY="59.0" mnemonicParsing="false" onAction="#dialogoNuevaMateria" prefHeight="25.0" prefWidth="120.0" text="Nueva Materia" />
+                                    <Label fx:id="validarMateria" alignment="CENTER_RIGHT" layoutX="97.0" layoutY="64.0" prefWidth="350.0" text="Validacion" textFill="$x1" />
+                                  </children>
+                                </AnchorPane>
+                              </content>
+                            </ScrollPane>
+                          </children>
+                        </AnchorPane>
+                      </content>
+                    </TitledPane>
                   </panes>
                 </Accordion>
                 <HBox id="HBox" alignment="CENTER" layoutX="955.0" layoutY="432.0" spacing="30.0">
