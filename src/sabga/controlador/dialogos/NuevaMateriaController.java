@@ -28,7 +28,7 @@ public class NuevaMateriaController {
     
     private ValidarMaterial validarMateria;
     private ConfirmarMaterial nuevaMateria;
-    private Conexion con;
+    private final Conexion con;
     private String mensaje;
     
     public NuevaMateriaController(){

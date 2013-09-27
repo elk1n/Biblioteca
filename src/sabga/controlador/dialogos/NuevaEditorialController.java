@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sabga.configuracion.Conexion;
 import sabga.configuracion.Utilidades;
+import sabga.controlador.RegistroMaterialController;
 import sabga.modelo.ConfirmarMaterial;
 import sabga.modelo.ValidarMaterial;
 

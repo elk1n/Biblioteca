@@ -385,16 +385,12 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     public void listarDatos(ObservableList lista, String tabla, String consulta) {
 
           try {
-
             con.conectar();
             con.setResultado(con.getStatement().executeQuery(tabla));
-
             while (con.getResultado().next()) {
-
                 lista.add(con.getResultado().getString(consulta));
             }
-            con.desconectar();
-        
+            con.desconectar();     
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
         }
@@ -650,7 +646,6 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     public void cargarCombo(String consulta, String columna, ObservableList lista, ComboBox combo) {
             
         try {   
-
             con.conectar();
             con.setResultado(con.getStatement().executeQuery(consulta));
             while (con.getResultado().next()) {                
@@ -669,6 +664,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         ventanaPrincipal = new Sabga();
         btnNuevoAutor.setDisable(true);
         dialogo.mostrarDialogo("vista/dialogos/NuevoAutor.fxml", "Nuevo Autor", ventanaPrincipal.getPrimaryStage(), null, 1); 
+        listaAutores.clear();
+        llenarAutores();
         btnNuevoAutor.setDisable(false);
     }
     
@@ -681,6 +678,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         dialogo.mostrarDialogo("vista/dialogos/NuevaMateria.fxml", "Nueva Materia", ventanaPrincipal.getPrimaryStage(), null, 2);
         btnNuevaMateria.setDisable(false);
         btnNuevaMateriaOM.setDisable(false);
+        listaMaterias.clear();
+        llenarListaMaterias();
     }
     
     @FXML
@@ -689,7 +688,9 @@ public class RegistroMaterialController implements Initializable, ControlledScre
          ventanaPrincipal = new Sabga();
          btnNuevaEditorial.setDisable(true);
          dialogo.mostrarDialogo("vista/dialogos/NuevaEditorial.fxml", "Nueva Editorial", ventanaPrincipal.getPrimaryStage(), null,3);
-         btnNuevaEditorial.setDisable(true);
+         listaEditoriales.clear();
+         llenarListaEditoriales();
+         btnNuevaEditorial.setDisable(false);
     }
           
     @Override
