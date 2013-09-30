@@ -4,12 +4,7 @@ package sabga.controlador;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Types;
-import static java.util.Collections.list;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.ResourceBundle;
-import java.util.Set;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -149,6 +144,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                     Utilidades.mensajeError(null, mensaje, "Error al tratar de registrar el libro", "Error Guardar Libro");
                 } else {
                     Utilidades.mensaje(null, "El libro se ha registrado correctamente", "Registrando Libro", "Registro Exitoso");
+                    resetearVariables();
+                    limpiarCamposLibro();
                 }
             } catch (SQLException ex) {
                 Utilidades.mensajeError(null, ex.getMessage(), "Error al tratar de registrar el libro", "Error Guardar Libro");
@@ -167,6 +164,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                     Utilidades.mensajeError(null, mensaje, "Error al registrar el material", "Error Guardar Material");
                 } else {
                     Utilidades.mensaje(null, "El Material se ha registrado correctamente", "Registrando Material", "Registro Exitoso");
+                    resetearVariables();
+                    limpiarCamposOtros();
                 }
             } catch (SQLException ex) {
                 Utilidades.mensajeError(null, ex.getMessage(), "Error al tratar de registrar el material", "Error Guardar Material");
@@ -231,7 +230,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             material = con.getProcedimiento().getInt("material");
             
             if(obtenerIdAutoresMaterias() && llenarTablaDetalle()){               
-                con.getConexion().commit();
+                con.getConexion().commit();                
             }
             else{
                 con.getConexion().rollback();
@@ -710,6 +709,38 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     
     public void llenarListaEditoriales(){
         listarDatos(listaEditoriales, "SELECT nombre_editorial FROM tbl_EDITORIAL", "nombre_editorial");
+    }
+    
+    private void limpiarCamposLibro(){
+    
+        txtfCodigo.setText(null);
+        txtfTitulo.setText(null);
+        txtfAnioPublicacion.setText(null);
+        txtfPublicacion.setText(null);
+        txtfPaginas.setText(null);
+        txtfEjemplares.setText(null);
+        buscarEditorial.getTextbox().setText(null);
+    }
+    
+    private void limpiarCamposOtros(){
+    
+            txtfCodigoOM.setText(null);
+            txtfTituloOM.setText(null);
+            txtfCopias.setText(null);
+                    
+    }
+    
+    private void resetearVariables(){
+        
+        mensaje = null;
+        idClaseMaterial = 0;
+        idClaseMaterialOM = 0;
+        idEditorial = 0;
+        idTipoMaterial = 0;
+        idTipoMaterialOM = 0;
+        idAutores.clear();
+        idMaterias.clear();
+        idMateriasOM.clear();
     }
     
     @Override
