@@ -558,7 +558,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     @FXML
     public void guardarLibro(ActionEvent evento){               
          
-        guardarLibro();
+        codigoBarras();
+       // guardarLibro();
     }
     
     @FXML
@@ -690,6 +691,11 @@ public class RegistroMaterialController implements Initializable, ControlledScre
          listaEditoriales.clear();
          llenarListaEditoriales();
          btnNuevaEditorial.setDisable(false);
+    }
+    
+    private void codigoBarras(){        
+        ventanaPrincipal = new Sabga();   
+        dialogo.dialogoCodigoBarras(ventanaPrincipal.getPrimaryStage(), null, "0000012346");   
     }
           
     @Override
