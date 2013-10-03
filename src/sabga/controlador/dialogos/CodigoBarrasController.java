@@ -10,7 +10,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -39,6 +42,7 @@ public class CodigoBarrasController implements Initializable {
     
     private Stage dialogStage;
     private String codigoBarras;
+    private BufferedImage symbol;
     
     @FXML
     private ImageView imagenCodigoBarras;
@@ -66,7 +70,7 @@ public class CodigoBarrasController implements Initializable {
             codigo.generateBarcode(canvas, codigoBarras);
             canvas.finish();
             
-            BufferedImage symbol = canvas.getBufferedImage();
+            symbol = canvas.getBufferedImage();
             Image image = SwingFXUtils.toFXImage(symbol, null);
             imagenCodigoBarras.setImage(image);
 
@@ -79,10 +83,9 @@ public class CodigoBarrasController implements Initializable {
 
         lblMensajes.setText("Imprimiendo...");
         
-        DocFlavor docFlavor = DocFlavor.INPUT_STREAM.PNG;
-        PrintRequestAttributeSet attributes = new HashPrintRequestAttributeSet();
+        DocFlavor docFlavor = DocFlavor.INPUT_STREAM.PNG ;
+        PrintRequestAttributeSet attributes = new HashPrintRequestAttributeSet();       
         attributes.add(new Copies(1));
-
         javax.print.PrintService printServices[] = PrintServiceLookup.lookupPrintServices(docFlavor, attributes);
         
         if (printServices.length == 0) {
@@ -102,8 +105,24 @@ public class CodigoBarrasController implements Initializable {
             job.print(doc, attributes);
             in.close();
         }
+        lblMensajes.setText("Completado: " +printServices[0].getName());
         //System.out.println("Done PrintService: " + print);
     }
+    
+    @FXML
+    public void imprimir( ActionEvent evento){
+        try {
+            imprimirCodigo(symbol);            
+        } catch (PrinterException | PrintException | IOException ex) {
+            Logger.getLogger(CodigoBarrasController.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+    }
+    
+    @FXML
+    public void cerrar(ActionEvent evento){
+        dialogStage.close();
+    }
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {        

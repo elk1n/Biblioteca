@@ -144,6 +144,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                     Utilidades.mensajeError(null, mensaje, "Error al tratar de registrar el libro", "Error Guardar Libro");
                 } else {
                     Utilidades.mensaje(null, "El libro se ha registrado correctamente", "Registrando Libro", "Registro Exitoso");
+                    codigoBarras(material);
                     resetearVariables();
                     limpiarCamposLibro();
                 }
@@ -162,8 +163,9 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                 registrarOtroMaterial();
                 if (mensaje != null) {
                     Utilidades.mensajeError(null, mensaje, "Error al registrar el material", "Error Guardar Material");
-                } else {
+                } else {                    
                     Utilidades.mensaje(null, "El Material se ha registrado correctamente", "Registrando Material", "Registro Exitoso");
+                    codigoBarras(materialOM);
                     resetearVariables();
                     limpiarCamposOtros();
                 }
@@ -556,10 +558,9 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     }
     
     @FXML
-    public void guardarLibro(ActionEvent evento){               
-         
-        codigoBarras();
-       // guardarLibro();
+    public void guardarLibro(ActionEvent evento){                        
+       //codigoBarras(564736);
+       guardarLibro();
     }
     
     @FXML
@@ -693,9 +694,9 @@ public class RegistroMaterialController implements Initializable, ControlledScre
          btnNuevaEditorial.setDisable(false);
     }
     
-    private void codigoBarras(){        
+    private void codigoBarras(int id){        
         ventanaPrincipal = new Sabga();   
-        dialogo.dialogoCodigoBarras(ventanaPrincipal.getPrimaryStage(), null, "0000012346");   
+        dialogo.dialogoCodigoBarras(ventanaPrincipal.getPrimaryStage(), null, completarConCeros(id));   
     }
           
     @Override
@@ -717,6 +718,19 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         listarDatos(listaEditoriales, "SELECT nombre_editorial FROM tbl_EDITORIAL", "nombre_editorial");
     }
     
+    private String completarConCeros(int numero){
+    
+        String dato = String.valueOf(numero);
+        int longitud = 10-dato.length();
+        
+            if(longitud<10){
+                for(int i=0; i<longitud; i++){
+                    dato="0"+dato;
+                }            
+            }            
+        return dato;
+    }
+       
     private void limpiarCamposLibro(){
     
         txtfCodigo.setText(null);
@@ -751,7 +765,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-             
+            
         prepararTablas();
         llenarListaMaterias();
         llenarListaEditoriales();

@@ -54,11 +54,11 @@ public class EditarEMAController implements Initializable, ControlledScreen {
     private Button btnBorrar, btnEliminar;
     private String nombre, apellido, mensaje;
     private int id;
-    private ObservableList<Listar> listaDatos;
-    private ObservableList<Listar> filtrarDatos;
-    private ObservableList<Autor> listaAutores;
-    private ObservableList<Autor> filtrarAutores;
-    private Conexion con;
+    private final ObservableList<Listar> listaDatos;
+    private final ObservableList<Listar> filtrarDatos;
+    private final ObservableList<Autor> listaAutores;
+    private final ObservableList<Autor> filtrarAutores;
+    private final Conexion con;
 
     public EditarEMAController() {
 

@@ -41,7 +41,7 @@
                 <Menu mnemonicParsing="false" text="Configuracion">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroAdmin" text="Registrar Administrador" />
-                    <MenuItem mnemonicParsing="false" onAction="#vantanaEditarAdmin" text="Editar Administrador" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaEditarAdmin" text="Editar Administrador" />
                   </items>
                 </Menu>
                 <MenuItem mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" />

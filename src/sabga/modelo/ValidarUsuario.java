@@ -139,20 +139,15 @@ public class ValidarUsuario extends Validacion{
             this.errorNuevoTipoUsuario = getMensajeError();
         }
     }
-    
+    // READY
     public void validarUsuario(String usuario, String contrasenia){
         
-        this.nombreUsuario = usuario;
-        this.contrasenia = contrasenia;
-        
-        if (validarCampoTexto(this.nombreUsuario, 20) == false){
+        if (!validarCampoTexto(usuario, 20)){
             this.errorNombreUsuario = getMensajeError();
-        }
-        
-        if (validarCampoTexto(this.contrasenia, 20) == false){
+        }        
+        if (!validarCampoTexto(contrasenia, 20)){
             this.errorContrasenia = getMensajeError();
-        }
-    
+        }    
     }
     
     public void validarContrasenia(){

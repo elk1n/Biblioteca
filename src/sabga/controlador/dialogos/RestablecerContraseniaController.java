@@ -29,8 +29,7 @@ public class RestablecerContraseniaController implements Initializable {
     @FXML private PasswordField campoContrasenia, campoConfirmacion;
     
     
-    public void setVentanaPrincipal(Sabga ventanaPrincipal) {
-        
+    public void setVentanaPrincipal(Sabga ventanaPrincipal) {       
 	this.ventanaPrincipal = ventanaPrincipal;
     }
     

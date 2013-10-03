@@ -7,60 +7,26 @@ package sabga.modelo;
 
 public class ConfirmarUsuario extends ValidarUsuario{
 
-    private String nombreUsuario, contrasenia, documento, correo;
+    private String nombreUsuario, documento, correo;
     
      public boolean confirmarJornada(String jornada) {
-
-        if (!validarCampoTexto(jornada, 32)) {
-            return false;
-        } else {
-            return true;
-        }
+        return validarCampoTexto(jornada, 32);
     }
     
       public boolean confirmarCurso(String curso) {
-
-        if (!validarCampoTexto(curso, 32)) {
-            return false;
-        } else {
-            return true;
-        }
+        return validarCampoTexto(curso, 32);
     }
       
     public boolean confirmarGrado(String grado) {
-
-        if (!validarCampoTexto(grado, 32)) {
-            return false;
-        } else {
-            return true;
-        }      
+        return validarCampoTexto(grado, 32);      
     }
     
     public boolean confirmarTipoUsuario(String tipoUsuario) {
-
-        if (!validarCampoTexto(tipoUsuario, 32)) {
-            return false;
-        } else {
-            return true;
-        }      
+        return validarCampoTexto(tipoUsuario, 32);      
     }
     
     public boolean confirmarUsuario(String nombre, String contrasenia){
-        
-        this.nombreUsuario = nombre;
-        this.contrasenia = contrasenia;
-        
-        if (validarCampoTexto(this.nombreUsuario, 20) == false){
-            return false;
-        }
-        
-        if (validarCampoTexto(this.contrasenia, 20) == false){
-            return false;
-        }
-        
-        else {
-            return true;
-        }
+        return validarCampoTexto(nombre, 20) && validarCampoTexto(contrasenia, 20);
     }
 
     public boolean confirmarDatosUsuario(String usuario, String documeto, String correo){

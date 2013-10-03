@@ -3,20 +3,21 @@
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" minHeight="461.0" prefHeight="560.0" prefWidth="571.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.dialogos.RestablecerContraseniaController">
+<AnchorPane id="AnchorPane" minHeight="461.0" prefHeight="560.0" prefWidth="547.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.dialogos.RestablecerContraseniaController">
   <children>
-    <Label layoutX="200.0" layoutY="14.0" prefHeight="16.999900000002526" text="Restablecer Contraseña">
+    <Label prefHeight="16.999900000002526" text="Restablecer Contraseña" AnchorPane.bottomAnchor="512.0" AnchorPane.rightAnchor="204.0">
       <font>
         <Font name="System Bold" size="14.0" />
       </font>
     </Label>
-    <GridPane id="GridPane" gridLinesVisible="false" layoutX="80.0" layoutY="85.0" prefHeight="168.0" prefWidth="409.0">
+    <GridPane id="GridPane" gridLinesVisible="false" prefHeight="168.0" prefWidth="409.0" AnchorPane.bottomAnchor="307.0" AnchorPane.rightAnchor="69.0">
       <children>
         <Label text="Usuario" GridPane.columnIndex="0" GridPane.rowIndex="0" />
         <Label text="Documento" GridPane.columnIndex="0" GridPane.rowIndex="2" />
@@ -45,7 +46,7 @@
         <RowConstraints maxHeight="18.0" minHeight="10.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <GridPane id="GridPane" layoutX="80.0" layoutY="298.0" prefHeight="206.0" prefWidth="409.0">
+    <GridPane id="GridPane" prefHeight="206.0" prefWidth="409.0" AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="69.0">
       <children>
         <Label fx:id="etiquetaContrasenia" text="Nueva Contraseña" GridPane.columnIndex="0" GridPane.rowIndex="0" />
         <PasswordField fx:id="campoContrasenia" prefHeight="30.0" prefWidth="250.0" promptText="Nueva contraseña" GridPane.columnIndex="1" GridPane.rowIndex="0" />
@@ -53,8 +54,12 @@
         <Label fx:id="etiquetaConfirmar" text="Confirmar Contraseña" GridPane.columnIndex="0" GridPane.rowIndex="2" />
         <PasswordField fx:id="campoConfirmacion" prefHeight="30.0" prefWidth="250.0" promptText="Confirmar la nueva contraseña" GridPane.columnIndex="1" GridPane.rowIndex="2" />
         <Label id="ValidarConfirmacion" fx:id="validarConfirmacion" alignment="CENTER_RIGHT" prefWidth="245.0" text="Validacion" textFill="$x2" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <Button mnemonicParsing="false" onAction="#buscarUsuario" text="Buscar Datos" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-        <Button fx:id="botonRestablecer" mnemonicParsing="false" onAction="#nuevaContrasenia" text="Reestablecer Contraseña" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+        <Button mnemonicParsing="false" onAction="#buscarUsuario" prefHeight="25.0" text="Buscar Datos" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <Button fx:id="botonRestablecer" mnemonicParsing="false" onAction="#nuevaContrasenia" prefHeight="25.0" text="Reestablecer Contraseña" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+          <GridPane.margin>
+            <Insets />
+          </GridPane.margin>
+        </Button>
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="168.0" minWidth="10.0" prefWidth="165.0" />
@@ -70,6 +75,6 @@
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <Label id="ValidarConfirmacion" fx:id="validacion" alignment="CENTER_RIGHT" layoutX="79.0" layoutY="263.0" prefWidth="409.0" text="Validacion" textFill="$x2" wrapText="true" />
+    <Label id="ValidarConfirmacion" fx:id="validacion" alignment="CENTER_RIGHT" layoutX="68.0" layoutY="263.0" prefWidth="409.0" text="Validacion" textFill="$x2" wrapText="true" />
   </children>
 </AnchorPane>

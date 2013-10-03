@@ -71,133 +71,111 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     }
     
     @Override
-    public void setScreenParent(ScreensController screenParent) {
-       
+    public void setScreenParent(ScreensController screenParent) {       
          controlador = screenParent;         
     }
     
-    public void setVentanaPrincipal(Sabga ventanaPrincipal) {
-        
+    public void setVentanaPrincipal(Sabga ventanaPrincipal) {      
 	this.ventanaPrincipal = ventanaPrincipal;
     } 
     
     @FXML
-    public void ventanaRegistroMaterial(ActionEvent evento){
-        
+    public void ventanaRegistroMaterial(ActionEvent evento){  
         ventanaPrincipal.cambiarVista("paginaRegistroMaterial");        
     }
     
     @FXML
-    public void ventanaInicio(ActionEvent evento){
-        
+    public void ventanaInicio(ActionEvent evento){        
         ventanaPrincipal.cambiarVista("paginaInicio1");
     }
     
     @FXML
-    public void ventanaActualizarMaterial(ActionEvent evento){
-        
+    public void ventanaActualizarMaterial(ActionEvent evento){ 
         ventanaPrincipal.cambiarVista("paginaActualizarMaterial");
     }
     
     @FXML
     public void ventanaActualizarEMA(ActionEvent evento){
-        
         ventanaPrincipal.cambiarVista("paginaActualizarEMA");
     }
     
     @FXML
-    public void ventanaPrestamo(ActionEvent evento){
-        
+    public void ventanaPrestamo(ActionEvent evento){  
         ventanaPrincipal.cambiarVista("paginaPrestamo");
     }
     
     @FXML
     public void ventanaRegistroUsuarios(ActionEvent evento){
-        
         ventanaPrincipal.cambiarVista("paginaRegistroUsuarios");
     }
     
     @FXML
     public void ventanaEstadoUsuario(ActionEvent evento){
-        
         ventanaPrincipal.cambiarVista("paginaEstadoUsuario");
     }
     
     @FXML
     public void ventanaRegistroAdmin(ActionEvent evento){
-       
         ventanaPrincipal.cambiarVista("paginaRegistroAdmin");
     }
     
     @FXML
-    public void vantanaEditarAdmin(ActionEvent evento){
-        
+    public void ventanaEditarAdmin(ActionEvent evento){
         ventanaPrincipal.cambiarVista("paginaEditarAdministrador");
     }
     
     @FXML
     public void ventanaDevolucion(ActionEvent evento){
-        
         ventanaPrincipal.cambiarVista("paginaDevolucion");
     }
     
     @FXML
     public void dialogoNuevoAutor(ActionEvent evento){
-        
         dialogo.mostrarDialogo("vista/dialogos/NuevoAutor.fxml", "Nuevo Autor", ventanaPrincipal.getPrimaryStage(), null, 1);
     }
     
     @FXML
     public void dialogoNuevaMateria(ActionEvent evento){
-
          dialogo.mostrarDialogo("vista/dialogos/NuevaMateria.fxml", "Nueva Materia", ventanaPrincipal.getPrimaryStage(), null, 2);
     }
     
     @FXML
     public void dialogoNuevaEditorial(ActionEvent evento){
-        
         dialogo.mostrarDialogo("vista/dialogos/NuevaEditorial.fxml", "Nueva Editorial", ventanaPrincipal.getPrimaryStage(), null, 3);
     }
     
     @FXML
     public void dialogoNuevoTipoMaterial(ActionEvent evento){
-        
         dialogo.mostrarDialogo("vista/dialogos/NuevoTipoMaterial.fxml", "Nuevo Tipo de Material", ventanaPrincipal.getPrimaryStage(), null, 8);
     }
     
     @FXML
     public void dialogoNuevaClaseMaterial(ActionEvent evento){
-        
         dialogo.mostrarDialogo("vista/dialogos/NuevaClaseMaterial.fxml", "Nueva Clase de Material", ventanaPrincipal.getPrimaryStage(), null, 9);
     }
     
     @FXML
     public void dialogoNuevoGrado(ActionEvent evento){
-        
         dialogo.mostrarDialogo("vista/dialogos/NuevoGrado.fxml", "Nuevo Grado", ventanaPrincipal.getPrimaryStage(), null, 10);
     }
     
     @FXML
     public void dialogoNuevoCurso(ActionEvent evento){
-        
         dialogo.mostrarDialogo("vista/dialogos/NuevoCurso.fxml", "Nuevo Curso", ventanaPrincipal.getPrimaryStage(), null, 11);
     }
     
     @FXML
     public void dialogoNuevaJornada(ActionEvent evento){
-        
         dialogo.mostrarDialogo("vista/dialogos/NuevaJornada.fxml", "Nueva Jornada", ventanaPrincipal.getPrimaryStage(), null, 12);
     }
     
     @FXML
     public void dialogoNuevoTipoUsuario(ActionEvent evento){
-        
         dialogo.mostrarDialogo("vista/dialogos/NuevoTipoUsuario.fxml", "Nuevo Tipo de Usuario", ventanaPrincipal.getPrimaryStage(), null, 13);
     }
      
     @FXML
     public void dialogoEditarOpcionesUsuario(ActionEvent evento){
-        
         dialogo.mostrarDialogo("vista/dialogos/EditarOpcionesUsuario.fxml", "Editar Opciones de Usuario", ventanaPrincipal.getPrimaryStage(), null, 14);
     }
     
@@ -205,12 +183,9 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     private void opcionesBusqueda(ActionEvent evento) {
         
         if(radioUsuario.isSelected()){
-            
             parametroBusqueda.setItems(parametroUsuario);
-                   
         }
         else if(radioMaterial.isSelected()){
-            
             parametroBusqueda.setItems(parametroMaterial);
         }        
     }
@@ -226,7 +201,6 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     @FXML
     public void cerrarSesion(ActionEvent evento){
-        
         ventanaPrincipal.cerrarSesion();
     }
     
@@ -241,12 +215,10 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     @FXML
     private void mostrarBoton(KeyEvent event){
        
-        if ("".equals(campoBusqueda.getText())){
-            
+        if ("".equals(campoBusqueda.getText())){            
             botonBorrarBusqueda.setVisible(false);      
         }
         else {
-            
            botonBorrarBusqueda.setVisible(true); 
         }    
     }

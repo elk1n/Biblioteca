@@ -1,13 +1,16 @@
 
 package sabga.configuracion;
 
+import insidefx.undecorator.Undecorator;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import sabga.Sabga;
 import sabga.controlador.dialogos.CodigoBarrasController;
 import sabga.controlador.dialogos.DetalleMaterialController;
@@ -77,13 +80,13 @@ public class Dialogo {
             dialogStage.initOwner(owner);
             scene = new Scene(page);
             dialogStage.setScene(scene);
-            
+                        
             CodigoBarrasController controller = loader.getController();
             controller.setCodigoBarras(codigo);
             controller.pintarCodigo();
             controller.setDialogStage(dialogStage);        
-            dialogStage.showAndWait();
-                       
+            dialogStage.show();
+                                   
         } catch (IOException e) {            
              Utilidades.mensajeError(owner, e.getMessage(), "Error al cargar la ventana de dialogo\nIntente nuevamente", "Error al cargar la ventana");
           }    

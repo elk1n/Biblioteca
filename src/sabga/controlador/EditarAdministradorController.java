@@ -83,10 +83,10 @@ public class EditarAdministradorController implements Initializable, ControlledS
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        panelBusqueda.getStylesheets().add("sabga/vista/css/estilo.css");
-        panelResultado.getStylesheets().add("sabga/vista/css/estilo.css");
-        panelBusqueda.getStyleClass().add("resultado");
-        panelResultado.getStyleClass().add("resultado");
+      //  panelBusqueda.getStylesheets().add("sabga/vista/css/estilo.css");
+       // panelResultado.getStylesheets().add("sabga/vista/css/estilo.css");
+       // panelBusqueda.getStyleClass().add("resultado");
+      //  panelResultado.getStyleClass().add("resultado");
         
     }    
 }

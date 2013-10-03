@@ -1,8 +1,11 @@
 
 package sabga.configuracion;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import javafx.scene.control.Dialogs;
 import javafx.stage.Stage;
+import org.apache.commons.codec.binary.Hex;
 
 /**
  * @author Elk1n
@@ -59,6 +62,21 @@ public class Utilidades {
     
        Dialogs.showInformationDialog(propietario, mensanje, encabezado, titulo);
         
+    }
+    
+    public static String encriptar(String dato){
+    
+         MessageDigest md;
+	 String password = "";
+        try {           
+            md= MessageDigest.getInstance("SHA-256");
+            md.update(dato.getBytes());
+            byte[] mb = md.digest();
+            password = String.valueOf(Hex.encodeHex(mb));                                  
+        } catch (NoSuchAlgorithmException e) {
+           
+        }
+        return password;
     }
        
 }
