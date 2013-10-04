@@ -89,8 +89,9 @@ public class InicioSesionController implements Initializable{
     }
     
     @FXML
-    public void restablecerContrasenia(ActionEvent evento){        
-       this.ventanaPrincipal.dialogoRestablecerContrasenia();        
+    public void restablecerContrasenia(ActionEvent evento){
+       this.ventanaPrincipal.dialogoRestablecerContrasenia();
+       
     }
     
     public void mensajesUsuario(){
@@ -124,7 +125,7 @@ public class InicioSesionController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) { 
         llenarComboBox();
-        comboTipoAdmin.getSelectionModel().selectFirst();    
+        comboTipoAdmin.getSelectionModel().selectFirst();
     }    
     
 }

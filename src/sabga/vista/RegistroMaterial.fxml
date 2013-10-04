@@ -10,9 +10,9 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="paginaRegistroMaterial" layoutY="0.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="534.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.RegistroMaterialController">
+<AnchorPane id="AnchorPane" fx:id="paginaRegistroMaterial" layoutY="0.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.RegistroMaterialController">
   <children>
-    <TabPane layoutX="0.0" layoutY="0.0" pickOnBounds="true" prefHeight="510.0" prefWidth="1260.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="30.0" tabMinHeight="30.0">
+    <TabPane layoutX="0.0" layoutY="0.0" pickOnBounds="true" prefHeight="520.0" prefWidth="1260.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="30.0" tabMinHeight="30.0">
       <tabs>
         <Tab closable="false" text="Registrar Libros">
           <content>
@@ -269,9 +269,9 @@
                     </AnchorPane>
                   </content>
                 </ScrollPane>
-                <HBox id="HBox" alignment="CENTER" layoutX="974.0" layoutY="428.0" spacing="30.0">
+                <HBox id="HBox" alignment="CENTER" layoutX="932.0" layoutY="428.0" spacing="30.0">
                   <children>
-                    <Button cancelButton="true" mnemonicParsing="false" prefHeight="25.0" text="Cancelar" />
+                    <Button cancelButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Cancelar" />
                     <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarOtroMaterial" prefHeight="25.0" text="Guardar Material" />
                   </children>
                 </HBox>

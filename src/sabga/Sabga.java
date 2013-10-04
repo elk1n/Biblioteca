@@ -93,7 +93,7 @@ public class Sabga extends Application {
         this.primaryStage.setTitle("SABGA");
         this.primaryStage.getIcons().add(new Image(Sabga.class.getResourceAsStream( "vista/Imagenes/LogoBiblioteca1.png" )));
         this.primaryStage.setMinHeight(680);
-       // this.primaryStage.setMinWidth();
+        this.primaryStage.setMinWidth(1000);
         this.primaryStage.centerOnScreen();
 
         FXMLLoader cargador =  new FXMLLoader(Sabga.class.getResource("vista/PaginaPrincipal.fxml"));
@@ -137,14 +137,13 @@ public class Sabga extends Application {
                   
     }
       
-    public void dialogoInicioSesion(){
-        
+    public void dialogoInicioSesion(){        
         dialogo.mostrarDialogo("vista/dialogos/InicioSesion.fxml","Inicio De Sesión", this.primaryStage, this, 6);
     }
     
-    public void dialogoRestablecerContrasenia(){
-        
-        dialogo.mostrarDialogo("vista/dialogos/RestablecerContrasenia.fxml","Restablecer Contraseña", this.primaryStage, this, 7);  
+    public void dialogoRestablecerContrasenia(){        
+        dialogo.getDialogStage().hide();
+        dialogo.mostrarDialogo("vista/dialogos/RestablecerContrasenia.fxml","Restablecer Contraseña", this.primaryStage, this, 7);        
      }
     
     public void prueba(){

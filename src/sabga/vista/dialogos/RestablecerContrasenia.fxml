@@ -10,9 +10,9 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" minHeight="461.0" prefHeight="560.0" prefWidth="547.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.dialogos.RestablecerContraseniaController">
+<AnchorPane id="AnchorPane" minHeight="461.0" prefHeight="560.0" prefWidth="539.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.dialogos.RestablecerContraseniaController">
   <children>
-    <Label prefHeight="16.999900000002526" text="Restablecer Contraseña" AnchorPane.bottomAnchor="512.0" AnchorPane.rightAnchor="204.0">
+    <Label prefHeight="16.999900000002526" text="Restablecer Contraseña" AnchorPane.bottomAnchor="509.0" AnchorPane.rightAnchor="183.0">
       <font>
         <Font name="System Bold" size="14.0" />
       </font>
@@ -75,6 +75,7 @@
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <Label id="ValidarConfirmacion" fx:id="validacion" alignment="CENTER_RIGHT" layoutX="68.0" layoutY="263.0" prefWidth="409.0" text="Validacion" textFill="$x2" wrapText="true" />
+    <Label id="ValidarConfirmacion" fx:id="validacion" alignment="CENTER_RIGHT" layoutX="61.0" layoutY="263.0" prefWidth="408.0" text="Validacion" textFill="$x2" wrapText="true" />
+    <Button layoutX="197.0" layoutY="515.0" mnemonicParsing="false" text="Cancelar" />
   </children>
 </AnchorPane>

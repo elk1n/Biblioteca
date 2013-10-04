@@ -50,7 +50,7 @@ public class Dialogo {
             loader = new FXMLLoader(Sabga.class.getResource(ruta));
             page = (AnchorPane) loader.load();
             dialogStage = new Stage();
-            dialogStage.setTitle(titulo);
+            dialogStage.setTitle(titulo);            
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.centerOnScreen();
            // dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
@@ -60,8 +60,7 @@ public class Dialogo {
            
             seleccionControlador(sabga, controlador);
             
-        } catch (IOException e) {
-            
+        } catch (IOException e) {           
              Utilidades.mensajeError(owner, e.getMessage(), "Error al cargar la ventana de dialogo\nIntente nuevamente", "Error al cargar la ventana");
           }
     }
@@ -69,7 +68,6 @@ public class Dialogo {
     public void dialogoCodigoBarras(Stage owner, Sabga sabga, String codigo){
         
         try {
-
             loader = new FXMLLoader(Sabga.class.getResource("vista/dialogos/CodigoBarras.fxml"));
             page = (AnchorPane) loader.load();
             dialogStage = new Stage();
@@ -154,6 +152,7 @@ public class Dialogo {
        }
    }
    
+   
     private void controladorAutor() {
         NuevoAutorController controller = loader.getController();
         controller.setDialogStage(dialogStage);
@@ -227,16 +226,20 @@ public class Dialogo {
     }
     
     private void controladorInicioSesion(Sabga sabga) {
+        dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream( "vista/Imagenes/LogoBiblioteca1.png" )));
         InicioSesionController controller = loader.getController();
         controller.setVentanaPrincipal(sabga);
         dialogStage.show();
     }
-   
+    
     private void controladorRestablecerCont(Sabga sabga) {
+        dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream( "vista/Imagenes/LogoBiblioteca1.png" )));
         RestablecerContraseniaController controller = loader.getController();
         controller.setVentanaPrincipal(sabga);
         dialogStage.show();
     }
+     
+    
       
 } 
 

@@ -102,7 +102,7 @@
         </ChoiceBox>
         <AnchorPane id="AnchorPane" layoutX="0.0" layoutY="114.0">
           <children>
-            <MenuBar fx:id="barraMenu" layoutY="1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="1260.0" rotate="0.0" useSystemMenuBar="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <MenuBar fx:id="barraMenu" layoutX="0.0" layoutY="1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="1260.0" rotate="0.0" useSystemMenuBar="false">
               <menus>
                 <Menu mnemonicParsing="false" text="Inicio">
                   <items>

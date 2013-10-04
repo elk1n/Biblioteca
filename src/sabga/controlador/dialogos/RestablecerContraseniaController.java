@@ -48,9 +48,7 @@ public class RestablecerContraseniaController implements Initializable {
             campoUsuario.setDisable(true);
             campoDocumento.setDisable(true);
             campoCorreo.setDisable(true);
-         }
-        
-    
+         }    
     }
     
     @FXML
@@ -71,8 +69,7 @@ public class RestablecerContraseniaController implements Initializable {
     
     public void validarNuevaContrasenia(){
         
-        ValidarUsuario nuevaContrasenia = new ValidarUsuario(campoContrasenia.getText(), campoConfirmacion.getText());
-        
+        ValidarUsuario nuevaContrasenia = new ValidarUsuario(campoContrasenia.getText(), campoConfirmacion.getText());        
         nuevaContrasenia.validarContrasenia();
         validarContrasenia.setText(nuevaContrasenia.getErrorNuevaContrasenia());
         validarConfirmacion.setText(nuevaContrasenia.getErrorConfirmacion());
