@@ -394,8 +394,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             con.desconectar();     
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
-        }
-        
+        }       
     }  
     
     public void cargarNombreMateriaOM() {

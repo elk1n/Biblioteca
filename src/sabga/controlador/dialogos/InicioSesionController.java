@@ -76,8 +76,8 @@ public class InicioSesionController implements Initializable{
             con.conectar();
             con.procedimiento("{ ? = CALL inicioSesion(?,?,?) }");
             con.getProcedimiento().registerOutParameter(1, Types.TINYINT);
-            con.getProcedimiento().setString("usuario", campoUsuario.getText());
-            con.getProcedimiento().setString("clave",Utilidades.encriptar(campoContrasenia.getText()));            
+            con.getProcedimiento().setString("usuario", campoUsuario.getText().trim());
+            con.getProcedimiento().setString("clave",Utilidades.encriptar(campoContrasenia.getText().trim()));            
             con.getProcedimiento().setString("tipo", comboTipoAdmin.getSelectionModel().getSelectedItem().toString());            
             con.getProcedimiento().execute();
             usuario = con.getProcedimiento().getInt(1);

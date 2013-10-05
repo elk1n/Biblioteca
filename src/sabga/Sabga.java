@@ -102,7 +102,7 @@ public class Sabga extends Application {
         
         primaryStage.setScene(scene);
         // Quitar el comentario para habilitar la pàgina de login o inicio de sesión
-         dialogoInicioSesion();        
+        dialogoInicioSesion();        
         // primaryStage.show();        
           
         PaginaPrincipalController controller = cargador.getController();
@@ -137,7 +137,8 @@ public class Sabga extends Application {
                   
     }
       
-    public void dialogoInicioSesion(){        
+    public void dialogoInicioSesion(){
+        
         dialogo.mostrarDialogo("vista/dialogos/InicioSesion.fxml","Inicio De Sesión", this.primaryStage, this, 6);
     }
     
@@ -145,6 +146,10 @@ public class Sabga extends Application {
         dialogo.getDialogStage().hide();
         dialogo.mostrarDialogo("vista/dialogos/RestablecerContrasenia.fxml","Restablecer Contraseña", this.primaryStage, this, 7);        
      }
+    
+    public void ocultarDialogo(){
+        dialogo.getDialogStage().hide();
+    }
     
     public void prueba(){
     

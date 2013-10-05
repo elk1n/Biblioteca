@@ -18,15 +18,15 @@ public class Validacion {
 
         if (campoTexto == null || campoTexto.equals("") || campoTexto.isEmpty()) {
 
-            this.mensajeError = "Debe rellenar este campo";
+            this.mensajeError = "No puede dejar este campo en blanco.";
             return false;
         } else if (campoTexto.length() > numeroCaracteres) {
 
-            this.mensajeError = "Máximo " + numeroCaracteres + " caracteres";
+            this.mensajeError = "Máximo " + numeroCaracteres + " caracteres.";
             return false;
         } else if (campoTexto.trim().equals("")) {
 
-            this.mensajeError = "No deben ser sólo espacios en blanco";
+            this.mensajeError = "No deben ser sólo espacios en blanco.";
             return false;
         } else {
 
@@ -41,11 +41,11 @@ public class Validacion {
 
             if (campoTexto.length() > numeroCaracteres) {
 
-                this.mensajeError = "Máximo " + numeroCaracteres + " caracteres";
+                this.mensajeError = "Máximo " + numeroCaracteres + " caracteres.";
                 return false;
             } else if (campoTexto.trim().equals("")) {
 
-                this.mensajeError = "No deben ser sólo espacios en blanco";
+                this.mensajeError = "No deben ser sólo espacios en blanco.";
                 return false;
             } else {
 
@@ -65,19 +65,19 @@ public class Validacion {
 
         if (campoTexto == null || campoTexto.equals("") || campoTexto.isEmpty()) {
 
-            this.mensajeError = "Debe rellenar este campo";
+            this.mensajeError = "No puede dejar este campo en blanco.";
             return false;
         } else if (campoTexto.length() > numeroCaracteres) {
 
-            this.mensajeError = "Máximo " + numeroCaracteres + " caracteres";
+            this.mensajeError = "Máximo " + numeroCaracteres + " caracteres.";
             return false;
         } else if (!matcher.matches()) {
 
-            this.mensajeError = "No es un número o no es positivo";
+            this.mensajeError = "No es un número o no es positivo.";
             return false;
 
         }else if(matcher.matches() && !validarNumero(campoTexto)){
-            this.mensajeError = "El número debe ser mayor o igual a 1";
+            this.mensajeError = "El número debe ser mayor o igual a 1.";
             return false;       
         } 
                
@@ -97,11 +97,11 @@ public class Validacion {
 
             if (campoTexto.length() > numeroCaracteres) {
 
-                this.mensajeError = "Máximo " + numeroCaracteres + " caracteres";
+                this.mensajeError = "Máximo " + numeroCaracteres + " caracteresa.";
                 return false;
             } else if (!matcher.matches()) {
 
-                this.mensajeError = "No es un número";
+                this.mensajeError = "No es un número.";
                 return false;
             } else {
                 this.mensajeError = "";
@@ -121,15 +121,15 @@ public class Validacion {
 
         if (correoElectronico == null || correoElectronico.equals("") || correoElectronico.isEmpty()) {
 
-            this.mensajeError = "Debe rellenar este campo";
+            this.mensajeError = "No puede dejar este campo en blanco.";
             return false;
         } else if (correoElectronico.length() > numeroCaracteres) {
 
-            this.mensajeError = "Máximo " + numeroCaracteres + " caracteres";
+            this.mensajeError = "Máximo " + numeroCaracteres + " caracteres.";
             return false;
         } else if (!matcher.matches()) {
 
-            this.mensajeError = "No es un E-mail";
+            this.mensajeError = "No es un E-mail.";
             return false;
         } else {
             this.mensajeError = "";
@@ -146,12 +146,12 @@ public class Validacion {
 
             if (correoElectronico.length() > numeroCaracteres) {
 
-                this.mensajeError = "Máximo " + numeroCaracteres + " caracteres";
+                this.mensajeError = "Máximo " + numeroCaracteres + " caracteres.";
                 return false;
 
             } else if (!matcher.matches()) {
 
-                this.mensajeError = "No es un E-mail";
+                this.mensajeError = "No es un E-mail.";
                 return false;
             } else {
                 this.mensajeError = "";
@@ -167,19 +167,19 @@ public class Validacion {
 
         if (campoTexto == null || campoTexto.equals("") || campoTexto.isEmpty() || confirmacion == null || confirmacion.equals("") || confirmacion.isEmpty()) {
 
-            this.mensajeError = "Debe rellenar este campo";
+            this.mensajeError = "No puede dejar este campo en blanco.";
             return false;
         } else if (!campoTexto.equals(confirmacion)) {
 
-            this.mensajeError = "Las contraseñas no coinciden";
+            this.mensajeError = "Las contraseñas no coinciden.";
             return false;
         } else if (campoTexto.length() > numeroCaracteres || confirmacion.length() > numeroCaracteres) {
 
-            this.mensajeError = "Máximo " + numeroCaracteres + " caracteres";
+            this.mensajeError = "Máximo " + numeroCaracteres + " caracteres.";
             return false;
         } else if (campoTexto.trim().equals("") || confirmacion.trim().equals("")) {
 
-            this.mensajeError = "No deben ser sólo espacios en blanco";
+            this.mensajeError = "No deben ser sólo espacios en blanco.";
             return false;
         } else {
             this.mensajeError = "";
@@ -200,7 +200,7 @@ public class Validacion {
 
             if (anio > calendario.get(Calendar.YEAR)) {
 
-                this.mensajeError = "El año es mayor al actual";
+                this.mensajeError = "El año es mayor al actual.";
                 return false;
             }
             return true;
@@ -248,7 +248,7 @@ public class Validacion {
             this.mensajeError = "";
         } else {
 
-            this.mensajeError = "Debe ser un número";
+            this.mensajeError = "Debe ser un número.";
         }
     }
 

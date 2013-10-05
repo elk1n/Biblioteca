@@ -10,72 +10,53 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" minHeight="461.0" prefHeight="560.0" prefWidth="539.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.dialogos.RestablecerContraseniaController">
+<AnchorPane id="AnchorPane" minHeight="461.0" prefHeight="529.0" prefWidth="495.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.dialogos.RestablecerContraseniaController">
   <children>
-    <Label prefHeight="16.999900000002526" text="Restablecer Contraseña" AnchorPane.bottomAnchor="509.0" AnchorPane.rightAnchor="183.0">
+    <Label prefHeight="16.999900000002526" text="Nueva Contraseña" AnchorPane.bottomAnchor="455.0" AnchorPane.rightAnchor="177.0">
       <font>
         <Font name="System Bold" size="14.0" />
       </font>
     </Label>
-    <GridPane id="GridPane" gridLinesVisible="false" prefHeight="168.0" prefWidth="409.0" AnchorPane.bottomAnchor="307.0" AnchorPane.rightAnchor="69.0">
+    <GridPane id="GridPane" gridLinesVisible="false" prefHeight="150.0" prefWidth="409.0" AnchorPane.bottomAnchor="254.0" AnchorPane.rightAnchor="45.0">
       <children>
-        <Label text="Usuario" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <Label text="Documento" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <Label text="Correo Electrónico" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-        <TextField id="campoNombre" fx:id="campoUsuario" prefHeight="30.0" prefWidth="250.0" promptText="Nombre de usuario" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-        <TextField fx:id="campoDocumento" prefHeight="30.0" prefWidth="250.0" promptText="Documento de indentidad" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <TextField fx:id="campoCorreo" prefHeight="30.0" prefWidth="250.0" promptText="E-mail" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-        <Label fx:id="validarCorreo" alignment="CENTER_RIGHT" prefWidth="245.0" text="Validacion" GridPane.columnIndex="1" GridPane.rowIndex="5">
+        <Label text="Documento" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <Label text="Correo Electrónico" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField id="campoDocumento" fx:id="txtfDocumento" prefHeight="30.0" prefWidth="250.0" promptText="Documento de indentidad" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <TextField id="campoCorreo" fx:id="txtfCorreo" prefHeight="30.0" prefWidth="250.0" promptText="E-mail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Label id="validarCorreo" fx:id="lblValidarCorreo" alignment="CENTER_RIGHT" prefWidth="245.0" text="" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
           <textFill>
             <Color blue="0.000" green="0.145" red="0.600" fx:id="x2" />
           </textFill>
         </Label>
-        <Label fx:id="validarDocumento" alignment="CENTER_RIGHT" prefWidth="245.0" text="Validacion" textFill="$x2" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <Label fx:id="validarUsuario" alignment="CENTER_RIGHT" prefWidth="245.0" text="Validacion" textFill="$x2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label id="validarDocumento" fx:id="lblValidarDocumento" alignment="CENTER_RIGHT" prefWidth="245.0" text="" textFill="$x2" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       </children>
       <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="164.0" minWidth="10.0" prefWidth="164.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="10.0" prefWidth="245.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="164.0" minWidth="10.0" prefWidth="141.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="268.0" minWidth="10.0" prefWidth="268.0" />
       </columnConstraints>
       <rowConstraints>
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="18.0" minHeight="10.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="18.0" minHeight="10.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="18.0" minHeight="10.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <GridPane id="GridPane" prefHeight="206.0" prefWidth="409.0" AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="69.0">
+    <Pane layoutX="40.0" layoutY="306.0" prefHeight="101.0" prefWidth="410.0" styleClass="resultado">
       <children>
-        <Label fx:id="etiquetaContrasenia" text="Nueva Contraseña" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <PasswordField fx:id="campoContrasenia" prefHeight="30.0" prefWidth="250.0" promptText="Nueva contraseña" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-        <Label fx:id="validarContrasenia" alignment="CENTER_RIGHT" prefWidth="245.0" text="Validacion" textFill="$x2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <Label fx:id="etiquetaConfirmar" text="Confirmar Contraseña" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <PasswordField fx:id="campoConfirmacion" prefHeight="30.0" prefWidth="250.0" promptText="Confirmar la nueva contraseña" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <Label id="ValidarConfirmacion" fx:id="validarConfirmacion" alignment="CENTER_RIGHT" prefWidth="245.0" text="Validacion" textFill="$x2" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <Button mnemonicParsing="false" onAction="#buscarUsuario" prefHeight="25.0" text="Buscar Datos" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-        <Button fx:id="botonRestablecer" mnemonicParsing="false" onAction="#nuevaContrasenia" prefHeight="25.0" text="Reestablecer Contraseña" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
-          <GridPane.margin>
-            <Insets />
-          </GridPane.margin>
-        </Button>
+        <Label layoutX="14.0" layoutY="11.0" prefWidth="381.0" text="Debe ingresar el documento y la dirección de correo electrónico que establecio al momento de registrarse, si los datos son validos se creará una nueva contraseña y se enviará a la dirección de correo junto a su nombre de usuario." textAlignment="JUSTIFY" wrapText="true" />
       </children>
-      <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="168.0" minWidth="10.0" prefWidth="165.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="10.0" prefWidth="244.0" />
-      </columnConstraints>
-      <rowConstraints>
-        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="18.0" minHeight="10.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="18.0" minHeight="10.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-      </rowConstraints>
-    </GridPane>
-    <Label id="ValidarConfirmacion" fx:id="validacion" alignment="CENTER_RIGHT" layoutX="61.0" layoutY="263.0" prefWidth="408.0" text="Validacion" textFill="$x2" wrapText="true" />
-    <Button layoutX="197.0" layoutY="515.0" mnemonicParsing="false" text="Cancelar" />
+      <stylesheets>
+        <URL value="@../css/estilo.css" />
+      </stylesheets>
+    </Pane>
+    <HBox id="HBox" alignment="CENTER" layoutX="47.0" layoutY="454.0" spacing="50.0">
+      <children>
+        <Button mnemonicParsing="false" onAction="#salir" prefHeight="25.0" prefWidth="80.0" text="Salir" />
+        <Button id="btnCancelar" cancelButton="true" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="80.0" text="Cancelar" />
+        <Button id="botonRestablecer" defaultButton="true" mnemonicParsing="false" onAction="#nuevaContrasenia" prefHeight="25.0" text="Enviar Contraseña" />
+      </children>
+    </HBox>
+    <Label id="ValidarConfirmacion" fx:id="lblValidacion" alignment="CENTER_RIGHT" layoutX="44.0" layoutY="260.0" prefWidth="405.0" text="" textAlignment="LEFT" textFill="$x2" wrapText="true" />
   </children>
 </AnchorPane>
