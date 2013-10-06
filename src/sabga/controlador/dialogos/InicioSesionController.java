@@ -19,6 +19,7 @@ import sabga.configuracion.Conexion;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.ConfirmarUsuario;
 import sabga.modelo.ValidarUsuario;
+import sabga.preferencias.Preferencias;
 
 
 public class InicioSesionController implements Initializable{
@@ -50,7 +51,8 @@ public class InicioSesionController implements Initializable{
      
     @FXML
     public void iniciarSesion(ActionEvent evento){  
-        inicioSesion();   
+        
+        inicioSesion();        
     }
    
     private void inicioSesion(){

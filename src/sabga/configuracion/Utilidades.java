@@ -5,8 +5,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.control.Dialogs;
 import javafx.stage.Stage;
 import javax.mail.Message;
@@ -17,6 +15,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.apache.commons.codec.binary.Hex;
+import sabga.preferencias.Preferencias;
+
 
 /**
  * @author Elk1n
@@ -30,7 +30,11 @@ public class Utilidades {
    private static final String NUMEROS = "0123456789";
    private static final String MAYUSCULAS = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
    private static final String MINUSCULAS = "abcdefghijklmnñopqrstuvwxyz";
-	 
+   private static Preferencias pref;
+	
+   public Utilidades(){
+            
+   }
 
    public static Dialogs.DialogResponse getMensajeConfimacion() {
        
@@ -107,18 +111,20 @@ public class Utilidades {
     
     public static boolean enviarCorreo(String destinatario, String usuario, String clave){
            
+         pref = new Preferencias(); 
+         
         try {
             Properties props = new Properties();
-            props.setProperty("mail.smtp.host", "smtp-mail.outlook.com");
+            props.setProperty("mail.smtp.host", pref.getHost());
             props.setProperty("mail.smtp.starttls.enable", "true");
-            props.setProperty("mail.smtp.port", "587");
-            props.setProperty("mail.smtp.user", "bibliotecagilbertoalzate@outlook.com");
+            props.setProperty("mail.smtp.port", pref.getPuerto());
+            props.setProperty("mail.smtp.user", pref.getCorreo());
             props.setProperty("mail.smtp.auth", "true");
 
             Session session = Session.getDefaultInstance(props);
             
             MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("bibliotecagilbertoalzate@outlook.com", "Biblioteca Gilberto Alzate"));
+            message.setFrom(new InternetAddress(pref.getCorreo(), "Biblioteca Gilberto Alzate"));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
             message.setSubject("Nueva Contraseña");
             message.setText("Usted a solicitado una nueva clave para el ingreso al sistema SABGA.\n"
@@ -128,7 +134,7 @@ public class Utilidades {
 
             Transport t = session.getTransport("smtp");
 
-            t.connect("bibliotecagilbertoalzate@outlook.com", "biblioteca1958");
+            t.connect(pref.getCorreo(), pref.getContrasenia());
             t.sendMessage(message, message.getAllRecipients());
             t.close();
             return true;
@@ -141,5 +147,7 @@ public class Utilidades {
         }
             
     }
+    
+   
     
 }

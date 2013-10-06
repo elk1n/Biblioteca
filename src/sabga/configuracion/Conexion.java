@@ -31,7 +31,9 @@ public class Conexion {
             conexion = DriverManager.getConnection(cadenaConexion, usuario, contrasenia);
             stm = conexion.createStatement();
         } catch (SQLException | ClassNotFoundException ex) {
-            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+            Utilidades.mensajeError(null,"Recuerde que la base de datos es indispensable para el correcto funcionamiento de la aplicación "
+                    + "" ,"No ha sido posible conectarse a la base de datos, verifique su conexión a Internet o"
+                    + " contacte con su administrador de servidor de base de datos.", "Error Acceso Base Datos");
         }
     }
 

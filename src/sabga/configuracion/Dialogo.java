@@ -1,16 +1,13 @@
 
 package sabga.configuracion;
 
-import insidefx.undecorator.Undecorator;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import sabga.Sabga;
 import sabga.controlador.dialogos.CodigoBarrasController;
 import sabga.controlador.dialogos.DetalleMaterialController;
@@ -27,6 +24,7 @@ import sabga.controlador.dialogos.NuevoTipoMaterialController;
 import sabga.controlador.dialogos.NuevoTipoUsuarioController;
 import sabga.controlador.dialogos.RestablecerContraseniaController;
 import sabga.controlador.dialogos.EditarOpcionesUsuarioController;
+import sabga.controlador.dialogos.PreferenciasController;
 
 /**
  * @author Elk1n
@@ -148,11 +146,14 @@ public class Dialogo {
                
            case 14:
                controladorEditarOpcionesUsuario();
-               break;         
+               break;
+               
+           case 15:
+               controladorPreferencias();
+               break;
        }
    }
-   
-   
+      
     private void controladorAutor() {
         NuevoAutorController controller = loader.getController();
         controller.setDialogStage(dialogStage);
@@ -221,6 +222,12 @@ public class Dialogo {
     
     private void controladorEditarOpcionesUsuario(){
         EditarOpcionesUsuarioController controller= loader.getController();
+        controller.setDialogStage(dialogStage);
+        dialogStage.show();
+    }
+    
+     private void controladorPreferencias(){
+        PreferenciasController controller= loader.getController();
         controller.setDialogStage(dialogStage);
         dialogStage.show();
     }

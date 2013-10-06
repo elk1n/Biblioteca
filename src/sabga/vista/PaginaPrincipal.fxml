@@ -14,10 +14,10 @@
 
 <BorderPane id="BorderPane" cache="true" cacheHint="DEFAULT" prefHeight="680.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.PaginaPrincipalController">
   <padding>
-    <Insets fx:id="x3" />
+    <Insets fx:id="x6" />
   </padding>
   <top>
-    <Pane id="barraCabecera" minHeight="140.0" minWidth="-Infinity" prefHeight="140.0" prefWidth="1260.0" BorderPane.alignment="TOP_CENTER" BorderPane.margin="$x3">
+    <Pane id="barraCabecera" minHeight="140.0" minWidth="-Infinity" prefHeight="140.0" prefWidth="1260.0" BorderPane.alignment="TOP_CENTER">
       <children>
         <ImageView fitHeight="103.0" fitWidth="103.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
           <image>
@@ -47,7 +47,7 @@
                 <MenuItem mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" />
               </items>
               <HBox.margin>
-                <Insets fx:id="x3" />
+                <Insets fx:id="x7" />
               </HBox.margin>
             </MenuButton>
             <Button id="botonAyuda" font="$x1" maxHeight="1.7976931348623157E308" mnemonicParsing="false" text="?" textFill="WHITE" HBox.hgrow="ALWAYS">
@@ -60,7 +60,7 @@
             </Button>
           </children>
           <padding>
-            <Insets fx:id="x3" />
+            <Insets fx:id="x8" />
           </padding>
         </HBox>
         <HBox id="HBox" alignment="CENTER" layoutX="331.0" layoutY="38.0" spacing="5.0">
@@ -104,16 +104,13 @@
           <children>
             <MenuBar fx:id="barraMenu" layoutX="0.0" layoutY="1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="1260.0" rotate="0.0" useSystemMenuBar="false">
               <menus>
-                <Menu mnemonicParsing="false" text="Inicio">
+                <Menu mnemonicParsing="false" text="SABGA">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#ventanaInicio" text="Inicio" />
+                    <MenuItem mnemonicParsing="false" onAction="#dialogoPreferencias" text="Preferencias..." />
                     <MenuItem mnemonicParsing="false" text="Cerrar Sesión" />
                     <SeparatorMenuItem mnemonicParsing="false" />
-                    <MenuItem mnemonicParsing="false" onAction="#salir" text="Salir de SABGA" fx:id="salir">
-                      <accelerator>
-                        <KeyCodeCombination alt="UP" code="Q" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
-                      </accelerator>
-                    </MenuItem>
+                    <MenuItem mnemonicParsing="false" onAction="#salir" text="Salir de SABGA" fx:id="salir" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Material">

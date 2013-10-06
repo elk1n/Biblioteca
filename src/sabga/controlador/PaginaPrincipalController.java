@@ -179,6 +179,11 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         dialogo.mostrarDialogo("vista/dialogos/EditarOpcionesUsuario.fxml", "Editar Opciones de Usuario", ventanaPrincipal.getPrimaryStage(), null, 14);
     }
     
+    @FXML
+    public void dialogoPreferencias(ActionEvent evento){
+        dialogo.mostrarDialogo("vista/dialogos/Preferencias.fxml", "Preferencias", ventanaPrincipal.getPrimaryStage(), null, 15);
+    }
+    
    @FXML
     private void opcionesBusqueda(ActionEvent evento) {
         

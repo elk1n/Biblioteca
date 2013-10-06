@@ -32,7 +32,7 @@ public class NuevaClaseMaterialController implements Initializable {
     
     private ValidarMaterial validarClaseM;
     private ConfirmarMaterial nuevaClaseM;
-    private Conexion con;
+    private final Conexion con;
     private String mensaje;
     
     public NuevaClaseMaterialController(){
