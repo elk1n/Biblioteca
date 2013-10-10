@@ -140,8 +140,7 @@ public class EditarEMAController implements Initializable, ControlledScreen {
        }
        else{
              Utilidades.mensaje(null, "Debe seleccionar un item de la lista", "Para eliminar un item", "Seleccionar");
-       }    
-    
+       }        
         
     }
     
@@ -383,7 +382,6 @@ public class EditarEMAController implements Initializable, ControlledScreen {
             con.setResultado(con.getStatement().executeQuery("SELECT id_autor FROM tbl_AUTOR WHERE nombre_autor= '" + nombre + "' AND apellidos_autor= '" + apellido + "'"));
 
             if (con.getResultado().first()) {
-
                 id = con.getResultado().getInt("id_autor");
             }
 
@@ -474,7 +472,6 @@ public class EditarEMAController implements Initializable, ControlledScreen {
             con.setResultado(con.getStatement().executeQuery(tabla));
 
             while (con.getResultado().next()) {
-
                 listaDatos.add(new Listar(con.getResultado().getString(consulta)));
             }
 
@@ -501,8 +498,7 @@ public class EditarEMAController implements Initializable, ControlledScreen {
             campoApellidosAutor.setDisable(false);
             
             nombre = filtrarAutores.get(tablaResultados.getSelectionModel().getSelectedIndex()).getNombreAutor();
-            apellido = filtrarAutores.get(tablaResultados.getSelectionModel().getSelectedIndex()).getApellidosAutor();
-            
+            apellido = filtrarAutores.get(tablaResultados.getSelectionModel().getSelectedIndex()).getApellidosAutor();            
         }
 
         if (comboListar.getSelectionModel().getSelectedIndex() == 1) {
@@ -560,12 +556,10 @@ public class EditarEMAController implements Initializable, ControlledScreen {
         filtrarAutores.addAll(listaAutores);
 
         try {
-
             con.conectar();
             con.setResultado(con.getStatement().executeQuery("SELECT * FROM tbl_AUTOR"));
 
             while (con.getResultado().next()) {
-
                 listaAutores.add(new Autor(con.getResultado().getString("nombre_autor"), con.getResultado().getString("apellidos_autor")));
             }
             con.desconectar();

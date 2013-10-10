@@ -233,7 +233,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         
          parametroBusqueda.setItems(parametroMaterial);
          botonBorrarBusqueda.setVisible(false);
-         //barraMenu.setPrefWidth(java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth());
+//         barraMenu.setPrefWidth(java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth());
         
     }    
 

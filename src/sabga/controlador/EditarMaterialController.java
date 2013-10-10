@@ -2,8 +2,14 @@
 package sabga.controlador;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,13 +18,21 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.cell.PropertyValueFactory;
 import sabga.Sabga;
 import sabga.ScreensController;
+import sabga.atributos.Autor;
+import sabga.atributos.Listar;
+import sabga.atributos.Material;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Dialogo;
+import sabga.modelo.Consultas;
 import sabga.modelo.ValidarMaterial;
 
 /**
@@ -31,73 +45,132 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     
     private Sabga ventanaPrincipal;
     private ScreensController controlador;
-    private Dialogo dialogo;
+    private final Dialogo dialogo;
     
-    @FXML private Label validarCodigoClasificacionAC, validarTituloAC, validarAnioPublicacionAC, validarPublicacionAC, validarNumeroPaginasAC,
-                        validarEditorialAC, validarEstadoAC, validarAutoresAC, validarMateriasAC;
-    
-    @FXML private TextField campoCodigoClasificacionAC, campoTituloAC, campoAnioPublicacionAC, campoPublicacionAC, campoNumeroPaginasAC,
+    @FXML
+    private Label validarCodigoClasificacionAC, validarTituloAC, validarAnioPublicacionAC, validarPublicacionAC, validarNumeroPaginasAC,
+                        validarEditorialAC, validarEstadoAC, validarAutoresAC, validarMateriasAC;    
+    @FXML 
+    private TextField txtfCodigoClasificacion, txtfTitulo, txtfAnio, txtfPublicacion, txtfEjemplares, txtfPaginas,
                             campoEditorialAC, campoEjemplaresDisponiblesAC, campoHabilitadoAC, campoDeshabilitadoAC, campoMantenimientoAC,
                             campoAutor1AC, campoAutor2AC, campoAutor3AC, campoAutor4AC, campoAutor5AC, campoAutor6AC, campoAutor7AC, campoAutor8AC,
                             campoAutor9AC, campoAutor10AC, campoMateria1AC , campoMateria2AC, campoMateria3AC, campoMateria4AC, campoMateria5AC,
-                            campoMateria6AC, campoMateria7AC, campoMateria8AC, campoMateria9AC, campoMateria10AC;
+                            campoMateria6AC, campoMateria7AC, campoMateria8AC, campoMateria9AC, campoMateria10AC, txtfFiltrar;
+    @FXML 
+    private Button  btnBorrar, btnDetalle, btnEditorial, btnAutor, btnMateria;    
+    @FXML 
+    private ComboBox comboTipoMaterial, comboClaseMaterial, comboMaterial;    
+    @FXML 
+    private TitledPane acordeonGeneral, acordeonAutores, acordeonMaterias;    
+    @FXML    
+    private  Tooltip est;
+    @FXML
+    private TableView tablaMaterial;
+    @FXML
+    private TableColumn clmnTitulo, clmnCodigo, clmnClase;
     
-    
-    @FXML private Button botonNuevaEditorial;
-    
-    @FXML private ComboBox comboTipoMaterial, comboClaseMaterial;
-    
-    @FXML private TitledPane acordeonGeneral, acordeonAutores, acordeonMaterias;
-    
-    @FXML private  Tooltip est;
+    private final ObservableList<Material> filtrarMaterial;
+    private final ObservableList<Material> listaMaterial;
+    private final Consultas consulta;
+
     
     public EditarMaterialController(){
+        dialogo = new Dialogo();       
+        consulta = new Consultas();
+        filtrarMaterial = FXCollections.observableArrayList();
+        listaMaterial = FXCollections.observableArrayList();
+        listaMaterial.addListener(new ListChangeListener<Material>() {
+            @Override
+            public void onChanged(ListChangeListener.Change<? extends Material> change) {
+                updateFilteredData();
+            }
+        });
+    }
+    
+    public void prueba(){
+        consulta.mapearMaterial(1);
+    }
+    
+    @FXML
+    private void mapearDatos(){
+        
+       consulta.mapearMaterial(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()));
+       txtfTitulo.setText(consulta.getTitulo());
+       txtfCodigoClasificacion.setText(consulta.getClasificacion());
+       txtfAnio.setText(String.valueOf(consulta.getAnio()));
+       txtfPublicacion.setText(consulta.getPublicacion());
+       txtfEjemplares.setText(String.valueOf(consulta.getEjemplares()));
+       txtfPaginas.setText(String.valueOf(consulta.getPaginas()));
 
-        dialogo = new Dialogo();
+    }
+        
+    @FXML
+    private void listarMaterial(ActionEvent evento){                        
+        listar();    
+    }
+   
+    private void listar(){
+        
+        clmnTitulo.setCellValueFactory(new PropertyValueFactory<Material, String>("titulo"));        
+        clmnCodigo.setCellValueFactory(new PropertyValueFactory<Material, String>("codigo"));        
+        clmnClase.setCellValueFactory(new PropertyValueFactory<Material, String>("clase"));
+        tablaMaterial.setEditable(true);
+        filtrarMaterial.clear();
+        listaMaterial.clear();
+        filtrarMaterial.addAll(listaMaterial);
+        listaMaterial.addAll(consulta.getListaMaterial(comboMaterial.getSelectionModel().getSelectedItem().toString()));        
+        tablaMaterial.setItems(filtrarMaterial);
+                       
+    }
+    
+    private void llenarComboBox(){        
+        comboMaterial.setItems(consulta.llenarComboBox("SELECT tipo_material FROM tbl_TIPO_MATERIAL", "tipo_material"));
     }
     
      @Override
-    public void setScreenParent(ScreensController screenParent) {
-      
+    public void setScreenParent(ScreensController screenParent) {     
          controlador = screenParent;
     }
      
     public void setVentanaPrincipal(Sabga ventanaPrincipal) {
-
         this.ventanaPrincipal = ventanaPrincipal;
     }
     
     @FXML
-     public void dialogoNuevaEditorial(ActionEvent evento){
-        
+     public void dialogoNuevaEditorial(ActionEvent evento){        
         ventanaPrincipal = new Sabga();
+         btnEditorial.setDisable(true);
          dialogo.mostrarDialogo("vista/dialogos/NuevaEditorial.fxml", "Nueva Editorial", ventanaPrincipal.getPrimaryStage(), null, 3);
+         btnEditorial.setDisable(false);
      }
     
     @FXML
-    public void dialogoNuevoAutor(ActionEvent evento){
-        
+    public void dialogoNuevoAutor(ActionEvent evento){        
         ventanaPrincipal = new Sabga();
+        btnAutor.setDisable(true);
         dialogo.mostrarDialogo("vista/dialogos/NuevoAutor.fxml", "Nuevo Autor", ventanaPrincipal.getPrimaryStage(), null, 1);
+        btnAutor.setDisable(false);
     }
     
     @FXML
-    public void dialogoNuevaMateria(ActionEvent evento){
-        
+    public void dialogoNuevaMateria(ActionEvent evento){        
         ventanaPrincipal = new Sabga();
+        btnMateria.setDisable(true);
         dialogo.mostrarDialogo("vista/dialogos/NuevaMateria.fxml", "Nueva Materia",ventanaPrincipal.getPrimaryStage(), null, 2);
+        btnMateria.setDisable(false);
     }
     
     @FXML
-    public void dialogoDetalleMaterial(ActionEvent evento){
-        
+    public void dialogoDetalleMaterial(ActionEvent evento){        
         ventanaPrincipal = new Sabga();
-        dialogo.mostrarDialogo("vista/dialogos/DetalleMaterial.fxml", "Detalle Material", ventanaPrincipal.getPrimaryStage(), null, 4);        
+        btnDetalle.setDisable(true);
+        dialogo.mostrarDialogo("vista/dialogos/DetalleMaterial.fxml", "Detalle Material", ventanaPrincipal.getPrimaryStage(), null, 4);
+        btnDetalle.setDisable(false);
     }
     
     @FXML
     public void validarCamposAC(ActionEvent evento){
-        
+        /*
         if(comboTipoMaterial.getSelectionModel().getSelectedIndex()==0){
             
             ValidarMaterial validarActualizacion = new ValidarMaterial(campoCodigoClasificacionAC.getText(), campoTituloAC.getText(), campoAnioPublicacionAC.getText(),
@@ -179,28 +252,90 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             }
 
         }
-             
+         */    
+    }
+   
+    private void updateFilteredData() {
+      filtrarMaterial.clear();
+          
+      for (Material m : listaMaterial) {
+          if (matchesFilter(m)) {
+              filtrarMaterial.add(m);
+          }
+      }     
+      reapplyTableSortOrder();
+  }
+    
+    @FXML
+    private void borrarCampo(ActionEvent event) {
+        txtfFiltrar.setText("");
+        btnBorrar.setVisible(false);
     }
     
-  
-    /**
-     * 
+    private void mostrarBoton() {
+
+        if (txtfFiltrar.getText() == null || txtfFiltrar.getText().isEmpty()) {
+            btnBorrar.setVisible(false);
+        } else {
+            btnBorrar.setVisible(true);
+        }
+    }
+
+    private boolean matchesFilter(Material material) {
+      String filterString = txtfFiltrar.getText();
+      if (filterString == null || filterString.isEmpty()) {
+          return true;
+      }
+      
+      String lowerCaseFilterString = filterString.toLowerCase();
+      
+      if (material.getTitulo().toLowerCase().indexOf(lowerCaseFilterString) != -1) {
+          return true;
+      } else if (material.getCodigo().toLowerCase().indexOf(lowerCaseFilterString) != -1) {
+          return true;
+      } else if (material.getClase().toLowerCase().indexOf(lowerCaseFilterString) != -1) {
+          return true;
+      }      
+      return false;
+  }   
+    
+    private void reapplyTableSortOrder() {
+      ArrayList<TableColumn<Material, ?>> sortOrder = new ArrayList<>(tablaMaterial.getSortOrder());
+      tablaMaterial.getSortOrder().clear();
+      tablaMaterial.getSortOrder().addAll(sortOrder);
+  }
+    
+    /** 
      * Initializes the controller class.
      *
+     * @param url
+     * @param rb
      */
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
       
+        llenarComboBox();
+        btnBorrar.setVisible(false);
+         txtfFiltrar.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                    String oldValue, String newValue) {
+                mostrarBoton();
+                updateFilteredData();
+            }
+        });
         
-        Platform.runLater(new Runnable() {public void run() { 
+        // PRUEBA DE TOOLTIP.....WORKS BY THE WAY :)
+        /* Platform.runLater(new Runnable() {@Override 
+        public void run() { 
         est= new Tooltip("Esto es una prueba de un Tooltip, esto es otra prueba, esto es otra otra prueba");
          botonNuevaEditorial.setTooltip(est); 
             MenuItem h = new MenuItem("Esto es una prueba de un menú contextual ");
             ContextMenu es = new ContextMenu(h);            
             botonNuevaEditorial.setContextMenu(es);
                     
-        }});
+        }});*/
                 
     }    
    
