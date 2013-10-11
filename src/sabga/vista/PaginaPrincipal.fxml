@@ -104,7 +104,7 @@
           <children>
             <MenuBar fx:id="barraMenu" layoutX="0.0" layoutY="1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="1260.0" rotate="0.0" useSystemMenuBar="false">
               <menus>
-                <Menu mnemonicParsing="false" text="SABGA">
+                <Menu mnemonicParsing="false" style="" styleClass="modItem" text="SABGA">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#ventanaInicio" text="Inicio" />
                     <MenuItem mnemonicParsing="false" onAction="#dialogoPreferencias" text="Preferencias..." />

@@ -15,7 +15,7 @@ public class Conexion {
     private final String puerto = "8889/";
     private final String nombreBaseDatos = "SABGAB";
     private final String usuario = "root";
-    private final String contrasenia = "root";
+    private final String contrasenia = "";
     private final String url = "jdbc:mysql://localhost:";
     private final String driver = "com.mysql.jdbc.Driver";
     private Connection conexion = null;

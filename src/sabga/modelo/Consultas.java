@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import sabga.atributos.Autor;
 import sabga.atributos.Material;
 import sabga.configuracion.Conexion;
 import sabga.configuracion.Utilidades;
@@ -16,19 +17,18 @@ import sabga.configuracion.Utilidades;
 public class Consultas {
 
     private final Conexion con;
-    private final ObservableList lista;
     private final ObservableList<Material> listaMaterial;
     private String titulo, clasificacion, publicacion, editorial, tipoMaterial, claseMaterial;
-    private int paginas, ejemplares, anio; 
+    private int paginas, ejemplares, anio, habilitado, inhabilitado, reparacion; 
         
     public Consultas(){
         con = new Conexion();
-        lista = FXCollections.observableArrayList();
         listaMaterial = FXCollections.observableArrayList();       
     }
        
-    public ObservableList llenarComboBox(String consulta, String dato){
-    
+    public ObservableList llenarLista(String consulta, String dato){
+        
+        ObservableList lista = FXCollections.observableArrayList();
         try {
             con.conectar();
             con.setResultado(con.getStatement().executeQuery(consulta));
@@ -44,6 +44,28 @@ public class Consultas {
         return lista;
     }
     
+    public ObservableList listaAutores() {
+
+        ObservableList<Autor> obtenerAutores = FXCollections.observableArrayList();
+        ObservableList listaAutores = FXCollections.observableArrayList();
+
+        try {
+            con.conectar();
+            con.setResultado(con.getStatement().executeQuery("SELECT * FROM tbl_AUTOR ORDER BY nombre_autor, apellidos_autor"));
+            while (con.getResultado().next()) {
+                obtenerAutores.add(new Autor(con.getResultado().getString("nombre_autor"), con.getResultado().getString("apellidos_autor")));
+            }
+            for (Autor datos : obtenerAutores) {
+                listaAutores.add(datos.toString());
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+        } finally {
+            con.desconectar();
+        }
+        return listaAutores;
+    }
+      
     public ObservableList<Material> getListaMaterial(String tipo){
        
         listaMaterial.clear();
@@ -72,7 +94,7 @@ public class Consultas {
          try {
 
             con.conectar();
-            con.procedimiento("{ CALL mapearMaterial(?,?,?,?,?,?,?,?,?,?) }");
+            con.procedimiento("{ CALL mapearMaterial(?,?,?,?,?,?,?,?,?,?,?,?,?) }");
             con.getProcedimiento().setInt("id", codigo);
             con.getProcedimiento().registerOutParameter("tituloMaterial", Types.VARCHAR);
             con.getProcedimiento().registerOutParameter("clasificacion", Types.VARCHAR);
@@ -83,6 +105,9 @@ public class Consultas {
             con.getProcedimiento().registerOutParameter("editorial", Types.VARCHAR);
             con.getProcedimiento().registerOutParameter("tipoMaterial", Types.VARCHAR);
             con.getProcedimiento().registerOutParameter("claseMaterial", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("habilitado", Types.INTEGER);
+            con.getProcedimiento().registerOutParameter("inhabilitado", Types.INTEGER);
+            con.getProcedimiento().registerOutParameter("reparacion", Types.INTEGER);
             con.getProcedimiento().execute();
             
             titulo = con.getProcedimiento().getString("tituloMaterial");
@@ -94,9 +119,12 @@ public class Consultas {
             editorial = con.getProcedimiento().getString("editorial");
             tipoMaterial = con.getProcedimiento().getString("tipoMaterial");
             claseMaterial = con.getProcedimiento().getString("claseMaterial");
+            habilitado = con.getProcedimiento().getInt("habilitado");
+            inhabilitado = con.getProcedimiento().getInt("inhabilitado");
+            reparacion = con.getProcedimiento().getInt("reparacion");
 
         } catch (SQLException e) {
-            Utilidades.mensajeError(null, e.getMessage(), "Error al tratar de eliminar el autor", "Error Eliminar Autor");  
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos del material", "Error Consulta");  
         } finally {
             con.desconectar();
         }
@@ -136,6 +164,18 @@ public class Consultas {
     
     public String getClaseMaterial(){
         return this.claseMaterial;
+    }
+    
+    public int getHabilitado(){
+        return this.habilitado;
+    }
+    
+    public int getInhabilitado(){
+        return this.inhabilitado;
+    }
+    
+    public int getReparacion(){
+        return this.reparacion;
     }
     
 }

@@ -25,6 +25,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import np.com.ngopal.control.AutoFillTextBox;
 import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.atributos.Autor;
@@ -51,23 +53,23 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     private Label validarCodigoClasificacionAC, validarTituloAC, validarAnioPublicacionAC, validarPublicacionAC, validarNumeroPaginasAC,
                         validarEditorialAC, validarEstadoAC, validarAutoresAC, validarMateriasAC;    
     @FXML 
-    private TextField txtfCodigoClasificacion, txtfTitulo, txtfAnio, txtfPublicacion, txtfEjemplares, txtfPaginas,
-                            campoEditorialAC, campoEjemplaresDisponiblesAC, campoHabilitadoAC, campoDeshabilitadoAC, campoMantenimientoAC,
-                            campoAutor1AC, campoAutor2AC, campoAutor3AC, campoAutor4AC, campoAutor5AC, campoAutor6AC, campoAutor7AC, campoAutor8AC,
-                            campoAutor9AC, campoAutor10AC, campoMateria1AC , campoMateria2AC, campoMateria3AC, campoMateria4AC, campoMateria5AC,
-                            campoMateria6AC, campoMateria7AC, campoMateria8AC, campoMateria9AC, campoMateria10AC, txtfFiltrar;
+    private TextField txtfCodigoClasificacion, txtfTitulo, txtfAnio, txtfPublicacion, txtfEjemplares, txtfPaginas, txtfHabilitado, txtfInhabilitado,
+                        txtfReparacion, txtfFiltrar;
     @FXML 
     private Button  btnBorrar, btnDetalle, btnEditorial, btnAutor, btnMateria;    
     @FXML 
     private ComboBox comboTipoMaterial, comboClaseMaterial, comboMaterial;    
     @FXML 
-    private TitledPane acordeonGeneral, acordeonAutores, acordeonMaterias;    
+    private TitledPane acordeonGeneral, acordeonAutores, acordeonMaterias;
+    @FXML
+    private HBox hboxEditorial, hboxAutores, hboxMaterias;
     @FXML    
     private  Tooltip est;
     @FXML
     private TableView tablaMaterial;
     @FXML
     private TableColumn clmnTitulo, clmnCodigo, clmnClase;
+    private final AutoFillTextBox editorial, autores, materias ;
     
     private final ObservableList<Material> filtrarMaterial;
     private final ObservableList<Material> listaMaterial;
@@ -77,6 +79,9 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     public EditarMaterialController(){
         dialogo = new Dialogo();       
         consulta = new Consultas();
+        editorial = new AutoFillTextBox();
+        autores = new AutoFillTextBox();
+        materias = new AutoFillTextBox();
         filtrarMaterial = FXCollections.observableArrayList();
         listaMaterial = FXCollections.observableArrayList();
         listaMaterial.addListener(new ListChangeListener<Material>() {
@@ -93,15 +98,29 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     
     @FXML
     private void mapearDatos(){
-        
-       consulta.mapearMaterial(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()));
-       txtfTitulo.setText(consulta.getTitulo());
-       txtfCodigoClasificacion.setText(consulta.getClasificacion());
-       txtfAnio.setText(String.valueOf(consulta.getAnio()));
-       txtfPublicacion.setText(consulta.getPublicacion());
-       txtfEjemplares.setText(String.valueOf(consulta.getEjemplares()));
-       txtfPaginas.setText(String.valueOf(consulta.getPaginas()));
+      
+        if (comboMaterial.getSelectionModel().getSelectedItem() != null  && tablaMaterial.getSelectionModel().getSelectedItem()!=null) {
 
+            consulta.mapearMaterial(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()));
+            txtfTitulo.setText(consulta.getTitulo());
+            txtfCodigoClasificacion.setText(consulta.getClasificacion());
+            txtfAnio.setText(String.valueOf(consulta.getAnio()));
+            txtfPublicacion.setText(consulta.getPublicacion());
+            txtfEjemplares.setText(String.valueOf(consulta.getEjemplares()));
+            txtfPaginas.setText(String.valueOf(consulta.getPaginas()));
+            txtfHabilitado.setText(String.valueOf(consulta.getHabilitado()));
+            txtfInhabilitado.setText(String.valueOf(consulta.getInhabilitado()));
+            txtfReparacion.setText(String.valueOf(consulta.getReparacion()));
+            comboTipoMaterial.getSelectionModel().select(consulta.getTipoMaterial());
+            comboClaseMaterial.getSelectionModel().select(consulta.getClaseMaterial());
+            try {
+                editorial.getTextbox().setText(consulta.getEditorial());
+            } catch (NullPointerException e) {
+            }
+
+        }
+        
+       
     }
         
     @FXML
@@ -124,7 +143,9 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     }
     
     private void llenarComboBox(){        
-        comboMaterial.setItems(consulta.llenarComboBox("SELECT tipo_material FROM tbl_TIPO_MATERIAL", "tipo_material"));
+        comboClaseMaterial.setItems(consulta.llenarLista("SELECT clase_material FROM tbl_CLASE_MATERIAL", "clase_material"));
+        comboMaterial.setItems(consulta.llenarLista("SELECT tipo_material FROM tbl_TIPO_MATERIAL", "tipo_material"));
+        comboTipoMaterial.setItems(comboMaterial.getItems());               
     }
     
      @Override
@@ -304,6 +325,24 @@ public class EditarMaterialController implements Initializable, ControlledScreen
       tablaMaterial.getSortOrder().clear();
       tablaMaterial.getSortOrder().addAll(sortOrder);
   }
+     
+    public void iniciar(){
+        
+        llenarComboBox();
+        editorial.setPrefSize(250, 30);
+        materias.setPrefSize(350, 30);
+        autores.setPrefSize(350, 30);
+        materias.getTextbox().setPromptText("Materia");
+        autores.getTextbox().setPromptText("Autor");
+        editorial.getTextbox().setPromptText("Editorial");
+        editorial.setData(consulta.llenarLista("SELECT nombre_editorial FROM tbl_EDITORIAL", "nombre_editorial"));
+        materias.setData(consulta.llenarLista("SELECT nombre_materia FROM tbl_MATERIA", "nombre_materia"));
+        autores.setData(consulta.listaAutores());
+        hboxEditorial.getChildren().add(editorial);
+        hboxMaterias.getChildren().add(materias);
+        hboxAutores.getChildren().add(autores);
+        btnBorrar.setVisible(false);
+    }
     
     /** 
      * Initializes the controller class.
@@ -315,8 +354,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     @Override
     public void initialize(URL url, ResourceBundle rb) {
       
-        llenarComboBox();
-        btnBorrar.setVisible(false);
+        iniciar();
          txtfFiltrar.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable,
