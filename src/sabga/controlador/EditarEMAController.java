@@ -474,8 +474,6 @@ public class EditarEMAController implements Initializable, ControlledScreen {
             while (con.getResultado().next()) {
                 listaDatos.add(new Listar(con.getResultado().getString(consulta)));
             }
-
-            con.desconectar();
             clmnNombre.setCellValueFactory(new PropertyValueFactory<Listar, String>("nombre"));
             tablaResultados.getColumns().remove(clmnApellido);
             clmnNombre.setPrefWidth(510);
@@ -484,6 +482,9 @@ public class EditarEMAController implements Initializable, ControlledScreen {
 
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+        }
+        finally{
+            con.desconectar();
         }
     }
 

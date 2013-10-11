@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import java.sql.Types;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.cell.PropertyValueFactory;
 import sabga.atributos.Autor;
+import sabga.atributos.Listar;
 import sabga.atributos.Material;
 import sabga.configuracion.Conexion;
 import sabga.configuracion.Utilidades;
@@ -88,6 +90,28 @@ public class Consultas {
        }
         return listaMaterial;       
    }
+    
+    public ObservableList<Listar> listaMaterias(int id){
+    
+        ObservableList<Listar> listaMaterias = FXCollections.observableArrayList();
+        String consulta = "SELECT MA.nombre_materia AS 'materia'"+ 
+                            "FROM tbl_MATERIA AS MA"+
+                            "JOIN tbl_MATERIAL_MATERIA AS MM ON MA.id_materia = MM.id_materia"+
+                            "WHERE MM.id_material ="+ "'"+id+"'";       
+         try {
+            con.conectar();
+            con.setResultado(con.getStatement().executeQuery(consulta));
+            while (con.getResultado().next()) {
+                listaMaterias.add(new Listar(con.getResultado().getString("materia")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+        }
+        finally{
+            con.desconectar();
+        }
+         return listaMaterias;
+    }
 
     public void mapearMaterial(int codigo) {
     

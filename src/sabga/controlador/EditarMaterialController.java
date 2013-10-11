@@ -4,7 +4,6 @@ package sabga.controlador;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -15,10 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -26,16 +22,15 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javax.sound.sampled.Port;
 import np.com.ngopal.control.AutoFillTextBox;
 import sabga.Sabga;
 import sabga.ScreensController;
-import sabga.atributos.Autor;
 import sabga.atributos.Listar;
 import sabga.atributos.Material;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Dialogo;
 import sabga.modelo.Consultas;
-import sabga.modelo.ValidarMaterial;
 
 /**
  *
@@ -66,9 +61,9 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     @FXML    
     private  Tooltip est;
     @FXML
-    private TableView tablaMaterial;
+    private TableView tablaMaterial, tablaMaterias;
     @FXML
-    private TableColumn clmnTitulo, clmnCodigo, clmnClase;
+    private TableColumn clmnTitulo, clmnCodigo, clmnClase, clmnMateria;
     private final AutoFillTextBox editorial, autores, materias ;
     
     private final ObservableList<Material> filtrarMaterial;
@@ -117,9 +112,8 @@ public class EditarMaterialController implements Initializable, ControlledScreen
                 editorial.getTextbox().setText(consulta.getEditorial());
             } catch (NullPointerException e) {
             }
-
-        }
-        
+            listarMaterias();
+        }        
        
     }
         
@@ -128,6 +122,12 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         listar();    
     }
    
+    private void listarMaterias(){        
+         clmnMateria.setCellValueFactory(new PropertyValueFactory<Listar, String>("nombre"));
+         tablaMaterias.setEditable(true);
+         tablaMaterias.setItems(consulta.listaMaterias(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId())));    
+    }
+    
     private void listar(){
         
         clmnTitulo.setCellValueFactory(new PropertyValueFactory<Material, String>("titulo"));        
@@ -159,7 +159,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     
     @FXML
      public void dialogoNuevaEditorial(ActionEvent evento){        
-        ventanaPrincipal = new Sabga();
+         ventanaPrincipal = new Sabga();
          btnEditorial.setDisable(true);
          dialogo.mostrarDialogo("vista/dialogos/NuevaEditorial.fxml", "Nueva Editorial", ventanaPrincipal.getPrimaryStage(), null, 3);
          btnEditorial.setDisable(false);
