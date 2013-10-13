@@ -165,9 +165,9 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                     Utilidades.mensajeError(null, mensaje, "Error al registrar el material", "Error Guardar Material");
                 } else {                    
                     Utilidades.mensaje(null, "El Material se ha registrado correctamente", "Registrando Material", "Registro Exitoso");
-                    codigoBarras(materialOM);
-                    resetearVariables();
-                    limpiarCamposOtros();
+                    //codigoBarras(materialOM);
+                   // resetearVariables();
+                    //limpiarCamposOtros();
                 }
             } catch (SQLException ex) {
                 Utilidades.mensajeError(null, ex.getMessage(), "Error al tratar de registrar el material", "Error Guardar Material");
@@ -204,7 +204,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         } catch (SQLException e) {
             con.getConexion().rollback();
             mensaje = String.valueOf(e.getErrorCode());
-            Utilidades.mensajeError(null, e.getMessage(), "Error al tratar de registrar el material", "Error Guardar Material");  
+            Utilidades.mensajeError(null, e.getMessage(), "Error al tratar de registrar el material  a ver si es acá", "Error Guardar Material");  
         } finally {
             con.desconectar();
         }
@@ -353,8 +353,6 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             }            
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
-        } finally {
-            con.desconectar();
         }
         return id;
     }
@@ -365,20 +363,14 @@ public class RegistroMaterialController implements Initializable, ControlledScre
 
             con.conectar();
             con.setResultado(con.getStatement().executeQuery("SELECT * FROM tbl_AUTOR ORDER BY nombre_autor, apellidos_autor"));
-
             while (con.getResultado().next()) {
-
                 obtenerAutores.add(new Autor(con.getResultado().getString("nombre_autor"), con.getResultado().getString("apellidos_autor")));
             }
-            con.desconectar();
-            
-            for(Autor datos : obtenerAutores){
-            
+            con.desconectar();            
+            for(Autor datos : obtenerAutores){            
                 listaAutores.add(datos.toString());
-            }
-                       
-        } catch (SQLException ex) {
-            
+            }                       
+        } catch (SQLException ex){         
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
         }
     }
@@ -558,13 +550,13 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     
     @FXML
     public void guardarLibro(ActionEvent evento){                        
-       //codigoBarras(564736);
-       guardarLibro();
+      
+        guardarLibro();
     }
     
     @FXML
     public void guardarOtroMaterial(ActionEvent evento){        
-           registroOtroMaterial();
+        registroOtroMaterial();
     }
     
     public void validarCampos(){
@@ -693,9 +685,10 @@ public class RegistroMaterialController implements Initializable, ControlledScre
          btnNuevaEditorial.setDisable(false);
     }
     
-    private void codigoBarras(int id){        
+    private void codigoBarras(int id){
+        
         ventanaPrincipal = new Sabga();   
-        dialogo.dialogoCodigoBarras(ventanaPrincipal.getPrimaryStage(), null, completarConCeros(id));   
+        dialogo.dialogoCodigoBarras(ventanaPrincipal.getPrimaryStage(), completarConCeros(id), 1);   
     }
           
     @Override
@@ -738,7 +731,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         txtfPublicacion.setText(null);
         txtfPaginas.setText(null);
         txtfEjemplares.setText(null);
-        buscarEditorial.getTextbox().setText(null);
+        buscarEditorial.getTextbox().setText("");
     }
     
     private void limpiarCamposOtros(){

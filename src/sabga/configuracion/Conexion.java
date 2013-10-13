@@ -10,10 +10,11 @@ import java.sql.Statement;
 /**
  * @author Elk1n
  */
+
 public class Conexion {
 
     private final String puerto = "8889/";
-    private final String nombreBaseDatos = "SABGAB";
+    private final String nombreBaseDatos = "SABGA";
     private final String usuario = "root";
     private final String contrasenia = "";
     private final String url = "jdbc:mysql://localhost:";
@@ -38,7 +39,6 @@ public class Conexion {
     }
 
     public void desconectar() {
-
         try {
             this.conexion.close();
             this.stm.close();

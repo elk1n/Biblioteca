@@ -2,6 +2,7 @@
 
 package sabga.controlador.dialogos;
 
+import java.awt.HeadlessException;
 import java.awt.image.BufferedImage;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
@@ -25,8 +26,11 @@ import javax.print.Doc;
 import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
 import javax.print.PrintException;
+import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.SimpleDoc;
+import javax.print.attribute.DocAttributeSet;
+import javax.print.attribute.HashDocAttributeSet;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.standard.Copies;
@@ -43,13 +47,14 @@ public class CodigoBarrasController implements Initializable {
     private Stage dialogStage;
     private String codigoBarras;
     private BufferedImage symbol;
+    private int nCopias;
     
     @FXML
     private ImageView imagenCodigoBarras;
     @FXML
     private Label lblMensajes;
-    
-    
+    private Object bais;
+        
     public void setDialogStage(Stage dialogStage) {
 
         this.dialogStage = dialogStage;
@@ -59,8 +64,8 @@ public class CodigoBarrasController implements Initializable {
         codigoBarras=codigo;
     }
     
-    public void pintarCodigo(){
-    
+    public void pintarCodigo(int copias){
+        nCopias = copias;
         Code128Bean codigo = new Code128Bean();
         //Code39Bean codigo = new Code39Bean();
         final int dpi = 326;
@@ -78,45 +83,40 @@ public class CodigoBarrasController implements Initializable {
              Utilidades.mensajeError(null,e.getMessage(), "Error al crear el código de barras", "Error Código Barras");
         }
     }
-    
-    public void imprimirCodigo(BufferedImage image) throws PrinterException, PrintException, IOException {
-
-        lblMensajes.setText("Imprimiendo...");
-        
-        DocFlavor docFlavor = DocFlavor.INPUT_STREAM.PNG ;
-        PrintRequestAttributeSet attributes = new HashPrintRequestAttributeSet();       
-        attributes.add(new Copies(1));
-        javax.print.PrintService printServices[] = PrintServiceLookup.lookupPrintServices(docFlavor, attributes);
-        
-        if (printServices.length == 0) {
-            lblMensajes.setText("El servicio de impresión para extensión PNG no se esta disponible!");
-            throw new RuntimeException("PrintService for PNG not available!");
-        }
-       // System.out.println("Got PrintService: " + printServices[0].getName());
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ImageIO.write(image, "png", out);
-        ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
-        // Muestra dialogo de impresión...
-        boolean print = PrinterJob.getPrinterJob().printDialog(attributes);
-
-        if (print) {
-            DocPrintJob job = printServices[0].createPrintJob();
-            Doc doc = new SimpleDoc(in, docFlavor, null);
-            job.print(doc, attributes);
-            in.close();
-        }
-        lblMensajes.setText("Completado: " +printServices[0].getName());
-        //System.out.println("Done PrintService: " + print);
-    }
-    
+     
     @FXML
     public void imprimir( ActionEvent evento){
-        try {
-            imprimirCodigo(symbol);            
-        } catch (PrinterException | PrintException | IOException ex) {
-            Logger.getLogger(CodigoBarrasController.class.getName()).log(Level.SEVERE, null, ex);
-        }   
+        imprimirCodigo(symbol, nCopias);
+        dialogStage.toBack();
     }
+    
+    public void imprimirCodigo(BufferedImage imagen, int copias){
+              
+    try{
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(imagen, "PNG", baos);
+        byte[] data = baos.toByteArray();
+        ByteArrayInputStream bais = new ByteArrayInputStream(data);
+        PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
+        DocFlavor flavor = DocFlavor.INPUT_STREAM.PNG;
+        PrinterJob pj = PrinterJob.getPrinterJob();
+        boolean okay = pj.printDialog(pras);
+        pj.setCopies(copias);
+        
+        if (okay) {
+            lblMensajes.setText("Imprimiendo...");
+            PrintService service = pj.getPrintService();
+            DocPrintJob job = service.createPrintJob();
+            DocAttributeSet das = new HashDocAttributeSet();
+            Doc doc = new SimpleDoc(bais, flavor, das);
+            job.print(doc, pras);
+            lblMensajes.setText("Completado: " + service.getName());         
+        }
+    }catch (HeadlessException | IOException | PrintException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "Error al imprimir el código de barras", "Error Imprimir");
+        }       
+    }
+    
     
     @FXML
     public void cerrar(ActionEvent evento){

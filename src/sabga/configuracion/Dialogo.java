@@ -63,7 +63,7 @@ public class Dialogo {
           }
     }
     
-    public void dialogoCodigoBarras(Stage owner, Sabga sabga, String codigo){
+    public void dialogoCodigoBarras(Stage owner, String codigo, int copias){
         
         try {
             loader = new FXMLLoader(Sabga.class.getResource("vista/dialogos/CodigoBarras.fxml"));
@@ -79,9 +79,9 @@ public class Dialogo {
                         
             CodigoBarrasController controller = loader.getController();
             controller.setCodigoBarras(codigo);
-            controller.pintarCodigo();
+            controller.pintarCodigo(copias);
             controller.setDialogStage(dialogStage);        
-            dialogStage.show();
+            dialogStage.showAndWait();
                                    
         } catch (IOException e) {            
              Utilidades.mensajeError(owner, e.getMessage(), "Error al cargar la ventana de dialogo\nIntente nuevamente", "Error al cargar la ventana");

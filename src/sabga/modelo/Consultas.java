@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.sql.Types;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.cell.PropertyValueFactory;
 import sabga.atributos.Autor;
 import sabga.atributos.Listar;
 import sabga.atributos.Material;
@@ -94,10 +93,11 @@ public class Consultas {
     public ObservableList<Listar> listaMaterias(int id){
     
         ObservableList<Listar> listaMaterias = FXCollections.observableArrayList();
-        String consulta = "SELECT MA.nombre_materia AS 'materia'"+ 
-                            "FROM tbl_MATERIA AS MA"+
-                            "JOIN tbl_MATERIAL_MATERIA AS MM ON MA.id_materia = MM.id_materia"+
-                            "WHERE MM.id_material ="+ "'"+id+"'";       
+        String consulta = "SELECT MA.nombre_materia AS 'materia' "+ 
+                          "FROM tbl_MATERIA AS MA "+
+                          "JOIN tbl_MATERIAL_MATERIA AS MM ON MA.id_materia = MM.id_materia "+
+                          "JOIN tbl_MATERIAL AS M ON MM.id_material = M.id_material "+
+                          "WHERE M.id_material ="+ "'"+id+"'";       
          try {
             con.conectar();
             con.setResultado(con.getStatement().executeQuery(consulta));
@@ -113,6 +113,29 @@ public class Consultas {
          return listaMaterias;
     }
 
+    public ObservableList<Autor> listaAutores(int id){
+         
+        ObservableList<Autor> listaAutores = FXCollections.observableArrayList();
+        String consulta = "SELECT A.nombre_autor AS 'nombre', A.apellidos_autor AS 'apellido'"+
+                           "FROM tbl_AUTOR AS A "+
+                           "JOIN tbl_AUTOR_MATERIAL AS AM ON A.id_autor = AM.id_autor "+
+                           "JOIN tbl_MATERIAL AS M ON AM.id_material = M.id_material "+
+                           "WHERE M.id_material = "+"'"+id+"'";
+         try {
+            con.conectar();
+            con.setResultado(con.getStatement().executeQuery(consulta));
+            while (con.getResultado().next()) {
+                listaAutores.add(new Autor(con.getResultado().getString("nombre"), con.getResultado().getString("apellido")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+        }
+         finally{
+             con.desconectar();
+        }
+         return listaAutores;
+    }
+            
     public void mapearMaterial(int codigo) {
     
          try {

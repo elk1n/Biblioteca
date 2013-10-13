@@ -22,10 +22,10 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
-import javax.sound.sampled.Port;
 import np.com.ngopal.control.AutoFillTextBox;
 import sabga.Sabga;
 import sabga.ScreensController;
+import sabga.atributos.Autor;
 import sabga.atributos.Listar;
 import sabga.atributos.Material;
 import sabga.configuracion.ControlledScreen;
@@ -45,7 +45,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     private final Dialogo dialogo;
     
     @FXML
-    private Label validarCodigoClasificacionAC, validarTituloAC, validarAnioPublicacionAC, validarPublicacionAC, validarNumeroPaginasAC,
+    private Label lblEditorial, validarCodigoClasificacionAC, validarTituloAC, validarAnioPublicacionAC, validarPublicacionAC, validarNumeroPaginasAC,
                         validarEditorialAC, validarEstadoAC, validarAutoresAC, validarMateriasAC;    
     @FXML 
     private TextField txtfCodigoClasificacion, txtfTitulo, txtfAnio, txtfPublicacion, txtfEjemplares, txtfPaginas, txtfHabilitado, txtfInhabilitado,
@@ -61,9 +61,9 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     @FXML    
     private  Tooltip est;
     @FXML
-    private TableView tablaMaterial, tablaMaterias;
+    private TableView tablaMaterial, tablaMaterias, tablaAutores;
     @FXML
-    private TableColumn clmnTitulo, clmnCodigo, clmnClase, clmnMateria;
+    private TableColumn clmnTitulo, clmnCodigo, clmnClase, clmnMateria, clmnNombre, clmnApellidos;
     private final AutoFillTextBox editorial, autores, materias ;
     
     private final ObservableList<Material> filtrarMaterial;
@@ -108,11 +108,8 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             txtfReparacion.setText(String.valueOf(consulta.getReparacion()));
             comboTipoMaterial.getSelectionModel().select(consulta.getTipoMaterial());
             comboClaseMaterial.getSelectionModel().select(consulta.getClaseMaterial());
-            try {
-                editorial.getTextbox().setText(consulta.getEditorial());
-            } catch (NullPointerException e) {
-            }
-            listarMaterias();
+            lblEditorial.setText(consulta.getEditorial());
+            mapearMateriasAutores();
         }        
        
     }
@@ -122,10 +119,15 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         listar();    
     }
    
-    private void listarMaterias(){        
+    private void mapearMateriasAutores(){
+        
          clmnMateria.setCellValueFactory(new PropertyValueFactory<Listar, String>("nombre"));
+         clmnNombre.setCellValueFactory(new PropertyValueFactory<Autor, String>("nombreAutor"));
+         clmnApellidos.setCellValueFactory(new PropertyValueFactory<Autor, String>("apellidosAutor"));
          tablaMaterias.setEditable(true);
-         tablaMaterias.setItems(consulta.listaMaterias(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId())));    
+         tablaAutores.setEditable(true);
+         tablaMaterias.setItems(consulta.listaMaterias(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId())));
+         tablaAutores.setItems(consulta.listaAutores(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId())));
     }
     
     private void listar(){
@@ -334,7 +336,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         autores.setPrefSize(350, 30);
         materias.getTextbox().setPromptText("Materia");
         autores.getTextbox().setPromptText("Autor");
-        editorial.getTextbox().setPromptText("Editorial");
+        editorial.getTextbox().setPromptText("Buscar Editorial");
         editorial.setData(consulta.llenarLista("SELECT nombre_editorial FROM tbl_EDITORIAL", "nombre_editorial"));
         materias.setData(consulta.llenarLista("SELECT nombre_materia FROM tbl_MATERIA", "nombre_materia"));
         autores.setData(consulta.listaAutores());
