@@ -4,15 +4,14 @@ package sabga.controlador.dialogos;
 
 import java.awt.HeadlessException;
 import java.awt.image.BufferedImage;
-import java.awt.print.PrinterException;
+import java.awt.print.PageFormat;
 import java.awt.print.PrinterJob;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +19,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import javax.print.Doc;
@@ -27,13 +28,11 @@ import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
 import javax.print.PrintException;
 import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
 import javax.print.SimpleDoc;
 import javax.print.attribute.DocAttributeSet;
 import javax.print.attribute.HashDocAttributeSet;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.attribute.standard.Copies;
 import org.krysalis.barcode4j.impl.code128.Code128Bean;
 import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
 import sabga.configuracion.Utilidades;
@@ -52,11 +51,10 @@ public class CodigoBarrasController implements Initializable {
     @FXML
     private ImageView imagenCodigoBarras;
     @FXML
-    private Label lblMensajes;
+    private Label lblMensajes, lblTitulo;
     private Object bais;
         
     public void setDialogStage(Stage dialogStage) {
-
         this.dialogStage = dialogStage;
     }
     
@@ -64,7 +62,9 @@ public class CodigoBarrasController implements Initializable {
         codigoBarras=codigo;
     }
     
+    
     public void pintarCodigo(int copias){
+        
         nCopias = copias;
         Code128Bean codigo = new Code128Bean();
         //Code39Bean codigo = new Code39Bean();
@@ -80,14 +80,18 @@ public class CodigoBarrasController implements Initializable {
             imagenCodigoBarras.setImage(image);
 
         } catch (IOException e) {
-             Utilidades.mensajeError(null,e.getMessage(), "Error al crear el código de barras", "Error Código Barras");
+             Utilidades.mensajeError(null, e.getMessage(), "Error al crear el código de barras", "Error Código Barras");
         }
     }
      
     @FXML
     public void imprimir( ActionEvent evento){
-        imprimirCodigo(symbol, nCopias);
-        dialogStage.toBack();
+        imprimirCodigo(symbol, nCopias);     
+    }
+    
+    @FXML
+    public void guardarCodigo(ActionEvent evento){     
+        guardarCodigo();    
     }
     
     public void imprimirCodigo(BufferedImage imagen, int copias){
@@ -101,8 +105,7 @@ public class CodigoBarrasController implements Initializable {
         DocFlavor flavor = DocFlavor.INPUT_STREAM.PNG;
         PrinterJob pj = PrinterJob.getPrinterJob();
         boolean okay = pj.printDialog(pras);
-        pj.setCopies(copias);
-        
+        pj.setCopies(copias);        
         if (okay) {
             lblMensajes.setText("Imprimiendo...");
             PrintService service = pj.getPrintService();
@@ -117,13 +120,36 @@ public class CodigoBarrasController implements Initializable {
         }       
     }
     
+    private void guardarCodigo(){
+        
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Guardar Código Barras");
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        fileChooser.setInitialFileName(codigoBarras + ".png");
+        File file = fileChooser.showSaveDialog(null);
+        if (file != null) {
+            try {
+                ImageIO.write(symbol, "png", file);
+            } catch (IOException ex) {
+                Utilidades.mensajeError(null, ex.getMessage(), "Error al guardar el código de barras", "Error Código Barras");
+            }
+        }
+    }
+    
+    public void setTitulo(String titulo){
+         lblTitulo.setText(titulo);
+    }
+     
+    public void setMensaje(String mensaje){
+        lblMensajes.setText(mensaje);
+    }
+    
     
     @FXML
     public void cerrar(ActionEvent evento){
         dialogStage.close();
     }
-    
-    
+        
     @Override
     public void initialize(URL url, ResourceBundle rb) {        
        

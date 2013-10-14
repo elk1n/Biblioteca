@@ -63,7 +63,7 @@ public class Dialogo {
           }
     }
     
-    public void dialogoCodigoBarras(Stage owner, String codigo, int copias){
+    public void dialogoCodigoBarras(Stage owner, String codigo, String titulo, String mensaje, int copias){
         
         try {
             loader = new FXMLLoader(Sabga.class.getResource("vista/dialogos/CodigoBarras.fxml"));
@@ -80,6 +80,8 @@ public class Dialogo {
             CodigoBarrasController controller = loader.getController();
             controller.setCodigoBarras(codigo);
             controller.pintarCodigo(copias);
+            controller.setTitulo(titulo);
+            controller.setMensaje(mensaje);
             controller.setDialogStage(dialogStage);        
             dialogStage.showAndWait();
                                    

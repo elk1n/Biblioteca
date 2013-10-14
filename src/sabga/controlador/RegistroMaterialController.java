@@ -165,9 +165,9 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                     Utilidades.mensajeError(null, mensaje, "Error al registrar el material", "Error Guardar Material");
                 } else {                    
                     Utilidades.mensaje(null, "El Material se ha registrado correctamente", "Registrando Material", "Registro Exitoso");
-                    //codigoBarras(materialOM);
-                   // resetearVariables();
-                    //limpiarCamposOtros();
+                    codigoBarras(materialOM);
+                    resetearVariables();
+                    limpiarCamposOtros();
                 }
             } catch (SQLException ex) {
                 Utilidades.mensajeError(null, ex.getMessage(), "Error al tratar de registrar el material", "Error Guardar Material");
@@ -549,9 +549,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     }
     
     @FXML
-    public void guardarLibro(ActionEvent evento){                        
-      
-        guardarLibro();
+    public void guardarLibro(ActionEvent evento){                              
+        guardarLibro();       
     }
     
     @FXML
@@ -688,7 +687,9 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private void codigoBarras(int id){
         
         ventanaPrincipal = new Sabga();   
-        dialogo.dialogoCodigoBarras(ventanaPrincipal.getPrimaryStage(), completarConCeros(id), 1);   
+        dialogo.dialogoCodigoBarras(ventanaPrincipal.getPrimaryStage(), completarConCeros(id),Utilidades.initCap(txtfTitulo.getText())
+                                    ,"Puede guardar el código de barras para imprimirlo, imprimirlo directamento o cerrar este dialogo"
+                                            + " y finalizar.", 1);   
     }
           
     @Override

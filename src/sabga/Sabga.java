@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import sabga.configuracion.Dialogo;
+import sabga.configuracion.Utilidades;
 import sabga.controlador.PaginaPrincipalController;
 
 /**
@@ -107,9 +108,8 @@ public class Sabga extends Application {
           
         PaginaPrincipalController controller = cargador.getController();
         controller.setVentanaPrincipal(this);
-        
         mostrarVistas();  
-       
+        
     }
     
     public void inciarSesion(){

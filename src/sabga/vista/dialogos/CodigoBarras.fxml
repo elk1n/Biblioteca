@@ -1,31 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" minWidth="401.9998779296875" prefHeight="400.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.dialogos.CodigoBarrasController">
+<AnchorPane id="AnchorPane" minWidth="401.999755859375" prefHeight="600.9996337890625" prefWidth="531.9996337890625" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.dialogos.CodigoBarrasController">
   <children>
-    <ImageView id="codigoBarras" fx:id="imagenCodigoBarras" fitHeight="110.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="false" smooth="true" AnchorPane.bottomAnchor="207.0" AnchorPane.rightAnchor="106.0" />
-    <HBox id="HBox" alignment="CENTER" spacing="35.0" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="61.0">
+    <HBox id="HBox" alignment="CENTER" spacing="35.0" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="52.0">
       <children>
-        <Button cancelButton="true" defaultButton="false" mnemonicParsing="false" onAction="#cerrar" prefHeight="25.0" text="Cerrar y Terminar" />
-        <Button defaultButton="true" mnemonicParsing="false" onAction="#imprimir" prefHeight="25.0" prefWidth="120.0" text="Imprimir" />
+        <Button cancelButton="true" defaultButton="false" maxWidth="-1.0" mnemonicParsing="false" onAction="#cerrar" prefHeight="25.0" prefWidth="120.0" text="Cerrar" />
+        <Button defaultButton="true" mnemonicParsing="false" onAction="#imprimir" prefHeight="25.0" prefWidth="120.0" text="Imprimir Código" />
+        <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarCodigo" prefHeight="25.0" prefWidth="120.0" text="Guardar Código" />
       </children>
     </HBox>
-    <Label fx:id="lblMensajes" layoutX="78.0" layoutY="233.0" prefWidth="255.0" text="Mensajes" wrapText="true">
+    <Label fx:id="lblMensajes" layoutX="72.0" layoutY="453.0" prefWidth="390.0" text="" wrapText="true">
       <font>
-        <Font name="System Bold" size="12.0" />
+        <Font size="14.0" fx:id="x2" />
       </font>
     </Label>
-    <Label layoutX="80.0" layoutY="25.0" prefWidth="254.9998779296875" text="Código de Identificación del Material" wrapText="true">
+    <Label layoutX="132.0" layoutY="26.0" prefHeight="25.0" prefWidth="280.0" text="Código de Identificación del Material" wrapText="true">
       <font>
-        <Font name="System Bold" size="14.0" />
+        <Font name="System Bold" size="16.0" fx:id="x1" />
       </font>
     </Label>
+    <Pane layoutX="71.0" layoutY="134.0" prefHeight="300.0" prefWidth="390.0" styleClass="resultado">
+      <children>
+        <ImageView id="codigoBarras" fx:id="imagenCodigoBarras" fitHeight="240.0" fitWidth="243.0" layoutX="74.0" layoutY="30.0" pickOnBounds="true" preserveRatio="false" smooth="true">
+          <effect>
+            <DropShadow height="25.0" radius="12.0" width="25.0" />
+          </effect>
+        </ImageView>
+      </children>
+      <stylesheets>
+        <URL value="@../css/estilo.css" />
+      </stylesheets>
+    </Pane>
+    <HBox id="HBox" alignment="TOP_LEFT" layoutX="71.0" layoutY="79.0" prefWidth="390.0000915527344" spacing="5.0">
+      <children>
+        <Label font="$x1" prefWidth="51.0" text="Título: " wrapText="true" />
+        <Label id="blbTitulo" fx:id="lblTitulo" prefWidth="338.9996337890625" text="" wrapText="true">
+          <font>
+            <Font size="16.0" />
+          </font>
+        </Label>
+      </children>
+    </HBox>
   </children>
 </AnchorPane>

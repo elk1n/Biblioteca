@@ -30,6 +30,7 @@ import sabga.atributos.Listar;
 import sabga.atributos.Material;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Dialogo;
+import sabga.configuracion.Utilidades;
 import sabga.modelo.Consultas;
 
 /**
@@ -45,13 +46,13 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     private final Dialogo dialogo;
     
     @FXML
-    private Label lblEditorial, validarCodigoClasificacionAC, validarTituloAC, validarAnioPublicacionAC, validarPublicacionAC, validarNumeroPaginasAC,
-                        validarEditorialAC, validarEstadoAC, validarAutoresAC, validarMateriasAC;    
+    private Label lblEditorial, lblValidarCodigo, lblValidarTitulo, lblValidarAnio, lblValidarPublicacion, lblValidarEditorial, lblValidarEjemplares,
+                    lblValidarPaginas, lblValidarAutor, lblValidarMateria;    
     @FXML 
     private TextField txtfCodigoClasificacion, txtfTitulo, txtfAnio, txtfPublicacion, txtfEjemplares, txtfPaginas, txtfHabilitado, txtfInhabilitado,
                         txtfReparacion, txtfFiltrar;
     @FXML 
-    private Button  btnBorrar, btnDetalle, btnEditorial, btnAutor, btnMateria;    
+    private Button  btnBorrar, btnDetalle, btnEditorial, btnAutor, btnMateria, btnCodigoBarras;    
     @FXML 
     private ComboBox comboTipoMaterial, comboClaseMaterial, comboMaterial;    
     @FXML 
@@ -59,7 +60,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     @FXML
     private HBox hboxEditorial, hboxAutores, hboxMaterias;
     @FXML    
-    private  Tooltip est;
+    private Tooltip est;
     @FXML
     private TableView tablaMaterial, tablaMaterias, tablaAutores;
     @FXML
@@ -113,7 +114,25 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         }        
        
     }
+  
+    @FXML
+    private void codigoBarras(ActionEvent evento) {
         
+        if(tablaMaterial.getSelectionModel().getSelectedItem() != null) {
+            ventanaPrincipal = new Sabga();
+            btnCodigoBarras.setDisable(true);
+            
+            dialogo.dialogoCodigoBarras(ventanaPrincipal.getPrimaryStage(), 
+                    filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId(),
+                    filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getTitulo(),
+                    "",1);
+            btnCodigoBarras.setDisable(false);
+        }
+        else{
+            Utilidades.mensaje(null,"Debe seleccionar un material de la lista", "Antes de volver a crear el código de barras", "Código Barras");
+        }
+    }
+  
     @FXML
     private void listarMaterial(ActionEvent evento){                        
         listar();    
@@ -384,43 +403,43 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         boolean retorno = false; 
         String control = "";
         
-        if (validarCodigoClasificacionAC.getText() != null){           
+        if (lblValidarCodigo.getText() != null){           
             control += "N";
         }        
         else {
             control += "S";
         }
-        if(validarTituloAC.getText() != null){
+        if(lblValidarTitulo.getText() != null){
             control += "N";
         }
         else{
             control += "S";
         }
-        if(validarNumeroPaginasAC.getText() != null){
+        if(lblValidarPaginas.getText() != null){
             control += "N";
         }
         else{
             control += "S";
         }
-        if(validarEditorialAC.getText() != null){
+        if(lblValidarEditorial.getText() != null){
             control += "N";
         }
         else{
             control += "S";
         }
-        if(validarEstadoAC.getText() != null){
+        if(lblValidarEjemplares.getText() != null){
             control += "N";
         }
         else{
             control += "S";
         }
-        if(validarPublicacionAC.getText() != null){
+        if(lblValidarPublicacion.getText() != null){
             control += "N";
         }
         else{
             control += "S";
         }
-        if(validarAnioPublicacionAC.getText() != null){
+        if(lblValidarAnio.getText() != null){
             control += "N";
         }
         else{

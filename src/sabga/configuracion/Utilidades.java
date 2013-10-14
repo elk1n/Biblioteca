@@ -44,18 +44,12 @@ public class Utilidades {
     public static String initCap(String string) {
 
         char[] letras = string.toLowerCase().toCharArray();
-
         boolean found = false;
-
         for (int i = 0; i < letras.length; i++) {
-
             if (!found && Character.isLetter(letras[i])) {
-
                 letras[i] = Character.toUpperCase(letras[i]);
-
                 found = true;
             } else if (Character.isWhitespace(letras[i]) || letras[i] == '.' || letras[i] == '\'') { // adicionar otros caracteres aquí
-
                 found = false;
             }
         }
