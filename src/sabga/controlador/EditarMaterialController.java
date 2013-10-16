@@ -21,10 +21,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import np.com.ngopal.control.AutoFillTextBox;
 import sabga.Sabga;
 import sabga.ScreensController;
+import sabga.atributos.Atributos;
 import sabga.atributos.Autor;
 import sabga.atributos.Listar;
 import sabga.atributos.Material;
@@ -50,9 +52,9 @@ public class EditarMaterialController implements Initializable, ControlledScreen
                     lblValidarPaginas, lblValidarAutor, lblValidarMateria;    
     @FXML 
     private TextField txtfCodigoClasificacion, txtfTitulo, txtfAnio, txtfPublicacion, txtfEjemplares, txtfPaginas, txtfHabilitado, txtfInhabilitado,
-                        txtfReparacion, txtfFiltrar;
+                        txtfReparacion, txtfFiltrar, txtfBuscar;
     @FXML 
-    private Button  btnBorrar, btnDetalle, btnEditorial, btnAutor, btnMateria, btnCodigoBarras;    
+    private Button  btnBorrar, btnDetalle, btnEditorial, btnAutor, btnMateria, btnCodigoBarras, btnBorrarBusqueda;    
     @FXML 
     private ComboBox comboTipoMaterial, comboClaseMaterial, comboMaterial;    
     @FXML 
@@ -88,8 +90,16 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         });
     }
     
-    public void prueba(){
-        consulta.mapearMaterial(1);
+    public void getDato(){
+        System.out.println("Esto es una prueba");            
+    }
+   
+    public void buscarMaterial(){
+      
+        prepararTablaMaterial();
+        filtrarMaterial.addAll(listaMaterial);
+        listaMaterial.addAll(consulta.getListaMaterialBusqueda("gabriel"));        
+        tablaMaterial.setItems(filtrarMaterial);           
     }
     
     @FXML
@@ -135,6 +145,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
   
     @FXML
     private void listarMaterial(ActionEvent evento){                        
+        prepararTablaMaterial();
         listar();    
     }
    
@@ -149,7 +160,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
          tablaAutores.setItems(consulta.listaAutores(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId())));
     }
     
-    private void listar(){
+    public void prepararTablaMaterial(){
         
         clmnTitulo.setCellValueFactory(new PropertyValueFactory<Material, String>("titulo"));        
         clmnCodigo.setCellValueFactory(new PropertyValueFactory<Material, String>("codigo"));        
@@ -157,13 +168,17 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         tablaMaterial.setEditable(true);
         filtrarMaterial.clear();
         listaMaterial.clear();
-        filtrarMaterial.addAll(listaMaterial);
-        listaMaterial.addAll(consulta.getListaMaterial(comboMaterial.getSelectionModel().getSelectedItem().toString()));        
-        tablaMaterial.setItems(filtrarMaterial);
-                       
     }
     
-    private void llenarComboBox(){        
+    private void listar(){  
+        
+        filtrarMaterial.addAll(listaMaterial);
+        listaMaterial.addAll(consulta.getListaMaterial(comboMaterial.getSelectionModel().getSelectedItem().toString()));        
+        tablaMaterial.setItems(filtrarMaterial);                       
+    }
+    
+    private void llenarComboBox(){
+        
         comboClaseMaterial.setItems(consulta.llenarLista("SELECT clase_material FROM tbl_CLASE_MATERIAL", "clase_material"));
         comboMaterial.setItems(consulta.llenarLista("SELECT tipo_material FROM tbl_TIPO_MATERIAL", "tipo_material"));
         comboTipoMaterial.setItems(comboMaterial.getItems());               
@@ -309,9 +324,18 @@ public class EditarMaterialController implements Initializable, ControlledScreen
   }
     
     @FXML
-    private void borrarCampo(ActionEvent event) {
-        txtfFiltrar.setText("");
-        btnBorrar.setVisible(false);
+    private void borrarCampo(ActionEvent evento) {
+        
+        switch (Utilidades.getDesencadenador(evento)) {
+            case "btnBorrar":
+                txtfFiltrar.setText("");
+                btnBorrar.setVisible(false);
+                break;
+            case "btnBorrarBusqueda":
+                txtfBuscar.setText("");
+                btnBorrarBusqueda.setVisible(false);
+                break;
+        }    
     }
     
     private void mostrarBoton() {
@@ -322,7 +346,17 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             btnBorrar.setVisible(true);
         }
     }
+    
+    @FXML
+    private void mostrarBoton(KeyEvent evento) {
 
+        if (txtfBuscar.getText() == null || txtfBuscar.getText().isEmpty()) {
+            btnBorrarBusqueda.setVisible(false);
+        } else {
+            btnBorrarBusqueda.setVisible(true);
+        }
+    }
+   
     private boolean matchesFilter(Material material) {
       String filterString = txtfFiltrar.getText();
       if (filterString == null || filterString.isEmpty()) {
@@ -363,6 +397,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         hboxMaterias.getChildren().add(materias);
         hboxAutores.getChildren().add(autores);
         btnBorrar.setVisible(false);
+        btnBorrarBusqueda.setVisible(false);
     }
     
     /** 
@@ -375,7 +410,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     @Override
     public void initialize(URL url, ResourceBundle rb) {
       
-        iniciar();
+         iniciar();
          txtfFiltrar.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable,
@@ -384,6 +419,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
                 updateFilteredData();
             }
         });
+         
         
         // PRUEBA DE TOOLTIP.....WORKS BY THE WAY :)
         /* Platform.runLater(new Runnable() {@Override 

@@ -296,7 +296,6 @@ public class EditarEMAController implements Initializable, ControlledScreen {
             opcion = 2;
             edicionAutor(opcion);
         } else {
-
             Utilidades.mensaje(null, "No se han presentado cambios", "Editando Autor", "Ediatar Autor");
         }
 

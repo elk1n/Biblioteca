@@ -5,6 +5,9 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Dialogs;
 import javafx.stage.Stage;
 import javax.mail.Message;
@@ -16,7 +19,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.apache.commons.codec.binary.Hex;
 import sabga.preferencias.Preferencias;
-
 
 /**
  * @author Elk1n
@@ -105,8 +107,7 @@ public class Utilidades {
     
     public static boolean enviarCorreo(String destinatario, String usuario, String clave){
            
-         pref = new Preferencias(); 
-         
+         pref = new Preferencias();          
         try {
             Properties props = new Properties();
             props.setProperty("mail.smtp.host", pref.getHost());
@@ -141,6 +142,16 @@ public class Utilidades {
         }
             
     }
+    
+    public static String getDesencadenador(ActionEvent eventos) {
+        String objeto = eventos.getSource().toString();
+        Pattern patron = Pattern.compile("[id=]([a-zA-Z0-9]+)[,]");
+        Matcher matcher = patron.matcher(objeto);
+        matcher.find();
+        String source = matcher.group(1);
+        return source;
+    }
+
     
    
 }

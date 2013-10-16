@@ -227,7 +227,6 @@ public class Validacion {
     }
 
     public String getDesencadenador(KeyEvent eventos) {
-
         String objeto = eventos.getSource().toString();
         Pattern patron = Pattern.compile("[id=]([a-zA-Z0-9]+)[,]");
         Matcher matcher = patron.matcher(objeto);

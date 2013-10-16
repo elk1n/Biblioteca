@@ -1,6 +1,7 @@
 
 package sabga.modelo;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import java.sql.SQLException;
 import java.sql.Types;
 import javafx.collections.FXCollections;
@@ -66,7 +67,27 @@ public class Consultas {
         }
         return listaAutores;
     }
-      
+    
+    public ObservableList<Material> getListaMaterialBusqueda(String parametroBusqueda){
+    
+         listaMaterial.clear();
+            try {
+            con.conectar();
+            con.procedimiento("{ CALL buscarMaterial(?) }");
+            con.getProcedimiento().setString("parametro", parametroBusqueda);
+            con.setResultado(con.getProcedimiento().executeQuery());            
+            while(con.getResultado().next()){
+                 listaMaterial.add(new Material(con.getResultado().getString("titulo"), con.getResultado().getString("codigo"), 
+                                                con.getResultado().getString("clase"), con.getResultado().getString("id")));
+            }
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos del material", "Error Consulta");  
+        } finally {
+            con.desconectar();
+        }     
+         return listaMaterial;    
+    }
+              
     public ObservableList<Material> getListaMaterial(String tipo){
        
         listaMaterial.clear();
@@ -79,7 +100,8 @@ public class Consultas {
             con.conectar();
             con.setResultado(con.getStatement().executeQuery(consultaMaterial));
             while (con.getResultado().next()) {
-               listaMaterial.add(new Material(con.getResultado().getString("titulo"), con.getResultado().getString("codigo"), con.getResultado().getString("clase"), con.getResultado().getString("id")));
+               listaMaterial.add(new Material(con.getResultado().getString("titulo"), con.getResultado().getString("codigo"), 
+                                              con.getResultado().getString("clase"), con.getResultado().getString("id")));
             }
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intente más tarde", "Error Acceso");
@@ -139,7 +161,6 @@ public class Consultas {
     public void mapearMaterial(int codigo) {
     
          try {
-
             con.conectar();
             con.procedimiento("{ CALL mapearMaterial(?,?,?,?,?,?,?,?,?,?,?,?,?) }");
             con.getProcedimiento().setInt("id", codigo);

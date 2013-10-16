@@ -230,7 +230,6 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             con.getProcedimiento().execute();           
             mensaje = con.getProcedimiento().getString("mensaje");
             material = con.getProcedimiento().getInt("material");
-            
             if(obtenerIdAutoresMaterias() && llenarTablaDetalle()){               
                 con.getConexion().commit();                
             }

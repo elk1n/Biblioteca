@@ -1,6 +1,7 @@
 
 package sabga.controlador;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -11,6 +12,8 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialogs;
 import javafx.scene.control.MenuBar;
@@ -18,8 +21,10 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import sabga.Sabga;
+import static sabga.Sabga.paginaActualizarMaterialArchivo;
 import sabga.configuracion.ControlledScreen;
 import sabga.ScreensController;
+import sabga.atributos.Atributos;
 import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
 
@@ -47,9 +52,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     @FXML
     private HBox hboxAdmin;
     
-    public MenuItem getMenu(){
-    
-   
+    public MenuItem getMenu(){  
     return menuNuevoAutor;
     }
     
@@ -210,11 +213,9 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     }
     
     @FXML
-    private void borrarCampo(ActionEvent event){
-        
+    private void borrarCampo(ActionEvent event){        
         campoBusqueda.setText("");
-        botonBorrarBusqueda.setVisible(false);
-        
+        botonBorrarBusqueda.setVisible(false);        
     }
     
     @FXML
@@ -227,10 +228,18 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
            botonBorrarBusqueda.setVisible(true); 
         }    
     }
-       
+    
+    public String getCampoBusqueda(){
+        return campoBusqueda.getText();
+    }
+    
+    @FXML
+    public void prueba(ActionEvent evento) throws IOException{ 
+        ventanaPrincipal.pruebaDato();         
+    }
+    
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        
+    public void initialize(URL url, ResourceBundle rb) {        
          parametroBusqueda.setItems(parametroMaterial);
          botonBorrarBusqueda.setVisible(false);
          barraMenu.setPrefWidth(java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth());               

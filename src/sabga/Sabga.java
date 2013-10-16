@@ -1,15 +1,17 @@
 
 package sabga;
 
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import sabga.configuracion.Dialogo;
-import sabga.configuracion.Utilidades;
+import sabga.controlador.EditarMaterialController;
 import sabga.controlador.PaginaPrincipalController;
 
 /**
@@ -67,23 +69,19 @@ public class Sabga extends Application {
                  
     }
         
-    public Stage getPrimaryStage(){
-        
+    public Stage getPrimaryStage(){        
         return this.primaryStage;
     }
         
-    public ScreensController getController() {
-        
+    public ScreensController getController() {        
         return controller;
     }
     
-    public void cambiarVista(String pantalla){
-        
+    public void cambiarVista(String pantalla){     
         pantallas.setScreen(pantalla);
     }
     
-    public void descargarPantalla(String pantallaId){
-        
+    public void descargarPantalla(String pantallaId){       
         pantallas.unloadScreen(pantallaId);
     }
     
@@ -112,14 +110,12 @@ public class Sabga extends Application {
         
     }
     
-    public void inciarSesion(){
-   
+    public void inciarSesion(){ 
         primaryStage.show();
         dialogo.getDialogStage().close();   
     }
     
-    public void cerrarSesion(){
-        
+    public void cerrarSesion(){      
         primaryStage.close();
         dialogo.getDialogStage().show();        
     }
@@ -133,12 +129,10 @@ public class Sabga extends Application {
         rootLayout.setCenter(root);
         controladorVistas = new ScreensController();
         controller = (ScreensController) controladorVistas.getMyScreenControler();
-        controladorVistas.setVentanaPrincipal(this);
-                  
+        controladorVistas.setVentanaPrincipal(this);                  
     }
       
-    public void dialogoInicioSesion(){
-        
+    public void dialogoInicioSesion(){        
         dialogo.mostrarDialogo("vista/dialogos/InicioSesion.fxml","Inicio De Sesión", this.primaryStage, this, 6);
     }
     
@@ -151,6 +145,13 @@ public class Sabga extends Application {
         dialogo.getDialogStage().hide();
     }
     
+    public void pruebaDato() throws IOException{
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("vista/EditarMaterial.fxml"));
+        Object root = loader.load();
+        EditarMaterialController editar = loader.getController();
+        editar.buscarMaterial();    
+    }
     public void prueba(){
     
     System.out.println("Esto es una prueba");

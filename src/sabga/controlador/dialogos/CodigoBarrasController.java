@@ -4,7 +4,6 @@ package sabga.controlador.dialogos;
 
 import java.awt.HeadlessException;
 import java.awt.image.BufferedImage;
-import java.awt.print.PageFormat;
 import java.awt.print.PrinterJob;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -20,7 +19,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import javax.print.Doc;
@@ -74,7 +72,6 @@ public class CodigoBarrasController implements Initializable {
             BitmapCanvasProvider canvas = new BitmapCanvasProvider(dpi, BufferedImage.TYPE_BYTE_BINARY, false, 0);
             codigo.generateBarcode(canvas, codigoBarras);
             canvas.finish();
-            
             symbol = canvas.getBufferedImage();
             Image image = SwingFXUtils.toFXImage(symbol, null);
             imagenCodigoBarras.setImage(image);
