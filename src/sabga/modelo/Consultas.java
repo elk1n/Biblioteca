@@ -1,7 +1,6 @@
 
 package sabga.modelo;
 
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 import java.sql.SQLException;
 import java.sql.Types;
 import javafx.collections.FXCollections;
@@ -21,7 +20,7 @@ public class Consultas {
     private final Conexion con;
     private final ObservableList<Material> listaMaterial;
     private String titulo, clasificacion, publicacion, editorial, tipoMaterial, claseMaterial;
-    private int paginas, ejemplares, anio, habilitado, inhabilitado, reparacion; 
+    private int paginas, ejemplares, anio, habilitado, inhabilitado, reparacion, disponible, prestado, reservado; 
         
     public Consultas(){
         con = new Conexion();
@@ -157,12 +156,22 @@ public class Consultas {
         }
          return listaAutores;
     }
+    
+    public ObservableList listaAutoresMaterial(int id){
+     ObservableList autores = FXCollections.observableArrayList();
+     ObservableList<Autor> listaAutores = FXCollections.observableArrayList();
+     listaAutores.addAll(listaAutores(id));
+     for (Autor datos : listaAutores) {
+                autores.add(datos.toString());
+            }
+    return autores;
+    }
             
     public void mapearMaterial(int codigo) {
     
          try {
             con.conectar();
-            con.procedimiento("{ CALL mapearMaterial(?,?,?,?,?,?,?,?,?,?,?,?,?) }");
+            con.procedimiento("{ CALL mapearMaterial(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
             con.getProcedimiento().setInt("id", codigo);
             con.getProcedimiento().registerOutParameter("tituloMaterial", Types.VARCHAR);
             con.getProcedimiento().registerOutParameter("clasificacion", Types.VARCHAR);
@@ -176,6 +185,9 @@ public class Consultas {
             con.getProcedimiento().registerOutParameter("habilitado", Types.INTEGER);
             con.getProcedimiento().registerOutParameter("inhabilitado", Types.INTEGER);
             con.getProcedimiento().registerOutParameter("reparacion", Types.INTEGER);
+            con.getProcedimiento().registerOutParameter("disponible", Types.INTEGER);
+            con.getProcedimiento().registerOutParameter("prestado", Types.INTEGER);
+            con.getProcedimiento().registerOutParameter("reservado", Types.INTEGER);
             con.getProcedimiento().execute();
             
             titulo = con.getProcedimiento().getString("tituloMaterial");
@@ -190,7 +202,10 @@ public class Consultas {
             habilitado = con.getProcedimiento().getInt("habilitado");
             inhabilitado = con.getProcedimiento().getInt("inhabilitado");
             reparacion = con.getProcedimiento().getInt("reparacion");
-
+            disponible = con.getProcedimiento().getInt("disponible");
+            prestado = con.getProcedimiento().getInt("prestado");
+            reservado = con.getProcedimiento().getInt("reservado");
+            
         } catch (SQLException e) {
             Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos del material", "Error Consulta");  
         } finally {
@@ -246,4 +261,16 @@ public class Consultas {
         return this.reparacion;
     }
     
+   public int getDisponible(){
+        return this.disponible;
+    }
+    
+   public int getPrestado(){
+        return this.prestado;
+    }
+   
+   public int getReservado(){
+        return this.reservado;
+    }
 }
+

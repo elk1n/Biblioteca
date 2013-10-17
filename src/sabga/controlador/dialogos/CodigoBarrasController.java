@@ -1,5 +1,4 @@
 
-
 package sabga.controlador.dialogos;
 
 import java.awt.HeadlessException;
@@ -122,9 +121,16 @@ public class CodigoBarrasController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Guardar Código Barras");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        fileChooser.setInitialFileName(codigoBarras + ".png");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files (*.png)", "*.png","*.jpg","*.gif"));
+        fileChooser.setInitialFileName(codigoBarras.concat(".png"));
         File file = fileChooser.showSaveDialog(null);
+        
         if (file != null) {
+            String name = file.getName();
+            if (name.indexOf(".") == -1) {
+                name += ".png";
+                file = new File(file.getParentFile(), name);
+            }
             try {
                 ImageIO.write(symbol, "png", file);
             } catch (IOException ex) {

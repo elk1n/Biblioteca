@@ -36,6 +36,7 @@ public class Dialogo {
     private AnchorPane page;
     private Stage dialogStage;
     private Scene scene;
+    private int id;
 
     public Stage getDialogStage() {
         return dialogStage;
@@ -177,6 +178,7 @@ public class Dialogo {
     private void controladorDetalleMaterial(){    
         DetalleMaterialController controller = loader.getController();
         controller.setDialogStage(dialogStage);
+        controller.detalleMaterial(id);
         dialogStage.showAndWait();
     }
     
@@ -248,6 +250,9 @@ public class Dialogo {
         dialogStage.show();
     }
      
+    public void setId(int codigo){
+        this.id = codigo;
+    }
     
       
 } 

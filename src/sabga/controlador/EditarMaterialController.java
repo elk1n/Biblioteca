@@ -94,18 +94,21 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         System.out.println("Esto es una prueba");            
     }
    
-    public void buscarMaterial(){
+    @FXML
+    public void buscarMaterial(ActionEvent evento){
       
-        prepararTablaMaterial();
-        filtrarMaterial.addAll(listaMaterial);
-        listaMaterial.addAll(consulta.getListaMaterialBusqueda("gabriel"));        
-        tablaMaterial.setItems(filtrarMaterial);           
+        if(!"".equals(txtfBuscar.getText())){
+            prepararTablaMaterial();
+            filtrarMaterial.addAll(listaMaterial);
+            listaMaterial.addAll(consulta.getListaMaterialBusqueda(txtfBuscar.getText().trim()));        
+            tablaMaterial.setItems(filtrarMaterial);
+        }      
     }
     
     @FXML
     private void mapearDatos(){
       
-        if (comboMaterial.getSelectionModel().getSelectedItem() != null  && tablaMaterial.getSelectionModel().getSelectedItem()!=null) {
+        if (tablaMaterial.getSelectionModel().getSelectedItem()!=null) {
 
             consulta.mapearMaterial(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()));
             txtfTitulo.setText(consulta.getTitulo());
@@ -219,10 +222,14 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     
     @FXML
     public void dialogoDetalleMaterial(ActionEvent evento){        
-        ventanaPrincipal = new Sabga();
-        btnDetalle.setDisable(true);
-        dialogo.mostrarDialogo("vista/dialogos/DetalleMaterial.fxml", "Detalle Material", ventanaPrincipal.getPrimaryStage(), null, 4);
-        btnDetalle.setDisable(false);
+  
+        if (tablaMaterial.getSelectionModel().getSelectedItem() != null) {
+            ventanaPrincipal = new Sabga();
+            btnDetalle.setDisable(true);
+            dialogo.setId(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()));
+            dialogo.mostrarDialogo("vista/dialogos/DetalleMaterial.fxml", "Detalle Material", ventanaPrincipal.getPrimaryStage(), null, 4);           
+            btnDetalle.setDisable(false);
+        }
     }
     
     @FXML

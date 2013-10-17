@@ -14,7 +14,22 @@
 
 <AnchorPane id="AnchorPane" prefHeight="520.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.EditarMaterialController">
   <children>
-    <ComboBox id="combo" fx:id="comboMaterial" editable="false" layoutX="30.0" layoutY="64.0" onAction="#listarMaterial" prefHeight="25.0" prefWidth="150.0" promptText="Listar Material">
+    <TextField fx:id="txtfBuscar" layoutX="197.0" layoutY="6.0" onAction="#buscarMaterial" onKeyTyped="#mostrarBoton" prefHeight="30.0" prefWidth="260.0" promptText="Buscar Material" styleClass="campoBusqueda">
+      <stylesheets>
+        <URL value="@css/estilo.css" />
+      </stylesheets>
+    </TextField>
+    <Button fx:id="btnBorrarBusqueda" layoutX="432.0" layoutY="11.0" mnemonicParsing="false" onAction="#borrarCampo" styleClass="botonBorrar" text="">
+      <stylesheets>
+        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+      </stylesheets>
+    </Button>
+    <Button defaultButton="false" layoutX="470.0" layoutY="10.0" mnemonicParsing="false" onAction="#buscarMaterial" styleClass="botonBuscar" text="">
+      <stylesheets>
+        <URL value="@css/estilo.css" />
+      </stylesheets>
+    </Button>
+    <ComboBox id="combo" fx:id="comboMaterial" editable="false" layoutX="32.0" layoutY="48.0" onAction="#listarMaterial" prefHeight="25.0" prefWidth="150.0" promptText="Listar Material">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="Item 1" />
@@ -23,14 +38,24 @@
         </FXCollections>
       </items>
     </ComboBox>
-    <Button fx:id="btnDetalle" defaultButton="true" layoutX="468.0" layoutY="65.0" mnemonicParsing="false" onAction="#dialogoDetalleMaterial" prefHeight="25.0" prefWidth="120.0" text="Ver Detalle" />
-    <AnchorPane id="Content" layoutX="16.0" layoutY="105.0" minHeight="0.0" minWidth="0.0" prefHeight="404.0" prefWidth="588.0" styleClass="resultado">
+    <TextField fx:id="txtfFiltrar" layoutX="197.0" layoutY="45.0" prefHeight="30.0" prefWidth="260.0" promptText="Filtrar Resultado" styleClass="campoBusqueda">
+      <stylesheets>
+        <URL value="@css/estilo.css" />
+      </stylesheets>
+    </TextField>
+    <Button fx:id="btnBorrar" layoutX="432.0" layoutY="49.0" mnemonicParsing="false" onAction="#borrarCampo" styleClass="botonBorrar" text="">
+      <stylesheets>
+        <URL value="@css/estilo.css" />
+      </stylesheets>
+    </Button>
+    <Button fx:id="btnDetalle" defaultButton="true" layoutX="469.0" layoutY="49.0" mnemonicParsing="false" onAction="#dialogoDetalleMaterial" prefHeight="25.0" prefWidth="120.0" text="Ver Detalle" />
+    <AnchorPane id="Content" layoutX="16.0" layoutY="84.0" minHeight="0.0" minWidth="0.0" prefHeight="425.0" prefWidth="599.0" styleClass="resultado">
       <children>
-        <TableView fx:id="tablaMaterial" layoutX="14.0" layoutY="14.0" onKeyPressed="#mapearDatos" onMouseClicked="#mapearDatos" prefHeight="381.0" prefWidth="560.0" tableMenuButtonVisible="false">
+        <TableView fx:id="tablaMaterial" layoutX="14.0" layoutY="9.0" onKeyPressed="#mapearDatos" onMouseClicked="#mapearDatos" prefHeight="408.0000915527344" prefWidth="571.0" tableMenuButtonVisible="false">
           <columns>
             <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="296.0" text="Título" fx:id="clmnTitulo" />
             <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="145.0" text="Código Clasificación" fx:id="clmnCodigo" />
-            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="106.0" text="Clase Material" fx:id="clmnClase" />
+            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="110.0" text="Clase Material" fx:id="clmnClase" />
           </columns>
         </TableView>
       </children>
@@ -220,36 +245,14 @@
         </TitledPane>
       </panes>
     </Accordion>
+    <Button id="btn" fx:id="btnCodigoBarras" defaultButton="true" layoutX="632.0" layoutY="477.0" mnemonicParsing="false" onAction="#codigoBarras" prefHeight="25.0" prefWidth="120.0" text="Código de Barras" />
     <HBox id="HBox" alignment="CENTER" prefWidth="280.0" spacing="45.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="963.0" AnchorPane.rightAnchor="17.0">
       <children>
         <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Cancelar" />
         <Button defaultButton="true" mnemonicParsing="false" onAction="#validarCamposAC" prefHeight="25.0" prefWidth="160.0" text="Guardar Cambios" />
       </children>
     </HBox>
-    <TextField fx:id="txtfFiltrar" layoutX="195.0" layoutY="61.0" prefHeight="30.0" prefWidth="260.0" promptText="Filtrar Resultado" styleClass="campoBusqueda" />
-    <Button fx:id="btnBorrar" layoutX="431.0" layoutY="66.0" mnemonicParsing="false" onAction="#borrarCampo" styleClass="botonBorrar" text="">
-      <stylesheets>
-        <URL value="@css/estilo.css" />
-      </stylesheets>
-    </Button>
-    <HBox id="HBox" alignment="CENTER" layoutX="16.0" layoutY="13.0" spacing="30.0" />
-    <Button id="btn" fx:id="btnCodigoBarras" defaultButton="true" layoutX="632.0" layoutY="477.0" mnemonicParsing="false" onAction="#codigoBarras" prefHeight="25.0" prefWidth="120.0" text="Código de Barras" />
-    <TextField fx:id="txtfBuscar" layoutX="130.0" layoutY="18.0" onKeyTyped="#mostrarBoton" prefHeight="30.0" prefWidth="250.0" promptText="Buscar Material" styleClass="campoBusqueda">
-      <stylesheets>
-        <URL value="@css/estilo.css" />
-      </stylesheets>
-    </TextField>
-    <Button fx:id="btnBorrarBusqueda" layoutX="354.0" layoutY="23.0" mnemonicParsing="false" onAction="#borrarCampo" styleClass="botonBorrar" text="">
-      <stylesheets>
-        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
-      </stylesheets>
-    </Button>
-    <Button defaultButton="true" layoutX="384.0" layoutY="22.0" mnemonicParsing="false" onAction="#buscarMaterial" text="Buscar">
-      <stylesheets>
-        <URL value="@css/estilo.css" />
-      </stylesheets>
-    </Button>
-    <Label layoutX="30.0" layoutY="24.0" text="Buscar Material:">
+    <Label layoutX="32.0" layoutY="10.0" text="Buscar Material:">
       <font>
         <Font name="System Bold" size="12.0" />
       </font>

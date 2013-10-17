@@ -5,13 +5,11 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import sabga.configuracion.Dialogo;
-import sabga.controlador.EditarMaterialController;
 import sabga.controlador.PaginaPrincipalController;
 
 /**
@@ -146,12 +144,9 @@ public class Sabga extends Application {
     }
     
     public void pruebaDato() throws IOException{
-        
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("vista/EditarMaterial.fxml"));
-        Object root = loader.load();
-        EditarMaterialController editar = loader.getController();
-        editar.buscarMaterial();    
+       
     }
+   
     public void prueba(){
     
     System.out.println("Esto es una prueba");

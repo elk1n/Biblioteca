@@ -11,7 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sabga.configuracion.Conexion;
 import sabga.configuracion.Utilidades;
-import sabga.controlador.RegistroMaterialController;
 import sabga.modelo.ConfirmarMaterial;
 import sabga.modelo.ValidarMaterial;
 
@@ -29,7 +28,7 @@ public class NuevaEditorialController {
     
     private ValidarMaterial validarEditorial;
     private ConfirmarMaterial nuevaEditorial;
-    private Conexion con;
+    private final Conexion con;
     private String mensaje;
     
     public NuevaEditorialController(){
@@ -57,8 +56,7 @@ public class NuevaEditorialController {
             
             try {
                 registarEditorial();
-                if(mensaje!=null){
-                    
+                if(mensaje!=null){                    
                      Utilidades.mensajeAdvertencia(null, mensaje, "Error al registrar la editorial", "Error Registrar Editorial");
                 }
                 else{

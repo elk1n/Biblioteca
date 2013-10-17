@@ -174,7 +174,6 @@
             </MenuBar>
           </children>
         </AnchorPane>
-        <Button layoutX="876.0" layoutY="75.0" mnemonicParsing="false" onAction="#prueba" text="Button" />
       </children>
       <padding>
         <Insets fx:id="x5" />
