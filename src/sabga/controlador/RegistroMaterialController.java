@@ -447,9 +447,11 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                 buscarMateria.getTextbox().setText("");
             } else {
                 Utilidades.mensaje(null, "La materia ya se encuentra en la lista", "No se puede repetir una materia", "Seleccionar Materia ");
+                buscarMateria.getTextbox().setText("");
             }
         } else {
             Utilidades.mensaje(null, "La materia debe ser una de la lista", "Para adicionar una materia a la lista", "Seleccionar Materia");
+            buscarMateria.getTextbox().setText("");
         }
     }
     
@@ -462,7 +464,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             tablaMaterias.setPrefHeight(tablaMaterias.getPrefHeight()-25);  
        }
        else{
-           Utilidades.mensajeAdvertencia(null, "Debe seleccionar uno de la lista", "Pare remover una materia", "Remover Materia");
+           Utilidades.mensajeAdvertencia(null, "Debe seleccionar al menos una de la lista", "Pare remover una materia", "Remover Materia");
        }
                                                    
     }
@@ -500,32 +502,31 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     public void obtenerAutor(){
         
         if (listaAutores.indexOf(buscarAutor.getText()) != -1) {
-
             if (!verificarDuplicados(buscarAutor.getText())) {
-                autores.add(new Autor(obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getNombreAutor(), obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getApellidosAutor()));
+                autores.add(new Autor(obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getNombreAutor(), 
+                                      obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getApellidosAutor()));
                 contenedorAutores.setPrefHeight(contenedorAutores.getPrefHeight() + 25);
                 tablaAutores.setPrefHeight(tablaAutores.getPrefHeight() + 25);
                 buscarAutor.getTextbox().setText("");
             } else {
-                Utilidades.mensaje(null, "El autor ya se encuentra en la lista", "No se puede repetir un autor", "Seleccionar Autor");
+                Utilidades.mensaje(null,"El autor seleccionado ya se encuentra presente en la lista", "El autor ya se encuentra en la lista", "Seleccionar Autor");
+                buscarAutor.getTextbox().setText("");
             }
         } else {
-            Utilidades.mensaje(null, "El autor debe ser uno de la lista", "Para adicionar un autor a la lista", "Seleccionar Autor");
+            Utilidades.mensaje(null, "El autor debe estar registrado", "Para adicionar un autor a la lista", "Seleccionar Autor");
+            buscarAutor.getTextbox().setText("");
         }    
     }
    
     public void removerAutor(){
         
-       if(tablaAutores.getSelectionModel().getSelectedItem()!=null){
-           
+       if(tablaAutores.getSelectionModel().getSelectedItem()!=null){           
            autores.remove(tablaAutores.getSelectionModel().getSelectedIndex());
            contenedorAutores.setPrefHeight(contenedorAutores.getPrefHeight()-25);
            tablaAutores.setPrefHeight(tablaAutores.getPrefHeight()-25); 
-       }
-       else{
-           Utilidades.mensajeAdvertencia(null, "Debe seleccionar uno de la lista", "Pare remover un autor", "Remover Autor");
-       }
-                                                   
+       }else{
+           Utilidades.mensajeAdvertencia(null, "Debe seleccionar al menos uno de la lista", "Pare remover un autor", "Remover Autor");
+       }                                                
     }
     
     @FXML 
@@ -610,8 +611,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     @FXML
     public void validarNumeros(KeyEvent evento){
       
-        if(validar.getDesencadenador(evento).equals(txtfAnioPublicacion.getId())){
-            
+        if(validar.getDesencadenador(evento).equals(txtfAnioPublicacion.getId())){     
               validar.validarNumeros(txtfAnioPublicacion.getText());
               validarAnioPublicacion.setText(validar.getMensajeError());
         }

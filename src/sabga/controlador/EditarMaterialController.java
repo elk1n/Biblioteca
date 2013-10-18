@@ -26,9 +26,8 @@ import javafx.scene.layout.HBox;
 import np.com.ngopal.control.AutoFillTextBox;
 import sabga.Sabga;
 import sabga.ScreensController;
-import sabga.atributos.Atributos;
 import sabga.atributos.Autor;
-import sabga.atributos.Listar;
+import sabga.atributos.Materia;
 import sabga.atributos.Material;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Dialogo;
@@ -45,8 +44,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     
     private Sabga ventanaPrincipal;
     private ScreensController controlador;
-    private final Dialogo dialogo;
-    
+    private final Dialogo dialogo; 
     @FXML
     private Label lblEditorial, lblValidarCodigo, lblValidarTitulo, lblValidarAnio, lblValidarPublicacion, lblValidarEditorial, lblValidarEjemplares,
                     lblValidarPaginas, lblValidarAutor, lblValidarMateria;    
@@ -67,10 +65,14 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     private TableView tablaMaterial, tablaMaterias, tablaAutores;
     @FXML
     private TableColumn clmnTitulo, clmnCodigo, clmnClase, clmnMateria, clmnNombre, clmnApellidos;
-    private final AutoFillTextBox editorial, autores, materias ;
-    
+    private final AutoFillTextBox editorial, autores, materias ;    
     private final ObservableList<Material> filtrarMaterial;
     private final ObservableList<Material> listaMaterial;
+    private final ObservableList<Autor> listaAutores;
+    private final ObservableList<Autor> obtenerAutores;
+    private final ObservableList<Materia> listaMaterias;
+    private final ObservableList listaBusquedaMaterias, listaBusquedaAutores;
+    
     private final Consultas consulta;
 
     
@@ -80,8 +82,13 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         editorial = new AutoFillTextBox();
         autores = new AutoFillTextBox();
         materias = new AutoFillTextBox();
+        obtenerAutores = FXCollections.observableArrayList();
+        listaBusquedaMaterias = FXCollections.observableArrayList();
+        listaBusquedaAutores = FXCollections.observableArrayList();
         filtrarMaterial = FXCollections.observableArrayList();
+        listaAutores = FXCollections.observableArrayList();
         listaMaterial = FXCollections.observableArrayList();
+        listaMaterias = FXCollections.observableArrayList();
         listaMaterial.addListener(new ListChangeListener<Material>() {
             @Override
             public void onChanged(ListChangeListener.Change<? extends Material> change) {
@@ -89,11 +96,67 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             }
         });
     }
-    
-    public void getDato(){
-        System.out.println("Esto es una prueba");            
-    }
    
+    @FXML
+    public void adicionarAutor(ActionEvent evento){
+        if (!listaMaterial.isEmpty()) {
+            if (listaBusquedaAutores.indexOf(autores.getText()) != -1) {
+                if (!verificarDuplicados(listaAutores, autores.getText())) {
+                    listaAutores.add(new Autor(obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getNombreAutor(),
+                            obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getApellidosAutor()));
+                    autores.getTextbox().setText("");
+                } else {
+                    Utilidades.mensaje(null, "El autor seleccionado ya se encuentra presente en la lista", "El autor ya se encuentra en la lista", "Seleccionar Autor");
+                    autores.getTextbox().setText("");
+                }
+            } else {
+                Utilidades.mensaje(null, "El autor debe estar registrado", "Para adicionar un autor a la lista", "Seleccionar Autor");
+                autores.getTextbox().setText("");
+            }
+        }
+    }
+    
+    @FXML
+    public void adicionarMateria(ActionEvent evento){
+        if (!listaMaterial.isEmpty()) {
+            if (listaBusquedaMaterias.indexOf(materias.getText()) != -1) {
+                if (!verificarDuplicados(listaMaterias, materias.getText())) {
+                    listaMaterias.add(new Materia(listaBusquedaMaterias.get(listaBusquedaMaterias.indexOf(materias.getText())).toString()));
+                    materias.getTextbox().setText("");
+                } else {
+                    Utilidades.mensaje(null, "La materia ya se encuentra en la lista", "No se puede repetir una materia", "Seleccionar Materia ");
+                    materias.getTextbox().setText("");
+                }
+            } else {
+                Utilidades.mensaje(null, "La materia debe ser una de la lista", "Para adicionar una materia a la lista", "Seleccionar Materia");
+                materias.getTextbox().setText("");
+            }
+        }
+    }
+    
+    @FXML
+    public void removerAutor(ActionEvent evento){
+        if(tablaAutores.getSelectionModel().getSelectedItem()!=null){           
+           listaAutores.remove(tablaAutores.getSelectionModel().getSelectedIndex());
+       }else{
+           Utilidades.mensajeAdvertencia(null, "Debe seleccionar al menos uno de la lista", "Pare remover un autor", "Remover Autor");
+       }        
+    }
+    
+    @FXML
+    public void removerMateria(ActionEvent evento){
+        if(tablaMaterias.getSelectionModel().getSelectedItem()!=null){           
+            listaMaterias.remove(tablaMaterias.getSelectionModel().getSelectedIndex());
+       }else{
+           Utilidades.mensajeAdvertencia(null, "Debe seleccionar al menos una de la lista", "Pare remover una materia", "Remover Materia");
+       }    
+   }
+    
+    @FXML
+    public void guardarCambios(ActionEvent evento){
+        System.out.println("Esto es una una...");
+    }
+    
     @FXML
     public void buscarMaterial(ActionEvent evento){
       
@@ -109,7 +172,6 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     private void mapearDatos(){
       
         if (tablaMaterial.getSelectionModel().getSelectedItem()!=null) {
-
             consulta.mapearMaterial(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()));
             txtfTitulo.setText(consulta.getTitulo());
             txtfCodigoClasificacion.setText(consulta.getClasificacion());
@@ -136,9 +198,9 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             btnCodigoBarras.setDisable(true);
             
             dialogo.dialogoCodigoBarras(ventanaPrincipal.getPrimaryStage(), 
-                    filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId(),
-                    filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getTitulo(),
-                    "",1);
+                                        filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId(),
+                                        filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getTitulo(),
+                                        "",1);
             btnCodigoBarras.setDisable(false);
         }
         else{
@@ -154,13 +216,17 @@ public class EditarMaterialController implements Initializable, ControlledScreen
    
     private void mapearMateriasAutores(){
         
-         clmnMateria.setCellValueFactory(new PropertyValueFactory<Listar, String>("nombre"));
+         listaAutores.clear();
+         listaMaterias.clear();
+         clmnMateria.setCellValueFactory(new PropertyValueFactory<Materia, String>("nombreMateria"));
          clmnNombre.setCellValueFactory(new PropertyValueFactory<Autor, String>("nombreAutor"));
          clmnApellidos.setCellValueFactory(new PropertyValueFactory<Autor, String>("apellidosAutor"));
          tablaMaterias.setEditable(true);
          tablaAutores.setEditable(true);
-         tablaMaterias.setItems(consulta.listaMaterias(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId())));
-         tablaAutores.setItems(consulta.listaAutores(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId())));
+         listaAutores.addAll(consulta.listaAutores(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId())));
+         listaMaterias.addAll(consulta.listaMaterias(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId())));
+         tablaAutores.setItems(listaAutores);
+         tablaMaterias.setItems(listaMaterias);     
     }
     
     public void prepararTablaMaterial(){
@@ -187,13 +253,14 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         comboTipoMaterial.setItems(comboMaterial.getItems());               
     }
     
-     @Override
-    public void setScreenParent(ScreensController screenParent) {     
-         controlador = screenParent;
-    }
-     
-    public void setVentanaPrincipal(Sabga ventanaPrincipal) {
-        this.ventanaPrincipal = ventanaPrincipal;
+    private Boolean verificarDuplicados(ObservableList lista, String datoVefificar){
+        
+        for(Object dato: lista){
+           if(dato.toString().equals(datoVefificar)){
+               return true;
+           }            
+        }
+        return false; 
     }
     
     @FXML
@@ -229,6 +296,9 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             dialogo.setId(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()));
             dialogo.mostrarDialogo("vista/dialogos/DetalleMaterial.fxml", "Detalle Material", ventanaPrincipal.getPrimaryStage(), null, 4);           
             btnDetalle.setDisable(false);
+        }
+        else{
+            Utilidades.mensaje(null,"Debe seleccionar un material de la lista", "Para ver el detalle del material", "Detalle Material");
         }
     }
     
@@ -387,6 +457,15 @@ public class EditarMaterialController implements Initializable, ControlledScreen
       tablaMaterial.getSortOrder().clear();
       tablaMaterial.getSortOrder().addAll(sortOrder);
   }
+    
+    @Override
+    public void setScreenParent(ScreensController screenParent) {     
+         controlador = screenParent;
+    }
+     
+    public void setVentanaPrincipal(Sabga ventanaPrincipal) {
+        this.ventanaPrincipal = ventanaPrincipal;
+    }
      
     public void iniciar(){
         
@@ -397,9 +476,12 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         materias.getTextbox().setPromptText("Materia");
         autores.getTextbox().setPromptText("Autor");
         editorial.getTextbox().setPromptText("Buscar Editorial");
+        listaBusquedaMaterias.addAll(consulta.llenarLista("SELECT nombre_materia FROM tbl_MATERIA", "nombre_materia"));
+        listaBusquedaAutores.addAll(consulta.listaAutores());
+        obtenerAutores.addAll(consulta.getListaAutores());
         editorial.setData(consulta.llenarLista("SELECT nombre_editorial FROM tbl_EDITORIAL", "nombre_editorial"));
-        materias.setData(consulta.llenarLista("SELECT nombre_materia FROM tbl_MATERIA", "nombre_materia"));
-        autores.setData(consulta.listaAutores());
+        materias.setData(listaBusquedaMaterias);
+        autores.setData(listaBusquedaAutores);        
         hboxEditorial.getChildren().add(editorial);
         hboxMaterias.getChildren().add(materias);
         hboxAutores.getChildren().add(autores);

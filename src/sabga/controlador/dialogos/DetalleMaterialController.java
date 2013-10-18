@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import sabga.atributos.Materia;
 import sabga.modelo.Consultas;
 
 /**
@@ -21,7 +22,7 @@ public class DetalleMaterialController implements Initializable {
     private int id;
     private final Consultas consulta;
     @FXML
-    private ListView listaMaterias, listaAutores;
+    private ListView <Materia>listaMaterias, listaAutores;
     
     @FXML
     private Label lblTitulo, lblCodigo, lblEditorial, lblPublicacion, lblAnio, lblClase, lblTipo, 

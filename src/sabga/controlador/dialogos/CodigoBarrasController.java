@@ -121,7 +121,7 @@ public class CodigoBarrasController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Guardar Código Barras");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files (*.png)", "*.png","*.jpg","*.gif"));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files (*.png)", "*.png","*.jpg","*.gif","*.jpeg"));
         fileChooser.setInitialFileName(codigoBarras.concat(".png"));
         File file = fileChooser.showSaveDialog(null);
         

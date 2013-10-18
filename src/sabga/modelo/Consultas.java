@@ -6,7 +6,7 @@ import java.sql.Types;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sabga.atributos.Autor;
-import sabga.atributos.Listar;
+import sabga.atributos.Materia;
 import sabga.atributos.Material;
 import sabga.configuracion.Conexion;
 import sabga.configuracion.Utilidades;
@@ -19,6 +19,7 @@ public class Consultas {
 
     private final Conexion con;
     private final ObservableList<Material> listaMaterial;
+    private ObservableList<Autor> obtenerAutores;
     private String titulo, clasificacion, publicacion, editorial, tipoMaterial, claseMaterial;
     private int paginas, ejemplares, anio, habilitado, inhabilitado, reparacion, disponible, prestado, reservado; 
         
@@ -47,9 +48,8 @@ public class Consultas {
     
     public ObservableList listaAutores() {
 
-        ObservableList<Autor> obtenerAutores = FXCollections.observableArrayList();
+        obtenerAutores = FXCollections.observableArrayList();
         ObservableList listaAutores = FXCollections.observableArrayList();
-
         try {
             con.conectar();
             con.setResultado(con.getStatement().executeQuery("SELECT * FROM tbl_AUTOR ORDER BY nombre_autor, apellidos_autor"));
@@ -65,6 +65,10 @@ public class Consultas {
             con.desconectar();
         }
         return listaAutores;
+    }
+    
+    public ObservableList<Autor> getListaAutores(){
+        return obtenerAutores;
     }
     
     public ObservableList<Material> getListaMaterialBusqueda(String parametroBusqueda){
@@ -111,9 +115,9 @@ public class Consultas {
         return listaMaterial;       
    }
     
-    public ObservableList<Listar> listaMaterias(int id){
+    public ObservableList<Materia> listaMaterias(int id){
     
-        ObservableList<Listar> listaMaterias = FXCollections.observableArrayList();
+        ObservableList<Materia> listaMaterias = FXCollections.observableArrayList();
         String consulta = "SELECT MA.nombre_materia AS 'materia' "+ 
                           "FROM tbl_MATERIA AS MA "+
                           "JOIN tbl_MATERIAL_MATERIA AS MM ON MA.id_materia = MM.id_materia "+
@@ -123,7 +127,7 @@ public class Consultas {
             con.conectar();
             con.setResultado(con.getStatement().executeQuery(consulta));
             while (con.getResultado().next()) {
-                listaMaterias.add(new Listar(con.getResultado().getString("materia")));
+                listaMaterias.add(new Materia(con.getResultado().getString("materia")));
             }
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");

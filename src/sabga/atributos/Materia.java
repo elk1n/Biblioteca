@@ -23,5 +23,10 @@ public class Materia {
     
     public void  setNombreMateria(String materia){
         this.nombreMateria.set(materia);
-    }       
+    }
+    
+    @Override
+    public String toString() {
+        return this.getNombreMateria();
+    }
 }

@@ -43,12 +43,12 @@
     </Pane>
     <HBox id="HBox" alignment="TOP_LEFT" layoutX="71.0" layoutY="79.0" prefWidth="390.0000915527344" spacing="5.0">
       <children>
-        <Label font="$x1" prefWidth="51.0" text="Título: " wrapText="true" />
-        <Label id="blbTitulo" fx:id="lblTitulo" prefWidth="338.9996337890625" text="" wrapText="true">
+        <Label prefWidth="51.0" text="Título: " wrapText="true">
           <font>
             <Font size="16.0" />
           </font>
         </Label>
+        <Label id="blbTitulo" fx:id="lblTitulo" font="$x1" prefWidth="338.9996337890625" text="" wrapText="true" />
       </children>
     </HBox>
   </children>
