@@ -29,7 +29,7 @@
                         </FXCollections>
                       </items>
                     </ComboBox>
-                    <Label id="validarCodigo" fx:id="validarClaseMaterial" prefWidth="250.0" text="Validacion">
+                    <Label id="validarCodigo" fx:id="validarClaseMaterial" prefWidth="250.0" text="">
                       <textFill>
                         <Color blue="0.000" green="0.000" red="0.800" fx:id="x1" />
                       </textFill>
@@ -50,12 +50,12 @@
                     <TextField id="campoNumeroPaginas" fx:id="txtfPaginas" alignment="CENTER_RIGHT" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="250.0" promptText="Digite el número de páginas" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                     <Label text="Número de Ejemplares" GridPane.columnIndex="0" GridPane.rowIndex="10" />
                     <TextField id="campoEjemplares" fx:id="txtfEjemplares" alignment="CENTER_RIGHT" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="250.0" promptText="Digite el número de ejemplares" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                    <Label fx:id="validarClasificacion" alignment="CENTER_RIGHT" prefWidth="250.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                    <Label fx:id="validarTitulo" alignment="CENTER_RIGHT" prefWidth="250.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                    <Label fx:id="validarAnioPublicacion" alignment="CENTER_RIGHT" prefWidth="250.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                    <Label fx:id="validarPublicacion" alignment="CENTER_RIGHT" prefWidth="250.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                    <Label fx:id="validarPaginas" alignment="CENTER_RIGHT" prefWidth="250.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                    <Label fx:id="validarEjemplares" alignment="CENTER_RIGHT" prefWidth="250.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                    <Label fx:id="validarClasificacion" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <Label fx:id="validarTitulo" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <Label fx:id="validarAnioPublicacion" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                    <Label fx:id="validarPublicacion" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                    <Label fx:id="validarPaginas" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                    <Label fx:id="validarEjemplares" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                   </children>
                   <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="0.0" prefWidth="195.0" />
@@ -89,7 +89,7 @@
                         <URL value="@css/estilo.css" />
                       </stylesheets>
                     </Button>
-                    <Label fx:id="validarEditorial" alignment="CENTER_RIGHT" layoutX="74.0" layoutY="36.0" prefWidth="349.0" text="Validacion" textFill="$x1" />
+                    <Label fx:id="validarEditorial" alignment="CENTER_RIGHT" layoutX="74.0" layoutY="36.0" prefWidth="349.0" text="" textFill="$x1" />
                   </children>
                 </Group>
                 <Accordion layoutX="587.0" layoutY="91.0" prefHeight="323.0" prefWidth="640.0">
@@ -110,7 +110,7 @@
                                           </stylesheets>
                                         </HBox>
                                         <Label layoutX="-14.0" layoutY="2.0" text="Autor" />
-                                        <Label fx:id="validarAutor" alignment="CENTER_RIGHT" layoutX="58.0" layoutY="43.0" prefWidth="348.0" text="Validacion" textFill="$x1" />
+                                        <Label fx:id="validarAutor" alignment="CENTER_RIGHT" layoutX="58.0" layoutY="43.0" prefWidth="348.0" text="" textFill="$x1" />
                                       </children>
                                     </Group>
                                     <Button defaultButton="true" layoutX="467.0" layoutY="21.0" mnemonicParsing="false" onAction="#cargarNombreApellidoAutor" prefHeight="25.0" prefWidth="120.0" text="Seleccionar" />
@@ -219,15 +219,15 @@
                     <Label text="Título" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                     <TextField id="campoNumeroClasificacionOM" fx:id="txtfCodigoOM" prefHeight="30.0" prefWidth="250.0" promptText="Ingrese el código de clasificación" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                     <TextField id="campoTituloOM" fx:id="txtfTituloOM" prefHeight="30.0" prefWidth="250.0" promptText="Ingrese un título" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                    <Label id="validarNumeroMaterialOM" fx:id="validarNumeroClasificacionOM" alignment="CENTER_RIGHT" prefWidth="350.0" text="Validacion" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <Label id="validarNumeroMaterialOM" fx:id="validarNumeroClasificacionOM" alignment="CENTER_RIGHT" prefWidth="350.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="1">
                       <textFill>
                         <Color blue="0.000" green="0.192" red="0.800" fx:id="x3" />
                       </textFill>
                     </Label>
-                    <Label fx:id="validarTituloOM" alignment="CENTER_RIGHT" prefWidth="350.0" text="Validacion" textFill="$x3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <Label fx:id="validarTituloOM" alignment="CENTER_RIGHT" prefWidth="350.0" text="" textFill="$x3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                     <Label text="Número de Copias" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                     <TextField id="campoEjemplares" fx:id="txtfCopias" alignment="CENTER_RIGHT" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="255.0" promptText="Digite el número de copias" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                    <Label id="validarTituloOM" fx:id="validarNumeroCopiasOM" alignment="CENTER_RIGHT" prefWidth="350.0" text="Validacion" textFill="$x3" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                    <Label id="validarTituloOM" fx:id="validarNumeroCopiasOM" alignment="CENTER_RIGHT" prefWidth="350.0" text="" textFill="$x3" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   </children>
                   <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="182.0" />
@@ -255,7 +255,7 @@
                               </stylesheets>
                             </HBox>
                             <Button defaultButton="true" layoutX="449.0" layoutY="-1.0" mnemonicParsing="false" onAction="#cargarNombreMateriaOM" prefHeight="25.0" prefWidth="120.0" text="Seleccionar" />
-                            <Label id="validarMateria" fx:id="validarMateriaOM" alignment="CENTER_RIGHT" layoutX="103.0" layoutY="45.0" prefWidth="331.0" text="Validacion" textFill="$x1" />
+                            <Label id="validarMateria" fx:id="validarMateriaOM" alignment="CENTER_RIGHT" layoutX="103.0" layoutY="45.0" prefWidth="331.0" text="" textFill="$x1" />
                           </children>
                         </Group>
                         <TableView fx:id="tablaMateriasOM" layoutX="80.0" layoutY="101.0" prefHeight="50.0" prefWidth="360.0">
@@ -275,8 +275,8 @@
                     <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarOtroMaterial" prefHeight="25.0" text="Guardar Material" />
                   </children>
                 </HBox>
-                <Label id="validarClaseMaterialOM" fx:id="validarTipoMaterialOM" alignment="CENTER_RIGHT" layoutX="17.0" layoutY="95.0" prefWidth="228.0" text="Validacion" textFill="$x3" />
-                <Label fx:id="validarClaseMaterialOM" alignment="CENTER_RIGHT" layoutX="273.0" layoutY="95.0" prefWidth="252.0" text="Validacion" textFill="$x3" />
+                <Label id="validarClaseMaterialOM" fx:id="validarTipoMaterialOM" alignment="CENTER_RIGHT" layoutX="17.0" layoutY="95.0" prefWidth="228.0" text="" textFill="$x3" />
+                <Label fx:id="validarClaseMaterialOM" alignment="CENTER_RIGHT" layoutX="273.0" layoutY="95.0" prefWidth="252.0" text="" textFill="$x3" />
               </children>
             </AnchorPane>
           </content>

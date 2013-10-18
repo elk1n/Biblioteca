@@ -33,11 +33,10 @@ import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.Consultas;
+import sabga.modelo.ValidarMaterial;
 
 /**
- *
  * @author Elk1n
- * 
  */
 
 public class EditarMaterialController implements Initializable, ControlledScreen {
@@ -154,7 +153,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     
     @FXML
     public void guardarCambios(ActionEvent evento){
-        System.out.println("Esto es una una...");
+        validarEditarLibro();
     }
     
     @FXML
@@ -202,8 +201,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
                                         filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getTitulo(),
                                         "",1);
             btnCodigoBarras.setDisable(false);
-        }
-        else{
+        }else{
             Utilidades.mensaje(null,"Debe seleccionar un material de la lista", "Antes de volver a crear el código de barras", "Código Barras");
         }
     }
@@ -302,59 +300,25 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         }
     }
     
-    @FXML
-    public void validarCamposAC(ActionEvent evento){
-        /*
-        if(comboTipoMaterial.getSelectionModel().getSelectedIndex()==0){
-            
-            ValidarMaterial validarActualizacion = new ValidarMaterial(campoCodigoClasificacionAC.getText(), campoTituloAC.getText(), campoAnioPublicacionAC.getText(),
-                                                         campoPublicacionAC.getText(), campoNumeroPaginasAC.getText(), campoEditorialAC.getText(),
-                                                         campoEjemplaresDisponiblesAC.getText(), campoHabilitadoAC.getText(), campoDeshabilitadoAC.getText(),
-                                                         campoMantenimientoAC.getText(),campoAutor1AC.getText(), campoAutor2AC.getText(),campoAutor3AC.getText(),
-                                                         campoAutor4AC.getText(),campoAutor5AC.getText(),campoAutor6AC.getText(),
-                                                         campoAutor7AC.getText(),campoAutor8AC.getText(), campoAutor9AC.getText(), campoAutor10AC.getText(),
-                                                         campoMateria1AC.getText(), campoMateria2AC.getText(), campoMateria3AC.getText(), campoMateria4AC.getText(),
-                                                         campoMateria5AC.getText(), campoMateria6AC.getText(), campoMateria7AC.getText(), campoMateria8AC.getText(),
-                                                         campoMateria9AC.getText(), campoMateria10AC.getText()); 
-
-            validarActualizacion.validarActualizacionMaterial();
-            validarCodigoClasificacionAC.setText(validarActualizacion.getErrorCodigoClasificacion());
-            validarTituloAC.setText(validarActualizacion.getErrorTitulo());
-            validarAnioPublicacionAC.setText(validarActualizacion.getErrorAnioPublicacion());
-            validarPublicacionAC.setText(validarActualizacion.getErrorPublicacion());
-            validarNumeroPaginasAC.setText(validarActualizacion.getErrorNumeroPaginas());
-            validarEditorialAC.setText(validarActualizacion.getErrorEditorial());
-            validarEstadoAC.setText(validarActualizacion.getErrorEstado());
-            validarAutoresAC.setText(validarActualizacion.getErrorAutor());
-            validarMateriasAC.setText(validarActualizacion.getErrorMateria());
-            
-
-            if (acordeonMaterias.isExpanded()==false && validarMateriasAC.getText()!=null){
-
-                acordeonMaterias.setText("Materias"+"                se ha encontrado un error!");
-            }       
-            else{
-
-                acordeonMaterias.setText("Materias");
-            }
-            if(acordeonAutores.isExpanded()==false && validarAutoresAC.getText()!=null){
-
-                acordeonAutores.setText("Autores"+"                 se ha encontrado un error!");         
-            }
-            else{
-                acordeonAutores.setText("Autores");
-
-           }
-            if(acordeonGeneral.isExpanded()==false && errorAcordeon() == false){
-
-                acordeonGeneral.setText("General"+"                 se ha encontrado un error!");        
-            }
-            else{
-                acordeonGeneral.setText("General");
-            }
-
+    public void validarEditarLibro(){
+        
+        if(!listaMaterial.isEmpty()){
+            ValidarMaterial libro = new ValidarMaterial();
+            libro.validarEditarLibro(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), txtfAnio.getText(), txtfPublicacion.getText(),
+                                     txtfPaginas.getText(), txtfEjemplares.getText(), editorial.getText(), listaAutores, listaMaterias);
+            lblValidarCodigo.setText(libro.getErrorCodigoClasificacion());
+            lblValidarTitulo.setText(libro.getErrorTitulo());
+            lblValidarAnio.setText(libro.getErrorAnioPublicacion());
+            lblValidarPublicacion.setText(libro.getErrorPublicacion());
+            lblValidarPaginas.setText(libro.getErrorNumeroPaginas());
+            lblValidarEjemplares.setText(libro.getErrorNumeroEjemplares());
+            lblValidarEditorial.setText(libro.getErrorEditorial());
+            lblValidarAutor.setText(libro.getErrorAutor());
+            lblValidarMateria.setText(libro.getErrorMateria());
+            errorAcordeon();
         }
        
+       /*
         if (comboTipoMaterial.getSelectionModel().getSelectedIndex()==1 || comboTipoMaterial.getSelectionModel().getSelectedIndex()==2 ||
             comboTipoMaterial.getSelectionModel().getSelectedIndex()==3){
             
@@ -389,6 +353,27 @@ public class EditarMaterialController implements Initializable, ControlledScreen
          */    
     }
    
+    private void errorAcordeon(){
+        ValidarMaterial libro = new ValidarMaterial();
+        if (!acordeonMaterias.isExpanded() && lblValidarMateria.getText() != null) {
+            acordeonMaterias.setText("Materias" + "                se ha encontrado un error!");
+        } else {
+            acordeonMaterias.setText("Materias");
+        }
+        if (!acordeonAutores.isExpanded() && lblValidarAutor.getText() != null) {
+            acordeonAutores.setText("Autores" + "                 se ha encontrado un error!");
+        } else {
+            acordeonAutores.setText("Autores");
+        }
+        if (!acordeonGeneral.isExpanded() && !libro.validarAcordeon(lblValidarCodigo.getText(), lblValidarTitulo.getText(), lblValidarPaginas.getText(),
+                                                                    lblValidarEditorial.getText(),lblValidarEjemplares.getText(), lblValidarPublicacion.getText(),
+                                                                    lblValidarAnio.getText())) {
+            acordeonGeneral.setText("General" + "                 se ha encontrado un error!");
+        } else {
+            acordeonGeneral.setText("General");
+        }
+    }
+    
     private void updateFilteredData() {
       filtrarMaterial.clear();
           
@@ -491,7 +476,6 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     
     /** 
      * Initializes the controller class.
-     *
      * @param url
      * @param rb
      */
@@ -523,63 +507,5 @@ public class EditarMaterialController implements Initializable, ControlledScreen
                 
     }    
    
-     public boolean errorAcordeon(){
-        
-        boolean retorno = false; 
-        String control = "";
-        
-        if (lblValidarCodigo.getText() != null){           
-            control += "N";
-        }        
-        else {
-            control += "S";
-        }
-        if(lblValidarTitulo.getText() != null){
-            control += "N";
-        }
-        else{
-            control += "S";
-        }
-        if(lblValidarPaginas.getText() != null){
-            control += "N";
-        }
-        else{
-            control += "S";
-        }
-        if(lblValidarEditorial.getText() != null){
-            control += "N";
-        }
-        else{
-            control += "S";
-        }
-        if(lblValidarEjemplares.getText() != null){
-            control += "N";
-        }
-        else{
-            control += "S";
-        }
-        if(lblValidarPublicacion.getText() != null){
-            control += "N";
-        }
-        else{
-            control += "S";
-        }
-        if(lblValidarAnio.getText() != null){
-            control += "N";
-        }
-        else{
-            control += "S";
-        }
-        
-        int auxiliar = control.indexOf("N");
-        
-       if (auxiliar == -1){
-           
-           retorno = true;
-       }
-       else{
-           retorno = false;
-       }
-        return retorno;
-    }   
+
 }

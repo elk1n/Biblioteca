@@ -9,6 +9,7 @@ import javafx.scene.input.KeyEvent;
 /**
  * @author Elk1n
  */
+
 public class Validacion {
 
     private String mensajeError;
@@ -17,7 +18,6 @@ public class Validacion {
     public boolean validarCampoTexto(String campoTexto, int numeroCaracteres) {
 
         if (campoTexto == null || campoTexto.equals("") || campoTexto.isEmpty()) {
-
             this.mensajeError = "No puede dejar este campo en blanco.";
             return false;
         } else if (campoTexto.length() > numeroCaracteres) {
@@ -25,11 +25,9 @@ public class Validacion {
             this.mensajeError = "Máximo " + numeroCaracteres + " caracteres.";
             return false;
         } else if (campoTexto.trim().equals("")) {
-
             this.mensajeError = "No deben ser sólo espacios en blanco.";
             return false;
         } else {
-
             this.mensajeError = "";
             return true;
         }
@@ -38,17 +36,13 @@ public class Validacion {
     public boolean validarCampoTextoNull(String campoTexto, int numeroCaracteres) {
 
         if (campoTexto.isEmpty() == false) {
-
             if (campoTexto.length() > numeroCaracteres) {
-
                 this.mensajeError = "Máximo " + numeroCaracteres + " caracteres.";
                 return false;
             } else if (campoTexto.trim().equals("")) {
-
                 this.mensajeError = "No deben ser sólo espacios en blanco.";
                 return false;
             } else {
-
                 this.mensajeError = "";
                 return true;
             }
@@ -64,28 +58,21 @@ public class Validacion {
         Matcher matcher = patron.matcher(campoTexto);
 
         if (campoTexto == null || campoTexto.equals("") || campoTexto.isEmpty()) {
-
             this.mensajeError = "No puede dejar este campo en blanco.";
             return false;
         } else if (campoTexto.length() > numeroCaracteres) {
-
             this.mensajeError = "Máximo " + numeroCaracteres + " caracteres.";
             return false;
         } else if (!matcher.matches()) {
-
             this.mensajeError = "No es un número o no es positivo.";
             return false;
-
         }else if(matcher.matches() && !validarNumero(campoTexto)){
             this.mensajeError = "El número debe ser mayor o igual a 1.";
             return false;       
-        } 
-               
-        else {
+        }else {
             this.mensajeError = "";
             return true;
         }
-
     }
 
     public boolean validarNumeroNull(String campoTexto, int numeroCaracteres) {
@@ -94,13 +81,10 @@ public class Validacion {
         Matcher matcher = patron.matcher(campoTexto);
 
         if (campoTexto.isEmpty() == false) {
-
             if (campoTexto.length() > numeroCaracteres) {
-
                 this.mensajeError = "Máximo " + numeroCaracteres + " caracteresa.";
                 return false;
             } else if (!matcher.matches()) {
-
                 this.mensajeError = "No es un número.";
                 return false;
             } else {
@@ -108,7 +92,6 @@ public class Validacion {
                 return true;
             }
         } else {
-
             this.mensajeError = "";
             return true;
         }
@@ -120,15 +103,12 @@ public class Validacion {
         Matcher matcher = patron.matcher(correoElectronico);
 
         if (correoElectronico == null || correoElectronico.equals("") || correoElectronico.isEmpty()) {
-
             this.mensajeError = "No puede dejar este campo en blanco.";
             return false;
         } else if (correoElectronico.length() > numeroCaracteres) {
-
             this.mensajeError = "Máximo " + numeroCaracteres + " caracteres.";
             return false;
         } else if (!matcher.matches()) {
-
             this.mensajeError = "No es un E-mail.";
             return false;
         } else {
@@ -143,14 +123,10 @@ public class Validacion {
         Matcher matcher = patron.matcher(correoElectronico);
 
         if (correoElectronico.isEmpty() == false) {
-
             if (correoElectronico.length() > numeroCaracteres) {
-
                 this.mensajeError = "Máximo " + numeroCaracteres + " caracteres.";
                 return false;
-
             } else if (!matcher.matches()) {
-
                 this.mensajeError = "No es un E-mail.";
                 return false;
             } else {
@@ -165,20 +141,17 @@ public class Validacion {
 
     public boolean validarNuevaContrasenia(String campoTexto, String confirmacion, int numeroCaracteres) {
 
-        if (campoTexto == null || campoTexto.equals("") || campoTexto.isEmpty() || confirmacion == null || confirmacion.equals("") || confirmacion.isEmpty()) {
-
+        if (campoTexto == null || campoTexto.equals("") || campoTexto.isEmpty() || 
+            confirmacion == null || confirmacion.equals("") || confirmacion.isEmpty()) {
             this.mensajeError = "No puede dejar este campo en blanco.";
             return false;
         } else if (!campoTexto.equals(confirmacion)) {
-
             this.mensajeError = "Las contraseñas no coinciden.";
             return false;
         } else if (campoTexto.length() > numeroCaracteres || confirmacion.length() > numeroCaracteres) {
-
             this.mensajeError = "Máximo " + numeroCaracteres + " caracteres.";
             return false;
         } else if (campoTexto.trim().equals("") || confirmacion.trim().equals("")) {
-
             this.mensajeError = "No deben ser sólo espacios en blanco.";
             return false;
         } else {
@@ -191,15 +164,11 @@ public class Validacion {
 
         this.calendario = Calendar.getInstance();
         this.calendario = new GregorianCalendar();
-
         int anio;
 
         if (validarNumero(campoTexto, numeroCaracteres)) {
-
             anio = Integer.parseInt(campoTexto);
-
             if (anio > calendario.get(Calendar.YEAR)) {
-
                 this.mensajeError = "El año es mayor al actual.";
                 return false;
             }
@@ -214,12 +183,7 @@ public class Validacion {
         int numero;
         try {
             numero = Integer.parseInt(texto);
-            if(numero>=1){
-                return true;
-            }
-            else{
-                return false;
-            }
+            return numero>=1;
         } catch (NumberFormatException e) {
             this.mensajeError = e.getMessage();
             return false;
@@ -239,17 +203,59 @@ public class Validacion {
 
         Pattern patron = Pattern.compile("[0-9]+");
         Matcher matcher;
-
         matcher = patron.matcher(contenido);
 
         if (matcher.matches() || contenido.equals("")) {
-
             this.mensajeError = "";
         } else {
-
             this.mensajeError = "Debe ser un número.";
         }
     }
+    
+    public boolean validarAcordeon(String codigo, String titulo, String paginas, String editorial, String ejemplares, 
+                                   String publicacion, String anio){        
+        boolean retorno = false; 
+        String control = "";
+        
+        if (codigo != null){           
+            control += "N";
+        }else {
+            control += "S";
+        }
+        if(titulo != null){
+            control += "N";
+        }else{
+            control += "S";
+        }
+        if(paginas != null){
+            control += "N";
+        }else{
+            control += "S";
+        }
+        if(editorial != null){
+            control += "N";
+        }else{
+            control += "S";
+        }
+        if(ejemplares != null){
+            control += "N";
+        }else{
+            control += "S";
+        }
+        if(publicacion != null){
+            control += "N";
+        }else{
+            control += "S";
+        }
+        if(anio != null){
+            control += "N";
+        }else{
+            control += "S";
+        }        
+        int auxiliar = control.indexOf("N");
+        retorno = auxiliar == -1;
+        return retorno;
+    }   
 
     public String getMensajeError() {
         return this.mensajeError;
