@@ -4,6 +4,7 @@ package sabga.controlador;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -95,7 +96,12 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             }
         });
     }
-   
+       
+    @FXML
+    public void guardarCambios(ActionEvent evento){
+        validarEdicionLibro();
+    }
+    
     @FXML
     public void adicionarAutor(ActionEvent evento){
         if (!listaMaterial.isEmpty()) {
@@ -150,11 +156,6 @@ public class EditarMaterialController implements Initializable, ControlledScreen
            Utilidades.mensajeAdvertencia(null, "Debe seleccionar al menos una de la lista", "Pare remover una materia", "Remover Materia");
        }    
    }
-    
-    @FXML
-    public void guardarCambios(ActionEvent evento){
-        validarEditarLibro();
-    }
     
     @FXML
     public void buscarMaterial(ActionEvent evento){
@@ -300,12 +301,13 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         }
     }
     
-    public void validarEditarLibro(){
+    public void validarEdicionLibro(){
         
         if(!listaMaterial.isEmpty()){
             ValidarMaterial libro = new ValidarMaterial();
-            libro.validarEditarLibro(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), txtfAnio.getText(), txtfPublicacion.getText(),
-                                     txtfPaginas.getText(), txtfEjemplares.getText(), editorial.getText(), listaAutores, listaMaterias);
+            libro.validarEdicionLibro(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), txtfAnio.getText(), txtfPublicacion.getText(),
+                                      txtfPaginas.getText(), txtfEjemplares.getText(), txtfHabilitado.getText(), txtfInhabilitado.getText(), 
+                                      txtfReparacion.getText(), editorial.getText(), listaAutores, listaMaterias);
             lblValidarCodigo.setText(libro.getErrorCodigoClasificacion());
             lblValidarTitulo.setText(libro.getErrorTitulo());
             lblValidarAnio.setText(libro.getErrorAnioPublicacion());
@@ -316,43 +318,38 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             lblValidarAutor.setText(libro.getErrorAutor());
             lblValidarMateria.setText(libro.getErrorMateria());
             errorAcordeon();
-        }
-       
-       /*
-        if (comboTipoMaterial.getSelectionModel().getSelectedIndex()==1 || comboTipoMaterial.getSelectionModel().getSelectedIndex()==2 ||
-            comboTipoMaterial.getSelectionModel().getSelectedIndex()==3){
-            
-            ValidarMaterial validarActualizacionOM = new ValidarMaterial(campoCodigoClasificacionAC.getText(), campoTituloAC.getText(),campoEjemplaresDisponiblesAC.getText(),
-                                                               campoHabilitadoAC.getText(), campoDeshabilitadoAC.getText(), campoMantenimientoAC.getText(), campoMateria1AC.getText(), 
-                                                               campoMateria2AC.getText(), campoMateria3AC.getText(), campoMateria4AC.getText(), campoMateria5AC.getText(), campoMateria6AC.getText(), 
-                                                               campoMateria7AC.getText(), campoMateria8AC.getText(),campoMateria9AC.getText(), campoMateria10AC.getText());
-            
-            validarActualizacionOM.validarActualizacionOM();
-            validarCodigoClasificacionAC.setText(validarActualizacionOM.getErrorCodigoClasificacion());
-            validarTituloAC.setText(validarActualizacionOM.getErrorTitulo());
-            validarEstadoAC.setText(validarActualizacionOM.getErrorEstado());
-            validarMateriasAC.setText(validarActualizacionOM.getErrorMateria());
-            
-            if (acordeonMaterias.isExpanded()==false && validarMateriasAC.getText()!=null){
-            
+        }      
+    }
+    
+    public void validarEdicionOM(){
+         if(!listaMaterial.isEmpty()){
+             ValidarMaterial om = new ValidarMaterial();
+             om.validarEdicionOM(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), txtfEjemplares.getText(), txtfHabilitado.getText(), 
+                                 txtfInhabilitado.getText(), txtfReparacion.getText(), listaMaterias);
+             lblValidarCodigo.setText(om.getErrorCodigoClasificacion());
+             lblValidarTitulo.setText(om.getErrorTitulo());
+             lblValidarEjemplares.setText(om.getErrorNumeroEjemplares());
+             errorAcordeonOM();             
+         }
+    }
+   
+    private void errorAcordeonOM(){
+          ValidarMaterial om = new ValidarMaterial();
+        if (!acordeonMaterias.isExpanded() && lblValidarMateria.getText() != null){         
             acordeonMaterias.setText("Materias"+"                se ha encontrado un error!");
             }       
             else {
-
                 acordeonMaterias.setText("Materias");
             }
-            if(acordeonGeneral.isExpanded()==false && errorAcordeon() == false){
-            
+            if(!acordeonGeneral.isExpanded() && !om.validarAcordeon(lblValidarCodigo.getText(), lblValidarTitulo.getText(), 
+                                                                    lblValidarEjemplares.getText())){ 
             acordeonGeneral.setText("General"+"                 se ha encontrado un error!");        
             }
             else{
                 acordeonGeneral.setText("General");
             }
-
-        }
-         */    
     }
-   
+    
     private void errorAcordeon(){
         ValidarMaterial libro = new ValidarMaterial();
         if (!acordeonMaterias.isExpanded() && lblValidarMateria.getText() != null) {
@@ -365,8 +362,9 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         } else {
             acordeonAutores.setText("Autores");
         }
-        if (!acordeonGeneral.isExpanded() && !libro.validarAcordeon(lblValidarCodigo.getText(), lblValidarTitulo.getText(), lblValidarPaginas.getText(),
-                                                                    lblValidarEditorial.getText(),lblValidarEjemplares.getText(), lblValidarPublicacion.getText(),
+        if (!acordeonGeneral.isExpanded() && !libro.validarAcordeon(lblValidarCodigo.getText(), lblValidarTitulo.getText(), 
+                                                                    lblValidarPaginas.getText(), lblValidarEditorial.getText(),
+                                                                    lblValidarEjemplares.getText(), lblValidarPublicacion.getText(),
                                                                     lblValidarAnio.getText())) {
             acordeonGeneral.setText("General" + "                 se ha encontrado un error!");
         } else {
@@ -492,20 +490,18 @@ public class EditarMaterialController implements Initializable, ControlledScreen
                 updateFilteredData();
             }
         });
-         
-        
+                 
         // PRUEBA DE TOOLTIP.....WORKS BY THE WAY :)
-        /* Platform.runLater(new Runnable() {@Override 
+        Platform.runLater(new Runnable() {private Tooltip detalle; 
+        @Override 
         public void run() { 
-        est= new Tooltip("Esto es una prueba de un Tooltip, esto es otra prueba, esto es otra otra prueba");
-         botonNuevaEditorial.setTooltip(est); 
-            MenuItem h = new MenuItem("Esto es una prueba de un menú contextual ");
-            ContextMenu es = new ContextMenu(h);            
-            botonNuevaEditorial.setContextMenu(es);
-                    
-        }});*/
+        detalle = new Tooltip("Muestra en detalle la información del material.\nDebe seleccionarlo de la lista.");
+         btnDetalle.setTooltip(detalle); 
+           // MenuItem h = new MenuItem("Esto es una prueba de un menú contextual ");
+           // ContextMenu es = new ContextMenu(h);            
+           // botonNuevaEditorial.setContextMenu(es);                 
+        }});
                 
     }    
-   
-
+  
 }

@@ -56,8 +56,9 @@ public class ConfirmarMaterial extends ValidarMaterial {
         }
     }
     
-    public boolean confirmarNuevoLibro(Object claseMaterial, String codigo, String titulo, String anioPublicacion, String publicacion,
-                                       String paginas, String ejemplares, String editorial, ObservableList autores, ObservableList materias) {
+    public boolean confirmarNuevoLibro(Object claseMaterial, String codigo, String titulo, String anioPublicacion, 
+                                       String publicacion, String paginas, String ejemplares, String editorial, 
+                                       ObservableList autores, ObservableList materias) {
 
         if (claseMaterial == null) {
             return false;
@@ -85,7 +86,8 @@ public class ConfirmarMaterial extends ValidarMaterial {
 
     }
  
-    public boolean confirmarOtroMaterial(Object tipoMaterial, Object claseMaterial, String codigo, String titulo, String copias, ObservableList materias) {
+    public boolean confirmarOtroMaterial(Object tipoMaterial, Object claseMaterial, String codigo, String titulo, 
+                                         String copias, ObservableList materias) {
 
         if (tipoMaterial == null) {
             return false;
@@ -103,4 +105,61 @@ public class ConfirmarMaterial extends ValidarMaterial {
             return true;
         }
     }
+    
+    public boolean confirmarEdicionLibro(String codigo, String titulo, String anioPublicacion, String publicacion, 
+                                         String paginas,String ejemplares, String habilitado, String inhabilitado, 
+                                         String mantenimiento, String editorial, ObservableList autores, ObservableList materias){
+        
+        if (!validarCampoTexto(codigo, 45)) {
+            return false;
+        }
+        else if (!validarCampoTexto(titulo, 255)) {
+            return false;
+        }
+        else if (!validarAnio(anioPublicacion, 4)) {
+            return false;
+        }
+        else if (!validarCampoTextoNull(publicacion, 255)) {
+            return false;
+        }
+        else if (!validarNumero(paginas, 10)) {
+            return false;
+        }
+        else if (!validarEstadoEjemplares(ejemplares, habilitado, inhabilitado, mantenimiento, 10)) {
+            return false;
+        }
+        else if (!validarCampoTextoNull(editorial, 90)) {
+            return false;
+        }
+        else if (autores.isEmpty()) {
+            return false;
+        }
+        else if (materias.isEmpty()) {
+            return false;
+        }
+        else{
+            return true;
+        }     
+    }
+    
+    public boolean confirmarEdicionOM(String codigo, String titulo, String copias, String habilitado, String inhabilitado, 
+                                       String mantenimiento, ObservableList materias){
+  
+        if (!validarCampoTexto(codigo, 45)) {
+            return false;
+        }
+        if (!validarCampoTexto(titulo, 255)) {
+            return false;
+        }
+        if (!validarEstadoEjemplares(copias, habilitado, inhabilitado, mantenimiento, 10)) {
+            return false;
+        }
+        if (materias.isEmpty()) {
+           return false;
+        }
+        else{
+            return true;
+        }
+    }
+
 }
