@@ -18,9 +18,9 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="510.0" prefWidth="1260.0">
               <children>
-                <HBox id="HBox" alignment="CENTER" layoutX="55.0" layoutY="16.0" spacing="30.0">
+                <HBox id="HBox" alignment="CENTER" layoutX="55.0" layoutY="41.0" spacing="30.0">
                   <children>
-                    <ComboBox fx:id="comboClaseMaterial" prefHeight="25.0" prefWidth="143.0" promptText="Clase De Material">
+                    <ComboBox fx:id="comboClaseMaterial" prefHeight="25.0" prefWidth="143.0" promptText="Clase de Material">
                       <items>
                         <FXCollections fx:factory="observableArrayList">
                           <String fx:value="Común" />
@@ -36,7 +36,7 @@
                     </Label>
                   </children>
                 </HBox>
-                <GridPane prefHeight="394.0" prefWidth="450.0" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="754.0">
+                <GridPane prefHeight="394.0" prefWidth="450.0" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="754.0">
                   <children>
                     <Label text="Código de Clasificación" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                     <TextField id="campoNumeroClasificacion" fx:id="txtfCodigo" depthTest="INHERIT" editable="true" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" promptText="Ingrese el código de clasificación" GridPane.columnIndex="1" GridPane.rowIndex="0" />
@@ -183,6 +183,11 @@
                     </Button>
                   </children>
                 </HBox>
+                <Label labelFor="$comboClaseMaterial" layoutX="56.0" layoutY="11.0" text="Clase de Material">
+                  <font>
+                    <Font name="System Bold" size="12.0" fx:id="x2" />
+                  </font>
+                </Label>
               </children>
             </AnchorPane>
           </content>
@@ -193,7 +198,7 @@
               <children>
                 <HBox id="HBox" alignment="CENTER" layoutX="95.0" layoutY="60.0" spacing="130.0">
                   <children>
-                    <ComboBox fx:id="comboTipoMaterial" prefHeight="25.0" prefWidth="150.0" promptText="Tipo De Material">
+                    <ComboBox fx:id="comboTipoMaterial" prefHeight="25.0" prefWidth="150.0" promptText="Tipo de Material">
                       <items>
                         <FXCollections fx:factory="observableArrayList">
                           <String fx:value="Folletos" />
@@ -202,7 +207,7 @@
                         </FXCollections>
                       </items>
                     </ComboBox>
-                    <ComboBox id="comboClaseMaterial" fx:id="comboClaseMaterialOM" prefHeight="25.0" prefWidth="150.0" promptText="Clase De Material">
+                    <ComboBox id="comboClaseMaterial" fx:id="comboClaseMaterialOM" prefHeight="25.0" prefWidth="150.0" promptText="Clase de Material">
                       <items>
                         <FXCollections fx:factory="observableArrayList">
                           <String fx:value="Común" />
@@ -277,6 +282,8 @@
                 </HBox>
                 <Label id="validarClaseMaterialOM" fx:id="validarTipoMaterialOM" alignment="CENTER_RIGHT" layoutX="17.0" layoutY="95.0" prefWidth="228.0" text="" textFill="$x3" />
                 <Label fx:id="validarClaseMaterialOM" alignment="CENTER_RIGHT" layoutX="273.0" layoutY="95.0" prefWidth="252.0" text="" textFill="$x3" />
+                <Label font="$x2" labelFor="$comboTipoMaterial" layoutX="95.0" layoutY="29.0" text="Tipo de Material" />
+                <Label font="$x2" labelFor="$comboClaseMaterialOM" layoutX="375.0" layoutY="26.0" text="Clase de Material" />
               </children>
             </AnchorPane>
           </content>

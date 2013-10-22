@@ -35,12 +35,12 @@
             <Font name="System Bold" size="13.0" fx:id="x1" />
           </font>
         </Label>
-        <Label font="$x1" text="Usuario" GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <Label font="$x1" text="Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="1">
           <labelFor>
             <TextField id="camponombre" fx:id="campoUsuario" prefHeight="30.0" prefWidth="203.0" promptText="Nombre de usuario" GridPane.columnIndex="1" GridPane.rowIndex="1" />
           </labelFor>
         </Label>
-        <Label font="$x1" text="Contraseña" GridPane.columnIndex="0" GridPane.rowIndex="3">
+        <Label font="$x1" text="Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="3">
           <labelFor>
             <PasswordField id="campoContra" fx:id="campoContrasenia" prefHeight="30.0" prefWidth="203.0" promptText="Contraseña" GridPane.columnIndex="1" GridPane.rowIndex="3" />
           </labelFor>
@@ -66,13 +66,13 @@
         <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <HBox id="HBox" alignment="CENTER" spacing="130.0" AnchorPane.bottomAnchor="80.0" AnchorPane.rightAnchor="71.0">
+    <HBox id="HBox" alignment="CENTER" spacing="110.0" AnchorPane.bottomAnchor="80.0" AnchorPane.rightAnchor="66.0">
       <children>
-        <Button mnemonicParsing="false" onAction="#salir" prefHeight="25.0" prefWidth="85.0" text="Salir" />
+        <Button mnemonicParsing="false" onAction="#salir" prefHeight="25.0" prefWidth="120.0" text="Salir" />
         <Button defaultButton="true" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="25.0" prefWidth="120.0" text="Iniciar Sesión" />
       </children>
     </HBox>
-    <Hyperlink id="RestablecerContra" alignment="CENTER_RIGHT" onAction="#restablecerContrasenia" prefWidth="252.0" text="¿No recuerda su usuario o contraseña?" textFill="#0083cc" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="69.0">
+    <Hyperlink id="RestablecerContra" alignment="CENTER_RIGHT" onAction="#restablecerContrasenia" prefWidth="252.0" text="¿No recuerda su usuario o contraseña?" textFill="#0083cc" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="62.0">
       <font>
         <Font size="13.0" />
       </font>

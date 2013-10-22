@@ -34,14 +34,14 @@
             <Font name="System Bold" size="14.0" fx:id="x1" />
           </font>
         </Label>
-        <HBox id="HBox" fx:id="hboxAdmin" alignment="CENTER_RIGHT" fillHeight="true" layoutX="1060.0" layoutY="7.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+        <HBox id="HBox" fx:id="hboxAdmin" alignment="CENTER_RIGHT" fillHeight="true" layoutX="1052.0" layoutY="8.0" minHeight="-Infinity" minWidth="-Infinity" spacing="50.0">
           <children>
-            <MenuButton font="$x1" mnemonicParsing="false" text="Administrador" HBox.hgrow="ALWAYS">
+            <MenuButton font="$x1" mnemonicParsing="false" prefHeight="25.0" text="Administrador" HBox.hgrow="ALWAYS">
               <items>
                 <Menu mnemonicParsing="false" text="Configuracion">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroAdmin" text="Registrar Administrador" />
-                    <MenuItem mnemonicParsing="false" onAction="#ventanaEditarAdmin" text="Editar Administrador" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaEditarAdmin" text="Mi Cuenta" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroAdmin" text="Registrar Auxiliar" />
                   </items>
                 </Menu>
                 <MenuItem mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" />
@@ -50,7 +50,7 @@
                 <Insets fx:id="x7" />
               </HBox.margin>
             </MenuButton>
-            <Button id="botonAyuda" font="$x1" maxHeight="1.7976931348623157E308" mnemonicParsing="false" text="?" textFill="WHITE" HBox.hgrow="ALWAYS">
+            <Button id="botonAyuda" contentDisplay="CENTER" font="$x1" maxHeight="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" styleClass="botonAyuda" text="" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="ALWAYS">
               <stylesheets>
                 <URL value="@css/estilo.css" />
               </stylesheets>

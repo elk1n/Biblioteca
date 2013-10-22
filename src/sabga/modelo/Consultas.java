@@ -217,6 +217,8 @@ public class Consultas {
         }
     }
     
+    
+    
     public String getTitulo(){
         return this.titulo;
     }

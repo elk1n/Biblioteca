@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.Pane;
 import sabga.Sabga;
 import sabga.configuracion.Conexion;
 import sabga.configuracion.Utilidades;
@@ -25,6 +27,10 @@ public class RestablecerContraseniaController implements Initializable {
     private Label lblValidarDocumento, lblValidarCorreo, lblValidacion;    
     @FXML 
     private TextField txtfDocumento, txtfCorreo;
+    @FXML 
+    private Pane panelAyuda;
+    @FXML
+    private ToggleButton btnAyuda;
     
     private final Conexion con;
     
@@ -131,12 +137,17 @@ public class RestablecerContraseniaController implements Initializable {
     }
     
     @FXML
-    private void salir(ActionEvent evento){
-         System.exit(0);   
+    private void ayuda(ActionEvent evento){    
+        
+        if(btnAyuda.isSelected()){         
+            panelAyuda.setVisible(true);         
+        }else{
+            panelAyuda.setVisible(false);
+        }         
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-   
+    
     }    
 }
