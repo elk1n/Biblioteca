@@ -1,9 +1,6 @@
 
 package sabga.controlador;
 
-import de.thomasbolz.javafx.NumberSpinner;
-import de.thomasbolz.javafx.NumberSpinnerDemo;
-import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -53,8 +50,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     private Label lblEditorial, lblValidarCodigo, lblValidarTitulo, lblValidarAnio, lblValidarPublicacion, lblValidarEditorial, lblValidarEjemplares,
                     lblValidarPaginas, lblValidarAutor, lblValidarMateria;    
     @FXML 
-    private TextField txtfCodigoClasificacion, txtfTitulo, txtfAnio, txtfPublicacion, txtfEjemplares, txtfPaginas, txtfHabilitado, txtfInhabilitado,
-                        txtfReparacion, txtfFiltrar, txtfBuscar;
+    private TextField txtfCodigoClasificacion, txtfTitulo, txtfAnio, txtfPublicacion, txtfPaginas, txtfFiltrar, txtfBuscar;
     @FXML 
     private Button  btnBorrar, btnDetalle, btnEditorial, btnAutor, btnMateria, btnCodigoBarras, btnBorrarBusqueda;    
     @FXML 
@@ -62,13 +58,13 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     @FXML 
     private TitledPane acordeonGeneral, acordeonAutores, acordeonMaterias;
     @FXML
-    private HBox hboxEditorial, hboxAutores, hboxMaterias, hPrueba;
+    private HBox hboxEditorial, hboxAutores, hboxMaterias, hbox;
     @FXML    
     private Tooltip est;
     @FXML
-    private TableView tablaMaterial, tablaMaterias, tablaAutores;
+    private TableView tablaMaterial, tablaMaterias, tablaAutores, tablaEjemplar;
     @FXML
-    private TableColumn clmnTitulo, clmnCodigo, clmnClase, clmnMateria, clmnNombre, clmnApellidos;
+    private TableColumn clmnTitulo, clmnCodigo, clmnClase, clmnMateria, clmnNombre, clmnApellidos, clmnEjemplar, clmnMaterial, clmnEstado;
     private final AutoFillTextBox editorial, autores, materias ;    
     private final ObservableList<Material> filtrarMaterial;
     private final ObservableList<Material> listaMaterial;
@@ -76,7 +72,6 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     private final ObservableList<Autor> obtenerAutores;
     private final ObservableList<Materia> listaMaterias;
     private final ObservableList listaBusquedaMaterias, listaBusquedaAutores;
-    private NumberSpinner def = new NumberSpinner();
     private final Consultas consulta;
 
     
@@ -189,11 +184,11 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             txtfCodigoClasificacion.setText(consulta.getClasificacion());
             txtfAnio.setText(String.valueOf(consulta.getAnio()));
             txtfPublicacion.setText(consulta.getPublicacion());
-            txtfEjemplares.setText(String.valueOf(consulta.getEjemplares()));
+          //  txtfEjemplares.setText(String.valueOf(consulta.getEjemplares()));
             txtfPaginas.setText(String.valueOf(consulta.getPaginas()));
-            txtfHabilitado.setText(String.valueOf(consulta.getHabilitado()));
-            txtfInhabilitado.setText(String.valueOf(consulta.getInhabilitado()));
-            txtfReparacion.setText(String.valueOf(consulta.getReparacion()));
+           // txtfHabilitado.setText(String.valueOf(consulta.getHabilitado()));
+           // txtfInhabilitado.setText(String.valueOf(consulta.getInhabilitado()));
+           // txtfReparacion.setText(String.valueOf(consulta.getReparacion()));
             comboTipoMaterial.getSelectionModel().select(consulta.getTipoMaterial());
             comboClaseMaterial.getSelectionModel().select(consulta.getClaseMaterial());
             lblEditorial.setText(consulta.getEditorial());
@@ -314,7 +309,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     }
     
     public void validarEdicionLibro(){
-        
+        /*
         if(!listaMaterial.isEmpty()){
             ValidarMaterial libro = new ValidarMaterial();
             libro.validarEdicionLibro(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), txtfAnio.getText(), txtfPublicacion.getText(),
@@ -330,18 +325,19 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             lblValidarAutor.setText(libro.getErrorAutor());
             lblValidarMateria.setText(libro.getErrorMateria());
             errorAcordeon();
-        }      
+        }     */ 
     }
     
     public void validarEdicionOM(){
          if(!listaMaterial.isEmpty()){
+             /*
              ValidarMaterial om = new ValidarMaterial();
              om.validarEdicionOM(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), txtfEjemplares.getText(), txtfHabilitado.getText(), 
                                  txtfInhabilitado.getText(), txtfReparacion.getText(), listaMaterias);
              lblValidarCodigo.setText(om.getErrorCodigoClasificacion());
              lblValidarTitulo.setText(om.getErrorTitulo());
              lblValidarEjemplares.setText(om.getErrorNumeroEjemplares());
-             errorAcordeonOM();             
+             errorAcordeonOM();    */         
          }
     }
    
@@ -482,11 +478,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         hboxAutores.getChildren().add(autores);
         btnBorrar.setVisible(false);
         btnBorrarBusqueda.setVisible(false);
-        def.setNumber(BigDecimal.valueOf(400));
-        //def.setStyle("vista/css/number_spinner.css");
-        def.setPrefHeight(45);
-        def.setPrefWidth(60);
-        hPrueba.getChildren().add(def);
+       
     }
     
     /** 

@@ -4,14 +4,14 @@ root {
 }
 
 #barraCabecera{
-    
-     -fx-background-color: #5982AA,
+
+    -fx-background-color: #5982AA,
         linear-gradient(#5982AA, #5982AA),
         linear-gradient(#FFF, #5982AA);  
 }
 
 .botonBorrarBusqueda{
-    
+
     -fx-background-image: url("../Imagenes/Borrar.png");
     -fx-background-position:center;
     -fx-background-repeat:no-repeat;
@@ -19,7 +19,7 @@ root {
 }
 
 .botonBorrar{
-    
+
     -fx-background-image: url("../Imagenes/Clear.png");
     -fx-background-position:center;
     -fx-background-repeat:no-repeat;
@@ -27,19 +27,16 @@ root {
 }
 
 #campoBusqueda {
-    
--fx-padding: 0px 155px 0px 5px;
-    
+    -fx-padding: 0px 155px 0px 5px;
 }
 
 .campoBusqueda {
-    
--fx-padding: 0px 27px 0px 5px;
-    
+
+    -fx-padding: 0px 27px 0px 5px;
 }
 
 .botonMenos {
-    
+
     -fx-background-image: url("../Imagenes/Menos.png");
     -fx-background-position:center;
     -fx-background-repeat:no-repeat;
@@ -47,63 +44,74 @@ root {
 }
 
 .botonBuscar {
-    
+
     -fx-background-image: url("../Imagenes/Buscar.png");
     -fx-background-position:center;
     -fx-background-repeat:no-repeat;
     -fx-background-color:transparent;
 }
 
-.botonMenos:hover {
-    
-     -fx-background-color:#9A9A9A;
-     -fx-background-radius: 12px;
-     
-}
-
 .botonBuscar:hover{
     
+    -fx-background-color: 
+        linear-gradient(#f2f2f2, #d6d6d6),
+        linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),
+        linear-gradient(#dddddd 0%, #f6f6f6 50%);        
+    -fx-background-radius: 23px; 
+}
+
+.botonBuscar:pressed{
+    
+    -fx-background-color:#3c7fb1,
+        linear-gradient(#fafdfe, #e8f5fc),
+        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);
+    -fx-background-radius: 20px;   
+}
+
+.botonMenos:hover {
+
     -fx-background-color:#9A9A9A;
-    -fx-background-radius: 23px;
+    -fx-background-radius: 12px;
+
 }
 
 .botonAyuda{
-    
+
     -fx-background-image: url("../Imagenes/Ayuda.png");
     -fx-background-position:center;
     -fx-background-repeat:no-repeat;
     -fx-background-color:transparent;
-    
+
 }
 
 .botonAyuda:hover{
-    
-     -fx-background-color: 
+
+    -fx-background-color: 
         linear-gradient(#f2f2f2, #d6d6d6),
         linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),
         linear-gradient(#dddddd 0%, #f6f6f6 50%);        
-     -fx-background-radius: 20px;     
+    -fx-background-radius: 20px;     
 }
 
 .botonAyuda:pressed{
-    
-      -fx-background-color:#3c7fb1,
+
+    -fx-background-color:#3c7fb1,
         linear-gradient(#fafdfe, #e8f5fc),
         linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);
     -fx-background-radius: 20px;
 }
 
 .resultado{
-   
+
     -fx-background-color: 
         linear-gradient(#fcfcfc 100%, #d9d9d9 20%, #d6d6d6 0%),
         linear-gradient(#dddddd 50%, #f6f6f6 0%),
         linear-gradient(#f2f2f2, #d6d6d6);
-      -fx-background-radius: 5px;   
+    -fx-background-radius: 5px;   
 }
 
 .panelAyuda{
-   
+
     -fx-background-color: #FFF;
     -fx-background-radius: 5px;  
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
@@ -112,17 +120,17 @@ root {
 
 .estiloBoton {
     -fx-background-color:#000000,
-       linear-gradient(#7ebcea, #2f4b8f),
-       linear-gradient(#426ab7, #263e75),
-       linear-gradient(#395cab, #223768);
-   -fx-background-insets: 0,1,2,3;
-   -fx-background-radius: 3,2,2,2;
-   -fx-padding: 12 30 12 30;
-   -fx-text-fill: white;
-   -fx-font-size: 14;    
-   -fx-font-family: "System";
-   -fx-text-fill: linear-gradient(white, #d0d0d0);
-   -fx-padding: 10 20 10 20;
+        linear-gradient(#7ebcea, #2f4b8f),
+        linear-gradient(#426ab7, #263e75),
+        linear-gradient(#395cab, #223768);
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 3,2,2,2;
+    -fx-padding: 12 30 12 30;
+    -fx-text-fill: white;
+    -fx-font-size: 14;    
+    -fx-font-family: "System";
+    -fx-text-fill: linear-gradient(white, #d0d0d0);
+    -fx-padding: 10 20 10 20;
 }
 
 .botonGeneral 
@@ -140,18 +148,17 @@ root {
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
     -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);
- }
- 
- .botonGeneral Text {
+}
+
+.botonGeneral Text {
     -fx-effect: dropshadow( one-pass-box , white , 0, 0.0 , 0 , 1 );
- }
- 
- .botonGeneral:hover
- {
-      -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.2) , 1, 0.0 , 0 , 1);
- }
+}
+
+.botonGeneral:hover
+{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.2) , 1, 0.0 , 0 , 1);
+}
 
 .autofill-text {
     -fx-skin: "np.com.ngopal.control.AutoFillTextBoxSkin";
 }
- 

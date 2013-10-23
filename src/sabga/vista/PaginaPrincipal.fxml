@@ -34,7 +34,7 @@
             <Font name="System Bold" size="14.0" fx:id="x1" />
           </font>
         </Label>
-        <HBox id="HBox" fx:id="hboxAdmin" alignment="CENTER_RIGHT" fillHeight="true" layoutX="1052.0" layoutY="8.0" minHeight="-Infinity" minWidth="-Infinity" spacing="50.0">
+        <HBox id="HBox" fx:id="hboxAdmin" alignment="CENTER_RIGHT" fillHeight="true" layoutX="1029.0" layoutY="8.0" minHeight="-Infinity" minWidth="-Infinity" spacing="50.0">
           <children>
             <MenuButton font="$x1" mnemonicParsing="false" prefHeight="25.0" text="Administrador" HBox.hgrow="ALWAYS">
               <items>

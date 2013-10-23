@@ -107,7 +107,7 @@ public class InicioSesionController implements Initializable{
     
         try {
             con.conectar();
-            con.setResultado(con.getStatement().executeQuery("SELECT tipo_administrador FROM tbl_BIBLIOTECARIO"));
+            con.setResultado(con.getStatement().executeQuery("SELECT DISTINCT tipo_administrador FROM tbl_BIBLIOTECARIO"));
 
             while (con.getResultado().next()) {
                 listaAdministradores.add(con.getResultado().getString("tipo_administrador"));
