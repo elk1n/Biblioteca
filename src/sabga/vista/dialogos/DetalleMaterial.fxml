@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="516.0" prefWidth="924.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.dialogos.DetalleMaterialController">
   <children>
-    <GridPane id="GridPane" prefHeight="484.0" prefWidth="483.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="401.0">
+    <GridPane id="GridPane" prefHeight="484.0" prefWidth="483.0" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="401.0">
       <children>
         <Label text="Titulo:" GridPane.columnIndex="0" GridPane.rowIndex="0">
           <font>
@@ -20,20 +20,17 @@
         <Label font="$x5" text="Clase Material:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
         <Label font="$x5" text="Publicacion:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
         <Label font="$x5" text="Año de Publicacion:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
-        <Label font="$x5" text="Numero de Ejemplares:" GridPane.columnIndex="0" GridPane.rowIndex="14" />
         <Label font="$x5" text="Tipo de Material:" GridPane.columnIndex="0" GridPane.rowIndex="12" />
         <Label font="$x5" text="Editorial:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-        <Label id="txtfTitulo" fx:id="lblTitulo" prefWidth="483.0" text="" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <Label id="txtfCodigo" fx:id="lblCodigo" prefWidth="483.0" text="" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3">
           <font>
             <Font name="System Bold" size="14.0" fx:id="x1" />
           </font>
         </Label>
-        <Label id="txtfCodigo" fx:id="lblCodigo" font="$x1" prefWidth="483.0" text="" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
         <Label id="txtfEditorial" fx:id="lblEditorial" font="$x1" prefWidth="483.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="5" />
         <Label id="txtfAnio" fx:id="lblAnio" font="$x1" prefWidth="483.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="9" />
         <Label id="txtfClase" fx:id="lblClase" font="$x1" prefWidth="483.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="11" />
         <Label id="txtfTipo" fx:id="lblTipo" font="$x1" prefWidth="470.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="13" />
-        <Label id="txtfEjemplares" fx:id="lblEjemplares" font="$x1" prefWidth="167.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="15" />
         <Label id="txtfPublicacion" fx:id="lblPublicacion" font="$x1" prefWidth="483.0" text="" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="7" />
       </children>
       <columnConstraints>
@@ -55,7 +52,6 @@
         <RowConstraints maxHeight="31.0" minHeight="0.0" prefHeight="19.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="61.0" minHeight="10.0" percentHeight="8.0" prefHeight="42.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="17.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="32.0" minHeight="10.0" percentHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
     <Accordion minWidth="330.0" prefHeight="414.0" prefWidth="359.0" AnchorPane.bottomAnchor="75.0" AnchorPane.rightAnchor="16.0">
@@ -84,56 +80,17 @@
             </AnchorPane>
           </content>
         </TitledPane>
-        <TitledPane fx:id="x2" animated="false" expanded="false" font="$x4" text="Estado y Disponibilidad">
+        <TitledPane fx:id="x2" animated="false" expanded="false" font="$x4" text="Ejemplares">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <GridPane id="GridPane" layoutX="81.0" layoutY="28.0" prefHeight="97.0" prefWidth="179.0">
-                  <children>
-                    <Label font="$x1" text="Estado:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                    <Label text="Habilitados" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                    <Label text="Inhabilitados" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                    <Label text="Mantenimiento" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                    <Label fx:id="lblHabilitados" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="55.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                      <font>
-                        <Font name="System Bold" size="12.0" fx:id="x6" />
-                      </font>
-                    </Label>
-                    <Label fx:id="lblInhabilitados" alignment="CENTER_RIGHT" contentDisplay="RIGHT" font="$x6" prefWidth="55.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                    <Label fx:id="lblMantenimiento" alignment="CENTER_RIGHT" contentDisplay="RIGHT" font="$x6" prefWidth="55.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  </children>
-                  <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="126.0" minWidth="10.0" prefWidth="124.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="68.0" minWidth="10.0" prefWidth="55.0" />
-                  </columnConstraints>
-                  <rowConstraints>
-                    <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="24.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="24.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="24.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
-                  </rowConstraints>
-                </GridPane>
-                <GridPane id="GridPane" layoutX="81.0" layoutY="164.0" prefHeight="97.0" prefWidth="180.00009999999747">
-                  <children>
-                    <Label font="$x1" text="Disponibilidad:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                    <Label text="Reservado" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                    <Label fx:id="lblReservado" alignment="CENTER_RIGHT" contentDisplay="RIGHT" font="$x6" prefWidth="49.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                    <Label text="Disponible" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                    <Label fx:id="lblDisponible" alignment="CENTER_RIGHT" contentDisplay="RIGHT" font="$x6" prefWidth="49.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                    <Label text="Prestado" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                    <Label fx:id="lblPrestado" alignment="CENTER_RIGHT" contentDisplay="RIGHT" font="$x6" prefWidth="49.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  </children>
-                  <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="132.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="59.0" minWidth="10.0" prefWidth="48.0" />
-                  </columnConstraints>
-                  <rowConstraints>
-                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                  </rowConstraints>
-                </GridPane>
+                <TableView fx:id="tblEjemplares" editable="true" layoutX="14.0" layoutY="23.0" prefHeight="300.0" prefWidth="329.0">
+                  <columns>
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="105.0" text="Ejemplar" fx:id="clmnEjemplar" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="104.0" text="Estado" fx:id="clmnEstado" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="109.0" text="Disponibilidad" fx:id="clmnDispo" />
+                  </columns>
+                </TableView>
               </children>
             </AnchorPane>
           </content>

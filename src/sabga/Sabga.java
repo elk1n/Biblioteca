@@ -98,9 +98,9 @@ public class Sabga extends Application {
         Scene scene = new Scene(rootLayout);
         
         primaryStage.setScene(scene);
-        // Quitar el comentario para habilitar la pàgina de login o inicio de sesión
-        dialogoInicioSesion();        
-       // primaryStage.show();        
+       // Quitar el comentario para habilitar la pàgina de login o inicio de sesión
+        //dialogoInicioSesion();        
+       primaryStage.show();        
           
         PaginaPrincipalController controller = cargador.getController();
         controller.setVentanaPrincipal(this);

@@ -204,7 +204,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         } catch (SQLException e) {
             con.getConexion().rollback();
             mensaje = String.valueOf(e.getErrorCode());
-            Utilidades.mensajeError(null, e.getMessage(), "Error al tratar de registrar el material  a ver si es acá", "Error Guardar Material");  
+            Utilidades.mensajeError(null, e.getMessage(), "Error al tratar de registrar el material", "Error Guardar Material");  
         } finally {
             con.desconectar();
         }

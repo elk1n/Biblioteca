@@ -34,11 +34,11 @@
             <Font name="System Bold" size="14.0" fx:id="x1" />
           </font>
         </Label>
-        <HBox id="HBox" fx:id="hboxAdmin" alignment="CENTER_RIGHT" fillHeight="true" layoutX="1029.0" layoutY="8.0" minHeight="-Infinity" minWidth="-Infinity" spacing="50.0">
+        <HBox id="HBox" fx:id="hboxAdmin" alignment="CENTER_RIGHT" fillHeight="true" layoutX="995.0" layoutY="12.0" minHeight="-Infinity" minWidth="-Infinity" spacing="30.0">
           <children>
             <MenuButton font="$x1" mnemonicParsing="false" prefHeight="25.0" text="Administrador" HBox.hgrow="ALWAYS">
               <items>
-                <Menu mnemonicParsing="false" text="Configuracion">
+                <Menu mnemonicParsing="false" text="Configuración">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#ventanaEditarAdmin" text="Mi Cuenta" />
                     <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroAdmin" text="Registrar Auxiliar" />
@@ -50,6 +50,14 @@
                 <Insets fx:id="x7" />
               </HBox.margin>
             </MenuButton>
+            <Button font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" styleClass="botonBuscar" text="">
+              <rotationAxis>
+                <Point3D />
+              </rotationAxis>
+              <stylesheets>
+                <URL value="@css/estilo.css" />
+              </stylesheets>
+            </Button>
             <Button id="botonAyuda" contentDisplay="CENTER" font="$x1" maxHeight="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" styleClass="botonAyuda" text="" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="ALWAYS">
               <stylesheets>
                 <URL value="@css/estilo.css" />
@@ -80,14 +88,6 @@
                 <URL value="@css/estilo.css" />
               </stylesheets>
             </TextField>
-            <Button font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" styleClass="botonBuscar" text="">
-              <rotationAxis>
-                <Point3D />
-              </rotationAxis>
-              <stylesheets>
-                <URL value="@css/estilo.css" />
-              </stylesheets>
-            </Button>
           </children>
         </HBox>
         <Button fx:id="botonBorrarBusqueda" contentDisplay="CENTER" graphicTextGap="2.0" layoutX="650.0" layoutY="76.0" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#borrarCampo" opacity="0.79" prefHeight="20.0" prefWidth="20.0" styleClass="botonBorrarBusqueda">
@@ -163,6 +163,11 @@
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#ventanaPrestamo" text="Prestamo" />
                     <MenuItem mnemonicParsing="false" onAction="#ventanaDevolucion" text="Devolución" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Reserva">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Reservar" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Paz y Salvo">

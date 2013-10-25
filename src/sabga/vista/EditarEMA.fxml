@@ -13,7 +13,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="520.0" prefWidth="1109.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.EditarEMAController">
   <children>
-    <Accordion layoutX="570.0" layoutY="60.0" prefHeight="370.0" prefWidth="514.0">
+    <Accordion layoutX="570.0" layoutY="60.0" prefHeight="370.0" prefWidth="514.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
       <expandedPane>
         <TitledPane id="x6" fx:id="acordeonAutor" animated="false" text="Autor">
           <content>
@@ -85,15 +85,10 @@
         </TitledPane>
       </panes>
     </Accordion>
-    <HBox id="HBox" alignment="CENTER" layoutX="586.0" layoutY="465.0" prefWidth="498.0" spacing="35.0">
+    <HBox id="HBox" alignment="CENTER" layoutX="572.0" layoutY="465.0" prefWidth="509.0" spacing="200.0">
       <children>
-        <Button fx:id="btnEliminar" cancelButton="true" defaultButton="false" maxWidth="-1.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="25.0" prefWidth="150.0" text="Eliminar" />
-        <Button cancelButton="true" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="141.0" text="Cancelar" textFill="#202020">
-          <stylesheets>
-            <URL value="@css/estilo.css" />
-          </stylesheets>
-        </Button>
-        <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarCambios" prefHeight="25.0" text="Guardar Cambios" />
+        <Button fx:id="btnEliminar" cancelButton="true" defaultButton="false" maxWidth="-1.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="25.0" prefWidth="120.0" text="Eliminar" />
+        <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarCambios" prefHeight="25.0" prefWidth="120.0" text="Guardar Cambios" />
       </children>
     </HBox>
     <ComboBox fx:id="comboListar" layoutX="20.0" onAction="#listar" prefHeight="25.0" prefWidth="150.0" promptText="Listar" AnchorPane.topAnchor="21.0">
@@ -107,7 +102,7 @@
         </FXCollections>
       </items>
     </ComboBox>
-    <TableView fx:id="tablaResultados" disable="false" editable="false" focusTraversable="true" layoutX="20.0" layoutY="60.0" onKeyPressed="#mapearDatos" onMousePressed="#mapearDatos" prefHeight="445.0" prefWidth="528.0" tableMenuButtonVisible="false">
+    <TableView fx:id="tablaResultados" disable="false" editable="false" focusTraversable="true" layoutX="20.0" layoutY="60.0" onKeyPressed="#mapearDatos" onMousePressed="#mapearDatos" prefHeight="445.0" prefWidth="528.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" tableMenuButtonVisible="false">
       <columns>
         <TableColumn editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="507.0" text="Nombre" fx:id="clmnNombre" />
       </columns>

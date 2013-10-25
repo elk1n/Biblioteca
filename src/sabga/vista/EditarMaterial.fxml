@@ -63,17 +63,15 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <TableView id="tblEjemplar" fx:id="tablaEjemplar" layoutX="14.0" layoutY="46.0" prefHeight="265.0" prefWidth="437.0">
+                <TableView id="tblEjemplar" fx:id="tablaEjemplar" layoutX="57.0" layoutY="47.0" onMouseClicked="#disponibilidadMaterial" prefHeight="265.0" prefWidth="310.0">
                   <columns>
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="114.0" text="Ejemplar" fx:id="clmnEjemplar" />
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="192.0" text="Material" fx:id="clmnMaterial" />
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="111.0" text="Estado" fx:id="clmnEstado" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="156.0" text="Ejemplar" fx:id="clmnEjemplar" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="132.0" text="Estado" fx:id="clmnEstado" />
                   </columns>
                 </TableView>
-                <GridPane id="GridPane" layoutX="477.0" layoutY="-2.0" prefHeight="218.0">
+                <GridPane id="GridPane" layoutX="436.0" layoutY="-2.0" prefHeight="218.0">
                   <children>
-                    <Button cancelButton="false" defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Eliminar" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
-                    <ComboBox prefHeight="25.0" prefWidth="120.0" promptText="Disponibilidad " GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <ComboBox fx:id="comboDispo" prefHeight="25.0" prefWidth="120.0" promptText="Disponibilidad " GridPane.columnIndex="0" GridPane.rowIndex="1">
                       <items>
                         <FXCollections fx:factory="observableArrayList">
                           <String fx:value="Item 1" />
@@ -83,6 +81,7 @@
                       </items>
                     </ComboBox>
                     <TextField alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="107.0" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                    <Button cancelButton="false" defaultButton="true" mnemonicParsing="false" onAction="#eliminarEjemplar" prefHeight="25.0" prefWidth="120.0" text="Eliminar" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
                     <Label prefWidth="107.0" text="Adicionar Ejemplar:" GridPane.columnIndex="0" GridPane.rowIndex="2">
                       <font>
                         <Font size="12.0" />
@@ -105,8 +104,8 @@
                     <RowConstraints minHeight="35.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                 </GridPane>
-                <Label font="$x1" layoutX="18.0" layoutY="12.0" text="Listado de Ejemplares:" />
-                <Label id="validarEstadoAC" fx:id="lblValidarEjemplares" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="325.0" prefWidth="437.0" text="Validación">
+                <Label font="$x1" layoutX="57.0" layoutY="16.0" text="Listado de Ejemplares:" />
+                <Label id="validarEstadoAC" fx:id="lblValidarEjemplares" alignment="CENTER_RIGHT" layoutX="56.0" layoutY="320.0" prefWidth="310.0" text="validación" wrapText="true">
                   <textFill>
                     <Color blue="0.000" green="0.000" red="0.800" fx:id="x2" />
                   </textFill>
@@ -130,7 +129,7 @@
                       <children>
                         <GridPane id="GridPane" hgap="50.0" layoutX="23.0" layoutY="32.0" prefHeight="383.0">
                           <children>
-                            <ComboBox fx:id="comboTipoMaterial" prefHeight="25.0" prefWidth="152.0" promptText="Tipo de Material" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <ComboBox fx:id="comboTipoMaterial" prefHeight="25.0" prefWidth="150.0" promptText="Tipo de Material" GridPane.columnIndex="0" GridPane.rowIndex="0">
                               <items>
                                 <FXCollections fx:factory="observableArrayList">
                                   <String fx:value="Libro" />
@@ -152,7 +151,7 @@
                             <Label id="validarTituloAC" fx:id="lblValidarTitulo" alignment="CENTER_RIGHT" prefWidth="250.0" text="Validación" textFill="$x2" GridPane.columnIndex="0" GridPane.rowIndex="6" />
                             <Label id="validarAnioPublicacion" fx:id="lblValidarAnio" alignment="CENTER_RIGHT" prefWidth="250.0" text="Validación" textFill="$x2" GridPane.columnIndex="0" GridPane.rowIndex="9" />
                             <Label id="validarPublicacion" fx:id="lblValidarPublicacion" alignment="CENTER_RIGHT" prefWidth="250.0" text="Validación" textFill="$x2" GridPane.columnIndex="0" GridPane.rowIndex="12" />
-                            <ComboBox fx:id="comboClaseMaterial" prefHeight="25.0" prefWidth="143.0" promptText="Clase de Material" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <ComboBox fx:id="comboClaseMaterial" prefHeight="25.0" prefWidth="145.0" promptText="Clase de Material" GridPane.columnIndex="1" GridPane.rowIndex="0">
                               <items>
                                 <FXCollections fx:factory="observableArrayList">
                                   <String fx:value="Común" />
@@ -171,7 +170,7 @@
                               </font>
                             </Label>
                             <Label text="Cambiar Editorial" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                            <HBox fx:id="hboxEditorial" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                            <HBox fx:id="hboxEditorial" alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                               <stylesheets>
                                 <URL value="@css/estilo.css" />
                               </stylesheets>
@@ -201,7 +200,7 @@
                           </rowConstraints>
                         </GridPane>
                         <Label font="$x1" layoutX="22.0" layoutY="15.0" prefWidth="150.0" text="Tipo de Material" />
-                        <Label font="$x1" layoutX="331.0" layoutY="15.0" prefWidth="143.0" text="Clase de Material" />
+                        <Label font="$x1" layoutX="323.0" layoutY="12.0" prefWidth="143.0" text="Clase de Material" />
                       </children>
                     </AnchorPane>
                   </content>

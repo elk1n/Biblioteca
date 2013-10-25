@@ -8,7 +8,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import sabga.atributos.Ejemplar;
 import sabga.atributos.Materia;
 import sabga.modelo.Consultas;
 
@@ -22,12 +26,14 @@ public class DetalleMaterialController implements Initializable {
     private int id;
     private final Consultas consulta;
     @FXML
-    private ListView <Materia>listaMaterias, listaAutores;
-    
+    private ListView <Materia>listaMaterias, listaAutores, listaEjemplares;
     @FXML
-    private Label lblTitulo, lblCodigo, lblEditorial, lblPublicacion, lblAnio, lblClase, lblTipo, 
-                  lblEjemplares, lblHabilitados, lblInhabilitados, lblMantenimiento, lblDisponible, lblPrestado, lblReservado;
-    
+    private TableView tblEjemplares;
+    @FXML
+    private TableColumn clmnEjemplar, clmnEstado, clmnDispo;
+    @FXML
+    private Label lblTitulo, lblCodigo, lblEditorial, lblPublicacion, lblAnio, lblClase, lblTipo;
+                
     public DetalleMaterialController(){   
         consulta = new Consultas();
            
@@ -35,23 +41,20 @@ public class DetalleMaterialController implements Initializable {
     
     public void detalleMaterial(int id){
         
-            consulta.mapearMaterial(id);
-            lblTitulo.setText(consulta.getTitulo());
-            lblCodigo.setText(consulta.getClasificacion());
-            lblEditorial.setText(consulta.getEditorial());
-            lblPublicacion.setText(consulta.getPublicacion());            
-            lblAnio.setText(String.valueOf(consulta.getAnio()));
-            lblClase.setText(consulta.getClaseMaterial());
-            lblTipo.setText(consulta.getTipoMaterial());            
-            lblEjemplares.setText(String.valueOf(consulta.getEjemplares()));
-            listaMaterias.setItems(consulta.listaMaterias(id));
-            listaAutores.setItems(consulta.listaAutoresMaterial(id));
-            lblHabilitados.setText(String.valueOf(consulta.getHabilitado()));
-            lblInhabilitados.setText(String.valueOf(consulta.getInhabilitado()));
-            lblMantenimiento.setText(String.valueOf(consulta.getReparacion()));
-            lblDisponible.setText(String.valueOf(consulta.getDisponible()));
-            lblPrestado.setText(String.valueOf(consulta.getPrestado()));
-            lblReservado.setText(String.valueOf(consulta.getReservado()));
+        consulta.mapearMaterial(id);
+        lblTitulo.setText(consulta.getTitulo());
+        lblCodigo.setText(consulta.getClasificacion());
+        lblEditorial.setText(consulta.getEditorial());
+        lblPublicacion.setText(consulta.getPublicacion());
+        lblAnio.setText(String.valueOf(consulta.getAnio()));
+        lblClase.setText(consulta.getClaseMaterial());
+        lblTipo.setText(consulta.getTipoMaterial());
+        listaMaterias.setItems(consulta.listaMaterias(id));
+        listaAutores.setItems(consulta.listaAutoresMaterial(id));
+        clmnEjemplar.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("ejemplar"));
+        clmnEstado.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("estado"));
+        clmnDispo.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("disponibilidad"));
+        tblEjemplares.setItems(consulta.listaEjemplares(id));
     }
     
     public void setId(int codigo){

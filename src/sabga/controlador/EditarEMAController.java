@@ -648,17 +648,6 @@ public class EditarEMAController implements Initializable, ControlledScreen {
     }
 
     @FXML
-    public void cancelar(ActionEvent evento) {
-
-        campoNombreAutor.clear();
-        campoApellidosAutor.clear();
-        campoMateria.clear();
-        campoTipoMaterial.clear();
-        campoClaseMaterial.clear();
-
-    }
-
-    @FXML
     private void borrarCampo(ActionEvent event) {
         campoFiltrar.setText("");
         btnBorrar.setVisible(false);

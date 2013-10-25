@@ -28,6 +28,7 @@ import np.com.ngopal.control.AutoFillTextBox;
 import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.atributos.Autor;
+import sabga.atributos.Ejemplar;
 import sabga.atributos.Materia;
 import sabga.atributos.Material;
 import sabga.configuracion.ControlledScreen;
@@ -54,24 +55,25 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     @FXML 
     private Button  btnBorrar, btnDetalle, btnEditorial, btnAutor, btnMateria, btnCodigoBarras, btnBorrarBusqueda;    
     @FXML 
-    private ComboBox comboTipoMaterial, comboClaseMaterial, comboMaterial;    
+    private ComboBox comboTipoMaterial, comboClaseMaterial, comboMaterial, comboDispo;    
     @FXML 
     private TitledPane acordeonGeneral, acordeonAutores, acordeonMaterias;
     @FXML
-    private HBox hboxEditorial, hboxAutores, hboxMaterias, hbox;
+    private HBox hboxEditorial, hboxAutores, hboxMaterias;
     @FXML    
     private Tooltip est;
     @FXML
     private TableView tablaMaterial, tablaMaterias, tablaAutores, tablaEjemplar;
     @FXML
-    private TableColumn clmnTitulo, clmnCodigo, clmnClase, clmnMateria, clmnNombre, clmnApellidos, clmnEjemplar, clmnMaterial, clmnEstado;
+    private TableColumn clmnTitulo, clmnCodigo, clmnClase, clmnMateria, clmnNombre, clmnApellidos, clmnEjemplar, clmnEstado;
     private final AutoFillTextBox editorial, autores, materias ;    
     private final ObservableList<Material> filtrarMaterial;
     private final ObservableList<Material> listaMaterial;
     private final ObservableList<Autor> listaAutores;
     private final ObservableList<Autor> obtenerAutores;
     private final ObservableList<Materia> listaMaterias;
-    private final ObservableList listaBusquedaMaterias, listaBusquedaAutores;
+    private final ObservableList<Ejemplar> listaEjemplares;
+    private final ObservableList listaBusquedaMaterias, listaBusquedaAutores, disponibilidad;
     private final Consultas consulta;
 
     
@@ -88,6 +90,8 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         listaAutores = FXCollections.observableArrayList();
         listaMaterial = FXCollections.observableArrayList();
         listaMaterias = FXCollections.observableArrayList();
+        listaEjemplares = FXCollections.observableArrayList();
+        disponibilidad = FXCollections.observableArrayList();
         listaMaterial.addListener(new ListChangeListener<Material>() {
             @Override
             public void onChanged(ListChangeListener.Change<? extends Material> change) {
@@ -105,8 +109,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         
         if(!txtfCodigoClasificacion.getText().trim().equals(consulta.getClasificacion())){
             
-        }
-    
+        }    
     }
     
     @FXML
@@ -184,19 +187,40 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             txtfCodigoClasificacion.setText(consulta.getClasificacion());
             txtfAnio.setText(String.valueOf(consulta.getAnio()));
             txtfPublicacion.setText(consulta.getPublicacion());
-          //  txtfEjemplares.setText(String.valueOf(consulta.getEjemplares()));
             txtfPaginas.setText(String.valueOf(consulta.getPaginas()));
-           // txtfHabilitado.setText(String.valueOf(consulta.getHabilitado()));
-           // txtfInhabilitado.setText(String.valueOf(consulta.getInhabilitado()));
-           // txtfReparacion.setText(String.valueOf(consulta.getReparacion()));
             comboTipoMaterial.getSelectionModel().select(consulta.getTipoMaterial());
             comboClaseMaterial.getSelectionModel().select(consulta.getClaseMaterial());
             lblEditorial.setText(consulta.getEditorial());
-            mapearMateriasAutores();
-        }        
-       
+            mapearEjemplares();
+            mapearMateriasAutores();            
+        }              
     }
-  
+    
+    @FXML
+    private void disponibilidadMaterial(){
+        if(!listaEjemplares.isEmpty()){
+            comboDispo.getSelectionModel().select(listaEjemplares.get(tablaEjemplar.getSelectionModel().getSelectedIndex()).getDisponibilidad());
+        }
+    }
+
+    @FXML
+    private void eliminarEjemplar() {
+        
+        if (!listaEjemplares.isEmpty()) {
+            if (listaEjemplares.size() > 1) {
+                consulta.eliminarEjemplar(Integer.parseInt(listaEjemplares.get(tablaEjemplar.getSelectionModel().getSelectedIndex()).getEjemplar()));
+                lblValidarEjemplares.setText("");
+                if(consulta.getMensaje()!=null){
+                    Utilidades.mensajeError(null, consulta.getMensaje(),"No se ha eliminado el ejemplar", "Error Eliminar Ejemplar");
+                }else{
+                     listaEjemplares.remove(listaEjemplares.get(tablaEjemplar.getSelectionModel().getSelectedIndex()));
+                }            
+            }else{
+                lblValidarEjemplares.setText("El material debe tener como mínimo un ejemplar.");
+            }
+        }
+    }
+
     @FXML
     private void codigoBarras(ActionEvent evento) {
         
@@ -235,11 +259,21 @@ public class EditarMaterialController implements Initializable, ControlledScreen
          tablaMaterias.setItems(listaMaterias);     
     }
     
+    private void mapearEjemplares(){
+        
+        listaEjemplares.clear();
+        clmnEjemplar.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("ejemplar"));
+        clmnEstado.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("estado"));
+        tablaEjemplar.setEditable(true);
+        listaEjemplares.addAll(consulta.listaEjemplares(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId())));
+        tablaEjemplar.setItems(listaEjemplares);
+    }
+    
     public void prepararTablaMaterial(){
         
         clmnTitulo.setCellValueFactory(new PropertyValueFactory<Material, String>("titulo"));        
         clmnCodigo.setCellValueFactory(new PropertyValueFactory<Material, String>("codigo"));        
-        clmnClase.setCellValueFactory(new PropertyValueFactory<Material, String>("clase"));
+        clmnClase.setCellValueFactory(new PropertyValueFactory<Material, String>("clase"));     
         tablaMaterial.setEditable(true);
         filtrarMaterial.clear();
         listaMaterial.clear();
@@ -478,7 +512,10 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         hboxAutores.getChildren().add(autores);
         btnBorrar.setVisible(false);
         btnBorrarBusqueda.setVisible(false);
-       
+        disponibilidad.add("Habilitado");
+        disponibilidad.add("Inhabilitado");
+        disponibilidad.add("Mantenimiento");
+        comboDispo.setItems(disponibilidad);
     }
     
     /** 
