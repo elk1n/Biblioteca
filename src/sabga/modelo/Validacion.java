@@ -212,8 +212,7 @@ public class Validacion {
         }
     }
     
-    public boolean validarAcordeon(String codigo, String titulo, String paginas, String editorial, 
-                                   String ejemplares, String publicacion, String anio){        
+    public boolean validarAcordeon(String codigo, String titulo, String paginas, String editorial, String publicacion, String anio){        
         boolean retorno = false; 
         String control = "";
         
@@ -237,11 +236,6 @@ public class Validacion {
         }else{
             control += "S";
         }
-        if(ejemplares != null){
-            control += "N";
-        }else{
-            control += "S";
-        }
         if(publicacion != null){
             control += "N";
         }else{
@@ -257,7 +251,7 @@ public class Validacion {
         return retorno;
     }   
     
-    public boolean validarAcordeon(String codigo, String titulo, String ejemplares){        
+    public boolean validarAcordeon(String codigo, String titulo){        
         boolean retorno = false; 
         String control = "";
         
@@ -267,11 +261,6 @@ public class Validacion {
             control += "S";
         }
         if(titulo != null){
-            control += "N";
-        }else{
-            control += "S";
-        } 
-        if(ejemplares != null){
             control += "N";
         }else{
             control += "S";

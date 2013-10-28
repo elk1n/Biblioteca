@@ -111,7 +111,7 @@ public class ValidarMaterial extends Validacion{
   }
   
     public void validarEdicionLibro(String codigo, String titulo, String anioPublicacion, String publicacion, 
-                                    String paginas,String ejemplares, String editorial, ObservableList autores, ObservableList materias) {
+                                    String paginas, String editorial, ObservableList autores, ObservableList materias) {
 
         if (!validarCampoTexto(codigo, 45)) {
             this.errorCodigoClasificacion = getMensajeError();
@@ -128,9 +128,6 @@ public class ValidarMaterial extends Validacion{
         if (!validarNumero(paginas, 10)) {
             this.errorNumeroPaginas = getMensajeError();
         }
-        if (!validarNumeroNull(ejemplares, 10)) {
-            this.errorEjemplares = getMensajeError();
-        }
         if (!validarCampoTextoNull(editorial, 90)) {
             this.errorEditorial = getMensajeError();
         }
@@ -142,15 +139,12 @@ public class ValidarMaterial extends Validacion{
         }        
     }
 
-    public void validarEdicionOM(String codigo, String titulo, String copias, ObservableList materias) {
+    public void validarEdicionOM(String codigo, String titulo, ObservableList materias) {
         if (!validarCampoTexto(codigo, 45)) {
             this.errorCodigoClasificacion = getMensajeError();
         }
         if (!validarCampoTexto(titulo, 255)) {
             this.errorTitulo = getMensajeError();
-        }
-        if (!validarNumeroNull(copias, 10)) {
-            this.errorEjemplares = getMensajeError();
         }
         if (materias.isEmpty()) {
             this.errorMateria = "Debe seleccionar al menos una materia";

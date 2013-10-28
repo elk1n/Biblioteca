@@ -3,6 +3,8 @@ package sabga.modelo;
 
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sabga.atributos.Autor;
@@ -211,13 +213,14 @@ public class Consultas {
         }
     }
     
-    public void eliminarEjemplar(int codigo){
+    public void eliminarEjemplar(int codigo, int idMaterial){
     
         try{
             con.conectar();
             con.getConexion().setAutoCommit(false);
-            con.procedimiento("{ CALL eliminarEjemplar(?,?) }");
+            con.procedimiento("{ CALL eliminarEjemplar(?,?,?) }");
             con.getProcedimiento().setInt("codigo", codigo);
+            con.getProcedimiento().setInt("material", idMaterial);
             con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
             con.getProcedimiento().execute();
             mensaje = con.getProcedimiento().getString("mensaje");
@@ -239,6 +242,35 @@ public class Consultas {
             con.desconectar();
         }
     
+    }
+    
+    public void editarEjemplar(int opcion, int material, int ejemplar, int cantidad, String disponi){
+        
+        try{
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL editarEjemplar(?,?,?,?,?,?) }");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setInt("material", material);
+            con.getProcedimiento().setInt("ejemplar", ejemplar);
+            con.getProcedimiento().setInt("cantidad", cantidad);
+            con.getProcedimiento().setString("disponi", disponi);
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+            con.getProcedimiento().execute();
+            mensaje = con.getProcedimiento().getString("mensaje");
+            con.getConexion().commit();
+        }catch(SQLException e){
+            try {
+                con.getConexion().rollback();
+                mensaje = "No ha sido posible editar el ejemplar.";
+            } catch (SQLException ex) {
+                mensaje = ex.getMessage();
+            }
+            mensaje = e.getMessage();
+        }
+        finally{
+            con.desconectar();
+        }
     }
     
     public ObservableList listaAutoresMaterial(int id){

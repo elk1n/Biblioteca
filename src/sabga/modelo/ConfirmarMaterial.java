@@ -107,8 +107,7 @@ public class ConfirmarMaterial extends ValidarMaterial {
     }
     
     public boolean confirmarEdicionLibro(String codigo, String titulo, String anioPublicacion, String publicacion, 
-                                         String paginas,String ejemplares, String habilitado, String inhabilitado, 
-                                         String mantenimiento, String editorial, ObservableList autores, ObservableList materias){
+                                         String paginas, String editorial, ObservableList autores, ObservableList materias){
         
         if (!validarCampoTexto(codigo, 45)) {
             return false;
@@ -125,9 +124,6 @@ public class ConfirmarMaterial extends ValidarMaterial {
         else if (!validarNumero(paginas, 10)) {
             return false;
         }
-        else if (!validarNumeroNull(ejemplares, 10)) {
-            return false;
-        }
         else if (!validarCampoTextoNull(editorial, 90)) {
             return false;
         }
@@ -142,19 +138,15 @@ public class ConfirmarMaterial extends ValidarMaterial {
         }     
     }
     
-    public boolean confirmarEdicionOM(String codigo, String titulo, String copias, String habilitado, String inhabilitado, 
-                                       String mantenimiento, ObservableList materias){
+    public boolean confirmarEdicionOM(String codigo, String titulo, ObservableList materias){
   
         if (!validarCampoTexto(codigo, 45)) {
             return false;
         }
-        if (!validarCampoTexto(titulo, 255)) {
+        else if (!validarCampoTexto(titulo, 255)) {
             return false;
         }
-        if (!validarNumeroNull(copias,10)) {
-            return false;
-        }
-        if (materias.isEmpty()) {
+        else if (materias.isEmpty()) {
            return false;
         }
         else{
