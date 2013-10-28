@@ -111,8 +111,7 @@ public class ValidarMaterial extends Validacion{
   }
   
     public void validarEdicionLibro(String codigo, String titulo, String anioPublicacion, String publicacion, 
-                                    String paginas,String ejemplares, String habilitado, String inhabilitado, 
-                                    String mantenimiento, String editorial, ObservableList autores, ObservableList materias) {
+                                    String paginas,String ejemplares, String editorial, ObservableList autores, ObservableList materias) {
 
         if (!validarCampoTexto(codigo, 45)) {
             this.errorCodigoClasificacion = getMensajeError();
@@ -129,7 +128,7 @@ public class ValidarMaterial extends Validacion{
         if (!validarNumero(paginas, 10)) {
             this.errorNumeroPaginas = getMensajeError();
         }
-        if (!validarEstadoEjemplares(ejemplares, habilitado, inhabilitado, mantenimiento, 10)) {
+        if (!validarNumeroNull(ejemplares, 10)) {
             this.errorEjemplares = getMensajeError();
         }
         if (!validarCampoTextoNull(editorial, 90)) {
@@ -143,15 +142,14 @@ public class ValidarMaterial extends Validacion{
         }        
     }
 
-    public void validarEdicionOM(String codigo, String titulo, String copias, String habilitado, String inhabilitado, 
-                                 String mantenimiento, ObservableList materias) {
+    public void validarEdicionOM(String codigo, String titulo, String copias, ObservableList materias) {
         if (!validarCampoTexto(codigo, 45)) {
             this.errorCodigoClasificacion = getMensajeError();
         }
         if (!validarCampoTexto(titulo, 255)) {
             this.errorTitulo = getMensajeError();
         }
-        if (!validarEstadoEjemplares(copias, habilitado, inhabilitado, mantenimiento, 10)) {
+        if (!validarNumeroNull(copias, 10)) {
             this.errorEjemplares = getMensajeError();
         }
         if (materias.isEmpty()) {

@@ -51,13 +51,13 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     private Label lblEditorial, lblValidarCodigo, lblValidarTitulo, lblValidarAnio, lblValidarPublicacion, lblValidarEditorial, lblValidarEjemplares,
                     lblValidarPaginas, lblValidarAutor, lblValidarMateria;    
     @FXML 
-    private TextField txtfCodigoClasificacion, txtfTitulo, txtfAnio, txtfPublicacion, txtfPaginas, txtfFiltrar, txtfBuscar;
+    private TextField txtfCodigoClasificacion, txtfTitulo, txtfAnio, txtfPublicacion, txtfPaginas, txtfFiltrar, txtfBuscar, txtfEjemplar;
     @FXML 
     private Button  btnBorrar, btnDetalle, btnEditorial, btnAutor, btnMateria, btnCodigoBarras, btnBorrarBusqueda;    
     @FXML 
     private ComboBox comboTipoMaterial, comboClaseMaterial, comboMaterial, comboDispo;    
     @FXML 
-    private TitledPane acordeonGeneral, acordeonAutores, acordeonMaterias;
+    private TitledPane acordeonGeneral, acordeonAutores, acordeonMaterias, acordeonEjemplares;
     @FXML
     private HBox hboxEditorial, hboxAutores, hboxMaterias;
     @FXML    
@@ -192,13 +192,14 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             comboClaseMaterial.getSelectionModel().select(consulta.getClaseMaterial());
             lblEditorial.setText(consulta.getEditorial());
             mapearEjemplares();
-            mapearMateriasAutores();            
+            mapearMateriasAutores();
+            lblValidarEjemplares.setText("");
         }              
     }
     
     @FXML
     private void disponibilidadMaterial(){
-        if(!listaEjemplares.isEmpty()){
+        if(!listaEjemplares.isEmpty() && tablaEjemplar.getSelectionModel().getSelectedItem() != null){
             comboDispo.getSelectionModel().select(listaEjemplares.get(tablaEjemplar.getSelectionModel().getSelectedIndex()).getDisponibilidad());
         }
     }
@@ -206,7 +207,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     @FXML
     private void eliminarEjemplar() {
         
-        if (!listaEjemplares.isEmpty()) {
+        if (!listaEjemplares.isEmpty() && tablaEjemplar.getSelectionModel().getSelectedItem() != null) {
             if (listaEjemplares.size() > 1) {
                 consulta.eliminarEjemplar(Integer.parseInt(listaEjemplares.get(tablaEjemplar.getSelectionModel().getSelectedIndex()).getEjemplar()));
                 lblValidarEjemplares.setText("");
@@ -218,7 +219,9 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             }else{
                 lblValidarEjemplares.setText("El material debe tener como mínimo un ejemplar.");
             }
-        }
+        }else{
+            lblValidarEjemplares.setText("Debe seleccionar un material de la lista.");
+        }       
     }
 
     @FXML
@@ -283,7 +286,8 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         
         filtrarMaterial.addAll(listaMaterial);
         listaMaterial.addAll(consulta.getListaMaterial(comboMaterial.getSelectionModel().getSelectedItem().toString()));        
-        tablaMaterial.setItems(filtrarMaterial);                       
+        tablaMaterial.setItems(filtrarMaterial);
+        
     }
     
     private void llenarComboBox(){
@@ -343,12 +347,11 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     }
     
     public void validarEdicionLibro(){
-        /*
+        
         if(!listaMaterial.isEmpty()){
             ValidarMaterial libro = new ValidarMaterial();
             libro.validarEdicionLibro(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), txtfAnio.getText(), txtfPublicacion.getText(),
-                                      txtfPaginas.getText(), txtfEjemplares.getText(), txtfHabilitado.getText(), txtfInhabilitado.getText(), 
-                                      txtfReparacion.getText(), editorial.getText(), listaAutores, listaMaterias);
+                                      txtfPaginas.getText(), txtfEjemplar.getText(), editorial.getText(), listaAutores, listaMaterias);
             lblValidarCodigo.setText(libro.getErrorCodigoClasificacion());
             lblValidarTitulo.setText(libro.getErrorTitulo());
             lblValidarAnio.setText(libro.getErrorAnioPublicacion());
@@ -359,43 +362,46 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             lblValidarAutor.setText(libro.getErrorAutor());
             lblValidarMateria.setText(libro.getErrorMateria());
             errorAcordeon();
-        }     */ 
+        }     
     }
     
     public void validarEdicionOM(){
          if(!listaMaterial.isEmpty()){
-             /*
+             
              ValidarMaterial om = new ValidarMaterial();
-             om.validarEdicionOM(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), txtfEjemplares.getText(), txtfHabilitado.getText(), 
-                                 txtfInhabilitado.getText(), txtfReparacion.getText(), listaMaterias);
+             om.validarEdicionOM(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), txtfEjemplar.getText(), listaMaterias);
              lblValidarCodigo.setText(om.getErrorCodigoClasificacion());
              lblValidarTitulo.setText(om.getErrorTitulo());
              lblValidarEjemplares.setText(om.getErrorNumeroEjemplares());
-             errorAcordeonOM();    */         
+             errorAcordeonOM();         
          }
     }
    
-    private void errorAcordeonOM(){
-          ValidarMaterial om = new ValidarMaterial();
-        if (!acordeonMaterias.isExpanded() && lblValidarMateria.getText() != null){         
-            acordeonMaterias.setText("Materias"+"                se ha encontrado un error!");
-            }       
-            else {
-                acordeonMaterias.setText("Materias");
-            }
-            if(!acordeonGeneral.isExpanded() && !om.validarAcordeon(lblValidarCodigo.getText(), lblValidarTitulo.getText(), 
-                                                                    lblValidarEjemplares.getText())){ 
-            acordeonGeneral.setText("General"+"                 se ha encontrado un error!");        
-            }
-            else{
-                acordeonGeneral.setText("General");
-            }
+    private void errorAcordeonOM() {
+        ValidarMaterial om = new ValidarMaterial();
+        if (!acordeonMaterias.isExpanded() && lblValidarMateria.getText() != null) {
+            acordeonMaterias.setText("Materias" + "               se ha encontrado un error!");
+        } else {
+            acordeonMaterias.setText("Materias");
+        }
+        if (!acordeonGeneral.isExpanded() && !om.validarAcordeon(lblValidarCodigo.getText(), lblValidarTitulo.getText(),
+                lblValidarEjemplares.getText())) {
+            acordeonGeneral.setText("General" + "                 se ha encontrado un error!");
+        } else {
+            acordeonGeneral.setText("General");
+        }
+        if (!acordeonEjemplares.isExpanded() && lblValidarEjemplares.getText() != null) {
+            acordeonAutores.setText("Ejemplares" + "              se ha encontrado un error!");
+        } else {
+            acordeonGeneral.setText("Ejemplares");
+        }
+
     }
     
-    private void errorAcordeon(){
+    private void errorAcordeon() {
         ValidarMaterial libro = new ValidarMaterial();
         if (!acordeonMaterias.isExpanded() && lblValidarMateria.getText() != null) {
-            acordeonMaterias.setText("Materias" + "                se ha encontrado un error!");
+            acordeonMaterias.setText("Materias" + "               se ha encontrado un error!");
         } else {
             acordeonMaterias.setText("Materias");
         }
@@ -404,13 +410,18 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         } else {
             acordeonAutores.setText("Autores");
         }
-        if (!acordeonGeneral.isExpanded() && !libro.validarAcordeon(lblValidarCodigo.getText(), lblValidarTitulo.getText(), 
+        if (!acordeonGeneral.isExpanded() && !libro.validarAcordeon(lblValidarCodigo.getText(), lblValidarTitulo.getText(),
                                                                     lblValidarPaginas.getText(), lblValidarEditorial.getText(),
                                                                     lblValidarEjemplares.getText(), lblValidarPublicacion.getText(),
                                                                     lblValidarAnio.getText())) {
             acordeonGeneral.setText("General" + "                 se ha encontrado un error!");
         } else {
             acordeonGeneral.setText("General");
+        }
+        if (!acordeonEjemplares.isExpanded() && lblValidarEjemplares.getText() != null) {
+            acordeonAutores.setText("Ejemplares" + "             se ha encontrado un error!");
+        } else {
+            acordeonGeneral.setText("Ejemplares");
         }
     }
     

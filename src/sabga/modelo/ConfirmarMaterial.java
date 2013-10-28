@@ -125,7 +125,7 @@ public class ConfirmarMaterial extends ValidarMaterial {
         else if (!validarNumero(paginas, 10)) {
             return false;
         }
-        else if (!validarEstadoEjemplares(ejemplares, habilitado, inhabilitado, mantenimiento, 10)) {
+        else if (!validarNumeroNull(ejemplares, 10)) {
             return false;
         }
         else if (!validarCampoTextoNull(editorial, 90)) {
@@ -151,7 +151,7 @@ public class ConfirmarMaterial extends ValidarMaterial {
         if (!validarCampoTexto(titulo, 255)) {
             return false;
         }
-        if (!validarEstadoEjemplares(copias, habilitado, inhabilitado, mantenimiento, 10)) {
+        if (!validarNumeroNull(copias,10)) {
             return false;
         }
         if (materias.isEmpty()) {

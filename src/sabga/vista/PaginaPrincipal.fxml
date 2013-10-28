@@ -50,7 +50,7 @@
                 <Insets fx:id="x7" />
               </HBox.margin>
             </MenuButton>
-            <Button font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" styleClass="botonBuscar" text="">
+            <Button font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" prefHeight="25.0" prefWidth="25.0" styleClass="botonBuscar" text="">
               <rotationAxis>
                 <Point3D />
               </rotationAxis>

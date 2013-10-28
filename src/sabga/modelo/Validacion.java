@@ -75,29 +75,6 @@ public class Validacion {
         }
     }
     
-    public boolean validarNumeroCero(String campoTexto, int numeroCaracteres) {
-
-        Pattern patron = Pattern.compile("[0-9]+");
-        Matcher matcher = patron.matcher(campoTexto);
-
-        if (campoTexto == null || campoTexto.equals("") || campoTexto.isEmpty()) {
-            this.mensajeError = "No puede dejar este campo en blanco.";
-            return false;
-        } else if (campoTexto.length() > numeroCaracteres) {
-            this.mensajeError = "Máximo " + numeroCaracteres + " caracteres.";
-            return false;
-        } else if (!matcher.matches()) {
-            this.mensajeError = "No es un número o no es positivo.";
-            return false;
-        }else if(matcher.matches() && !validarNumeroCero(campoTexto)){
-            this.mensajeError = "El número debe ser mayor o igual a 0.";
-            return false;       
-        }else {
-            this.mensajeError = "";
-            return true;
-        }
-    }
-
     public boolean validarNumeroNull(String campoTexto, int numeroCaracteres) {
 
         Pattern patron = Pattern.compile("[0-9]+");
@@ -212,19 +189,7 @@ public class Validacion {
             return false;
         }
     }
-    
-    public boolean validarNumeroCero(String texto){
-        
-        int numero;
-        try {
-            numero = Integer.parseInt(texto);
-            return numero>=0;
-        } catch (NumberFormatException e) {
-            this.mensajeError = e.getMessage();
-            return false;
-        }
-    }
-    
+     
     public String getDesencadenador(KeyEvent eventos) {
         String objeto = eventos.getSource().toString();
         Pattern patron = Pattern.compile("[id=]([a-zA-Z0-9]+)[,]");
@@ -315,34 +280,7 @@ public class Validacion {
         retorno = auxiliar == -1;
         return retorno;
     }
-    
-    public boolean validarEstadoEjemplares(String ejemplares, String habilitado, String inhabilitado, 
-                                           String mantenimiento, int numeroCaracteres) {
-
-        int numeroTotalEjemplares, ejemplatesHabilitados, ejemplaresInhabilitados, ejemplarsMantenimiento;
-
-        if (validarNumero(ejemplares, numeroCaracteres) && validarNumeroCero(habilitado, numeroCaracteres) && 
-            validarNumeroCero(inhabilitado, numeroCaracteres) && validarNumeroCero(mantenimiento, numeroCaracteres)) {
-            numeroTotalEjemplares = Integer.parseInt(ejemplares);
-            ejemplatesHabilitados = Integer.parseInt(habilitado);
-            ejemplaresInhabilitados = Integer.parseInt(inhabilitado);
-            ejemplarsMantenimiento = Integer.parseInt(mantenimiento);
-
-            if (ejemplatesHabilitados + ejemplaresInhabilitados + ejemplarsMantenimiento < numeroTotalEjemplares || 
-                ejemplatesHabilitados + ejemplaresInhabilitados + ejemplarsMantenimiento > numeroTotalEjemplares) {
-                this.mensajeError = "El número de ejemplares no coincide";
-            return false;
-            }
-            else{
-                this.mensajeError = "";
-            return true;
-            }              
-        } else {
-            this.mensajeError = getMensajeError();
-        return false;
-        }
-    }
-    
+        
     public String getMensajeError() {
         return this.mensajeError;
     }

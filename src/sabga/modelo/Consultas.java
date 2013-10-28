@@ -145,7 +145,7 @@ public class Consultas {
             con.setResultado(con.getProcedimiento().executeQuery());       
             while (con.getResultado().next()) {
                 listaEjemplares.add(new Ejemplar(con.getResultado().getString("ejemplar"), con.getResultado().getString("estado"),
-                                                  con.getResultado().getString("disponibilidad")));
+                                                 con.getResultado().getString("disponibilidad")));
             }
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
