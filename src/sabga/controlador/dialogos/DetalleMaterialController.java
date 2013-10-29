@@ -35,8 +35,7 @@ public class DetalleMaterialController implements Initializable {
     private Label lblTitulo, lblCodigo, lblEditorial, lblPublicacion, lblAnio, lblClase, lblTipo;
                 
     public DetalleMaterialController(){   
-        consulta = new Consultas();
-           
+        consulta = new Consultas();          
     }
     
     public void detalleMaterial(int id){

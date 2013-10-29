@@ -31,21 +31,17 @@ public class NuevoAutorController {
     private final Conexion con;
     private String mensaje;
         
-    public NuevoAutorController(){
-    
+    public NuevoAutorController(){    
          con = new Conexion();
     }
     
     public void setDialogStage(Stage dialogStage) {
-
         this.dialogStage = dialogStage;
     }
 
     @FXML
     public void guardarNuevoAutor(ActionEvent evento) {
-
-        procesarNuevoAutor();
-          
+        procesarNuevoAutor();          
     }
     
     public void procesarNuevoAutor(){

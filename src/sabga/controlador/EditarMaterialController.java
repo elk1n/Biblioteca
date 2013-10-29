@@ -34,6 +34,7 @@ import sabga.atributos.Material;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
+import sabga.modelo.ConfirmarMaterial;
 import sabga.modelo.Consultas;
 import sabga.modelo.ValidarMaterial;
 
@@ -101,7 +102,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
        
     @FXML
     public void guardarCambios(ActionEvent evento){
-        validarEdicionLibro();
+        editarMaterial();
     }
     
     @FXML
@@ -109,6 +110,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         adicionarEjemplar();
     }
     
+    @FXML
     public void cambiarEstado(ActionEvent evento){
         cambiarEstadoEjemplar();        
     }
@@ -285,11 +287,33 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         }
     }
     
-    private void preguardarLibro(){
+    private void editarMaterial(){
         
-        if(!txtfCodigoClasificacion.getText().trim().equals(consulta.getClasificacion())){
-            
-        }    
+        if(comboTipoMaterial.getSelectionModel().getSelectedItem() != null){
+            String tipo = comboTipoMaterial.getSelectionModel().getSelectedItem().toString().toLowerCase();
+            if(tipo.contains("libro")){           
+                ValidarMaterial editar = new ValidarMaterial();
+                ConfirmarMaterial validar = new ConfirmarMaterial();
+                editar.validarEdicionLibro(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), txtfAnio.getText(),
+                                           txtfPublicacion.getText(), txtfPaginas.getText(), editorial.getText(), listaAutores, listaMaterias);
+                if(validar.confirmarEdicionLibro(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), txtfAnio.getText(),
+                                                 txtfPublicacion.getText(), txtfPaginas.getText(), editorial.getText(), listaAutores, listaMaterias)){
+                                        
+                }               
+                lblValidarCodigo.setText(editar.getErrorCodigoClasificacion());
+                lblValidarTitulo.setText(editar.getErrorTitulo());
+                        
+            }
+            else{
+                ValidarMaterial editar = new ValidarMaterial();
+                ConfirmarMaterial validar = new ConfirmarMaterial();
+                editar.validarEdicionOM(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), listaMaterias);
+                if(validar.confirmarEdicionOM(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), listaMaterias)){
+                    
+                
+                }
+            }
+        }  
     }
      
     private void mapearMateriasAutores(){
@@ -372,7 +396,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     public void dialogoNuevaMateria(ActionEvent evento){        
         ventanaPrincipal = new Sabga();
         btnMateria.setDisable(true);
-        dialogo.mostrarDialogo("vista/dialogos/NuevaMateria.fxml", "Nueva Materia",ventanaPrincipal.getPrimaryStage(), null, 2);
+        dialogo.mostrarDialogo("vista/dialogos/NuevaMateria.fxml", "Nueva Materia", ventanaPrincipal.getPrimaryStage(), null, 2);
         btnMateria.setDisable(false);
     }
     

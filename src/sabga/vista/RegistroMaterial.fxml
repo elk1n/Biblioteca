@@ -38,17 +38,17 @@
                 </HBox>
                 <GridPane prefHeight="394.0" prefWidth="450.0" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="754.0">
                   <children>
-                    <Label text="Código de Clasificación" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <Label text="Código de Clasificación:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                     <TextField id="campoNumeroClasificacion" fx:id="txtfCodigo" depthTest="INHERIT" editable="true" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" promptText="Ingrese el código de clasificación" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                    <Label text="Título" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <Label text="Título:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                     <TextField id="campoTitulo" fx:id="txtfTitulo" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" promptText="Ingrese un título para el libro" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                    <Label text="Año Publicación" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                    <Label text="Año Publicación:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                     <TextField id="campoAnioPublicacion" fx:id="txtfAnioPublicacion" alignment="CENTER_RIGHT" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="250.0" promptText="Año en el que se publico" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                    <Label text="Publicación" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                    <Label text="Publicación:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
                     <TextField id="campoPublicacion" fx:id="txtfPublicacion" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" promptText="Ciudad y otros detalles de publicación" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                    <Label text="Número de Páginas" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                    <Label text="Número de Páginas:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
                     <TextField id="campoNumeroPaginas" fx:id="txtfPaginas" alignment="CENTER_RIGHT" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="250.0" promptText="Digite el número de páginas" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                    <Label text="Número de Ejemplares" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+                    <Label text="Número de Ejemplares:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
                     <TextField id="campoEjemplares" fx:id="txtfEjemplares" alignment="CENTER_RIGHT" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="250.0" promptText="Digite el número de ejemplares" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                     <Label fx:id="validarClasificacion" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     <Label fx:id="validarTitulo" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -78,7 +78,7 @@
                 </GridPane>
                 <Group id="Group" fx:id="grupoEditorial" layoutX="614.0" layoutY="18.0" scaleX="1.0" scaleY="1.0">
                   <children>
-                    <Label layoutY="8.0" text="Editorial" />
+                    <Label layoutY="8.0" text="Editorial:" />
                     <HBox fx:id="hboxEditorial" layoutX="74.0" layoutY="0.0" prefHeight="30.0" prefWidth="350.0">
                       <stylesheets>
                         <URL value="@css/estilo.css" />
@@ -92,7 +92,7 @@
                     <Label fx:id="validarEditorial" alignment="CENTER_RIGHT" layoutX="74.0" layoutY="36.0" prefWidth="349.0" text="" textFill="$x1" />
                   </children>
                 </Group>
-                <Accordion layoutX="587.0" layoutY="91.0" prefHeight="323.0" prefWidth="640.0">
+                <Accordion layoutX="587.0" layoutY="91.0" prefHeight="323.0" prefWidth="640.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
                   <expandedPane>
                     <TitledPane id="x2" fx:id="acordeonAutor" animated="false" text="Autores">
                       <content>
@@ -109,12 +109,12 @@
                                             <URL value="@css/estilo.css" />
                                           </stylesheets>
                                         </HBox>
-                                        <Label layoutX="-14.0" layoutY="2.0" text="Autor" />
+                                        <Label layoutX="-14.0" layoutY="2.0" prefWidth="32.9998779296875" text="Autor:" />
                                         <Label fx:id="validarAutor" alignment="CENTER_RIGHT" layoutX="58.0" layoutY="43.0" prefWidth="348.0" text="" textFill="$x1" />
                                       </children>
                                     </Group>
                                     <Button defaultButton="true" layoutX="467.0" layoutY="21.0" mnemonicParsing="false" onAction="#cargarNombreApellidoAutor" prefHeight="25.0" prefWidth="120.0" text="Seleccionar" />
-                                    <TableView fx:id="tablaAutores" layoutX="42.0" layoutY="108.0" prefHeight="50.0" prefWidth="405.0">
+                                    <TableView fx:id="tablaAutores" layoutX="42.0" layoutY="108.0" prefHeight="50.0" prefWidth="405.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
                                       <columns>
                                         <TableColumn editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="197.0" text="Nombre" fx:id="clmnNombre" />
                                         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="192.0" text="Apellidos" fx:id="clmnApellidos" />
@@ -148,14 +148,14 @@
                               <content>
                                 <AnchorPane id="Content" fx:id="contenedorMaterias" minHeight="0.0" minWidth="0.0" prefHeight="264.0" prefWidth="625.0">
                                   <children>
-                                    <Label layoutX="19.0" layoutY="21.0" text="Materias" />
+                                    <Label layoutX="19.0" layoutY="21.0" text="Materias:" />
                                     <HBox id="prueba" fx:id="hboxMaterias" alignment="CENTER" layoutX="100.0" layoutY="14.0" prefHeight="30.0" prefWidth="350.0" spacing="5.0">
                                       <stylesheets>
                                         <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </HBox>
                                     <Button defaultButton="true" layoutX="464.0" layoutY="17.0" mnemonicParsing="false" onAction="#cargarNombreMateria" prefHeight="25.0" prefWidth="120.0" text="Seleccionar" />
-                                    <TableView fx:id="tablaMaterias" layoutX="86.0" layoutY="103.0" prefHeight="48.310638427734375" prefWidth="360.0">
+                                    <TableView fx:id="tablaMaterias" layoutX="86.0" layoutY="103.0" prefHeight="48.310638427734375" prefWidth="360.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
                                       <columns>
                                         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="344.0" text="Materia" fx:id="clmnNombreMateria" />
                                       </columns>
@@ -220,8 +220,8 @@
                 </HBox>
                 <GridPane id="GridPane" layoutX="90.0" layoutY="149.0" prefHeight="237.0" prefWidth="465.0">
                   <children>
-                    <Label text="Código de Clasificación" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                    <Label text="Título" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <Label text="Código de Clasificación:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <Label text="Título:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                     <TextField id="campoNumeroClasificacionOM" fx:id="txtfCodigoOM" prefHeight="30.0" prefWidth="250.0" promptText="Ingrese el código de clasificación" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                     <TextField id="campoTituloOM" fx:id="txtfTituloOM" prefHeight="30.0" prefWidth="250.0" promptText="Ingrese un título" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     <Label id="validarNumeroMaterialOM" fx:id="validarNumeroClasificacionOM" alignment="CENTER_RIGHT" prefWidth="350.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -230,7 +230,7 @@
                       </textFill>
                     </Label>
                     <Label fx:id="validarTituloOM" alignment="CENTER_RIGHT" prefWidth="350.0" text="" textFill="$x3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                    <Label text="Número de Copias" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                    <Label text="Número de Copias:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                     <TextField id="campoEjemplares" fx:id="txtfCopias" alignment="CENTER_RIGHT" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="255.0" promptText="Digite el número de copias" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                     <Label id="validarTituloOM" fx:id="validarNumeroCopiasOM" alignment="CENTER_RIGHT" prefWidth="350.0" text="" textFill="$x3" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   </children>
@@ -247,13 +247,13 @@
                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                 </GridPane>
-                <ScrollPane layoutX="585.0" layoutY="60.0" prefHeight="340.0" prefWidth="625.0">
+                <ScrollPane layoutX="585.0" layoutY="60.0" prefHeight="340.0" prefWidth="625.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
                   <content>
                     <AnchorPane id="Content" fx:id="contenedorMateriasOM" maxHeight="600.0" minHeight="0.0" minWidth="0.0" prefHeight="332.0" prefWidth="609.0">
                       <children>
                         <Group id="Group" fx:id="grupoMateriaOM" layoutX="7.0" layoutY="18.0">
                           <children>
-                            <Label layoutX="14.0" layoutY="4.0" text="Materias" />
+                            <Label layoutX="14.0" layoutY="4.0" text="Materias:" />
                             <HBox fx:id="hboxMateriasOM" layoutX="84.0" layoutY="-5.0" prefHeight="30.0" prefWidth="350.0">
                               <stylesheets>
                                 <URL value="@css/estilo.css" />
@@ -263,7 +263,7 @@
                             <Label id="validarMateria" fx:id="validarMateriaOM" alignment="CENTER_RIGHT" layoutX="103.0" layoutY="45.0" prefWidth="331.0" text="" textFill="$x1" />
                           </children>
                         </Group>
-                        <TableView fx:id="tablaMateriasOM" layoutX="80.0" layoutY="101.0" prefHeight="50.0" prefWidth="360.0">
+                        <TableView fx:id="tablaMateriasOM" layoutX="80.0" layoutY="101.0" prefHeight="50.0" prefWidth="360.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
                           <columns>
                             <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="344.0" text="Materia" fx:id="clmnNombreMateriaOM" />
                           </columns>

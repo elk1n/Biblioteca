@@ -79,13 +79,13 @@
                                 </FXCollections>
                               </items>
                             </ComboBox>
-                            <Label text="Código de Clasificación" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <Label text="Código de Clasificación:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                             <TextField id="numeroClasificacionAC" fx:id="txtfCodigoClasificacion" prefHeight="30.0" prefWidth="250.0" promptText="Código de Clasificación" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                            <Label text="Título" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                            <Label text="Título:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                             <TextField id="tituloAc" fx:id="txtfTitulo" prefHeight="30.0" prefWidth="250.0" promptText="Título" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-                            <Label text="Año Publicación" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                            <Label text="Año Publicación:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
                             <TextField id="anioPublicacionAC" fx:id="txtfAnio" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="250.0" promptText="Año Publicación" text="" GridPane.columnIndex="0" GridPane.rowIndex="8" />
-                            <Label text="Publicación" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+                            <Label text="Publicación:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
                             <TextField id="campoPublicacionAC" fx:id="txtfPublicacion" prefHeight="30.0" prefWidth="250.0" promptText="Publicacion" text="" GridPane.columnIndex="0" GridPane.rowIndex="11" />
                             <Label id="validacion" fx:id="lblValidarCodigo" alignment="CENTER_RIGHT" prefWidth="250.0" text="Validación" GridPane.columnIndex="0" GridPane.rowIndex="3">
                               <textFill>
@@ -104,16 +104,16 @@
                                 </FXCollections>
                               </items>
                             </ComboBox>
-                            <Label prefHeight="18.9998779296875" text="Número Páginas" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Label prefHeight="19.0" text="Número Páginas:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                             <TextField id="numeroPaginasAC" fx:id="txtfPaginas" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="250.0" promptText="Número de Páginas" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                            <Label prefWidth="250.0" text="Editorial" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                            <Label prefWidth="250.0" text="Editorial:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                             <Label id="validar" fx:id="lblValidarPaginas" alignment="CENTER_RIGHT" prefWidth="250.0" text="Validación" textFill="$x2" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                             <Label fx:id="lblEditorial" prefWidth="250.0" text="" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
                               <font>
                                 <Font name="System Bold" size="14.0" fx:id="x4" />
                               </font>
                             </Label>
-                            <Label text="Cambiar Editorial" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                            <Label text="Cambiar Editorial:" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                             <HBox fx:id="hboxEditorial" alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                               <stylesheets>
                                 <URL value="@css/estilo.css" />
@@ -197,7 +197,7 @@
                         <Font size="12.0" />
                       </font>
                     </Label>
-                    <Label font="$x1" text="Disponibilidad Ejemplar" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <Label font="$x1" text="Disponibilidad Ejemplar:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                   </children>
                   <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -222,7 +222,7 @@
           <content>
             <AnchorPane id="Content" fx:id="contenedorAutores" minHeight="0.0" minWidth="0.0" prefHeight="369.0" prefWidth="599.0">
               <children>
-                <Label layoutX="35.0" layoutY="21.0" text="Autores" />
+                <Label layoutX="35.0" layoutY="21.0" text="Autores:" />
                 <HBox fx:id="hboxAutores" layoutX="89.0" layoutY="14.0" prefHeight="30.0" prefWidth="350.0">
                   <stylesheets>
                     <URL value="@css/estilo.css" />
@@ -252,7 +252,7 @@
               <children>
                 <AnchorPane id="Content" fx:id="contenedorMaterias" layoutX="7.0" layoutY="5.0" minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="599.0">
                   <children>
-                    <Label layoutX="27.0" layoutY="20.0" text="Materias" />
+                    <Label layoutX="27.0" layoutY="20.0" text="Materias:" />
                     <Label id="validarMateriasAC" fx:id="lblValidarMateria" alignment="CENTER_RIGHT" layoutX="76.0" layoutY="55.0" prefWidth="361.0" text="Validacion" textFill="$x9" />
                     <HBox fx:id="hboxMaterias" layoutX="88.0" layoutY="15.0" prefHeight="30.0" prefWidth="350.0">
                       <stylesheets>
