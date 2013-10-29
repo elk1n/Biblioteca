@@ -56,7 +56,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     @FXML 
     private ComboBox comboTipoMaterial, comboClaseMaterial, comboMaterial, comboDispo;    
     @FXML 
-    private TitledPane acordeonGeneral, acordeonAutores, acordeonMaterias, acordeonEjemplares;
+    private TitledPane acordeonGeneral, acordeonAutores, acordeonMaterias;
     @FXML
     private HBox hboxEditorial, hboxAutores, hboxMaterias;
     @FXML    
