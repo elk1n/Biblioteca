@@ -76,7 +76,6 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     private final ObservableList listaBusquedaMaterias, listaBusquedaAutores, disponibilidad;
     private final Consultas consulta;
 
-    
     public EditarMaterialController(){
         dialogo = new Dialogo();       
         consulta = new Consultas();
@@ -197,7 +196,11 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             lblEditorial.setText(consulta.getEditorial());
             mapearEjemplares();
             mapearMateriasAutores();
+            editorial.getTextbox().setText("");
+            lblValidarMateria.setText("");
+            lblValidarAutor.setText("");
             lblValidarEjemplares.setText("");
+            
         }              
     }
     
@@ -291,23 +294,17 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         
         if(comboTipoMaterial.getSelectionModel().getSelectedItem() != null){
             String tipo = comboTipoMaterial.getSelectionModel().getSelectedItem().toString().toLowerCase();
-            if(tipo.contains("libro")){           
-                ValidarMaterial editar = new ValidarMaterial();
+            if(tipo.contains("libro")){
+                validarEdicionLibro();
                 ConfirmarMaterial validar = new ConfirmarMaterial();
-                editar.validarEdicionLibro(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), txtfAnio.getText(),
-                                           txtfPublicacion.getText(), txtfPaginas.getText(), editorial.getText(), listaAutores, listaMaterias);
-                if(validar.confirmarEdicionLibro(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), txtfAnio.getText(),
-                                                 txtfPublicacion.getText(), txtfPaginas.getText(), editorial.getText(), listaAutores, listaMaterias)){
+                if(validar.confirmarEdicionLibro(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), txtfAnio.getText(), txtfPublicacion.getText(),
+                                                 txtfPaginas.getText(), editorial.getText(), listaAutores, listaMaterias, editorial.getData())){
                                         
-                }               
-                lblValidarCodigo.setText(editar.getErrorCodigoClasificacion());
-                lblValidarTitulo.setText(editar.getErrorTitulo());
-                        
+                }                                      
             }
             else{
-                ValidarMaterial editar = new ValidarMaterial();
+                validarEdicionOM();
                 ConfirmarMaterial validar = new ConfirmarMaterial();
-                editar.validarEdicionOM(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), listaMaterias);
                 if(validar.confirmarEdicionOM(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), listaMaterias)){
                     
                 
@@ -415,12 +412,11 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         }
     }
     
-    public void validarEdicionLibro(){
-        
+    public void validarEdicionLibro(){       
         if(!listaMaterial.isEmpty()){
             ValidarMaterial libro = new ValidarMaterial();
             libro.validarEdicionLibro(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), txtfAnio.getText(), txtfPublicacion.getText(),
-                                      txtfPaginas.getText(), editorial.getText(), listaAutores, listaMaterias);
+                                      txtfPaginas.getText(), editorial.getText(), listaAutores, listaMaterias, editorial.getData());
             lblValidarCodigo.setText(libro.getErrorCodigoClasificacion());
             lblValidarTitulo.setText(libro.getErrorTitulo());
             lblValidarAnio.setText(libro.getErrorAnioPublicacion());
@@ -433,48 +429,49 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         }     
     }
     
-    public void validarEdicionOM(){
-         if(!listaMaterial.isEmpty()){
-             
+    public void validarEdicionOM(){        
+         if(!listaMaterial.isEmpty()){             
              ValidarMaterial om = new ValidarMaterial();
              om.validarEdicionOM(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), listaMaterias);
              lblValidarCodigo.setText(om.getErrorCodigoClasificacion());
              lblValidarTitulo.setText(om.getErrorTitulo());
+             lblValidarMateria.setText(om.getErrorMateria());
              errorAcordeonOM();         
          }
     }
-   
+       
     private void errorAcordeonOM() {
+        
         ValidarMaterial om = new ValidarMaterial();
         if (!acordeonMaterias.isExpanded() && lblValidarMateria.getText() != null) {
-            acordeonMaterias.setText("Materias" + "               se ha encontrado un error!");
+             acordeonMaterias.setText("Materias" + "                 se ha encontrado un error!");
         } else {
             acordeonMaterias.setText("Materias");
         }
         if (!acordeonGeneral.isExpanded() && !om.validarAcordeon(lblValidarCodigo.getText(), lblValidarTitulo.getText())) {
-            acordeonGeneral.setText("General" + "                 se ha encontrado un error!");
+            acordeonGeneral.setText("General" + "                  se ha encontrado un error!");
         } else {
             acordeonGeneral.setText("General");
         }
-
+        
     }
     
     private void errorAcordeon() {
         ValidarMaterial libro = new ValidarMaterial();
         if (!acordeonMaterias.isExpanded() && lblValidarMateria.getText() != null) {
-            acordeonMaterias.setText("Materias" + "               se ha encontrado un error!");
+            acordeonMaterias.setText("Materias" + "                 se ha encontrado un error!");
         } else {
             acordeonMaterias.setText("Materias");
         }
         if (!acordeonAutores.isExpanded() && lblValidarAutor.getText() != null) {
-            acordeonAutores.setText("Autores" + "                 se ha encontrado un error!");
+            acordeonAutores.setText("Autores" + "                  se ha encontrado un error!");
         } else {
             acordeonAutores.setText("Autores");
         }
         if (!acordeonGeneral.isExpanded() && !libro.validarAcordeon(lblValidarCodigo.getText(), lblValidarTitulo.getText(),
                                                                     lblValidarPaginas.getText(), lblValidarEditorial.getText(),
                                                                     lblValidarPublicacion.getText(), lblValidarAnio.getText())) {
-            acordeonGeneral.setText("General" + "                 se ha encontrado un error!");
+            acordeonGeneral.setText("General" + "                  se ha encontrado un error!");
         } else {
             acordeonGeneral.setText("General");
         }

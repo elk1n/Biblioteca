@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.collections.ObservableList;
 import javafx.scene.input.KeyEvent;
 
 /**
@@ -21,7 +22,6 @@ public class Validacion {
             this.mensajeError = "No puede dejar este campo en blanco.";
             return false;
         } else if (campoTexto.length() > numeroCaracteres) {
-
             this.mensajeError = "Máximo " + numeroCaracteres + " caracteres.";
             return false;
         } else if (campoTexto.trim().equals("")) {
@@ -211,7 +211,29 @@ public class Validacion {
             this.mensajeError = "Debe ser un número.";
         }
     }
-    
+
+    public boolean validarDatoArryList(String dato, ObservableList lista) {
+        
+        String d = "";
+        if (!dato.equals("") && !dato.isEmpty() && !dato.trim().equals("")) {
+            for (Object data : lista) {
+                if (data.toString().equals(dato)) {
+                    d = data.toString();
+                }
+            }
+            if (d.equals(dato)) {
+                this.mensajeError = "";
+                return true;
+            } else {
+                this.mensajeError = "La editorial debe ser seleccionada de la lista.";
+                return false;
+            }
+        }
+        else{
+            return true;
+        }
+    }
+
     public boolean validarAcordeon(String codigo, String titulo, String paginas, String editorial, String publicacion, String anio){        
         boolean retorno = false; 
         String control = "";

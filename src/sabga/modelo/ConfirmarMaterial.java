@@ -107,7 +107,7 @@ public class ConfirmarMaterial extends ValidarMaterial {
     }
     
     public boolean confirmarEdicionLibro(String codigo, String titulo, String anioPublicacion, String publicacion, 
-                                         String paginas, String editorial, ObservableList autores, ObservableList materias){
+                                         String paginas, String editorial, ObservableList autores, ObservableList materias, ObservableList editoriales){
         
         if (!validarCampoTexto(codigo, 45)) {
             return false;
@@ -124,7 +124,7 @@ public class ConfirmarMaterial extends ValidarMaterial {
         else if (!validarNumero(paginas, 10)) {
             return false;
         }
-        else if (!validarCampoTextoNull(editorial, 90)) {
+        else if (!validarDatoArryList(editorial, editoriales)) {
             return false;
         }
         else if (autores.isEmpty()) {

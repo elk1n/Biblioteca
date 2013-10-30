@@ -229,7 +229,7 @@
                   </stylesheets>
                 </HBox>
                 <Button defaultButton="true" layoutX="460.0" layoutY="17.0" mnemonicParsing="false" onAction="#adicionarAutor" prefHeight="25.0" prefWidth="120.0" text="Seleccionar" />
-                <Label id="validarAutoresAC" fx:id="lblValidarAutor" alignment="CENTER_RIGHT" layoutX="90.0" layoutY="60.0" prefWidth="350.0" text="Validar">
+                <Label id="validarAutoresAC" fx:id="lblValidarAutor" alignment="CENTER_RIGHT" layoutX="90.0" layoutY="60.0" prefWidth="350.0" text="">
                   <textFill>
                     <Color blue="0.000" green="0.000" red="0.600" fx:id="x9" />
                   </textFill>
@@ -253,7 +253,7 @@
                 <AnchorPane id="Content" fx:id="contenedorMaterias" layoutX="7.0" layoutY="5.0" minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="599.0">
                   <children>
                     <Label layoutX="27.0" layoutY="20.0" text="Materias:" />
-                    <Label id="validarMateriasAC" fx:id="lblValidarMateria" alignment="CENTER_RIGHT" layoutX="76.0" layoutY="55.0" prefWidth="361.0" text="Validacion" textFill="$x9" />
+                    <Label id="validarMateriasAC" fx:id="lblValidarMateria" alignment="CENTER_RIGHT" layoutX="76.0" layoutY="55.0" prefWidth="361.0" text="" textFill="$x9" />
                     <HBox fx:id="hboxMaterias" layoutX="88.0" layoutY="15.0" prefHeight="30.0" prefWidth="350.0">
                       <stylesheets>
                         <URL value="@css/estilo.css" />
