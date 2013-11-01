@@ -33,14 +33,16 @@ public class Autor {
         return Integer.parseInt(this.idAutor.get());
     }
     
-   
-    
     public void setNombreAutor(String nombre){
         this.nombreAutor.set(nombre);
     }
     
     public void setApellidos(String apellidos){    
         this.apellidosAutor.set(apellidos);
+    }
+    
+    public void setIdAutor(String id){
+        this.idAutor.set(id);
     }
     
     @Override

@@ -126,11 +126,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     
     @FXML
     public void removerAutor(ActionEvent evento){
-        if(tablaAutores.getSelectionModel().getSelectedItem()!=null){           
-           listaAutores.remove(tablaAutores.getSelectionModel().getSelectedIndex());
-       }else{
-           Utilidades.mensajeAdvertencia(null, "Debe seleccionar al menos uno de la lista", "Pare remover un autor", "Remover Autor");
-       }        
+        removerAutor();
     }
     
     @FXML
@@ -259,26 +255,54 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     }
     
     private void sumarAutor(){
-        
-        if (!listaMaterial.isEmpty()) {
-            if (listaBusquedaAutores.indexOf(autores.getText()) != -1) {
-                if (!verificarDuplicados(listaAutores, autores.getText())) {
-                    
-                    
-                    
-                    
-                    listaAutores.add(new Autor(obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getNombreAutor(),
-                                               obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getApellidosAutor(),"0"));
-                    autores.getTextbox().setText("");
+
+        if (comboTipoMaterial.getSelectionModel().getSelectedItem() != null) {
+            if (!listaMaterial.isEmpty() && comboTipoMaterial.getSelectionModel().getSelectedItem().toString().toLowerCase().contains("libro")) {
+                if (listaBusquedaAutores.indexOf(autores.getText()) != -1) {
+                    if (!verificarDuplicados(listaAutores, autores.getText())) {
+                        consulta.editarAutorMaterial(2, Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()),
+                                                     obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getIdAutor());
+                        if (consulta.getMensaje() == null) {
+                            Utilidades.mensaje(null, "El autor se ha añadido correctamente.", "Adición exitosa.", "Añadir Autor");
+                            listaAutores.add(new Autor(obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getNombreAutor(),
+                                                       obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getApellidosAutor(),
+                                                       String.valueOf(obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getIdAutor())));
+                            autores.getTextbox().setText("");
+                        } else {
+                            Utilidades.mensajeAdvertencia(null, "No ha sido posible añadir el autor.", "Error al añadir el autor.", "Añadir Autor");
+                            autores.getTextbox().setText("");
+                        }
+                    } else {
+                        Utilidades.mensaje(null, "El autor seleccionado ya se encuentra presente en la lista", "El autor ya se encuentra en la lista", "Seleccionar Autor");
+                        autores.getTextbox().setText("");
+                    }
                 } else {
-                    Utilidades.mensaje(null, "El autor seleccionado ya se encuentra presente en la lista", "El autor ya se encuentra en la lista", "Seleccionar Autor");
+                    Utilidades.mensaje(null, "El autor debe estar registrado", "Para adicionar un autor a la lista", "Seleccionar Autor");
                     autores.getTextbox().setText("");
                 }
-            } else {
-                Utilidades.mensaje(null, "El autor debe estar registrado", "Para adicionar un autor a la lista", "Seleccionar Autor");
-                autores.getTextbox().setText("");
             }
-        }
+        }     
+    }
+    
+    private void removerAutor(){
+        
+         if(tablaAutores.getSelectionModel().getSelectedItem()!=null && tablaMaterial.getSelectionModel().getSelectedItem() != null){
+             if(listaAutores.size() >1){
+                 consulta.editarAutorMaterial(1, Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()),
+                                                 listaAutores.get(tablaAutores.getSelectionModel().getSelectedIndex()).getIdAutor());
+                 if(consulta.getMensaje() == null){
+                       Utilidades.mensaje(null, "El autor ha sido removido correctamente.", "Remover un  autor.", "Remover Autor");
+                       listaAutores.remove(tablaAutores.getSelectionModel().getSelectedIndex());
+                 }else{
+                    Utilidades.mensajeAdvertencia(null, "No ha sido posible remover el autor.", "Error al remover el autor.", "Remover Autor");
+                }            
+             }else{
+                 lblValidarAutor.setText("El libro debe estar asociado al menos a un autor.");
+             }      
+       }else{
+           Utilidades.mensajeAdvertencia(null, "Debe seleccionar al menos uno de la lista", "Pare remover un autor", "Remover Autor");
+       } 
+    
     }
     
     private void sumarMateria(){
@@ -314,7 +338,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
                 consulta.editarMaterialMateria(1, Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()),
                                                listaMaterias.get(tablaMaterias.getSelectionModel().getSelectedIndex()).getNombreMateria());
                 if(consulta.getMensaje() == null){
-                    Utilidades.mensaje(null, "Remover una materia.", "La materia ha sido removida correctamente.", "Remover Materia");
+                    Utilidades.mensaje(null, "La materia ha sido removida correctamente.", "Remover una materia.", "Remover Materia");
                     listaMaterias.remove(tablaMaterias.getSelectionModel().getSelectedIndex());
                 }else{
                     Utilidades.mensajeAdvertencia(null, "No ha sido posible remover la materia.", "Error al remover la materia.", "Remover Materia");
