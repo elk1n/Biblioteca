@@ -107,49 +107,32 @@ public class ConfirmarMaterial extends ValidarMaterial {
     }
     
     public boolean confirmarEdicionLibro(String codigo, String titulo, String anioPublicacion, String publicacion, 
-                                         String paginas, String editorial, ObservableList autores, ObservableList materias, ObservableList editoriales){
+                                         String paginas, String editorial, ObservableList editoriales){
         
         if (!validarCampoTexto(codigo, 45)) {
             return false;
-        }
-        else if (!validarCampoTexto(titulo, 255)) {
+        }else if (!validarCampoTexto(titulo, 255)) {
             return false;
-        }
-        else if (!validarAnio(anioPublicacion, 4)) {
+        }else if (!validarAnio(anioPublicacion, 4)) {
             return false;
-        }
-        else if (!validarCampoTextoNull(publicacion, 255)) {
+        }else if (!validarCampoTextoNull(publicacion, 255)) {
             return false;
-        }
-        else if (!validarNumero(paginas, 10)) {
+        }else if (!validarNumero(paginas, 10)) {
             return false;
-        }
-        else if (!validarDatoArryList(editorial, editoriales)) {
+        }else if (!validarDatoArryList(editorial, editoriales)) {
             return false;
-        }
-        else if (autores.isEmpty()) {
-            return false;
-        }
-        else if (materias.isEmpty()) {
-            return false;
-        }
-        else{
+        }else{
             return true;
         }     
     }
     
-    public boolean confirmarEdicionOM(String codigo, String titulo, ObservableList materias){
+    public boolean confirmarEdicionOM(String codigo, String titulo){
   
         if (!validarCampoTexto(codigo, 45)) {
             return false;
-        }
-        else if (!validarCampoTexto(titulo, 255)) {
+        }else if (!validarCampoTexto(titulo, 255)) {
             return false;
-        }
-        else if (materias.isEmpty()) {
-           return false;
-        }
-        else{
+        }else{
             return true;
         }
     }

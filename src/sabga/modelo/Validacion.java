@@ -233,65 +233,7 @@ public class Validacion {
             return true;
         }
     }
-
-    public boolean validarAcordeon(String codigo, String titulo, String paginas, String editorial, String publicacion, String anio){        
-        boolean retorno = false; 
-        String control = "";
-        
-        if (codigo != null){           
-            control += "N";
-        }else {
-            control += "S";
-        }
-        if(titulo != null){
-            control += "N";
-        }else{
-            control += "S";
-        }
-        if(paginas != null){
-            control += "N";
-        }else{
-            control += "S";
-        }
-        if(editorial != null){
-            control += "N";
-        }else{
-            control += "S";
-        }
-        if(publicacion != null){
-            control += "N";
-        }else{
-            control += "S";
-        }
-        if(anio != null){
-            control += "N";
-        }else{
-            control += "S";
-        }        
-        int auxiliar = control.indexOf("N");
-        retorno = auxiliar == -1;
-        return retorno;
-    }   
-    
-    public boolean validarAcordeon(String codigo, String titulo){        
-        boolean retorno = false; 
-        String control = "";
-        
-        if (codigo != null){           
-            control += "N";
-        }else {
-            control += "S";
-        }
-        if(titulo != null){
-            control += "N";
-        }else{
-            control += "S";
-        }       
-        int auxiliar = control.indexOf("N");
-        retorno = auxiliar == -1;
-        return retorno;
-    }
-        
+            
     public String getMensajeError() {
         return this.mensajeError;
     }

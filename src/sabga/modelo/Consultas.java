@@ -38,7 +38,7 @@ public class Consultas {
                 lista.add(con.getResultado().getString(dato));
             }
         } catch (SQLException ex) {
-            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intente más tarde", "Error Acceso");
+            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde", "Error Acceso");
         } finally {
             con.desconectar();
         }
@@ -90,20 +90,17 @@ public class Consultas {
     public ObservableList<Material> getListaMaterial(String tipo) {
 
         listaMaterial.clear();
-        String consultaMaterial = "SELECT M.id_material AS 'id', M.titulo AS 'titulo', M.codigo_clasificacion AS 'codigo', C.clase_material AS 'clase'"
-                + " FROM tbl_MATERIAL AS M"
-                + " JOIN tbl_CLASE_MATERIAL AS C ON C.id_clase_material = M.id_clase_material"
-                + " JOIN tbl_TIPO_MATERIAL AS T ON T.id_tipo_material = M.id_tipo_material"
-                + " WHERE T.tipo_material =" + "'" + tipo + "'";
         try {
             con.conectar();
-            con.setResultado(con.getStatement().executeQuery(consultaMaterial));
+            con.procedimiento("{ CALL getListaMaterial(?)}");
+            con.getProcedimiento().setString("parametro", tipo);
+            con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
                 listaMaterial.add(new Material(con.getResultado().getString("titulo"), con.getResultado().getString("codigo"),
-                        con.getResultado().getString("clase"), con.getResultado().getString("id")));
+                                               con.getResultado().getString("clase"), con.getResultado().getString("id")));
             }
         } catch (SQLException ex) {
-            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intente más tarde", "Error Acceso");
+            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
         } finally {
             con.desconectar();
         }
@@ -113,14 +110,11 @@ public class Consultas {
     public ObservableList<Materia> listaMaterias(int id) {
 
         ObservableList<Materia> listaMaterias = FXCollections.observableArrayList();
-        String consulta = "SELECT MA.nombre_materia AS 'materia' "
-                + "FROM tbl_MATERIA AS MA "
-                + "JOIN tbl_MATERIAL_MATERIA AS MM ON MA.id_materia = MM.id_materia "
-                + "JOIN tbl_MATERIAL AS M ON MM.id_material = M.id_material "
-                + "WHERE M.id_material =" + "'" + id + "'";
         try {
             con.conectar();
-            con.setResultado(con.getStatement().executeQuery(consulta));
+            con.procedimiento("{ CALL getListaMaterias(?) }");
+            con.getProcedimiento().setInt("id", id);
+            con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
                 listaMaterias.add(new Materia(con.getResultado().getString("materia")));
             }
@@ -155,14 +149,11 @@ public class Consultas {
     public ObservableList<Autor> listaAutores(int id) {
 
         ObservableList<Autor> listaAutores = FXCollections.observableArrayList();
-        String consulta = "SELECT A.id_autor as 'id', A.nombre_autor AS 'nombre', A.apellidos_autor AS 'apellido'"
-                + "FROM tbl_AUTOR AS A "
-                + "JOIN tbl_AUTOR_MATERIAL AS AM ON A.id_autor = AM.id_autor "
-                + "JOIN tbl_MATERIAL AS M ON AM.id_material = M.id_material "
-                + "WHERE M.id_material = " + "'" + id + "'";
         try {
             con.conectar();
-            con.setResultado(con.getStatement().executeQuery(consulta));
+            con.procedimiento("{ CALL getListaAutores(?) }");
+            con.getProcedimiento().setInt("id", id);
+            con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
                 listaAutores.add(new Autor(con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
                                            con.getResultado().getString("id")));
@@ -324,8 +315,7 @@ public class Consultas {
             mensaje = e.getMessage();
         } finally {
             con.desconectar();
-        }
-    
+        }  
     }
     
     public void editarMaterial(int opcion, int material, String clase, String tipo, String editorial, String codigo, 
