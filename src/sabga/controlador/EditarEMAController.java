@@ -560,7 +560,8 @@ public class EditarEMAController implements Initializable, ControlledScreen {
             con.setResultado(con.getStatement().executeQuery("SELECT * FROM tbl_AUTOR"));
 
             while (con.getResultado().next()) {
-                listaAutores.add(new Autor(con.getResultado().getString("nombre_autor"), con.getResultado().getString("apellidos_autor")));
+                listaAutores.add(new Autor(con.getResultado().getString("nombre_autor"), con.getResultado().getString("apellidos_autor"),
+                                           con.getResultado().getString("id_autor")));
             }
             con.desconectar();
         } catch (SQLException ex) {

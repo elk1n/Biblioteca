@@ -363,7 +363,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             con.conectar();
             con.setResultado(con.getStatement().executeQuery("SELECT * FROM tbl_AUTOR ORDER BY nombre_autor, apellidos_autor"));
             while (con.getResultado().next()) {
-                obtenerAutores.add(new Autor(con.getResultado().getString("nombre_autor"), con.getResultado().getString("apellidos_autor")));
+                obtenerAutores.add(new Autor(con.getResultado().getString("nombre_autor"), con.getResultado().getString("apellidos_autor"),
+                                             con.getResultado().getString("id_autor")));
             }
             con.desconectar();            
             for(Autor datos : obtenerAutores){            
@@ -504,7 +505,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         if (listaAutores.indexOf(buscarAutor.getText()) != -1) {
             if (!verificarDuplicados(buscarAutor.getText())) {
                 autores.add(new Autor(obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getNombreAutor(), 
-                                      obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getApellidosAutor()));
+                                      obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getApellidosAutor(),"0"));
                 contenedorAutores.setPrefHeight(contenedorAutores.getPrefHeight() + 25);
                 tablaAutores.setPrefHeight(tablaAutores.getPrefHeight() + 25);
                 buscarAutor.getTextbox().setText("");

@@ -264,8 +264,12 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         if (!listaMaterial.isEmpty()) {
             if (listaBusquedaAutores.indexOf(autores.getText()) != -1) {
                 if (!verificarDuplicados(listaAutores, autores.getText())) {
+                    
+                    
+                    
+                    
                     listaAutores.add(new Autor(obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getNombreAutor(),
-                            obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getApellidosAutor()));
+                                               obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getApellidosAutor(),"0"));
                     autores.getTextbox().setText("");
                 } else {
                     Utilidades.mensaje(null, "El autor seleccionado ya se encuentra presente en la lista", "El autor ya se encuentra en la lista", "Seleccionar Autor");

@@ -12,11 +12,13 @@ public class Autor {
     
     private final StringProperty nombreAutor;
     private final StringProperty apellidosAutor;
+    private final StringProperty idAutor;
     
-    public Autor(String nombre, String apellidos){
+    public Autor(String nombre, String apellidos, String id){
         
           this.nombreAutor = new SimpleStringProperty(nombre);
-          this.apellidosAutor = new SimpleStringProperty(apellidos);     
+          this.apellidosAutor = new SimpleStringProperty(apellidos);
+          this.idAutor = new SimpleStringProperty(id);
     }
         
     public String getNombreAutor(){    
@@ -26,6 +28,12 @@ public class Autor {
     public  String getApellidosAutor(){    
         return apellidosAutor.get();
     }
+    
+    public int getIdAutor(){        
+        return Integer.parseInt(this.idAutor.get());
+    }
+    
+   
     
     public void setNombreAutor(String nombre){
         this.nombreAutor.set(nombre);

@@ -53,7 +53,8 @@ public class Consultas {
             con.conectar();
             con.setResultado(con.getStatement().executeQuery("SELECT * FROM tbl_AUTOR ORDER BY nombre_autor, apellidos_autor"));
             while (con.getResultado().next()) {
-                obtenerAutores.add(new Autor(con.getResultado().getString("nombre_autor"), con.getResultado().getString("apellidos_autor")));
+                obtenerAutores.add(new Autor(con.getResultado().getString("nombre_autor"), con.getResultado().getString("apellidos_autor"),
+                                             con.getResultado().getString("id_autor")));
             }
             for (Autor datos : obtenerAutores) {
                 listaAutores.add(datos.toString());
@@ -154,7 +155,7 @@ public class Consultas {
     public ObservableList<Autor> listaAutores(int id) {
 
         ObservableList<Autor> listaAutores = FXCollections.observableArrayList();
-        String consulta = "SELECT A.nombre_autor AS 'nombre', A.apellidos_autor AS 'apellido'"
+        String consulta = "SELECT A.id_autor as 'id', A.nombre_autor AS 'nombre', A.apellidos_autor AS 'apellido'"
                 + "FROM tbl_AUTOR AS A "
                 + "JOIN tbl_AUTOR_MATERIAL AS AM ON A.id_autor = AM.id_autor "
                 + "JOIN tbl_MATERIAL AS M ON AM.id_material = M.id_material "
@@ -163,7 +164,8 @@ public class Consultas {
             con.conectar();
             con.setResultado(con.getStatement().executeQuery(consulta));
             while (con.getResultado().next()) {
-                listaAutores.add(new Autor(con.getResultado().getString("nombre"), con.getResultado().getString("apellido")));
+                listaAutores.add(new Autor(con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
+                                           con.getResultado().getString("id")));
             }
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
