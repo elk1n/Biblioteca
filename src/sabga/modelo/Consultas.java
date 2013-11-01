@@ -2,8 +2,6 @@ package sabga.modelo;
 
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sabga.atributos.Autor;
@@ -16,6 +14,7 @@ import sabga.configuracion.Utilidades;
 /**
  * @author Elk1n
  */
+
 public class Consultas {
 
     private final Conexion con;
@@ -274,7 +273,34 @@ public class Consultas {
         }
     }
     
-    public void editarMaterial(int opcion, int material, int clase, int tipo, int editorial, String codigo, 
+    public void editarMaterialMateria(int opcion, int material, String materia){
+    
+         try {
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL editarMaterialMateria(?,?,?,?) }");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setInt("material", material);
+            con.getProcedimiento().setString("materia", materia);
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+            con.getProcedimiento().execute();
+            mensaje = con.getProcedimiento().getString("mensaje");
+            con.getConexion().commit();
+        } catch (SQLException e) {
+            try {
+                con.getConexion().rollback();
+                mensaje = "No ha sido posible realizar la operación solicitada.";
+            } catch (SQLException ex) {
+                mensaje = ex.getMessage();
+            }
+            mensaje = e.getMessage();
+        } finally {
+            con.desconectar();
+        }
+         
+    }
+    
+    public void editarMaterial(int opcion, int material, String clase, String tipo, String editorial, String codigo, 
                                String titulo, String publicacion, int anio, int paginas ){
     
         try {
@@ -283,9 +309,9 @@ public class Consultas {
             con.procedimiento("{ CALL editarMaterial(?,?,?,?,?,?,?,?,?,?,?) }");
             con.getProcedimiento().setInt("opcion", opcion);
             con.getProcedimiento().setInt("material", material);
-            con.getProcedimiento().setInt("clase", clase);
-            con.getProcedimiento().setInt("tipo", tipo);
-            con.getProcedimiento().setInt("editorial", editorial);
+            con.getProcedimiento().setString("clase", clase);
+            con.getProcedimiento().setString("tipo", tipo);
+            con.getProcedimiento().setString("editorial", editorial);
             con.getProcedimiento().setString("codigo", codigo);
             con.getProcedimiento().setString("tituloMaterial", titulo);
             con.getProcedimiento().setString("publicacionMaterial", publicacion);

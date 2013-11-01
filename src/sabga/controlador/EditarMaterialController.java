@@ -117,39 +117,12 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     @FXML
     public void adicionarAutor(ActionEvent evento){
         
-        if (!listaMaterial.isEmpty()) {
-            if (listaBusquedaAutores.indexOf(autores.getText()) != -1) {
-                if (!verificarDuplicados(listaAutores, autores.getText())) {
-                    listaAutores.add(new Autor(obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getNombreAutor(),
-                            obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getApellidosAutor()));
-                    autores.getTextbox().setText("");
-                } else {
-                    Utilidades.mensaje(null, "El autor seleccionado ya se encuentra presente en la lista", "El autor ya se encuentra en la lista", "Seleccionar Autor");
-                    autores.getTextbox().setText("");
-                }
-            } else {
-                Utilidades.mensaje(null, "El autor debe estar registrado", "Para adicionar un autor a la lista", "Seleccionar Autor");
-                autores.getTextbox().setText("");
-            }
-        }
+        sumarAutor();        
     }
     
     @FXML
     public void adicionarMateria(ActionEvent evento){
-        if (!listaMaterial.isEmpty()) {
-            if (listaBusquedaMaterias.indexOf(materias.getText()) != -1) {
-                if (!verificarDuplicados(listaMaterias, materias.getText())) {
-                    listaMaterias.add(new Materia(listaBusquedaMaterias.get(listaBusquedaMaterias.indexOf(materias.getText())).toString()));
-                    materias.getTextbox().setText("");
-                } else {
-                    Utilidades.mensaje(null, "La materia ya se encuentra en la lista", "No se puede repetir una materia", "Seleccionar Materia ");
-                    materias.getTextbox().setText("");
-                }
-            } else {
-                Utilidades.mensaje(null, "La materia debe ser una de la lista", "Para adicionar una materia a la lista", "Seleccionar Materia");
-                materias.getTextbox().setText("");
-            }
-        }
+        sumarMateria();
     }
     
     @FXML
@@ -162,12 +135,8 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     }
     
     @FXML
-    public void removerMateria(ActionEvent evento){
-        if(tablaMaterias.getSelectionModel().getSelectedItem()!=null){           
-            listaMaterias.remove(tablaMaterias.getSelectionModel().getSelectedIndex());
-       }else{
-           Utilidades.mensajeAdvertencia(null, "Debe seleccionar al menos una de la lista", "Pare remover una materia", "Remover Materia");
-       }    
+    public void removerMateria(ActionEvent evento){        
+        removerMateria();            
    }
     
     @FXML
@@ -290,6 +259,71 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         }
     }
     
+    private void sumarAutor(){
+        
+        if (!listaMaterial.isEmpty()) {
+            if (listaBusquedaAutores.indexOf(autores.getText()) != -1) {
+                if (!verificarDuplicados(listaAutores, autores.getText())) {
+                    listaAutores.add(new Autor(obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getNombreAutor(),
+                            obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getApellidosAutor()));
+                    autores.getTextbox().setText("");
+                } else {
+                    Utilidades.mensaje(null, "El autor seleccionado ya se encuentra presente en la lista", "El autor ya se encuentra en la lista", "Seleccionar Autor");
+                    autores.getTextbox().setText("");
+                }
+            } else {
+                Utilidades.mensaje(null, "El autor debe estar registrado", "Para adicionar un autor a la lista", "Seleccionar Autor");
+                autores.getTextbox().setText("");
+            }
+        }
+    }
+    
+    private void sumarMateria(){
+        
+        if (!listaMaterial.isEmpty()) {
+            if (listaBusquedaMaterias.indexOf(materias.getText()) != -1) {
+                if (!verificarDuplicados(listaMaterias, materias.getText())) {
+                    consulta.editarMaterialMateria(2, Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()),
+                                                   materias.getText());
+                    if(consulta.getMensaje()==null){                        
+                        Utilidades.mensaje(null, "Adición exitosa.", "La materia se ha añadido correctamente.", "Añadir Materia");
+                        listaMaterias.add(new Materia(listaBusquedaMaterias.get(listaBusquedaMaterias.indexOf(materias.getText())).toString()));
+                        materias.getTextbox().setText("");
+                    }else{
+                         Utilidades.mensajeAdvertencia(null, "No ha sido posible añadir la materia.", "Error al añadir la materia.", "Añadir Materia");
+                         materias.getTextbox().setText("");
+                    }
+                } else {
+                    Utilidades.mensaje(null, "La materia ya se encuentra en la lista.", "Una materia no se puede encontrar más de una vez.", "Seleccionar Materia ");
+                    materias.getTextbox().setText("");
+                }
+            } else {
+                Utilidades.mensaje(null, "La materia se debe encontrar en la lista.", "Para adicionar una materia a la lista.", "Seleccionar Materia");
+                materias.getTextbox().setText("");
+            }
+        }  
+    }
+    
+    private void removerMateria(){
+        
+        if(tablaMaterias.getSelectionModel().getSelectedItem()!=null && tablaMaterial.getSelectionModel().getSelectedItem() != null){
+            if(listaMaterias.size() >1){
+                consulta.editarMaterialMateria(1, Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()),
+                                               listaMaterias.get(tablaMaterias.getSelectionModel().getSelectedIndex()).getNombreMateria());
+                if(consulta.getMensaje() == null){
+                    Utilidades.mensaje(null, "Remover una materia.", "La materia ha sido removida correctamente.", "Remover Materia");
+                    listaMaterias.remove(tablaMaterias.getSelectionModel().getSelectedIndex());
+                }else{
+                    Utilidades.mensajeAdvertencia(null, "No ha sido posible remover la materia.", "Error al remover la materia.", "Remover Materia");
+                } 
+            }else{
+                lblValidarMateria.setText("El material debe estar asociado al menos a una materia.");
+            }         
+       }else{
+           Utilidades.mensajeAdvertencia(null, "Debe seleccionar al menos una materia de la lista.", "Pare remover una materia.", "Remover Materia");
+       }
+    }
+    
     private void editarMaterial(){
         
         if(comboTipoMaterial.getSelectionModel().getSelectedItem() != null){
@@ -299,7 +333,13 @@ public class EditarMaterialController implements Initializable, ControlledScreen
                 ConfirmarMaterial validar = new ConfirmarMaterial();
                 if(validar.confirmarEdicionLibro(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), txtfAnio.getText(), txtfPublicacion.getText(),
                                                  txtfPaginas.getText(), editorial.getText(), listaAutores, listaMaterias, editorial.getData())){
-                                        
+                    consulta.editarMaterial(1, Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()), 
+                                            comboClaseMaterial.getSelectionModel().getSelectedItem().toString(), 
+                                            comboTipoMaterial.getSelectionModel().getSelectedItem().toString(), 
+                                            editorial.getTextbox().getText(), txtfCodigoClasificacion.getText(), 
+                                            txtfTitulo.getText(),txtfPublicacion.getText(),
+                                            Integer.parseInt(txtfAnio.getText()), Integer.parseInt(txtfPaginas.getText()));
+               
                 }                                      
             }
             else{
