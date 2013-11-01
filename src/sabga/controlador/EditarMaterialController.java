@@ -115,8 +115,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     }
    
     @FXML
-    public void adicionarAutor(ActionEvent evento){
-        
+    public void adicionarAutor(ActionEvent evento){        
         sumarAutor();        
     }
     
@@ -289,8 +288,8 @@ public class EditarMaterialController implements Initializable, ControlledScreen
                 if (!verificarDuplicados(listaMaterias, materias.getText())) {
                     consulta.editarMaterialMateria(2, Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()),
                                                    materias.getText());
-                    if(consulta.getMensaje()==null){                        
-                        Utilidades.mensaje(null, "Adición exitosa.", "La materia se ha añadido correctamente.", "Añadir Materia");
+                    if(consulta.getMensaje()==null){                       
+                        Utilidades.mensaje(null,  "La materia se ha añadido correctamente.", "Adición exitosa.", "Añadir Materia");
                         listaMaterias.add(new Materia(listaBusquedaMaterias.get(listaBusquedaMaterias.indexOf(materias.getText())).toString()));
                         materias.getTextbox().setText("");
                     }else{

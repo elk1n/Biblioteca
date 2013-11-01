@@ -298,8 +298,34 @@ public class Consultas {
             mensaje = e.getMessage();
         } finally {
             con.desconectar();
+        }         
+    }
+    
+    public void editarAutorMaterial(int opcion, int material, int autor){
+    
+        try {
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL editarAutorMaterial(?,?,?,?) }");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setInt("material", material);
+            con.getProcedimiento().setInt("autor", autor);
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+            con.getProcedimiento().execute();
+            mensaje = con.getProcedimiento().getString("mensaje");
+            con.getConexion().commit();
+        } catch (SQLException e) {
+            try {
+                con.getConexion().rollback();
+                mensaje = "No ha sido posible realizar la operación solicitada.";
+            } catch (SQLException ex) {
+                mensaje = ex.getMessage();
+            }
+            mensaje = e.getMessage();
+        } finally {
+            con.desconectar();
         }
-         
+    
     }
     
     public void editarMaterial(int opcion, int material, String clase, String tipo, String editorial, String codigo, 
