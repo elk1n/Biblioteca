@@ -32,6 +32,8 @@ import sabga.atributos.Autor;
 import sabga.atributos.Materia;
 import sabga.configuracion.Conexion;
 import sabga.modelo.ConfirmarMaterial;
+import sabga.modelo.Consultas;
+import sabga.modelo.Seleccion;
 import sabga.modelo.Validacion;
 
 /**
@@ -71,6 +73,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private final Validacion validar;
     private ValidarMaterial validarMaterial;
     private ConfirmarMaterial confirmar;
+    private final Seleccion select;
+    private final Consultas consulta;
     
     private final Conexion con;
     
@@ -81,9 +85,6 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private final ObservableList<Autor> autores;
     private final ObservableList<Materia> materias;
     private final ObservableList<Materia> materiasOM;
-    private final ObservableList listaClaseMaterial;
-    private final ObservableList listaClaseMaterialOM;
-    private final ObservableList listaTipoMaterial;
     private final ObservableList<Integer> idAutores;
     private final ObservableList<Integer> idMaterias;
     private final ObservableList<Integer> idMateriasOM;
@@ -92,6 +93,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         
         con = new Conexion();
         dialogo = new Dialogo();
+        select = new Seleccion();
+        consulta = new Consultas();
         buscarAutor = new AutoFillTextBox();
         buscarMateria = new AutoFillTextBox();
         buscarMateriaOM = new AutoFillTextBox();
@@ -104,9 +107,6 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         listaEditoriales = FXCollections.observableArrayList();
         listaAutores = FXCollections.observableArrayList();
         obtenerAutores = FXCollections.observableArrayList();
-        listaClaseMaterial = FXCollections.observableArrayList();
-        listaClaseMaterialOM = FXCollections.observableArrayList();
-        listaTipoMaterial = FXCollections.observableArrayList();
         idAutores = FXCollections.observableArrayList();
         idMaterias = FXCollections.observableArrayList();
         idMateriasOM = FXCollections.observableArrayList();
@@ -355,40 +355,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         }
         return id;
     }
-        
-    public void llenarAutores() {
-
-        try {
-
-            con.conectar();
-            con.setResultado(con.getStatement().executeQuery("SELECT * FROM tbl_AUTOR ORDER BY nombre_autor, apellidos_autor"));
-            while (con.getResultado().next()) {
-                obtenerAutores.add(new Autor(con.getResultado().getString("nombre_autor"), con.getResultado().getString("apellidos_autor"),
-                                             con.getResultado().getString("id_autor")));
-            }
-            con.desconectar();            
-            for(Autor datos : obtenerAutores){            
-                listaAutores.add(datos.toString());
-            }                       
-        } catch (SQLException ex){         
-            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
-        }
-    }
-    
-    public void listarDatos(ObservableList lista, String tabla, String consulta) {
-
-          try {
-            con.conectar();
-            con.setResultado(con.getStatement().executeQuery(tabla));
-            while (con.getResultado().next()) {
-                lista.add(con.getResultado().getString(consulta));
-            }
-            con.desconectar();     
-        } catch (SQLException ex) {
-            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
-        }       
-    }  
-    
+            
     public void cargarNombreMateriaOM() {
 
         if (validar.validarCampoTexto(buscarMateriaOM.getText(), 90)) {
@@ -633,22 +600,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         }
         
     }
-    
-    public void cargarCombo(String consulta, String columna, ObservableList lista, ComboBox combo) {
-            
-        try {   
-            con.conectar();
-            con.setResultado(con.getStatement().executeQuery(consulta));
-            while (con.getResultado().next()) {                
-                lista.add(con.getResultado().getObject(columna));               
-            }
-            combo.setItems(lista);
-            con.desconectar(); 
-        } catch (SQLException ex) {            
-             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo cargar la información de la base de datos\nFavor intente más tarde", "Error"); 
-        }
-    }
-     
+         
     @FXML
     public void dialogoNuevoAutor (ActionEvent evento){
         
@@ -656,7 +608,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         btnNuevoAutor.setDisable(true);
         dialogo.mostrarDialogo("vista/dialogos/NuevoAutor.fxml", "Nuevo Autor", ventanaPrincipal.getPrimaryStage(), null, 1); 
         listaAutores.clear();
-        llenarAutores();
+        listaAutores.addAll(consulta.listaAutores());        
+        obtenerAutores.addAll(consulta.getListaAutores());
         btnNuevoAutor.setDisable(false);
     }
     
@@ -703,12 +656,17 @@ public class RegistroMaterialController implements Initializable, ControlledScre
 	this.ventanaPrincipal = ventanaPrincipal;
     }
     
+    public void llenarAutores(){     
+        listaAutores.addAll(consulta.listaAutores());        
+        obtenerAutores.addAll(consulta.getListaAutores());
+    }
+    
     public void llenarListaMaterias(){
-        listarDatos(listaMaterias, "SELECT nombre_materia FROM tbl_MATERIA", "nombre_materia");
+        listaMaterias.addAll(consulta.llenarLista(select.getListaMateria(), select.getMateria()));
     }
     
     public void llenarListaEditoriales(){
-        listarDatos(listaEditoriales, "SELECT nombre_editorial FROM tbl_EDITORIAL", "nombre_editorial");
+        listaEditoriales.addAll(consulta.llenarLista(select.getListaEditorial(), select.getEditorial()));
     }
     
     private String completarConCeros(int numero){
@@ -760,9 +718,10 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     public void initialize(URL url, ResourceBundle rb) {
             
         prepararTablas();
+        llenarAutores();
         llenarListaMaterias();
         llenarListaEditoriales();
-        llenarAutores();
+                    
         buscarAutor.setPrefSize(350, 30);
         buscarMateria.setPrefSize(350, 30);
         buscarMateriaOM.setPrefSize(350, 30);
@@ -781,10 +740,11 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         hboxMaterias.getChildren().add(buscarMateria);
         hboxMateriasOM.getChildren().add(buscarMateriaOM);
         hboxEditorial.getChildren().add(buscarEditorial);
+                
+        comboClaseMaterial.setItems(consulta.llenarLista(select.getListaClaseMaterial(), select.getClaseMaterial()));
+        comboClaseMaterialOM.setItems(comboClaseMaterial.getItems());
+        comboTipoMaterial.setItems(consulta.llenarLista(select.getListaTipoLibro(), select.getTipoLibro()));
         
-        cargarCombo("SELECT * FROM tbl_CLASE_MATERIAL", "clase_material", listaClaseMaterial, comboClaseMaterial);
-        cargarCombo("SELECT * FROM tbl_CLASE_MATERIAL", "clase_material", listaClaseMaterialOM, comboClaseMaterialOM);
-        cargarCombo("SELECT tipo_material FROM tbl_TIPO_MATERIAL WHERE tipo_material NOT LIKE('%libro%')", "tipo_material", listaTipoMaterial, comboTipoMaterial);
     }    
     
 }

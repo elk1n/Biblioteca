@@ -19,7 +19,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
@@ -36,6 +35,7 @@ import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.ConfirmarMaterial;
 import sabga.modelo.Consultas;
+import sabga.modelo.Seleccion;
 import sabga.modelo.ValidarMaterial;
 
 /**
@@ -56,8 +56,6 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     private Button  btnBorrar, btnDetalle, btnEditorial, btnAutor, btnMateria, btnCodigoBarras, btnBorrarBusqueda;    
     @FXML 
     private ComboBox comboTipoMaterial, comboClaseMaterial, comboMaterial, comboDispo;    
-    @FXML 
-    private TitledPane acordeonGeneral, acordeonAutores, acordeonMaterias;
     @FXML
     private HBox hboxEditorial, hboxAutores, hboxMaterias;
     @FXML    
@@ -75,10 +73,12 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     private final ObservableList<Ejemplar> listaEjemplares;
     private final ObservableList listaBusquedaMaterias, listaBusquedaAutores, disponibilidad;
     private final Consultas consulta;
+    private final Seleccion select;
 
     public EditarMaterialController(){
         dialogo = new Dialogo();       
         consulta = new Consultas();
+        select = new Seleccion();
         editorial = new AutoFillTextBox();
         autores = new AutoFillTextBox();
         materias = new AutoFillTextBox();
@@ -425,8 +425,8 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     
     private void llenarComboBox(){
         
-        comboClaseMaterial.setItems(consulta.llenarLista("SELECT clase_material FROM tbl_CLASE_MATERIAL", "clase_material"));
-        comboMaterial.setItems(consulta.llenarLista("SELECT tipo_material FROM tbl_TIPO_MATERIAL", "tipo_material"));
+        comboClaseMaterial.setItems(consulta.llenarLista(select.getListaClaseMaterial(), select.getClaseMaterial()));
+        comboMaterial.setItems(consulta.llenarLista(select.getListaTipoMaterial(), select.getTipoMaterial()));
         comboTipoMaterial.setItems(comboMaterial.getItems());               
     }
     
@@ -548,6 +548,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     }
    
     private boolean matchesFilter(Material material) {
+        
       String filterString = txtfFiltrar.getText();
       if (filterString == null || filterString.isEmpty()) {
           return true;
@@ -566,6 +567,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
   }   
     
     private void reapplyTableSortOrder() {
+        
       ArrayList<TableColumn<Material, ?>> sortOrder = new ArrayList<>(tablaMaterial.getSortOrder());
       tablaMaterial.getSortOrder().clear();
       tablaMaterial.getSortOrder().addAll(sortOrder);
@@ -589,10 +591,10 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         materias.getTextbox().setPromptText("Materia");
         autores.getTextbox().setPromptText("Autor");
         editorial.getTextbox().setPromptText("Buscar Editorial");
-        listaBusquedaMaterias.addAll(consulta.llenarLista("SELECT nombre_materia FROM tbl_MATERIA", "nombre_materia"));
+        listaBusquedaMaterias.addAll(consulta.llenarLista(select.getListaMateria(), select.getMateria()));
         listaBusquedaAutores.addAll(consulta.listaAutores());
         obtenerAutores.addAll(consulta.getListaAutores());
-        editorial.setData(consulta.llenarLista("SELECT nombre_editorial FROM tbl_EDITORIAL", "nombre_editorial"));
+        editorial.setData(consulta.llenarLista(select.getListaEditorial(), select.getEditorial()));
         materias.setData(listaBusquedaMaterias);
         autores.setData(listaBusquedaAutores);        
         hboxEditorial.getChildren().add(editorial);

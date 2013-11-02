@@ -15,9 +15,9 @@ public class Conexion {
 
     private final String puerto = "8889/";
     private final String nombreBaseDatos = "SABGA";
-    private final String usuario = "root";
-    private final String contrasenia = "";
-    private final String url = "jdbc:mysql://localhost:";
+    private final String usuario = "Windows";  // Windows
+    private final String contrasenia = "root";
+    private final String url = "jdbc:mysql://192.168.1.3:";
     private final String driver = "com.mysql.jdbc.Driver";
     private Connection conexion = null;
     private Statement stm = null;
