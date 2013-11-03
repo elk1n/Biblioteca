@@ -19,6 +19,7 @@ import sabga.modelo.ValidarMaterial;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialogs.DialogResponse;
 import javafx.scene.control.TableColumn;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.TableView;
@@ -131,7 +132,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         if(confirmar.confirmarNuevoLibro(comboClaseMaterial.getSelectionModel().getSelectedItem(), txtfCodigo.getText(), txtfTitulo.getText(), 
                                          txtfAnioPublicacion.getText(), txtfPublicacion.getText(), txtfPaginas.getText(),txtfEjemplares.getText(),
                                          buscarEditorial.getTextbox().getText(), autores, materias) && listaEditoriales.indexOf(buscarEditorial.getText()) !=-1){                         
-            procedimientoGuardarLibro();                    
+           procedimientoGuardarLibro();                    
         }          
     }
    
@@ -143,8 +144,11 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                 if (mensaje != null) {
                     Utilidades.mensajeError(null, mensaje, "Error al tratar de registrar el libro", "Error Guardar Libro");
                 } else {
-                    Utilidades.mensaje(null, "El libro se ha registrado correctamente", "Registrando Libro", "Registro Exitoso");
-                    codigoBarras(material);
+                    Utilidades.mensajeOpcion(null, "Para guardar o imprimir el código de barras seleccionar 'Yes'\n"
+                                                 + "Para finalizar y cerrar este mensaje seleccinar 'No'",  "El libro se ha registrado correctamente.", "Registro Exitoso");
+                    if(Utilidades.getMensajeOpcion() == DialogResponse.YES){
+                        codigoBarras(material);
+                    }
                     resetearVariables();
                     limpiarCamposLibro();
                 }
@@ -164,8 +168,11 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                 if (mensaje != null) {
                     Utilidades.mensajeError(null, mensaje, "Error al registrar el material", "Error Guardar Material");
                 } else {                    
-                    Utilidades.mensaje(null, "El Material se ha registrado correctamente", "Registrando Material", "Registro Exitoso");
-                    codigoBarras(materialOM);
+                    Utilidades.mensajeOpcion(null,"Para guardar o imprimir el código de barras seleccionar 'Yes'\n"
+                                                + "Para finalizar y cerrar este mensaje seleccinar 'No'",  "El material se ha registrado correctamente.", "Registro Exitoso");
+                    if(Utilidades.getMensajeOpcion() == DialogResponse.YES){
+                        codigoBarras(materialOM);
+                    } 
                     resetearVariables();
                     limpiarCamposOtros();
                 }
@@ -249,14 +256,12 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private Boolean obtenerIdLibro(){
         
         String editorial = buscarEditorial.getText();
-        idTipoMaterial = obtenerId("SELECT id_tipo_material FROM tbl_TIPO_MATERIAL WHERE ", "tipo_material LIKE('%libro%')", "id_tipo_material");
-        idClaseMaterial = obtenerId("SELECT id_clase_material FROM tbl_CLASE_MATERIAL WHERE clase_material =",
-                                    "'"+comboClaseMaterial.getSelectionModel().getSelectedItem().toString()+"'","id_clase_material");
-        
+        idTipoMaterial = consulta.getId(4, "");
+        idClaseMaterial = consulta.getId(2, comboClaseMaterial.getSelectionModel().getSelectedItem().toString());
+                     
         if(listaEditoriales.indexOf(editorial)!=-1){
-           idEditorial = obtenerId("SELECT id_editorial FROM tbl_EDITORIAL WHERE nombre_editorial =",  "'"+editorial+"'", "id_editorial"); 
-        }
-        else {
+           idEditorial = consulta.getId(3, editorial);                   
+        }else {
              Utilidades.mensaje(null, "Debe seleccionar una editorial de la lista", "Para agregar una editorial a un libro", "Seleccionar Editorial");
              idEditorial=0;
         }        
@@ -334,28 +339,11 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     
     private Boolean obtenerIdOM(){
          
-        idTipoMaterialOM = obtenerId("SELECT id_tipo_material FROM tbl_TIPO_MATERIAL WHERE tipo_material = ",
-                                    "'"+comboTipoMaterial.getSelectionModel().getSelectedItem().toString()+"'", "id_tipo_material");
-        idClaseMaterialOM = obtenerId("SELECT id_clase_material FROM tbl_CLASE_MATERIAL WHERE clase_material =", 
-                                    "'"+comboClaseMaterialOM.getSelectionModel().getSelectedItem().toString()+"'", "id_clase_material");
+        idTipoMaterialOM = consulta.getId(1, comboTipoMaterial.getSelectionModel().getSelectedItem().toString());
+        idClaseMaterialOM = consulta.getId(2, comboClaseMaterialOM.getSelectionModel().getSelectedItem().toString());                
         return idTipoMaterialOM != 0 && idClaseMaterialOM != 0;
     }
-        
-    private int obtenerId(String consulta, String nombre,String columna) {
-
-        int id=0;
-        try {
-            con.conectar();
-            con.setResultado(con.getStatement().executeQuery(consulta + nombre));            
-            if (con.getResultado().first()) {
-                id = con.getResultado().getInt(columna);                
-            }            
-        } catch (SQLException ex) {
-            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
-        }
-        return id;
-    }
-            
+                  
     public void cargarNombreMateriaOM() {
 
         if (validar.validarCampoTexto(buscarMateriaOM.getText(), 90)) {
@@ -595,7 +583,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         }
         
          if(validar.getDesencadenador(evento).equals(txtfCopias.getId())){
-               validar.validarNumeros(txtfCopias.getText());
+              validar.validarNumeros(txtfCopias.getText());
               validarNumeroCopiasOM.setText(validar.getMensajeError()); 
         }
         
@@ -684,21 +672,24 @@ public class RegistroMaterialController implements Initializable, ControlledScre
        
     private void limpiarCamposLibro(){
     
-        txtfCodigo.setText(null);
-        txtfTitulo.setText(null);
-        txtfAnioPublicacion.setText(null);
-        txtfPublicacion.setText(null);
-        txtfPaginas.setText(null);
-        txtfEjemplares.setText(null);
+        txtfCodigo.setText("");
+        txtfTitulo.setText("");
+        txtfAnioPublicacion.setText("");
+        txtfPublicacion.setText("");
+        txtfPaginas.setText("");
+        txtfEjemplares.setText("");
         buscarEditorial.getTextbox().setText("");
+        materias.clear();
+        autores.clear();
+        
     }
     
-    private void limpiarCamposOtros(){
-    
-            txtfCodigoOM.setText(null);
-            txtfTituloOM.setText(null);
-            txtfCopias.setText(null);
-                    
+    private void limpiarCamposOtros() {
+
+        txtfCodigoOM.setText("");
+        txtfTituloOM.setText("");
+        txtfCopias.setText("");
+        materiasOM.clear();
     }
     
     private void resetearVariables(){

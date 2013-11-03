@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Dialogs;
+import javafx.scene.control.Dialogs.DialogResponse;
 import javafx.stage.Stage;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -26,9 +27,10 @@ import sabga.preferencias.Preferencias;
 
 public class Utilidades {
     
-   private static Dialogs.DialogResponse mensajeError;
-   private static Dialogs.DialogResponse mensajeConfimacion;
-   private static Dialogs.DialogResponse mensajeInformacion;
+   private static DialogResponse mensajeError;
+   private static DialogResponse mensajeConfimacion;
+   private static DialogResponse mensajeInformacion;
+   private static DialogResponse mensajeOpcion;
    private static final String NUMEROS = "0123456789";
    private static final String MAYUSCULAS = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
    private static final String MINUSCULAS = "abcdefghijklmnñopqrstuvwxyz";
@@ -37,11 +39,6 @@ public class Utilidades {
    public Utilidades(){
             
    }
-
-   public static Dialogs.DialogResponse getMensajeConfimacion() {
-       
-        return mensajeConfimacion;
-    }
 
     public static String initCap(String string) {
 
@@ -58,23 +55,23 @@ public class Utilidades {
         return String.valueOf(letras);
     }
     
-    public static void mensajeError(Stage propietario, String mensanje, String encabezado, String titulo){
-                        
+    public static void mensajeError(Stage propietario, String mensanje, String encabezado, String titulo){                        
          mensajeError = Dialogs.showErrorDialog(propietario, mensanje, encabezado, titulo, Dialogs.DialogOptions.OK);        
     }
     
-    public static void mensajeConfirmacion(Stage propietario, String mensanje, String encabezado, String titulo){
-                        
-         mensajeConfimacion = Dialogs.showConfirmDialog(propietario, mensanje, encabezado, titulo, Dialogs.DialogOptions.OK_CANCEL);        
+    public static void mensajeConfirmacion(Stage propietario, String mensanje, String encabezado, String titulo){                        
+         mensajeConfimacion = Dialogs.showConfirmDialog(propietario, mensanje, encabezado, titulo, Dialogs.DialogOptions.OK);        
     }
     
-    public static void mensajeAdvertencia(Stage propietario, String mensanje, String encabezado, String titulo){
+    public static void mensajeOpcion(Stage propietario, String mensanje, String encabezado, String titulo){                        
+         mensajeOpcion = Dialogs.showConfirmDialog(propietario, mensanje, encabezado, titulo, Dialogs.DialogOptions.YES_NO);        
+    }
     
+    public static void mensajeAdvertencia(Stage propietario, String mensanje, String encabezado, String titulo){    
         mensajeInformacion = Dialogs.showWarningDialog(propietario, mensanje, encabezado, titulo, Dialogs.DialogOptions.OK);
     }
     
-    public static void mensaje(Stage propietario, String mensanje, String encabezado, String titulo){
-    
+    public static void mensaje(Stage propietario, String mensanje, String encabezado, String titulo){    
        Dialogs.showInformationDialog(propietario, mensanje, encabezado, titulo);
         
     }
@@ -152,6 +149,11 @@ public class Utilidades {
         return source;
     }
 
-    
-   
+    public static DialogResponse getMensajeOpcion() {       
+        return mensajeOpcion;
+   }
+    public static DialogResponse getMensajeConfimacion() {
+        return mensajeConfimacion;
+    }
+
 }

@@ -352,6 +352,26 @@ public class Consultas {
         }
     
     }
+    
+    public int getId(int opcion, String nombre){
+        
+        int id=0;
+        
+        try {
+            con.conectar();
+            con.procedimiento("{ ? = CALL getId(?,?) }");
+            con.getProcedimiento().registerOutParameter(1, Types.INTEGER);
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setString("nombre", nombre);                      
+            con.getProcedimiento().execute();
+            id = con.getProcedimiento().getInt(1);
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "No ha sido posible realizar la operación solicitada.", "Error");  
+        } finally {
+            con.desconectar();
+        }
+        return id;
+    }
 
     public ObservableList<Autor> getListaAutores() {
         return obtenerAutores;

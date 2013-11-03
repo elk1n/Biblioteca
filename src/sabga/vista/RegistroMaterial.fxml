@@ -277,7 +277,7 @@
                 <HBox id="HBox" alignment="CENTER" layoutX="932.0" layoutY="428.0" spacing="30.0">
                   <children>
                     <Button cancelButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Cancelar" />
-                    <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarOtroMaterial" prefHeight="25.0" text="Guardar Material" />
+                    <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarOtroMaterial" prefHeight="25.0" prefWidth="120.0" text="Guardar Material" />
                   </children>
                 </HBox>
                 <Label id="validarClaseMaterialOM" fx:id="validarTipoMaterialOM" alignment="CENTER_RIGHT" layoutX="17.0" layoutY="95.0" prefWidth="228.0" text="" textFill="$x3" />
