@@ -142,10 +142,10 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             try {
                 registrarLibro();
                 if (mensaje != null) {
-                    Utilidades.mensajeError(null, mensaje, "Error al tratar de registrar el libro", "Error Guardar Libro");
+                    Utilidades.mensajeError(null, mensaje, "Error al registrar el libro.", "Error Guardar Libro");
                 } else {
-                    Utilidades.mensajeOpcion(null, "Para guardar o imprimir el código de barras seleccionar 'Yes'\n"
-                                                 + "Para finalizar y cerrar este mensaje seleccinar 'No'",  "El libro se ha registrado correctamente.", "Registro Exitoso");
+                    Utilidades.mensajeOpcion(null, "Para guardar o imprimir el código de barras seleccionar 'Yes'.\n"
+                                                 + "Para finalizar y cerrar este mensaje seleccinar 'No'.",  "El libro se ha registrado correctamente.", "Registro Exitoso");
                     if(Utilidades.getMensajeOpcion() == DialogResponse.YES){
                         codigoBarras(material);
                     }
@@ -153,10 +153,10 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                     limpiarCamposLibro();
                 }
             } catch (SQLException ex) {
-                Utilidades.mensajeError(null, ex.getMessage(), "Error al tratar de registrar el libro", "Error Guardar Libro");
+                Utilidades.mensajeError(null, ex.getMessage(), "Error registrar el libro.", "Error Guardar Libro");
             }
         } else {
-            Utilidades.mensajeError(null, "No se ha registrado el libro", "Error al registrar el libro", "Error Guardar Libro");
+            Utilidades.mensajeError(null, "No se ha registrado el libro.", "Error al registrar el libro.", "Error Guardar Libro");
         }       
     }
     
@@ -166,10 +166,10 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             try {
                 registrarOtroMaterial();
                 if (mensaje != null) {
-                    Utilidades.mensajeError(null, mensaje, "Error al registrar el material", "Error Guardar Material");
+                    Utilidades.mensajeError(null, mensaje, "Error al registrar el material.", "Error Guardar Material");
                 } else {                    
-                    Utilidades.mensajeOpcion(null,"Para guardar o imprimir el código de barras seleccionar 'Yes'\n"
-                                                + "Para finalizar y cerrar este mensaje seleccinar 'No'",  "El material se ha registrado correctamente.", "Registro Exitoso");
+                    Utilidades.mensajeOpcion(null,"Para guardar o imprimir el código de barras seleccionar 'Yes'.\n"
+                                                + "Para finalizar y cerrar este mensaje seleccinar 'No'.",  "El material se ha registrado correctamente.", "Registro Exitoso");
                     if(Utilidades.getMensajeOpcion() == DialogResponse.YES){
                         codigoBarras(materialOM);
                     } 
@@ -177,10 +177,10 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                     limpiarCamposOtros();
                 }
             } catch (SQLException ex) {
-                Utilidades.mensajeError(null, ex.getMessage(), "Error al tratar de registrar el material", "Error Guardar Material");
+                Utilidades.mensajeError(null, ex.getMessage(), "Error al registrar el material.", "Error Guardar Material");
             }
         } else {
-            Utilidades.mensajeError(null, "No se ha registrado el material", "Error al registrar el material", "Error Guardar Material");
+            Utilidades.mensajeError(null, "No se ha registrado el material.", "Error al registrar el material.", "Error Guardar Material");
         }
     }
     
@@ -206,12 +206,12 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             }
             else{
                 con.getConexion().rollback();
-                mensaje = "No se ha guardado el material";
+                mensaje = "No se ha guardado el material.";
             }
         } catch (SQLException e) {
             con.getConexion().rollback();
             mensaje = String.valueOf(e.getErrorCode());
-            Utilidades.mensajeError(null, e.getMessage(), "Error al tratar de registrar el material", "Error Guardar Material");  
+            Utilidades.mensajeError(null, e.getMessage(), "Error al registrar el material.", "Error Guardar Material");  
         } finally {
             con.desconectar();
         }
@@ -242,12 +242,12 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             }
             else{
                 con.getConexion().rollback();
-                mensaje = "No se ha guardado el libro";
+                mensaje = "No se ha guardado el libro.";
             }         
         } catch (SQLException e) {
             con.getConexion().rollback();
             mensaje = String.valueOf(e.getErrorCode());
-            Utilidades.mensajeError(null, e.getMessage(), "Error al tratar de registrar el libro", "Error Guardar Libro");  
+            Utilidades.mensajeError(null, e.getMessage(), "Error al registrar el libro.", "Error Guardar Libro");  
         } finally {
             con.desconectar();            
         }    
@@ -262,7 +262,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         if(listaEditoriales.indexOf(editorial)!=-1){
            idEditorial = consulta.getId(3, editorial);                   
         }else {
-             Utilidades.mensaje(null, "Debe seleccionar una editorial de la lista", "Para agregar una editorial a un libro", "Seleccionar Editorial");
+             Utilidades.mensaje(null, "Debe seleccionar una editorial de la lista.","", "Seleccionar Editorial");
              idEditorial=0;
         }        
        return idTipoMaterial != 0 && idClaseMaterial != 0 && idEditorial !=0;
@@ -278,7 +278,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             return true;
         } catch (SQLException ex) {
              con.getConexion().rollback();
-             Utilidades.mensajeError(null, ex.getMessage(), "No se ha registrado el material\nFavor intente más tarde", "Error");
+             Utilidades.mensajeError(null, ex.getMessage(), "No se ha asociado la materia con el material.", "Error Registro Materia");
              return false;              
         }                  
     }
@@ -296,7 +296,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             return true;
         } catch (SQLException ex) {
             con.getConexion().rollback();
-            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+            Utilidades.mensajeError(null, ex.getMessage(), "No se ha asociado el material con la materia.\n"
+                                                         + "No se ha asociado el material con el autor.", "Error");
             return false;
         }       
     }
@@ -311,7 +312,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                 }
             }
         } catch (SQLException ex) {
-            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+            Utilidades.mensajeError(null, ex.getMessage(), "No se obtuvo el código del las materias seleccionadas.", "Error Código");
         } 
         return idMateriasOM.size() == materiasOM.size();
     }
@@ -332,7 +333,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                     }
                 }
             } catch (SQLException ex) {
-                Utilidades.mensajeError(null, ex.getMessage(), "No se han obtenido los identificadores de autores o materias\nFavor intente más tarde", "Error");
+                Utilidades.mensajeError(null, ex.getMessage(), "No se obtuvo los códigos de autores o materias", "Error");
         }
             return idAutores.size() == autores.size() && idMaterias.size() == materias.size();
     }
@@ -349,7 +350,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         if (validar.validarCampoTexto(buscarMateriaOM.getText(), 90)) {
             obtenerMateriaOM();
         } else {
-            Utilidades.mensajeAdvertencia(null, "Debe buscar y seleccionar una materia", "Para adicionar una materia a la lista", "Seleccionar Materia");
+            Utilidades.mensajeAdvertencia(null, "Debe buscar y seleccionar una materia.", "", "Seleccionar Materia");
         }
     }
 
@@ -363,10 +364,10 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                 tablaMateriasOM.setPrefHeight(tablaMateriasOM.getPrefHeight() + 25);
                 buscarMateriaOM.getTextbox().setText("");
             } else {
-                Utilidades.mensaje(null, "La materia ya se encuentra en la lista", "No se puede repetir una materia", "Seleccionar Materia ");
+                Utilidades.mensaje(null, "La materia ya se encuentra en la lista.", "", "Seleccionar Materia ");
             }
         } else {
-            Utilidades.mensaje(null, "La materia debe ser una de la lista", "Para adicionar una materia a la lista", "Seleccionar Materia");
+            Utilidades.mensaje(null, "La materia debe ser seleccionada de la lista.", "", "Seleccionar Materia");
         }
     }
     
@@ -378,7 +379,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             tablaMateriasOM.setPrefHeight(tablaMateriasOM.getPrefHeight() - 25);
        }
        else{
-           Utilidades.mensajeAdvertencia(null, "Debe seleccionar uno de la lista", "Pare remover una materia", "Remover Materia");
+           Utilidades.mensajeAdvertencia(null, "Debe seleccionar una materia de la lista.", "", "Remover Materia");
        }                                                   
     } 
     
@@ -388,7 +389,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
          if (validar.validarCampoTexto(buscarMateria.getText(), 90)) {
             obtenerMateria();
         } else {
-            Utilidades.mensajeAdvertencia(null, "Debe buscar y seleccionar una materia", "Para adicionar una materia a la lista", "Seleccionar Materia");
+            Utilidades.mensajeAdvertencia(null, "Debe seleccionar una materia de la lista.", "", "Seleccionar Materia");
         }
     }
        
@@ -402,11 +403,11 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                 tablaMaterias.setPrefHeight(tablaMaterias.getPrefHeight() + 25);
                 buscarMateria.getTextbox().setText("");
             } else {
-                Utilidades.mensaje(null, "La materia ya se encuentra en la lista", "No se puede repetir una materia", "Seleccionar Materia ");
+                Utilidades.mensaje(null, "La materia ya se encuentra en la lista.", "", "Seleccionar Materia");
                 buscarMateria.getTextbox().setText("");
             }
         } else {
-            Utilidades.mensaje(null, "La materia debe ser una de la lista", "Para adicionar una materia a la lista", "Seleccionar Materia");
+            Utilidades.mensaje(null, "La materia debe ser seleccionada de la lista.", "", "Seleccionar Materia");
             buscarMateria.getTextbox().setText("");
         }
     }
@@ -420,7 +421,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             tablaMaterias.setPrefHeight(tablaMaterias.getPrefHeight()-25);  
        }
        else{
-           Utilidades.mensajeAdvertencia(null, "Debe seleccionar al menos una de la lista", "Pare remover una materia", "Remover Materia");
+           Utilidades.mensajeAdvertencia(null, "Debe seleccionar una materia de la lista.", "", "Remover Materia");
        }
                                                    
     }
@@ -431,7 +432,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         if (validar.validarCampoTexto(buscarAutor.getText(), 300)) {
             obtenerAutor();                      
         } else {
-            Utilidades.mensajeAdvertencia(null, "Debe buscar y seleccionar un autor", "Para adicionar un autor a la lista", "Seleccionar Autor");
+            Utilidades.mensajeAdvertencia(null, "Debe seleccionar un autor de la lista.", "", "Seleccionar Autor");
         }
     }
          
@@ -465,11 +466,11 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                 tablaAutores.setPrefHeight(tablaAutores.getPrefHeight() + 25);
                 buscarAutor.getTextbox().setText("");
             } else {
-                Utilidades.mensaje(null,"El autor seleccionado ya se encuentra presente en la lista", "El autor ya se encuentra en la lista", "Seleccionar Autor");
+                Utilidades.mensaje(null,"El autor seleccionado ya se encuentra en la lista.", "", "Seleccionar Autor");
                 buscarAutor.getTextbox().setText("");
             }
         } else {
-            Utilidades.mensaje(null, "El autor debe estar registrado", "Para adicionar un autor a la lista", "Seleccionar Autor");
+            Utilidades.mensaje(null, "El autor debe ser no de la lista.", "", "Seleccionar Autor");
             buscarAutor.getTextbox().setText("");
         }    
     }
@@ -481,7 +482,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
            contenedorAutores.setPrefHeight(contenedorAutores.getPrefHeight()-25);
            tablaAutores.setPrefHeight(tablaAutores.getPrefHeight()-25); 
        }else{
-           Utilidades.mensajeAdvertencia(null, "Debe seleccionar al menos uno de la lista", "Pare remover un autor", "Remover Autor");
+           Utilidades.mensajeAdvertencia(null, "Debe seleccionar un autor de la lista.", "", "Remover Autor");
        }                                                
     }
     
