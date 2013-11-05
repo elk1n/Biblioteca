@@ -21,7 +21,7 @@ public class Materia {
         return this.nombreMateria.get();
     }
     
-    public void  setNombreMateria(String materia){
+    public void setNombreMateria(String materia){
         this.nombreMateria.set(materia);
     }
     

@@ -87,7 +87,7 @@ public class CodigoBarrasController implements Initializable {
     
     @FXML
     public void guardarCodigo(ActionEvent evento){     
-        guardarCodigo();    
+        guardarCodigo();         
     }
     
     public void imprimirCodigo(BufferedImage imagen, int copias){

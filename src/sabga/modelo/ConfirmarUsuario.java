@@ -63,4 +63,29 @@ public class ConfirmarUsuario extends ValidarUsuario {
             return true;
         }    
     }
+    
+    public boolean  nuevoFuncionario(String nombre, String apellido, String correo, String documento, String telefono, String direccion){
+            
+        if (!validarCampoTexto(nombre, 90)) {
+            return false;
+        }
+        else if (!validarCampoTexto(apellido, 90)) {
+                return false;
+        }
+        else if (!validarCorreo(correo, 90)) {
+               return false;
+        }
+        else if (!validarNumero(documento, 15)) {
+                return false;
+        }
+        else if (!validarNumeroNull(telefono, 15)) {
+              return false;
+        }
+        else if (!validarCampoTextoNull(direccion, 45)) {
+               return false;
+        }
+        else{
+            return true;
+        }  
+    }
 }

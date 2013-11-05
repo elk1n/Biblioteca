@@ -71,15 +71,28 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
                                               comboGrado.getSelectionModel().getSelectedItem().toString(), comboCurso.getSelectionModel().getSelectedItem().toString(),
                                               comboJornada.getSelectionModel().getSelectedItem().toString(), txtfTelefono.getText(), txtfDireccion.getText());
                     if(consulta.getMensaje()== null){
-                        Utilidades.mensaje(null, "El usuario se ha registrado correctamente.","", "Registrar Usuario");
                         cancelar();
+                        Utilidades.mensaje(null, "El usuario se ha registrado correctamente.","", "Registrar Usuario");                        
                     }
                     else{
                         Utilidades.mensajeError(null, consulta.getMensaje(),"El usuario no ha sido registrado.", "Error Registro");
                     }
             }     
         }else{
-        
+            ConfirmarUsuario funcionario = new ConfirmarUsuario();
+            if(funcionario.nuevoFuncionario(txtfNombre.getText(), txtfApellido.getText(), txtfCorreo.getText(),txtfDocumento.getText(), 
+                                            txtfTelefono.getText(), txtfDireccion.getText())){
+                consulta.registrarUsuario(2, comboTipoUsuario.getSelectionModel().getSelectedItem().toString(), txtfNombre.getText(),
+                                             txtfApellido.getText(), txtfCorreo.getText(), txtfDocumento.getText(), null, null, null,
+                                             txtfTelefono.getText(), txtfDireccion.getText());                
+                if(consulta.getMensaje()== null){
+                        cancelar();
+                        Utilidades.mensaje(null, "El usuario se ha registrado correctamente.","", "Registrar Usuario");                        
+                    }
+                else{
+                    Utilidades.mensajeError(null, consulta.getMensaje(),"El usuario no ha sido registrado.", "Error Registro");
+                }
+            }            
         }        
     }
         
