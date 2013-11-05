@@ -62,7 +62,7 @@ public class Consultas {
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
         } finally {
-            con.desconectar();
+           con.desconectar();
         }
         return listaAutores;
     }
@@ -318,17 +318,16 @@ public class Consultas {
         }  
     }
     
-    public void editarMaterial(int opcion, int material, String clase, String tipo, String editorial, String codigo, 
+    public void editarMaterial(int opcion, int material, String clase, String editorial, String codigo, 
                                String titulo, String publicacion, int anio, int paginas ){
     
         try {
             con.conectar();
             con.getConexion().setAutoCommit(false);
-            con.procedimiento("{ CALL editarMaterial(?,?,?,?,?,?,?,?,?,?,?) }");
+            con.procedimiento("{ CALL editarMaterial(?,?,?,?,?,?,?,?,?,?) }");
             con.getProcedimiento().setInt("opcion", opcion);
             con.getProcedimiento().setInt("material", material);
             con.getProcedimiento().setString("clase", clase);
-            con.getProcedimiento().setString("tipo", tipo);
             con.getProcedimiento().setString("editorial", editorial);
             con.getProcedimiento().setString("codigo", codigo);
             con.getProcedimiento().setString("tituloMaterial", titulo);
@@ -343,6 +342,42 @@ public class Consultas {
             try {
                 con.getConexion().rollback();
                 mensaje = "No ha sido posible editar el material.";
+            } catch (SQLException ex) {
+                mensaje = ex.getMessage();
+            }
+            mensaje = e.getMessage();
+        } finally {
+            con.desconectar();
+        }
+    
+    }
+    
+    public void registrarUsuario(int opcion, String tipo, String nombre, String apellido, String correo, String documento,
+                                 String grado, String curso, String jornada, String telefono, String direccion){
+    
+            try {
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL registrarUsuario(?,?,?,?,?,?,?,?,?,?,?,?) }");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setString("tipo", tipo);
+            con.getProcedimiento().setString("nombres", nombre);
+            con.getProcedimiento().setString("apellido", apellido);
+            con.getProcedimiento().setString("email", correo);
+            con.getProcedimiento().setString("documento", documento);
+            con.getProcedimiento().setString("grado", grado);
+            con.getProcedimiento().setString("curso", curso);
+            con.getProcedimiento().setString("jornada", jornada);
+            con.getProcedimiento().setString("phone", telefono);
+            con.getProcedimiento().setString("address", direccion);
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+            con.getProcedimiento().execute();
+            mensaje = con.getProcedimiento().getString("mensaje");
+            con.getConexion().commit();
+        } catch (SQLException e) {
+            try {
+                con.getConexion().rollback();
+                mensaje = "No se ha registrado el usuario.";
             } catch (SQLException ex) {
                 mensaje = ex.getMessage();
             }

@@ -69,16 +69,6 @@
                       <children>
                         <GridPane id="GridPane" hgap="50.0" layoutX="23.0" layoutY="32.0" prefHeight="383.0">
                           <children>
-                            <ComboBox fx:id="comboTipoMaterial" prefHeight="25.0" prefWidth="150.0" promptText="Tipo de Material" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                              <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                  <String fx:value="Libro" />
-                                  <String fx:value="Folleto" />
-                                  <String fx:value="CD-Rom" />
-                                  <String fx:value="Video" />
-                                </FXCollections>
-                              </items>
-                            </ComboBox>
                             <Label text="Código de Clasificación:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                             <TextField id="numeroClasificacionAC" fx:id="txtfCodigoClasificacion" prefHeight="30.0" prefWidth="250.0" promptText="Código de Clasificación" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                             <Label text="Título:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
@@ -87,14 +77,14 @@
                             <TextField id="anioPublicacionAC" fx:id="txtfAnio" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="250.0" promptText="Año Publicación" text="" GridPane.columnIndex="0" GridPane.rowIndex="8" />
                             <Label text="Publicación:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
                             <TextField id="campoPublicacionAC" fx:id="txtfPublicacion" prefHeight="30.0" prefWidth="250.0" promptText="Publicacion" text="" GridPane.columnIndex="0" GridPane.rowIndex="11" />
-                            <Label id="validacion" fx:id="lblValidarCodigo" alignment="CENTER_RIGHT" prefWidth="250.0" text="Validación" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                            <Label id="validacion" fx:id="lblValidarCodigo" alignment="CENTER_RIGHT" prefWidth="250.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="3">
                               <textFill>
                                 <Color blue="0.000" green="0.000" red="0.800" fx:id="x2" />
                               </textFill>
                             </Label>
-                            <Label id="validarTituloAC" fx:id="lblValidarTitulo" alignment="CENTER_RIGHT" prefWidth="250.0" text="Validación" textFill="$x2" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-                            <Label id="validarAnioPublicacion" fx:id="lblValidarAnio" alignment="CENTER_RIGHT" prefWidth="250.0" text="Validación" textFill="$x2" GridPane.columnIndex="0" GridPane.rowIndex="9" />
-                            <Label id="validarPublicacion" fx:id="lblValidarPublicacion" alignment="CENTER_RIGHT" prefWidth="250.0" text="Validación" textFill="$x2" GridPane.columnIndex="0" GridPane.rowIndex="12" />
+                            <Label id="validarTituloAC" fx:id="lblValidarTitulo" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x2" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                            <Label id="validarAnioPublicacion" fx:id="lblValidarAnio" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x2" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+                            <Label id="validarPublicacion" fx:id="lblValidarPublicacion" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x2" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="12" />
                             <ComboBox fx:id="comboClaseMaterial" prefHeight="25.0" prefWidth="150.0" promptText="Clase de Material" GridPane.columnIndex="1" GridPane.rowIndex="0">
                               <items>
                                 <FXCollections fx:factory="observableArrayList">
@@ -107,7 +97,7 @@
                             <Label prefHeight="19.0" text="Número Páginas:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                             <TextField id="numeroPaginasAC" fx:id="txtfPaginas" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="250.0" promptText="Número de Páginas" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                             <Label prefWidth="250.0" text="Editorial:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                            <Label id="validar" fx:id="lblValidarPaginas" alignment="CENTER_RIGHT" prefWidth="250.0" text="Validación" textFill="$x2" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            <Label id="validar" fx:id="lblValidarPaginas" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x2" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                             <Label fx:id="lblEditorial" prefWidth="250.0" text="" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
                               <font>
                                 <Font name="System Bold" size="14.0" fx:id="x4" />
@@ -119,8 +109,9 @@
                                 <URL value="@css/estilo.css" />
                               </stylesheets>
                             </HBox>
-                            <Label id="validarEditorialAC" fx:id="lblValidarEditorial" alignment="CENTER_RIGHT" prefWidth="250.0" text="Validación" textFill="$x2" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                            <Label id="validarEditorialAC" fx:id="lblValidarEditorial" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x2" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                             <Button id="botonNuevaEditorial" fx:id="btnEditorial" defaultButton="true" mnemonicParsing="false" onAction="#dialogoNuevaEditorial" prefHeight="25.0" prefWidth="120.0" text="Nueva Editorial" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="11" />
+                            <Label id="lblEditorial" fx:id="lblTipoMaterial" font="$x4" prefWidth="250.0" text="" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                           </children>
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -197,7 +188,7 @@
                         <Font size="12.0" />
                       </font>
                     </Label>
-                    <Label font="$x1" text="Disponibilidad Ejemplar:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <Label font="$x1" text="Disponibilidad Ejemplar" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                   </children>
                   <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -212,8 +203,8 @@
                     <RowConstraints minHeight="35.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                 </GridPane>
-                <Label font="$x1" layoutX="57.0" layoutY="16.0" text="Listado de Ejemplares:" />
-                <Label id="validarEstadoAC" fx:id="lblValidarEjemplares" alignment="CENTER_RIGHT" layoutX="55.0" layoutY="308.0" prefWidth="274.0" text="Validación" textFill="$x2" wrapText="true" />
+                <Label font="$x1" layoutX="57.0" layoutY="16.0" text="Listado de Ejemplares" />
+                <Label id="validarEstadoAC" fx:id="lblValidarEjemplares" alignment="CENTER_RIGHT" layoutX="55.0" layoutY="308.0" prefWidth="274.0" text="" textFill="$x2" wrapText="true" />
               </children>
             </AnchorPane>
           </content>

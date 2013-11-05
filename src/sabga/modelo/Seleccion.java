@@ -17,10 +17,43 @@ public class Seleccion {
     private final String editorial = "nombre_editorial";
     private final String listaTipoLibro = "SELECT tipo_material FROM tbl_TIPO_MATERIAL WHERE tipo_material NOT LIKE('%libro%')";
     private final String tipoLibro =  "tipo_material";
+    private final String listaTipoUsuario ="SELECT tipo_usuario FROM tbl_TIPO_USUARIO";
+    private final String tipoUsuario = "tipo_usuario";
+    private final String listaGrado = "SELECT grado FROM tbl_GRADO";
+    private final String grado = "grado";
+    private final String listaCurso = "SELECT curso FROM tbl_CURSO";
+    private final String curso = "curso";
+    private final String listaJornada = "SELECT jornada FROM tbl_JORNADA";
+    private final String jornada = "jornada";
+
+    public String getListaJornada() {
+        return listaJornada;
+    }
+    public String getJornada() {
+        return jornada;
+    }
 
     public String getListaClaseMaterial() {
         return listaClaseMaterial;
     }    
+    public String getListaCurso() {
+        return listaCurso;
+    }
+    public String getCurso() {
+        return curso;
+    }
+    public String getListaGrado() {
+        return listaGrado;
+    }
+    public String getGrado() {
+        return grado;
+    }
+    public String getListaTipoUsuario() {
+        return listaTipoUsuario;
+    }
+    public String getTipoUsuario() {
+        return tipoUsuario;
+    }
     public String getClaseMaterial() {
         return claseMaterial;
     }    

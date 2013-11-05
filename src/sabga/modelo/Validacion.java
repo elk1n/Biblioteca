@@ -85,7 +85,7 @@ public class Validacion {
                 this.mensajeError = "Máximo " + numeroCaracteres + " caracteresa.";
                 return false;
             } else if (!matcher.matches()) {
-                this.mensajeError = "No es un número.";
+                this.mensajeError = "Debe ser un número.";
                 return false;
             } else {
                 this.mensajeError = "";

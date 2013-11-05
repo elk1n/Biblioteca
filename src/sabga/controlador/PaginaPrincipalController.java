@@ -84,7 +84,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     }
     
     @FXML
-    public void ventanaInicio(ActionEvent evento){        
+    public void ventanaInicio(){        
         ventanaPrincipal.cambiarVista("paginaInicio1");
     }
     

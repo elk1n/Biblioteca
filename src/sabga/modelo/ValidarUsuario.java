@@ -5,8 +5,10 @@ package sabga.modelo;
  */
 public class ValidarUsuario extends Validacion {
 
-    private String errorJornada, errorCurso, errorGrado, errorNuevoTipoUsuario, errorCorreo, errorDocumento,
+    private String errorJornada, errorGrado, errorCurso, errorNuevoTipoUsuario, errorCorreo, errorDocumento, errorNombre, errorApellido,
+                   errorTelefono, errorDireccion,
             mensajeError,
+            
             nombreUsuario, apellidosUsuario, correoUsuario, documentoUsuario, telefonoUsuario, direccionUsuario, usuario,
             contrasenia, nuevaContrasenia, confirmacion, multa,
             errorNombreUsuario, errorApellidosUsuario, errorCursoUsuario, errorGrupoUsuario, errorCorreoUsuario, errorDocumentoUsuario,
@@ -16,49 +18,8 @@ public class ValidarUsuario extends Validacion {
     private Object tipoAdmin, cursoUsuario, grupoUsuario, jornadaUsuario, estado;
 
     public ValidarUsuario() {
-
     }
-
-    public ValidarUsuario(String nombreUsuario, String apellidosUsuario, String correoUsuario, Object cursoUsuario, Object grupoUsuario,
-            Object jornadaUsuario, String documentoUsuario, String telefonoUsuario, String direccionUsuario) {
-
-        this.nombreUsuario = nombreUsuario;
-        this.apellidosUsuario = apellidosUsuario;
-        this.correoUsuario = correoUsuario;
-        this.cursoUsuario = cursoUsuario;
-        this.grupoUsuario = grupoUsuario;
-        this.jornadaUsuario = jornadaUsuario;
-        this.documentoUsuario = documentoUsuario;
-        this.telefonoUsuario = telefonoUsuario;
-        this.direccionUsuario = direccionUsuario;
-
-    }
-
-    public ValidarUsuario(String nombreUsuario, String apellidosUsuario, String correoUsuario, String documentoUsuario, String telefonoUsuario,
-            String direccionUsuario) {
-
-        this.nombreUsuario = nombreUsuario;
-        this.apellidosUsuario = apellidosUsuario;
-        this.correoUsuario = correoUsuario;
-        this.documentoUsuario = documentoUsuario;
-        this.telefonoUsuario = telefonoUsuario;
-        this.direccionUsuario = direccionUsuario;
-
-    }
-
-    public ValidarUsuario(String nombreUsuario, String apellidosUsuario, String documentoUsuario, String correoUsuario, String telefonoUsuario,
-            String direccionUsuario, String multa) {
-
-        this.nombreUsuario = nombreUsuario;
-        this.apellidosUsuario = apellidosUsuario;
-        this.correoUsuario = correoUsuario;
-        this.documentoUsuario = documentoUsuario;
-        this.telefonoUsuario = telefonoUsuario;
-        this.direccionUsuario = direccionUsuario;
-        this.multa = multa;
-
-    }
-
+    
     //      --  CONSTRUCTOR PARA EL ADMINISTRADOR       --
     public ValidarUsuario(Object tipoAdmin, String nombreUsuario, String apellidosUsuario, String usuario, String contrasenia,
             String confirmacion, String correoUsuario, String documentoUsuario, String telefonoUsuario) {
@@ -106,37 +67,29 @@ public class ValidarUsuario extends Validacion {
 
     //
     public void validarNuevaJornada(String jornada) {
-
         if (!validarCampoTexto(jornada, 32)) {
             this.errorJornada = getMensajeError();
         }
     }
-
     //
     public void validarNuevoCurso(String curso) {
-
         if (!validarCampoTexto(curso, 32)) {
             this.errorCurso = getMensajeError();
         }
     }
-
     // 
     public void validarNuevoGrado(String grado) {
-
         if (!validarCampoTexto(grado, 32)) {
             this.errorGrado = getMensajeError();
         }
     }
-
     //
     public void validarNuevoTipoUsuario(String usuario) {
-
         if (!validarCampoTexto(usuario, 32)) {
             this.errorNuevoTipoUsuario = getMensajeError();
         }
     }
-
-    // READY
+    //
     public void validarUsuario(String usuario, String contrasenia) {
 
         if (!validarCampoTexto(usuario, 20)) {
@@ -146,11 +99,63 @@ public class ValidarUsuario extends Validacion {
             this.errorContrasenia = getMensajeError();
         }
     }
+    //
+    public void validarNuevoEstudiante(String nombre, String apellido, String correo, Object grado, Object curso, Object jornada,
+                                       String documento, String telefono, String direccion) {
 
+        if (!validarCampoTexto(nombre, 90)) {
+            this.errorNombre = getMensajeError();
+        }
+        if (!validarCampoTexto(apellido, 90)) {
+            this.errorApellido = getMensajeError();
+        }
+        if (!validarCorreo(correo, 90)) {
+            this.errorCorreo = getMensajeError();
+        }
+        if (grado == null) {
+            this.errorGrado = "Debe seleccionar una opción.";
+        }
+        if (curso == null) {
+            this.errorCurso = "Debe seleccionar una opción.";
+        }
+        if (jornada == null) {
+            this.errorJornada = "Debe seleccionar una opción.";
+        }
+        if (!validarNumero(documento, 15)) {
+            this.errorDocumento= getMensajeError();
+        }
+        if (!validarNumeroNull(telefono, 15)) {
+            this.errorTelefono = getMensajeError();
+        }
+        if (!validarCampoTextoNull(direccion, 45)) {
+            this.errorDireccion= getMensajeError();
+        }
+    }   
+    //
+    public void validarNuevoFuncionario(String nombre, String apellido, String correo, String documento, String telefono, String direccion){
+          
+        if (!validarCampoTexto(nombre, 90)) {
+            this.errorNombre = getMensajeError();
+        }
+        if (!validarCampoTexto(apellido, 90)) {
+            this.errorApellido = getMensajeError();
+        }
+        if (!validarCorreo(correo, 90)) {
+            this.errorCorreo = getMensajeError();
+        }
+        if (!validarNumero(documento, 15)) {
+            this.errorDocumento = getMensajeError();
+        }
+        if (!validarNumeroNull(telefono, 15)) {
+            this.errorTelefono = getMensajeError();
+        }
+        if (!validarCampoTextoNull(direccion, 45)) {
+            this.errorDireccion = getMensajeError();
+        }
+    }
+   
     public void validarContrasenia() {
-
-        if (validarContrasenia(this.nuevaContrasenia, this.confirmacion, 20) == false) {
-
+        if (!validarContrasenia(this.nuevaContrasenia, this.confirmacion, 20)) {
             this.errorNuevaContrasenia = getMensajeError();
             this.errorConfirmacion = getMensajeError();
         }
@@ -162,7 +167,6 @@ public class ValidarUsuario extends Validacion {
         if (!validarNumero(documento, 15)) {
             this.errorDocumento = getMensajeError();
         }
-
         if (!validarCorreo(correo, 90)) {
             this.errorCorreo = getMensajeError();
         }
@@ -253,89 +257,6 @@ public class ValidarUsuario extends Validacion {
 
         if (validarNumero(this.telefonoUsuario, 12) == false) {
             this.errorTelefonoUsuario = getMensajeError();
-        }
-
-    }
-
-    public void validarNuevoEmpleado() {
-
-        if (validarCampoTexto(this.nombreUsuario, 45) == false) {
-            this.errorNombreUsuario = getMensajeError();
-
-        }
-
-        if (validarCampoTexto(this.apellidosUsuario, 45) == false) {
-            this.errorApellidosUsuario = getMensajeError();
-
-        }
-
-        if (validarCorreo(this.correoUsuario, 40) == false) {
-            this.errorCorreoUsuario = getMensajeError();
-
-        }
-
-        if (validarNumero(this.documentoUsuario, 15) == false) {
-            this.errorDocumentoUsuario = getMensajeError();
-
-        }
-
-        if (validarNumero(this.telefonoUsuario, 12) == false) {
-            this.errorTelefonoUsuario = getMensajeError();
-
-        }
-
-        if (validarCampoTextoNull(this.direccionUsuario, 45) == false) {
-            this.errorDireccionUsuario = getMensajeError();
-
-        }
-
-    }
-
-    public void validarNuevoUsuario() {
-
-        if (validarCampoTexto(this.nombreUsuario, 45) == false) {
-            this.errorNombreUsuario = getMensajeError();
-
-        }
-
-        if (validarCampoTexto(this.apellidosUsuario, 45) == false) {
-            this.errorApellidosUsuario = getMensajeError();
-
-        }
-
-        if (validarCorreo(this.correoUsuario, 40) == false) {
-            this.errorCorreoUsuario = getMensajeError();
-
-        }
-
-        if (this.cursoUsuario == null) {
-            this.errorCursoUsuario = "Debe seleccionar una opción";
-
-        }
-
-        if (this.grupoUsuario == null) {
-            this.errorGrupoUsuario = "Debe seleccionar una opción";
-
-        }
-
-        if (this.jornadaUsuario == null) {
-            this.errorJornadaUsuario = "Debe seleccionar una opción";
-
-        }
-
-        if (validarNumero(this.documentoUsuario, 15) == false) {
-            this.errorDocumentoUsuario = getMensajeError();
-
-        }
-
-        if (validarNumero(this.telefonoUsuario, 12) == false) {
-            this.errorTelefonoUsuario = getMensajeError();
-
-        }
-
-        if (validarCampoTexto(this.direccionUsuario, 45) == false) {
-            this.errorDireccionUsuario = getMensajeError();
-
         }
 
     }
@@ -437,7 +358,23 @@ public class ValidarUsuario extends Validacion {
     public String getErrorNombreUsuario() {
         return this.errorNombreUsuario;
     }
-
+    //
+    public String getErrorNombre(){
+        return this.errorNombre;
+    }
+    //
+    public String getErrorApellido(){
+        return this.errorApellido;
+    }
+    //
+    public String getErrorDireccion(){
+        return this.errorDireccion;
+    }
+    //
+    public String getErrorTelefono(){
+        return this.errorTelefono;
+    }
+    
     public String getErrorApellidosUsuario() {
         return this.errorApellidosUsuario;
     }

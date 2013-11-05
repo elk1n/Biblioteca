@@ -75,6 +75,7 @@ public class Dialogo {
             dialogStage.centerOnScreen();
             dialogStage.getIcons().add(new Image("file:vista/Imagenes/CodigoBarras.png"));
             dialogStage.initOwner(owner);
+            dialogStage.setResizable(false);
             scene = new Scene(page);
             dialogStage.setScene(scene);
                         

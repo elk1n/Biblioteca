@@ -49,13 +49,13 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     private final Dialogo dialogo; 
     @FXML
     private Label lblEditorial, lblValidarCodigo, lblValidarTitulo, lblValidarAnio, lblValidarPublicacion, lblValidarEditorial, lblValidarEjemplares,
-                    lblValidarPaginas, lblValidarAutor, lblValidarMateria;    
+                    lblValidarPaginas, lblValidarAutor, lblValidarMateria, lblTipoMaterial;    
     @FXML 
     private TextField txtfCodigoClasificacion, txtfTitulo, txtfAnio, txtfPublicacion, txtfPaginas, txtfFiltrar, txtfBuscar, txtfEjemplar;
     @FXML 
     private Button  btnBorrar, btnDetalle, btnEditorial, btnAutor, btnMateria, btnCodigoBarras, btnBorrarBusqueda;    
     @FXML 
-    private ComboBox comboTipoMaterial, comboClaseMaterial, comboMaterial, comboDispo;    
+    private ComboBox comboClaseMaterial, comboMaterial, comboDispo;    
     @FXML
     private HBox hboxEditorial, hboxAutores, hboxMaterias;
     @FXML    
@@ -100,13 +100,13 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     }
        
     @FXML
-    public void guardarCambios(ActionEvent evento){
+    public void guardarCambios(ActionEvent evento){        
         editarMaterial();
     }
     
     @FXML
     public void adicionarEjemplar(ActionEvent evento){
-        adicionarEjemplar();
+        adicionarEjemplar();       
     }
     
     @FXML
@@ -155,7 +155,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             txtfAnio.setText(String.valueOf(consulta.getAnio()));
             txtfPublicacion.setText(consulta.getPublicacion());
             txtfPaginas.setText(String.valueOf(consulta.getPaginas()));
-            comboTipoMaterial.getSelectionModel().select(consulta.getTipoMaterial());
+            lblTipoMaterial.setText(consulta.getTipoMaterial());
             comboClaseMaterial.getSelectionModel().select(consulta.getClaseMaterial());
             lblEditorial.setText(consulta.getEditorial());
             mapearEjemplares();
@@ -206,11 +206,10 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             
             dialogo.dialogoCodigoBarras(ventanaPrincipal.getPrimaryStage(), 
                                         filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId(),
-                                        filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getTitulo(),
-                                        "",1);
+                                        filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getTitulo(), "", 1);
             btnCodigoBarras.setDisable(false);
         }else{
-            Utilidades.mensaje(null,"Debe seleccionar un material de la lista", "Antes de volver a crear el código de barras", "Código Barras");
+            Utilidades.mensaje(null,"Debe seleccionar un material de la lista.", "Antes de volver a crear el código de barras.", "Código Barras");
         }
     }
   
@@ -227,10 +226,10 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             int idMaterial = Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId());
             consulta.editarEjemplar(2, idMaterial, idEjemplar, 0, comboDispo.getSelectionModel().getSelectedItem().toString());
             if(consulta.getMensaje()==null){
-               Utilidades.mensaje(null, "La disponibilidad se ha editado correctamento", "Cambiar la disponibilidad del ejemplar", "Cambiar Disponibilidad");
+               Utilidades.mensaje(null, "La disponibilidad se ha actualizado correctamento.", "Cambiar la disponibilidad del ejemplar.", "Cambiar Disponibilidad");
                mapearEjemplares();
            }else{
-               Utilidades.mensajeError(null, "Nos se ha editado la disponibilidad", "Error al editar la disponibilidad", "Error Editar Disponibilidad");
+               Utilidades.mensajeError(null, "No se ha actualizado la disponibilidad.", "Error al actualizar la disponibilidad.", "Error Editar Disponibilidad");
            }
         }
     }
@@ -244,10 +243,10 @@ public class EditarMaterialController implements Initializable, ControlledScreen
            int idMaterial = Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId());
            consulta.editarEjemplar(1, idMaterial, 0, Integer.parseInt(txtfEjemplar.getText()), null);
            if(consulta.getMensaje()==null){
-               Utilidades.mensaje(null, "Los nuevos ejemplares se han registrado correctamente", "Registro de nuevos ejemplares", "Registrar Ejemplares");
+               Utilidades.mensaje(null, "Los nuevos ejemplares se han registrado correctamente.", "Registro de nuevos ejemplares.", "Registrar Ejemplares");
                mapearEjemplares();
            }else{
-               Utilidades.mensajeError(null, "No se han registrado los ejemplares", "Error al registrar nuevos ejemplares", "Error Registro Ejemplar");
+               Utilidades.mensajeError(null, "No se han registrado los ejemplares.", "Error al registrar nuevos ejemplares.", "Error Registro Ejemplar");
            }
         }else{
             lblValidarEjemplares.setText(consulta.getMensaje());
@@ -256,8 +255,8 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     
     private void sumarAutor(){
 
-        if (comboTipoMaterial.getSelectionModel().getSelectedItem() != null) {
-            if (!listaMaterial.isEmpty() && comboTipoMaterial.getSelectionModel().getSelectedItem().toString().toLowerCase().contains("libro")) {
+        if (lblTipoMaterial.getText() != null && !"".equals(lblTipoMaterial.getText())) {
+            if (!listaMaterial.isEmpty() && lblTipoMaterial.getText().toLowerCase().contains("libro")) {
                 if (listaBusquedaAutores.indexOf(autores.getText()) != -1) {
                     if (!verificarDuplicados(listaAutores, autores.getText())) {
                         consulta.editarAutorMaterial(2, Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()),
@@ -273,11 +272,11 @@ public class EditarMaterialController implements Initializable, ControlledScreen
                             autores.getTextbox().setText("");
                         }
                     } else {
-                        Utilidades.mensaje(null, "El autor seleccionado ya se encuentra presente en la lista", "El autor ya se encuentra en la lista", "Seleccionar Autor");
+                        Utilidades.mensaje(null, "El autor seleccionado ya se encuentra presente en la lista.", "El autor ya se encuentra en la lista.", "Seleccionar Autor");
                         autores.getTextbox().setText("");
                     }
                 } else {
-                    Utilidades.mensaje(null, "El autor debe estar registrado", "Para adicionar un autor a la lista", "Seleccionar Autor");
+                    Utilidades.mensaje(null, "El autor debe estar registrado.", "Para adicionar un autor a la lista.", "Seleccionar Autor");
                     autores.getTextbox().setText("");
                 }
             }
@@ -300,7 +299,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
                  lblValidarAutor.setText("El libro debe estar asociado al menos a un autor.");
              }      
        }else{
-           Utilidades.mensajeAdvertencia(null, "Debe seleccionar al menos uno de la lista", "Pare remover un autor", "Remover Autor");
+           Utilidades.mensajeAdvertencia(null, "Debe seleccionar un autor de la lista.", "Pare remover un autor.", "Remover Autor");
        } 
     
     }
@@ -353,28 +352,39 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     
     private void editarMaterial(){
         
-        if(comboTipoMaterial.getSelectionModel().getSelectedItem() != null){
-            String tipo = comboTipoMaterial.getSelectionModel().getSelectedItem().toString().toLowerCase();
+        if(lblTipoMaterial.getText() != null && !"".equals(lblTipoMaterial.getText())){
+            String tipo = lblTipoMaterial.getText().toLowerCase();
             if(tipo.contains("libro")){
                 validarEdicionLibro();
                 ConfirmarMaterial validar = new ConfirmarMaterial();
                 if(validar.confirmarEdicionLibro(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), txtfAnio.getText(), txtfPublicacion.getText(),
                                                  txtfPaginas.getText(), editorial.getText(), editorial.getData())){
                     consulta.editarMaterial(1, Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()), 
-                                            comboClaseMaterial.getSelectionModel().getSelectedItem().toString(), 
-                                            comboTipoMaterial.getSelectionModel().getSelectedItem().toString(), 
+                                            comboClaseMaterial.getSelectionModel().getSelectedItem().toString(),  
                                             editorial.getTextbox().getText(), txtfCodigoClasificacion.getText(), 
                                             txtfTitulo.getText(),txtfPublicacion.getText(),
                                             Integer.parseInt(txtfAnio.getText()), Integer.parseInt(txtfPaginas.getText()));
-               
+                    if(consulta.getMensaje()==null){
+                        limpiarCampos();
+                        Utilidades.mensaje(null, "Los cambios se han guardado correctamente.", "", "Guardar Cambios");                        
+                    }else {
+                        Utilidades.mensajeAdvertencia(null, consulta.getMensaje() ,"No se han guadado los cambios.", "Error Guardar");
+                    }
                 }                                      
             }
             else{
                 validarEdicionOM();
                 ConfirmarMaterial validar = new ConfirmarMaterial();
                 if(validar.confirmarEdicionOM(txtfCodigoClasificacion.getText(), txtfTitulo.getText())){
-                    
-                
+                    consulta.editarMaterial(2, Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()),
+                                            comboClaseMaterial.getSelectionModel().getSelectedItem().toString(),
+                                            null, txtfCodigoClasificacion.getText(), txtfTitulo.getText(), null, 0, 0);
+                    if(consulta.getMensaje()==null){
+                        limpiarCampos();
+                        Utilidades.mensaje(null, "Los cambios se han guardado correctamente.", "", "Guardar Cambios");                        
+                    }else {
+                        Utilidades.mensajeAdvertencia(null, consulta.getMensaje(), "No se han guadado los cambios.", "Error Guardar");                                                 
+                    }           
                 }
             }
         }  
@@ -426,8 +436,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     private void llenarComboBox(){
         
         comboClaseMaterial.setItems(consulta.llenarLista(select.getListaClaseMaterial(), select.getClaseMaterial()));
-        comboMaterial.setItems(consulta.llenarLista(select.getListaTipoMaterial(), select.getTipoMaterial()));
-        comboTipoMaterial.setItems(comboMaterial.getItems());               
+        comboMaterial.setItems(consulta.llenarLista(select.getListaTipoMaterial(), select.getTipoMaterial()));           
     }
     
     private Boolean verificarDuplicados(ObservableList lista, String datoVefificar){
@@ -445,6 +454,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
          ventanaPrincipal = new Sabga();
          btnEditorial.setDisable(true);
          dialogo.mostrarDialogo("vista/dialogos/NuevaEditorial.fxml", "Nueva Editorial", ventanaPrincipal.getPrimaryStage(), null, 3);
+         editorial.setData(consulta.llenarLista(select.getListaEditorial(), select.getEditorial()));
          btnEditorial.setDisable(false);
      }
     
@@ -453,6 +463,8 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         ventanaPrincipal = new Sabga();
         btnAutor.setDisable(true);
         dialogo.mostrarDialogo("vista/dialogos/NuevoAutor.fxml", "Nuevo Autor", ventanaPrincipal.getPrimaryStage(), null, 1);
+        listaBusquedaAutores.addAll(consulta.listaAutores());
+        obtenerAutores.addAll(consulta.getListaAutores());
         btnAutor.setDisable(false);
     }
     
@@ -461,6 +473,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         ventanaPrincipal = new Sabga();
         btnMateria.setDisable(true);
         dialogo.mostrarDialogo("vista/dialogos/NuevaMateria.fxml", "Nueva Materia", ventanaPrincipal.getPrimaryStage(), null, 2);
+        listaBusquedaMaterias.addAll(consulta.llenarLista(select.getListaMateria(), select.getMateria()));
         btnMateria.setDisable(false);
     }
     
@@ -573,6 +586,18 @@ public class EditarMaterialController implements Initializable, ControlledScreen
       tablaMaterial.getSortOrder().addAll(sortOrder);
   }
     
+    private void limpiarCampos(){
+        
+        lblTipoMaterial.setText(null);
+        comboClaseMaterial.getSelectionModel().clearSelection();
+        txtfCodigoClasificacion.setText("");
+        txtfTitulo.setText("");
+        txtfAnio.setText("");
+        txtfPublicacion.setText("");
+        txtfPaginas.setText("");
+        editorial.getTextbox().setText("");   
+    }
+    
     @Override
     public void setScreenParent(ScreensController screenParent) {     
          controlador = screenParent;
@@ -606,6 +631,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         disponibilidad.add("Inhabilitado");
         disponibilidad.add("Mantenimiento");
         comboDispo.setItems(disponibilidad);
+       // comboTipoMaterial.setDisable(true);
     }
     
     /** 

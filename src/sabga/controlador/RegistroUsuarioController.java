@@ -2,10 +2,7 @@
 package sabga.controlador;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,9 +13,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import sabga.Sabga;
 import sabga.ScreensController;
-import sabga.configuracion.Conexion;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Utilidades;
+import sabga.modelo.ConfirmarUsuario;
+import sabga.modelo.Consultas;
+import sabga.modelo.Seleccion;
 import sabga.modelo.ValidarUsuario;
 
 /**
@@ -30,81 +29,110 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
     private Sabga paginaPrincipal;
     private ScreensController controlador;
     
-    @FXML private GridPane gridRegistrar1, gridRegistrar2;
-    
-    @FXML private TextField campoNombre, campoApellidos, campoCorreo, campoDocumento, campoTelefono,
-                            campoDireccion;
-   
-    @FXML private ComboBox comboTipoUsuario, comboCurso, comboGrupo, comboJornada;
-    
-    @FXML private Button botonCancelar, botonGuardarUsuario;
-    
-    @FXML private Label validarNombre, validarApellidos, validarCurso, validarGrupo, validarCorreo, validarDocumento, validarJornada,
-                        validarTelefono, validarDireccion, etiquetaCurso, etiquetaGrupo, etiquetaJornada;
-    
-    private ObservableList grado;
-    
+    @FXML 
+    private GridPane gridRegistrar1, gridRegistrar2;    
+    @FXML 
+    private TextField txtfNombre, txtfApellido, txtfCorreo, txtfDocumento, txtfTelefono, txtfDireccion;  
+    @FXML 
+    private ComboBox comboTipoUsuario, comboGrado, comboCurso, comboJornada;    
+    @FXML 
+    private Button botonCancelar, botonGuardarUsuario;   
+    @FXML 
+    private Label lblNombre, lblApellido, lblGrado, lblCurso, lblCorreo, lblDocumento, lblJornada,
+                  lblTelefono, lblDireccion, etiquetaCurso, etiquetaGrupo, etiquetaJornada;
+    private final Consultas consulta;
+    private final Seleccion select;
+       
     public RegistroUsuarioController() {
-        
-        this.grado = FXCollections.observableArrayList();
-        
+        consulta = new Consultas();
+        select = new Seleccion();
     }
-
-    @Override
-    public void setScreenParent(ScreensController screenParent) {
-
-        controlador = screenParent;
-
-     }
     
-    public void setVentanaPrincipal(Sabga principal) {
-
-        this.paginaPrincipal = principal;
-
+   @FXML
+    public void registrarUsuario(ActionEvent evento){
+        registrarUsuario();
     }
     
     @FXML
-    public void registrarNuevoUsuario(ActionEvent evento){
+    public void cancelar(ActionEvent evento){
+        cancelar();
+    }
+    
+    private void registrarUsuario(){ 
+        mensajes();
+        if (comboTipoUsuario.getSelectionModel().getSelectedItem().toString().toLowerCase().contains("estudiante")){
+            ConfirmarUsuario estudiante = new ConfirmarUsuario();
+            if(estudiante.nuevoEstudiante(txtfNombre.getText(), txtfApellido.getText(), txtfCorreo.getText(),
+                                          comboGrado.getSelectionModel().getSelectedItem(), comboCurso.getSelectionModel().getSelectedItem(),
+                                          comboJornada.getSelectionModel().getSelectedItem(), txtfDocumento.getText(), txtfTelefono.getText(),
+                                          txtfDireccion.getText())){
+                    consulta.registrarUsuario(1, comboTipoUsuario.getSelectionModel().getSelectedItem().toString(), txtfNombre.getText(),
+                                              txtfApellido.getText(), txtfCorreo.getText(), txtfDocumento.getText(), 
+                                              comboGrado.getSelectionModel().getSelectedItem().toString(), comboCurso.getSelectionModel().getSelectedItem().toString(),
+                                              comboJornada.getSelectionModel().getSelectedItem().toString(), txtfTelefono.getText(), txtfDireccion.getText());
+                    if(consulta.getMensaje()== null){
+                        Utilidades.mensaje(null, "El usuario se ha registrado correctamente.","", "Registrar Usuario");
+                        cancelar();
+                    }
+                    else{
+                        Utilidades.mensajeError(null, consulta.getMensaje(),"El usuario no ha sido registrado.", "Error Registro");
+                    }
+            }     
+        }else{
         
-        if(comboTipoUsuario.getSelectionModel().getSelectedIndex() == 0){
-            
-            ValidarUsuario validarNuevoUsuario = new ValidarUsuario(campoNombre.getText(), campoApellidos.getText(), campoCorreo.getText(),
-                                                                    comboCurso.getSelectionModel().getSelectedItem(), comboGrupo.getSelectionModel().getSelectedItem(),
-                                                                    comboJornada.getSelectionModel().getSelectedItem(), campoDocumento.getText(), campoTelefono.getText(),
-                                                                    campoDireccion.getText());
-            validarNuevoUsuario.validarNuevoUsuario();
-            validarNombre.setText(validarNuevoUsuario.getErrorNombreUsuario());
-            validarApellidos.setText(validarNuevoUsuario.getErrorApellidosUsuario());
-            validarCorreo.setText(validarNuevoUsuario.getErrorCorreoUsuario());
-            validarCurso.setText(validarNuevoUsuario.getErrorCursoUsuario());
-            validarGrupo.setText(validarNuevoUsuario.getErrorGrupoUsuario());
-            validarJornada.setText(validarNuevoUsuario.getErrorJornadaUsuario());
-            validarDocumento.setText(validarNuevoUsuario.getErrorDocumentoUsuario());
-            validarTelefono.setText(validarNuevoUsuario.getErrorTelefonoUsuario());
-            validarDireccion.setText(validarNuevoUsuario.getErrorDireccionUsuario());
-        }
+        }        
+    }
         
-        else if(comboTipoUsuario.getSelectionModel().getSelectedIndex() == 1){
-            
-            ValidarUsuario validarNuevoEmpleado = new ValidarUsuario(campoNombre.getText(), campoApellidos.getText(), campoCorreo.getText(),
-                                                                     campoDocumento.getText(), campoTelefono.getText(), campoDireccion.getText());
-            
-            validarNuevoEmpleado.validarNuevoEmpleado();
-            validarNombre.setText(validarNuevoEmpleado.getErrorNombreUsuario());
-            validarApellidos.setText(validarNuevoEmpleado.getErrorApellidosUsuario());
-            validarCorreo.setText(validarNuevoEmpleado.getErrorCorreoUsuario());
-            validarDocumento.setText(validarNuevoEmpleado.getErrorDocumentoUsuario());
-            validarTelefono.setText(validarNuevoEmpleado.getErrorTelefonoUsuario());
-            validarDireccion.setText(validarNuevoEmpleado.getErrorDireccionUsuario());
-                     
-        }
+    public void mensajes(){
         
+        if(comboTipoUsuario.getSelectionModel().getSelectedItem().toString().toLowerCase().contains("estudiante")){
+            
+            ValidarUsuario estudiante = new ValidarUsuario();
+            estudiante.validarNuevoEstudiante(txtfNombre.getText(), txtfApellido.getText(), txtfCorreo.getText(),
+                                             comboGrado.getSelectionModel().getSelectedItem(), comboCurso.getSelectionModel().getSelectedItem(),
+                                             comboJornada.getSelectionModel().getSelectedItem(), txtfDocumento.getText(), txtfTelefono.getText(),
+                                             txtfDireccion.getText());
+            lblNombre.setText(estudiante.getErrorNombre());
+            lblApellido.setText(estudiante.getErrorApellido());
+            lblCorreo.setText(estudiante.getErrorCorreo());
+            lblGrado.setText(estudiante.getErrorGrado());
+            lblCurso.setText(estudiante.getErrorCurso());
+            lblJornada.setText(estudiante.getErrorJornada());
+            lblDocumento.setText(estudiante.getErrorDocumento());
+            lblTelefono.setText(estudiante.getErrorTelefono());
+            lblDireccion.setText(estudiante.getErrorDireccion());
+        }       
+        else{            
+            ValidarUsuario funcionario = new ValidarUsuario();
+            funcionario.validarNuevoFuncionario(txtfNombre.getText(), txtfApellido.getText(), txtfCorreo.getText(),
+                                                txtfDocumento.getText(), txtfTelefono.getText(), txtfDireccion.getText());
+            
+            lblNombre.setText(funcionario.getErrorNombre());
+            lblApellido.setText(funcionario.getErrorApellido());
+            lblCorreo.setText(funcionario.getErrorCorreo());
+            lblDocumento.setText(funcionario.getErrorDocumento());
+            lblTelefono.setText(funcionario.getErrorTelefono());
+            lblDireccion.setText(funcionario.getErrorDireccion());                     
+        } 
+    }
+    
+    public void cancelar(){
+        
+        txtfNombre.clear();
+        txtfApellido.clear();
+        txtfCorreo.clear();
+        comboGrado.getSelectionModel().clearSelection();
+        comboCurso.getSelectionModel().clearSelection();
+        comboJornada.getSelectionModel().clearSelection();
+        txtfDocumento.clear();
+        txtfTelefono.clear();
+        txtfDireccion.clear();
     }
     
     @FXML
     public void mostrarGrid(ActionEvent evento){
         
-        if (comboTipoUsuario.getSelectionModel().getSelectedIndex()==0){
+        if (comboTipoUsuario.getSelectionModel().getSelectedItem().toString().toLowerCase().contains("estudiante")){
             
             gridRegistrar1.setVisible(true);
             gridRegistrar2.setVisible(true);
@@ -112,72 +140,61 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
             gridRegistrar2.setLayoutY(comboTipoUsuario.getLayoutY()+110);
             etiquetaCurso.setVisible(true);
             comboCurso.setVisible(true);
-            validarCurso.setVisible(true);
+            lblGrado.setVisible(true);
             etiquetaGrupo.setVisible(true);
-            comboGrupo.setVisible(true);
-            validarGrupo.setVisible(true);
+            comboGrado.setVisible(true);
+            lblCurso.setVisible(true);
             etiquetaJornada.setVisible(true);
             comboJornada.setVisible(true);
-            validarJornada.setVisible(true);
+            lblJornada.setVisible(true);
             botonCancelar.setVisible(true);
-            botonGuardarUsuario.setVisible(true);
-        
-            
-                       
+            botonGuardarUsuario.setVisible(true);                       
         }
-        else if (comboTipoUsuario.getSelectionModel().getSelectedIndex()==1){
+        else{
             
             gridRegistrar1.setVisible(true);
             gridRegistrar2.setVisible(true);           
             etiquetaCurso.setVisible(false);
             comboCurso.setVisible(false);
-            validarCurso.setVisible(false);
+            lblGrado.setVisible(false);
             etiquetaGrupo.setVisible(false);
-            comboGrupo.setVisible(false);
-            validarGrupo.setVisible(false);
+            comboGrado.setVisible(false);
+            lblCurso.setVisible(false);
             etiquetaJornada.setVisible(false);
             comboJornada.setVisible(false);
-            validarJornada.setVisible(false);
+            lblJornada.setVisible(false);
             gridRegistrar1.setLayoutY(comboTipoUsuario.getLayoutY()+150);
             gridRegistrar2.setLayoutY(comboTipoUsuario.getLayoutY()+82);
             botonCancelar.setVisible(true);
             botonGuardarUsuario.setVisible(true);            
         }
     }
-     
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    
+     @Override
+    public void setScreenParent(ScreensController screenParent) {
+        controlador = screenParent;
+     }
+    
+    public void setVentanaPrincipal(Sabga principal) {
+        this.paginaPrincipal = principal;
+    }
+    
+    private void inicio(){
         
+        comboTipoUsuario.setItems(consulta.llenarLista(select.getListaTipoUsuario(), select.getTipoUsuario())); 
+        comboGrado.setItems(consulta.llenarLista(select.getListaGrado(), select.getGrado()));
+        comboCurso.setItems(consulta.llenarLista(select.getListaCurso(), select.getCurso()));
+        comboJornada.setItems(consulta.llenarLista(select.getListaJornada(), select.getJornada()));
         gridRegistrar1.setVisible(false);
         gridRegistrar2.setVisible(false);
         botonCancelar.setVisible(false);
         botonGuardarUsuario.setVisible(false);
-        cargarCombo();
-     
-        }    
-    
-    public void cargarCombo() {
-            
-        try {   
-         
-            Conexion con = new Conexion();
-            con.conectar();
-            con.setResultado(con.getStatement().executeQuery("SELECT * FROM tbl_CURSO"));
-
-            while (con.getResultado().next()) {
-                
-                grado.add(con.getResultado().getObject("curso"));
-                
-            }
-            comboGrupo.setItems(grado);
-            con.desconectar(); 
-        } catch (SQLException ex) {
-            
-             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error"); 
-        }
     }
-
-      
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+            inicio(); 
+        }         
     }
         
 

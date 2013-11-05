@@ -432,7 +432,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         if (validar.validarCampoTexto(buscarAutor.getText(), 300)) {
             obtenerAutor();                      
         } else {
-            Utilidades.mensajeAdvertencia(null, "Debe seleccionar un autor de la lista.", "", "Seleccionar Autor");
+            Utilidades.mensajeAdvertencia(null, "El autor debe ser seleccionado de la lista.", "", "Seleccionar Autor");
         }
     }
          

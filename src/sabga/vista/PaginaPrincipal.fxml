@@ -19,7 +19,7 @@
   <top>
     <Pane id="barraCabecera" minHeight="140.0" minWidth="-Infinity" prefHeight="140.0" prefWidth="1260.0" BorderPane.alignment="TOP_CENTER">
       <children>
-        <ImageView fitHeight="103.0" fitWidth="103.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="103.0" fitWidth="103.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#ventanaInicio" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@Imagenes/LogoBiblioteca.png" preserveRatio="false" smooth="false" />
           </image>
@@ -117,26 +117,11 @@
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroMaterial" text="Nuevo Material" />
                     <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarMaterial" text="Editar Material" />
-                    <Menu mnemonicParsing="false" text="Autores">
-                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#dialogoNuevoAutor" text="Nuevo Autor" fx:id="menuNuevoAutor" />
-                        <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarEMA" text="Editar Autor" />
-                      </items>
-                    </Menu>
-                    <Menu mnemonicParsing="false" text="Materias">
-                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#dialogoNuevaMateria" text="Nueva Materia" />
-                        <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarEMA" text="Editar Materia" />
-                      </items>
-                    </Menu>
-                    <Menu mnemonicParsing="false" text="Editoriales">
-                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#dialogoNuevaEditorial" text="Nueva Editorial" />
-                        <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarEMA" text="Editar Editorial" />
-                      </items>
-                    </Menu>
                     <Menu mnemonicParsing="false" text="Opciones de Material">
                       <items>
+                        <MenuItem mnemonicParsing="false" onAction="#dialogoNuevoAutor" text="Nuevo Autor" fx:id="menuNuevoAutor" />
+                        <MenuItem mnemonicParsing="false" onAction="#dialogoNuevaMateria" text="Nueva Materia" />
+                        <MenuItem mnemonicParsing="false" onAction="#dialogoNuevaEditorial" text="Nueva Editorial" />
                         <MenuItem mnemonicParsing="false" onAction="#dialogoNuevoTipoMaterial" text="Nuevo Tipo de Material" />
                         <MenuItem mnemonicParsing="false" onAction="#dialogoNuevaClaseMaterial" text="Nueva Clase de Material" />
                         <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarEMA" text="Editar Opciones de Material" />
