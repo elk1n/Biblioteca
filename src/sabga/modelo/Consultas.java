@@ -8,6 +8,7 @@ import sabga.atributos.Autor;
 import sabga.atributos.Ejemplar;
 import sabga.atributos.Materia;
 import sabga.atributos.Material;
+import sabga.atributos.Usuario;
 import sabga.configuracion.Conexion;
 import sabga.configuracion.Utilidades;
 
@@ -406,6 +407,27 @@ public class Consultas {
             con.desconectar();
         }
         return id;
+    }
+    
+    public ObservableList<Usuario> getListaUsuarios(){
+    
+        ObservableList<Usuario> lista= FXCollections.observableArrayList();
+        
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaUsuarios()}");
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                lista.add(new Usuario(con.getResultado().getString("tipo"), con.getResultado().getString("documento"),
+                                      con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
+                                      con.getResultado().getString("correo") ));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
+        } finally {
+            con.desconectar();
+        }        
+        return lista;
     }
 
     public ObservableList<Autor> getListaAutores() {

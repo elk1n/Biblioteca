@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 import java.net.URL;
 
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,14 +20,18 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import sabga.Sabga;
 import sabga.ScreensController;
+import sabga.atributos.Material;
+import sabga.atributos.Usuario;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Dialogo;
+import sabga.modelo.Consultas;
 import sabga.modelo.ValidarUsuario;
 
 /**
@@ -37,6 +43,7 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     private Sabga paginaPrincipal;    
     private ScreensController controlador;
     private final Dialogo dialogo;
+    private final Consultas consulta;
     @FXML
     private TableView tablaUsuarios;
     @FXML
@@ -48,10 +55,29 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     private ComboBox comboTipo, comboGrado, comboCurso, comboJornada, comboEstado;     
     @FXML 
     private Label validarNombre, validarApellidos, validarDocumento, validarCorreo, validarTelefono, validarDireccion, validarMulta;
+    
+    private final ObservableList<Usuario> listaUsuarios;
+    
    
     public EditarUsuarioController(){    
-        dialogo = new Dialogo(); 
+        dialogo = new Dialogo();
+        consulta = new Consultas();
+        listaUsuarios = FXCollections.observableArrayList();
     }
+    
+    private void tablaUsuarios(){
+        
+        clmnTipo.setCellValueFactory(new PropertyValueFactory<Usuario, String>("tipo"));
+        clmnDocumento.setCellValueFactory(new PropertyValueFactory<Usuario, String>("documento"));
+        clmnNombre.setCellValueFactory(new PropertyValueFactory<Usuario, String>("nombre"));
+        clmnApellido.setCellValueFactory(new PropertyValueFactory<Usuario, String>("apellido"));
+        clmnCorreo.setCellValueFactory(new PropertyValueFactory<Usuario, String>("correo"));
+        tablaUsuarios.setEditable(true);
+        listaUsuarios.addAll(consulta.getListaUsuarios());
+        tablaUsuarios.setItems(listaUsuarios);
+    
+    }
+    
     
     @Override
     public void setScreenParent(ScreensController screenParent) {
@@ -91,7 +117,7 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-              
+              tablaUsuarios();
     }
 }
     

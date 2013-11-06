@@ -13,23 +13,23 @@
 
 <AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.EditarUsuarioController">
   <children>
-    <TableView fx:id="tablaUsuarios" layoutX="28.0" layoutY="69.0" prefHeight="433.0" prefWidth="691.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
-      <columns>
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="97.0" text="Tipo de Usuario" fx:id="clmnTipo" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="80.0" text="Documento" fx:id="clmnDocumento" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="162.0" text="Nombre" fx:id="clmnNombre" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="190.0" text="Apellido" fx:id="clmnApellido" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="146.0" text="Correo Electrónico" fx:id="clmnCorreo" />
-      </columns>
-    </TableView>
-    <TextField fx:id="txtFiltrar" layoutX="144.0" layoutY="24.0" prefHeight="30.0" prefWidth="200.0" promptText="Filtrar Usuarios" />
     <Label layoutX="28.0" layoutY="29.0" text="Filtrar Usuarios:">
       <font>
         <Font name="System Bold" size="14.0" fx:id="x2" />
       </font>
     </Label>
-    <Button cancelButton="false" defaultButton="true" layoutX="1089.0" layoutY="481.0" maxWidth="-1.0" mnemonicParsing="false" onAction="#validarDatos" prefHeight="25.0" text="Actualizar Información" />
+    <TextField fx:id="txtFiltrar" layoutX="144.0" layoutY="24.0" prefHeight="30.0" prefWidth="200.0" promptText="Filtrar Usuarios" />
     <Button defaultButton="true" layoutX="596.0" layoutY="26.0" maxWidth="-1.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Detalle Usuario" />
+    <TableView fx:id="tablaUsuarios" layoutX="28.0" layoutY="69.0" prefHeight="433.0" prefWidth="691.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
+      <columns>
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="97.0" text="Tipo de Usuario" fx:id="clmnTipo" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="95.0" text="Documento" fx:id="clmnDocumento" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="154.0" text="Nombre" fx:id="clmnNombre" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="165.0" text="Apellido" fx:id="clmnApellido" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="168.0" text="Correo Electrónico" fx:id="clmnCorreo" />
+      </columns>
+    </TableView>
+    <Label font="$x2" layoutX="751.0" layoutY="28.0" text="Datos del Usuario" />
     <ScrollPane layoutX="749.0" layoutY="68.0" prefHeight="394.0" prefWidth="479.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
       <content>
         <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="717.0" prefWidth="474.0">
@@ -81,27 +81,6 @@
             <GridPane id="GridPane" layoutX="24.0" layoutY="342.0" prefHeight="330.310546875" prefWidth="307.0">
               <children>
                 <Label text="Estado del Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                <ComboBox fx:id="comboEstado" maxWidth="150.0" prefHeight="25.0" prefWidth="168.0" promptText="Estado" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                  <items>
-                    <FXCollections fx:factory="observableArrayList">
-                      <String fx:value="Habilitado" />
-                      <String fx:value="Deshabilitado" />
-                    </FXCollections>
-                  </items>
-                </ComboBox>
-                <Label text="Multa:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-                <TextField id="campoMulta" fx:id="txtfMulta" alignment="CENTER_RIGHT" disable="true" maxWidth="150.0" prefHeight="30.0" prefWidth="159.0" text="1400" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                <Label id="validarMulta" alignment="CENTER_RIGHT" prefWidth="150.0" text="Validación" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                <ComboBox id="comboTipoUsuario" fx:id="comboTipo" maxWidth="150.0" prefHeight="25.0" prefWidth="168.0" promptText="Tipo de Usuario" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                  <items>
-                    <FXCollections fx:factory="observableArrayList">
-                      <String fx:value="Estudiante" />
-                      <String fx:value="Funcionario" />
-                    </FXCollections>
-                  </items>
-                </ComboBox>
-                <Label text="Tipo de Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                <Label text="Grado:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                 <ComboBox id="comboCurso" fx:id="comboGrado" maxWidth="150.0" prefHeight="25.0" prefWidth="168.0" promptText="Grado" GridPane.columnIndex="1" GridPane.rowIndex="0">
                   <items>
                     <FXCollections fx:factory="observableArrayList">
@@ -119,7 +98,6 @@
                     </FXCollections>
                   </items>
                 </ComboBox>
-                <Label text="Curso:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                 <ComboBox id="comboGrupo" fx:id="comboCurso" maxWidth="150.0" prefHeight="25.0" prefWidth="168.0" promptText="Curso" GridPane.columnIndex="1" GridPane.rowIndex="1">
                   <items>
                     <FXCollections fx:factory="observableArrayList">
@@ -140,6 +118,28 @@
                     </FXCollections>
                   </items>
                 </ComboBox>
+                <Label text="Multa:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <Label id="validarMulta" alignment="CENTER_RIGHT" prefWidth="150.0" text="Validación" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                <ComboBox id="comboTipoUsuario" fx:id="comboTipo" maxWidth="150.0" prefHeight="25.0" prefWidth="168.0" promptText="Tipo de Usuario" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <items>
+                    <FXCollections fx:factory="observableArrayList">
+                      <String fx:value="Estudiante" />
+                      <String fx:value="Funcionario" />
+                    </FXCollections>
+                  </items>
+                </ComboBox>
+                <Label text="Tipo de Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <Label text="Grado:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label text="Curso:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <ComboBox fx:id="comboEstado" maxWidth="150.0" prefHeight="25.0" prefWidth="168.0" promptText="Estado" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <items>
+                    <FXCollections fx:factory="observableArrayList">
+                      <String fx:value="Habilitado" />
+                      <String fx:value="Deshabilitado" />
+                    </FXCollections>
+                  </items>
+                </ComboBox>
+                <TextField id="campoMulta" fx:id="txtfMulta" alignment="CENTER_RIGHT" disable="true" maxWidth="150.0" prefHeight="30.0" prefWidth="159.0" text="1400" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 <Label text="Jornada:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
               </children>
               <columnConstraints>
@@ -161,6 +161,6 @@
         </AnchorPane>
       </content>
     </ScrollPane>
-    <Label font="$x2" layoutX="751.0" layoutY="28.0" text="Datos del Usuario" />
+    <Button cancelButton="false" defaultButton="true" layoutX="1089.0" layoutY="481.0" maxWidth="-1.0" mnemonicParsing="false" onAction="#validarDatos" prefHeight="25.0" text="Actualizar Información" />
   </children>
 </AnchorPane>
