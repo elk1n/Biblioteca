@@ -21,6 +21,7 @@ import javafx.scene.layout.HBox;
 import sabga.Sabga;
 import sabga.configuracion.ControlledScreen;
 import sabga.ScreensController;
+import sabga.atributos.Atributos;
 import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
 
@@ -100,6 +101,8 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     @FXML
     public void ventanaPrestamo(ActionEvent evento){  
+        
+        ventanaPrincipal.cargarVista("paginaPrestamo", "vista/Prestamo.fxml");
         ventanaPrincipal.cambiarVista("paginaPrestamo");
     }
     
@@ -230,8 +233,9 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     }
     
     @FXML
-    public void prueba(ActionEvent evento) throws IOException{ 
-        ventanaPrincipal.pruebaDato();         
+    public void prueba(ActionEvent evento){ 
+           Atributos esto = new Atributos();
+           esto.setDatoBusqueda("Esto es una prueba..... de");
     }
     
     @Override

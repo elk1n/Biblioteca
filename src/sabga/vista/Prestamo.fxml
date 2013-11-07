@@ -13,142 +13,63 @@
 
 <AnchorPane id="AnchorPane" fx:id="contenedor" prefHeight="520.0" prefWidth="1260.0" styleClass="null" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.PrestamoController">
   <children>
-    <ScrollPane layoutX="14.0" layoutY="12.0" prefHeight="494.0" prefWidth="625.0">
-      <content>
-        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="479.0" prefWidth="610.0">
-          <children>
-            <Label layoutX="249.0" layoutY="18.0" prefHeight="24.0" prefWidth="165.0" text="Material Bibliotecario">
-              <font>
-                <Font name="System Bold" size="14.0" fx:id="x3" />
-              </font>
-            </Label>
-            <TextField id="campocodigobarras" fx:id="campoBusqueda" layoutX="213.0" layoutY="74.0" prefHeight="30.0" prefWidth="250.0" />
-            <Button layoutX="489.0" layoutY="78.0" mnemonicParsing="false" onAction="#buscarMaterial" text="Buscar" />
-            <ComboBox fx:id="comboBusqueda" layoutX="48.0" layoutY="78.0" prefWidth="137.0" promptText="Código de Barras">
-              <items>
-                <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="Código de Barras" />
-                  <String fx:value="Código de Clasificación" />
-                </FXCollections>
-              </items>
-            </ComboBox>
-            <Pane layoutX="14.0" layoutY="161.0" prefHeight="101.0" prefWidth="575.0" styleClass="resultado">
-              <children>
-                <GridPane id="GridPane" layoutX="15.0" layoutY="10.0" prefHeight="87.0">
-                  <children>
-                    <Label font="$x3" prefWidth="508.0" text="Autor" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                    <Label font="$x3" prefWidth="386.0" text="Materias" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                    <Label font="$x3" prefWidth="364.0" text="Ejemplares Disponibles: " GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                    <Hyperlink font="$x3" prefWidth="539.0" text="Título" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                      <textFill>
-                        <Color blue="1.000" green="0.400" red="0.000" fx:id="x2" />
-                      </textFill>
-                    </Hyperlink>
-                  </children>
-                  <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                  </columnConstraints>
-                  <rowConstraints>
-                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                  </rowConstraints>
-                </GridPane>
-                <Button layoutX="408.0" layoutY="71.0" mnemonicParsing="false" text="Adicionar al Prestamo" />
-              </children>
-              <stylesheets>
-                <URL value="@css/estilo.css" />
-              </stylesheets>
-            </Pane>
-            <Label fx:id="validarBusqueda" alignment="CENTER_RIGHT" layoutX="212.0" layoutY="112.0" prefWidth="250.0" text="Validacion" textAlignment="LEFT" textFill="#992500" wrapText="true" />
-          </children>
-        </AnchorPane>
-      </content>
-    </ScrollPane>
-    <ScrollPane layoutX="665.0" layoutY="12.0" prefHeight="258.0" prefWidth="575.0">
-      <content>
-        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="250.0" prefWidth="560.0">
-          <children>
-            <Pane layoutX="10.0" layoutY="8.0" prefHeight="101.0" prefWidth="539.0" styleClass="resultado">
-              <children>
-                <GridPane id="GridPane" layoutX="15.0" layoutY="10.0" prefHeight="87.0" prefWidth="524.0">
-                  <children>
-                    <Label prefWidth="350.0" text="Documento" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                      <font>
-                        <Font size="14.0" fx:id="x1" />
-                      </font>
-                    </Label>
-                    <Label font="$x1" prefWidth="386.0" text="Correo" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                    <Label font="$x1" prefWidth="364.0" text="Datos Academicos" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                    <Hyperlink font="$x3" prefWidth="508.0" text="Nombre y Apellidos del Usuario" textFill="$x2" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                    <HBox id="HBox" alignment="CENTER_RIGHT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                      <children>
-                        <Label text="Seleccionar" />
-                        <CheckBox alignment="CENTER" allowIndeterminate="false" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefWidth="22.0" selected="false" text="Seleccionar" textAlignment="JUSTIFY" />
-                      </children>
-                    </HBox>
-                    <Label alignment="CENTER_RIGHT" font="$x1" prefWidth="118.0" text="Estado" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                  </children>
-                  <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="403.0" minWidth="10.0" prefWidth="375.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="118.0" minWidth="10.0" prefWidth="118.0" />
-                  </columnConstraints>
-                  <rowConstraints>
-                    <RowConstraints maxHeight="23.0" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="16.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="17.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
-                  </rowConstraints>
-                </GridPane>
-              </children>
-              <stylesheets>
-                <URL value="@css/estilo.css" />
-              </stylesheets>
-            </Pane>
-          </children>
-        </AnchorPane>
-      </content>
-    </ScrollPane>
-    <ScrollPane layoutX="666.0" layoutY="294.0" prefHeight="178.0" prefWidth="575.0">
-      <content>
-        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="163.0" prefWidth="560.0">
-          <children>
-            <Pane layoutX="7.0" layoutY="8.0" prefHeight="44.0" prefWidth="541.0" styleClass="resultado">
-              <children>
-                <Label layoutX="14.0" layoutY="5.0" prefHeight="17.0000084472631" prefWidth="432.0" text="Título del Material" />
-                <Label layoutX="15.0" layoutY="23.0" prefWidth="432.0" text="Fecha de Devolución" />
-                <Button layoutX="472.0" layoutY="11.0" mnemonicParsing="false" text="Quitar" />
-              </children>
-              <stylesheets>
-                <URL value="@css/estilo.css" />
-              </stylesheets>
-            </Pane>
-            <Pane layoutX="9.0" layoutY="61.0" prefHeight="44.0" prefWidth="541.0" styleClass="resultado">
-              <children>
-                <Label layoutX="14.0" layoutY="5.0" prefHeight="17.0000084472631" prefWidth="432.0" text="Título del Material" />
-                <Label layoutX="15.0" layoutY="23.0" prefWidth="432.0" text="Fecha de Devolución" />
-                <Button layoutX="472.0" layoutY="11.0" mnemonicParsing="false" text="Quitar" />
-              </children>
-              <stylesheets>
-                <URL value="@css/estilo.css" />
-              </stylesheets>
-            </Pane>
-            <Pane layoutX="9.0" layoutY="114.0" prefHeight="44.0" prefWidth="541.0" styleClass="resultado">
-              <children>
-                <Label layoutX="14.0" layoutY="5.0" prefHeight="17.0000084472631" prefWidth="432.0" text="Título del Material" />
-                <Label layoutX="15.0" layoutY="23.0" prefWidth="432.0" text="Fecha de Devolución" />
-                <Button layoutX="472.0" layoutY="11.0" mnemonicParsing="false" text="Quitar" />
-              </children>
-              <stylesheets>
-                <URL value="@css/estilo.css" />
-              </stylesheets>
-            </Pane>
-          </children>
-        </AnchorPane>
-      </content>
-    </ScrollPane>
-    <Button layoutX="1174.0" layoutY="492.0" mnemonicParsing="false" text="Prestar" />
-    <Button layoutX="1036.0" layoutY="492.0" mnemonicParsing="false" text="Cancelar" />
+    <HBox id="HBox" alignment="CENTER" layoutX="908.0" layoutY="459.0" spacing="80.0">
+      <children>
+        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Cancelar" />
+        <Button defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Prestar" />
+      </children>
+    </HBox>
+    <TextField id="campocodigobarras" fx:id="campoBusqueda" layoutX="25.0" layoutY="74.0" prefHeight="30.0" prefWidth="250.0" promptText="Buscar" />
+    <Button layoutX="286.0" layoutY="76.0" mnemonicParsing="false" onAction="#buscarMaterial" prefHeight="25.0" prefWidth="25.0" styleClass="botonBuscar" text="">
+      <stylesheets>
+        <URL value="@css/estilo.css" />
+      </stylesheets>
+    </Button>
+    <TableView layoutX="26.0" layoutY="126.0" prefHeight="358.0" prefWidth="603.0">
+      <columns>
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="178.0" text="Título" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="261.0" text="Autor" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="147.0" text="Ejemplares Disponibles " />
+      </columns>
+    </TableView>
+    <Button defaultButton="true" layoutX="526.0" layoutY="79.0" mnemonicParsing="false" prefHeight="25.0" text="Detalle Material" />
+    <Label layoutX="30.0" layoutY="14.0" text="Buscar:">
+      <font>
+        <Font name="System Bold" size="12.0" fx:id="x1" />
+      </font>
+    </Label>
+    <RadioButton layoutX="29.0" layoutY="46.0" mnemonicParsing="false" selected="true" text="Material">
+      <toggleGroup>
+        <ToggleGroup fx:id="buscar" />
+      </toggleGroup>
+    </RadioButton>
+    <RadioButton layoutX="115.0" layoutY="46.0" mnemonicParsing="false" text="Usuario" toggleGroup="$buscar" />
+    <Pane layoutX="674.0" layoutY="21.0" prefHeight="404.0" prefWidth="554.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" styleClass="resultado">
+      <children>
+        <Button defaultButton="true" layoutX="417.0" layoutY="143.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Remover Material" />
+        <Label font="$x1" layoutX="22.0" layoutY="59.0" text="Usuario:" />
+        <Label layoutX="146.0" layoutY="59.0" prefWidth="346.0" text="Nombre Usuario" />
+        <Label font="$x1" layoutX="23.0" layoutY="97.0" text="Fecha Devolución:" />
+        <HBox fx:id="hboxFecha" layoutX="146.0" layoutY="95.0" prefHeight="20.0" prefWidth="150.0">
+          <stylesheets>
+            <URL value="@css/DatePicker.css" />
+          </stylesheets>
+        </HBox>
+        <TableView layoutX="23.0" layoutY="143.0" prefHeight="237.0" prefWidth="375.0">
+          <columns>
+            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="236.0" text="Título" />
+            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="122.0" text="Código Clasificación" />
+          </columns>
+        </TableView>
+        <Label layoutX="22.0" layoutY="18.0" text="Datos del Prestamo:">
+          <font>
+            <Font name="System Bold" size="14.0" />
+          </font>
+        </Label>
+      </children>
+      <stylesheets>
+        <URL value="@css/estilo.css" />
+      </stylesheets>
+    </Pane>
   </children>
 </AnchorPane>

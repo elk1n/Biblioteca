@@ -58,7 +58,7 @@
                 <URL value="@css/estilo.css" />
               </stylesheets>
             </Button>
-            <Button id="botonAyuda" contentDisplay="CENTER" font="$x1" maxHeight="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" styleClass="botonAyuda" text="" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+            <Button id="botonAyuda" contentDisplay="CENTER" font="$x1" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#prueba" prefHeight="25.0" prefWidth="25.0" styleClass="botonAyuda" text="" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="ALWAYS">
               <stylesheets>
                 <URL value="@css/estilo.css" />
               </stylesheets>

@@ -56,7 +56,7 @@ public class Sabga extends Application {
         pantallas.loadScreen(Sabga.paginaRegistroMaterialId, Sabga.paginaRegistroMaterialArchivo);
         pantallas.loadScreen(Sabga.paginaActualizarMaterialId, Sabga.paginaActualizarMaterialArchivo);
         pantallas.loadScreen(Sabga.paginaActualizarEMAId, Sabga.paginaActualizarEMAArchivo);
-        pantallas.loadScreen(Sabga.paginaPrestamoId, Sabga.paginaPrestamoArchivo);
+       // pantallas.loadScreen(Sabga.paginaPrestamoId, Sabga.paginaPrestamoArchivo);
         pantallas.loadScreen(Sabga.paginaRegistroUsuariosId, Sabga.paginaRegistroUsuariosArchivo);
         pantallas.loadScreen(Sabga.paginaEstadoUsuarioId, Sabga.paginaEstadoUsuarioArchivo);
         pantallas.loadScreen(Sabga.paginaRegistroAdminId, Sabga.paginaRegistroAdminArchivo);
@@ -65,22 +65,6 @@ public class Sabga extends Application {
         pantallas.setScreen(Sabga.paginaInicialId);
         dialogo = new Dialogo();
                  
-    }
-        
-    public Stage getPrimaryStage(){        
-        return this.primaryStage;
-    }
-        
-    public ScreensController getController() {        
-        return controller;
-    }
-    
-    public void cambiarVista(String pantalla){     
-        pantallas.setScreen(pantalla);
-    }
-    
-    public void descargarPantalla(String pantallaId){       
-        pantallas.unloadScreen(pantallaId);
     }
     
     @Override
@@ -106,6 +90,26 @@ public class Sabga extends Application {
         controller.setVentanaPrincipal(this);
         mostrarVistas();  
         
+    }
+    
+    public Stage getPrimaryStage(){        
+        return this.primaryStage;
+    }
+        
+    public ScreensController getController() {        
+        return controller;
+    }
+    
+    public void cambiarVista(String pantalla){     
+        pantallas.setScreen(pantalla);
+    }
+    
+    public void descargarPantalla(String pantallaId){       
+        pantallas.unloadScreen(pantallaId);
+    }
+    
+    public void cargarVista(String nombre, String archivo){
+        pantallas.loadScreen(nombre, archivo);
     }
     
     public void inciarSesion(){ 
