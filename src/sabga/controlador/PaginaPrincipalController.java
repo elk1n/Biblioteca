@@ -80,54 +80,62 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     } 
     
     @FXML
-    public void ventanaRegistroMaterial(ActionEvent evento){  
+    public void ventanaRegistroMaterial(ActionEvent evento){ 
+        ventanaPrincipal.cargarVista("paginaRegistroMaterial", "vista/RegistroMaterial.fxml");
         ventanaPrincipal.cambiarVista("paginaRegistroMaterial");        
     }
     
     @FXML
-    public void ventanaInicio(){        
+    public void ventanaInicio(){
+        ventanaPrincipal.cargarVista("paginaInicio1", "vista/PaginaInicio1.fxml");
         ventanaPrincipal.cambiarVista("paginaInicio1");
     }
     
     @FXML
-    public void ventanaActualizarMaterial(ActionEvent evento){ 
+    public void ventanaActualizarMaterial(ActionEvent evento){
+        ventanaPrincipal.cargarVista("paginaActualizarMaterial", "vista/EditarMaterial.fxml");
         ventanaPrincipal.cambiarVista("paginaActualizarMaterial");
     }
     
     @FXML
     public void ventanaActualizarEMA(ActionEvent evento){
+        ventanaPrincipal.cargarVista("paginaActualizarEMA", "vista/EditarEMA.fxml");
         ventanaPrincipal.cambiarVista("paginaActualizarEMA");
     }
     
     @FXML
-    public void ventanaPrestamo(ActionEvent evento){  
-        
+    public void ventanaPrestamo(ActionEvent evento){          
         ventanaPrincipal.cargarVista("paginaPrestamo", "vista/Prestamo.fxml");
         ventanaPrincipal.cambiarVista("paginaPrestamo");
     }
     
     @FXML
     public void ventanaRegistroUsuarios(ActionEvent evento){
+        ventanaPrincipal.cargarVista("paginaRegistroUsuarios", "vista/RegistroUsuario.fxml");
         ventanaPrincipal.cambiarVista("paginaRegistroUsuarios");
     }
     
     @FXML
     public void ventanaEstadoUsuario(ActionEvent evento){
+        ventanaPrincipal.cargarVista("paginaEstadoUsuario", "vista/EditarUsuario.fxml");
         ventanaPrincipal.cambiarVista("paginaEstadoUsuario");
     }
     
     @FXML
     public void ventanaRegistroAdmin(ActionEvent evento){
+        ventanaPrincipal.cargarVista("paginaRegistroAdmin", "vista/RegistroAdministrador.fxml");
         ventanaPrincipal.cambiarVista("paginaRegistroAdmin");
     }
     
     @FXML
     public void ventanaEditarAdmin(ActionEvent evento){
+        ventanaPrincipal.cargarVista("paginaEditarAdministrador", "vista/EditarAdministrador.fxml");
         ventanaPrincipal.cambiarVista("paginaEditarAdministrador");
     }
     
     @FXML
     public void ventanaDevolucion(ActionEvent evento){
+        ventanaPrincipal.cargarVista("paginaDevolucion", "vista/Devolucion.fxml");
         ventanaPrincipal.cambiarVista("paginaDevolucion");
     }
     

@@ -53,15 +53,6 @@ public class Sabga extends Application {
         pantallas = new ScreensController();
      // pantallas.loadScreen(Sabga.paginaInicioId, Sabga.paginaInicioArchivo);
         pantallas.loadScreen(Sabga.paginaInicialId, Sabga.paginaInicialArchivo);
-        pantallas.loadScreen(Sabga.paginaRegistroMaterialId, Sabga.paginaRegistroMaterialArchivo);
-        pantallas.loadScreen(Sabga.paginaActualizarMaterialId, Sabga.paginaActualizarMaterialArchivo);
-        pantallas.loadScreen(Sabga.paginaActualizarEMAId, Sabga.paginaActualizarEMAArchivo);
-       // pantallas.loadScreen(Sabga.paginaPrestamoId, Sabga.paginaPrestamoArchivo);
-        pantallas.loadScreen(Sabga.paginaRegistroUsuariosId, Sabga.paginaRegistroUsuariosArchivo);
-        pantallas.loadScreen(Sabga.paginaEstadoUsuarioId, Sabga.paginaEstadoUsuarioArchivo);
-        pantallas.loadScreen(Sabga.paginaRegistroAdminId, Sabga.paginaRegistroAdminArchivo);
-        pantallas.loadScreen(Sabga.paginaEdicionAdminId, Sabga.paginaEdicionAdminArchivo);
-        pantallas.loadScreen(Sabga.paginaDevolucionId, Sabga.paginaDevolucionArchivo);
         pantallas.setScreen(Sabga.paginaInicialId);
         dialogo = new Dialogo();
                  
@@ -82,44 +73,14 @@ public class Sabga extends Application {
         Scene scene = new Scene(rootLayout);
         
         primaryStage.setScene(scene);
-       // Quitar el comentario para habilitar la pàgina de login o inicio de sesión
+        //Quitar el comentario para habilitar la pàgina de login o inicio de sesión
         //dialogoInicioSesion();        
-       primaryStage.show();        
+        primaryStage.show();        
           
         PaginaPrincipalController controller = cargador.getController();
         controller.setVentanaPrincipal(this);
         mostrarVistas();  
         
-    }
-    
-    public Stage getPrimaryStage(){        
-        return this.primaryStage;
-    }
-        
-    public ScreensController getController() {        
-        return controller;
-    }
-    
-    public void cambiarVista(String pantalla){     
-        pantallas.setScreen(pantalla);
-    }
-    
-    public void descargarPantalla(String pantallaId){       
-        pantallas.unloadScreen(pantallaId);
-    }
-    
-    public void cargarVista(String nombre, String archivo){
-        pantallas.loadScreen(nombre, archivo);
-    }
-    
-    public void inciarSesion(){ 
-        primaryStage.show();
-        dialogo.getDialogStage().close();   
-    }
-    
-    public void cerrarSesion(){      
-        primaryStage.close();
-        dialogo.getDialogStage().show();        
     }
     
     public void mostrarVistas(){
@@ -133,7 +94,29 @@ public class Sabga extends Application {
         controller = (ScreensController) controladorVistas.getMyScreenControler();
         controladorVistas.setVentanaPrincipal(this);                  
     }
-      
+       
+    public void cargarVista(String nombre, String archivo){
+        pantallas.loadScreen(nombre, archivo);
+    }
+    
+    public void descargarPantalla(String pantallaId){       
+        pantallas.unloadScreen(pantallaId);
+    }
+    
+    public void cambiarVista(String pantalla){     
+        pantallas.setScreen(pantalla);
+    }
+    
+    public void inciarSesion(){ 
+        primaryStage.show();
+        dialogo.getDialogStage().close();   
+    }
+    
+    public void cerrarSesion(){      
+        primaryStage.close();
+        dialogo.getDialogStage().show();        
+    }
+        
     public void dialogoInicioSesion(){        
         dialogo.mostrarDialogo("vista/dialogos/InicioSesion.fxml","Inicio De Sesión", this.primaryStage, this, 6);
     }
@@ -147,6 +130,13 @@ public class Sabga extends Application {
         dialogo.getDialogStage().hide();
     }
     
+    public Stage getPrimaryStage(){        
+        return this.primaryStage;
+    }
+        
+    public ScreensController getController() {        
+        return controller;
+    }
     public void pruebaDato() throws IOException{
        
     }

@@ -1,38 +1,26 @@
 
 package sabga.controlador;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Panel;
-import java.awt.image.BufferedImage;
 import java.net.URL;
 
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
-import javafx.scene.layout.Pane;
 import sabga.Sabga;
 import sabga.ScreensController;
-import sabga.atributos.Material;
 import sabga.atributos.Usuario;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Dialogo;
 import sabga.modelo.Consultas;
-import sabga.modelo.ValidarUsuario;
 
 /**
  * @author Nanny

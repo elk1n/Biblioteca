@@ -147,7 +147,7 @@
                 <Menu mnemonicParsing="false" text="Prestamo">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#ventanaPrestamo" text="Prestamo" />
-                    <MenuItem mnemonicParsing="false" onAction="#ventanaDevolucion" text="Devolución" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaDevolucion" text="Devolución o Renovación" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Reserva">

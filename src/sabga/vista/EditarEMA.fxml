@@ -107,7 +107,7 @@
         <TableColumn editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="507.0" text="Nombre" fx:id="clmnNombre" />
       </columns>
     </TableView>
-    <TextField id="filtrar" fx:id="campoFiltrar" layoutX="219.0" layoutY="20.0" prefHeight="30.0" prefWidth="283.0" promptText="Buscar" styleClass="campoBusqueda">
+    <TextField id="filtrar" fx:id="campoFiltrar" layoutX="219.0" layoutY="19.0" prefHeight="30.0" prefWidth="283.0" promptText="Filtrar Datos" styleClass="campoBusqueda">
       <stylesheets>
         <URL value="@css/estilo.css" />
       </stylesheets>

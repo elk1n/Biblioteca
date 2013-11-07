@@ -59,9 +59,8 @@ public class PrestamoController implements Initializable, ControlledScreen{
         
        SimpleDateFormat fff= new SimpleDateFormat("YYYY-MM-dd");
        System.out.println(fff.format(fechaDevolucion.getSelectedDate()));
-    
-       // ValidarMaterial validar = new ValidarMaterial(campoBusqueda.getText());
-        
+       
+       // ValidarMaterial validar = new ValidarMaterial(campoBusqueda.getText());        
        // validar.validarEditorialAC();
        // validarBusqueda.setText(validar.getErrorNombreEditorial());       
     }
