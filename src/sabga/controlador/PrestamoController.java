@@ -4,10 +4,6 @@ package sabga.controlador;
 import eu.schudt.javafx.controls.calendar.DatePicker;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,6 +32,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
     @FXML
     private HBox hboxFecha;
     private final DatePicker fechaDevolucion;
+    
     
     public PrestamoController(){
        
@@ -74,7 +71,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {       
-        System.out.println("Esto es una prueba");
         hboxFecha.getChildren().add(fechaDevolucion);
+        
     }    
 }

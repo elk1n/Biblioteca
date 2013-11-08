@@ -14,6 +14,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -39,7 +40,9 @@ public class DevolucionController implements Initializable, ControlledScreen {
     private ScreensController controlador;
     
     @FXML 
-    private Label validarBusqueda;   
+    private Label validarBusqueda; 
+    @FXML
+    private ComboBox comboOpcion;
     @FXML 
     private TextField campoBusqueda;
     @FXML
@@ -48,12 +51,13 @@ public class DevolucionController implements Initializable, ControlledScreen {
     private TableView tablaDevolucion;
     @FXML
     private TableColumn clmnEjemplar, clmnTitulo, clmnCodigo, clmnDevolver;
-    ObservableList<Devolucion> datos = FXCollections.observableArrayList();
+    public ObservableList<Devolucion> datos;
    
     private final DatePicker fechaDevolucion;
     
     public DevolucionController(){
         
+       datos = FXCollections.observableArrayList(); 
        fechaDevolucion = new DatePicker();
        fechaDevolucion.setDateFormat(new SimpleDateFormat("YYYY-MM-dd"));       
        fechaDevolucion.getCalendarView().showTodayButtonProperty().setValue(Boolean.FALSE);
@@ -74,11 +78,12 @@ public class DevolucionController implements Initializable, ControlledScreen {
     @FXML
     public void buscarDevolucion(ActionEvent evento){
         
-        buscar();
+       // buscar();
     }
-    
-    public void buscar(){
+    @FXML
+    public  void buscar(ActionEvent envento){
        
+     System.out.println(datos.get(tablaDevolucion.getSelectionModel().getSelectedIndex()).getCodigo());
       //  ValidarMaterial validarBuscar = new ValidarMaterial(campoBusqueda.getText());
        // validarBuscar.validarEditorialAC();
        // validarBusqueda.setText(validarBuscar.getErrorNombreEditorial());
@@ -93,7 +98,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
          hboxFecha.getChildren().add(fechaDevolucion);
-         
+         comboOpcion.getSelectionModel().selectFirst();
          
        datos.add(new Devolucion(25, "Esto es una", "Esto es una maltida prueba"));
        clmnEjemplar.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("ejemplar"));
@@ -133,6 +138,8 @@ class ButtonCell extends TableCell<Devolucion, Boolean> {
                 @Override
                 public void handle(ActionEvent t) {
                     System.out.println("Esto es una prueba.... si señor");
+                    DevolucionController dd = new DevolucionController();
+                    dd.buscar(t);
                     // do something when button clicked
                     //...
                 }
