@@ -2,33 +2,26 @@
 package sabga.controlador;
 
 import eu.schudt.javafx.controls.calendar.DatePicker;
+import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
-import javafx.util.Callback;
 import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.atributos.Devolucion;
-import sabga.atributos.Usuario;
 import sabga.configuracion.ControlledScreen;
-import sabga.modelo.ValidarMaterial;
 
 /**
  * @author Elk1n
@@ -40,7 +33,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
     private ScreensController controlador;
     
     @FXML 
-    private Label validarBusqueda; 
+    private Label validarBusqueda, lblNombre; 
     @FXML
     private ComboBox comboOpcion;
     @FXML 
@@ -62,8 +55,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
        fechaDevolucion.setDateFormat(new SimpleDateFormat("YYYY-MM-dd"));       
        fechaDevolucion.getCalendarView().showTodayButtonProperty().setValue(Boolean.FALSE);
        fechaDevolucion.getStylesheets().add("sabga/vista/css/DatePicker.css");
-       
-      
+ 
     }
     
     @Override
@@ -76,15 +68,15 @@ public class DevolucionController implements Initializable, ControlledScreen {
     }
     
     @FXML
-    public void buscarDevolucion(ActionEvent evento){
+    public void buscarDevolucion(ActionEvent evento) throws IOException{
         
-       // buscar();
+        //ventanaPrincipal.pruebaDato();
+        // buscar();
     }
     @FXML
-    public  void buscar(ActionEvent envento){
-       
-     System.out.println(datos.get(tablaDevolucion.getSelectionModel().getSelectedIndex()).getCodigo());
-      //  ValidarMaterial validarBuscar = new ValidarMaterial(campoBusqueda.getText());
+    public  void buscar(){
+      
+       //ValidarMaterial validarBuscar = new ValidarMaterial(campoBusqueda.getText());
        // validarBuscar.validarEditorialAC();
        // validarBusqueda.setText(validarBuscar.getErrorNombreEditorial());
               
@@ -100,60 +92,11 @@ public class DevolucionController implements Initializable, ControlledScreen {
          hboxFecha.getChildren().add(fechaDevolucion);
          comboOpcion.getSelectionModel().selectFirst();
          
-       datos.add(new Devolucion(25, "Esto es una", "Esto es una maltida prueba"));
+       datos.add(new Devolucion(25, "Esto es una", "Esto es una prueba"));
+       datos.add(new Devolucion(25, "Esto es una...", "Esto es otra prueba"));
        clmnEjemplar.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("ejemplar"));
        clmnTitulo.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("titulo"));
        clmnCodigo.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("codigo"));
   
-       clmnDevolver.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures<Devolucion, Boolean>, 
-                ObservableValue<Boolean>>() {
-
-            @Override
-            public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Devolucion, Boolean> p) {
-                return new SimpleBooleanProperty(p.getValue() != null);
-            }
-        });
-       
-           clmnDevolver.setCellFactory(
-                new Callback<TableColumn<Devolucion, Boolean>, TableCell<Devolucion, Boolean>>() {
-            @Override
-            public TableCell<Devolucion, Boolean> call(TableColumn<Devolucion, Boolean> p) {
-                return new ButtonCell();
-            }
-         
-        });
-           
-       tablaDevolucion.setItems(datos);
     }
-       
-}
-
-class ButtonCell extends TableCell<Devolucion, Boolean> {
-        final Button cellButton = new Button("Devolver");
-         
-        ButtonCell(){
-             
-            cellButton.setOnAction(new EventHandler<ActionEvent>(){
-                @Override
-                public void handle(ActionEvent t) {
-                    System.out.println("Esto es una prueba.... si señor");
-                    DevolucionController dd = new DevolucionController();
-                    dd.buscar(t);
-                    // do something when button clicked
-                    //...
-                }
-            });
-            
-        }
-        
-        @Override
-        protected void updateItem(Boolean t, boolean empty) {
-            super.updateItem(t, empty);
-            if(!empty){
-                setGraphic(cellButton);
-            }
-        }
-
-
 }

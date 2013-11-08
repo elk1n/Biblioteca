@@ -28,7 +28,7 @@
     <HBox id="HBox" alignment="CENTER" layoutX="456.0" layoutY="467.0" spacing="30.0">
       <children>
         <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminar" prefHeight="25.0" prefWidth="110.0" text="Eliminar" />
-        <Button cancelButton="true" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="110.0" text="Cancelar" />
+        <Button cancelButton="true" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="110.0" text="Cerrar" />
         <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarCambios" prefHeight="25.0" text="Guardar Cambios" />
       </children>
     </HBox>

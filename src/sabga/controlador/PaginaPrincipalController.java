@@ -1,13 +1,11 @@
 
 package sabga.controlador;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.collections.FXCollections;
@@ -38,8 +36,6 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     private TextField campoBusqueda;
     @FXML
     private RadioButton radioUsuario, radioMaterial;
-    @FXML
-    private ChoiceBox parametroBusqueda;
     @FXML 
     private Button botonBorrarBusqueda;
     @FXML
@@ -50,23 +46,12 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     private HBox hboxAdmin;
     
     public MenuItem getMenu(){  
-    return menuNuevoAutor;
+        return menuNuevoAutor;
     }
     
     public PaginaPrincipalController(){
         
         dialogo = new Dialogo();
-               
-        parametroMaterial.add("General");
-        parametroMaterial.add("Título");
-        parametroMaterial.add("Autor");
-        parametroMaterial.add("Materia");
-        parametroMaterial.add("Editorial");
-        
-        parametroUsuario.add("General");
-        parametroUsuario.add("Documento");
-        parametroUsuario.add("Nombre");
-        parametroUsuario.add("Apellidos");
     
     }
     
@@ -140,6 +125,20 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     }
     
     @FXML
+    public void ventanaBuscar(ActionEvent evento){
+        Atributos dd = new Atributos();
+        dd.setDatoBusqueda(campoBusqueda.getText());
+        ventanaPrincipal.cargarVista("paginaBuscar", "vista/Buscar.fxml");
+        ventanaPrincipal.cambiarVista("paginaBuscar");
+    }
+    
+    @FXML
+    public void ventanaCuenta(ActionEvent evento){
+        ventanaPrincipal.cargarVista("paginaCuenta", "vista/Cuenta.fxml");
+        ventanaPrincipal.cambiarVista("paginaCuenta");
+    }
+       
+    @FXML
     public void dialogoNuevoAutor(ActionEvent evento){
         dialogo.mostrarDialogo("vista/dialogos/NuevoAutor.fxml", "Nuevo Autor", ventanaPrincipal.getPrimaryStage(), null, 1);
     }
@@ -197,12 +196,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
    @FXML
     private void opcionesBusqueda(ActionEvent evento) {
         
-        if(radioUsuario.isSelected()){
-            parametroBusqueda.setItems(parametroUsuario);
-        }
-        else if(radioMaterial.isSelected()){
-            parametroBusqueda.setItems(parametroMaterial);
-        }        
+       
     }
     
     @FXML
@@ -248,7 +242,6 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {        
-         parametroBusqueda.setItems(parametroMaterial);
          botonBorrarBusqueda.setVisible(false);
          barraMenu.setPrefWidth(java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth());               
     }    

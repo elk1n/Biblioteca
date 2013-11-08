@@ -7,7 +7,7 @@ package sabga.atributos;
 
 public class Atributos {
 
-    private String datoBusqueda = "Esto es otra prueba....";
+    private static String datoBusqueda = "";
     
     public void setDatoBusqueda(String parametro){
         datoBusqueda = parametro;
@@ -16,4 +16,5 @@ public class Atributos {
     public String getDatoBusqueda(){
         return datoBusqueda;
     }
+  
 }

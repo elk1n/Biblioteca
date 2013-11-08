@@ -40,6 +40,10 @@ public class Sabga extends Application {
     public static String paginaEdicionAdminArchivo = "vista/EditarAdministrador.fxml";
     public static String paginaDevolucionId = "paginaDevolucion";
     public static String paginaDevolucionArchivo = "vista/Devolucion.fxml";
+    public static String paginaBuscarId = "paginaBuscar";
+    public static String paginaBusacarArchivo = "vista/Buscar.fxml";
+    public static String paginaCuentaId = "paginaCuenta";
+    public static String paginaCuentaArchivo = "vista/Cuenta.fxml";
     
     private Stage ventanaPrincipal, primaryStage;
     private BorderPane rootLayout;
@@ -138,13 +142,11 @@ public class Sabga extends Application {
         return controller;
     }
     public void pruebaDato() throws IOException{
-       
+      
     }
    
-    public void prueba(){
-    
-    System.out.println("Esto es una prueba");
-    
+    public void prueba(){    
+         System.out.println("Esto es una prueba");  
     }
   
     /**
