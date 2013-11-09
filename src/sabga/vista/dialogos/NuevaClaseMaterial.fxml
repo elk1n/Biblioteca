@@ -18,7 +18,7 @@
         </Label>
         <Label prefWidth="210.0" text="Nombre de la Clase de Material" GridPane.columnIndex="0" GridPane.rowIndex="1" />
         <TextField fx:id="campoNombreClaseM" prefHeight="30.0" prefWidth="250.0" promptText="Nombre para la nueva clase de material" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <Label fx:id="validacionClaseM" alignment="CENTER_RIGHT" prefWidth="277.0" text="Validacion" textFill="#cc0000" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <Label fx:id="validacionClaseM" alignment="CENTER_RIGHT" prefWidth="277.0" text="" textFill="#cc0000" GridPane.columnIndex="0" GridPane.rowIndex="3" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

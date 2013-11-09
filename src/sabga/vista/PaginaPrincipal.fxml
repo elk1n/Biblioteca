@@ -36,7 +36,7 @@
         </Label>
         <HBox id="HBox" fx:id="hboxAdmin" alignment="CENTER_RIGHT" fillHeight="true" layoutX="1061.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" spacing="15.0">
           <children>
-            <MenuButton font="$x1" mnemonicParsing="false" prefHeight="25.0" text="Administrador" HBox.hgrow="ALWAYS">
+            <MenuButton fx:id="menuAdmin" font="$x1" mnemonicParsing="false" prefHeight="25.0" text="Administrador" HBox.hgrow="ALWAYS">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#ventanaCuenta" text="Mi Cuenta" />
                 <Menu mnemonicParsing="false" text="Bibliotecario Auxiliar">
@@ -51,7 +51,7 @@
                 <Insets fx:id="x7" />
               </HBox.margin>
             </MenuButton>
-            <Button id="botonAyuda" contentDisplay="CENTER" font="$x1" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#prueba" prefHeight="25.0" prefWidth="25.0" styleClass="botonAyuda" text="" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+            <Button id="botonAyuda" contentDisplay="CENTER" font="$x1" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#dialogoAyuda" prefHeight="25.0" prefWidth="25.0" styleClass="botonAyuda" text="" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="ALWAYS">
               <stylesheets>
                 <URL value="@css/estilo.css" />
               </stylesheets>

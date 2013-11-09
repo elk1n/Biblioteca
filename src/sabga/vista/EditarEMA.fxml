@@ -102,7 +102,7 @@
         </FXCollections>
       </items>
     </ComboBox>
-    <TableView fx:id="tablaResultados" disable="false" editable="false" focusTraversable="true" layoutX="20.0" layoutY="60.0" onKeyPressed="#mapearDatos" onMousePressed="#mapearDatos" prefHeight="445.0" prefWidth="528.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" tableMenuButtonVisible="false">
+    <TableView fx:id="tablaResultados" disable="false" editable="false" focusTraversable="true" layoutX="20.0" layoutY="60.0" onKeyTyped="#mapearDatos" onMouseClicked="#mapearDatos" prefHeight="445.0" prefWidth="528.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" tableMenuButtonVisible="false">
       <columns>
         <TableColumn editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="507.0" text="Nombre" fx:id="clmnNombre" />
       </columns>

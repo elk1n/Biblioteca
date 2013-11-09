@@ -9,14 +9,14 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="520.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.RegistroAdministradorController">
+<AnchorPane id="AnchorPane" prefHeight="540.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.RegistroAdministradorController">
   <children>
     <Label layoutX="56.0" layoutY="35.0" text="Registro Administrador Auxiliar">
       <font>
         <Font name="System Bold" size="16.0" />
       </font>
     </Label>
-    <ComboBox id="tipoCB" fx:id="comboTipoAdmin" layoutX="473.0" layoutY="34.0" prefHeight="21.0" prefWidth="179.0" promptText="Tipo de Administrador">
+    <ComboBox id="tipoCB" fx:id="comboTipoAdmin" layoutX="473.0" layoutY="34.0" prefHeight="25.0" prefWidth="179.0" promptText="Tipo de Administrador">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="Auxiliar" />
@@ -24,7 +24,7 @@
         </FXCollections>
       </items>
     </ComboBox>
-    <GridPane id="camposG" layoutX="100.0" layoutY="117.0" prefHeight="343.0" prefWidth="463.0" visible="true">
+    <GridPane id="camposG" layoutX="100.0" layoutY="117.0" prefHeight="343.0" prefWidth="463.0">
       <children>
         <Label text="Nombre" GridPane.columnIndex="0" GridPane.rowIndex="0" />
         <Label text="Apellidos" GridPane.columnIndex="0" GridPane.rowIndex="2" />
@@ -33,15 +33,15 @@
         <TextField id="usuarioTF" fx:id="campoUsuario" prefHeight="30.0" prefWidth="250.0" promptText="Nombre para el nuevo usuario" GridPane.columnIndex="1" GridPane.rowIndex="4" />
         <Label text="Usuario" GridPane.columnIndex="0" GridPane.rowIndex="4" />
         <Label text="Contraseña" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-        <Label id="validarNpmbre" fx:id="validarNombre" alignment="CENTER_RIGHT" prefWidth="292.0" text="Validacion" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <Label id="validarNpmbre" fx:id="validarNombre" alignment="CENTER_RIGHT" prefWidth="292.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="1">
           <textFill>
             <Color blue="0.000" green="0.000" red="0.600" fx:id="x1" />
           </textFill>
         </Label>
-        <Label fx:id="validarApellidos" alignment="CENTER_RIGHT" prefWidth="292.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <Label fx:id="validarUsuario" alignment="CENTER_RIGHT" prefWidth="292.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-        <Label fx:id="validarContrasenia" alignment="CENTER_RIGHT" prefWidth="292.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-        <Label id="validarGrupo" fx:id="validarConfirmacion" alignment="CENTER_RIGHT" prefWidth="292.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+        <Label fx:id="validarApellidos" alignment="CENTER_RIGHT" prefWidth="292.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label fx:id="validarUsuario" alignment="CENTER_RIGHT" prefWidth="292.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Label fx:id="validarContrasenia" alignment="CENTER_RIGHT" prefWidth="292.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <Label id="validarGrupo" fx:id="validarConfirmacion" alignment="CENTER_RIGHT" prefWidth="292.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
         <PasswordField fx:id="campoContrasenia" prefHeight="30.0" prefWidth="25.0" promptText="Contraseña nueva" GridPane.columnIndex="1" GridPane.rowIndex="6" />
         <Label text="Repetir Contraseña" GridPane.columnIndex="0" GridPane.rowIndex="8" />
         <PasswordField fx:id="campoContrasenia2" prefHeight="30.0" prefWidth="250.0" promptText="Repita la contraseña" GridPane.columnIndex="1" GridPane.rowIndex="8" />
@@ -63,16 +63,16 @@
         <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <GridPane id="camposG2" layoutX="667.0" layoutY="194.0" prefHeight="189.0" prefWidth="496.0" visible="true">
+    <GridPane id="camposG2" layoutX="667.0" layoutY="194.0" prefHeight="189.0" prefWidth="496.0">
       <children>
         <Label text="Teléfono" GridPane.columnIndex="0" GridPane.rowIndex="4" />
         <TextField id="mailTF" fx:id="campoCorreo" prefHeight="30.0" prefWidth="250.0" promptText="E-mail" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-        <Label fx:id="validarTelefono" alignment="CENTER_RIGHT" prefWidth="300.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Label fx:id="validarTelefono" alignment="CENTER_RIGHT" prefWidth="300.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
         <Label text="Documento" GridPane.columnIndex="0" GridPane.rowIndex="2" />
         <TextField id="documentoTF" fx:id="campoDocumento" prefHeight="30.0" prefWidth="250.0" promptText="Documento de identidad" GridPane.columnIndex="1" GridPane.rowIndex="2" />
         <TextField id="telefonoTF" fx:id="campoTelefono" prefHeight="30.0" prefWidth="250.0" promptText="Teléfono fijo o móvil" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-        <Label fx:id="validarDocumento" alignment="CENTER_RIGHT" prefWidth="300.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <Label fx:id="validarCorreo" alignment="CENTER_RIGHT" prefWidth="300.0" text="Validacion" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label fx:id="validarDocumento" alignment="CENTER_RIGHT" prefWidth="300.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label fx:id="validarCorreo" alignment="CENTER_RIGHT" prefWidth="300.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
         <Label text="Correo Electrónico" GridPane.columnIndex="0" GridPane.rowIndex="0" />
       </children>
       <columnConstraints>
@@ -88,8 +88,7 @@
         <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <Button id="modificarBT" layoutX="775.0" layoutY="439.0" mnemonicParsing="false" text="Cancelar" visible="true" />
-    <Button id="registrar" layoutX="923.0" layoutY="439.0" mnemonicParsing="false" onAction="#validarNuevoAuxiliar" text="Guardar Nuevo Adiministrador" visible="true" />
-    <Label id="validarNpmbre" fx:id="validarTipoAdmin" alignment="CENTER_LEFT" layoutX="667.0" layoutY="37.0" prefWidth="292.0" text="Validacion" textFill="$x1" />
+    <Label id="validarNpmbre" fx:id="validarTipoAdmin" layoutX="667.0" layoutY="37.0" prefWidth="292.0" text="" textFill="$x1" />
+    <Button id="registrar" fx:id="aniadir" defaultButton="true" layoutX="959.0" layoutY="436.0" mnemonicParsing="false" onAction="#validarNuevoAuxiliar" prefHeight="25.0" text="Guardar Nuevo Adiministrador" />
   </children>
 </AnchorPane>

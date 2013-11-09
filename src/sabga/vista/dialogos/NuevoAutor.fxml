@@ -27,12 +27,12 @@
         <TextField id="nombreNuevoAutor" fx:id="campoNombreNuevoAutor" prefHeight="30.0" prefWidth="250.0" promptText="Nombre del nuevo autor" GridPane.columnIndex="0" GridPane.rowIndex="2" />
         <Label text="Apellidos" GridPane.columnIndex="0" GridPane.rowIndex="4" />
         <TextField id="ap" fx:id="campoApellidosNuevoAutor" prefHeight="30.0" prefWidth="250.0" promptText="Apellidos del nuevo autor" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-        <Label fx:id="validarApellidosAutor" alignment="CENTER_RIGHT" prefWidth="292.0" text="Validacion" GridPane.columnIndex="0" GridPane.rowIndex="6">
+        <Label fx:id="validarApellidosAutor" alignment="CENTER_RIGHT" prefWidth="292.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="6">
           <textFill>
             <Color blue="0.000" green="0.000" red="0.800" fx:id="x1" />
           </textFill>
         </Label>
-        <Label fx:id="validarNombreAutor" alignment="CENTER_RIGHT" prefWidth="292.0" text="Validacion" textFill="$x1" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <Label fx:id="validarNombreAutor" alignment="CENTER_RIGHT" prefWidth="292.0" text="" textFill="$x1" GridPane.columnIndex="0" GridPane.rowIndex="3" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

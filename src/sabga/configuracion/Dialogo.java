@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sabga.Sabga;
+import sabga.controlador.dialogos.AyudaController;
 import sabga.controlador.dialogos.CodigoBarrasController;
 import sabga.controlador.dialogos.DetalleMaterialController;
 import sabga.controlador.dialogos.DetalleUsuarioController;
@@ -155,6 +156,10 @@ public class Dialogo {
            case 15:
                controladorPreferencias();
                break;
+               
+           case 16:
+               controladorAyuda();
+               break;
        }
    }
       
@@ -236,6 +241,13 @@ public class Dialogo {
         controller.setDialogStage(dialogStage);
         dialogStage.show();
     }
+     
+    private void controladorAyuda(){
+        AyudaController controller = loader.getController();
+        controller.setDialogStage(dialogStage);
+        dialogStage.showAndWait();
+    
+    } 
     
     private void controladorInicioSesion(Sabga sabga) {
         dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream( "vista/Imagenes/LogoBiblioteca1.png" )));
@@ -243,7 +255,7 @@ public class Dialogo {
         controller.setVentanaPrincipal(sabga);
         dialogStage.show();
     }
-    
+ 
     private void controladorRestablecerCont(Sabga sabga) {
         dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream( "vista/Imagenes/LogoBiblioteca1.png" )));
         RestablecerContraseniaController controller = loader.getController();

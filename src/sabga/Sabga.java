@@ -18,8 +18,8 @@ import sabga.controlador.PaginaPrincipalController;
 
 public class Sabga extends Application {
         
-    public static String paginaInicioId = "paginaInicial";
-    public static String paginaInicioArchivo = "vista/PaginaInicio.fxml";
+    public static String paginaInicialId = "paginaInicio";
+    public static String paginaInicialArchivo = "vista/PaginaInicio.fxml";
     public static String paginaRegistroMaterialId = "paginaRegistroMaterial";
     public static String paginaRegistroMaterialArchivo = "vista/RegistroMaterial.fxml";
     public static String paginaActualizarMaterialId = "paginaActualizarMaterial";
@@ -28,22 +28,22 @@ public class Sabga extends Application {
     public static String paginaActualizarEMAArchivo = "vista/EditarEMA.fxml";
     public static String paginaPrestamoId = "paginaPrestamo";
     public static String paginaPrestamoArchivo = "vista/Prestamo.fxml";
-    public static String paginaInicialId = "paginaInicio1";
-    public static String paginaInicialArchivo = "vista/PaginaInicio1.fxml";
     public static String paginaRegistroUsuariosId = "paginaRegistroUsuarios";
     public static String paginaRegistroUsuariosArchivo = "vista/RegistroUsuario.fxml";
     public static String paginaEstadoUsuarioId = "paginaEstadoUsuario";
     public static String paginaEstadoUsuarioArchivo = "vista/EditarUsuario.fxml";
     public static String paginaRegistroAdminId = "paginaRegistroAdmin";
     public static String paginaRegistroAdminArchivo = "vista/RegistroAdministrador.fxml";
-    public static String paginaEdicionAdminId = "paginaEditarAdministrador";
-    public static String paginaEdicionAdminArchivo = "vista/EditarAdministrador.fxml";
+    public static String paginaEdicionAdminId = "paginaEditarBibliotecario";
+    public static String paginaEdicionAdminArchivo = "vista/EditarBibliotecario.fxml";
     public static String paginaDevolucionId = "paginaDevolucion";
     public static String paginaDevolucionArchivo = "vista/Devolucion.fxml";
     public static String paginaBuscarId = "paginaBuscar";
     public static String paginaBusacarArchivo = "vista/Buscar.fxml";
     public static String paginaCuentaId = "paginaCuenta";
     public static String paginaCuentaArchivo = "vista/Cuenta.fxml";
+    public static String paginaRegistroBibliotecarioId = "paginaRegistroBibliotecario";
+    public static String paginaRegistroBiblitotecarioArchivo = "vista/RegistroBibliotecario.fxml";
     
     private Stage ventanaPrincipal, primaryStage;
     private BorderPane rootLayout;
@@ -55,7 +55,6 @@ public class Sabga extends Application {
     public Sabga(){
            
         pantallas = new ScreensController();
-     // pantallas.loadScreen(Sabga.paginaInicioId, Sabga.paginaInicioArchivo);
         pantallas.loadScreen(Sabga.paginaInicialId, Sabga.paginaInicialArchivo);
         pantallas.setScreen(Sabga.paginaInicialId);
         dialogo = new Dialogo();
@@ -111,8 +110,11 @@ public class Sabga extends Application {
         pantallas.setScreen(pantalla);
     }
     
-    public void inciarSesion(){ 
-        primaryStage.show();
+    public void inciarSesion(){
+        cargarVista("paginaInicio","vista/PaginaInicio.fxml");
+        cambiarVista("paginaInicio");  
+        primaryStage.show(); 
+        
         dialogo.getDialogStage().close();   
     }
     

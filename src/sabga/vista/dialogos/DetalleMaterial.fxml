@@ -32,7 +32,7 @@
         <Label id="txtfClase" fx:id="lblClase" font="$x1" prefWidth="483.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="11" />
         <Label id="txtfTipo" fx:id="lblTipo" font="$x1" prefWidth="483.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="13" />
         <Label id="txtfPublicacion" fx:id="lblPublicacion" font="$x1" prefWidth="483.0" text="" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-        <Label fx:id="lblTitulo" font="$x1" prefWidth="483.0" text="Label" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label fx:id="lblTitulo" font="$x1" prefWidth="483.0" text="" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />

@@ -17,7 +17,7 @@
           </font>
         </Label>
         <Label text="Nombre o Identificador del Nuevo Curso" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <Label fx:id="validarNuevoCurso" alignment="CENTER_RIGHT" prefWidth="329.0" text="Validacion" textFill="#cc0000" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <Label fx:id="validarNuevoCurso" alignment="CENTER_RIGHT" prefWidth="329.0" text="" textFill="#cc0000" GridPane.columnIndex="0" GridPane.rowIndex="3" />
         <TextField fx:id="campoNuevoCurso" prefHeight="30.0" prefWidth="250.0" promptText="Nombre o identificador pare el nuevo curso" GridPane.columnIndex="0" GridPane.rowIndex="2" />
       </children>
       <columnConstraints>

@@ -18,7 +18,7 @@
         </Label>
         <Label text="Nombre de la Editorial" GridPane.columnIndex="0" GridPane.rowIndex="1" />
         <TextField fx:id="campoNuevaEditorial" prefHeight="30.0" prefWidth="250.0" promptText="Nombre de la nueva editorial" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <Label fx:id="validarNuevaEditorial" alignment="CENTER_RIGHT" prefWidth="253.0" text="Validacion" textFill="#cc0000" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <Label fx:id="validarNuevaEditorial" alignment="CENTER_RIGHT" prefWidth="253.0" text="" textFill="#cc0000" GridPane.columnIndex="0" GridPane.rowIndex="3" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

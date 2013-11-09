@@ -34,6 +34,7 @@ import sabga.modelo.ValidarMaterial;
 /**
  * @author Elk1n
  */
+
 public class EditarEMAController implements Initializable, ControlledScreen {
 
     private Sabga ventanaPrincipal;
@@ -429,31 +430,31 @@ public class EditarEMAController implements Initializable, ControlledScreen {
         if (comboListar.getSelectionModel().getSelectedIndex() == 0) {
             tablaAutores();
             llenarAutores();
-            campoFiltrar.setPromptText("Buscar Autor");
+            campoFiltrar.setPromptText("Filtrar Autor");
             btnEliminar.setText("Eliminar Autor");
         }
 
         if (comboListar.getSelectionModel().getSelectedIndex() == 1) {
             listarDatos("SELECT * FROM tbl_EDITORIAL", "nombre_editorial");
-            campoFiltrar.setPromptText("Buscar Editorial");
+            campoFiltrar.setPromptText("Filtrar Editorial");
             btnEliminar.setText("Eliminar Editorial");
         }
 
         if (comboListar.getSelectionModel().getSelectedIndex() == 2) {
             listarDatos("SELECT * FROM tbl_MATERIA", "nombre_materia");
-            campoFiltrar.setPromptText("Buscar Materia");
+            campoFiltrar.setPromptText("Filtrar Materia");
             btnEliminar.setText("Eliminar Materia");
         }
 
         if (comboListar.getSelectionModel().getSelectedIndex() == 3) {
             listarDatos("SELECT * FROM tbl_TIPO_MATERIAL", "tipo_material");
-            campoFiltrar.setPromptText("Buscar Tipo de Material");
+            campoFiltrar.setPromptText("Filtrar Tipo de Material");
             btnEliminar.setText("Eliminar Tipo");
         }
          
         if (comboListar.getSelectionModel().getSelectedIndex() == 4) {
             listarDatos("SELECT * FROM tbl_CLASE_MATERIAL", "clase_material");
-            campoFiltrar.setPromptText("Buscar Clase de Material");
+            campoFiltrar.setPromptText("Filtrar Clase de Material");
             btnEliminar.setText("Eliminar Clase");
         }
       
@@ -619,7 +620,6 @@ public class EditarEMAController implements Initializable, ControlledScreen {
         String filterString = campoFiltrar.getText();
 
         if (filterString == null || filterString.isEmpty()) {
-            // No filter --> Add all.
             return true;
         }
 
@@ -631,7 +631,7 @@ public class EditarEMAController implements Initializable, ControlledScreen {
             return true;
         }
 
-        return false; // Does not match
+        return false;
     }
 
     private void reapplyTableSortOrder() {

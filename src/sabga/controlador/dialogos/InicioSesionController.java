@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import sabga.Sabga;
+import sabga.atributos.Atributos;
 import sabga.configuracion.Conexion;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.ConfirmarUsuario;
@@ -61,6 +62,8 @@ public class InicioSesionController implements Initializable{
         if(confirmar.confirmarUsuario(campoUsuario.getText(), campoContrasenia.getText())){            
             consultarUsuario();
             if(usuario==1){
+                Atributos atribu = new Atributos();
+                atribu.setUsuarioAdmin(campoUsuario.getText());
                 this.ventanaPrincipal.inciarSesion();
                 campoUsuario.clear();
                 campoContrasenia.clear();

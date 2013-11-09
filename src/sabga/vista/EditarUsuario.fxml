@@ -19,7 +19,7 @@
       </font>
     </Label>
     <TextField fx:id="txtFiltrar" layoutX="144.0" layoutY="24.0" prefHeight="30.0" prefWidth="200.0" promptText="Filtrar Usuarios" />
-    <Button defaultButton="true" layoutX="596.0" layoutY="26.0" maxWidth="-1.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Detalle Usuario" />
+    <Button defaultButton="true" layoutX="596.0" layoutY="26.0" maxWidth="-1.0" mnemonicParsing="false" onAction="#dialogoDetalleUsuario" prefHeight="25.0" prefWidth="120.0" text="Detalle Usuario" />
     <TableView fx:id="tablaUsuarios" layoutX="28.0" layoutY="69.0" prefHeight="433.0" prefWidth="691.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
       <columns>
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="97.0" text="Tipo de Usuario" fx:id="clmnTipo" />
@@ -161,6 +161,6 @@
         </AnchorPane>
       </content>
     </ScrollPane>
-    <Button cancelButton="false" defaultButton="true" layoutX="1089.0" layoutY="481.0" maxWidth="-1.0" mnemonicParsing="false" onAction="#validarDatos" prefHeight="25.0" text="Actualizar Información" />
+    <Button cancelButton="false" defaultButton="true" layoutX="1108.0" layoutY="481.0" maxWidth="-1.0" mnemonicParsing="false" onAction="#validarDatos" prefHeight="25.0" prefWidth="120.0" text="Guardar Cambios" />
   </children>
 </AnchorPane>

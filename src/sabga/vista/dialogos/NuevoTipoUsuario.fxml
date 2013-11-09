@@ -17,7 +17,7 @@
           </font>
         </Label>
         <Label text="Nombre Nuevo Tipo de Usuario" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <Label fx:id="validarNuevoTipoU" alignment="CENTER_RIGHT" prefWidth="329.0" text="Validacion" textFill="#cc0000" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <Label fx:id="validarNuevoTipoU" alignment="CENTER_RIGHT" prefWidth="329.0" text="" textFill="#cc0000" GridPane.columnIndex="0" GridPane.rowIndex="3" />
         <TextField id="campo" fx:id="campoNuevoTipoU" prefHeight="30.0" prefWidth="250.0" promptText="Nombre para el nuevo tipo de usuario" GridPane.columnIndex="0" GridPane.rowIndex="2" />
       </children>
       <columnConstraints>

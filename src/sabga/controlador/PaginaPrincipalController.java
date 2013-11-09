@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialogs;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
@@ -31,6 +32,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     private final ObservableList parametroMaterial = FXCollections.observableArrayList();
     private final ObservableList parametroUsuario = FXCollections.observableArrayList();
     private final Dialogo dialogo;
+    private final  Atributos atributos;
     
     @FXML
     private TextField campoBusqueda;
@@ -43,6 +45,8 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     @FXML
     private MenuItem menuNuevoAutor;
     @FXML
+    private MenuButton menuAdmin;
+    @FXML
     private HBox hboxAdmin;
     
     public MenuItem getMenu(){  
@@ -52,7 +56,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     public PaginaPrincipalController(){
         
         dialogo = new Dialogo();
-    
+        atributos = new Atributos();
     }
     
     @Override
@@ -72,8 +76,8 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     @FXML
     public void ventanaInicio(){
-        ventanaPrincipal.cargarVista("paginaInicio1", "vista/PaginaInicio1.fxml");
-        ventanaPrincipal.cambiarVista("paginaInicio1");
+        ventanaPrincipal.cargarVista("paginaInicio", "vista/PaginaInicio.fxml");
+        ventanaPrincipal.cambiarVista("paginaInicio");
     }
     
     @FXML
@@ -108,14 +112,14 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     @FXML
     public void ventanaRegistroAdmin(ActionEvent evento){
-        ventanaPrincipal.cargarVista("paginaRegistroAdmin", "vista/RegistroAdministrador.fxml");
-        ventanaPrincipal.cambiarVista("paginaRegistroAdmin");
+        ventanaPrincipal.cargarVista("paginaRegistroBibliotecario", "vista/RegistroBibliotecario.fxml");
+        ventanaPrincipal.cambiarVista("paginaRegistroBibliotecario");
     }
     
     @FXML
     public void ventanaEditarAdmin(ActionEvent evento){
-        ventanaPrincipal.cargarVista("paginaEditarAdministrador", "vista/EditarAdministrador.fxml");
-        ventanaPrincipal.cambiarVista("paginaEditarAdministrador");
+        ventanaPrincipal.cargarVista("paginaEditarBibliotecario", "vista/EditarBibliotecario.fxml");
+        ventanaPrincipal.cambiarVista("paginaEditarBibliotecario");
     }
     
     @FXML
@@ -126,8 +130,8 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     @FXML
     public void ventanaBuscar(ActionEvent evento){
-        Atributos dd = new Atributos();
-        dd.setDatoBusqueda(campoBusqueda.getText());
+
+        atributos.setDatoBusqueda(campoBusqueda.getText());
         ventanaPrincipal.cargarVista("paginaBuscar", "vista/Buscar.fxml");
         ventanaPrincipal.cambiarVista("paginaBuscar");
     }
@@ -193,6 +197,11 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         dialogo.mostrarDialogo("vista/dialogos/Preferencias.fxml", "Preferencias", ventanaPrincipal.getPrimaryStage(), null, 15);
     }
     
+    @FXML
+    public void dialogoAyuda(ActionEvent evento){
+        dialogo.mostrarDialogo("vista/dialogos/Ayuda.fxml", "Ayuda", ventanaPrincipal.getPrimaryStage(), null, 16);
+    }
+    
    @FXML
     private void opcionesBusqueda(ActionEvent evento) {
         
@@ -234,16 +243,20 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         return campoBusqueda.getText();
     }
     
+    public void setUsuario(String usuario){
+          menuAdmin.setText(atributos.getUsuarioAdmin());
+    }
+    
     @FXML
-    public void prueba(ActionEvent evento){ 
-           Atributos esto = new Atributos();
-           esto.setDatoBusqueda("Esto es una prueba..... de");
+    public void prueba(ActionEvent evento){           
+           atributos.setDatoBusqueda("Esto es una prueba..... de");
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {        
          botonBorrarBusqueda.setVisible(false);
-         barraMenu.setPrefWidth(java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth());               
+         barraMenu.setPrefWidth(java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth());
+       
     }    
 
     
