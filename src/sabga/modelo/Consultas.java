@@ -21,8 +21,10 @@ public class Consultas {
     private final Conexion con;
     private final ObservableList<Material> listaMaterial;
     private ObservableList<Autor> obtenerAutores;
-    private String titulo, clasificacion, publicacion, editorial, tipoMaterial, claseMaterial, mensaje;
+    private String titulo, clasificacion, publicacion, editorial, tipoMaterial, claseMaterial, mensaje, tipoUsuario, grado, 
+                   curso, jornada, nombre, apellido, correo, telefono, direccion, estado;
     private int paginas, anio;
+    private double multa;
 
     public Consultas() {
         con = new Conexion();
@@ -389,6 +391,45 @@ public class Consultas {
     
     }
     
+    public void mapearUsuarios(String id){
+    
+          try {
+            con.conectar();
+            con.procedimiento("{ CALL mapearUsuario(?,?,?,?,?,?,?,?,?,?,?,?) }");
+            con.getProcedimiento().setString("id", id);
+            con.getProcedimiento().registerOutParameter("tipo", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("grado", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("curso", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("jornada", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("nombre", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("apellido", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("multa", Types.DOUBLE);
+            con.getProcedimiento().registerOutParameter("correo", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("telefono", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("direccion", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("estado", Types.VARCHAR);
+            con.getProcedimiento().execute();
+            
+            tipoUsuario = con.getProcedimiento().getString("tipo");
+            grado = con.getProcedimiento().getString("grado");
+            curso = con.getProcedimiento().getString("curso");
+            jornada = con.getProcedimiento().getString("jornada");
+            nombre = con.getProcedimiento().getString("nombre");
+            apellido = con.getProcedimiento().getString("apellido");
+            multa = con.getProcedimiento().getDouble("multa");
+            correo = con.getProcedimiento().getString("telefono");
+            direccion = con.getProcedimiento().getString("direccion");
+            estado = con.getProcedimiento().getString("estado");
+            
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos del material", "Error Consulta");
+        } finally {
+            con.desconectar();
+        }
+    
+    
+    }
+    
     public int getId(int opcion, String nombre){
         
         int id=0;
@@ -469,5 +510,48 @@ public class Consultas {
     public String getMensaje() {
         return mensaje;
     }
+    
+    public String getTipoUsuario() {
+        return tipoUsuario;
+    }
 
+    public String getGrado() {
+        return grado;
+    }
+
+    public String getCurso() {
+        return curso;
+    }
+
+    public String getJornada() {
+        return jornada;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public double getMulta() {
+        return multa;
+    }
 }

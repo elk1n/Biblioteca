@@ -163,8 +163,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             editorial.getTextbox().setText("");
             lblValidarMateria.setText("");
             lblValidarAutor.setText("");
-            lblValidarEjemplares.setText("");
-            
+            lblValidarEjemplares.setText("");            
         }              
     }
     

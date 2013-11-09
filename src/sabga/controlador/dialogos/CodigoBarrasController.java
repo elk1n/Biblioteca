@@ -65,7 +65,7 @@ public class CodigoBarrasController implements Initializable {
         nCopias = copias;
         Code128Bean codigo = new Code128Bean();
         //Code39Bean codigo = new Code39Bean();
-        final int dpi = 326;
+        final int dpi = 144;
         codigo.doQuietZone(false);
         try {
             BitmapCanvasProvider canvas = new BitmapCanvasProvider(dpi, BufferedImage.TYPE_BYTE_BINARY, false, 0);

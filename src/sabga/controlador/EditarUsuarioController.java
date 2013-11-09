@@ -21,6 +21,7 @@ import sabga.atributos.Usuario;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Dialogo;
 import sabga.modelo.Consultas;
+import sabga.modelo.Seleccion;
 
 /**
  * @author Nanny
@@ -45,11 +46,13 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     private Label validarNombre, validarApellidos, validarDocumento, validarCorreo, validarTelefono, validarDireccion, validarMulta;
     
     private final ObservableList<Usuario> listaUsuarios;
+    private final Seleccion select;
     
    
     public EditarUsuarioController(){    
         dialogo = new Dialogo();
         consulta = new Consultas();
+        select = new Seleccion();
         listaUsuarios = FXCollections.observableArrayList();
     }
     
@@ -62,11 +65,24 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
         clmnCorreo.setCellValueFactory(new PropertyValueFactory<Usuario, String>("correo"));
         tablaUsuarios.setEditable(true);
         listaUsuarios.addAll(consulta.getListaUsuarios());
-        tablaUsuarios.setItems(listaUsuarios);
-    
+        tablaUsuarios.setItems(listaUsuarios);   
     }
     
+    @FXML
+    private void mapearUsuario(){
     
+        if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){
+            consulta.mapearUsuarios(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
+            txtfNombre.setText(consulta.getNombre());
+            txtfApellido.setText(consulta.getApellido());
+            txtfDocumento.setText(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
+            txtfCorreo.setText(consulta.getCorreo());
+            txtfTelefono.setText(consulta.getTelefono());
+            txtfDireccion.setText(consulta.getDireccion());
+            txtfMulta.setText(String.valueOf(consulta.getMulta()));            
+        }
+    }
+   
     @Override
     public void setScreenParent(ScreensController screenParent) {
         controlador = screenParent;
@@ -85,6 +101,14 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     public void dialogoDetalleUsuario(ActionEvent evento){        
         paginaPrincipal = new Sabga();
         dialogo.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información Detallada del Usuario", paginaPrincipal.getPrimaryStage(), null,5);       
+    }
+    
+    private void inicio(){
+              
+        comboGrado.setItems(consulta.llenarLista(select.getListaGrado(), select.getGrado()));
+        comboCurso.setItems(consulta.llenarLista(select.getListaCurso(), select.getCurso()));
+        comboJornada.setItems(consulta.llenarLista(select.getListaJornada(), select.getJornada()));
+        comboTipo.setItems(consulta.llenarLista(select.getListaTipoUsuario(), select.getTipoUsuario())); 
     }
     
     @FXML
