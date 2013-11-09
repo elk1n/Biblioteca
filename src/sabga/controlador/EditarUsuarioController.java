@@ -79,7 +79,11 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
             txtfCorreo.setText(consulta.getCorreo());
             txtfTelefono.setText(consulta.getTelefono());
             txtfDireccion.setText(consulta.getDireccion());
-            txtfMulta.setText(String.valueOf(consulta.getMulta()));            
+            txtfMulta.setText(String.valueOf(consulta.getMulta()));
+            comboGrado.getSelectionModel().select(consulta.getGrado());
+            comboCurso.getSelectionModel().select(consulta.getCurso());
+            comboJornada.getSelectionModel().select(consulta.getJornada());
+            comboTipo.getSelectionModel().select(consulta.getTipoUsuario());
         }
     }
    
@@ -108,7 +112,8 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
         comboGrado.setItems(consulta.llenarLista(select.getListaGrado(), select.getGrado()));
         comboCurso.setItems(consulta.llenarLista(select.getListaCurso(), select.getCurso()));
         comboJornada.setItems(consulta.llenarLista(select.getListaJornada(), select.getJornada()));
-        comboTipo.setItems(consulta.llenarLista(select.getListaTipoUsuario(), select.getTipoUsuario())); 
+        comboTipo.setItems(consulta.llenarLista(select.getListaTipoUsuario(), select.getTipoUsuario()));
+        
     }
     
     @FXML
@@ -130,6 +135,7 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
               tablaUsuarios();
+              inicio();
     }
 }
     

@@ -129,8 +129,13 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     }
     
     @FXML
+    public void ventanaReservaEscritorio(ActionEvent evento){
+        ventanaPrincipal.cargarVista("paginaReserva", "vista/ReservaEscritorio.fxml");
+        ventanaPrincipal.cambiarVista("paginaReserva");
+    } 
+    
+    @FXML
     public void ventanaBuscar(ActionEvent evento){
-
         atributos.setDatoBusqueda(campoBusqueda.getText());
         ventanaPrincipal.cargarVista("paginaBuscar", "vista/Buscar.fxml");
         ventanaPrincipal.cambiarVista("paginaBuscar");
@@ -140,6 +145,12 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     public void ventanaCuenta(ActionEvent evento){
         ventanaPrincipal.cargarVista("paginaCuenta", "vista/Cuenta.fxml");
         ventanaPrincipal.cambiarVista("paginaCuenta");
+    }
+    
+    @FXML
+    public void ventanaPazySalvo(ActionEvent evento){
+         ventanaPrincipal.cargarVista("paginaPazySalvo", "vista/PazySalvo.fxml");
+        ventanaPrincipal.cambiarVista("paginaPazySalvo");
     }
        
     @FXML

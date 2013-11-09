@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="520.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.ReservaEscritorioController">
+  <children>
+    <TextField fx:id="txtfBuscar" layoutX="197.0" layoutY="6.0" onAction="#buscarMaterial" onKeyTyped="#mostrarBoton" prefHeight="30.0" prefWidth="260.0" promptText="Buscar Material" styleClass="campoBusqueda">
+      <stylesheets>
+        <URL value="@css/estilo.css" />
+      </stylesheets>
+    </TextField>
+    <Button fx:id="btnBorrarBusqueda" layoutX="432.0" layoutY="11.0" mnemonicParsing="false" onAction="#borrarCampo" styleClass="botonBorrar">
+      <stylesheets>
+        <URL value="@css/estilo.css" />
+      </stylesheets>
+    </Button>
+    <Button layoutX="467.0" layoutY="8.0" mnemonicParsing="false" onAction="#buscarMaterial" prefHeight="23.0" prefWidth="23.0" styleClass="botonBuscar">
+      <stylesheets>
+        <URL value="@css/estilo.css" />
+      </stylesheets>
+    </Button>
+    <ComboBox id="combo" fx:id="comboMaterial" layoutX="32.0" layoutY="48.0" onAction="#listarMaterial" prefHeight="25.0" prefWidth="150.0" promptText="Listar Material">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Item 1" />
+          <String fx:value="Item 2" />
+          <String fx:value="Item 3" />
+        </FXCollections>
+      </items>
+    </ComboBox>
+    <TextField fx:id="txtfFiltrar" layoutX="197.0" layoutY="45.0" prefHeight="30.0" prefWidth="260.0" promptText="Filtrar Resultado" styleClass="campoBusqueda">
+      <stylesheets>
+        <URL value="@css/estilo.css" />
+      </stylesheets>
+    </TextField>
+    <Button fx:id="btnBorrar" layoutX="432.0" layoutY="49.0" mnemonicParsing="false" onAction="#borrarCampo" styleClass="botonBorrar">
+      <stylesheets>
+        <URL value="@css/estilo.css" />
+      </stylesheets>
+    </Button>
+    <Button fx:id="btnDetalle" defaultButton="true" layoutX="469.0" layoutY="48.0" mnemonicParsing="false" onAction="#dialogoDetalleMaterial" prefHeight="25.0" prefWidth="120.0" text="Ver Detalle" />
+    <TableView fx:id="tablaMaterial" layoutX="16.0" layoutY="161.0" onKeyPressed="#mapearDatos" onMouseClicked="#mapearDatos" prefHeight="341.0" prefWidth="588.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" />
+    <HBox id="HBox" alignment="CENTER" prefWidth="612.0" spacing="330.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="631.0" AnchorPane.rightAnchor="17.0">
+      <children>
+        <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarCambios" prefHeight="25.0" prefWidth="160.0" text="Guardar Cambios" />
+      </children>
+    </HBox>
+    <Label layoutX="32.0" layoutY="10.0" text="Buscar Material:">
+      <font>
+        <Font name="System Bold" size="14.0" />
+      </font>
+    </Label>
+    <Pane layoutX="667.0" layoutY="51.0" prefHeight="419.0" prefWidth="540.0" styleClass=", resultado">
+      <children>
+        <GridPane layoutX="63.0" layoutY="60.0" prefHeight="107.0" prefWidth="386.0">
+          <children>
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#aceptar" prefWidth="81.0" text="Aceptar" GridPane.columnIndex="3" GridPane.rowIndex="1">
+              <stylesheets>
+                <URL value="@css/estilo.css" />
+              </stylesheets>
+            </Button>
+            <TextField id="txtBuscar" fx:id="campoBuscar" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Buscar Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <Label fx:id="lbNombre" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Documento:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+            <Label text="Apellidos:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <Label fx:id="lbDocumento" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label id="lbApellido" fx:id="lbApellidos" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="115.0" minWidth="10.0" prefWidth="91.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="175.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="124.0" minWidth="10.0" prefWidth="33.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="244.0" minWidth="10.0" prefWidth="87.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints maxHeight="11.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="28.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="27.0" minHeight="9.0" prefHeight="9.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="28.0" minHeight="0.0" prefHeight="21.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="25.0" minHeight="0.0" prefHeight="23.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="16.0" minHeight="0.0" prefHeight="16.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+        <TableView fx:id="tablaMaterial2" layoutX="70.0" layoutY="178.0" prefHeight="153.0" prefWidth="407.0">
+          <columns>
+            <TableColumn prefWidth="150.0" text="Titulo" fx:id="clTitulo" />
+            <TableColumn prefWidth="150.0" text="Codigo de clasificación" fx:id="clCodigo" />
+            <TableColumn prefWidth="105.0" text="Clase Material" fx:id="clClaseMaterial" />
+          </columns>
+        </TableView>
+        <Button defaultButton="true" layoutX="70.0" layoutY="361.0" mnemonicParsing="false" onAction="#eliminarM" text="Eliminar" />
+        <Label layoutX="386.0" layoutY="379.0" text="Fecha:" />
+        <Label id="fecha" fx:id="campoFecha" layoutX="442.0" layoutY="379.0" text="Label" />
+        <Label layoutX="163.0" layoutY="27.0" text="INFORMACIÓN DE LA RESERVA">
+          <font>
+            <Font name="System Bold" size="16.0" />
+          </font>
+        </Label>
+      </children>
+      <stylesheets>
+        <URL value="@css/estilo.css" />
+      </stylesheets>
+    </Pane>
+    <Label layoutX="32.0" layoutY="103.0" text="Busqueda de usuario" />
+    <Button layoutX="197.0" layoutY="99.0" mnemonicParsing="false" onAction="#buscarUsu" text="Buscar" />
+  </children>
+</AnchorPane>

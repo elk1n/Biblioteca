@@ -140,12 +140,12 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Reserva">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Reservar" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaReservaEscritorio" text="Reservar" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Paz y Salvo">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Generar Paz y Salvo" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaPazySalvo" text="Generar Paz y Salvo" />
                   </items>
                 </Menu>
               </menus>

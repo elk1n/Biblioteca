@@ -401,12 +401,12 @@ public class Consultas {
             con.getProcedimiento().registerOutParameter("grado", Types.VARCHAR);
             con.getProcedimiento().registerOutParameter("curso", Types.VARCHAR);
             con.getProcedimiento().registerOutParameter("jornada", Types.VARCHAR);
-            con.getProcedimiento().registerOutParameter("nombre", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("nombres", Types.VARCHAR);
             con.getProcedimiento().registerOutParameter("apellido", Types.VARCHAR);
             con.getProcedimiento().registerOutParameter("multa", Types.DOUBLE);
-            con.getProcedimiento().registerOutParameter("correo", Types.VARCHAR);
-            con.getProcedimiento().registerOutParameter("telefono", Types.VARCHAR);
-            con.getProcedimiento().registerOutParameter("direccion", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("email", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("phone", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("address", Types.VARCHAR);
             con.getProcedimiento().registerOutParameter("estado", Types.VARCHAR);
             con.getProcedimiento().execute();
             
@@ -414,11 +414,12 @@ public class Consultas {
             grado = con.getProcedimiento().getString("grado");
             curso = con.getProcedimiento().getString("curso");
             jornada = con.getProcedimiento().getString("jornada");
-            nombre = con.getProcedimiento().getString("nombre");
+            nombre = con.getProcedimiento().getString("nombres");
             apellido = con.getProcedimiento().getString("apellido");
             multa = con.getProcedimiento().getDouble("multa");
-            correo = con.getProcedimiento().getString("telefono");
-            direccion = con.getProcedimiento().getString("direccion");
+            correo = con.getProcedimiento().getString("email");
+            telefono = con.getProcedimiento().getString("phone");
+            direccion = con.getProcedimiento().getString("address");
             estado = con.getProcedimiento().getString("estado");
             
         } catch (SQLException e) {
@@ -470,6 +471,28 @@ public class Consultas {
         }        
         return lista;
     }
+    
+     public void eliminarMaterial(int codigo) throws SQLException{
+    
+        try{
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL eliminarMaterial(?) }");
+            con.getProcedimiento().setInt("codigo", codigo);
+          
+            con.getProcedimiento().execute();
+           // mensaje = con.getProcedimiento().getString("mensaje");
+           
+        }catch(SQLException e){
+            
+                con.getConexion().rollback();
+          }
+        finally{
+            con.desconectar();
+        }
+    
+    }
+    
 
     public ObservableList<Autor> getListaAutores() {
         return obtenerAutores;

@@ -43,7 +43,11 @@ public class Sabga extends Application {
     public static String paginaCuentaId = "paginaCuenta";
     public static String paginaCuentaArchivo = "vista/Cuenta.fxml";
     public static String paginaRegistroBibliotecarioId = "paginaRegistroBibliotecario";
-    public static String paginaRegistroBiblitotecarioArchivo = "vista/RegistroBibliotecario.fxml";
+    public static String paginaRegistroBiblitotecarioArchivo = "vista/RegistroBibliotecario.fxml";    
+    public static String paginaPazySalvoId = "paginaPazySalvo";
+    public static String paginaPazySalvoArchivo = "vista/PazySalvo.fxml";
+    public static String paginaReservaId = "paginaReserva";
+    public static String paginaReservaArchivo = "vista/ReservaEscritorio.fxml";
     
     private Stage ventanaPrincipal, primaryStage;
     private BorderPane rootLayout;

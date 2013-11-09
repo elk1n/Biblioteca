@@ -43,7 +43,7 @@
                 <Label text="Teléfono:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
                 <Label text="Dirección:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
                 <TextField id="campoNombre" fx:id="txtfNombre" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                <TextField id="campoApellidos" fx:id="txtfApelldio" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField id="campoApellidos" fx:id="txtfApellido" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <TextField id="campoDocumento" fx:id="txtfDocumento" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                 <TextField id="campoCorreo" fx:id="txtfCorreo" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                 <TextField id="campoTelefono" fx:id="txtfTelefono" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
@@ -83,49 +83,24 @@
                 <Label text="Estado del Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                 <ComboBox id="comboCurso" fx:id="comboGrado" maxWidth="150.0" prefHeight="25.0" prefWidth="168.0" promptText="Grado" GridPane.columnIndex="1" GridPane.rowIndex="0">
                   <items>
-                    <FXCollections fx:factory="observableArrayList">
-                      <String fx:value="1" />
-                      <String fx:value="2" />
-                      <String fx:value="3" />
-                      <String fx:value="4" />
-                      <String fx:value="5" />
-                      <String fx:value="6" />
-                      <String fx:value="7" />
-                      <String fx:value="8" />
-                      <String fx:value="9" />
-                      <String fx:value="10" />
-                      <String fx:value="11" />
-                    </FXCollections>
+                    <FXCollections fx:factory="observableArrayList" />
                   </items>
                 </ComboBox>
                 <ComboBox id="comboGrupo" fx:id="comboCurso" maxWidth="150.0" prefHeight="25.0" prefWidth="168.0" promptText="Curso" GridPane.columnIndex="1" GridPane.rowIndex="1">
                   <items>
-                    <FXCollections fx:factory="observableArrayList">
-                      <String fx:value="A" />
-                      <String fx:value="B" />
-                      <String fx:value="C" />
-                      <String fx:value="D" />
-                      <String fx:value="E" />
-                    </FXCollections>
+                    <FXCollections fx:factory="observableArrayList" />
                   </items>
                 </ComboBox>
                 <ComboBox fx:id="comboJornada" maxWidth="150.0" prefHeight="25.0" prefWidth="168.0" promptText="Jornada" GridPane.columnIndex="1" GridPane.rowIndex="2">
                   <items>
-                    <FXCollections fx:factory="observableArrayList">
-                      <String fx:value="Mañana" />
-                      <String fx:value="Tarde" />
-                      <String fx:value="Noche" />
-                    </FXCollections>
+                    <FXCollections fx:factory="observableArrayList" />
                   </items>
                 </ComboBox>
                 <Label text="Multa:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
                 <Label id="validarMulta" alignment="CENTER_RIGHT" prefWidth="150.0" text="Validación" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                 <ComboBox id="comboTipoUsuario" fx:id="comboTipo" maxWidth="150.0" prefHeight="25.0" prefWidth="168.0" promptText="Tipo de Usuario" GridPane.columnIndex="1" GridPane.rowIndex="3">
                   <items>
-                    <FXCollections fx:factory="observableArrayList">
-                      <String fx:value="Estudiante" />
-                      <String fx:value="Funcionario" />
-                    </FXCollections>
+                    <FXCollections fx:factory="observableArrayList" />
                   </items>
                 </ComboBox>
                 <Label text="Tipo de Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
@@ -133,10 +108,7 @@
                 <Label text="Curso:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                 <ComboBox fx:id="comboEstado" maxWidth="150.0" prefHeight="25.0" prefWidth="168.0" promptText="Estado" GridPane.columnIndex="1" GridPane.rowIndex="4">
                   <items>
-                    <FXCollections fx:factory="observableArrayList">
-                      <String fx:value="Habilitado" />
-                      <String fx:value="Deshabilitado" />
-                    </FXCollections>
+                    <FXCollections fx:factory="observableArrayList" />
                   </items>
                 </ComboBox>
                 <TextField id="campoMulta" fx:id="txtfMulta" alignment="CENTER_RIGHT" disable="true" maxWidth="150.0" prefHeight="30.0" prefWidth="159.0" text="1400" GridPane.columnIndex="1" GridPane.rowIndex="5" />
