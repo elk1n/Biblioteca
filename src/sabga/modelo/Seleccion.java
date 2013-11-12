@@ -27,6 +27,8 @@ public class Seleccion {
     private final String jornada = "jornada";
     private final String listaUsuarios = "SELECT tipo_usuario FROM tbl_TIPO_USUARIO";
     private final String tipoUsuarios= "tipo_usuario";
+    private final String listaTipoAdmin = "SELECT DISTINCT tipo_administrador FROM tbl_BIBLIOTECARIO";
+    private final String tipoAdmin = "tipo_administrador";
 
     public String getListaJornada() {
         return listaJornada;
@@ -82,13 +84,17 @@ public class Seleccion {
     public String getTipoLibro(){
         return tipoLibro;
     }
-
     public String getListaUsuarios() {
         return listaUsuarios;
     }
-
     public String getUsuarios() {
         return tipoUsuarios;
+    }
+    public String getListaTipoAdmin() {
+        return listaTipoAdmin;
+    }
+    public String getTipoAdmin() {
+        return tipoAdmin;
     }
     
     

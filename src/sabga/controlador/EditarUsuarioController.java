@@ -26,8 +26,12 @@ import sabga.ScreensController;
 import sabga.atributos.Usuario;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Dialogo;
+import sabga.configuracion.Utilidades;
+import sabga.modelo.ConfirmarUsuario;
 import sabga.modelo.Consultas;
 import sabga.modelo.Seleccion;
+import sabga.modelo.ValidarUsuario;
+import sun.security.provider.VerificationProvider;
 
 /**
  * @author Nanny
@@ -53,8 +57,8 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     @FXML 
     private ComboBox comboTipo, comboGrado, comboCurso, comboJornada, comboEstado, comboListar;     
     @FXML 
-    private Label lblMulta,validarNombre, validarApellidos, validarDocumento, validarCorreo, validarTelefono, validarDireccion, 
-                  validarMulta, lblGrado, lblCurso, lblJornada;
+    private Label lblMulta, lblNombre, lblApellido, lblDocumento, lblCorreo, lblTelefono, lblDireccion, 
+                  lblGrado, lblCurso, lblJornada;
     
     private final ObservableList<Usuario> listaUsuarios;
     private final ObservableList<Usuario> filtrarUsuarios;
@@ -82,7 +86,7 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     
     @FXML
     public void guardarCambios(ActionEvent evento){
-       
+       guardarCambios();
     }
        
     @FXML
@@ -94,7 +98,57 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     public void listarUsuarios(ActionEvent evento){
         listarUsuario();
     }
-       
+    
+    private void guardarCambios(){
+        
+        if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){
+            mensajesError();
+            String id = listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento();
+            int estado = comboEstado.getSelectionModel().getSelectedItem().toString().trim().equals("Habilitado") ? 1: 2;
+            ConfirmarUsuario estudiante = new ConfirmarUsuario();
+            editarUsuario(id, estado);
+        }        
+    }
+  
+    private void editarUsuario(String id, int estado){
+    
+        if(comboTipo.getSelectionModel().getSelectedItem().toString().toLowerCase().trim().contains("estudiante")){
+            ConfirmarUsuario estudiante = new ConfirmarUsuario();
+            if(estudiante.nuevoEstudiante(txtfNombre.getText(), txtfApellido.getText(), txtfCorreo.getText(),
+                                          comboGrado.getSelectionModel().getSelectedItem(), comboCurso.getSelectionModel().getSelectedItem(),
+                                          comboJornada.getSelectionModel().getSelectedItem(), txtfDocumento.getText(), txtfTelefono.getText(),
+                                          txtfDireccion.getText())){
+                consulta.editarUsuario(1, id, comboTipo.getSelectionModel().getSelectedItem().toString(), txtfNombre.getText(),
+                                       txtfApellido.getText(), txtfCorreo.getText(), txtfDocumento.getText(),
+                                       comboGrado.getSelectionModel().getSelectedItem().toString(), comboCurso.getSelectionModel().getSelectedItem().toString(),
+                                       comboJornada.getSelectionModel().getSelectedItem().toString(), txtfTelefono.getText(), txtfDireccion.getText(),
+                                       estado);
+                if (consulta.getMensaje() == null) {
+                    limpiarCampos();
+                    Utilidades.mensaje(null, "La información se ha actualizado correctamente.", "", "Editar Datos Usuario");
+                } else {
+                    Utilidades.mensajeError(null, consulta.getMensaje(), "La información no ha sido actualizada.", "Error Edición");
+                }
+            }        
+        }else {
+            ConfirmarUsuario funcionario = new ConfirmarUsuario();
+            if(funcionario.nuevoFuncionario(txtfNombre.getText(), txtfApellido.getText(), txtfCorreo.getText(),txtfDocumento.getText(), 
+                                            txtfTelefono.getText(), txtfDireccion.getText())){
+                consulta.editarUsuario(2, id, comboTipo.getSelectionModel().getSelectedItem().toString(), txtfNombre.getText(),
+                                             txtfApellido.getText(), txtfCorreo.getText(), txtfDocumento.getText(), null, null, null,
+                                             txtfTelefono.getText(), txtfDireccion.getText(),estado);                
+                if(consulta.getMensaje()== null){
+                        limpiarCampos();
+                        Utilidades.mensaje(null, "La información se ha actualizado correctamente.","", "Editar Datos Usuario");                        
+                    }
+                else{
+                    Utilidades.mensajeError(null, consulta.getMensaje(),"La información no ha sido actualizada.", "Error Edición");
+                }
+            }
+        
+        }    
+    }
+    
     private void tablaUsuarios(){
         
         clmnTipo.setCellValueFactory(new PropertyValueFactory<Usuario, String>("tipo"));
@@ -103,8 +157,7 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
         clmnApellido.setCellValueFactory(new PropertyValueFactory<Usuario, String>("apellido"));
         clmnCorreo.setCellValueFactory(new PropertyValueFactory<Usuario, String>("correo"));
         tablaUsuarios.setEditable(true);
-        listaUsuarios.clear();
-           
+        listaUsuarios.clear();           
     }
     
     @FXML
@@ -150,6 +203,54 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
         tablaUsuarios.setItems(filtrarUsuarios);
     }
    
+    public void mensajesError(){
+        
+        if(comboTipo.getSelectionModel().getSelectedItem().toString().toLowerCase().contains("estudiante")){
+                ValidarUsuario estudiante = new ValidarUsuario();
+                estudiante.validarNuevoEstudiante(txtfNombre.getText(), txtfApellido.getText(), txtfCorreo.getText(),
+                                                  comboGrado.getSelectionModel().getSelectedItem(), comboCurso.getSelectionModel().getSelectedItem(),
+                                                  comboJornada.getSelectionModel().getSelectedItem(), txtfDocumento.getText(),
+                                                  txtfTelefono.getText(),txtfDireccion.getText());
+
+                lblNombre.setText(estudiante.getErrorNombre());
+                lblApellido.setText(estudiante.getErrorApellido());
+                lblDocumento.setText(estudiante.getErrorDocumento());
+                lblCorreo.setText(estudiante.getErrorCorreo());
+                lblTelefono.setText(estudiante.getErrorTelefono());
+                lblDireccion.setText(estudiante.getErrorDireccion());
+                lblGrado.setText(estudiante.getErrorGrado());
+                lblCurso.setText(estudiante.getErrorCurso());
+                lblJornada.setText(estudiante.getErrorJornada());        
+        }else{
+            ValidarUsuario funcionario = new ValidarUsuario();
+            funcionario.validarNuevoFuncionario(txtfNombre.getText(), txtfApellido.getText(), txtfCorreo.getText(),
+                                                txtfDocumento.getText(), txtfTelefono.getText(),txtfDireccion.getText());
+                        
+            lblNombre.setText(funcionario.getErrorNombre());
+            lblApellido.setText(funcionario.getErrorApellido());
+            lblCorreo.setText(funcionario.getErrorCorreo());
+            lblDocumento.setText(funcionario.getErrorDocumento());
+            lblTelefono.setText(funcionario.getErrorTelefono());
+            lblDireccion.setText(funcionario.getErrorDireccion());
+        }    
+    }
+    
+    private void limpiarCampos(){
+        
+        tablaUsuarios.getSelectionModel().clearSelection();
+        txtfNombre.setText("");
+        txtfApellido.setText("");
+        txtfDocumento.setText("");
+        txtfCorreo.setText("");
+        txtfTelefono.setText("");
+        txtfDireccion.setText("");
+        comboGrado.getSelectionModel().clearSelection();
+        comboCurso.getSelectionModel().clearSelection();
+        comboJornada.getSelectionModel().clearSelection();
+        comboTipo.getSelectionModel().clearSelection();
+        comboEstado.getSelectionModel().clearSelection();    
+    }
+    
     @FXML
     private void buscarFiltrar(){
         
@@ -190,7 +291,15 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
         txtfBuscar.setText("");
         btnBorrar.setVisible(false);
     }
-    
+           
+    @FXML
+    public void dialogoDetalleUsuario(ActionEvent evento){        
+        paginaPrincipal = new Sabga();
+        btnDetalle.setDisable(true);
+        dialogo.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información Detallada del Usuario", paginaPrincipal.getPrimaryStage(), null,5);       
+        btnDetalle.setDisable(false);
+    }
+          
     @Override
     public void setScreenParent(ScreensController screenParent) {
         controlador = screenParent;
@@ -200,44 +309,6 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
         this.paginaPrincipal = principal;
     } 
         
-    @FXML
-    public void dialogoDetalleUsuario(ActionEvent evento){        
-        paginaPrincipal = new Sabga();
-        btnDetalle.setDisable(true);
-        dialogo.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información Detallada del Usuario", paginaPrincipal.getPrimaryStage(), null,5);       
-        btnDetalle.setDisable(false);
-    }
-    
-    private void inicio(){
-        
-        btnBorrar.setVisible(false);
-        buscarFiltrar();
-        comboGrado.setItems(consulta.llenarLista(select.getListaGrado(), select.getGrado()));
-        comboCurso.setItems(consulta.llenarLista(select.getListaCurso(), select.getCurso()));
-        comboJornada.setItems(consulta.llenarLista(select.getListaJornada(), select.getJornada()));
-        comboTipo.setItems(consulta.llenarLista(select.getListaTipoUsuario(), select.getTipoUsuario()));        
-        comboListar.setItems(consulta.llenarLista(select.getListaUsuarios(), select.getUsuarios()));
-        comboListar.getItems().add("Todos");
-        comboEstado.setItems(estados);
-        
-    }
-    
-    @FXML
-    public void validarDatos(ActionEvent evento){
-        
-//        ValidarUsuario validarDatosUsuario = new ValidarUsuario(campoNombre.getText(), campoApellidos.getText(), campoDocumento.getText(),
-//                                                                campoCorreo.getText(), campoTelefono.getText(), campoDireccion.getText(),campoMulta.getText());
-//    
-//        validarDatosUsuario.validarACUsuario();
-//        validarNombre.setText(validarDatosUsuario.getErrorNombreUsuario());
-//        validarApellidos.setText(validarDatosUsuario.getErrorApellidosUsuario());
-//        validarDocumento.setText(validarDatosUsuario.getErrorDocumentoUsuario());
-//        validarCorreo.setText(validarDatosUsuario.getErrorCorreoUsuario());
-//        validarTelefono.setText(validarDatosUsuario.getErrorTelefonoUsuario());
-//        validarDireccion.setText(validarDatosUsuario.getErrorDireccionUsuario());
-//        validarMulta.setText(validarDatosUsuario.getErrorMulta());
-    }
-    
     private void updateFilteredData() {
         
       filtrarUsuarios.clear();
@@ -277,8 +348,19 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
       tablaUsuarios.getSortOrder().addAll(sortOrder);
   }  
     
-    
-    
+    private void inicio(){
+        
+        btnBorrar.setVisible(false);
+        buscarFiltrar();
+        comboGrado.setItems(consulta.llenarLista(select.getListaGrado(), select.getGrado()));
+        comboCurso.setItems(consulta.llenarLista(select.getListaCurso(), select.getCurso()));
+        comboJornada.setItems(consulta.llenarLista(select.getListaJornada(), select.getJornada()));
+        comboTipo.setItems(consulta.llenarLista(select.getListaTipoUsuario(), select.getTipoUsuario()));        
+        comboListar.setItems(consulta.llenarLista(select.getListaUsuarios(), select.getUsuarios()));
+        comboListar.getItems().add("Todos");
+        comboEstado.setItems(estados);        
+    }
+       
     @Override
     public void initialize(URL url, ResourceBundle rb) {
  

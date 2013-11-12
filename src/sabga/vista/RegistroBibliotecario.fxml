@@ -11,16 +11,15 @@
 
 <AnchorPane id="AnchorPane" prefHeight="540.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.RegistroBibliotecarioController">
   <children>
-    <Label layoutX="56.0" layoutY="35.0" text="Registro Administrador Auxiliar">
+    <Label layoutX="56.0" layoutY="35.0" text="Registrar Bibliotecario">
       <font>
         <Font name="System Bold" size="16.0" />
       </font>
     </Label>
-    <ComboBox id="tipoCB" fx:id="comboTipoAdmin" layoutX="473.0" layoutY="34.0" prefHeight="25.0" prefWidth="179.0" promptText="Tipo de Administrador">
+    <ComboBox id="tipoCB" fx:id="comboTipoAdmin" layoutX="473.0" layoutY="34.0" prefHeight="25.0" prefWidth="179.0" promptText="Tipo de Bibliotecario">
       <items>
         <FXCollections fx:factory="observableArrayList">
-          <String fx:value="Auxiliar" />
-          <String fx:value="Administrador" />
+
         </FXCollections>
       </items>
     </ComboBox>
@@ -89,6 +88,6 @@
       </rowConstraints>
     </GridPane>
     <Label id="validarNpmbre" fx:id="validarTipoAdmin" layoutX="667.0" layoutY="37.0" prefWidth="292.0" text="" textFill="$x1" />
-    <Button id="registrar" fx:id="aniadir" defaultButton="true" layoutX="959.0" layoutY="436.0" mnemonicParsing="false" onAction="#validarNuevoAuxiliar" prefHeight="25.0" text="Guardar Nuevo Adiministrador" />
+    <Button id="registrar" fx:id="aniadir" defaultButton="true" layoutX="959.0" layoutY="436.0" mnemonicParsing="false" onAction="#registrarBibliotecario" prefHeight="25.0" text="Guardar Nuevo Bibliotecario" />
   </children>
 </AnchorPane>

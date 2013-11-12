@@ -77,29 +77,29 @@ public class EditarBibliotecarioController implements Initializable, ControlledS
     @FXML
     public void validar(){
         
-        ValidarUsuario validarEdicion = new ValidarUsuario(campoNombre.getText(), campoApellidos.getText(), campoUsuario.getText(), campoCorreo.getText(),
-                                                           campoDocumento.getText(), campoTelefono.getText(), comboEstado.getSelectionModel().getSelectedItem());
-        
-        validarEdicion.validarEdicionAdmin();
-        validarNombre.setText(validarEdicion.getErrorNombreUsuario());
-        validarApellidos.setText(validarEdicion.getErrorApellidosUsuario());
-        validarUsuario.setText(validarEdicion.getErrorUsuario());
-        validarCorreo.setText(validarEdicion.getErrorCorreoUsuario());
-        validarDocumento.setText(validarEdicion.getErrorDocumentoUsuario());
-        validarTelefono.setText(validarEdicion.getErrorTelefonoUsuario());
+//        ValidarUsuario validarEdicion = new ValidarUsuario(campoNombre.getText(), campoApellidos.getText(), campoUsuario.getText(), campoCorreo.getText(),
+//                                                           campoDocumento.getText(), campoTelefono.getText(), comboEstado.getSelectionModel().getSelectedItem());
+//        
+//        validarEdicion.validarEdicionAdmin();
+//        validarNombre.setText(validarEdicion.getErrorNombreUsuario());
+//        validarApellidos.setText(validarEdicion.getErrorApellidosUsuario());
+//        validarUsuario.setText(validarEdicion.getErrorUsuario());
+//        validarCorreo.setText(validarEdicion.getErrorCorreoUsuario());
+//        validarDocumento.setText(validarEdicion.getErrorDocumentoUsuario());
+//        validarTelefono.setText(validarEdicion.getErrorTelefonoUsuario());
     
     } 
     
     @FXML
     public void validarNuevaContrasenia(ActionEvent evento){
         
-        ValidarUsuario validarNuevaContra = new ValidarUsuario(campoContrasenia.getText(), campoNuevaContrasenia.getText(), campoConfirmacion.getText());
-        
-        validarNuevaContra.validarNuevaContrasenia();
-        validarContrasenia.setText(validarNuevaContra.getErrorContrasenia());
-        validarNuevaContrasenia.setText(validarNuevaContra.getErrorNuevaContrasenia());
-        validarConfirmacion.setText(validarNuevaContra.getErrorConfirmacion());
-               
+//        ValidarUsuario validarNuevaContra = new ValidarUsuario(campoContrasenia.getText(), campoNuevaContrasenia.getText(), campoConfirmacion.getText());
+//        
+//        validarNuevaContra.validarNuevaContrasenia();
+//        validarContrasenia.setText(validarNuevaContra.getErrorContrasenia());
+//        validarNuevaContrasenia.setText(validarNuevaContra.getErrorNuevaContrasenia());
+//        validarConfirmacion.setText(validarNuevaContra.getErrorConfirmacion());
+//               
     }
     
 public Administrador getPosiciones(){

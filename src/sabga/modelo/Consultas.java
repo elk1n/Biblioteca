@@ -558,6 +558,39 @@ public class Consultas {
      
     
     }
+    
+    public void registrarBibliotecario(String documento, String usuario, String contrasenia, String tipo, String nombre, String apellido,
+                                       String correo, String telefono){
+        
+           try {
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL registrarBibliotecario(?,?,?,?,?,?,?,?,?) }");
+            con.getProcedimiento().setString("documento", documento);
+            con.getProcedimiento().setString("usuario", usuario);
+            con.getProcedimiento().setString("pass", Utilidades.encriptar(contrasenia));
+            con.getProcedimiento().setString("tipo", tipo);
+            con.getProcedimiento().setString("nombres", nombre);
+            con.getProcedimiento().setString("apellido", apellido);
+            con.getProcedimiento().setString("email", correo);
+            con.getProcedimiento().setString("phone", telefono);
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+            con.getProcedimiento().execute();
+            mensaje = con.getProcedimiento().getString("mensaje");
+            con.getConexion().commit();
+        } catch (SQLException e) {
+            try {
+                con.getConexion().rollback();
+                mensaje = "No se ha registrado el bibliotecario.";
+            } catch (SQLException ex) {
+                mensaje = ex.getMessage();
+            }
+            mensaje = e.getMessage();
+        } finally {
+            con.desconectar();
+        }
+    
+    }
 
     public String getTitulo() {
         return this.titulo;

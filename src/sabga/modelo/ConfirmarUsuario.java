@@ -3,6 +3,7 @@ package sabga.modelo;
 /**
  * @author Elk1n
  */
+
 public class ConfirmarUsuario extends ValidarUsuario {
 
     public boolean confirmarJornada(String jornada) {
@@ -88,4 +89,38 @@ public class ConfirmarUsuario extends ValidarUsuario {
             return true;
         }  
     }
+
+    public boolean  nuevoBibliotecario(Object tipo, String nombre, String apellido, String usuario, String contrasenia, String confirmar,
+                                          String correo, String documento, String telefono){
+        
+        if(tipo == null){
+            return false;
+        }
+        else if(!validarCampoTexto(nombre, 90)){
+            return false;
+        }
+        else if(!validarCampoTexto(apellido, 90)){
+            return false;
+        }
+        else if(!validarCampoTexto(usuario, 20)){
+           return false;
+        }
+        else if(!validarNuevaContrasenia(contrasenia, confirmar, 20)){
+            return false;
+        }        
+        else if(!validarCampoTexto(correo, 90)){
+            return false;
+        }
+        else if(!validarNumero(documento, 15)){
+            return false;
+        }
+        else if(!validarNumeroNull(telefono, 15)){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+
 }

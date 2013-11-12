@@ -77,7 +77,7 @@ public class Validacion {
     
     public boolean validarNumeroNull(String campoTexto, int numeroCaracteres) {
 
-        Pattern patron = Pattern.compile("[0-9]+");
+        Pattern patron = Pattern.compile("[0-9]+");        
         Matcher matcher = patron.matcher(campoTexto);
 
         if (campoTexto.isEmpty() == false) {
