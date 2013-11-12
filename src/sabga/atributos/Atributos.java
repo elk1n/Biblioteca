@@ -25,5 +25,5 @@ public class Atributos {
     public  void setUsuarioAdmin(String usuario) {
         usuarioAdmin = usuario;
     }
-  
+   
 }

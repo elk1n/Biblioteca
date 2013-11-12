@@ -154,6 +154,12 @@ public class ValidarUsuario extends Validacion {
         }
     }
    
+    public void editarEstudiante(){
+    
+        
+    
+    }
+    
     public void validarContrasenia() {
         if (!validarContrasenia(this.nuevaContrasenia, this.confirmacion, 20)) {
             this.errorNuevaContrasenia = getMensajeError();

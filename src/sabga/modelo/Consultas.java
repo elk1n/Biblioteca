@@ -451,13 +451,15 @@ public class Consultas {
         return id;
     }
     
-    public ObservableList<Usuario> getListaUsuarios(){
+    public ObservableList<Usuario> getListaUsuarios(int opcion, String tipo){
     
         ObservableList<Usuario> lista= FXCollections.observableArrayList();
         
         try {
             con.conectar();
-            con.procedimiento("{ CALL getListaUsuarios()}");
+            con.procedimiento("{ CALL getListaUsuarios(?,?)}");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setString("parametro", tipo);
             con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
                 lista.add(new Usuario(con.getResultado().getString("tipo"), con.getResultado().getString("documento"),
@@ -472,7 +474,7 @@ public class Consultas {
         return lista;
     }
     
-     public void eliminarMaterial(int codigo) throws SQLException{
+    public void eliminarMaterial(int codigo) throws SQLException{
     
         try{
             con.conectar();
@@ -493,9 +495,68 @@ public class Consultas {
     
     }
     
-
     public ObservableList<Autor> getListaAutores() {
         return obtenerAutores;
+    }
+    
+    public ObservableList<Usuario> getListaUsuarioBusqueda(String parametroBusqueda) {
+
+        ObservableList<Usuario> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL buscarUsuario(?) }");
+            con.getProcedimiento().setString("parametro", parametroBusqueda);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                lista.add(new Usuario(con.getResultado().getString("tipo"), con.getResultado().getString("id"),
+                                      con.getResultado().getString("nombres"), con.getResultado().getString("apellido"),
+                                      con.getResultado().getString("email")));
+            }
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos del usuario.", "Error Consulta Usuario");
+        } finally {
+            con.desconectar();
+        }
+        return lista;
+    }
+    
+    public void editarUsuario(int opcion, String id, String tipo, String nombre, String apellido, String correo, String documento,
+                              String grado, String curso, String jornada, String telefono, String direccion, int estado){
+        
+        try {
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL editarUsuario(?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setString("id", id);
+            con.getProcedimiento().setString("tipo", tipo);
+            con.getProcedimiento().setString("nombres", nombre);
+            con.getProcedimiento().setString("apellido", apellido);
+            con.getProcedimiento().setString("email", correo);
+            con.getProcedimiento().setString("documento", documento);
+            con.getProcedimiento().setString("grado", grado);
+            con.getProcedimiento().setString("curso", curso);
+            con.getProcedimiento().setString("jornada", jornada);
+            con.getProcedimiento().setString("phone", telefono);            
+            con.getProcedimiento().setString("address", direccion);
+            con.getProcedimiento().setInt("estado", estado);
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+            con.getProcedimiento().execute();
+            mensaje = con.getProcedimiento().getString("mensaje");
+            con.getConexion().commit();
+        } catch (SQLException e) {
+            try {
+                con.getConexion().rollback();
+                mensaje = "No ha sido posible editar la información del usuario.";
+            } catch (SQLException ex) {
+                mensaje = ex.getMessage();
+            }
+            mensaje = e.getMessage();
+        } finally {
+            con.desconectar();
+        }
+     
+    
     }
 
     public String getTitulo() {

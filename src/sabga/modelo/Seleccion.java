@@ -25,6 +25,8 @@ public class Seleccion {
     private final String curso = "curso";
     private final String listaJornada = "SELECT jornada FROM tbl_JORNADA";
     private final String jornada = "jornada";
+    private final String listaUsuarios = "SELECT tipo_usuario FROM tbl_TIPO_USUARIO";
+    private final String tipoUsuarios= "tipo_usuario";
 
     public String getListaJornada() {
         return listaJornada;
@@ -32,7 +34,6 @@ public class Seleccion {
     public String getJornada() {
         return jornada;
     }
-
     public String getListaClaseMaterial() {
         return listaClaseMaterial;
     }    
@@ -81,4 +82,14 @@ public class Seleccion {
     public String getTipoLibro(){
         return tipoLibro;
     }
+
+    public String getListaUsuarios() {
+        return listaUsuarios;
+    }
+
+    public String getUsuarios() {
+        return tipoUsuarios;
+    }
+    
+    
 }

@@ -13,6 +13,17 @@
 <?import javafx.scene.text.*?>
 
 <BorderPane id="BorderPane" cache="true" cacheHint="DEFAULT" prefHeight="680.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.PaginaPrincipalController">
+  <center>
+    <AnchorPane prefHeight="200.0" prefWidth="200.0">
+      <children>
+        <Label layoutX="530.0" layoutY="240.0" text="Prueba">
+          <font>
+            <Font name="System Bold" size="25.0" />
+          </font>
+        </Label>
+      </children>
+    </AnchorPane>
+  </center>
   <padding>
     <Insets fx:id="x6" />
   </padding>
@@ -29,7 +40,7 @@
             <Font size="30.0" />
           </font>
         </Label>
-        <Label layoutX="354.0" layoutY="13.0" text="Buscar">
+        <Label layoutX="391.0" layoutY="13.0" text="Buscar">
           <font>
             <Font name="System Bold" size="14.0" fx:id="x1" />
           </font>
@@ -64,7 +75,7 @@
             <Insets fx:id="x8" />
           </padding>
         </HBox>
-        <HBox id="HBox" alignment="CENTER" layoutX="354.0" layoutY="38.0" spacing="5.0">
+        <HBox id="HBox" alignment="CENTER" layoutX="391.0" layoutY="38.0" spacing="5.0">
           <children>
             <RadioButton fx:id="radioMaterial" font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" selected="true" text="Material">
               <toggleGroup>
@@ -74,7 +85,7 @@
             <RadioButton fx:id="radioUsuario" font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" text="Usuarios" toggleGroup="$busqueda" />
           </children>
         </HBox>
-        <HBox id="HBox" alignment="CENTER" layoutX="354.0" layoutY="71.0" spacing="15.0">
+        <HBox id="HBox" alignment="CENTER" layoutX="391.0" layoutY="71.0" spacing="15.0">
           <children>
             <TextField fx:id="campoBusqueda" onKeyTyped="#mostrarBoton" prefHeight="30.0" prefWidth="400.0" promptText="Ingrese el material o usuario a buscar">
               <stylesheets>
@@ -83,7 +94,7 @@
             </TextField>
           </children>
         </HBox>
-        <Button fx:id="botonBorrarBusqueda" contentDisplay="CENTER" graphicTextGap="2.0" layoutX="727.0" layoutY="76.0" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#borrarCampo" opacity="0.79" prefHeight="20.0" prefWidth="20.0" styleClass="botonBorrarBusqueda">
+        <Button fx:id="botonBorrarBusqueda" contentDisplay="CENTER" graphicTextGap="2.0" layoutX="764.0" layoutY="76.0" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#borrarCampo" opacity="0.79" prefHeight="20.0" prefWidth="20.0" styleClass="botonBorrarBusqueda">
           <stylesheets>
             <URL value="@css/estilo.css" />
           </stylesheets>
@@ -103,7 +114,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Material">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroMaterial" text="Nuevo Material" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroMaterial" text="Registrar Material" />
                     <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarMaterial" text="Editar Material" />
                     <Menu mnemonicParsing="false" text="Opciones de Material">
                       <items>
@@ -145,14 +156,14 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Paz y Salvo">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#ventanaPazySalvo" text="Generar Paz y Salvo" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaPazySalvo" text="Expedir Paz y Salvo" />
                   </items>
                 </Menu>
               </menus>
             </MenuBar>
           </children>
         </AnchorPane>
-        <Button font="$x1" layoutX="761.0" layoutY="73.0" mnemonicParsing="false" onAction="#ventanaBuscar" prefHeight="25.0" prefWidth="25.0" styleClass="botonBuscar" text="">
+        <Button font="$x1" layoutX="798.0" layoutY="73.0" mnemonicParsing="false" onAction="#ventanaBuscar" prefHeight="25.0" prefWidth="25.0" styleClass="botonBuscar" text="">
           <rotationAxis>
             <Point3D />
           </rotationAxis>

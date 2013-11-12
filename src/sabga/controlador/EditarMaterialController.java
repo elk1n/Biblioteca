@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -51,13 +52,15 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     private Label lblEditorial, lblValidarCodigo, lblValidarTitulo, lblValidarAnio, lblValidarPublicacion, lblValidarEditorial, lblValidarEjemplares,
                     lblValidarPaginas, lblValidarAutor, lblValidarMateria, lblTipoMaterial;    
     @FXML 
-    private TextField txtfCodigoClasificacion, txtfTitulo, txtfAnio, txtfPublicacion, txtfPaginas, txtfFiltrar, txtfBuscar, txtfEjemplar;
+    private TextField txtfCodigoClasificacion, txtfTitulo, txtfAnio, txtfPublicacion, txtfPaginas, txtfFiltrar, txtfEjemplar, txtfBuscar;
     @FXML 
-    private Button  btnBorrar, btnDetalle, btnEditorial, btnAutor, btnMateria, btnCodigoBarras, btnBorrarBusqueda;    
+    private Button  btnBorrar, btnDetalle, btnEditorial, btnAutor, btnMateria, btnCodigoBarras;    
     @FXML 
     private ComboBox comboClaseMaterial, comboMaterial, comboDispo;    
     @FXML
     private HBox hboxEditorial, hboxAutores, hboxMaterias;
+    @FXML
+    private RadioButton radioBuscar, radioFiltrar;
     @FXML    
     private Tooltip est;
     @FXML
@@ -136,19 +139,46 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     
     @FXML
     public void buscarMaterial(ActionEvent evento){
-      
-        if(!"".equals(txtfBuscar.getText())){
+        buscarMaterial();
+       
+     
+    }
+   
+    private void buscarMaterial() {
+
+        if (!"".equals(txtfBuscar.getText()) && radioBuscar.isSelected()) {
             prepararTablaMaterial();
             filtrarMaterial.addAll(listaMaterial);
-            listaMaterial.addAll(consulta.getListaMaterialBusqueda(txtfBuscar.getText().trim()));        
+            listaMaterial.addAll(consulta.getListaMaterialBusqueda(txtfBuscar.getText().trim()));
             tablaMaterial.setItems(filtrarMaterial);
-        }      
+        }
+    }
+    
+    @FXML
+    private void buscarFiltrar(){
+        
+        if(radioBuscar.isSelected()){
+            txtfFiltrar.setText("");
+            txtfFiltrar.setDisable(true);
+            txtfFiltrar.setVisible(false); 
+            txtfBuscar.setText("");
+            txtfBuscar.setDisable(false);
+            txtfBuscar.setVisible(true);
+        }
+        else if(radioFiltrar.isSelected()){
+            txtfBuscar.setText("");
+            txtfBuscar.setDisable(true);
+            txtfBuscar.setVisible(false);
+            txtfFiltrar.setText("");
+            txtfFiltrar.setDisable(false);
+            txtfFiltrar.setVisible(true);
+        }
     }
     
     @FXML
     private void mapearDatos(){
       
-        if (tablaMaterial.getSelectionModel().getSelectedItem()!=null) {
+        if (tablaMaterial.getSelectionModel().getSelectedItem()!= null) {
             consulta.mapearMaterial(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()));
             txtfTitulo.setText(consulta.getTitulo());
             txtfCodigoClasificacion.setText(consulta.getClasificacion());
@@ -515,8 +545,8 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     }
     
     private void updateFilteredData() {
+        
       filtrarMaterial.clear();
-          
       for (Material m : listaMaterial) {
           if (matchesFilter(m)) {
               filtrarMaterial.add(m);
@@ -528,35 +558,20 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     @FXML
     private void borrarCampo(ActionEvent evento) {
         
-        switch (Utilidades.getDesencadenador(evento)) {
-            case "btnBorrar":
-                txtfFiltrar.setText("");
-                btnBorrar.setVisible(false);
-                break;
-            case "btnBorrarBusqueda":
-                txtfBuscar.setText("");
-                btnBorrarBusqueda.setVisible(false);
-                break;
-        }    
-    }
-    
-    private void mostrarBoton() {
-
-        if (txtfFiltrar.getText() == null || txtfFiltrar.getText().isEmpty()) {
-            btnBorrar.setVisible(false);
-        } else {
-            btnBorrar.setVisible(true);
-        }
+        txtfFiltrar.setText("");
+        txtfBuscar.setText("");
+        btnBorrar.setVisible(false);
     }
     
     @FXML
     private void mostrarBoton(KeyEvent evento) {
 
-        if (txtfBuscar.getText() == null || txtfBuscar.getText().isEmpty()) {
-            btnBorrarBusqueda.setVisible(false);
-        } else {
-            btnBorrarBusqueda.setVisible(true);
+        if ("".equals(txtfBuscar.getText()) && "".equals(txtfFiltrar.getText())){            
+            btnBorrar.setVisible(false);      
         }
+        else {
+           btnBorrar.setVisible(true); 
+        }          
     }
    
     private boolean matchesFilter(Material material) {
@@ -608,6 +623,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
      
     public void iniciar(){
         
+        buscarFiltrar();
         llenarComboBox();
         editorial.setPrefSize(250, 30);
         materias.setPrefSize(350, 30);
@@ -625,12 +641,10 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         hboxMaterias.getChildren().add(materias);
         hboxAutores.getChildren().add(autores);
         btnBorrar.setVisible(false);
-        btnBorrarBusqueda.setVisible(false);
         disponibilidad.add("Habilitado");
         disponibilidad.add("Inhabilitado");
         disponibilidad.add("Mantenimiento");
         comboDispo.setItems(disponibilidad);
-       // comboTipoMaterial.setDisable(true);
     }
     
     /** 
@@ -642,12 +656,12 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     @Override
     public void initialize(URL url, ResourceBundle rb) {
       
-         iniciar();
+         iniciar();       
          txtfFiltrar.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable,
-                    String oldValue, String newValue) {
-                mostrarBoton();
+                                String oldValue, String newValue) {
+                mostrarBoton(null);
                 updateFilteredData();
             }
         });
@@ -657,7 +671,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         @Override 
         public void run() { 
         detalle = new Tooltip("Muestra en detalle la información del material.\nDebe seleccionarlo de la lista.");
-         btnDetalle.setTooltip(detalle); 
+        // btnDetalle.setTooltip(detalle); 
            // MenuItem h = new MenuItem("Esto es una prueba de un menú contextual ");
            // ContextMenu es = new ContextMenu(h);            
            // botonNuevaEditorial.setContextMenu(es);                 

@@ -86,7 +86,7 @@ public class Sabga extends Application {
           
         PaginaPrincipalController controller = cargador.getController();
         controller.setVentanaPrincipal(this);
-        mostrarVistas();  
+         mostrarVistas();  
         
     }
     
@@ -117,8 +117,7 @@ public class Sabga extends Application {
     public void inciarSesion(){
         cargarVista("paginaInicio","vista/PaginaInicio.fxml");
         cambiarVista("paginaInicio");  
-        primaryStage.show(); 
-        
+        primaryStage.show();        
         dialogo.getDialogStage().close();   
     }
     
@@ -135,6 +134,10 @@ public class Sabga extends Application {
         dialogo.getDialogStage().hide();
         dialogo.mostrarDialogo("vista/dialogos/RestablecerContrasenia.fxml","Restablecer Contraseña", this.primaryStage, this, 7);        
      }
+    
+    public void setTitle(String titulo){
+        this.primaryStage.setTitle(titulo);
+    }
     
     public void ocultarDialogo(){
         dialogo.getDialogStage().hide();
