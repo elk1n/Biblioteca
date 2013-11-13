@@ -520,6 +520,27 @@ public class Consultas {
         return lista;
     }
     
+    public ObservableList<Usuario> getListaBibliotecarios(){
+    
+        ObservableList<Usuario> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaAdmin() }");
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                lista.add(new Usuario(con.getResultado().getString("id"), con.getResultado().getString("nombres"),
+                                      con.getResultado().getString("apellido"), con.getResultado().getString("usuario"),
+                                      con.getResultado().getString("email"), con.getResultado().getString("phone"),
+                                      con.getResultado().getString("estado"), con.getResultado().getString("tipo")));
+            }
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos de los bibliotecarios.", "Error Consulta Bibliotecario");
+        } finally {
+            con.desconectar();
+        }
+        return lista;    
+    }
+    
     public void editarUsuario(int opcion, String id, String tipo, String nombre, String apellido, String correo, String documento,
                               String grado, String curso, String jornada, String telefono, String direccion, int estado){
         

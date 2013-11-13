@@ -20,17 +20,30 @@ public class Usuario {
     public SimpleStringProperty direccion = new SimpleStringProperty();
     public SimpleStringProperty estado = new SimpleStringProperty();
     public SimpleStringProperty multa = new SimpleStringProperty();
+    public SimpleStringProperty usuario = new SimpleStringProperty();
 
- //Usuarios Estudiante
+    //USUARIO ADMINISTRADOR
+    public Usuario(String id, String nombre, String apellido, String usuario, String correo, String telefono, String estado,
+                   String tipo){
+        
+        this.documento = new SimpleStringProperty(id);
+        this.nombre = new SimpleStringProperty(nombre);
+        this.apellido = new SimpleStringProperty(apellido);
+        this.usuario = new SimpleStringProperty(usuario);
+        this.correo = new SimpleStringProperty(correo);
+        this.telefono = new SimpleStringProperty(telefono);
+        this.estado = new SimpleStringProperty(estado);
+        this.tipo = new SimpleStringProperty(tipo);
+    }
     
+    //Usuarios Estudiante    
     public Usuario(String tipo, String documento, String nombre, String apellido, String correo){
     
         this.tipo = new SimpleStringProperty(tipo);
         this.documento = new SimpleStringProperty(documento);
         this.nombre = new SimpleStringProperty(nombre);
         this.apellido = new SimpleStringProperty(apellido);
-        this.correo = new SimpleStringProperty(correo);
-    
+        this.correo = new SimpleStringProperty(correo);    
     }
     
     public Usuario(String tipo, String nombre, String apellido, String correo, String grado, String curso, String jornada,
@@ -173,5 +186,12 @@ public class Usuario {
     public void setMulta(String multa) {
         this.multa.set(multa);
     }
+    
+    public String getUsuario() {
+        return this.usuario.get();
+    }
 
+    public void setUsuario(String usuario) {
+        this.usuario.set(usuario);
+    }
 }
