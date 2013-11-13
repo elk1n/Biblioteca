@@ -30,7 +30,7 @@
     </TableView>
     <HBox id="HBox" alignment="CENTER" layoutX="927.0" layoutY="457.0" spacing="45.0">
       <children>
-        <ComboBox prefHeight="25.0" prefWidth="120.0" promptText="Cambiar Estado">
+        <ComboBox fx:id="comboEstado" prefHeight="25.0" prefWidth="120.0" promptText="Cambiar Estado">
           <items>
             <FXCollections fx:factory="observableArrayList">
               <String fx:value="Item 1" />
@@ -39,7 +39,7 @@
             </FXCollections>
           </items>
         </ComboBox>
-        <Button defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Aceptar" />
+        <Button defaultButton="true" mnemonicParsing="false" onAction="#cambiarEstado" prefHeight="25.0" prefWidth="120.0" text="Aceptar" />
       </children>
     </HBox>
   </children>

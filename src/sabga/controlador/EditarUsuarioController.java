@@ -31,7 +31,6 @@ import sabga.modelo.ConfirmarUsuario;
 import sabga.modelo.Consultas;
 import sabga.modelo.Seleccion;
 import sabga.modelo.ValidarUsuario;
-import sun.security.provider.VerificationProvider;
 
 /**
  * @author Nanny
@@ -144,8 +143,7 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
                 else{
                     Utilidades.mensajeError(null, consulta.getMensaje(),"La información no ha sido actualizada.", "Error Edición");
                 }
-            }
-        
+            }  
         }    
     }
     
@@ -269,8 +267,7 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
             txtfFiltrar.setText("");
             txtfFiltrar.setDisable(false);
             txtfFiltrar.setVisible(true);
-        }
-    
+        }    
     }
     
     @FXML

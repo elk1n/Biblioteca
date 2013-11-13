@@ -45,6 +45,16 @@
             <Font name="System Bold" size="14.0" fx:id="x1" />
           </font>
         </Label>
+        <HBox id="HBox" alignment="CENTER" layoutX="391.0" layoutY="38.0" spacing="5.0">
+          <children>
+            <RadioButton fx:id="radioMaterial" font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" selected="true" text="Material">
+              <toggleGroup>
+                <ToggleGroup fx:id="busqueda" />
+              </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="radioUsuario" font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" text="Usuarios" toggleGroup="$busqueda" />
+          </children>
+        </HBox>
         <HBox id="HBox" fx:id="hboxAdmin" alignment="CENTER_RIGHT" fillHeight="true" layoutX="1061.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" spacing="15.0">
           <children>
             <MenuButton fx:id="menuAdmin" font="$x1" mnemonicParsing="false" prefHeight="25.0" text="Administrador" HBox.hgrow="ALWAYS">
@@ -53,7 +63,7 @@
                 <Menu mnemonicParsing="false" text="Bibliotecario Auxiliar">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroAdmin" text="Registrar Auxiliar" />
-                    <MenuItem mnemonicParsing="false" onAction="#ventanaEditarAdmin" text="Editar Datos Auxiliar" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaEditarAdmin" text="Editar Estado Auxiliar" />
                   </items>
                 </Menu>
                 <MenuItem mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" />
@@ -74,16 +84,6 @@
           <padding>
             <Insets fx:id="x8" />
           </padding>
-        </HBox>
-        <HBox id="HBox" alignment="CENTER" layoutX="391.0" layoutY="38.0" spacing="5.0">
-          <children>
-            <RadioButton fx:id="radioMaterial" font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" selected="true" text="Material">
-              <toggleGroup>
-                <ToggleGroup fx:id="busqueda" />
-              </toggleGroup>
-            </RadioButton>
-            <RadioButton fx:id="radioUsuario" font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" text="Usuarios" toggleGroup="$busqueda" />
-          </children>
         </HBox>
         <HBox id="HBox" alignment="CENTER" layoutX="391.0" layoutY="71.0" spacing="15.0">
           <children>

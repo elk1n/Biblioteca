@@ -69,6 +69,17 @@ public class Consultas {
         }
         return listaAutores;
     }
+    
+    public ObservableList listaAutoresMaterial(int id) {
+
+        ObservableList autores = FXCollections.observableArrayList();
+        ObservableList<Autor> listaAutores = FXCollections.observableArrayList();
+        listaAutores.addAll(listaAutores(id));
+        for (Autor datos : listaAutores) {
+            autores.add(datos.toString());
+        }
+        return autores;
+    }
 
     public ObservableList<Material> getListaMaterialBusqueda(String parametroBusqueda) {
 
@@ -168,16 +179,74 @@ public class Consultas {
         }
         return listaAutores;
     }
+    
+    public ObservableList<Autor> getListaAutores() {
+        return obtenerAutores;
+    }
+    
+    public ObservableList<Usuario> getListaUsuarioBusqueda(String parametroBusqueda) {
 
-    public ObservableList listaAutoresMaterial(int id) {
-
-        ObservableList autores = FXCollections.observableArrayList();
-        ObservableList<Autor> listaAutores = FXCollections.observableArrayList();
-        listaAutores.addAll(listaAutores(id));
-        for (Autor datos : listaAutores) {
-            autores.add(datos.toString());
+        ObservableList<Usuario> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL buscarUsuario(?) }");
+            con.getProcedimiento().setString("parametro", parametroBusqueda);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                lista.add(new Usuario(con.getResultado().getString("tipo"), con.getResultado().getString("id"),
+                                      con.getResultado().getString("nombres"), con.getResultado().getString("apellido"),
+                                      con.getResultado().getString("email")));
+            }
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos del usuario.", "Error Consulta Usuario");
+        } finally {
+            con.desconectar();
         }
-        return autores;
+        return lista;
+    }
+    
+    public ObservableList<Usuario> getListaBibliotecarios(){
+    
+        ObservableList<Usuario> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaAdmin() }");
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                lista.add(new Usuario(con.getResultado().getString("id"), con.getResultado().getString("nombres"),
+                                      con.getResultado().getString("apellido"), con.getResultado().getString("usuario"),
+                                      con.getResultado().getString("email"), con.getResultado().getString("phone"),
+                                      con.getResultado().getString("estado"), con.getResultado().getString("tipo")));
+            }
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos de los bibliotecarios.", "Error Consulta Bibliotecario");
+        } finally {
+            con.desconectar();
+        }
+        return lista;    
+    }
+    
+    public ObservableList<Usuario> getListaUsuarios(int opcion, String tipo){
+    
+        ObservableList<Usuario> lista= FXCollections.observableArrayList();
+        
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaUsuarios(?,?)}");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setString("parametro", tipo);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                lista.add(new Usuario(con.getResultado().getString("tipo"), con.getResultado().getString("documento"),
+                                      con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
+                                      con.getResultado().getString("correo") ));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
+        } finally {
+            con.desconectar();
+        }        
+        return lista;
     }
 
     public void mapearMaterial(int codigo) {
@@ -450,30 +519,7 @@ public class Consultas {
         }
         return id;
     }
-    
-    public ObservableList<Usuario> getListaUsuarios(int opcion, String tipo){
-    
-        ObservableList<Usuario> lista= FXCollections.observableArrayList();
-        
-        try {
-            con.conectar();
-            con.procedimiento("{ CALL getListaUsuarios(?,?)}");
-            con.getProcedimiento().setInt("opcion", opcion);
-            con.getProcedimiento().setString("parametro", tipo);
-            con.setResultado(con.getProcedimiento().executeQuery());
-            while (con.getResultado().next()) {
-                lista.add(new Usuario(con.getResultado().getString("tipo"), con.getResultado().getString("documento"),
-                                      con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
-                                      con.getResultado().getString("correo") ));
-            }
-        } catch (SQLException ex) {
-            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
-        } finally {
-            con.desconectar();
-        }        
-        return lista;
-    }
-    
+     
     public void eliminarMaterial(int codigo) throws SQLException{
     
         try{
@@ -494,53 +540,7 @@ public class Consultas {
         }
     
     }
-    
-    public ObservableList<Autor> getListaAutores() {
-        return obtenerAutores;
-    }
-    
-    public ObservableList<Usuario> getListaUsuarioBusqueda(String parametroBusqueda) {
-
-        ObservableList<Usuario> lista = FXCollections.observableArrayList();
-        try {
-            con.conectar();
-            con.procedimiento("{ CALL buscarUsuario(?) }");
-            con.getProcedimiento().setString("parametro", parametroBusqueda);
-            con.setResultado(con.getProcedimiento().executeQuery());
-            while (con.getResultado().next()) {
-                lista.add(new Usuario(con.getResultado().getString("tipo"), con.getResultado().getString("id"),
-                                      con.getResultado().getString("nombres"), con.getResultado().getString("apellido"),
-                                      con.getResultado().getString("email")));
-            }
-        } catch (SQLException e) {
-            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos del usuario.", "Error Consulta Usuario");
-        } finally {
-            con.desconectar();
-        }
-        return lista;
-    }
-    
-    public ObservableList<Usuario> getListaBibliotecarios(){
-    
-        ObservableList<Usuario> lista = FXCollections.observableArrayList();
-        try {
-            con.conectar();
-            con.procedimiento("{ CALL getListaAdmin() }");
-            con.setResultado(con.getProcedimiento().executeQuery());
-            while (con.getResultado().next()) {
-                lista.add(new Usuario(con.getResultado().getString("id"), con.getResultado().getString("nombres"),
-                                      con.getResultado().getString("apellido"), con.getResultado().getString("usuario"),
-                                      con.getResultado().getString("email"), con.getResultado().getString("phone"),
-                                      con.getResultado().getString("estado"), con.getResultado().getString("tipo")));
-            }
-        } catch (SQLException e) {
-            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos de los bibliotecarios.", "Error Consulta Bibliotecario");
-        } finally {
-            con.desconectar();
-        }
-        return lista;    
-    }
-    
+      
     public void editarUsuario(int opcion, String id, String tipo, String nombre, String apellido, String correo, String documento,
                               String grado, String curso, String jornada, String telefono, String direccion, int estado){
         
@@ -575,9 +575,7 @@ public class Consultas {
             mensaje = e.getMessage();
         } finally {
             con.desconectar();
-        }
-     
-    
+        }   
     }
     
     public void registrarBibliotecario(String documento, String usuario, String contrasenia, String tipo, String nombre, String apellido,
@@ -611,6 +609,32 @@ public class Consultas {
             con.desconectar();
         }
     
+    }
+    
+    public void editarBibliotecario(int opcion, String documento, int estado){
+             
+        try {
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL editarBibliotecario(?,?,?,?) }");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setString("id", documento);
+            con.getProcedimiento().setInt("estadoB", estado);
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+            con.getProcedimiento().execute();
+            mensaje = con.getProcedimiento().getString("mensaje");
+            con.getConexion().commit();
+        } catch (SQLException e) {
+            try {
+                con.getConexion().rollback();
+                mensaje = "No ha sido posible editar la información del bibliotecario.";
+            } catch (SQLException ex) {
+                mensaje = ex.getMessage();
+            }
+            mensaje = e.getMessage();
+        } finally {
+            con.desconectar();
+        }   
     }
 
     public String getTitulo() {

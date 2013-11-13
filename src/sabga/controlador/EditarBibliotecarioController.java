@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -16,6 +17,7 @@ import sabga.ScreensController;
 import sabga.atributos.Usuario;
 import sabga.configuracion.Conexion;
 import sabga.configuracion.ControlledScreen;
+import sabga.configuracion.Utilidades;
 import sabga.modelo.Consultas;
 
 /**
@@ -34,12 +36,33 @@ public class EditarBibliotecarioController implements Initializable, ControlledS
     @FXML 
     private TableColumn tDocumento, tNombre, tApellido, tUsuario, tCorreo, tTelefono, tEstado, clmnTipo;
     private final ObservableList<Usuario> listaAdmin;
+    private final ObservableList estados;
     private final Consultas consulta;
    
     public EditarBibliotecarioController(){         
         listaAdmin = FXCollections.observableArrayList();
-        consulta = new Consultas();
+        estados = FXCollections.observableArrayList();
+        consulta = new Consultas();        
     }   
+    @FXML
+    public void cambiarEstado(ActionEvent evento){   
+        cambiarEstado();
+    }
+    
+    private void cambiarEstado(){
+        
+        if(tablaAdmin.getSelectionModel().getSelectedItem() != null && comboEstado.getSelectionModel().getSelectedItem() != null){
+            int estado = comboEstado.getSelectionModel().getSelectedItem().toString().trim().equals("Habilitado") ? 1: 2;
+            consulta.editarBibliotecario(1, listaAdmin.get(tablaAdmin.getSelectionModel().getSelectedIndex()).getDocumento(), estado);
+            if (consulta.getMensaje() == null) {
+                 listaAdmin.clear();
+                 listaAdmin.addAll(consulta.getListaBibliotecarios());
+                Utilidades.mensaje(null, "El estado se ha actualizado correctamente.", "", "Editar Estado Bibliotecario");
+            } else {
+                Utilidades.mensajeError(null, consulta.getMensaje(), "La información no ha sido actualizada.", "Error Edición");
+            }
+        }
+    }
     
     private void inicio(){
         
@@ -53,6 +76,9 @@ public class EditarBibliotecarioController implements Initializable, ControlledS
         clmnTipo.setCellValueFactory(new PropertyValueFactory<Usuario, String>("tipo"));
         listaAdmin.addAll(consulta.getListaBibliotecarios());
         tablaAdmin.setItems(listaAdmin);
+        estados.add("Habilitado");
+        estados.add("Inhabilitado");
+        comboEstado.setItems(estados);
     }
     
     @Override
