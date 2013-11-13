@@ -8,7 +8,7 @@ package sabga.atributos;
 public class Atributos {
 
     private static String datoBusqueda = "";
-    private static String usuarioAdmin = "";
+    private static String nombreUsuario = "admin2";
     
     public void setDatoBusqueda(String parametro){
         datoBusqueda = parametro;
@@ -19,11 +19,11 @@ public class Atributos {
     }
 
     public String getUsuarioAdmin() {
-        return usuarioAdmin;
+        return nombreUsuario;
     }
 
     public  void setUsuarioAdmin(String usuario) {
-        usuarioAdmin = usuario;
+        nombreUsuario = usuario;
     }
    
 }

@@ -5,7 +5,20 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.dialogos.MultaController">
-    
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.dialogos.MultaController">
+  <children>
+    <Label layoutX="35.0" layoutY="32.0" text="Nombre del Usuario">
+      <font>
+        <Font name="System Bold" size="14.0" />
+      </font>
+    </Label>
+    <TableView layoutX="35.0" layoutY="87.0" prefHeight="200.0" prefWidth="526.0">
+      <columns>
+        <TableColumn prefWidth="75.0" text="Column X" />
+        <TableColumn prefWidth="75.0" text="Column X" />
+      </columns>
+    </TableView>
+  </children>
 </AnchorPane>

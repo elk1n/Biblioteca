@@ -63,7 +63,7 @@
                 <Menu mnemonicParsing="false" text="Bibliotecario Auxiliar">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroAdmin" text="Registrar Auxiliar" />
-                    <MenuItem mnemonicParsing="false" onAction="#ventanaEditarAdmin" text="Editar Estado Auxiliar" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaEditarAdmin" text="Editar Información Auxiliar" />
                   </items>
                 </Menu>
                 <MenuItem mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" />

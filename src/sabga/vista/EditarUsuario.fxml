@@ -84,16 +84,16 @@
                 <TextField id="campoCorreo" fx:id="txtfCorreo" prefHeight="30.0" prefWidth="300.0" promptText="E-mail" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                 <TextField id="campoTelefono" fx:id="txtfTelefono" prefHeight="30.0" prefWidth="300.0" promptText="Teléfono" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                 <TextField id="campoDireccion" fx:id="txtfDireccion" prefHeight="30.0" prefWidth="300.0" promptText="Dirección" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                <Label id="validarNombre" fx:id="lblNombre" alignment="CENTER_RIGHT" prefWidth="339.0" text="Validación" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <Label id="validarNombre" fx:id="lblNombre" alignment="CENTER_RIGHT" prefWidth="339.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="1">
                   <textFill>
                     <Color blue="0.000" green="0.000" red="0.600" fx:id="x1" />
                   </textFill>
                 </Label>
-                <Label id="validarApellidos" fx:id="lblApellido" alignment="CENTER_RIGHT" prefWidth="339.0" text="Validación" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <Label id="validarDocumento" fx:id="lblDocumento" alignment="CENTER_RIGHT" prefWidth="339.0" text="Validación" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                <Label id="validarCorreo" fx:id="lblCorreo" alignment="CENTER_RIGHT" prefWidth="339.0" text="Validación" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                <Label id="validarTelefono" fx:id="lblTelefono" alignment="CENTER_RIGHT" prefWidth="339.0" text="Validación" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                <Label id="validarDireccion" fx:id="lblDireccion" alignment="CENTER_RIGHT" prefWidth="351.0" text="Validación" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                <Label id="validarApellidos" fx:id="lblApellido" alignment="CENTER_RIGHT" prefWidth="339.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label id="validarDocumento" fx:id="lblDocumento" alignment="CENTER_RIGHT" prefWidth="339.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <Label id="validarCorreo" fx:id="lblCorreo" alignment="CENTER_RIGHT" prefWidth="339.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                <Label id="validarTelefono" fx:id="lblTelefono" alignment="CENTER_RIGHT" prefWidth="339.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                <Label id="validarDireccion" fx:id="lblDireccion" alignment="CENTER_RIGHT" prefWidth="351.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                 <Label text="Grado:" GridPane.columnIndex="0" GridPane.rowIndex="12" />
                 <ComboBox id="comboCurso" fx:id="comboGrado" maxWidth="150.0" prefHeight="25.0" prefWidth="168.0" promptText="Grado" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="12">
                   <items>
@@ -126,9 +126,9 @@
                 </ComboBox>
                 <Label text="Total Multas:" GridPane.columnIndex="0" GridPane.rowIndex="21" />
                 <Label fx:id="lblMulta" alignment="TOP_RIGHT" contentDisplay="RIGHT" font="$x2" prefWidth="244.0" text="" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="21" />
-                <Label id="validarTelefono" fx:id="lblGrado" alignment="CENTER_RIGHT" prefWidth="339.0" text="Validación" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="13" />
-                <Label id="validarTelefono" fx:id="lblCurso" alignment="CENTER_RIGHT" prefWidth="339.0" text="Validación" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="15" />
-                <Label id="validarTelefono" fx:id="lblJornada" alignment="CENTER_RIGHT" prefWidth="339.0" text="Validación" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="17" />
+                <Label id="validarTelefono" fx:id="lblGrado" alignment="CENTER_RIGHT" prefWidth="339.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                <Label id="validarTelefono" fx:id="lblCurso" alignment="CENTER_RIGHT" prefWidth="339.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+                <Label id="validarTelefono" fx:id="lblJornada" alignment="CENTER_RIGHT" prefWidth="339.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="17" />
               </children>
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.0" minWidth="10.0" prefWidth="167.0" />

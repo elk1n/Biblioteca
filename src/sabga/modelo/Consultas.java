@@ -611,15 +611,16 @@ public class Consultas {
     
     }
     
-    public void editarBibliotecario(int opcion, String documento, int estado){
+    public void editarBibliotecario(int opcion, String documento, int estado, String tipo){
              
         try {
             con.conectar();
             con.getConexion().setAutoCommit(false);
-            con.procedimiento("{ CALL editarBibliotecario(?,?,?,?) }");
+            con.procedimiento("{ CALL editarBibliotecario(?,?,?,?,?) }");
             con.getProcedimiento().setInt("opcion", opcion);
             con.getProcedimiento().setString("id", documento);
             con.getProcedimiento().setInt("estadoB", estado);
+            con.getProcedimiento().setString("tipo", tipo);
             con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
             con.getProcedimiento().execute();
             mensaje = con.getProcedimiento().getString("mensaje");

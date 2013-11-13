@@ -63,7 +63,7 @@ public class InicioSesionController implements Initializable{
             consultarUsuario();
             if(usuario==1){
                 Atributos atribu = new Atributos();
-                atribu.setUsuarioAdmin(campoUsuario.getText());
+                atribu.setUsuarioAdmin(campoUsuario.getText().trim());
                 this.ventanaPrincipal.inciarSesion();
                 campoUsuario.clear();
                 campoContrasenia.clear();

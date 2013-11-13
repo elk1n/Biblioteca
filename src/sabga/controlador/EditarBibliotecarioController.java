@@ -30,34 +30,51 @@ public class EditarBibliotecarioController implements Initializable, ControlledS
     private ScreensController controlador;
     
     @FXML 
-    private ComboBox comboEstado;  
+    private ComboBox comboEstado, comboTipo;  
     @FXML 
     private TableView tablaAdmin;    
     @FXML 
     private TableColumn tDocumento, tNombre, tApellido, tUsuario, tCorreo, tTelefono, tEstado, clmnTipo;
     private final ObservableList<Usuario> listaAdmin;
-    private final ObservableList estados;
+    private final ObservableList estados, tipo;
     private final Consultas consulta;
    
-    public EditarBibliotecarioController(){         
+    public EditarBibliotecarioController(){ 
+        
         listaAdmin = FXCollections.observableArrayList();
         estados = FXCollections.observableArrayList();
+        tipo = FXCollections.observableArrayList();
         consulta = new Consultas();        
-    }   
+    }
+    
     @FXML
     public void cambiarEstado(ActionEvent evento){   
         cambiarEstado();
     }
     
+    public void mapear(){
+        mapearDatos();
+    }
+    
+    private void mapearDatos(){
+        
+        if(tablaAdmin.getSelectionModel().getSelectedItem() != null){
+            comboEstado.getSelectionModel().select(listaAdmin.get(tablaAdmin.getSelectionModel().getSelectedIndex()).getEstado());
+            comboTipo.getSelectionModel().select(listaAdmin.get(tablaAdmin.getSelectionModel().getSelectedIndex()).getTipo());
+        }
+    }   
+    
     private void cambiarEstado(){
         
-        if(tablaAdmin.getSelectionModel().getSelectedItem() != null && comboEstado.getSelectionModel().getSelectedItem() != null){
+        if(tablaAdmin.getSelectionModel().getSelectedItem() != null && comboEstado.getSelectionModel().getSelectedItem() != null &&
+           comboTipo.getSelectionModel().getSelectedItem() != null){
             int estado = comboEstado.getSelectionModel().getSelectedItem().toString().trim().equals("Habilitado") ? 1: 2;
-            consulta.editarBibliotecario(1, listaAdmin.get(tablaAdmin.getSelectionModel().getSelectedIndex()).getDocumento(), estado);
+            consulta.editarBibliotecario(1, listaAdmin.get(tablaAdmin.getSelectionModel().getSelectedIndex()).getDocumento(), estado, 
+                                         comboTipo.getSelectionModel().getSelectedItem().toString().trim());
             if (consulta.getMensaje() == null) {
                  listaAdmin.clear();
                  listaAdmin.addAll(consulta.getListaBibliotecarios());
-                Utilidades.mensaje(null, "El estado se ha actualizado correctamente.", "", "Editar Estado Bibliotecario");
+                Utilidades.mensaje(null, "La información se ha actualizado correctamente.", "", "Editar Información Bibliotecario");
             } else {
                 Utilidades.mensajeError(null, consulta.getMensaje(), "La información no ha sido actualizada.", "Error Edición");
             }
@@ -78,6 +95,9 @@ public class EditarBibliotecarioController implements Initializable, ControlledS
         tablaAdmin.setItems(listaAdmin);
         estados.add("Habilitado");
         estados.add("Inhabilitado");
+        tipo.add("Bibliotecario");
+        tipo.add("Auxiliar");
+        comboTipo.setItems(tipo);         
         comboEstado.setItems(estados);
     }
     
