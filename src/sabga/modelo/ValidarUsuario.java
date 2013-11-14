@@ -38,7 +38,6 @@ public class ValidarUsuario extends Validacion {
     }
     //
     public void validarUsuario(String usuario, String contrasenia) {
-
         if (!validarCampoTexto(usuario, 20)) {
             this.errorNombreUsuario = getMensajeError();
         }

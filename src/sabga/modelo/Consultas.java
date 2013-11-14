@@ -22,7 +22,7 @@ public class Consultas {
     private final ObservableList<Material> listaMaterial;
     private ObservableList<Autor> obtenerAutores;
     private String titulo, clasificacion, publicacion, editorial, tipoMaterial, claseMaterial, mensaje, tipoUsuario, grado, 
-                   curso, jornada, nombre, apellido, correo, telefono, direccion, estado;
+                   curso, jornada, nombre, apellido, correo, telefono, direccion, estado, documento, usuario;
     private int paginas, anio;
     private double multa;
 
@@ -247,6 +247,36 @@ public class Consultas {
             con.desconectar();
         }        
         return lista;
+    }
+    
+    public void mapearBibliotecario(String nombreUsuario){
+    
+       try {
+            con.conectar();
+            con.procedimiento("{ CALL mapearBibliotecario(?,?,?,?,?,?,?) }");
+            con.getProcedimiento().setString("usuario", nombreUsuario);
+            con.getProcedimiento().registerOutParameter("id", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("nombres", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("apellido", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("email", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("phone", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("nombreUsuario", Types.VARCHAR);
+            con.getProcedimiento().execute();
+            
+            documento = con.getProcedimiento().getString("id");
+            nombre = con.getProcedimiento().getString("nombres");
+            apellido = con.getProcedimiento().getString("apellido");
+            correo = con.getProcedimiento().getString("email");
+            telefono = con.getProcedimiento().getString("phone");
+            usuario = con.getProcedimiento().getString("nombreUsuario");
+
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos del biblitecario", "Error Consulta");
+        } finally {
+            con.desconectar();
+        }
+
+        
     }
 
     public void mapearMaterial(int codigo) {
@@ -611,16 +641,23 @@ public class Consultas {
     
     }
     
-    public void editarBibliotecario(int opcion, String documento, int estado, String tipo){
+    public void editarBibliotecario(int opcion, String id, int estado, String tipo, String nombre, String apellido, String telefono,
+                                    String correo, String usuario, String documento){
              
         try {
             con.conectar();
             con.getConexion().setAutoCommit(false);
-            con.procedimiento("{ CALL editarBibliotecario(?,?,?,?,?) }");
+            con.procedimiento("{ CALL editarBibliotecario(?,?,?,?,?,?,?,?,?,?,?) }");
             con.getProcedimiento().setInt("opcion", opcion);
-            con.getProcedimiento().setString("id", documento);
+            con.getProcedimiento().setString("id", id);
             con.getProcedimiento().setInt("estadoB", estado);
             con.getProcedimiento().setString("tipo", tipo);
+            con.getProcedimiento().setString("nombres", nombre);
+            con.getProcedimiento().setString("apellido", apellido);
+            con.getProcedimiento().setString("phone", telefono);
+            con.getProcedimiento().setString("email", correo);
+            con.getProcedimiento().setString("usuario", usuario);
+             con.getProcedimiento().setString("documento", documento); 
             con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
             con.getProcedimiento().execute();
             mensaje = con.getProcedimiento().getString("mensaje");
@@ -713,6 +750,16 @@ public class Consultas {
     public String getEstado() {
         return estado;
     }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+    
+    
 
     public double getMulta() {
         return multa;

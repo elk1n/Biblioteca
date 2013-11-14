@@ -22,7 +22,7 @@ public class Usuario {
     public SimpleStringProperty multa = new SimpleStringProperty();
     public SimpleStringProperty usuario = new SimpleStringProperty();
 
-    //USUARIO ADMINISTRADOR
+    // USUARIO ADMINISTRADOR
     public Usuario(String id, String nombre, String apellido, String usuario, String correo, String telefono, String estado,
                    String tipo){
         
@@ -35,7 +35,7 @@ public class Usuario {
         this.estado = new SimpleStringProperty(estado);
         this.tipo = new SimpleStringProperty(tipo);
     }
-    
+        
     //Usuarios Estudiante    
     public Usuario(String tipo, String documento, String nombre, String apellido, String correo){
     

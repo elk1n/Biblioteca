@@ -70,7 +70,7 @@ public class EditarBibliotecarioController implements Initializable, ControlledS
            comboTipo.getSelectionModel().getSelectedItem() != null){
             int estado = comboEstado.getSelectionModel().getSelectedItem().toString().trim().equals("Habilitado") ? 1: 2;
             consulta.editarBibliotecario(1, listaAdmin.get(tablaAdmin.getSelectionModel().getSelectedIndex()).getDocumento(), estado, 
-                                         comboTipo.getSelectionModel().getSelectedItem().toString().trim());
+                                         comboTipo.getSelectionModel().getSelectedItem().toString().trim(), null, null, null, null,null, null);
             if (consulta.getMensaje() == null) {
                  listaAdmin.clear();
                  listaAdmin.addAll(consulta.getListaBibliotecarios());
