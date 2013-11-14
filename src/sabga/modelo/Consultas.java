@@ -654,10 +654,10 @@ public class Consultas {
             con.getProcedimiento().setString("tipo", tipo);
             con.getProcedimiento().setString("nombres", nombre);
             con.getProcedimiento().setString("apellido", apellido);
-            con.getProcedimiento().setString("phone", telefono);
+            con.getProcedimiento().setString("telephone", telefono);
             con.getProcedimiento().setString("email", correo);
             con.getProcedimiento().setString("usuario", usuario);
-             con.getProcedimiento().setString("documento", documento); 
+            con.getProcedimiento().setString("documento", documento); 
             con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
             con.getProcedimiento().execute();
             mensaje = con.getProcedimiento().getString("mensaje");

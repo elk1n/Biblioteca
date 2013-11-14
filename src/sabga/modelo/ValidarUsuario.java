@@ -138,6 +138,28 @@ public class ValidarUsuario extends Validacion {
             this.errorCorreo = getMensajeError();
         }
     }
+    
+    public void validarEditarBibliotecario(String documento, String nombre, String apellido, String correo, String telefono, String usuario){
+    
+        if(!validarNumero(documento, 15)){
+            this.errorDocumento = getMensajeError();
+        }
+        if(!validarCampoTexto(nombre, 90)){
+            this.errorNombre = getMensajeError();
+        }
+        if(!validarCampoTexto(apellido, 90)){
+            this.errorApellido = getMensajeError();
+        }
+         if(!validarCampoTexto(correo, 90)){
+            this.errorCorreo = getMensajeError();
+        }
+        if(!validarNumeroNull(telefono, 15)){
+            this.errorTelefono = getMensajeError();
+        } 
+        if(!validarCampoTexto(usuario, 20)){
+            this.errorUsuario = getMensajeError();
+        }
+     }
 
     //
     public String getErrorJornada() {

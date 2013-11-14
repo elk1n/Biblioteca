@@ -77,9 +77,11 @@ public class Validacion {
     
     public boolean validarNumeroNull(String campoTexto, int numeroCaracteres) {
 
-        Pattern patron = Pattern.compile("[0-9]+");        
+        Pattern patron = Pattern.compile("[0-9]+");
+        if(campoTexto == null){
+            campoTexto = "";
+        }
         Matcher matcher = patron.matcher(campoTexto);
-
         if (campoTexto.isEmpty() == false) {
             if (campoTexto.length() > numeroCaracteres) {
                 this.mensajeError = "Máximo " + numeroCaracteres + " caracteresa.";

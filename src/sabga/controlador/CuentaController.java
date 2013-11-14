@@ -3,8 +3,6 @@ package sabga.controlador;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -13,9 +11,11 @@ import javafx.scene.control.TextField;
 import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.atributos.Atributos;
-import sabga.atributos.Usuario;
 import sabga.configuracion.ControlledScreen;
+import sabga.configuracion.Utilidades;
+import sabga.modelo.ConfirmarUsuario;
 import sabga.modelo.Consultas;
+import sabga.modelo.ValidarUsuario;
 
 /**
  * @author Elk1n
@@ -39,6 +39,33 @@ public class CuentaController implements Initializable, ControlledScreen {
         consultar = new Consultas();
     }
     
+    @FXML
+    public void guardarCambios(){
+        editarDatos();
+    }
+    
+    private void editarDatos(){
+        mensajes();
+        ConfirmarUsuario usuario = new ConfirmarUsuario();
+        if(usuario.editarBibliotecario(txtfDocumento.getText(), txtfNombre.getText(), txtfApellido.getText(), txtfCorreo.getText(),
+                                       txtfTelefono.getText(), txtfUsuario.getText())){
+            consultar.editarBibliotecario(2, consultar.getDocumento(), 0, null, txtfNombre.getText(), txtfApellido.getText(),
+                                           txtfTelefono.getText(), txtfCorreo.getText(), txtfUsuario.getText() ,txtfDocumento.getText());
+             if (consultar.getMensaje() == null) {
+                 mapearDatos();
+                Utilidades.mensaje(null, "La información se ha actualizado correctamente.", "", "Editar Datos Bibliotecario");
+            } else {
+                Utilidades.mensajeError(null, consultar.getMensaje(), "La información no ha sido actualizada.", "Error Edición");
+            }
+        }
+    }
+    
+    private void cambiarContrasenia(){
+    
+        
+    
+    }
+    
     private void mapearDatos(){
         
         consultar.mapearBibliotecario(atributos.getUsuarioAdmin());
@@ -51,8 +78,15 @@ public class CuentaController implements Initializable, ControlledScreen {
     }
     
     private void mensajes(){
-    
-    
+        ValidarUsuario usuario = new ValidarUsuario();
+        usuario.validarEditarBibliotecario(txtfDocumento.getText(), txtfNombre.getText(), txtfApellido.getText(), txtfCorreo.getText(),
+                                           txtfTelefono.getText(), txtfUsuario.getText());
+        lblDocumento.setText(usuario.getErrorDocumento());
+        lblNombre.setText(usuario.getErrorNombre());
+        lblApellido.setText(usuario.getErrorApellido());
+        lblCorreo.setText(usuario.getErrorCorreo());
+        lblTelefono.setText(usuario.getErrorTelefono());
+        lblUsuario.setText(usuario.getErrorUsuario());        
     }
     
     @Override

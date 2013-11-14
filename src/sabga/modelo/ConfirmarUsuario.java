@@ -121,6 +121,31 @@ public class ConfirmarUsuario extends ValidarUsuario {
             return true;
         }
     }
+    
+    public boolean editarBibliotecario(String documento, String nombre, String apellido, String correo, String telefono, String usuario){
+    
+        if(!validarNumero(documento, 15)){
+           return false;
+        }
+        else if(!validarCampoTexto(nombre, 90)){
+            return false;
+        }
+        else if(!validarCampoTexto(apellido, 90)){
+            return false;
+        }
+        else if(!validarCampoTexto(correo, 90)){
+           return false;
+        }
+        else if(!validarNumeroNull(telefono, 15)){
+            return false;
+        } 
+        else if(!validarCampoTexto(usuario, 20)){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 
 
 }

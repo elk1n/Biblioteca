@@ -32,16 +32,16 @@
         <Label text="Teléfono:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
         <Label text="Correo:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
         <Label text="Apellido:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-        <Label fx:id="lblNombre" alignment="CENTER_RIGHT" prefWidth="286.0" text="Validar" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <Label fx:id="lblNombre" alignment="CENTER_RIGHT" prefWidth="286.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="3">
           <textFill>
             <Color blue="0.000" green="0.000" red="0.800" fx:id="x1" />
           </textFill>
         </Label>
-        <Label id="la" fx:id="lblApellido" alignment="CENTER_RIGHT" prefWidth="286.0" text="Validar" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-        <Label fx:id="lblCorreo" alignment="CENTER_RIGHT" prefWidth="286.0" text="Validar" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-        <Label fx:id="lblTelefono" alignment="CENTER_RIGHT" prefWidth="286.0" text="Validar" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+        <Label id="la" fx:id="lblApellido" alignment="CENTER_RIGHT" prefWidth="286.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Label fx:id="lblCorreo" alignment="CENTER_RIGHT" prefWidth="286.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <Label fx:id="lblTelefono" alignment="CENTER_RIGHT" prefWidth="286.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
         <TextField fx:id="txtfNombre" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <Label id="lblNombre" fx:id="lblDocumento" alignment="CENTER_RIGHT" prefWidth="286.0" text="Validar" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label id="lblNombre" fx:id="lblDocumento" alignment="CENTER_RIGHT" prefWidth="286.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
         <Label text="Documento:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
         <TextField fx:id="txtfDocumento" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
       </children>
@@ -80,8 +80,8 @@
         <PasswordField fx:id="passConfirmacion" prefHeight="30.0" prefWidth="305.9998779296875" GridPane.columnIndex="1" GridPane.rowIndex="6" />
         <TextField fx:id="txtfUsuario" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
         <Label text="Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <Label fx:id="lblContrasenia" alignment="CENTER_RIGHT" prefWidth="310.0" text="Validar" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-        <Label fx:id="lblUsuario" alignment="CENTER_RIGHT" prefWidth="306.0" text="Validar" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label fx:id="lblContrasenia" alignment="CENTER_RIGHT" prefWidth="310.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <Label fx:id="lblUsuario" alignment="CENTER_RIGHT" prefWidth="306.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="178.0" />
@@ -98,6 +98,6 @@
         <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <Button defaultButton="true" layoutX="1006.0" layoutY="471.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Guardar Cambios" />
+    <Button defaultButton="true" layoutX="1006.0" layoutY="471.0" mnemonicParsing="false" onAction="#guardarCambios" prefHeight="25.0" prefWidth="120.0" text="Guardar Cambios" />
   </children>
 </AnchorPane>
