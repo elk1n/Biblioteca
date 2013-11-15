@@ -26,6 +26,8 @@
     <GridPane id="GridPane" layoutX="73.0" layoutY="104.0" prefHeight="347.0" prefWidth="433.0">
       <children>
         <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="txtfDocumento" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <TextField fx:id="txtfNombre" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
         <TextField fx:id="txtfApellido" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
         <TextField fx:id="txtfCorreo" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
         <TextField fx:id="txtfTelefono" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
@@ -40,10 +42,8 @@
         <Label id="la" fx:id="lblApellido" alignment="CENTER_RIGHT" prefWidth="286.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
         <Label fx:id="lblCorreo" alignment="CENTER_RIGHT" prefWidth="286.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
         <Label fx:id="lblTelefono" alignment="CENTER_RIGHT" prefWidth="286.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-        <TextField fx:id="txtfNombre" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
         <Label id="lblNombre" fx:id="lblDocumento" alignment="CENTER_RIGHT" prefWidth="286.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
         <Label text="Documento:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <TextField fx:id="txtfDocumento" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="10.0" prefWidth="147.0" />
@@ -74,14 +74,15 @@
       <children>
         <Label text="Contraseña Actual:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
         <Label text="Nueva Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-        <Label text="Reescriba la nueva Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <Label text="Reescriba la Nueva Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <TextField fx:id="txtfUsuario" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
         <PasswordField fx:id="passContrasenia" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
         <PasswordField fx:id="passNuevaContra" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
         <PasswordField fx:id="passConfirmacion" prefHeight="30.0" prefWidth="305.9998779296875" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-        <TextField fx:id="txtfUsuario" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
         <Label text="Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <Label fx:id="lblContrasenia" alignment="CENTER_RIGHT" prefWidth="310.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <Label id="lblContrasenia" fx:id="lblNuevaContrasenia" alignment="CENTER_RIGHT" prefWidth="310.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
         <Label fx:id="lblUsuario" alignment="CENTER_RIGHT" prefWidth="306.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label fx:id="lblContrasenia" alignment="CENTER_RIGHT" prefWidth="310.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="178.0" />

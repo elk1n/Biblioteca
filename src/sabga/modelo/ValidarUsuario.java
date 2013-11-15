@@ -7,7 +7,7 @@ package sabga.modelo;
 public class ValidarUsuario extends Validacion {
 
     private String errorJornada, errorGrado, errorCurso, errorNuevoTipoUsuario, errorCorreo, errorDocumento, errorNombre, errorApellido,
-                   errorTelefono, errorDireccion, errorTipo, errorUsuario,  errorContrasenia, errorNombreUsuario;
+                   errorTelefono, errorDireccion, errorTipo, errorUsuario,  errorContrasenia, errorNombreUsuario, errorNuevaContrasenia;
 
     public ValidarUsuario() {
     
@@ -160,7 +160,16 @@ public class ValidarUsuario extends Validacion {
             this.errorUsuario = getMensajeError();
         }
      }
-
+    
+    public void validarCambioContrasenia(String contrasenia, String nueva, String confirmacion){
+        
+        if(!validarCampoTexto(contrasenia, 20)){
+            this.errorContrasenia = getMensajeError();
+        }
+        if(!validarNuevaContrasenia(nueva, confirmacion, 20)){
+            this.errorNuevaContrasenia = getMensajeError();
+        }    
+    }
     //
     public String getErrorJornada() {
         return this.errorJornada;
@@ -217,4 +226,9 @@ public class ValidarUsuario extends Validacion {
     public String getErrorTipoAdmin(){
         return this.errorTipo;
     }
+    //
+    public String getErrorNuevaContrasenia() {
+        return this.errorNuevaContrasenia;
+    }
+    
 }

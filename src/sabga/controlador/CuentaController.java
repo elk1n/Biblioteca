@@ -30,7 +30,7 @@ public class CuentaController implements Initializable, ControlledScreen {
     @FXML
     private PasswordField passContrasenia, passNuevaContra, passConfirmacion;
     @FXML
-    private Label lblDocumento, lblNombre, lblApellido, lblCorreo, lblTelefono, lblUsuario, lblContrasenia;
+    private Label lblDocumento, lblNombre, lblApellido, lblCorreo, lblTelefono, lblUsuario, lblContrasenia, lblNuevaContrasenia;
     private final Atributos atributos;
     private final Consultas consultar;
     
@@ -41,7 +41,8 @@ public class CuentaController implements Initializable, ControlledScreen {
     
     @FXML
     public void guardarCambios(){
-        editarDatos();
+        //editarDatos();
+        mensajesContrasenia();
     }
     
     private void editarDatos(){
@@ -61,9 +62,30 @@ public class CuentaController implements Initializable, ControlledScreen {
     }
     
     private void cambiarContrasenia(){
-    
         
+        if(!passContrasenia.getText().isEmpty()){
+            mensajesContrasenia();
+            ConfirmarUsuario usuario = new ConfirmarUsuario();
+            if(usuario.cambioContrasenia(passContrasenia.getText(), passNuevaContra.getText(), passConfirmacion.getText())){
+                    consultar.cambiarContrasenia(consultar.getDocumento(), Utilidades.encriptar(passContrasenia.getText()),
+                                                 Utilidades.encriptar(passNuevaContra.getText()));
+                    
+                if (consultar.getMensaje() == null) {
+                    Utilidades.mensaje(null, ".", "", "Editar Información Bibliotecario");
+                } else {
+                    Utilidades.mensajeError(null, consultar.getMensaje(), "La información no ha sido actualizada.", "Error Edición");
+                }
+            }
+        }    
+    }
     
+    private void mensajesContrasenia(){
+        ValidarUsuario usuario = new ValidarUsuario();
+        if(!usuario.validarCampoTextoNull(passContrasenia.getText(), 20)){
+            usuario.validarCambioContrasenia(passContrasenia.getText(), passNuevaContra.getText(), passConfirmacion.getText());
+            lblContrasenia.setText(usuario.getErrorContrasenia());
+            lblNuevaContrasenia.setText(usuario.getErrorNuevaContrasenia());
+        }    
     }
     
     private void mapearDatos(){

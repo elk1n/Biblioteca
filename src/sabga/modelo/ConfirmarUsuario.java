@@ -147,5 +147,16 @@ public class ConfirmarUsuario extends ValidarUsuario {
         }
     }
 
-
+    public boolean cambioContrasenia(String contrasenia, String nueva, String confirmacion){
+        
+        if(!validarCampoTexto(contrasenia, 20)){
+            return false;
+        }
+        else if(!validarNuevaContrasenia(nueva, confirmacion, 20)){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
 }

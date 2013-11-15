@@ -674,6 +674,32 @@ public class Consultas {
             con.desconectar();
         }   
     }
+    
+    public void cambiarContrasenia(String id, String antigua, String nueva){
+        
+        try {
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL cambiarContrasenia(?,?,?,?) }");
+            con.getProcedimiento().setString("id", id);
+            con.getProcedimiento().setString("oldPass", antigua);
+            con.getProcedimiento().setString("newPass", nueva); 
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+            con.getProcedimiento().execute();
+            mensaje = con.getProcedimiento().getString("mensaje");
+            con.getConexion().commit();
+        } catch (SQLException e) {
+            try {
+                con.getConexion().rollback();
+                mensaje = "No ha sido posible cambiar la contraseñaf.";
+            } catch (SQLException ex) {
+                mensaje = ex.getMessage();
+            }
+            mensaje = e.getMessage();
+        } finally {
+            con.desconectar();
+        } 
+    }
 
     public String getTitulo() {
         return this.titulo;
