@@ -175,7 +175,7 @@
                 </Accordion>
                 <HBox id="HBox" alignment="CENTER" layoutX="955.0" layoutY="432.0" spacing="30.0">
                   <children>
-                    <Button cancelButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Cancelar" />
+                    <Button cancelButton="true" mnemonicParsing="false" onAction="#limpiarCamposLibro" prefHeight="25.0" prefWidth="120.0" text="Cancelar" />
                     <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarLibro" prefHeight="25.0" prefWidth="120.0" text="Guardar Libro">
                       <stylesheets>
                         <URL value="@css/estilo.css" />
@@ -276,7 +276,7 @@
                 </ScrollPane>
                 <HBox id="HBox" alignment="CENTER" layoutX="932.0" layoutY="428.0" spacing="30.0">
                   <children>
-                    <Button cancelButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Cancelar" />
+                    <Button cancelButton="true" mnemonicParsing="false" onAction="#limpiarCamposOtros" prefHeight="25.0" prefWidth="120.0" text="Cancelar" />
                     <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarOtroMaterial" prefHeight="25.0" prefWidth="120.0" text="Guardar Material" />
                   </children>
                 </HBox>

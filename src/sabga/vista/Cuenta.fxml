@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="1160.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.CuentaController">
   <children>
-    <Pane layoutX="26.0" layoutY="31.0" prefHeight="465.0000999999975" prefWidth="527.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" styleClass="resultado">
+    <Pane layoutX="26.0" layoutY="30.0" prefHeight="465.0000999999975" prefWidth="527.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" styleClass="resultado">
       <children>
         <Label layoutX="29.0" layoutY="15.0" text="Datos Personales:">
           <font>
@@ -23,27 +23,30 @@
         <URL value="@css/estilo.css" />
       </stylesheets>
     </Pane>
-    <GridPane id="GridPane" layoutX="73.0" layoutY="104.0" prefHeight="347.0" prefWidth="433.0">
+    <GridPane id="GridPane" layoutX="73.0" layoutY="87.0" prefHeight="384.0" prefWidth="433.0">
       <children>
-        <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
         <TextField fx:id="txtfDocumento" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-        <TextField fx:id="txtfNombre" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <TextField fx:id="txtfApellido" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-        <TextField fx:id="txtfCorreo" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-        <TextField fx:id="txtfTelefono" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-        <Label text="Teléfono:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
-        <Label text="Correo:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-        <Label text="Apellido:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-        <Label fx:id="lblNombre" alignment="CENTER_RIGHT" prefWidth="286.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <TextField fx:id="txtfUsuario" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <TextField fx:id="txtfNombre" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <TextField fx:id="txtfApellido" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+        <TextField fx:id="txtfCorreo" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+        <TextField fx:id="txtfTelefono" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+        <Label text="Teléfono:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+        <Label text="Correo:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+        <Label text="Apellido:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <Label fx:id="lblNombre" alignment="CENTER_RIGHT" prefWidth="286.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="5">
           <textFill>
             <Color blue="0.000" green="0.000" red="0.800" fx:id="x1" />
           </textFill>
         </Label>
-        <Label id="la" fx:id="lblApellido" alignment="CENTER_RIGHT" prefWidth="286.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-        <Label fx:id="lblCorreo" alignment="CENTER_RIGHT" prefWidth="286.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-        <Label fx:id="lblTelefono" alignment="CENTER_RIGHT" prefWidth="286.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+        <Label id="la" fx:id="lblApellido" alignment="CENTER_RIGHT" prefWidth="286.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <Label fx:id="lblCorreo" alignment="CENTER_RIGHT" prefWidth="286.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+        <Label fx:id="lblTelefono" alignment="CENTER_RIGHT" prefWidth="286.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="11" />
         <Label id="lblNombre" fx:id="lblDocumento" alignment="CENTER_RIGHT" prefWidth="286.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
         <Label text="Documento:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <Label text="Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label fx:id="lblUsuario" alignment="CENTER_RIGHT" prefWidth="306.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="10.0" prefWidth="147.0" />
@@ -60,45 +63,43 @@
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <Pane layoutX="587.0" layoutY="31.0" prefHeight="420.0" prefWidth="539.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" styleClass="resultado">
+    <Button defaultButton="true" layoutX="950.0" layoutY="471.0" mnemonicParsing="false" onAction="#guardarCambios" prefHeight="25.0" prefWidth="128.0" text="Guardar Cambios" />
+    <Pane layoutX="587.0" layoutY="33.0" prefHeight="409.0" prefWidth="539.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" styleClass="resultado">
       <children>
-        <Label font="$x2" layoutX="23.0" layoutY="16.0" text="Datos de la Cuenta:" />
+        <Label font="$x2" layoutX="23.0" layoutY="16.0" text="Cambiar Contraseña:" />
+        <GridPane id="GridPane" layoutX="49.0" layoutY="76.0" prefHeight="204.0" prefWidth="442.0">
+          <children>
+            <Label text="Contraseña Actual:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <Label text="Nueva Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <Label text="Reescriba la Nueva Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <PasswordField fx:id="passContrasenia" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <PasswordField fx:id="passNuevaContra" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <PasswordField fx:id="passConfirmacion" prefHeight="30.0" prefWidth="305.9998779296875" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label id="lblContrasenia" fx:id="lblNuevaContrasenia" alignment="CENTER_RIGHT" prefWidth="310.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label fx:id="lblContrasenia" alignment="CENTER_RIGHT" prefWidth="310.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="178.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="319.0" minWidth="10.0" prefWidth="229.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+        <Button defaultButton="true" layoutX="359.0" layoutY="311.0" mnemonicParsing="false" onAction="#cambiarContrasenia" prefHeight="25.0" text="Cambiar Contraseña" />
       </children>
       <stylesheets>
         <URL value="@css/estilo.css" />
       </stylesheets>
     </Pane>
-    <GridPane id="GridPane" layoutX="636.0" layoutY="103.0" prefHeight="272.0" prefWidth="442.0">
-      <children>
-        <Label text="Contraseña Actual:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <Label text="Nueva Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-        <Label text="Reescriba la Nueva Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-        <TextField fx:id="txtfUsuario" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-        <PasswordField fx:id="passContrasenia" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <PasswordField fx:id="passNuevaContra" prefHeight="30.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-        <PasswordField fx:id="passConfirmacion" prefHeight="30.0" prefWidth="305.9998779296875" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-        <Label text="Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <Label id="lblContrasenia" fx:id="lblNuevaContrasenia" alignment="CENTER_RIGHT" prefWidth="310.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-        <Label fx:id="lblUsuario" alignment="CENTER_RIGHT" prefWidth="306.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <Label fx:id="lblContrasenia" alignment="CENTER_RIGHT" prefWidth="310.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      </children>
-      <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="178.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="319.0" minWidth="10.0" prefWidth="229.0" />
-      </columnConstraints>
-      <rowConstraints>
-        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-      </rowConstraints>
-    </GridPane>
-    <Button defaultButton="true" layoutX="1006.0" layoutY="471.0" mnemonicParsing="false" onAction="#guardarCambios" prefHeight="25.0" prefWidth="120.0" text="Guardar Cambios" />
   </children>
 </AnchorPane>

@@ -670,26 +670,29 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             }            
         return dato;
     }
-       
-    private void limpiarCamposLibro(){
     
-        txtfCodigo.setText("");
-        txtfTitulo.setText("");
-        txtfAnioPublicacion.setText("");
-        txtfPublicacion.setText("");
-        txtfPaginas.setText("");
-        txtfEjemplares.setText("");
-        buscarEditorial.getTextbox().setText("");
+    @FXML
+    public void limpiarCamposLibro(){
+    
+        comboClaseMaterial.getSelectionModel().clearSelection();
+        txtfCodigo.clear();
+        txtfTitulo.clear();
+        txtfAnioPublicacion.clear();
+        txtfPublicacion.clear();
+        txtfPaginas.clear();
+        txtfEjemplares.clear();
+        buscarEditorial.getTextbox().clear();
         materias.clear();
         autores.clear();
         
     }
     
-    private void limpiarCamposOtros() {
-
-        txtfCodigoOM.setText("");
-        txtfTituloOM.setText("");
-        txtfCopias.setText("");
+    @FXML
+    public void limpiarCamposOtros() {
+        comboTipoMaterial.getSelectionModel().clearSelection();
+        txtfCodigoOM.clear();
+        txtfTituloOM.clear();
+        txtfCopias.clear();
         materiasOM.clear();
     }
     

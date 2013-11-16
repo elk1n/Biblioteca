@@ -28,6 +28,8 @@ public class PaginaInicioController implements Initializable, ControlledScreen {
     
     private Sabga ventanaPrincipal;
     private ScreensController controlador;
+    @FXML 
+    private PaginaPrincipalController tomController;
    
 
     @Override
@@ -141,7 +143,7 @@ public class PaginaInicioController implements Initializable, ControlledScreen {
     }
     
     @FXML
-    public void ventanaRegistroMaterial(ActionEvent evento){
-        
+    public void ventanaRegistroMaterial(){
+        tomController.ventanaRegistroMaterial();
     }
 }

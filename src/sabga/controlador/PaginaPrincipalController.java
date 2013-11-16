@@ -10,10 +10,12 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialogs;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import sabga.Sabga;
 import sabga.configuracion.ControlledScreen;
@@ -44,6 +46,8 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     private MenuButton menuAdmin;
     @FXML
     private HBox hboxAdmin;
+    @FXML
+    private AnchorPane panel;
     
     public MenuItem getMenu(){  
         return menuNuevoAutor;
@@ -65,7 +69,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     } 
     
     @FXML
-    public void ventanaRegistroMaterial(ActionEvent evento){ 
+    public void ventanaRegistroMaterial(){ 
         ventanaPrincipal.cargarVista("paginaRegistroMaterial", "vista/RegistroMaterial.fxml");
         ventanaPrincipal.cambiarVista("paginaRegistroMaterial");
         ventanaPrincipal.setTitle("Registro de Material");
@@ -269,15 +273,17 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     }
     
     @FXML
-    public void prueba(ActionEvent evento){           
-           atributos.setDatoBusqueda("Esto es una prueba..... de");
+    public void prueba(ActionEvent evento){
+          // ventanaPrincipal.descargarPantalla("paginaInicio");
+     //  label.setText("Esto es una prueba");
+          // atributos.setDatoBusqueda("Esto es una prueba..... de");
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {        
-         botonBorrarBusqueda.setVisible(false);
-         barraMenu.setPrefWidth(java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth());
-       
+        botonBorrarBusqueda.setVisible(false);
+        barraMenu.setPrefWidth(java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth());
+        //ventanaPrincipal.mostrarInicio(panel);
     }    
 
     

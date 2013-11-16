@@ -3,6 +3,7 @@ package sabga.controlador;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -41,10 +42,13 @@ public class CuentaController implements Initializable, ControlledScreen {
     
     @FXML
     public void guardarCambios(){
-        //editarDatos();
-        mensajesContrasenia();
+        editarDatos();
     }
     
+    @FXML
+    public void cambiarContrasenia(ActionEvent evento){
+        cambiarContrasenia();   
+    }
     private void editarDatos(){
         mensajes();
         ConfirmarUsuario usuario = new ConfirmarUsuario();
@@ -62,30 +66,26 @@ public class CuentaController implements Initializable, ControlledScreen {
     }
     
     private void cambiarContrasenia(){
-        
-        if(!passContrasenia.getText().isEmpty()){
             mensajesContrasenia();
             ConfirmarUsuario usuario = new ConfirmarUsuario();
             if(usuario.cambioContrasenia(passContrasenia.getText(), passNuevaContra.getText(), passConfirmacion.getText())){
                     consultar.cambiarContrasenia(consultar.getDocumento(), Utilidades.encriptar(passContrasenia.getText()),
-                                                 Utilidades.encriptar(passNuevaContra.getText()));
-                    
-                if (consultar.getMensaje() == null) {
-                    Utilidades.mensaje(null, ".", "", "Editar Información Bibliotecario");
-                } else {
-                    Utilidades.mensajeError(null, consultar.getMensaje(), "La información no ha sido actualizada.", "Error Edición");
-                }
+                                                 Utilidades.encriptar(passNuevaContra.getText()));                   
+            if (consultar.getMensaje() == null) {
+                limpiarCampos();
+                Utilidades.mensaje(null, "La contraseña se modifico correctamente.", "", "Editar Contraseña");
+            } else {
+                limpiarCampos();
+                Utilidades.mensajeError(null, consultar.getMensaje(), "La contraseña no se ha modificado.", "Error Cambio Contraseña");
             }
-        }    
+        }
     }
     
     private void mensajesContrasenia(){
         ValidarUsuario usuario = new ValidarUsuario();
-        if(!usuario.validarCampoTextoNull(passContrasenia.getText(), 20)){
             usuario.validarCambioContrasenia(passContrasenia.getText(), passNuevaContra.getText(), passConfirmacion.getText());
             lblContrasenia.setText(usuario.getErrorContrasenia());
-            lblNuevaContrasenia.setText(usuario.getErrorNuevaContrasenia());
-        }    
+            lblNuevaContrasenia.setText(usuario.getErrorNuevaContrasenia());  
     }
     
     private void mapearDatos(){
@@ -109,6 +109,12 @@ public class CuentaController implements Initializable, ControlledScreen {
         lblCorreo.setText(usuario.getErrorCorreo());
         lblTelefono.setText(usuario.getErrorTelefono());
         lblUsuario.setText(usuario.getErrorUsuario());        
+    }
+    
+    public void limpiarCampos(){
+        passContrasenia.clear();
+        passNuevaContra.clear();
+        passConfirmacion.clear();
     }
     
     @Override

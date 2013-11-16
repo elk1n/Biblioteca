@@ -77,12 +77,12 @@ public class Utilidades {
     }
     
     public static String encriptar(String dato){
-    
+       String contrasenia = dato.trim();
          MessageDigest md;
 	 String password = "";
         try {           
             md= MessageDigest.getInstance("SHA-256");
-            md.update(dato.getBytes());
+            md.update(contrasenia.getBytes());
             byte[] mb = md.digest();
             password = String.valueOf(Hex.encodeHex(mb));                                  
         } catch (NoSuchAlgorithmException e) {

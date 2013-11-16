@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -55,6 +56,7 @@ public class Sabga extends Application {
     private ScreensController controller;
     private ScreensController controladorVistas;
     private final Dialogo dialogo;
+    Group root;
     
     public Sabga(){
            
@@ -62,6 +64,7 @@ public class Sabga extends Application {
         pantallas.loadScreen(Sabga.paginaInicialId, Sabga.paginaInicialArchivo);
         pantallas.setScreen(Sabga.paginaInicialId);
         dialogo = new Dialogo();
+        root =  new Group();
                  
     }
     
@@ -82,26 +85,31 @@ public class Sabga extends Application {
         primaryStage.setScene(scene);
         //Quitar el comentario para habilitar la pàgina de login o inicio de sesión
         //dialogoInicioSesion();        
-        primaryStage.show();        
-          
+        primaryStage.show();
+        
         PaginaPrincipalController controller = cargador.getController();
         controller.setVentanaPrincipal(this);
-         mostrarVistas();  
+
+        mostrarVistas();
         
     }
     
     public void mostrarVistas(){
-            
-        Group root = new Group();
+
         root.getChildren().addAll(pantallas);
         root.setLayoutY(140);
         
         rootLayout.setCenter(root);
         controladorVistas = new ScreensController();
         controller = (ScreensController) controladorVistas.getMyScreenControler();
-        controladorVistas.setVentanaPrincipal(this);                  
+        controladorVistas.setVentanaPrincipal(this);
+        
     }
-       
+    
+    public void mostrarInicio(Node no){
+        root.getChildren().add(no);
+    }
+    
     public void cargarVista(String nombre, String archivo){
         pantallas.loadScreen(nombre, archivo);
     }

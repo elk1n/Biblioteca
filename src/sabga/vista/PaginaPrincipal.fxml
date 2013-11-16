@@ -14,11 +14,11 @@
 
 <BorderPane id="BorderPane" cache="true" cacheHint="DEFAULT" prefHeight="680.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.PaginaPrincipalController">
   <center>
-    <AnchorPane prefHeight="200.0" prefWidth="200.0">
+    <AnchorPane fx:id="panel" prefHeight="200.0" prefWidth="200.0">
       <children>
-        <Label layoutX="530.0" layoutY="240.0" text="Prueba">
+        <Label layoutX="594.0" layoutY="240.0" prefHeight="30.0" prefWidth="72.0" text="Prueba">
           <font>
-            <Font name="System Bold" size="25.0" />
+            <Font name="System Bold" size="18.0" />
           </font>
         </Label>
       </children>
