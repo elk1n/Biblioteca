@@ -30,6 +30,8 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     private ScreensController controlador;
     private final Dialogo dialogo;
     private final  Atributos atributos;
+    private boolean ventanaInicio = false;
+    private boolean ventanaBusqueda = false;
     
     @FXML
     private TextField campoBusqueda;
@@ -64,106 +66,142 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     @FXML
     public void ventanaInicio(){
-        ventanaPrincipal.vistaInicial(panelCentral);
-        ventanaPrincipal.setTitle("SABGA");
+        
+        if (!ventanaInicio) {
+            ventanaInicio = true;
+            ventanaBusqueda = false;
+            panelInicio.setDisable(false);
+            panelInicio.setVisible(true);
+            panelBusqueda.setDisable(true);
+            panelBusqueda.setVisible(false);
+            ventanaPrincipal.vistaInicial(panelInicio);
+            ventanaPrincipal.setTitle("SABGA");
+        }
     }
-    
-    @FXML
-    public void ventanaRegistroMaterial(){
-        ventanaPrincipal.mostrarVistas();
-        ventanaPrincipal.cargarVista("paginaRegistroMaterial", "vista/RegistroMaterial.fxml");
-        ventanaPrincipal.cambiarVista("paginaRegistroMaterial");
-        ventanaPrincipal.setTitle("Registro de Material");
-    }
-       
-    @FXML
-    public void ventanaActualizarMaterial(ActionEvent evento){
-        ventanaPrincipal.mostrarVistas();
-        ventanaPrincipal.cargarVista("paginaActualizarMaterial", "vista/EditarMaterial.fxml");
-        ventanaPrincipal.cambiarVista("paginaActualizarMaterial");
-        ventanaPrincipal.setTitle("Editar Material");
-    }
-    
-    @FXML
-    public void ventanaActualizarEMA(ActionEvent evento){
-        ventanaPrincipal.mostrarVistas();
-        ventanaPrincipal.cargarVista("paginaActualizarEMA", "vista/EditarEMA.fxml");
-        ventanaPrincipal.cambiarVista("paginaActualizarEMA");
-        ventanaPrincipal.setTitle("Editar Opciones de Material");
-    }
-    
-    @FXML
-    public void ventanaPrestamo(ActionEvent evento){
-        ventanaPrincipal.mostrarVistas();
-        ventanaPrincipal.cargarVista("paginaPrestamo", "vista/Prestamo.fxml");
-        ventanaPrincipal.cambiarVista("paginaPrestamo");
-        ventanaPrincipal.setTitle("Prestamo");
-    }
-    
-    @FXML
-    public void ventanaRegistroUsuarios(ActionEvent evento){
-        ventanaPrincipal.mostrarVistas();
-        ventanaPrincipal.cargarVista("paginaRegistroUsuarios", "vista/RegistroUsuario.fxml");
-        ventanaPrincipal.cambiarVista("paginaRegistroUsuarios");
-        ventanaPrincipal.setTitle("Registro de Usuarios");
-    }
-    
-    @FXML
-    public void ventanaEstadoUsuario(ActionEvent evento){
-        ventanaPrincipal.mostrarVistas();
-        ventanaPrincipal.cargarVista("paginaEstadoUsuario", "vista/EditarUsuario.fxml");
-        ventanaPrincipal.cambiarVista("paginaEstadoUsuario");
-        ventanaPrincipal.setTitle("Cuentas de Usuario");
-    }
-    
-    @FXML
-    public void ventanaRegistroAdmin(ActionEvent evento){
-        ventanaPrincipal.mostrarVistas();
-        ventanaPrincipal.cargarVista("paginaRegistroBibliotecario", "vista/RegistroBibliotecario.fxml");
-        ventanaPrincipal.cambiarVista("paginaRegistroBibliotecario");
-        ventanaPrincipal.setTitle("Registrar Bibliotecario");
-    }
-    
-    @FXML
-    public void ventanaEditarAdmin(ActionEvent evento){
-        ventanaPrincipal.mostrarVistas();
-        ventanaPrincipal.cargarVista("paginaEditarBibliotecario", "vista/EditarBibliotecario.fxml");
-        ventanaPrincipal.cambiarVista("paginaEditarBibliotecario");
-        ventanaPrincipal.setTitle("Editar Datos del Bibliotecario");
-    }
-    
-    @FXML
-    public void ventanaDevolucion(ActionEvent evento){
-        ventanaPrincipal.mostrarVistas();
-        ventanaPrincipal.cargarVista("paginaDevolucion", "vista/Devolucion.fxml");
-        ventanaPrincipal.cambiarVista("paginaDevolucion");
-        ventanaPrincipal.setTitle("Devolución o Renovación");
-    }
-    
-    @FXML
-    public void ventanaReservaEscritorio(ActionEvent evento){
-        ventanaPrincipal.mostrarVistas();
-        ventanaPrincipal.cargarVista("paginaReserva", "vista/ReservaEscritorio.fxml");
-        ventanaPrincipal.cambiarVista("paginaReserva");
-        ventanaPrincipal.setTitle("Reservar");
-    } 
     
     @FXML
     public void ventanaBuscar(ActionEvent evento){
-        panelInicio.setDisable(true);
-        panelInicio.setVisible(false);
-        panelBusqueda.setDisable(false);
-        panelBusqueda.setVisible(true);
-        ventanaPrincipal.vistaInicial(panelCentral);
-        ventanaPrincipal.setTitle("Buscar");
+        
+        if (!ventanaBusqueda) {
+            ventanaBusqueda = true;
+            ventanaInicio = false;
+            panelInicio.setDisable(true);
+            panelInicio.setVisible(false);
+            panelBusqueda.setDisable(false);
+            panelBusqueda.setVisible(true);
+            ventanaPrincipal.vistaInicial(panelCentral);
+            ventanaPrincipal.setTitle("Buscar");
+        }
     }
     
+    @FXML
+    public void ventanaRegistroMaterial(){        
+        ventanaPrincipal.cargarVista("paginaRegistroMaterial", "vista/RegistroMaterial.fxml");
+        ventanaPrincipal.cambiarVista("paginaRegistroMaterial");
+        ventanaPrincipal.setTitle("Registro de Material");
+        ventanaPrincipal.mostrarVistas();
+        ventanaInicio = false;
+        ventanaBusqueda = false;
+    }
+       
+    @FXML
+    public void ventanaActualizarMaterial(ActionEvent evento){        
+        ventanaPrincipal.cargarVista("paginaActualizarMaterial", "vista/EditarMaterial.fxml");
+        ventanaPrincipal.cambiarVista("paginaActualizarMaterial");
+        ventanaPrincipal.setTitle("Editar Material");
+        ventanaPrincipal.mostrarVistas();
+        ventanaInicio = false;
+        ventanaBusqueda = false;
+    }
+    
+    @FXML
+    public void ventanaActualizarEMA(ActionEvent evento){        
+        ventanaPrincipal.cargarVista("paginaActualizarEMA", "vista/EditarEMA.fxml");
+        ventanaPrincipal.cambiarVista("paginaActualizarEMA");
+        ventanaPrincipal.setTitle("Editar Opciones de Material");
+        ventanaPrincipal.mostrarVistas();
+        ventanaInicio = false;
+        ventanaBusqueda = false;
+    }
+    
+    @FXML
+    public void ventanaPrestamo(ActionEvent evento){        
+        ventanaPrincipal.cargarVista("paginaPrestamo", "vista/Prestamo.fxml");
+        ventanaPrincipal.cambiarVista("paginaPrestamo");
+        ventanaPrincipal.setTitle("Prestamo");
+        ventanaPrincipal.mostrarVistas();
+        ventanaInicio = false;
+        ventanaBusqueda = false;
+    }
+    
+    @FXML
+    public void ventanaRegistroUsuarios(ActionEvent evento){        
+        ventanaPrincipal.cargarVista("paginaRegistroUsuarios", "vista/RegistroUsuario.fxml");
+        ventanaPrincipal.cambiarVista("paginaRegistroUsuarios");
+        ventanaPrincipal.setTitle("Registro de Usuarios");
+        ventanaPrincipal.mostrarVistas();
+        ventanaInicio = false;
+        ventanaBusqueda = false;
+    }
+    
+    @FXML
+    public void ventanaEstadoUsuario(ActionEvent evento){        
+        ventanaPrincipal.cargarVista("paginaEstadoUsuario", "vista/EditarUsuario.fxml");
+        ventanaPrincipal.cambiarVista("paginaEstadoUsuario");
+        ventanaPrincipal.setTitle("Cuentas de Usuario");
+        ventanaPrincipal.mostrarVistas();
+        ventanaInicio = false;
+        ventanaBusqueda = false;
+    }
+    
+    @FXML
+    public void ventanaRegistroAdmin(ActionEvent evento){        
+        ventanaPrincipal.cargarVista("paginaRegistroBibliotecario", "vista/RegistroBibliotecario.fxml");
+        ventanaPrincipal.cambiarVista("paginaRegistroBibliotecario");
+        ventanaPrincipal.setTitle("Registrar Bibliotecario");
+        ventanaPrincipal.mostrarVistas();
+        ventanaInicio = false;
+        ventanaBusqueda = false;
+    }
+    
+    @FXML
+    public void ventanaEditarAdmin(ActionEvent evento){        
+        ventanaPrincipal.cargarVista("paginaEditarBibliotecario", "vista/EditarBibliotecario.fxml");
+        ventanaPrincipal.cambiarVista("paginaEditarBibliotecario");
+        ventanaPrincipal.setTitle("Editar Datos del Bibliotecario");
+        ventanaPrincipal.mostrarVistas();
+        ventanaInicio = false;
+        ventanaBusqueda = false;
+    }
+    
+    @FXML
+    public void ventanaDevolucion(ActionEvent evento){        
+        ventanaPrincipal.cargarVista("paginaDevolucion", "vista/Devolucion.fxml");
+        ventanaPrincipal.cambiarVista("paginaDevolucion");
+        ventanaPrincipal.setTitle("Devolución o Renovación");
+        ventanaPrincipal.mostrarVistas();
+        ventanaInicio = false;
+        ventanaBusqueda = false;
+    }
+    
+    @FXML
+    public void ventanaReservaEscritorio(ActionEvent evento){        
+        ventanaPrincipal.cargarVista("paginaReserva", "vista/ReservaEscritorio.fxml");
+        ventanaPrincipal.cambiarVista("paginaReserva");
+        ventanaPrincipal.setTitle("Reservar");
+        ventanaPrincipal.mostrarVistas();
+        ventanaInicio = false;
+        ventanaBusqueda = false;
+    } 
+        
     @FXML
     public void ventanaCuenta(ActionEvent evento){
         ventanaPrincipal.mostrarVistas();
         ventanaPrincipal.cargarVista("paginaCuenta", "vista/Cuenta.fxml");
         ventanaPrincipal.cambiarVista("paginaCuenta");
         ventanaPrincipal.setTitle("Ajustes de la Cuenta");
+        ventanaInicio = false;
+        ventanaBusqueda = false;
     }
     
     @FXML
@@ -172,6 +210,8 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         ventanaPrincipal.cargarVista("paginaPazySalvo", "vista/PazySalvo.fxml");
         ventanaPrincipal.cambiarVista("paginaPazySalvo");
         ventanaPrincipal.setTitle("Expedición de Paz y Salvo");
+        ventanaInicio = false;
+        ventanaBusqueda = false;
     }
        
     @FXML

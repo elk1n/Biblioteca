@@ -6,8 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import sabga.configuracion.Dialogo;
 import sabga.controlador.PaginaPrincipalController;
@@ -93,19 +93,16 @@ public class Sabga extends Application {
     
     public void mostrarVistas(){
         root.getChildren().clear();
-        root.getChildren().addAll(pantallas);
         root.setLayoutY(140);
+        root.getChildren().addAll(pantallas);
         
-        rootLayout.setCenter(root);
-        // controladorVistas = new ScreensController();
-        // controller = (ScreensController) controladorVistas.getMyScreenControler();
-        // controladorVistas.setVentanaPrincipal(this);        
+        rootLayout.setCenter(root);        
     }
     
-    public void vistaInicial(AnchorPane panel){           
+    public void vistaInicial(Pane panel){
         root.getChildren().clear();
         root.getChildren().add(panel);        
-        rootLayout.setCenter(panel);
+        rootLayout.setCenter(panel);              
     }
     
     public void cargarVista(String nombre, String archivo){
@@ -120,9 +117,7 @@ public class Sabga extends Application {
         pantallas.setScreen(pantalla);
     }
     
-    public void inciarSesion(){
-        cargarVista("paginaInicio","vista/PaginaInicio.fxml");
-        cambiarVista("paginaInicio");  
+    public void inciarSesion(){  
         primaryStage.show();        
         dialogo.getDialogStage().close();   
     }
