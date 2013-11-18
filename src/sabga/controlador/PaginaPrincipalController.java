@@ -10,13 +10,12 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialogs;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import sabga.Sabga;
 import sabga.configuracion.ControlledScreen;
 import sabga.ScreensController;
@@ -46,6 +45,8 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     private HBox hboxAdmin;
     @FXML
     private AnchorPane panelCentral;
+    @FXML
+    private Pane panelInicio, panelBusqueda;
 
     public PaginaPrincipalController(){       
         dialogo = new Dialogo();
@@ -62,19 +63,19 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     } 
     
     @FXML
+    public void ventanaInicio(){
+        ventanaPrincipal.vistaInicial(panelCentral);
+        ventanaPrincipal.setTitle("SABGA");
+    }
+    
+    @FXML
     public void ventanaRegistroMaterial(){
         ventanaPrincipal.mostrarVistas();
         ventanaPrincipal.cargarVista("paginaRegistroMaterial", "vista/RegistroMaterial.fxml");
         ventanaPrincipal.cambiarVista("paginaRegistroMaterial");
         ventanaPrincipal.setTitle("Registro de Material");
     }
-    
-    @FXML
-    public void ventanaInicio(){
-        ventanaPrincipal.vistaInicial(panelCentral);
-        ventanaPrincipal.setTitle("SABGA");
-    }
-    
+       
     @FXML
     public void ventanaActualizarMaterial(ActionEvent evento){
         ventanaPrincipal.mostrarVistas();
@@ -149,9 +150,11 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     @FXML
     public void ventanaBuscar(ActionEvent evento){
-        atributos.setDatoBusqueda(campoBusqueda.getText());
-        ventanaPrincipal.cargarVista("paginaBuscar", "vista/Buscar.fxml");
-        ventanaPrincipal.cambiarVista("paginaBuscar");
+        panelInicio.setDisable(true);
+        panelInicio.setVisible(false);
+        panelBusqueda.setDisable(false);
+        panelBusqueda.setVisible(true);
+        ventanaPrincipal.vistaInicial(panelCentral);
         ventanaPrincipal.setTitle("Buscar");
     }
     
@@ -262,8 +265,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
        
         if ("".equals(campoBusqueda.getText())){            
             botonBorrarBusqueda.setVisible(false);      
-        }
-        else {
+        }else {
            botonBorrarBusqueda.setVisible(true); 
         }    
     }
@@ -280,7 +282,10 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     public void initialize(URL url, ResourceBundle rb) {        
         botonBorrarBusqueda.setVisible(false);
         barraMenu.setPrefWidth(java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth());
-        
+        panelInicio.setDisable(false);
+        panelInicio.setVisible(true);
+        panelBusqueda.setDisable(true);
+        panelBusqueda.setVisible(false);
     }    
 
     

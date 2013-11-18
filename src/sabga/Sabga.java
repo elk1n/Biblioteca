@@ -17,9 +17,7 @@ import sabga.controlador.PaginaPrincipalController;
  */
 
 public class Sabga extends Application {
-        
-    public static String paginaInicialId = "paginaInicio";
-    public static String paginaInicialArchivo = "vista/PaginaInicio.fxml";
+      
     public static String paginaRegistroMaterialId = "paginaRegistroMaterial";
     public static String paginaRegistroMaterialArchivo = "vista/RegistroMaterial.fxml";
     public static String paginaActualizarMaterialId = "paginaActualizarMaterial";
@@ -38,8 +36,6 @@ public class Sabga extends Application {
     public static String paginaEdicionAdminArchivo = "vista/EditarBibliotecario.fxml";
     public static String paginaDevolucionId = "paginaDevolucion";
     public static String paginaDevolucionArchivo = "vista/Devolucion.fxml";
-    public static String paginaBuscarId = "paginaBuscar";
-    public static String paginaBusacarArchivo = "vista/Buscar.fxml";
     public static String paginaCuentaId = "paginaCuenta";
     public static String paginaCuentaArchivo = "vista/Cuenta.fxml";
     public static String paginaRegistroBibliotecarioId = "paginaRegistroBibliotecario";
@@ -60,11 +56,8 @@ public class Sabga extends Application {
     public Sabga(){
            
         pantallas = new ScreensController();
-       // pantallas.loadScreen(Sabga.paginaInicialId, Sabga.paginaInicialArchivo);
-       // pantallas.setScreen(Sabga.paginaInicialId);
         dialogo = new Dialogo();
-        root =  new Group();
-                 
+        root =  new Group();                 
     }
     
     @Override
@@ -92,8 +85,7 @@ public class Sabga extends Application {
         //mostrarVistas();        
     }
     
-    public void controladores(){
-        
+    public void controladores(){       
         controladorVistas = new ScreensController();
         controller = (ScreensController) controladorVistas.getMyScreenControler();
         controladorVistas.setVentanaPrincipal(this);
@@ -105,14 +97,12 @@ public class Sabga extends Application {
         root.setLayoutY(140);
         
         rootLayout.setCenter(root);
-       // controladorVistas = new ScreensController();
-       // controller = (ScreensController) controladorVistas.getMyScreenControler();
-       // controladorVistas.setVentanaPrincipal(this);
-        
+        // controladorVistas = new ScreensController();
+        // controller = (ScreensController) controladorVistas.getMyScreenControler();
+        // controladorVistas.setVentanaPrincipal(this);        
     }
     
-    public void vistaInicial(AnchorPane panel){   
-        
+    public void vistaInicial(AnchorPane panel){           
         root.getChildren().clear();
         root.getChildren().add(panel);        
         rootLayout.setCenter(panel);
