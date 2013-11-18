@@ -176,7 +176,7 @@
                 <HBox id="HBox" alignment="CENTER" layoutX="955.0" layoutY="432.0" spacing="30.0">
                   <children>
                     <Button cancelButton="true" mnemonicParsing="false" onAction="#limpiarCamposLibro" prefHeight="25.0" prefWidth="120.0" text="Cancelar" />
-                    <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarLibro" prefHeight="25.0" prefWidth="120.0" text="Guardar Libro">
+                    <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarLibro" prefHeight="25.0" prefWidth="120.0" text="Registrar Libro">
                       <stylesheets>
                         <URL value="@css/estilo.css" />
                       </stylesheets>
@@ -274,10 +274,10 @@
                     </AnchorPane>
                   </content>
                 </ScrollPane>
-                <HBox id="HBox" alignment="CENTER" layoutX="932.0" layoutY="428.0" spacing="30.0">
+                <HBox id="HBox" alignment="CENTER" layoutX="939.0" layoutY="428.0" spacing="30.0">
                   <children>
                     <Button cancelButton="true" mnemonicParsing="false" onAction="#limpiarCamposOtros" prefHeight="25.0" prefWidth="120.0" text="Cancelar" />
-                    <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarOtroMaterial" prefHeight="25.0" prefWidth="120.0" text="Guardar Material" />
+                    <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarOtroMaterial" prefHeight="25.0" prefWidth="120.0" text="Registrar Material" />
                   </children>
                 </HBox>
                 <Label id="validarClaseMaterialOM" fx:id="validarTipoMaterialOM" alignment="CENTER_RIGHT" layoutX="17.0" layoutY="95.0" prefWidth="228.0" text="" textFill="$x3" />

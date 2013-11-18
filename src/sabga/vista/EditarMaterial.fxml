@@ -15,7 +15,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="520.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.EditarMaterialController">
   <children>
-    <ComboBox id="combo" fx:id="comboMaterial" editable="false" layoutX="17.0" layoutY="14.0" onAction="#listarMaterial" prefHeight="25.0" prefWidth="150.0" promptText="Listar Material">
+    <ComboBox id="combo" fx:id="comboMaterial" editable="false" layoutX="17.0" layoutY="44.0" onAction="#listarMaterial" prefHeight="25.0" prefWidth="150.0" promptText="Listar Material">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="Item 1" />
@@ -284,5 +284,6 @@
       </stylesheets>
     </Button>
     <Button fx:id="btnDetalle" defaultButton="true" layoutX="500.0" layoutY="46.0" mnemonicParsing="false" onAction="#dialogoDetalleMaterial" prefHeight="25.0" text="Detalle Material" />
+    <Label font="$x1" layoutX="17.0" layoutY="19.0" text="Listar Material" />
   </children>
 </AnchorPane>

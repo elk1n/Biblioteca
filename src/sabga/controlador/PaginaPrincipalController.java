@@ -41,20 +41,13 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     @FXML
     private MenuBar barraMenu;   
     @FXML
-    private MenuItem menuNuevoAutor;
-    @FXML
     private MenuButton menuAdmin;
     @FXML
     private HBox hboxAdmin;
     @FXML
-    private AnchorPane panel;
-    
-    public MenuItem getMenu(){  
-        return menuNuevoAutor;
-    }
-    
-    public PaginaPrincipalController(){
-        
+    private AnchorPane panelCentral;
+
+    public PaginaPrincipalController(){       
         dialogo = new Dialogo();
         atributos = new Atributos();
     }
@@ -69,7 +62,8 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     } 
     
     @FXML
-    public void ventanaRegistroMaterial(){ 
+    public void ventanaRegistroMaterial(){
+        ventanaPrincipal.mostrarVistas();
         ventanaPrincipal.cargarVista("paginaRegistroMaterial", "vista/RegistroMaterial.fxml");
         ventanaPrincipal.cambiarVista("paginaRegistroMaterial");
         ventanaPrincipal.setTitle("Registro de Material");
@@ -77,13 +71,13 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     @FXML
     public void ventanaInicio(){
-        ventanaPrincipal.cargarVista("paginaInicio", "vista/PaginaInicio.fxml");
-        ventanaPrincipal.cambiarVista("paginaInicio");
+        ventanaPrincipal.vistaInicial(panelCentral);
         ventanaPrincipal.setTitle("SABGA");
     }
     
     @FXML
     public void ventanaActualizarMaterial(ActionEvent evento){
+        ventanaPrincipal.mostrarVistas();
         ventanaPrincipal.cargarVista("paginaActualizarMaterial", "vista/EditarMaterial.fxml");
         ventanaPrincipal.cambiarVista("paginaActualizarMaterial");
         ventanaPrincipal.setTitle("Editar Material");
@@ -91,13 +85,15 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     @FXML
     public void ventanaActualizarEMA(ActionEvent evento){
+        ventanaPrincipal.mostrarVistas();
         ventanaPrincipal.cargarVista("paginaActualizarEMA", "vista/EditarEMA.fxml");
         ventanaPrincipal.cambiarVista("paginaActualizarEMA");
         ventanaPrincipal.setTitle("Editar Opciones de Material");
     }
     
     @FXML
-    public void ventanaPrestamo(ActionEvent evento){          
+    public void ventanaPrestamo(ActionEvent evento){
+        ventanaPrincipal.mostrarVistas();
         ventanaPrincipal.cargarVista("paginaPrestamo", "vista/Prestamo.fxml");
         ventanaPrincipal.cambiarVista("paginaPrestamo");
         ventanaPrincipal.setTitle("Prestamo");
@@ -105,6 +101,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     @FXML
     public void ventanaRegistroUsuarios(ActionEvent evento){
+        ventanaPrincipal.mostrarVistas();
         ventanaPrincipal.cargarVista("paginaRegistroUsuarios", "vista/RegistroUsuario.fxml");
         ventanaPrincipal.cambiarVista("paginaRegistroUsuarios");
         ventanaPrincipal.setTitle("Registro de Usuarios");
@@ -112,6 +109,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     @FXML
     public void ventanaEstadoUsuario(ActionEvent evento){
+        ventanaPrincipal.mostrarVistas();
         ventanaPrincipal.cargarVista("paginaEstadoUsuario", "vista/EditarUsuario.fxml");
         ventanaPrincipal.cambiarVista("paginaEstadoUsuario");
         ventanaPrincipal.setTitle("Cuentas de Usuario");
@@ -119,6 +117,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     @FXML
     public void ventanaRegistroAdmin(ActionEvent evento){
+        ventanaPrincipal.mostrarVistas();
         ventanaPrincipal.cargarVista("paginaRegistroBibliotecario", "vista/RegistroBibliotecario.fxml");
         ventanaPrincipal.cambiarVista("paginaRegistroBibliotecario");
         ventanaPrincipal.setTitle("Registrar Bibliotecario");
@@ -126,6 +125,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     @FXML
     public void ventanaEditarAdmin(ActionEvent evento){
+        ventanaPrincipal.mostrarVistas();
         ventanaPrincipal.cargarVista("paginaEditarBibliotecario", "vista/EditarBibliotecario.fxml");
         ventanaPrincipal.cambiarVista("paginaEditarBibliotecario");
         ventanaPrincipal.setTitle("Editar Datos del Bibliotecario");
@@ -133,6 +133,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     @FXML
     public void ventanaDevolucion(ActionEvent evento){
+        ventanaPrincipal.mostrarVistas();
         ventanaPrincipal.cargarVista("paginaDevolucion", "vista/Devolucion.fxml");
         ventanaPrincipal.cambiarVista("paginaDevolucion");
         ventanaPrincipal.setTitle("Devolución o Renovación");
@@ -140,6 +141,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     @FXML
     public void ventanaReservaEscritorio(ActionEvent evento){
+        ventanaPrincipal.mostrarVistas();
         ventanaPrincipal.cargarVista("paginaReserva", "vista/ReservaEscritorio.fxml");
         ventanaPrincipal.cambiarVista("paginaReserva");
         ventanaPrincipal.setTitle("Reservar");
@@ -155,6 +157,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     @FXML
     public void ventanaCuenta(ActionEvent evento){
+        ventanaPrincipal.mostrarVistas();
         ventanaPrincipal.cargarVista("paginaCuenta", "vista/Cuenta.fxml");
         ventanaPrincipal.cambiarVista("paginaCuenta");
         ventanaPrincipal.setTitle("Ajustes de la Cuenta");
@@ -162,6 +165,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     @FXML
     public void ventanaPazySalvo(ActionEvent evento){
+        ventanaPrincipal.mostrarVistas();
         ventanaPrincipal.cargarVista("paginaPazySalvo", "vista/PazySalvo.fxml");
         ventanaPrincipal.cambiarVista("paginaPazySalvo");
         ventanaPrincipal.setTitle("Expedición de Paz y Salvo");
@@ -271,19 +275,12 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     public void setUsuario(String usuario){
           menuAdmin.setText(atributos.getUsuarioAdmin());
     }
-    
-    @FXML
-    public void prueba(ActionEvent evento){
-          // ventanaPrincipal.descargarPantalla("paginaInicio");
-     //  label.setText("Esto es una prueba");
-          // atributos.setDatoBusqueda("Esto es una prueba..... de");
-    }
-    
+             
     @Override
     public void initialize(URL url, ResourceBundle rb) {        
         botonBorrarBusqueda.setVisible(false);
         barraMenu.setPrefWidth(java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth());
-        //ventanaPrincipal.mostrarInicio(panel);
+        
     }    
 
     

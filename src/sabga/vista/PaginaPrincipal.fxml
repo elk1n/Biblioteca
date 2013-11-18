@@ -14,15 +14,7 @@
 
 <BorderPane id="BorderPane" cache="true" cacheHint="DEFAULT" prefHeight="680.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.PaginaPrincipalController">
   <center>
-    <AnchorPane fx:id="panel" prefHeight="200.0" prefWidth="200.0">
-      <children>
-        <Label layoutX="594.0" layoutY="240.0" prefHeight="30.0" prefWidth="72.0" text="Prueba">
-          <font>
-            <Font name="System Bold" size="18.0" />
-          </font>
-        </Label>
-      </children>
-    </AnchorPane>
+    <AnchorPane id="panel" fx:id="panelCentral" prefHeight="200.0" prefWidth="200.0" />
   </center>
   <padding>
     <Insets fx:id="x6" />
@@ -114,7 +106,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Material">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroMaterial" text="Registrar Material" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroMaterial" text="Registrar Material" fx:id="menuRegistrarMaterial" />
                     <MenuItem mnemonicParsing="false" onAction="#ventanaActualizarMaterial" text="Editar Material" />
                     <Menu mnemonicParsing="false" text="Opciones de Material">
                       <items>

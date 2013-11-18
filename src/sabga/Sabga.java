@@ -1,13 +1,12 @@
 
 package sabga;
 
-import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import sabga.configuracion.Dialogo;
@@ -61,8 +60,8 @@ public class Sabga extends Application {
     public Sabga(){
            
         pantallas = new ScreensController();
-        pantallas.loadScreen(Sabga.paginaInicialId, Sabga.paginaInicialArchivo);
-        pantallas.setScreen(Sabga.paginaInicialId);
+       // pantallas.loadScreen(Sabga.paginaInicialId, Sabga.paginaInicialArchivo);
+       // pantallas.setScreen(Sabga.paginaInicialId);
         dialogo = new Dialogo();
         root =  new Group();
                  
@@ -89,25 +88,34 @@ public class Sabga extends Application {
         
         PaginaPrincipalController controller = cargador.getController();
         controller.setVentanaPrincipal(this);
-
-        mostrarVistas();
+        controladores();
+        //mostrarVistas();        
+    }
+    
+    public void controladores(){
         
+        controladorVistas = new ScreensController();
+        controller = (ScreensController) controladorVistas.getMyScreenControler();
+        controladorVistas.setVentanaPrincipal(this);
     }
     
     public void mostrarVistas(){
-
+        root.getChildren().clear();
         root.getChildren().addAll(pantallas);
         root.setLayoutY(140);
         
         rootLayout.setCenter(root);
-        controladorVistas = new ScreensController();
-        controller = (ScreensController) controladorVistas.getMyScreenControler();
-        controladorVistas.setVentanaPrincipal(this);
+       // controladorVistas = new ScreensController();
+       // controller = (ScreensController) controladorVistas.getMyScreenControler();
+       // controladorVistas.setVentanaPrincipal(this);
         
     }
     
-    public void mostrarInicio(Node no){
-        root.getChildren().add(no);
+    public void vistaInicial(AnchorPane panel){   
+        
+        root.getChildren().clear();
+        root.getChildren().add(panel);        
+        rootLayout.setCenter(panel);
     }
     
     public void cargarVista(String nombre, String archivo){
@@ -158,14 +166,7 @@ public class Sabga extends Application {
     public ScreensController getController() {        
         return controller;
     }
-    public void pruebaDato() throws IOException{
-      
-    }
-   
-    public void prueba(){    
-         System.out.println("Esto es una prueba");  
-    }
-  
+
     /**
      * The main() method is ignored in correctly deployed JavaFX application.
      * main() serves only as fallback in case the application can not be
