@@ -53,8 +53,7 @@ public class Sabga extends Application {
     private final Dialogo dialogo;
     Group root;
     
-    public Sabga(){
-           
+    public Sabga(){           
         pantallas = new ScreensController();
         dialogo = new Dialogo();
         root =  new Group();                 

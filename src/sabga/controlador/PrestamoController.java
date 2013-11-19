@@ -24,7 +24,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
     private ScreensController controlador;
     
     @FXML 
-    private ComboBox comboBusqueda;
+    private ComboBox comboListar;
     @FXML 
     private TextField campoBusqueda;
     @FXML 
@@ -50,24 +50,6 @@ public class PrestamoController implements Initializable, ControlledScreen{
     public void setVentanaPrincipal(Sabga ventanaPrincipal){        
         this.ventanaPrincipal = ventanaPrincipal;
     }
-
-    @FXML
-    public void buscarMaterial(ActionEvent evento){
-        
-       SimpleDateFormat fff= new SimpleDateFormat("YYYY-MM-dd");
-       System.out.println(fff.format(fechaDevolucion.getSelectedDate()));
-       
-       // ValidarMaterial validar = new ValidarMaterial(campoBusqueda.getText());        
-       // validar.validarEditorialAC();
-       // validarBusqueda.setText(validar.getErrorNombreEditorial());       
-    }
-    
-    @FXML
-    public void prueba(ActionEvent evento){
-        Atributos esto = new Atributos();
-        System.out.println(esto.getDatoBusqueda());
-    }
-    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {       

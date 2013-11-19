@@ -11,52 +11,134 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="contenedor" prefHeight="520.0" prefWidth="1260.0" styleClass="null" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.PrestamoController">
+<AnchorPane id="AnchorPane" fx:id="contenedor" prefHeight="520.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.PrestamoController">
   <children>
+    <TabPane layoutX="7.0" layoutY="7.0" prefHeight="506.0" prefWidth="647.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+        <Tab text="Material">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <Label layoutX="18.0" layoutY="11.0" text=" Listar Material:">
+                  <font>
+                    <Font name="System Bold" size="14.0" fx:id="x2" />
+                  </font>
+                </Label>
+                <ComboBox layoutX="21.0" layoutY="38.0" prefHeight="25.0" prefWidth="120.0" promptText="Listar Material">
+                  <items>
+                    <FXCollections fx:factory="observableArrayList">
+                      <String fx:value="Item 1" />
+                      <String fx:value="Item 2" />
+                      <String fx:value="Item 3" />
+                    </FXCollections>
+                  </items>
+                </ComboBox>
+                <TextField id="campocodigobarras" fx:id="campoBusqueda" layoutX="160.0" layoutY="36.0" prefHeight="30.0" prefWidth="250.0" promptText="Buscar Material" />
+                <Button layoutX="416.0" layoutY="38.0" mnemonicParsing="false" onAction="#buscarMaterial" prefHeight="25.0" prefWidth="25.0" styleClass="botonBuscar" text="">
+                  <stylesheets>
+                    <URL value="@css/estilo.css" />
+                  </stylesheets>
+                </Button>
+                <TableView layoutX="21.0" layoutY="78.0" prefHeight="200.0" prefWidth="603.0" style="">
+                  <columns>
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="236.0" text="Título" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="130.0" text="Código Clasificación" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="123.0" text="Clase Material" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="97.0" text="Tipo Material" />
+                  </columns>
+                  <contextMenu>
+                    <ContextMenu>
+                      <items>
+                        <MenuItem mnemonicParsing="false" text="Detalle Material" />
+                      </items>
+                    </ContextMenu>
+                  </contextMenu>
+                </TableView>
+                <Button defaultButton="true" layoutX="520.0" layoutY="38.0" mnemonicParsing="false" prefHeight="25.0" text="Detalle Material" />
+                <Label font="$x2" layoutX="160.0" layoutY="12.0" text="Buscar:" />
+                <Label font="$x2" layoutX="21.0" layoutY="297.0" text="Ejemplares:" />
+                <TableView id="tblEjemplares" editable="true" layoutX="21.0" layoutY="330.0" prefHeight="131.0" prefWidth="394.0" style="">
+                  <columns>
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="130.0" text="Ejemplar" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="128.0" text="Estado" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="123.0" text="Disponibilidad" />
+                  </columns>
+                </TableView>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab closable="false" text="Usuario">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <Label font="$x2" layoutX="14.0" layoutY="14.0" text="Buscar" />
+                <TextField layoutX="14.0" layoutY="43.0" prefHeight="30.0" prefWidth="250.0" promptText="Buscar" />
+                <TableView layoutX="14.0" layoutY="91.0" prefHeight="200.0" prefWidth="609.0">
+                  <columns>
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="80.0" text="Documento" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="125.0" text="Nombre" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="116.0" text="Apellido" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="108.0" text="Correo" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="82.0" text="Tipo Usuario" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="83.0" text="Estado" />
+                  </columns>
+                </TableView>
+                <Button layoutX="273.0" layoutY="44.0" mnemonicParsing="false" onAction="#buscarMaterial" prefHeight="25.0" prefWidth="25.0" styleClass="botonBuscar" text="">
+                  <stylesheets>
+                    <URL value="@css/estilo.css" />
+                  </stylesheets>
+                </Button>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Reservas">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <Label font="$x2" layoutX="137.0" layoutY="14.0" text="Buscar" />
+                <TextField layoutX="159.0" layoutY="41.0" prefHeight="30.0" prefWidth="250.0" promptText="Buscar Reservas" />
+                <Label font="$x2" layoutX="14.0" layoutY="14.0" text="Listar Reservas" />
+                <TableView layoutX="14.0" layoutY="84.0" prefHeight="220.0" prefWidth="609.0">
+                  <columns>
+                    <TableColumn prefWidth="75.0" text="Documento" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="96.0" text="Nombre" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="102.0" text="Apellidos" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="87.0" text="Fecha Reserva" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="110.0" text="Título" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="127.0" text="Código Clasificación" />
+                  </columns>
+                </TableView>
+                <ComboBox layoutX="14.0" layoutY="44.0" prefHeight="25.0" prefWidth="120.0" promptText="Reservas">
+                  <items>
+                    <FXCollections fx:factory="observableArrayList">
+                      <String fx:value="Item 1" />
+                      <String fx:value="Item 2" />
+                      <String fx:value="Item 3" />
+                    </FXCollections>
+                  </items>
+                </ComboBox>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
     <HBox id="HBox" alignment="CENTER" layoutX="908.0" layoutY="459.0" spacing="80.0">
       <children>
         <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Cancelar" />
         <Button defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Prestar" />
       </children>
     </HBox>
-    <TextField id="campocodigobarras" fx:id="campoBusqueda" layoutX="25.0" layoutY="74.0" prefHeight="30.0" prefWidth="250.0" promptText="Buscar" />
-    <Button layoutX="286.0" layoutY="76.0" mnemonicParsing="false" onAction="#buscarMaterial" prefHeight="25.0" prefWidth="25.0" styleClass="botonBuscar" text="">
-      <stylesheets>
-        <URL value="@css/estilo.css" />
-      </stylesheets>
-    </Button>
-    <TableView layoutX="26.0" layoutY="126.0" prefHeight="180.0" prefWidth="603.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
-      <columns>
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="178.0" text="Título" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="261.0" text="Autor" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="147.0" text="Ejemplares Disponibles " />
-      </columns>
-    </TableView>
-    <Button defaultButton="true" layoutX="526.0" layoutY="79.0" mnemonicParsing="false" prefHeight="25.0" text="Detalle Material" />
-    <Label layoutX="30.0" layoutY="24.0" text="Buscar:">
-      <font>
-        <Font name="System Bold" size="12.0" fx:id="x1" />
-      </font>
-    </Label>
-    <RadioButton layoutX="29.0" layoutY="46.0" mnemonicParsing="false" selected="true" text="Material">
-      <toggleGroup>
-        <ToggleGroup fx:id="buscar" />
-      </toggleGroup>
-    </RadioButton>
-    <RadioButton layoutX="115.0" layoutY="46.0" mnemonicParsing="false" text="Usuario" toggleGroup="$buscar">
-      <contextMenu>
-        <ContextMenu>
-          <items>
-            <MenuItem mnemonicParsing="false" text="Esto es una prueba..." />
-            <MenuItem mnemonicParsing="false" text="Esto  es una prueba" />
-          </items>
-        </ContextMenu>
-      </contextMenu>
-    </RadioButton>
     <Pane layoutX="674.0" layoutY="21.0" prefHeight="404.0" prefWidth="554.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" styleClass="resultado">
       <children>
         <Button defaultButton="true" layoutX="417.0" layoutY="143.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Remover Material" />
-        <Label font="$x1" layoutX="22.0" layoutY="59.0" text="Usuario:" />
+        <Label layoutX="22.0" layoutY="59.0" text="Usuario:">
+          <font>
+            <Font name="System Bold" size="12.0" fx:id="x1" />
+          </font>
+        </Label>
         <Label layoutX="146.0" layoutY="59.0" prefWidth="346.0" text="Nombre Usuario" />
         <Label font="$x1" layoutX="23.0" layoutY="97.0" text="Fecha Devolución:" />
         <HBox fx:id="hboxFecha" layoutX="146.0" layoutY="95.0" prefHeight="20.0" prefWidth="150.0">
@@ -70,16 +152,11 @@
             <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="122.0" text="Código Clasificación" />
           </columns>
         </TableView>
-        <Label layoutX="22.0" layoutY="18.0" text="Datos del Prestamo:">
-          <font>
-            <Font name="System Bold" size="14.0" />
-          </font>
-        </Label>
+        <Label font="$x2" layoutX="22.0" layoutY="18.0" text="Datos del Prestamo:" />
       </children>
       <stylesheets>
         <URL value="@css/estilo.css" />
       </stylesheets>
     </Pane>
-    <RadioButton layoutX="201.0" layoutY="46.0" mnemonicParsing="false" text="Reserva" toggleGroup="$buscar" />
   </children>
 </AnchorPane>
