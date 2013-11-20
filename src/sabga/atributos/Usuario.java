@@ -77,20 +77,19 @@ public class Usuario {
         this.direccion = new SimpleStringProperty(direccion);
         this.estado = new SimpleStringProperty(estado);
         this.multa = new SimpleStringProperty(multa);
-
     }
 
-//Usuarios Paz y salvo
-    public Usuario(String documento, String nombre, String apellidos, String grado, String curso, String jornada) {
-
+    // USUARIO PRESTAMO
+    public Usuario(String tipo, String documento, String nombre, String apellido, String correo, String estado){
+        
+        this.tipo = new SimpleStringProperty(tipo);
         this.documento = new SimpleStringProperty(documento);
         this.nombre = new SimpleStringProperty(nombre);
-        this.apellido = new SimpleStringProperty(apellidos);
-        this.grado = new SimpleStringProperty(grado);
-        this.curso = new SimpleStringProperty(curso);
-        this.jornada = new SimpleStringProperty(jornada);
+        this.apellido = new SimpleStringProperty(apellido);
+        this.correo = new SimpleStringProperty(correo);
+        this.estado = new SimpleStringProperty(estado);
     }
-
+    
     public String getTipo() {
         return this.tipo.get();
     }

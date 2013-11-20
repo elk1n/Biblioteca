@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -21,7 +22,10 @@ import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.atributos.Ejemplar;
 import sabga.atributos.Material;
+import sabga.atributos.Usuario;
 import sabga.configuracion.ControlledScreen;
+import sabga.configuracion.Dialogo;
+import sabga.configuracion.Utilidades;
 import sabga.modelo.Consultas;
 import sabga.modelo.Seleccion;
 
@@ -31,22 +35,27 @@ public class PrestamoController implements Initializable, ControlledScreen{
     private Sabga ventanaPrincipal;
     private ScreensController controlador;
     @FXML 
-    private ComboBox comboListar;
+    private ComboBox comboListar, comboListaUsuario;
     @FXML 
-    private TextField campoBusqueda;
+    private TextField txtfBuscar, txtfBuscarUsuario;
     @FXML 
     private Label validarBusqueda;
     @FXML
+    private Button btnDetalle;
+    @FXML
     private HBox hboxFecha;
     @FXML
-    private TableView tablaMaterial, tablaEjemplar;
+    private TableView tablaMaterial, tablaEjemplar, tablaUsuarios;
     @FXML
-    private TableColumn clmnTitulo, clmnCodigo, clmnClase, clmnTipo, clmnEjemplar, clmnEstado, clmnDispo;
+    private TableColumn clmnTitulo, clmnCodigo, clmnClase, clmnTipo, clmnEjemplar, clmnEstado, clmnDispo, clmnDocumento,
+                        clmnNombre, clmnApellido, clmnCorreo, clmnTipoUsuario, clmnEstadoUsuario;
     private final DatePicker fechaDevolucion;
     private final Consultas consulta;
     private final Seleccion select;
     private final ObservableList<Material> listaMaterial;
     private final ObservableList<Ejemplar> listaEjemplares;
+    private final ObservableList<Usuario> listaUsuarios;
+    private final Dialogo dialogos;
     
     
     public PrestamoController(){
@@ -57,8 +66,10 @@ public class PrestamoController implements Initializable, ControlledScreen{
        fechaDevolucion.getStylesheets().add("sabga/vista/css/DatePicker.css");
        listaMaterial = FXCollections.observableArrayList();
        listaEjemplares = FXCollections.observableArrayList();
+       listaUsuarios = FXCollections.observableArrayList();
        consulta = new Consultas();
        select = new Seleccion();
+       dialogos = new Dialogo();
     }
     
     @FXML
@@ -69,6 +80,81 @@ public class PrestamoController implements Initializable, ControlledScreen{
     
     public void cargarEjemlar(){    
         mapearEjemplar();
+    }
+    
+    @FXML
+    public void dialogoDetalleMaterial(ActionEvent evento){        
+        detalleMaterial();
+    }
+          
+    @FXML
+    public void buscarMaterial(ActionEvent evento){
+        buscarMaterial();
+    }
+    
+    @FXML
+    public void listarUsuarios(ActionEvent evento){
+        listarUsuario();  
+    }
+    
+    @FXML
+    public void buscarUsuario(ActionEvent evento){    
+        buscarUsuario();
+    }
+    
+    private void buscarUsuario(){
+    
+         if (!"".equals(txtfBuscarUsuario.getText())) {
+            prepararTablaUsuario();
+            listaUsuarios.addAll(consulta.getListaUsuarioBusqueda(txtfBuscarUsuario.getText().trim()));
+            tablaUsuarios.setItems(listaUsuarios);
+        }   
+    }
+    
+    private void listarUsuario(){
+        
+        prepararTablaUsuario();
+        if(comboListaUsuario.getSelectionModel().getSelectedItem().toString().contains("Todos")){ 
+            listaUsuarios.addAll(consulta.getListaUsuarios(2, null));
+        }else {
+            listaUsuarios.addAll(consulta.getListaUsuarios(1, comboListaUsuario.getSelectionModel().getSelectedItem().toString()));            
+        }
+        tablaUsuarios.setItems(listaUsuarios);
+    }
+     
+    private void prepararTablaUsuario(){
+        
+        clmnDocumento.setCellValueFactory(new PropertyValueFactory<Usuario, String>("documento"));
+        clmnNombre.setCellValueFactory(new PropertyValueFactory<Usuario, String>("nombre"));
+        clmnApellido.setCellValueFactory(new PropertyValueFactory<Usuario, String>("apellido"));
+        clmnCorreo.setCellValueFactory(new PropertyValueFactory<Usuario, String>("correo"));
+        clmnTipoUsuario.setCellValueFactory(new PropertyValueFactory<Usuario, String>("tipo"));
+        clmnEstadoUsuario.setCellValueFactory(new PropertyValueFactory<Usuario, String>("estado"));
+        tablaUsuarios.setEditable(true);
+        listaUsuarios.clear();      
+    }
+    
+    private void buscarMaterial() {
+
+        if (!"".equals(txtfBuscar.getText())) {
+            prepararTablaMaterial();
+            listaMaterial.addAll(consulta.getListaMaterialBusqueda(txtfBuscar.getText().trim()));
+            tablaMaterial.setItems(listaMaterial);
+        }
+    }
+    
+    private void detalleMaterial(){
+    
+         if (tablaMaterial.getSelectionModel().getSelectedItem() != null) {
+            ventanaPrincipal = new Sabga();
+            btnDetalle.setDisable(true);
+            dialogos.setId(Integer.parseInt(listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()));
+            dialogos.mostrarDialogo("vista/dialogos/DetalleMaterial.fxml", "Detalle Material", ventanaPrincipal.getPrimaryStage(), null, 4);           
+            btnDetalle.setDisable(false);
+        }
+        else{
+            Utilidades.mensaje(null,"Debe seleccionar un material de la lista", "Para ver el detalle del material", "Detalle Material");
+        }    
     }
     
     private void mapearEjemplar(){
@@ -91,6 +177,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
         clmnClase.setCellValueFactory(new PropertyValueFactory<Material, String>("clase"));        
         tablaMaterial.setEditable(true);
         listaMaterial.clear();
+        listaEjemplares.clear();
            
     }
     
@@ -101,7 +188,9 @@ public class PrestamoController implements Initializable, ControlledScreen{
     }
     
     private void inicio(){
-        comboListar.setItems(consulta.llenarLista(select.getListaTipoMaterial(), select.getTipoMaterial()));        
+        comboListar.setItems(consulta.llenarLista(select.getListaTipoMaterial(), select.getTipoMaterial()));
+        comboListaUsuario.setItems(consulta.llenarLista(select.getListaUsuarios(), select.getUsuarios()));
+        comboListaUsuario.getItems().add("Todos");
     }
     
     @Override

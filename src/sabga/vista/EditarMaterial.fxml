@@ -15,7 +15,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="520.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.EditarMaterialController">
   <children>
-    <ComboBox id="combo" fx:id="comboMaterial" editable="false" layoutX="17.0" layoutY="44.0" onAction="#listarMaterial" prefHeight="25.0" prefWidth="150.0" promptText="Listar Material">
+    <ComboBox id="combo" fx:id="comboMaterial" editable="false" layoutX="17.0" layoutY="44.0" onAction="#listarMaterial" prefHeight="25.0" prefWidth="120.0" promptText="Listar Material">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="Item 1" />
@@ -24,22 +24,22 @@
         </FXCollections>
       </items>
     </ComboBox>
-    <TextField id="buscar" fx:id="txtfBuscar" layoutX="182.0" layoutY="11.0" onAction="#buscarMaterial" onKeyTyped="#mostrarBoton" prefHeight="30.0" prefWidth="260.0" promptText="Buscar Material">
+    <TextField id="buscar" fx:id="txtfBuscar" layoutX="171.0" layoutY="41.0" onAction="#buscarMaterial" onKeyTyped="#mostrarBoton" prefHeight="30.0" prefWidth="260.0" promptText="Buscar Material">
       <stylesheets>
         <URL value="@css/estilo.css" />
       </stylesheets>
     </TextField>
-    <TextField fx:id="txtfFiltrar" layoutX="182.0" layoutY="11.0" onKeyTyped="#mostrarBoton" prefHeight="30.0" prefWidth="260.0" promptText="Filtrar Material" styleClass="campoBusqueda">
+    <TextField fx:id="txtfFiltrar" layoutX="171.0" layoutY="41.0" onKeyTyped="#mostrarBoton" prefHeight="30.0" prefWidth="260.0" promptText="Filtrar Material" styleClass="campoBusqueda">
       <stylesheets>
         <URL value="@css/estilo.css" />
       </stylesheets>
     </TextField>
-    <Button defaultButton="false" layoutX="449.0" layoutY="13.0" mnemonicParsing="false" onAction="#buscarMaterial" prefHeight="25.0" prefWidth="25.0" styleClass="botonBuscar" text="">
+    <Button defaultButton="false" layoutX="438.0" layoutY="43.0" mnemonicParsing="false" onAction="#buscarMaterial" prefHeight="25.0" prefWidth="25.0" styleClass="botonBuscar" text="">
       <stylesheets>
         <URL value="@css/estilo.css" />
       </stylesheets>
     </Button>
-    <HBox id="HBox" alignment="CENTER" layoutX="185.0" layoutY="48.0" spacing="20.0">
+    <HBox id="HBox" alignment="CENTER" layoutX="174.0" layoutY="78.0" spacing="20.0">
       <children>
         <RadioButton id="raidoBuscar" fx:id="radioBuscar" alignment="CENTER_LEFT" contentDisplay="LEFT" mnemonicParsing="false" onAction="#buscarFiltrar" selected="true" text="Buscar">
           <toggleGroup>
@@ -49,7 +49,7 @@
         <RadioButton fx:id="radioFiltrar" contentDisplay="LEFT" mnemonicParsing="false" onAction="#buscarFiltrar" prefWidth="49.000091552734375" text="Filtrar" toggleGroup="$opcionesTxtf" />
       </children>
     </HBox>
-    <TableView fx:id="tablaMaterial" layoutX="16.0" layoutY="79.0" onKeyTyped="#mapearDatos" onMouseClicked="#mapearDatos" prefHeight="425.0" prefWidth="588.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" tableMenuButtonVisible="false">
+    <TableView fx:id="tablaMaterial" layoutX="16.0" layoutY="104.0" onKeyTyped="#mapearDatos" onMouseClicked="#mapearDatos" prefHeight="398.0" prefWidth="588.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" tableMenuButtonVisible="false">
       <columns>
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="296.0" text="Título" fx:id="clmnTitulo" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="124.0" text="Clase Material" fx:id="clmnClase" />
@@ -278,12 +278,13 @@
         <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarCambios" prefHeight="25.0" prefWidth="160.0" text="Guardar Cambios" />
       </children>
     </HBox>
-    <Button fx:id="btnBorrar" layoutX="417.0" layoutY="16.0" mnemonicParsing="false" onAction="#borrarCampo" styleClass="botonBorrar" text="">
+    <Button fx:id="btnBorrar" layoutX="406.0" layoutY="46.0" mnemonicParsing="false" onAction="#borrarCampo" styleClass="botonBorrar" text="">
       <stylesheets>
         <URL value="@css/estilo.css" />
       </stylesheets>
     </Button>
-    <Button fx:id="btnDetalle" defaultButton="true" layoutX="500.0" layoutY="46.0" mnemonicParsing="false" onAction="#dialogoDetalleMaterial" prefHeight="25.0" text="Detalle Material" />
-    <Label font="$x1" layoutX="17.0" layoutY="19.0" text="Listar Material" />
+    <Button fx:id="btnDetalle" defaultButton="true" layoutX="500.0" layoutY="70.0" mnemonicParsing="false" onAction="#dialogoDetalleMaterial" prefHeight="25.0" text="Detalle Material" />
+    <Label font="$x4" layoutX="17.0" layoutY="6.0" text="Listar Material" />
+    <Label font="$x4" layoutX="171.0" layoutY="5.0" text="Buscar Material" />
   </children>
 </AnchorPane>

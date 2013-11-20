@@ -76,9 +76,9 @@ public class PazySalvoController implements Initializable, ControlledScreen {
     private GridPane pazysalvoGrid;
     @FXML
     private TextField txtBuscar;
-    private ObservableList<Usuario> listaUsuario;
-    private ObservableList<Usuario> usuarios;
-    private ObservableList<Integer> idUsuarios;
+    private final ObservableList<Usuario> listaUsuario;
+    private final ObservableList<Usuario> usuarios;
+    private final ObservableList<Integer> idUsuarios;
     public int variable;
     private String idU;
     @FXML

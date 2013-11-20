@@ -197,7 +197,7 @@ public class Consultas {
             while (con.getResultado().next()) {
                 lista.add(new Usuario(con.getResultado().getString("tipo"), con.getResultado().getString("id"),
                                       con.getResultado().getString("nombres"), con.getResultado().getString("apellido"),
-                                      con.getResultado().getString("email")));
+                                      con.getResultado().getString("email"), con.getResultado().getString("estado") ));
             }
         } catch (SQLException e) {
             Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos del usuario.", "Error Consulta Usuario");
@@ -234,14 +234,14 @@ public class Consultas {
         
         try {
             con.conectar();
-            con.procedimiento("{ CALL getListaUsuarios(?,?)}");
+            con.procedimiento("{ CALL getListaUsuarios(?,?) }");
             con.getProcedimiento().setInt("opcion", opcion);
             con.getProcedimiento().setString("parametro", tipo);
             con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
                 lista.add(new Usuario(con.getResultado().getString("tipo"), con.getResultado().getString("documento"),
                                       con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
-                                      con.getResultado().getString("correo") ));
+                                      con.getResultado().getString("correo"), con.getResultado().getString("estado") ));
             }
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");

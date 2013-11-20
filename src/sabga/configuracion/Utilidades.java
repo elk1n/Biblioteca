@@ -77,7 +77,7 @@ public class Utilidades {
     }
     
     public static String encriptar(String dato){
-       String contrasenia = dato.trim();
+         String contrasenia = dato.trim();
          MessageDigest md;
 	 String password = "";
         try {           
