@@ -457,7 +457,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     private void listar(){  
         
         filtrarMaterial.addAll(listaMaterial);
-        listaMaterial.addAll(consulta.getListaMaterial(comboMaterial.getSelectionModel().getSelectedItem().toString()));        
+        listaMaterial.addAll(consulta.getListaMaterial(comboMaterial.getSelectionModel().getSelectedItem().toString()));
         tablaMaterial.setItems(filtrarMaterial);
         
     }

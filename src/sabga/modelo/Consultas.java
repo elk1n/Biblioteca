@@ -91,7 +91,8 @@ public class Consultas {
             con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
                 listaMaterial.add(new Material(con.getResultado().getString("titulo"), con.getResultado().getString("codigo"),
-                        con.getResultado().getString("clase"), con.getResultado().getString("id")));
+                                               con.getResultado().getString("tipo"), con.getResultado().getString("clase"),
+                                               con.getResultado().getString("id")));
             }
         } catch (SQLException e) {
             Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos del material", "Error Consulta");
@@ -111,7 +112,8 @@ public class Consultas {
             con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
                 listaMaterial.add(new Material(con.getResultado().getString("titulo"), con.getResultado().getString("codigo"),
-                                               con.getResultado().getString("clase"), con.getResultado().getString("id")));
+                                               con.getResultado().getString("tipo"), con.getResultado().getString("clase"),
+                                               con.getResultado().getString("id")));
             }
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");

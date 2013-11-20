@@ -12,13 +12,15 @@ public class Material {
     
     private final StringProperty titulo;
     private final StringProperty codigo;
+    private final StringProperty tipo;
     private final StringProperty clase;
     private final StringProperty id;
     
-    public Material(String titulo, String codigo, String clase, String id){
+    public Material(String titulo, String codigo, String tipo, String clase, String id){
         
           this.titulo = new SimpleStringProperty(titulo);
           this.codigo = new SimpleStringProperty(codigo);
+          this.tipo = new SimpleStringProperty(tipo);
           this.clase = new SimpleStringProperty(clase);
           this.id = new SimpleStringProperty(id);
     }
@@ -38,7 +40,11 @@ public class Material {
     public String getId(){
         return id.get();
     }
- 
+    
+    public String getTipo(){
+        return tipo.get();
+    }
+    
     @Override
     public String toString() {
         return this.getTitulo()+" "+this.getCodigo()+" "+ this.getClase();

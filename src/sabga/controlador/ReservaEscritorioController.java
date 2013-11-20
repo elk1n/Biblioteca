@@ -362,11 +362,11 @@ public class ReservaEscritorioController implements Initializable, ControlledScr
             clCodigo.setCellValueFactory(new PropertyValueFactory<Material, String>("codigo"));
             clClaseMaterial.setCellValueFactory(new PropertyValueFactory<Material, String>("clase"));
             tablaMaterial2.setEditable(true);
-            listaMaterial2.add(new Material(listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getTitulo(),
-                    listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getCodigo(),
-                    listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getClase(),
-                    listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()));
-            tablaMaterial2.setItems(listaMaterial2);
+//            listaMaterial2.add(new Material(listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getTitulo(),
+//                    listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getCodigo(),
+//                    listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getClase(),
+//                    listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()));
+//            tablaMaterial2.setItems(listaMaterial2);
 
         } else {
             Dialogs.showErrorDialog(null, "Debe ingresar primero el dato del usuario", "Mensaje");
