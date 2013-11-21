@@ -13,7 +13,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="contenedor" prefHeight="520.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.PrestamoController">
   <children>
-    <TabPane layoutX="7.0" layoutY="7.0" prefHeight="506.0" prefWidth="647.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" tabClosingPolicy="UNAVAILABLE">
+    <TabPane layoutX="7.0" layoutY="7.0" prefHeight="506.0" prefWidth="647.0" rotateGraphic="false" side="TOP" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" tabClosingPolicy="UNAVAILABLE" visible="true">
       <tabs>
         <Tab text="Material">
           <content>
@@ -110,7 +110,7 @@
                 <Label font="$x2" layoutX="159.0" layoutY="10.0" text="Buscar" />
                 <TextField layoutX="159.0" layoutY="41.0" prefHeight="30.0" prefWidth="250.0" promptText="Buscar Reservas" />
                 <Label font="$x2" layoutX="14.0" layoutY="10.0" text="Listar Reservas" />
-                <TableView layoutX="14.0" layoutY="84.0" prefHeight="220.0" prefWidth="609.0">
+                <TableView layoutX="14.0" layoutY="84.0" prefHeight="377.0" prefWidth="609.0">
                   <columns>
                     <TableColumn prefWidth="75.0" text="Documento" />
                     <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="96.0" text="Nombre" />

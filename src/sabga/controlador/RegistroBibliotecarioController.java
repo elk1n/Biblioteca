@@ -55,8 +55,7 @@ public class RegistroBibliotecarioController implements Initializable, Controlle
         ConfirmarUsuario bibliotecario = new ConfirmarUsuario();
         if(bibliotecario.nuevoBibliotecario(comboTipoAdmin.getSelectionModel().getSelectedItem(), campoNombre.getText(), campoApellidos.getText(),
                                             campoUsuario.getText(), campoContrasenia.getText(), campoContrasenia2.getText(), campoCorreo.getText(),
-                                            campoDocumento.getText(), campoTelefono.getText())){
-            
+                                            campoDocumento.getText(), campoTelefono.getText())){           
             consultar.registrarBibliotecario(campoDocumento.getText(), campoUsuario.getText(), campoContrasenia.getText(),
                                              comboTipoAdmin.getSelectionModel().getSelectedItem().toString(), campoNombre.getText(), 
                                              campoApellidos.getText(), campoCorreo.getText(), campoTelefono.getText());

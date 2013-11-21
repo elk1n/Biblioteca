@@ -32,19 +32,15 @@ public class NuevaEditorialController {
     private String mensaje;
     
     public NuevaEditorialController(){
-    
-        con = new Conexion();
-    
+        con = new Conexion();    
     }
 
     public void setDialogStage(Stage dialogStage) {
-
         this.dialogStage = dialogStage;
     }
 
     @FXML
     public void guardarNuevaEditorial(ActionEvent evento) {
-
         procesarNuevaEditorial();
     }
     
@@ -58,14 +54,12 @@ public class NuevaEditorialController {
                 registarEditorial();
                 if(mensaje!=null){                    
                      Utilidades.mensajeAdvertencia(null, mensaje, "Error al registrar la editorial", "Error Registrar Editorial");
-                }
-                else{
+                }else{
                     //dialogStage.setOpacity(0);
                     Utilidades.mensaje(null, "Editorial registrada correctamente", "Registrando Editorial", "Registro Exitoso");
                     dialogStage.close();
                 }
-            } catch (SQLException ex) {
-                
+            } catch (SQLException ex) { 
                 Utilidades.mensajeError(null, ex.getMessage(), "Error al registrar la editorial", "Error Registrar Editorial");  
             }
         }
@@ -74,34 +68,26 @@ public class NuevaEditorialController {
     public void registarEditorial() throws SQLException {
   
         try {
-
             con.conectar();
             con.getConexion().setAutoCommit(false);
             con.procedimiento("{ CALL registrarEditorial(?,?) }");
-
             con.getProcedimiento().setString("editorial", campoNuevaEditorial.getText().trim());
             con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
-
             con.getProcedimiento().execute();
             con.getConexion().commit();
             mensaje=con.getProcedimiento().getString("mensaje");
-
         } catch (SQLException e) {
-
             con.getConexion().rollback();
             Utilidades.mensajeError(null, e.getMessage(), "Error al registrar la nueva editorial", "Error Registrar Editorial");  
-
         } finally {
             con.desconectar();
         }
     }
     
     public void validarCampos() {
-
         validarEditorial = new ValidarMaterial();
         validarEditorial.validarNuevaEditorial(campoNuevaEditorial.getText());
         validarNuevaEditorial.setText(validarEditorial.getErrorEditorial());
-
     }
 
     @FXML
