@@ -55,9 +55,33 @@
         <RowConstraints maxHeight="17.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <Accordion minWidth="330.0" prefHeight="414.0" prefWidth="359.0" AnchorPane.bottomAnchor="75.0" AnchorPane.rightAnchor="16.0">
+    <Accordion minWidth="330.0" prefHeight="416.0" prefWidth="359.0" AnchorPane.bottomAnchor="73.0" AnchorPane.rightAnchor="16.0">
       <expandedPane>
-        <TitledPane fx:id="x2" animated="false" expanded="true" text="Ejemplares">
+        <TitledPane fx:id="x3" animated="false" minWidth="343.0" prefHeight="367.0" prefWidth="343.0" text="Autores">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="275.0" prefWidth="366.0">
+              <children>
+                <ListView fx:id="listaAutores" prefHeight="341.0" prefWidth="355.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+              </children>
+            </AnchorPane>
+          </content>
+          <font>
+            <Font name="System Bold" size="13.0" fx:id="x4" />
+          </font>
+        </TitledPane>
+      </expandedPane>
+      <panes>
+        <fx:reference source="x3" />
+        <TitledPane animated="false" font="$x4" prefHeight="320.0" prefWidth="313.0" text="Materias">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <ListView fx:id="listaMaterias" prefHeight="272.0" prefWidth="339.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+              </children>
+            </AnchorPane>
+          </content>
+        </TitledPane>
+        <TitledPane fx:id="x2" animated="false" expanded="false" font="$x4" text="Ejemplares">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
@@ -71,31 +95,7 @@
               </children>
             </AnchorPane>
           </content>
-          <font>
-            <Font name="System Bold" size="13.0" fx:id="x4" />
-          </font>
         </TitledPane>
-      </expandedPane>
-      <panes>
-        <TitledPane fx:id="x3" animated="false" font="$x4" minWidth="343.0" prefHeight="367.0" prefWidth="343.0" text="Autores">
-          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="275.0" prefWidth="366.0">
-              <children>
-                <ListView fx:id="listaAutores" prefHeight="341.0" prefWidth="355.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-              </children>
-            </AnchorPane>
-          </content>
-        </TitledPane>
-        <TitledPane animated="false" font="$x4" prefHeight="320.0" prefWidth="313.0" text="Materias">
-          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-              <children>
-                <ListView fx:id="listaMaterias" prefHeight="272.0" prefWidth="339.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-              </children>
-            </AnchorPane>
-          </content>
-        </TitledPane>
-        <fx:reference source="x2" />
       </panes>
     </Accordion>
     <Button layoutX="785.0" layoutY="469.0" mnemonicParsing="false" onAction="#cerrar" prefHeight="25.0" prefWidth="120.0" text="Cerrar" />

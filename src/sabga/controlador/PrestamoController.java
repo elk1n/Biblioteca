@@ -22,6 +22,7 @@ import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.atributos.Ejemplar;
 import sabga.atributos.Material;
+import sabga.atributos.Reserva;
 import sabga.atributos.Usuario;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Dialogo;
@@ -37,7 +38,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
     @FXML 
     private ComboBox comboListar, comboListaUsuario;
     @FXML 
-    private TextField txtfBuscar, txtfBuscarUsuario;
+    private TextField txtfBuscar, txtfBuscarUsuario, txtfBuscarReserva;
     @FXML 
     private Label validarBusqueda;
     @FXML
@@ -45,16 +46,18 @@ public class PrestamoController implements Initializable, ControlledScreen{
     @FXML
     private HBox hboxFecha;
     @FXML
-    private TableView tablaMaterial, tablaEjemplar, tablaUsuarios;
+    private TableView tablaMaterial, tablaEjemplar, tablaUsuarios, tablaReserva, tablaDetalleReserva;
     @FXML
     private TableColumn clmnTitulo, clmnCodigo, clmnClase, clmnTipo, clmnEjemplar, clmnEstado, clmnDispo, clmnDocumento,
-                        clmnNombre, clmnApellido, clmnCorreo, clmnTipoUsuario, clmnEstadoUsuario;
+                        clmnNombre, clmnApellido, clmnCorreo, clmnTipoUsuario, clmnEstadoUsuario, clmnDocumentoRe, clmnNombreRe,
+                        clmnApellidoRe, clmnFecha, clmnEstadoRe, clmnTituloDe, clmnCodigoDe, clmnAutor, clmnEditorial, clmnMateria;
     private final DatePicker fechaDevolucion;
     private final Consultas consulta;
     private final Seleccion select;
     private final ObservableList<Material> listaMaterial;
     private final ObservableList<Ejemplar> listaEjemplares;
     private final ObservableList<Usuario> listaUsuarios;
+    private final ObservableList<Reserva> listaReservas;
     private final Dialogo dialogos;
     
     
@@ -67,6 +70,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
        listaMaterial = FXCollections.observableArrayList();
        listaEjemplares = FXCollections.observableArrayList();
        listaUsuarios = FXCollections.observableArrayList();
+       listaReservas = FXCollections.observableArrayList();
        consulta = new Consultas();
        select = new Seleccion();
        dialogos = new Dialogo();
@@ -100,6 +104,43 @@ public class PrestamoController implements Initializable, ControlledScreen{
     @FXML
     public void buscarUsuario(ActionEvent evento){    
         buscarUsuario();
+    }
+    
+    @FXML
+    public void listarReservas(ActionEvent evento){
+        listarReservas();
+    }
+    
+    @FXML
+    public void buscarReserva(ActionEvent evento){
+        buscarReserva();        
+    }
+    
+    private void buscarReserva(){
+        
+        if (!"".equals(txtfBuscarReserva.getText())) {
+            prepararTablaReserva();
+            listaReservas.addAll(consulta.getListaReservaBusqueda(txtfBuscarReserva.getText().trim()));
+            tablaReserva.setItems(listaReservas);
+        }
+    }
+    
+    private void listarReservas(){
+        prepararTablaReserva();
+        listaReservas.addAll(consulta.getListaReservas());
+        tablaReserva.setItems(listaReservas);
+    }
+    
+    private void prepararTablaReserva(){
+        
+        clmnDocumentoRe.setCellValueFactory(new PropertyValueFactory<Reserva, String>("documento"));
+        clmnNombreRe.setCellValueFactory(new PropertyValueFactory<Reserva, String>("nombre"));
+        clmnApellidoRe.setCellValueFactory(new PropertyValueFactory<Reserva, String>("apellido"));
+        clmnFecha.setCellValueFactory(new PropertyValueFactory<Reserva, String>("fecha"));
+        clmnEstadoRe.setCellValueFactory(new PropertyValueFactory<Reserva, String>("estado"));
+        tablaReserva.setEditable(true);
+        listaReservas.clear();
+        
     }
     
     private void buscarUsuario(){
@@ -191,6 +232,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
         comboListar.setItems(consulta.llenarLista(select.getListaTipoMaterial(), select.getTipoMaterial()));
         comboListaUsuario.setItems(consulta.llenarLista(select.getListaUsuarios(), select.getUsuarios()));
         comboListaUsuario.getItems().add("Todos");
+      
     }
     
     @Override

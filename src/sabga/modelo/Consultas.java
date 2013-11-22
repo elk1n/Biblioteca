@@ -8,6 +8,7 @@ import sabga.atributos.Autor;
 import sabga.atributos.Ejemplar;
 import sabga.atributos.Materia;
 import sabga.atributos.Material;
+import sabga.atributos.Reserva;
 import sabga.atributos.Usuario;
 import sabga.configuracion.Conexion;
 import sabga.configuracion.Utilidades;
@@ -249,6 +250,69 @@ public class Consultas {
             con.desconectar();
         }        
         return lista;
+    }
+    
+    public ObservableList<Reserva> getListaReservas(){
+        
+          ObservableList<Reserva> listaReservas = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaReservas() }");
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                listaReservas.add(new Reserva(con.getResultado().getInt("id"), con.getResultado().getString("documento"),
+                                              con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
+                                              con.getResultado().getString("fecha"), con.getResultado().getString("estado")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+        } finally {
+            con.desconectar();        
+        }
+        return listaReservas;
+    }
+    
+    public ObservableList<Reserva> getListaReservaBusqueda(String parametroBusqueda) {
+
+        ObservableList<Reserva> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL buscarReserva(?) }");
+            con.getProcedimiento().setString("parametro", parametroBusqueda);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                lista.add(new Reserva(con.getResultado().getInt("id"), con.getResultado().getString("documento"),
+                                      con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
+                                      con.getResultado().getString("fecha"), con.getResultado().getString("estado")));
+            }
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos del usuario.", "Error Consulta Usuario");
+        } finally {
+            con.desconectar();
+        }
+        return lista;
+    }
+    
+    public ObservableList<Material> getListaDetalleReserva(int id){
+            
+          ObservableList<Material> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaDetalleReserva(?)}");
+            con.getProcedimiento().setInt("parametro", id);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                listaMaterial.add(new Material(con.getResultado().getString("titulo"), con.getResultado().getString("codigo"),
+                                               con.getResultado().getString("tipo"), con.getResultado().getString("clase"),
+                                               con.getResultado().getString("id")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
+        } finally {
+            con.desconectar();
+        }
+        return lista;
+    
     }
     
     public void mapearBibliotecario(String nombreUsuario){
