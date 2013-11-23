@@ -22,6 +22,7 @@ import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.atributos.Ejemplar;
 import sabga.atributos.Material;
+import sabga.atributos.Prestamo;
 import sabga.atributos.Reserva;
 import sabga.atributos.Usuario;
 import sabga.configuracion.ControlledScreen;
@@ -46,11 +47,12 @@ public class PrestamoController implements Initializable, ControlledScreen{
     @FXML
     private HBox hboxFecha;
     @FXML
-    private TableView tablaMaterial, tablaEjemplar, tablaUsuarios, tablaReserva, tablaDetalleReserva;
+    private TableView tablaMaterial, tablaEjemplar, tablaUsuarios, tablaReserva, tablaDetalleReserva, tablaPrestamo;
     @FXML
     private TableColumn clmnTitulo, clmnCodigo, clmnClase, clmnTipo, clmnEjemplar, clmnEstado, clmnDispo, clmnDocumento,
                         clmnNombre, clmnApellido, clmnCorreo, clmnTipoUsuario, clmnEstadoUsuario, clmnDocumentoRe, clmnNombreRe,
-                        clmnApellidoRe, clmnFecha, clmnEstadoRe, clmnTituloDe, clmnCodigoDe, clmnAutor, clmnEditorial, clmnMateria;
+                        clmnApellidoRe, clmnFecha, clmnEstadoRe, clmnTituloDe, clmnCodigoDe, clmnAutor, clmnEditorial, clmnMateria,
+                        clmnEjemplarRe, clmnEjemplarPr, clmnTituloPr, clmnCodigoPr;
     private final DatePicker fechaDevolucion;
     private final Consultas consulta;
     private final Seleccion select;
@@ -58,8 +60,10 @@ public class PrestamoController implements Initializable, ControlledScreen{
     private final ObservableList<Ejemplar> listaEjemplares;
     private final ObservableList<Usuario> listaUsuarios;
     private final ObservableList<Reserva> listaReservas;
+    private final ObservableList<Material> listaDetalleRe;
+    private final ObservableList<Prestamo> listaPrestamo;
     private final Dialogo dialogos;
-    
+    private String titulo, codigoClasificacion;    
     
     public PrestamoController(){
        
@@ -71,6 +75,8 @@ public class PrestamoController implements Initializable, ControlledScreen{
        listaEjemplares = FXCollections.observableArrayList();
        listaUsuarios = FXCollections.observableArrayList();
        listaReservas = FXCollections.observableArrayList();
+       listaDetalleRe = FXCollections.observableArrayList();
+       listaPrestamo = FXCollections.observableArrayList();
        consulta = new Consultas();
        select = new Seleccion();
        dialogos = new Dialogo();
@@ -88,9 +94,14 @@ public class PrestamoController implements Initializable, ControlledScreen{
     
     @FXML
     public void dialogoDetalleMaterial(ActionEvent evento){        
-        detalleMaterial();
+       detalleMaterialEjemplar();
     }
-          
+    
+    @FXML
+    public void dialogoDetalleMaterialRe(ActionEvent evento){    
+        detalleMaterialRe();
+    }
+    
     @FXML
     public void buscarMaterial(ActionEvent evento){
         buscarMaterial();
@@ -115,6 +126,64 @@ public class PrestamoController implements Initializable, ControlledScreen{
     public void buscarReserva(ActionEvent evento){
         buscarReserva();        
     }
+    @FXML
+    public void removerEjemplar(ActionEvent evento){
+        removerEjemplar();
+    }
+    
+    public void cargarDetalleReserva(){
+        detalleReserva();
+    }
+    
+    public void addEjemplar(){
+        sumarEjemplar();
+    }
+    
+    private void sumarEjemplar(){
+        if(tablaEjemplar.getSelectionModel().getSelectedItem() != null){
+            prepararTablaPrestamo();
+            String ejemplar = listaEjemplares.get(tablaEjemplar.getSelectionModel().getSelectedIndex()).getEjemplar();
+            listaPrestamo.add(new Prestamo(ejemplar, titulo, codigoClasificacion));
+        }    
+    }
+    
+    private void removerEjemplar(){
+         
+        if(!listaPrestamo.isEmpty()){
+            if(tablaPrestamo.getSelectionModel().getSelectedItem() != null){
+                listaPrestamo.remove(tablaEjemplar.getSelectionModel().getSelectedIndex());
+            } 
+        }    
+    }
+    
+    private void prepararTablaPrestamo(){
+    
+        clmnEjemplarPr.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("ejemplar"));
+        clmnTituloPr.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("titulo"));
+        clmnCodigoPr.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("codigo"));
+        tablaPrestamo.setItems(listaPrestamo);       
+    }
+    
+    private void detalleReserva(){
+        
+        if(tablaReserva.getSelectionModel().getSelectedItem() != null){
+            prepararTablaDetalleRe();
+            listaDetalleRe.addAll(consulta.getListaDetalleReserva(listaReservas.get(tablaReserva.getSelectionModel().getSelectedIndex()).getId()));
+            tablaDetalleReserva.setItems(listaDetalleRe);
+        }
+    }
+    
+    private void prepararTablaDetalleRe(){
+       
+        clmnTituloDe.setCellValueFactory(new PropertyValueFactory<Material, String>("titulo"));
+        clmnEjemplarRe.setCellValueFactory(new PropertyValueFactory<Material, String>("ejemplar"));
+        clmnCodigoDe.setCellValueFactory(new PropertyValueFactory<Material, String>("codigo"));
+        clmnAutor.setCellValueFactory(new PropertyValueFactory<Material, String>("autores"));
+        clmnEditorial.setCellValueFactory(new PropertyValueFactory<Material, String>("editorial"));      
+        clmnMateria.setCellValueFactory(new PropertyValueFactory<Material, String>("materias"));
+        tablaDetalleReserva.setEditable(true);
+        listaDetalleRe.clear();  
+    }
     
     private void buscarReserva(){
         
@@ -122,10 +191,12 @@ public class PrestamoController implements Initializable, ControlledScreen{
             prepararTablaReserva();
             listaReservas.addAll(consulta.getListaReservaBusqueda(txtfBuscarReserva.getText().trim()));
             tablaReserva.setItems(listaReservas);
+            listaDetalleRe.clear();
         }
     }
     
     private void listarReservas(){
+        
         prepararTablaReserva();
         listaReservas.addAll(consulta.getListaReservas());
         tablaReserva.setItems(listaReservas);
@@ -184,21 +255,35 @@ public class PrestamoController implements Initializable, ControlledScreen{
         }
     }
     
-    private void detalleMaterial(){
-    
-         if (tablaMaterial.getSelectionModel().getSelectedItem() != null) {
-            ventanaPrincipal = new Sabga();
-            btnDetalle.setDisable(true);
-            dialogos.setId(Integer.parseInt(listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()));
-            dialogos.mostrarDialogo("vista/dialogos/DetalleMaterial.fxml", "Detalle Material", ventanaPrincipal.getPrimaryStage(), null, 4);           
-            btnDetalle.setDisable(false);
-        }
-        else{
-            Utilidades.mensaje(null,"Debe seleccionar un material de la lista", "Para ver el detalle del material", "Detalle Material");
+    private void detalleMaterialRe(){   
+        
+        if (tablaDetalleReserva.getSelectionModel().getSelectedItem() != null) {           
+            detalleMaterial(listaDetalleRe.get(tablaDetalleReserva.getSelectionModel().getSelectedIndex()).getIdMaterial());
+        } else {
+            Utilidades.mensaje(null, "Debe seleccionar un material de la lista", "Para ver el detalle del material", "Detalle Material");
         }    
     }
     
+    private void detalleMaterialEjemplar(){
+        
+        if (tablaMaterial.getSelectionModel().getSelectedItem() != null) {           
+            detalleMaterial(Integer.parseInt(listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()));            
+        } else {
+            Utilidades.mensaje(null, "Debe seleccionar un material de la lista", "Para ver el detalle del material", "Detalle Material");
+        }         
+    }
+    
+    private void detalleMaterial(int id) {
+        
+        ventanaPrincipal = new Sabga();
+        btnDetalle.setDisable(true);
+        dialogos.setId(id);
+        dialogos.mostrarDialogo("vista/dialogos/DetalleMaterial.fxml", "Detalle Material", ventanaPrincipal.getPrimaryStage(), null, 4);        
+        btnDetalle.setDisable(false);        
+    }
+    
     private void mapearEjemplar(){
+        
         if (tablaMaterial.getSelectionModel().getSelectedItem() != null) {
             listaEjemplares.clear();
             clmnEjemplar.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("ejemplar"));
@@ -207,7 +292,9 @@ public class PrestamoController implements Initializable, ControlledScreen{
             tablaEjemplar.setEditable(true);
             listaEjemplares.addAll(consulta.listaEjemplares(Integer.parseInt(listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId())));
             tablaEjemplar.setItems(listaEjemplares);
-        }
+            titulo = listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getTitulo();
+            codigoClasificacion = listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getCodigo();
+         }
     }
     
     private void prepararTablaMaterial(){   
@@ -229,10 +316,10 @@ public class PrestamoController implements Initializable, ControlledScreen{
     }
     
     private void inicio(){
+        
         comboListar.setItems(consulta.llenarLista(select.getListaTipoMaterial(), select.getTipoMaterial()));
         comboListaUsuario.setItems(consulta.llenarLista(select.getListaUsuarios(), select.getUsuarios()));
-        comboListaUsuario.getItems().add("Todos");
-      
+        comboListaUsuario.getItems().add("Todos");      
     }
     
     @Override

@@ -295,24 +295,24 @@ public class Consultas {
     
     public ObservableList<Material> getListaDetalleReserva(int id){
             
-          ObservableList<Material> lista = FXCollections.observableArrayList();
+        ObservableList<Material> lista = FXCollections.observableArrayList();
         try {
             con.conectar();
             con.procedimiento("{ CALL getListaDetalleReserva(?)}");
-            con.getProcedimiento().setInt("parametro", id);
+            con.getProcedimiento().setInt("idReserva", id);
             con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
-                listaMaterial.add(new Material(con.getResultado().getString("titulo"), con.getResultado().getString("codigo"),
-                                               con.getResultado().getString("tipo"), con.getResultado().getString("clase"),
-                                               con.getResultado().getString("id")));
+                lista.add(new Material(con.getResultado().getInt("id"), con.getResultado().getString("titulo"),
+                                       con.getResultado().getString("ejemplar"), con.getResultado().getString("codigo"), 
+                                       con.getResultado().getString("autor"), con.getResultado().getString("editorial"),
+                                       con.getResultado().getString("materia")));
             }
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
         } finally {
             con.desconectar();
         }
-        return lista;
-    
+        return lista;    
     }
     
     public void mapearBibliotecario(String nombreUsuario){

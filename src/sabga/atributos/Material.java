@@ -19,6 +19,7 @@ public class Material {
    public SimpleStringProperty autores;
    public SimpleStringProperty editorial;
    public SimpleStringProperty materias;
+   public SimpleStringProperty ejemplar;
     
     
     public Material(String titulo, String codigo, String tipo, String clase, String id){
@@ -30,14 +31,15 @@ public class Material {
           this.id = new SimpleStringProperty(id);
     }
     
-    public Material(int id, String titulo, String codigo, String autor, String editorial, String materia){
+    public Material(int id, String titulo, String ejemplar, String codigo, String autores, String editorial, String materias){
         
         this.idMaterial = new SimpleIntegerProperty(id);
-        this.codigo = new SimpleStringProperty(codigo);
         this.titulo = new SimpleStringProperty(titulo);
-        this.autores = new SimpleStringProperty(autor);
+        this.ejemplar = new SimpleStringProperty(ejemplar);
+        this.codigo = new SimpleStringProperty(codigo);    
+        this.autores = new SimpleStringProperty(autores);
         this.editorial = new SimpleStringProperty(editorial);
-        this.materias = new SimpleStringProperty(materia);
+        this.materias = new SimpleStringProperty(materias);
                
     }
     public String getTitulo(){    
@@ -75,7 +77,11 @@ public class Material {
     public int getIdMaterial() {
         return idMaterial.get();
     }
-
+    
+    public String getEjemplar(){
+        return ejemplar.get();
+    }
+    
     @Override
     public String toString() {
         return this.getTitulo()+" "+this.getCodigo()+" "+ this.getClase();
