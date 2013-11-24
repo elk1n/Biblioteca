@@ -21,6 +21,7 @@ import javafx.scene.layout.HBox;
 import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.atributos.Ejemplar;
+import sabga.atributos.Materia;
 import sabga.atributos.Material;
 import sabga.atributos.Prestamo;
 import sabga.atributos.Reserva;
@@ -41,7 +42,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
     @FXML 
     private TextField txtfBuscar, txtfBuscarUsuario, txtfBuscarReserva;
     @FXML 
-    private Label validarBusqueda;
+    private Label lblNombre, lblDocumento, lblCorreo;
     @FXML
     private Button btnDetalle;
     @FXML
@@ -139,11 +140,39 @@ public class PrestamoController implements Initializable, ControlledScreen{
         sumarEjemplar();
     }
     
+    public void addUsuario(){
+        seleccionarUsuario();
+    }
+    
+    private void seleccionarUsuario(){
+         
+        if (tablaUsuarios.getSelectionModel().getSelectedItem() != null) {
+            String nombre = listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getNombre();
+            String apellido = listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getApellido();
+            lblNombre.setText(nombre + " " + apellido);
+            lblDocumento.setText(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
+            lblCorreo.setText(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getCorreo());
+        }
+    }
+
     private void sumarEjemplar(){
+        
         if(tablaEjemplar.getSelectionModel().getSelectedItem() != null){
             prepararTablaPrestamo();
             String ejemplar = listaEjemplares.get(tablaEjemplar.getSelectionModel().getSelectedIndex()).getEjemplar();
-            listaPrestamo.add(new Prestamo(ejemplar, titulo, codigoClasificacion));
+            if(!verificarDuplicados(listaPrestamo, ejemplar)){
+                if(listaEjemplares.get(tablaEjemplar.getSelectionModel().getSelectedIndex()).getEstado().equals("Disponible") &&
+                   listaEjemplares.get(tablaEjemplar.getSelectionModel().getSelectedIndex()).getDisponibilidad().equals("Habilitado")){
+                        listaPrestamo.add(new Prestamo(ejemplar, titulo, codigoClasificacion));
+                }
+                else{
+                    Utilidades.mensaje(null, "El ejemplar se encuentra reservado, prestado, inhabilitado o en mantenimiento y no puede prestarse.",
+                                             "", "Seleccionar Ejemplar");
+                }
+            }
+            else{
+                Utilidades.mensaje(null, "El ejemplar seleccionado ya se ecuentra en la lista.", "", "Seleccionar Ejemplar");
+            }
         }    
     }
     
@@ -151,11 +180,11 @@ public class PrestamoController implements Initializable, ControlledScreen{
          
         if(!listaPrestamo.isEmpty()){
             if(tablaPrestamo.getSelectionModel().getSelectedItem() != null){
-                listaPrestamo.remove(tablaEjemplar.getSelectionModel().getSelectedIndex());
+                listaPrestamo.remove(tablaPrestamo.getSelectionModel().getSelectedIndex());
             } 
         }    
     }
-    
+        
     private void prepararTablaPrestamo(){
     
         clmnEjemplarPr.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("ejemplar"));
@@ -313,6 +342,16 @@ public class PrestamoController implements Initializable, ControlledScreen{
         
         listaMaterial.addAll(consulta.getListaMaterial(comboListar.getSelectionModel().getSelectedItem().toString()));
         tablaMaterial.setItems(listaMaterial);
+    }
+    
+    private Boolean verificarDuplicados(ObservableList<Prestamo> lista ,String ejemplar){
+        
+        for(Prestamo dato: lista){
+           if(dato.getEjemplar().equals(ejemplar)){
+               return true;
+           }            
+        }
+        return false;  
     }
     
     private void inicio(){
