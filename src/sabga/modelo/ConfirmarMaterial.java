@@ -1,6 +1,9 @@
 
 package sabga.modelo;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javafx.collections.ObservableList;
 
 /**
@@ -8,7 +11,7 @@ import javafx.collections.ObservableList;
  */
 
 public class ConfirmarMaterial extends ValidarMaterial {
-
+    private Calendar fechas;
     public boolean confirmarNuevoAutor(String nombre, String apellidos) {
 
         if (!validarCampoTexto(nombre, 90)) {
@@ -136,5 +139,21 @@ public class ConfirmarMaterial extends ValidarMaterial {
             return true;
         }
     }
+    
+     public boolean confirmarPrestamo(ObservableList lista, Date fecha, String id) {
 
+        fechas = Calendar.getInstance();
+        fechas = new GregorianCalendar();
+
+        if (lista.isEmpty()) {
+            return false;
+        } else if (fecha == null || fecha.before(fechas.getTime()) || fecha.equals(fechas.getTime())) {
+            return false;
+        } else if (!validarCampoTexto(id, 15)) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
 }

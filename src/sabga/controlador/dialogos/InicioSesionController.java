@@ -14,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import sabga.Sabga;
 import sabga.atributos.Atributos;
 import sabga.configuracion.Conexion;
@@ -35,6 +36,8 @@ public class InicioSesionController implements Initializable{
     private Label validarUsuario, validacion;    
     @FXML 
     private ComboBox comboTipoAdmin;
+    @FXML
+    private AnchorPane panel;
     
     private final ObservableList listaAdministradores;
     
@@ -55,8 +58,7 @@ public class InicioSesionController implements Initializable{
     }
      
     @FXML
-    public void iniciarSesion(ActionEvent evento){  
-        
+    public void iniciarSesion(ActionEvent evento){          
         inicioSesion();        
     }
    
@@ -82,6 +84,7 @@ public class InicioSesionController implements Initializable{
             }
             else{
                 validacion.setText("El nombre de usuario o la contraseña introducidos no son correctos.");
+                campoContrasenia.clear();
             }           
         }
     }
@@ -142,6 +145,7 @@ public class InicioSesionController implements Initializable{
     public void initialize(URL url, ResourceBundle rb) { 
         llenarComboBox();
         comboTipoAdmin.getSelectionModel().selectFirst();
+        
     }    
     
 }

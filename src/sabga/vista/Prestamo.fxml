@@ -178,10 +178,10 @@
         </Tab>
       </tabs>
     </TabPane>
-    <Pane layoutX="674.0" layoutY="21.0" prefHeight="441.0" prefWidth="554.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" styleClass="resultado">
+    <Pane layoutX="674.0" layoutY="21.0" prefHeight="449.0" prefWidth="554.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" styleClass="resultado">
       <children>
-        <Button defaultButton="true" layoutX="420.0" layoutY="160.0" mnemonicParsing="false" onAction="#removerEjemplar" prefHeight="25.0" prefWidth="120.0" text="Remover Ejemplar" />
-        <GridPane id="GridPane" hgap="25.0" layoutX="22.0" layoutY="42.0" prefHeight="107.0">
+        <Button defaultButton="true" layoutX="416.0" layoutY="407.0" mnemonicParsing="false" onAction="#removerEjemplar" prefHeight="25.0" prefWidth="120.0" text="Remover Ejemplar" />
+        <GridPane id="GridPane" hgap="25.0" layoutX="22.0" layoutY="42.0" prefHeight="197.0">
           <children>
             <Label text="Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="0">
               <font>
@@ -189,8 +189,8 @@
               </font>
             </Label>
             <Label fx:id="lblNombre" prefWidth="346.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-            <Label font="$x1" text="Fecha Devolución:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-            <HBox fx:id="hboxFecha" alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="346.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <Label font="$x1" text="Fecha Devolución:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+            <HBox fx:id="hboxFecha" alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="346.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
               <padding>
                 <Insets top="5.0" />
               </padding>
@@ -198,10 +198,16 @@
                 <URL value="@css/DatePicker.css" />
               </stylesheets>
             </HBox>
-            <Label font="$x1" text="Documento:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <Label font="$x1" text="Correo:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-            <Label fx:id="lblDocumento" prefWidth="346.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="lblCorreo" prefWidth="346.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label font="$x1" text="Documento:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <Label font="$x1" text="Correo:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <Label fx:id="lblDocumento" prefWidth="346.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="lblCorreo" prefWidth="346.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label id="lblValidarPrestamo" fx:id="lblValidarDocumento" prefWidth="346.0" text="" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+              <textFill>
+                <Color blue="0.000" green="0.000" red="0.800" fx:id="x3" />
+              </textFill>
+            </Label>
+            <Label id="lblValidarPrestamo" fx:id="lblValidarFecha" prefWidth="346.0" text="" textFill="$x3" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.valignment="TOP" />
           </children>
           <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -209,12 +215,16 @@
           </columnConstraints>
           <rowConstraints>
             <RowConstraints maxHeight="26.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="15.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="26.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="26.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="15.0" minHeight="10.0" prefHeight="29.0" valignment="CENTER" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="29.0" minHeight="10.0" prefHeight="29.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="29.0" minHeight="35.0" prefHeight="29.0" valignment="CENTER" vgrow="SOMETIMES" />
           </rowConstraints>
         </GridPane>
-        <TableView fx:id="tablaPrestamo" editable="true" layoutX="23.0" layoutY="195.0" prefHeight="215.0" prefWidth="517.0">
+        <TableView fx:id="tablaPrestamo" editable="true" layoutX="19.0" layoutY="239.0" prefHeight="159.0" prefWidth="517.0">
           <columns>
             <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="150.0" text="Ejemplar" fx:id="clmnEjemplarPr" />
             <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="208.0" text="Título" fx:id="clmnTituloPr" />
@@ -222,11 +232,12 @@
           </columns>
         </TableView>
         <Label font="$x2" layoutX="22.0" layoutY="8.0" text="Datos del Prestamo:" />
+        <Label id="lblValidarPrestamo" fx:id="lblValidarEjemplar" layoutX="22.0" layoutY="408.0" prefWidth="346.0" text="" textFill="$x3" wrapText="true" />
       </children>
       <stylesheets>
         <URL value="@css/estilo.css" />
       </stylesheets>
     </Pane>
-    <Button defaultButton="true" layoutX="1108.0" layoutY="479.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Prestar" />
+    <Button defaultButton="true" layoutX="1090.0" layoutY="483.0" mnemonicParsing="false" onAction="#prestar" prefHeight="25.0" prefWidth="120.0" text="Prestar" />
   </children>
 </AnchorPane>

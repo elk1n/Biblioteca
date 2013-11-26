@@ -31,6 +31,7 @@ import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.Consultas;
 import sabga.modelo.Seleccion;
+import sabga.modelo.ValidarMaterial;
 
 
 public class PrestamoController implements Initializable, ControlledScreen{
@@ -42,7 +43,8 @@ public class PrestamoController implements Initializable, ControlledScreen{
     @FXML 
     private TextField txtfBuscar, txtfBuscarUsuario, txtfBuscarReserva;
     @FXML 
-    private Label lblNombre, lblDocumento, lblCorreo, lblGrado, lblCurso, lblJornada, lblTelefono, lblDireccion, lblMulta;
+    private Label lblNombre, lblDocumento, lblCorreo, lblGrado, lblCurso, lblJornada, lblTelefono, lblDireccion, lblMulta,
+                  lblValidarDocumento, lblValidarFecha, lblValidarEjemplar;
     @FXML
     private Button btnDetalle;
     @FXML
@@ -66,6 +68,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
     private final Dialogo dialogos;
     private String titulo, codigoClasificacion;  
     private boolean reserva = false;
+    private ValidarMaterial validarPrestamo;
     
     public PrestamoController(){
        
@@ -82,6 +85,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
        consulta = new Consultas();
        select = new Seleccion();
        dialogos = new Dialogo();
+       
     }
     
     @FXML
@@ -128,6 +132,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
     public void buscarReserva(ActionEvent evento){
         buscarReserva();        
     }
+    
     @FXML
     public void removerEjemplar(ActionEvent evento){
         removerEjemplar();
@@ -146,8 +151,18 @@ public class PrestamoController implements Initializable, ControlledScreen{
         seleccionarUsuario();
     }
     
-    private void reservar(){
+    @FXML
+    public void prestar(ActionEvent evento){    
+        prestar();
+    }
+    
+    private void prestar(){
         
+       validarPrestamo = new ValidarMaterial();
+       validarPrestamo.validarPrestamo(listaPrestamo, fechaDevolucion.getSelectedDate(), lblDocumento.getText());
+       lblValidarDocumento.setText(validarPrestamo.getErrorDocumento());
+       lblValidarFecha.setText(validarPrestamo.getErrorFecha());      
+       lblValidarEjemplar.setText(validarPrestamo.getErrorEjemplares());
         
     }
     
@@ -398,7 +413,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
         listaMaterial.addAll(consulta.getListaMaterial(comboListar.getSelectionModel().getSelectedItem().toString()));
         tablaMaterial.setItems(listaMaterial);
     }
-    
+        
     private Boolean verificarDuplicados(ObservableList<Prestamo> lista ,String ejemplar){
         
         for(Prestamo dato: lista){

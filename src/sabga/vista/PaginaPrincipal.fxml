@@ -66,7 +66,11 @@
                 <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="129.0" text="Estado del prestamo" />
               </columns>
             </TableView>
-            <Label font="$x2" layoutX="635.0" layoutY="33.0" text="Entregas del Día" />
+            <Label layoutX="635.0" layoutY="33.0" text="Entregas del Día">
+              <font>
+                <Font size="12.0" fx:id="x2" />
+              </font>
+            </Label>
             <Label font="$x2" layoutX="635.0" layoutY="283.0" text="Reservas Pendientes" />
           </children>
         </Pane>
@@ -113,9 +117,9 @@
             <RadioButton fx:id="radioUsuario" font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" text="Usuarios" toggleGroup="$busqueda" />
           </children>
         </HBox>
-        <HBox id="HBox" fx:id="hboxAdmin" alignment="CENTER_RIGHT" fillHeight="true" layoutX="1061.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" spacing="15.0">
+        <HBox id="HBox" fx:id="hboxAdmin" alignment="CENTER_RIGHT" fillHeight="true" layoutX="1111.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" spacing="15.0">
           <children>
-            <MenuButton fx:id="menuAdmin" font="$x1" mnemonicParsing="false" prefHeight="25.0" text="Administrador" HBox.hgrow="ALWAYS">
+            <MenuButton fx:id="menuAdmin" font="$x1" mnemonicParsing="false" prefHeight="25.0" text="Menú" HBox.hgrow="ALWAYS">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#ventanaCuenta" text="Mi Cuenta" />
                 <Menu mnemonicParsing="false" text="Bibliotecario Auxiliar">

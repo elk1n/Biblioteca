@@ -1,6 +1,9 @@
 
 package sabga.modelo;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javafx.collections.ObservableList;
 
 /**
@@ -11,7 +14,8 @@ public class ValidarMaterial extends Validacion{
 
     private String errorNombreAutor, errorApellidosAutor, errorEditorial, errorNombreMateria, errorCodigoClasificacion, 
                    errorClaseMaterial, errorTitulo, errorAnioPublicacion, errorPublicacion, errorNumeroPaginas, errorEjemplares,
-                   errorAutor, errorMateria, errorTipoMaterial;
+                   errorAutor, errorMateria, errorTipoMaterial, errorFecha, errorDocumento;
+    Calendar calendario;
                         
     //   METODO FINAL (ESO ESPEREO) PARA VALIDAR UN NUEVO AUTOR  
     public void validarNuevoAutor(String nombre, String apellidos){
@@ -140,7 +144,30 @@ public class ValidarMaterial extends Validacion{
         if (!validarCampoTexto(titulo, 255)) {
             this.errorTitulo = getMensajeError();
         }
-    }        
+    }
+    
+    public void validarPrestamo(ObservableList lista, Date fecha, String id){
+        
+        this.calendario = Calendar.getInstance();
+        this.calendario = new GregorianCalendar();
+        
+        if(lista.isEmpty()){
+            this.errorEjemplares = "Debe seleccioanr al menos un ejemplar.";
+        }
+        else{
+            this.errorEjemplares = "";
+        }
+        if( fecha == null || fecha.before(calendario.getTime()) || fecha.equals(calendario.getTime())){
+            this.errorFecha = "La fecha de devolución debe ser posterior a la fecha del prestamo.";
+        }
+        else{
+            this.errorFecha = "";
+        }
+        if(!validarCampoTexto(id, 15)){
+            this.errorDocumento = getMensajeError();
+        }
+    
+    }
     // 
     public String getErrorCodigoClasificacion(){      
       return this.errorCodigoClasificacion;
@@ -197,5 +224,18 @@ public class ValidarMaterial extends Validacion{
     public String getErrorNombreMateria() {
         return this.errorNombreMateria;
     }   
-        
+
+    public String getErrorEjemplares() {
+        return this.errorEjemplares;
+    }
+
+    public String getErrorFecha() {
+        return this.errorFecha;
+    }
+
+    public String getErrorDocumento() {
+        return this.errorDocumento;
+    }
+     
+    
 }

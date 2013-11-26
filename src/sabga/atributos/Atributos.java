@@ -33,32 +33,32 @@ public class Atributos {
         return nombreUsuario;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        Atributos.nombreUsuario = nombreUsuario;
+    public void setNombreUsuario(String nombre) {
+        nombreUsuario = nombre;
     }
 
     public String getDocumento() {
         return documento;
     }
 
-    public void setDocumento(String documento) {
-        Atributos.documento = documento;
+    public void setDocumento(String id) {
+        documento = id;
     }
 
     public  String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        Atributos.nombre = nombre;
+    public void setNombre(String name) {
+        nombre = name;
     }
 
     public String getApellido() {
         return apellido;
     }
 
-    public void setApellido(String apellido) {
-        Atributos.apellido = apellido;
+    public void setApellido(String lastName) {
+        apellido = lastName;
     }
    
     
