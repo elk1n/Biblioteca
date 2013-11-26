@@ -66,11 +66,11 @@ public class CuentaController implements Initializable, ControlledScreen {
     }
     
     private void cambiarContrasenia(){
-            mensajesContrasenia();
-            ConfirmarUsuario usuario = new ConfirmarUsuario();
-            if(usuario.cambioContrasenia(passContrasenia.getText(), passNuevaContra.getText(), passConfirmacion.getText())){
-                    consultar.cambiarContrasenia(consultar.getDocumento(), Utilidades.encriptar(passContrasenia.getText()),
-                                                 Utilidades.encriptar(passNuevaContra.getText()));                   
+         mensajesContrasenia();
+        ConfirmarUsuario usuario = new ConfirmarUsuario();
+        if (usuario.cambioContrasenia(passContrasenia.getText(), passNuevaContra.getText(), passConfirmacion.getText())) {
+            consultar.cambiarContrasenia(consultar.getDocumento(), Utilidades.encriptar(passContrasenia.getText()),
+            Utilidades.encriptar(passNuevaContra.getText()));
             if (consultar.getMensaje() == null) {
                 limpiarCampos();
                 Utilidades.mensaje(null, "La contraseña se modifico correctamente.", "", "Editar Contraseña");

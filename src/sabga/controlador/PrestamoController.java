@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -21,7 +22,6 @@ import javafx.scene.layout.HBox;
 import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.atributos.Ejemplar;
-import sabga.atributos.Materia;
 import sabga.atributos.Material;
 import sabga.atributos.Prestamo;
 import sabga.atributos.Reserva;
@@ -42,7 +42,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
     @FXML 
     private TextField txtfBuscar, txtfBuscarUsuario, txtfBuscarReserva;
     @FXML 
-    private Label lblNombre, lblDocumento, lblCorreo;
+    private Label lblNombre, lblDocumento, lblCorreo, lblGrado, lblCurso, lblJornada, lblTelefono, lblDireccion, lblMulta;
     @FXML
     private Button btnDetalle;
     @FXML
@@ -53,7 +53,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
     private TableColumn clmnTitulo, clmnCodigo, clmnClase, clmnTipo, clmnEjemplar, clmnEstado, clmnDispo, clmnDocumento,
                         clmnNombre, clmnApellido, clmnCorreo, clmnTipoUsuario, clmnEstadoUsuario, clmnDocumentoRe, clmnNombreRe,
                         clmnApellidoRe, clmnFecha, clmnEstadoRe, clmnTituloDe, clmnCodigoDe, clmnAutor, clmnEditorial, clmnMateria,
-                        clmnEjemplarRe, clmnEjemplarPr, clmnTituloPr, clmnCodigoPr;
+                        clmnEjemplarRe, clmnEjemplarPr, clmnTituloPr, clmnCodigoPr, clmnCorreoRe;
     private final DatePicker fechaDevolucion;
     private final Consultas consulta;
     private final Seleccion select;
@@ -64,7 +64,8 @@ public class PrestamoController implements Initializable, ControlledScreen{
     private final ObservableList<Material> listaDetalleRe;
     private final ObservableList<Prestamo> listaPrestamo;
     private final Dialogo dialogos;
-    private String titulo, codigoClasificacion;    
+    private String titulo, codigoClasificacion;  
+    private boolean reserva = false;
     
     public PrestamoController(){
        
@@ -134,6 +135,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
     
     public void cargarDetalleReserva(){
         detalleReserva();
+        seleccionarReserva();
     }
     
     public void addEjemplar(){
@@ -144,14 +146,67 @@ public class PrestamoController implements Initializable, ControlledScreen{
         seleccionarUsuario();
     }
     
-    private void seleccionarUsuario(){
-         
+    private void reservar(){
+        
+        
+    }
+    
+    private void seleccionarReserva(){
+        
+        if (tablaReserva.getSelectionModel().getSelectedItem() != null && !listaDetalleRe.isEmpty()) {
+            if (listaReservas.get(tablaReserva.getSelectionModel().getSelectedIndex()).getEstado().equals("Vigente")) {
+                String nombre = listaReservas.get(tablaReserva.getSelectionModel().getSelectedIndex()).getNombre();
+                String apellido = listaReservas.get(tablaReserva.getSelectionModel().getSelectedIndex()).getApellido();
+                lblNombre.setText(nombre + " " + apellido);
+                lblDocumento.setText(listaReservas.get(tablaReserva.getSelectionModel().getSelectedIndex()).getDocumento());
+                lblCorreo.setText(listaReservas.get(tablaReserva.getSelectionModel().getSelectedIndex()).getCorreo());
+                listaPrestamo.clear();
+                prepararTablaPrestamo();
+                for (Material de : listaDetalleRe) {
+                    listaPrestamo.add(new Prestamo(de.getEjemplar(), de.getTitulo(), de.getCodigo()));
+                }
+                reserva = true;
+            }else{
+                limpiarCamposReserva();
+                listaPrestamo.clear();
+                Utilidades.mensaje(null, "La reserva se ecuentra cancelada.","", "Reserva Cancelada");
+            } 
+        }
+    }
+    
+    private void seleccionarUsuario() {
+
         if (tablaUsuarios.getSelectionModel().getSelectedItem() != null) {
-            String nombre = listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getNombre();
-            String apellido = listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getApellido();
-            lblNombre.setText(nombre + " " + apellido);
-            lblDocumento.setText(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
-            lblCorreo.setText(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getCorreo());
+            consulta.mapearUsuarios(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
+            lblGrado.setText(consulta.getGrado());
+            lblCurso.setText(consulta.getCurso());
+            lblJornada.setText(consulta.getJornada());
+            lblDireccion.setText(consulta.getDireccion());
+            lblTelefono.setText(consulta.getTelefono());
+            lblMulta.setText(String.valueOf(consulta.getMulta()));
+            if (listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getEstado().equals("Habilitado")) {
+                if (consulta.getMulta() > 0) {
+                    Utilidades.mensajeOpcion(null, "Desea continuar con el prestamo?", "El usuario se encuentra multado.", "Seleccionar Usuario");
+                    if (Utilidades.getMensajeOpcion() == Dialogs.DialogResponse.YES) {
+                        String nombre = listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getNombre();
+                        String apellido = listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getApellido();
+                        lblNombre.setText(nombre + " " + apellido);
+                        lblDocumento.setText(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
+                        lblCorreo.setText(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getCorreo());
+                    }else{
+                        limpiarCamposReserva();
+                    }
+                } else {
+                    String nombre = listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getNombre();
+                    String apellido = listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getApellido();
+                    lblNombre.setText(nombre + " " + apellido);
+                    lblDocumento.setText(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
+                    lblCorreo.setText(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getCorreo());
+                }
+            } else {
+                limpiarCamposReserva();
+                Utilidades.mensaje(null, "El usuario se encuentra inhabilitado.", "", "Seleccionar Ususario");
+            }
         }
     }
 
@@ -169,8 +224,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
                     Utilidades.mensaje(null, "El ejemplar se encuentra reservado, prestado, inhabilitado o en mantenimiento y no puede prestarse.",
                                              "", "Seleccionar Ejemplar");
                 }
-            }
-            else{
+            }else{
                 Utilidades.mensaje(null, "El ejemplar seleccionado ya se ecuentra en la lista.", "", "Seleccionar Ejemplar");
             }
         }    
@@ -236,6 +290,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
         clmnDocumentoRe.setCellValueFactory(new PropertyValueFactory<Reserva, String>("documento"));
         clmnNombreRe.setCellValueFactory(new PropertyValueFactory<Reserva, String>("nombre"));
         clmnApellidoRe.setCellValueFactory(new PropertyValueFactory<Reserva, String>("apellido"));
+        clmnCorreoRe.setCellValueFactory(new PropertyValueFactory<Reserva, String>("correo"));
         clmnFecha.setCellValueFactory(new PropertyValueFactory<Reserva, String>("fecha"));
         clmnEstadoRe.setCellValueFactory(new PropertyValueFactory<Reserva, String>("estado"));
         tablaReserva.setEditable(true);
@@ -359,6 +414,11 @@ public class PrestamoController implements Initializable, ControlledScreen{
         comboListar.setItems(consulta.llenarLista(select.getListaTipoMaterial(), select.getTipoMaterial()));
         comboListaUsuario.setItems(consulta.llenarLista(select.getListaUsuarios(), select.getUsuarios()));
         comboListaUsuario.getItems().add("Todos");      
+    }
+    private void limpiarCamposReserva() {
+        lblNombre.setText(null);
+        lblDocumento.setText(null);
+        lblCorreo.setText(null);
     }
     
     @Override

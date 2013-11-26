@@ -19,6 +19,7 @@ import sabga.atributos.Atributos;
 import sabga.configuracion.Conexion;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.ConfirmarUsuario;
+import sabga.modelo.Consultas;
 import sabga.modelo.ValidarUsuario;
 
 
@@ -39,10 +40,14 @@ public class InicioSesionController implements Initializable{
     
     private final Conexion con;
     private int usuario = 0;
+    private final Consultas consulta;
+    private final Atributos atributos;
  
     public InicioSesionController(){        
         con = new Conexion();
         listaAdministradores = FXCollections.observableArrayList();
+        consulta = new Consultas();
+        atributos = new Atributos();
     }
    
     public void setVentanaPrincipal(Sabga ventanaPrincipal) {        
@@ -59,14 +64,21 @@ public class InicioSesionController implements Initializable{
     
         mensajesUsuario();        
         ConfirmarUsuario confirmar = new ConfirmarUsuario();        
-        if(confirmar.confirmarUsuario(campoUsuario.getText(), campoContrasenia.getText())){            
+        if(confirmar.confirmarUsuario(campoUsuario.getText().trim(), campoContrasenia.getText().trim())){            
             consultarUsuario();
             if(usuario==1){
-                Atributos atribu = new Atributos();
-                atribu.setUsuarioAdmin(campoUsuario.getText().trim());
-                this.ventanaPrincipal.inciarSesion();
-                campoUsuario.clear();
-                campoContrasenia.clear();
+                consulta.getDatosBibliotecario(campoUsuario.getText().trim());
+                if (consulta.getMensaje() == null) {
+                    atributos.setUsuarioAdmin(campoUsuario.getText().trim());
+                    atributos.setDocumento(consulta.getDocumento());
+                    atributos.setNombre(consulta.getNombre());
+                    atributos.setApellido(consulta.getApellido());
+                    this.ventanaPrincipal.inciarSesion();
+                    campoUsuario.clear();
+                    campoContrasenia.clear();
+                }else{
+                validacion.setText("No se ha podido acceder a la aplicación.");
+            } 
             }
             else{
                 validacion.setText("El nombre de usuario o la contraseña introducidos no son correctos.");

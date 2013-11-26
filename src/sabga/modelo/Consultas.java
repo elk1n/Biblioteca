@@ -22,7 +22,7 @@ public class Consultas {
     private final Conexion con;
     private final ObservableList<Material> listaMaterial;
     private ObservableList<Autor> obtenerAutores;
-    private String titulo, clasificacion, publicacion, editorial, tipoMaterial, claseMaterial, mensaje, tipoUsuario, grado, 
+    private String titulo, clasificacion, publicacion, editorial, tipoMaterial, claseMaterial, mensaje, tipoUsuario, grado,
                    curso, jornada, nombre, apellido, correo, telefono, direccion, estado, documento, usuario;
     private int paginas, anio;
     private double multa;
@@ -58,7 +58,7 @@ public class Consultas {
             con.setResultado(con.getStatement().executeQuery("SELECT * FROM tbl_AUTOR ORDER BY nombre_autor, apellidos_autor"));
             while (con.getResultado().next()) {
                 obtenerAutores.add(new Autor(con.getResultado().getString("nombre_autor"), con.getResultado().getString("apellidos_autor"),
-                                             con.getResultado().getString("id_autor")));
+                        con.getResultado().getString("id_autor")));
             }
             for (Autor datos : obtenerAutores) {
                 listaAutores.add(datos.toString());
@@ -66,11 +66,11 @@ public class Consultas {
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
         } finally {
-           con.desconectar();
+            con.desconectar();
         }
         return listaAutores;
     }
-    
+
     public ObservableList listaAutoresMaterial(int id) {
 
         ObservableList autores = FXCollections.observableArrayList();
@@ -92,8 +92,8 @@ public class Consultas {
             con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
                 listaMaterial.add(new Material(con.getResultado().getString("titulo"), con.getResultado().getString("codigo"),
-                                               con.getResultado().getString("tipo"), con.getResultado().getString("clase"),
-                                               con.getResultado().getString("id")));
+                        con.getResultado().getString("tipo"), con.getResultado().getString("clase"),
+                        con.getResultado().getString("id")));
             }
         } catch (SQLException e) {
             Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos del material", "Error Consulta");
@@ -113,8 +113,8 @@ public class Consultas {
             con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
                 listaMaterial.add(new Material(con.getResultado().getString("titulo"), con.getResultado().getString("codigo"),
-                                               con.getResultado().getString("tipo"), con.getResultado().getString("clase"),
-                                               con.getResultado().getString("id")));
+                        con.getResultado().getString("tipo"), con.getResultado().getString("clase"),
+                        con.getResultado().getString("id")));
             }
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
@@ -173,7 +173,7 @@ public class Consultas {
             con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
                 listaAutores.add(new Autor(con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
-                                           con.getResultado().getString("id")));
+                        con.getResultado().getString("id")));
             }
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
@@ -182,11 +182,11 @@ public class Consultas {
         }
         return listaAutores;
     }
-    
+
     public ObservableList<Autor> getListaAutores() {
         return obtenerAutores;
     }
-    
+
     public ObservableList<Usuario> getListaUsuarioBusqueda(String parametroBusqueda) {
 
         ObservableList<Usuario> lista = FXCollections.observableArrayList();
@@ -197,8 +197,8 @@ public class Consultas {
             con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
                 lista.add(new Usuario(con.getResultado().getString("tipo"), con.getResultado().getString("id"),
-                                      con.getResultado().getString("nombres"), con.getResultado().getString("apellido"),
-                                      con.getResultado().getString("email"), con.getResultado().getString("estado") ));
+                        con.getResultado().getString("nombres"), con.getResultado().getString("apellido"),
+                        con.getResultado().getString("email"), con.getResultado().getString("estado")));
             }
         } catch (SQLException e) {
             Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos del usuario.", "Error Consulta Usuario");
@@ -207,9 +207,9 @@ public class Consultas {
         }
         return lista;
     }
-    
-    public ObservableList<Usuario> getListaBibliotecarios(){
-    
+
+    public ObservableList<Usuario> getListaBibliotecarios() {
+
         ObservableList<Usuario> lista = FXCollections.observableArrayList();
         try {
             con.conectar();
@@ -217,22 +217,22 @@ public class Consultas {
             con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
                 lista.add(new Usuario(con.getResultado().getString("id"), con.getResultado().getString("nombres"),
-                                      con.getResultado().getString("apellido"), con.getResultado().getString("usuario"),
-                                      con.getResultado().getString("email"), con.getResultado().getString("phone"),
-                                      con.getResultado().getString("estado"), con.getResultado().getString("tipo")));
+                        con.getResultado().getString("apellido"), con.getResultado().getString("usuario"),
+                        con.getResultado().getString("email"), con.getResultado().getString("phone"),
+                        con.getResultado().getString("estado"), con.getResultado().getString("tipo")));
             }
         } catch (SQLException e) {
             Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos de los bibliotecarios.", "Error Consulta Bibliotecario");
         } finally {
             con.desconectar();
         }
-        return lista;    
+        return lista;
     }
-    
-    public ObservableList<Usuario> getListaUsuarios(int opcion, String tipo){
-    
-        ObservableList<Usuario> lista= FXCollections.observableArrayList();
-        
+
+    public ObservableList<Usuario> getListaUsuarios(int opcion, String tipo) {
+
+        ObservableList<Usuario> lista = FXCollections.observableArrayList();
+
         try {
             con.conectar();
             con.procedimiento("{ CALL getListaUsuarios(?,?) }");
@@ -242,19 +242,19 @@ public class Consultas {
             while (con.getResultado().next()) {
                 lista.add(new Usuario(con.getResultado().getString("tipo"), con.getResultado().getString("documento"),
                                       con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
-                                      con.getResultado().getString("correo"), con.getResultado().getString("estado") ));
+                                      con.getResultado().getString("correo"), con.getResultado().getString("estado")));
             }
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
         } finally {
             con.desconectar();
-        }        
+        }
         return lista;
     }
-    
-    public ObservableList<Reserva> getListaReservas(){
-        
-          ObservableList<Reserva> listaReservas = FXCollections.observableArrayList();
+
+    public ObservableList<Reserva> getListaReservas() {
+
+        ObservableList<Reserva> listaReservas = FXCollections.observableArrayList();
         try {
             con.conectar();
             con.procedimiento("{ CALL getListaReservas() }");
@@ -262,16 +262,17 @@ public class Consultas {
             while (con.getResultado().next()) {
                 listaReservas.add(new Reserva(con.getResultado().getInt("id"), con.getResultado().getString("documento"),
                                               con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
-                                              con.getResultado().getString("fecha"), con.getResultado().getString("estado")));
+                                              con.getResultado().getString("email"), con.getResultado().getString("fecha"),
+                                              con.getResultado().getString("estado")));
             }
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
         } finally {
-            con.desconectar();        
+            con.desconectar();
         }
         return listaReservas;
     }
-    
+
     public ObservableList<Reserva> getListaReservaBusqueda(String parametroBusqueda) {
 
         ObservableList<Reserva> lista = FXCollections.observableArrayList();
@@ -282,8 +283,9 @@ public class Consultas {
             con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
                 lista.add(new Reserva(con.getResultado().getInt("id"), con.getResultado().getString("documento"),
-                                      con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
-                                      con.getResultado().getString("fecha"), con.getResultado().getString("estado")));
+                        con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
+                        con.getResultado().getString("email"), con.getResultado().getString("fecha"), 
+                        con.getResultado().getString("estado")));
             }
         } catch (SQLException e) {
             Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos del usuario.", "Error Consulta Usuario");
@@ -292,9 +294,9 @@ public class Consultas {
         }
         return lista;
     }
-    
-    public ObservableList<Material> getListaDetalleReserva(int id){
-            
+
+    public ObservableList<Material> getListaDetalleReserva(int id) {
+
         ObservableList<Material> lista = FXCollections.observableArrayList();
         try {
             con.conectar();
@@ -303,21 +305,21 @@ public class Consultas {
             con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
                 lista.add(new Material(con.getResultado().getInt("id"), con.getResultado().getString("titulo"),
-                                       con.getResultado().getString("ejemplar"), con.getResultado().getString("codigo"), 
-                                       con.getResultado().getString("autor"), con.getResultado().getString("editorial"),
-                                       con.getResultado().getString("materia")));
+                        con.getResultado().getString("ejemplar"), con.getResultado().getString("codigo"),
+                        con.getResultado().getString("autor"), con.getResultado().getString("editorial"),
+                        con.getResultado().getString("materia")));
             }
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
         } finally {
             con.desconectar();
         }
-        return lista;    
+        return lista;
     }
-    
-    public void mapearBibliotecario(String nombreUsuario){
-    
-       try {
+
+    public void mapearBibliotecario(String nombreUsuario) {
+
+        try {
             con.conectar();
             con.procedimiento("{ CALL mapearBibliotecario(?,?,?,?,?,?,?) }");
             con.getProcedimiento().setString("usuario", nombreUsuario);
@@ -328,7 +330,7 @@ public class Consultas {
             con.getProcedimiento().registerOutParameter("phone", Types.VARCHAR);
             con.getProcedimiento().registerOutParameter("nombreUsuario", Types.VARCHAR);
             con.getProcedimiento().execute();
-            
+
             documento = con.getProcedimiento().getString("id");
             nombre = con.getProcedimiento().getString("nombres");
             apellido = con.getProcedimiento().getString("apellido");
@@ -342,7 +344,6 @@ public class Consultas {
             con.desconectar();
         }
 
-        
     }
 
     public void mapearMaterial(int codigo) {
@@ -433,10 +434,10 @@ public class Consultas {
             con.desconectar();
         }
     }
-    
-    public void editarMaterialMateria(int opcion, int material, String materia){
-    
-         try {
+
+    public void editarMaterialMateria(int opcion, int material, String materia) {
+
+        try {
             con.conectar();
             con.getConexion().setAutoCommit(false);
             con.procedimiento("{ CALL editarMaterialMateria(?,?,?,?) }");
@@ -457,11 +458,11 @@ public class Consultas {
             mensaje = e.getMessage();
         } finally {
             con.desconectar();
-        }         
+        }
     }
-    
-    public void editarAutorMaterial(int opcion, int material, int autor){
-    
+
+    public void editarAutorMaterial(int opcion, int material, int autor) {
+
         try {
             con.conectar();
             con.getConexion().setAutoCommit(false);
@@ -483,12 +484,12 @@ public class Consultas {
             mensaje = e.getMessage();
         } finally {
             con.desconectar();
-        }  
+        }
     }
-    
-    public void editarMaterial(int opcion, int material, String clase, String editorial, String codigo, 
-                               String titulo, String publicacion, int anio, int paginas ){
-    
+
+    public void editarMaterial(int opcion, int material, String clase, String editorial, String codigo,
+                               String titulo, String publicacion, int anio, int paginas) {
+
         try {
             con.conectar();
             con.getConexion().setAutoCommit(false);
@@ -517,13 +518,13 @@ public class Consultas {
         } finally {
             con.desconectar();
         }
-    
+
     }
-    
+
     public void registrarUsuario(int opcion, String tipo, String nombre, String apellido, String correo, String documento,
-                                 String grado, String curso, String jornada, String telefono, String direccion){
-    
-            try {
+                                 String grado, String curso, String jornada, String telefono, String direccion) {
+
+        try {
             con.conectar();
             con.getConexion().setAutoCommit(false);
             con.procedimiento("{ CALL registrarUsuario(?,?,?,?,?,?,?,?,?,?,?,?) }");
@@ -553,12 +554,12 @@ public class Consultas {
         } finally {
             con.desconectar();
         }
-    
+
     }
-    
-    public void mapearUsuarios(String id){
-    
-          try {
+
+    public void mapearUsuarios(String id) {
+
+        try {
             con.conectar();
             con.procedimiento("{ CALL mapearUsuario(?,?,?,?,?,?,?,?,?,?,?,?) }");
             con.getProcedimiento().setString("id", id);
@@ -574,7 +575,7 @@ public class Consultas {
             con.getProcedimiento().registerOutParameter("address", Types.VARCHAR);
             con.getProcedimiento().registerOutParameter("estado", Types.VARCHAR);
             con.getProcedimiento().execute();
-            
+
             tipoUsuario = con.getProcedimiento().getString("tipo");
             grado = con.getProcedimiento().getString("grado");
             curso = con.getProcedimiento().getString("curso");
@@ -586,60 +587,55 @@ public class Consultas {
             telefono = con.getProcedimiento().getString("phone");
             direccion = con.getProcedimiento().getString("address");
             estado = con.getProcedimiento().getString("estado");
-            
+
         } catch (SQLException e) {
             Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos del material", "Error Consulta");
         } finally {
             con.desconectar();
         }
-    
-    
+
     }
-    
-    public int getId(int opcion, String nombre){
-        
-        int id=0;
-        
+
+    public int getId(int opcion, String nombre) {
+
+        int id = 0;
+
         try {
             con.conectar();
             con.procedimiento("{ ? = CALL getId(?,?) }");
             con.getProcedimiento().registerOutParameter(1, Types.INTEGER);
             con.getProcedimiento().setInt("opcion", opcion);
-            con.getProcedimiento().setString("nombre", nombre);                      
+            con.getProcedimiento().setString("nombre", nombre);
             con.getProcedimiento().execute();
             id = con.getProcedimiento().getInt(1);
         } catch (SQLException e) {
-            Utilidades.mensajeError(null, e.getMessage(), "No ha sido posible realizar la operación solicitada.", "Error");  
+            Utilidades.mensajeError(null, e.getMessage(), "No ha sido posible realizar la operación solicitada.", "Error");
         } finally {
             con.desconectar();
         }
         return id;
     }
-     
-    public void eliminarMaterial(int codigo) throws SQLException{
-    
-        try{
+
+    public void eliminarMaterial(int codigo) throws SQLException {
+
+        try {
             con.conectar();
             con.getConexion().setAutoCommit(false);
             con.procedimiento("{ CALL eliminarMaterial(?) }");
             con.getProcedimiento().setInt("codigo", codigo);
-          
+
             con.getProcedimiento().execute();
            // mensaje = con.getProcedimiento().getString("mensaje");
-           
-        }catch(SQLException e){
-            
-                con.getConexion().rollback();
-          }
-        finally{
+        } catch (SQLException e) {
+            con.getConexion().rollback();
+        } finally {
             con.desconectar();
         }
-    
     }
-      
+
     public void editarUsuario(int opcion, String id, String tipo, String nombre, String apellido, String correo, String documento,
-                              String grado, String curso, String jornada, String telefono, String direccion, int estado){
-        
+                              String grado, String curso, String jornada, String telefono, String direccion, int estado) {
+
         try {
             con.conectar();
             con.getConexion().setAutoCommit(false);
@@ -654,7 +650,7 @@ public class Consultas {
             con.getProcedimiento().setString("grado", grado);
             con.getProcedimiento().setString("curso", curso);
             con.getProcedimiento().setString("jornada", jornada);
-            con.getProcedimiento().setString("phone", telefono);            
+            con.getProcedimiento().setString("phone", telefono);
             con.getProcedimiento().setString("address", direccion);
             con.getProcedimiento().setInt("estado", estado);
             con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
@@ -671,13 +667,13 @@ public class Consultas {
             mensaje = e.getMessage();
         } finally {
             con.desconectar();
-        }   
+        }
     }
-    
+
     public void registrarBibliotecario(String documento, String usuario, String contrasenia, String tipo, String nombre, String apellido,
-                                       String correo, String telefono){
-        
-           try {
+                                       String correo, String telefono) {
+
+        try {
             con.conectar();
             con.getConexion().setAutoCommit(false);
             con.procedimiento("{ CALL registrarBibliotecario(?,?,?,?,?,?,?,?,?) }");
@@ -704,12 +700,12 @@ public class Consultas {
         } finally {
             con.desconectar();
         }
-    
+
     }
-    
+
     public void editarBibliotecario(int opcion, String id, int estado, String tipo, String nombre, String apellido, String telefono,
-                                    String correo, String usuario, String documento){
-             
+                                    String correo, String usuario, String documento) {
+
         try {
             con.conectar();
             con.getConexion().setAutoCommit(false);
@@ -723,7 +719,7 @@ public class Consultas {
             con.getProcedimiento().setString("telephone", telefono);
             con.getProcedimiento().setString("email", correo.trim());
             con.getProcedimiento().setString("usuario", usuario.trim());
-            con.getProcedimiento().setString("documento", documento.trim()); 
+            con.getProcedimiento().setString("documento", documento.trim());
             con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
             con.getProcedimiento().execute();
             mensaje = con.getProcedimiento().getString("mensaje");
@@ -738,18 +734,18 @@ public class Consultas {
             mensaje = e.getMessage();
         } finally {
             con.desconectar();
-        }   
+        }
     }
-    
-    public void cambiarContrasenia(String id, String antigua, String nueva){
-        
+
+    public void cambiarContrasenia(String id, String antigua, String nueva) {
+
         try {
             con.conectar();
             con.getConexion().setAutoCommit(false);
             con.procedimiento("{ CALL cambiarContrasenia(?,?,?,?) }");
             con.getProcedimiento().setString("id", id);
             con.getProcedimiento().setString("oldPass", antigua);
-            con.getProcedimiento().setString("newPass", nueva); 
+            con.getProcedimiento().setString("newPass", nueva);
             con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
             con.getProcedimiento().execute();
             mensaje = con.getProcedimiento().getString("mensaje");
@@ -764,7 +760,29 @@ public class Consultas {
             mensaje = e.getMessage();
         } finally {
             con.desconectar();
-        } 
+        }
+    }
+    
+    public void getDatosBibliotecario(String usuario){
+        
+         try {
+            con.conectar();
+            con.procedimiento("{ CALL getDatosBibliotecario(?,?,?,?,?) }");
+            con.getProcedimiento().setString("usuario", usuario);
+            con.getProcedimiento().registerOutParameter("id", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("nombres", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("apellido", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+            con.getProcedimiento().execute();           
+            documento = con.getProcedimiento().getString("id");
+            nombre = con.getProcedimiento().getString("nombres");
+            apellido = con.getProcedimiento().getString("apellido");
+            mensaje = con.getProcedimiento().getString("mensaje");
+        } catch (SQLException e) {
+            mensaje = "No se pudo obtener la información del bibliotecario.";             
+        } finally {
+            con.desconectar();
+        }        
     }
 
     public String getTitulo() {
@@ -802,7 +820,7 @@ public class Consultas {
     public String getMensaje() {
         return mensaje;
     }
-    
+
     public String getTipoUsuario() {
         return tipoUsuario;
     }
@@ -850,8 +868,6 @@ public class Consultas {
     public String getUsuario() {
         return usuario;
     }
-    
-    
 
     public double getMulta() {
         return multa;

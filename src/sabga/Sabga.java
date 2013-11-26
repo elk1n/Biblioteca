@@ -118,7 +118,7 @@ public class Sabga extends Application {
     
     public void inciarSesion(){  
         primaryStage.show();        
-        dialogo.getDialogStage().close();   
+        dialogo.getDialogStage().close();       
     }
     
     public void cerrarSesion(){      

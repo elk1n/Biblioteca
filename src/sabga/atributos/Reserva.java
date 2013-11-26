@@ -14,15 +14,17 @@ public class Reserva {
     public SimpleStringProperty documento;
     public SimpleStringProperty nombre;
     public SimpleStringProperty apellido;
+    public SimpleStringProperty correo;
     public SimpleStringProperty fecha;
     public SimpleStringProperty estado;
     
-    public Reserva (int id, String documento, String nombre, String apellido, String fecha, String estado ){
+    public Reserva (int id, String documento, String nombre, String apellido, String correo, String fecha, String estado ){
         
         this.id = new SimpleIntegerProperty(id);
         this.documento = new SimpleStringProperty(documento);
         this.nombre = new SimpleStringProperty(nombre);
         this.apellido = new SimpleStringProperty(apellido);
+        this.correo = new SimpleStringProperty(correo);
         this.fecha = new SimpleStringProperty(fecha);
         this.estado = new SimpleStringProperty(estado);  
     }
@@ -41,6 +43,10 @@ public class Reserva {
 
     public String getApellido() {
         return this.apellido.get();
+    }
+    
+    public String getCorreo(){
+        return this.correo.get();
     }
     
     public String getFecha(){
