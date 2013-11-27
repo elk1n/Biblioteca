@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javafx.collections.ObservableList;
+import sabga.preferencias.Preferencias;
 
 /**
  * @author Elk1n
@@ -14,9 +15,9 @@ public class ValidarMaterial extends Validacion{
 
     private String errorNombreAutor, errorApellidosAutor, errorEditorial, errorNombreMateria, errorCodigoClasificacion, 
                    errorClaseMaterial, errorTitulo, errorAnioPublicacion, errorPublicacion, errorNumeroPaginas, errorEjemplares,
-                   errorAutor, errorMateria, errorTipoMaterial, errorFecha, errorDocumento, errorTipoUsuario;
-    Calendar calendario;
-                        
+                   errorAutor, errorMateria, errorTipoMaterial, errorFecha, errorDocumento, errorTipoUsuario = "";
+    private Calendar calendario;
+    private static Preferencias pref;                    
     //   METODO FINAL (ESO ESPEREO) PARA VALIDAR UN NUEVO AUTOR  
     public void validarNuevoAutor(String nombre, String apellidos){
        
@@ -146,30 +147,36 @@ public class ValidarMaterial extends Validacion{
         }
     }
     
-    public void validarPrestamo(ObservableList lista, Date fecha, String id, String tipoUsuario, int numeroEjemplares){
-        
+    public void validarPrestamo(ObservableList lista, Date fecha, String id, String tipoUsuario, int numeroEjemplares) {
+
         this.calendario = Calendar.getInstance();
         this.calendario = new GregorianCalendar();
-        
-        if(lista.isEmpty()){
+        pref = new Preferencias();
+        if (lista.isEmpty()) {
             this.errorEjemplares = "Debe seleccioanr al menos un ejemplar.";
-        }
-        else{
+        } else {
             this.errorEjemplares = "";
         }
-        if( fecha == null || fecha.before(calendario.getTime()) || fecha.equals(calendario.getTime())){
-            this.errorFecha = "La fecha de devolución debe ser posterior a la fecha del prestamo.";
+        if (fecha != null) {
+            if (fecha.before(calendario.getTime()) || fecha.equals(calendario.getTime())) {
+                this.errorFecha = "La fecha de devolución debe ser posterior a la fecha del prestamo.";
+            } else {
+                this.errorFecha = "";
+            }
+        } else {
+            this.errorFecha = "Debe seleccionar una fecha de devolución.";
         }
-        else{
-            this.errorFecha = "";
-        }
-        if(!validarCampoTexto(id, 15)){
+        if (!validarCampoTexto(id, 15)) {
             this.errorDocumento = getMensajeError();
         }
-        if(!validarCampoTexto(tipoUsuario, 32) || tipoUsuario.contains("estudiante")){
-            this.errorTipoUsuario = 
+        if (validarCampoTexto(tipoUsuario, 32)) {
+            if (tipoUsuario.contains("estudiante") && numeroEjemplares > pref.getNumeroEjemplares()) {
+                this.errorTipoUsuario = "El tipo de usuario puede prestar un máximo de " + pref.getNumeroEjemplares() + " ejemplares.";
+            } else {
+                this.errorTipoUsuario = "";
+            }
         }
-    
+
     }
     // 
     public String getErrorCodigoClasificacion(){      
@@ -239,6 +246,11 @@ public class ValidarMaterial extends Validacion{
     public String getErrorDocumento() {
         return this.errorDocumento;
     }
-     
+
+    public String getErrorTipoUsuario() {
+        return errorTipoUsuario;
+    }
+    
+    
     
 }

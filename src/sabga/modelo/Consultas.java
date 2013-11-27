@@ -787,7 +787,7 @@ public class Consultas {
         }        
     }
     
-    public void registrarPrestamo(int opcion, String usuario, String bibliotecario, int reserva, Date fecha, Date fechaEntrega,
+    public void registrarPrestamo(int opcion, String usuario, String bibliotecario, int reserva, String fecha, String fechaEntrega,
                                   ObservableList<Prestamo> ejemplares) {
 
         try {
@@ -798,7 +798,7 @@ public class Consultas {
             con.getProcedimiento().setString("idUsuario", usuario);
             con.getProcedimiento().setString("idBibliotecario", bibliotecario);
             con.getProcedimiento().setInt("reserva", reserva);
-            con.getProcedimiento().setDate("fecha", fecha);
+            con.getProcedimiento().setString("fecha", fecha);
             con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
             con.getProcedimiento().registerOutParameter("id", Types.INTEGER);
             con.getProcedimiento().execute();
@@ -809,7 +809,7 @@ public class Consultas {
                 con.procedimiento("{ CALL registrarDetallePrestamo(?,?,?,?) }");
                 con.getProcedimiento().setInt("ejemplar", Integer.parseInt(p.getEjemplar()));
                 con.getProcedimiento().setInt("prestamo", idPrestamo);
-                con.getProcedimiento().setDate("fecha", fechaEntrega);
+                con.getProcedimiento().setString("fecha", fechaEntrega);
                 con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
                 con.getProcedimiento().execute();
                 mensaje = con.getProcedimiento().getString("mensaje");

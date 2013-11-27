@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javafx.collections.ObservableList;
+import sabga.preferencias.Preferencias;
 
 /**
  * @author Elk1n
@@ -12,6 +13,7 @@ import javafx.collections.ObservableList;
 
 public class ConfirmarMaterial extends ValidarMaterial {
     private Calendar fechas;
+    private Preferencias pref;
     public boolean confirmarNuevoAutor(String nombre, String apellidos) {
 
         if (!validarCampoTexto(nombre, 90)) {
@@ -140,10 +142,11 @@ public class ConfirmarMaterial extends ValidarMaterial {
         }
     }
 
-    public boolean confirmarPrestamo(ObservableList lista, Date fecha, String id) {
+    public boolean confirmarPrestamo(ObservableList lista, Date fecha, String id, String tipoUsuario, int numeroEjemplares) {
 
         fechas = Calendar.getInstance();
         fechas = new GregorianCalendar();
+        pref = new Preferencias();
 
         if (lista.isEmpty()) {
             return false;
@@ -151,7 +154,9 @@ public class ConfirmarMaterial extends ValidarMaterial {
             return false;
         } else if (!validarCampoTexto(id, 15)) {
             return false;
-        } else {
+        } else if(!validarCampoTexto(tipoUsuario, 32) || tipoUsuario.contains("estudiante") && numeroEjemplares > pref.getNumeroEjemplares()){
+            return false;
+        }else {
             return true;
         }
 

@@ -63,6 +63,10 @@ public class Preferencias {
         return propiedades.getProperty("puerto");
     }
     
+    public int getNumeroEjemplares(){
+        return Integer.parseInt(propiedades.getProperty("numeroMaximoEjemplares"));
+    }
+    
     public void setCorreo(String mail){     
         setPreferencia("correo", mail);
     }

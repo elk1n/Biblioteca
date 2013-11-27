@@ -178,7 +178,7 @@
         </Tab>
       </tabs>
     </TabPane>
-    <Pane layoutX="674.0" layoutY="21.0" prefHeight="429.0" prefWidth="554.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" styleClass="resultado">
+    <Pane layoutX="674.0" layoutY="21.0" prefHeight="439.0" prefWidth="554.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" styleClass="resultado">
       <children>
         <Button defaultButton="true" layoutX="416.0" layoutY="380.0" mnemonicParsing="false" onAction="#removerEjemplar" prefHeight="25.0" prefWidth="120.0" text="Remover Ejemplar" />
         <GridPane id="GridPane" hgap="25.0" layoutX="22.0" layoutY="42.0" prefHeight="131.0" prefWidth="517.0">
