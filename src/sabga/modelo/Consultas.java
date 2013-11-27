@@ -1,5 +1,6 @@
 package sabga.modelo;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Types;
 import javafx.collections.FXCollections;
@@ -8,6 +9,7 @@ import sabga.atributos.Autor;
 import sabga.atributos.Ejemplar;
 import sabga.atributos.Materia;
 import sabga.atributos.Material;
+import sabga.atributos.Prestamo;
 import sabga.atributos.Reserva;
 import sabga.atributos.Usuario;
 import sabga.configuracion.Conexion;
@@ -24,7 +26,7 @@ public class Consultas {
     private ObservableList<Autor> obtenerAutores;
     private String titulo, clasificacion, publicacion, editorial, tipoMaterial, claseMaterial, mensaje, tipoUsuario, grado,
                    curso, jornada, nombre, apellido, correo, telefono, direccion, estado, documento, usuario;
-    private int paginas, anio;
+    private int paginas, anio, idPrestamo;
     private double multa;
 
     public Consultas() {
@@ -263,7 +265,7 @@ public class Consultas {
                 listaReservas.add(new Reserva(con.getResultado().getInt("id"), con.getResultado().getString("documento"),
                                               con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
                                               con.getResultado().getString("email"), con.getResultado().getString("fecha"),
-                                              con.getResultado().getString("estado")));
+                                              con.getResultado().getString("estado"), con.getResultado().getString("tipoUsuario")));
             }
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
@@ -285,7 +287,7 @@ public class Consultas {
                 lista.add(new Reserva(con.getResultado().getInt("id"), con.getResultado().getString("documento"),
                         con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
                         con.getResultado().getString("email"), con.getResultado().getString("fecha"), 
-                        con.getResultado().getString("estado")));
+                        con.getResultado().getString("estado"), con.getResultado().getString("tipoUsuario")));
             }
         } catch (SQLException e) {
             Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos del usuario.", "Error Consulta Usuario");
@@ -783,6 +785,48 @@ public class Consultas {
         } finally {
             con.desconectar();
         }        
+    }
+    
+    public void registrarPrestamo(int opcion, String usuario, String bibliotecario, int reserva, Date fecha, Date fechaEntrega,
+                                  ObservableList<Prestamo> ejemplares) {
+
+        try {
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL registrarPrestamo(?,?,?,?,?,?) }");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setString("idUsuario", usuario);
+            con.getProcedimiento().setString("idBibliotecario", bibliotecario);
+            con.getProcedimiento().setInt("reserva", reserva);
+            con.getProcedimiento().setDate("fecha", fecha);
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("id", Types.INTEGER);
+            con.getProcedimiento().execute();
+            mensaje = con.getProcedimiento().getString("mensaje");
+            idPrestamo = con.getProcedimiento().getInt("id");
+
+            for (Prestamo p : ejemplares) {
+                con.procedimiento("{ CALL registrarDetallePrestamo(?,?,?,?) }");
+                con.getProcedimiento().setInt("ejemplar", Integer.parseInt(p.getEjemplar()));
+                con.getProcedimiento().setInt("prestamo", idPrestamo);
+                con.getProcedimiento().setDate("fecha", fechaEntrega);
+                con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+                con.getProcedimiento().execute();
+                mensaje = con.getProcedimiento().getString("mensaje");
+            }
+
+            con.getConexion().commit();
+        } catch (SQLException e) {
+            try {
+                con.getConexion().rollback();
+                mensaje = "No se ha registrado el prestamo.";
+            } catch (SQLException ex) {
+                mensaje = ex.getMessage();
+            }
+            mensaje = e.getMessage();
+        } finally {
+            con.desconectar();
+        }
     }
 
     public String getTitulo() {

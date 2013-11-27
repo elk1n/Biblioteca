@@ -17,8 +17,9 @@ public class Reserva {
     public SimpleStringProperty correo;
     public SimpleStringProperty fecha;
     public SimpleStringProperty estado;
+    public SimpleStringProperty tipoUsuario;
     
-    public Reserva (int id, String documento, String nombre, String apellido, String correo, String fecha, String estado ){
+    public Reserva (int id, String documento, String nombre, String apellido, String correo, String fecha, String estado, String tipoUsuario){
         
         this.id = new SimpleIntegerProperty(id);
         this.documento = new SimpleStringProperty(documento);
@@ -26,7 +27,8 @@ public class Reserva {
         this.apellido = new SimpleStringProperty(apellido);
         this.correo = new SimpleStringProperty(correo);
         this.fecha = new SimpleStringProperty(fecha);
-        this.estado = new SimpleStringProperty(estado);  
+        this.estado = new SimpleStringProperty(estado);
+        this.tipoUsuario = new SimpleStringProperty(tipoUsuario);
     }
 
     public int getId() {
@@ -57,5 +59,8 @@ public class Reserva {
         return this.estado.get();
     }
    
+    public String getTipoUsuario(){
+        return this.tipoUsuario.get();
+    }
 }
 

@@ -14,7 +14,7 @@ public class ValidarMaterial extends Validacion{
 
     private String errorNombreAutor, errorApellidosAutor, errorEditorial, errorNombreMateria, errorCodigoClasificacion, 
                    errorClaseMaterial, errorTitulo, errorAnioPublicacion, errorPublicacion, errorNumeroPaginas, errorEjemplares,
-                   errorAutor, errorMateria, errorTipoMaterial, errorFecha, errorDocumento;
+                   errorAutor, errorMateria, errorTipoMaterial, errorFecha, errorDocumento, errorTipoUsuario;
     Calendar calendario;
                         
     //   METODO FINAL (ESO ESPEREO) PARA VALIDAR UN NUEVO AUTOR  
@@ -146,7 +146,7 @@ public class ValidarMaterial extends Validacion{
         }
     }
     
-    public void validarPrestamo(ObservableList lista, Date fecha, String id){
+    public void validarPrestamo(ObservableList lista, Date fecha, String id, String tipoUsuario, int numeroEjemplares){
         
         this.calendario = Calendar.getInstance();
         this.calendario = new GregorianCalendar();
@@ -165,6 +165,9 @@ public class ValidarMaterial extends Validacion{
         }
         if(!validarCampoTexto(id, 15)){
             this.errorDocumento = getMensajeError();
+        }
+        if(!validarCampoTexto(tipoUsuario, 32) || tipoUsuario.contains("estudiante")){
+            this.errorTipoUsuario = 
         }
     
     }

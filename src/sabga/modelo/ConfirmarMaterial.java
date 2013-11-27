@@ -139,8 +139,8 @@ public class ConfirmarMaterial extends ValidarMaterial {
             return true;
         }
     }
-    
-     public boolean confirmarPrestamo(ObservableList lista, Date fecha, String id) {
+
+    public boolean confirmarPrestamo(ObservableList lista, Date fecha, String id) {
 
         fechas = Calendar.getInstance();
         fechas = new GregorianCalendar();

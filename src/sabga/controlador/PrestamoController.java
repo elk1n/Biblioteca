@@ -4,6 +4,8 @@ package sabga.controlador;
 import eu.schudt.javafx.controls.calendar.DatePicker;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,6 +31,7 @@ import sabga.atributos.Usuario;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
+import sabga.modelo.ConfirmarMaterial;
 import sabga.modelo.Consultas;
 import sabga.modelo.Seleccion;
 import sabga.modelo.ValidarMaterial;
@@ -66,9 +69,11 @@ public class PrestamoController implements Initializable, ControlledScreen{
     private final ObservableList<Material> listaDetalleRe;
     private final ObservableList<Prestamo> listaPrestamo;
     private final Dialogo dialogos;
-    private String titulo, codigoClasificacion;  
+    private String titulo, codigoClasificacion, tipoUsuario;  
     private boolean reserva = false;
     private ValidarMaterial validarPrestamo;
+    private ConfirmarMaterial confirmarMaterial;
+    private Calendar calendario;
     
     public PrestamoController(){
        
@@ -158,12 +163,14 @@ public class PrestamoController implements Initializable, ControlledScreen{
     
     private void prestar(){
         
-       validarPrestamo = new ValidarMaterial();
-       validarPrestamo.validarPrestamo(listaPrestamo, fechaDevolucion.getSelectedDate(), lblDocumento.getText());
-       lblValidarDocumento.setText(validarPrestamo.getErrorDocumento());
-       lblValidarFecha.setText(validarPrestamo.getErrorFecha());      
-       lblValidarEjemplar.setText(validarPrestamo.getErrorEjemplares());
-        
+        confirmarMaterial = new ConfirmarMaterial();
+        calendario = Calendar.getInstance();
+        calendario = new GregorianCalendar();
+        SimpleDateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
+        mensajesError();
+        if(confirmarMaterial.confirmarPrestamo(listaPrestamo, fechaDevolucion.getSelectedDate(), lblDocumento.getText())){
+          //  consulta.registrarPrestamo(opcion, titulo, titulo, reserva, null, null, listaPrestamo);
+        }        
     }
     
     private void seleccionarReserva(){
@@ -175,6 +182,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
                 lblNombre.setText(nombre + " " + apellido);
                 lblDocumento.setText(listaReservas.get(tablaReserva.getSelectionModel().getSelectedIndex()).getDocumento());
                 lblCorreo.setText(listaReservas.get(tablaReserva.getSelectionModel().getSelectedIndex()).getCorreo());
+                tipoUsuario = listaReservas.get(tablaReserva.getSelectionModel().getSelectedIndex()).getTipoUsuario().toLowerCase();
                 listaPrestamo.clear();
                 prepararTablaPrestamo();
                 for (Material de : listaDetalleRe) {
@@ -208,6 +216,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
                         lblNombre.setText(nombre + " " + apellido);
                         lblDocumento.setText(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
                         lblCorreo.setText(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getCorreo());
+                        tipoUsuario = listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getTipo().toLowerCase();
                     }else{
                         limpiarCamposReserva();
                     }
@@ -217,6 +226,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
                     lblNombre.setText(nombre + " " + apellido);
                     lblDocumento.setText(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
                     lblCorreo.setText(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getCorreo());
+                    tipoUsuario = listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getTipo().toLowerCase();
                 }
             } else {
                 limpiarCamposReserva();
@@ -413,6 +423,15 @@ public class PrestamoController implements Initializable, ControlledScreen{
         listaMaterial.addAll(consulta.getListaMaterial(comboListar.getSelectionModel().getSelectedItem().toString()));
         tablaMaterial.setItems(listaMaterial);
     }
+    
+    private void mensajesError() {
+
+        validarPrestamo = new ValidarMaterial();
+        validarPrestamo.validarPrestamo(listaPrestamo, fechaDevolucion.getSelectedDate(), lblDocumento.getText());
+        lblValidarDocumento.setText(validarPrestamo.getErrorDocumento());
+        lblValidarFecha.setText(validarPrestamo.getErrorFecha());
+        lblValidarEjemplar.setText(validarPrestamo.getErrorEjemplares());
+    }
         
     private Boolean verificarDuplicados(ObservableList<Prestamo> lista ,String ejemplar){
         
@@ -430,10 +449,12 @@ public class PrestamoController implements Initializable, ControlledScreen{
         comboListaUsuario.setItems(consulta.llenarLista(select.getListaUsuarios(), select.getUsuarios()));
         comboListaUsuario.getItems().add("Todos");      
     }
+    
     private void limpiarCamposReserva() {
         lblNombre.setText(null);
         lblDocumento.setText(null);
         lblCorreo.setText(null);
+        tipoUsuario = null;
     }
     
     @Override
