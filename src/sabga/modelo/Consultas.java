@@ -253,12 +253,13 @@ public class Consultas {
         return lista;
     }
 
-    public ObservableList<Reserva> getListaReservas() {
+    public ObservableList<Reserva> getListaReservas(int estado) {
 
         ObservableList<Reserva> listaReservas = FXCollections.observableArrayList();
         try {
             con.conectar();
-            con.procedimiento("{ CALL getListaReservas() }");
+            con.procedimiento("{ CALL getListaReservas(?) }");
+            con.getProcedimiento().setInt("estado", estado);
             con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
                 listaReservas.add(new Reserva(con.getResultado().getInt("id"), con.getResultado().getString("documento"),

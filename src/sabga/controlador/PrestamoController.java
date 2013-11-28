@@ -43,7 +43,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
     private Sabga ventanaPrincipal;
     private ScreensController controlador;
     @FXML 
-    private ComboBox comboListar, comboListaUsuario;
+    private ComboBox comboListar, comboListaUsuario, comboReservas;
     @FXML 
     private TextField txtfBuscar, txtfBuscarUsuario, txtfBuscarReserva;
     @FXML 
@@ -69,6 +69,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
     private final ObservableList<Reserva> listaReservas;
     private final ObservableList<Material> listaDetalleRe;
     private final ObservableList<Prestamo> listaPrestamo;
+    private final ObservableList listaDeReservas;
     private final Dialogo dialogos;
     private String titulo, codigoClasificacion, tipoUsuario;  
     private boolean reserva = false;
@@ -90,10 +91,10 @@ public class PrestamoController implements Initializable, ControlledScreen{
        listaReservas = FXCollections.observableArrayList();
        listaDetalleRe = FXCollections.observableArrayList();
        listaPrestamo = FXCollections.observableArrayList();
+       listaDeReservas = FXCollections.observableArrayList();
        consulta = new Consultas();
        select = new Seleccion();
-       dialogos = new Dialogo();
-       
+       dialogos = new Dialogo();       
     }
     
     @FXML
@@ -210,7 +211,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
             }else{
                 limpiarCamposReserva();
                 listaPrestamo.clear();
-                Utilidades.mensaje(null, "La reserva se ecuentra cancelada.","", "Reserva Cancelada");
+                Utilidades.mensaje(null, "La reserva se ecuentra cancelada o ha pasado a prestamo.","", "Imposible Prestar");
             } 
         }
     }
@@ -327,7 +328,15 @@ public class PrestamoController implements Initializable, ControlledScreen{
     private void listarReservas(){
         
         prepararTablaReserva();
-        listaReservas.addAll(consulta.getListaReservas());
+        if(comboReservas.getSelectionModel().getSelectedIndex() == 0){
+            listaReservas.addAll(consulta.getListaReservas(1));
+        }
+        else if(comboReservas.getSelectionModel().getSelectedIndex() == 1){
+            listaReservas.addAll(consulta.getListaReservas(2));
+        }
+        else if(comboReservas.getSelectionModel().getSelectedIndex() == 2){
+            listaReservas.addAll(consulta.getListaReservas(3));
+        }
         tablaReserva.setItems(listaReservas);
     }
     
@@ -468,7 +477,11 @@ public class PrestamoController implements Initializable, ControlledScreen{
         
         comboListar.setItems(consulta.llenarLista(select.getListaTipoMaterial(), select.getTipoMaterial()));
         comboListaUsuario.setItems(consulta.llenarLista(select.getListaUsuarios(), select.getUsuarios()));
-        comboListaUsuario.getItems().add("Todos");      
+        comboListaUsuario.getItems().add("Todos"); 
+        listaDeReservas.add("Vigentes");
+        listaDeReservas.add("Canceladas");
+        listaDeReservas.add("Prestadas");
+        comboReservas.setItems(listaDeReservas);
     }
     
     private void limpiarCamposReserva() {
