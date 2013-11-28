@@ -1,6 +1,5 @@
 package sabga.modelo;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Types;
 import javafx.collections.FXCollections;
@@ -793,7 +792,7 @@ public class Consultas {
         try {
             con.conectar();
             con.getConexion().setAutoCommit(false);
-            con.procedimiento("{ CALL registrarPrestamo(?,?,?,?,?,?) }");
+            con.procedimiento("{ CALL registrarPrestamo(?,?,?,?,?,?,?) }");
             con.getProcedimiento().setInt("opcion", opcion);
             con.getProcedimiento().setString("idUsuario", usuario);
             con.getProcedimiento().setString("idBibliotecario", bibliotecario);
@@ -814,7 +813,6 @@ public class Consultas {
                 con.getProcedimiento().execute();
                 mensaje = con.getProcedimiento().getString("mensaje");
             }
-
             con.getConexion().commit();
         } catch (SQLException e) {
             try {

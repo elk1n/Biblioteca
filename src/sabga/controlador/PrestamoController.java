@@ -177,9 +177,16 @@ public class PrestamoController implements Initializable, ControlledScreen{
                 consulta.registrarPrestamo(2, lblDocumento.getText(), atributos.getDocumento(), idReserva , formato.format(calendario.getTime()),
                                              formato.format(fechaDevolucion.getSelectedDate()), listaPrestamo);
             }else{
-                consulta.registrarPrestamo(2, lblDocumento.getText(), atributos.getDocumento(), 0, formato.format(calendario.getTime()),
+                consulta.registrarPrestamo(1, lblDocumento.getText(), atributos.getDocumento(), 0, formato.format(calendario.getTime()),
                                              formato.format(fechaDevolucion.getSelectedDate()), listaPrestamo);
-            }          
+            }
+              if(consulta.getMensaje() == null){
+               Utilidades.mensaje(null, "El prestamo se ha registrado correctamente", "", "Registrar Prestamo");
+               limpiarCamposReserva();
+               limpiarCampos();
+           }else{
+               Utilidades.mensajeError(null, consulta.getMensaje(), "El prestamo no ha sido registrado.", "Error Registro Prestamo");
+           }  
         }        
     }
     
@@ -469,6 +476,13 @@ public class PrestamoController implements Initializable, ControlledScreen{
         lblDocumento.setText(null);
         lblCorreo.setText(null);
         tipoUsuario = null;
+    }
+    
+    private void limpiarCampos(){
+        idReserva = 0;
+        reserva = false;
+        tipoUsuario = null;
+        listaPrestamo.clear();
     }
     
     @Override
