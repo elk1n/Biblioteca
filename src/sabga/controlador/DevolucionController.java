@@ -21,7 +21,10 @@ import javafx.scene.layout.HBox;
 import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.atributos.Devolucion;
+import sabga.atributos.Material;
+import sabga.atributos.Prestamo;
 import sabga.configuracion.ControlledScreen;
+import sabga.modelo.Consultas;
 
 /**
  * @author Elk1n
@@ -45,27 +48,21 @@ public class DevolucionController implements Initializable, ControlledScreen {
     @FXML
     private TableColumn clmnDocumento, clmnNombre, clmnApellido, clmnFechaPrestamo, clmnEstadoPrestamo, clmnEjemplar, 
                         clmnTitulo, clmnCodigo, clmnFechaDevolucion;
-    public ObservableList<Devolucion> datos;
-   
+    private final ObservableList<Prestamo> listaPrestamos; 
+    private final ObservableList prestamos;
     private final DatePicker fechaDevolucion;
+    private final Consultas consulta;
     
     public DevolucionController(){
-        
-       datos = FXCollections.observableArrayList(); 
+       
+       listaPrestamos = FXCollections.observableArrayList();
+       prestamos = FXCollections.observableArrayList();
        fechaDevolucion = new DatePicker();
+       consulta = new Consultas();
        fechaDevolucion.setDateFormat(new SimpleDateFormat("YYYY-MM-dd"));       
        fechaDevolucion.getCalendarView().showTodayButtonProperty().setValue(Boolean.FALSE);
        fechaDevolucion.getStylesheets().add("sabga/vista/css/DatePicker.css");
- 
-    }
-    
-    @Override
-    public void setScreenParent(ScreensController screenParent) {       
-        controlador = screenParent;        
-    }
-    
-    public void setVentanaPrincipal(Sabga ventanaPrincipal){        
-        this.ventanaPrincipal = ventanaPrincipal;
+     
     }
     
     @FXML
@@ -74,6 +71,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
         //ventanaPrincipal.pruebaDato();
         // buscar();
     }
+    
     @FXML
     public  void buscar(){
       
@@ -83,21 +81,58 @@ public class DevolucionController implements Initializable, ControlledScreen {
               
     }
     
+    @FXML
+    public void listarPrestamos(ActionEvent evento){    
+        listarPrestamos();
+    }
+    
+    private void listarPrestamos(){
+    
+           preparTablaPrestamo();
+           if(comboPrestamos.getSelectionModel().getSelectedIndex() == 0){
+               listaPrestamos.addAll(consulta.getListaPrestamo(1));
+           }
+           else if(comboPrestamos.getSelectionModel().getSelectedIndex() == 1){
+               listaPrestamos.addAll(consulta.getListaPrestamo(2));
+           }
+           tablaPrestamo.setItems(listaPrestamos);
+    }
+    
+    private void preparTablaPrestamo(){
+        
+        clmnDocumento.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("documento"));
+        clmnNombre.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("nombre"));
+        clmnApellido.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("apellido"));
+        clmnFechaPrestamo.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("fecha"));
+        clmnEstadoPrestamo.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("estado"));
+        listaPrestamos.clear();
+    }
+    
+    private void inicio() {
+        hboxFecha.getChildren().add(fechaDevolucion);
+        comboOpcion.getSelectionModel().selectFirst();
+        prestamos.add("Vigentes");
+        prestamos.add("Devueltos");
+        comboPrestamos.setItems(prestamos);
+    }
+        
+    @Override
+    public void setScreenParent(ScreensController screenParent) {       
+        controlador = screenParent;        
+    }
+    
+    public void setVentanaPrincipal(Sabga ventanaPrincipal){        
+        this.ventanaPrincipal = ventanaPrincipal;
+    }
+        
     /**
      * Initializes the controller class.
      * @param url
      * @param rb
      */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         hboxFecha.getChildren().add(fechaDevolucion);
-         comboOpcion.getSelectionModel().selectFirst();
-         
-       datos.add(new Devolucion(25, "Esto es una", "Esto es una prueba"));
-       datos.add(new Devolucion(25, "Esto es una...", "Esto es otra prueba"));
-       clmnEjemplar.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("ejemplar"));
-       clmnTitulo.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("titulo"));
-       clmnCodigo.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("codigo"));
-  
+        inicio();
     }
 }

@@ -318,6 +318,29 @@ public class Consultas {
         }
         return lista;
     }
+    
+    public ObservableList<Prestamo> getListaPrestamo(int estado){
+    
+        
+        ObservableList<Prestamo> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaPrestamo(?) }");
+            con.getProcedimiento().setInt("estado", estado);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                    lista.add(new Prestamo(con.getResultado().getInt("id"), con.getResultado().getString("documento"),
+                                              con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
+                                              con.getResultado().getString("fecha"), con.getResultado().getString("estado")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+        } finally {
+            con.desconectar();
+        }
+        return lista;
+        
+    }
 
     public void mapearBibliotecario(String nombreUsuario) {
 
