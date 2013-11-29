@@ -84,7 +84,7 @@
                   </items>
                 </ComboBox>
                 <Label font="$x2" layoutX="164.0" layoutY="6.0" text="Buscar Usuario" />
-                <TextField fx:id="txtfBuscarUsuario" layoutX="164.0" layoutY="39.0" onAction="#buscarUsuario" prefHeight="30.0" prefWidth="250.0" promptText="Buscar" />
+                <TextField fx:id="txtfBuscarUsuario" layoutX="164.0" layoutY="39.0" onAction="#buscarUsuario" prefHeight="30.0" prefWidth="250.0" promptText="Buscar Usuario" />
                 <Button layoutX="423.0" layoutY="41.0" mnemonicParsing="false" onAction="#buscarUsuario" prefHeight="25.0" prefWidth="25.0" styleClass="botonBuscar" text="">
                   <stylesheets>
                     <URL value="@css/estilo.css" />

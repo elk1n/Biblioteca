@@ -33,17 +33,18 @@ public class DevolucionController implements Initializable, ControlledScreen {
     private ScreensController controlador;
     
     @FXML 
-    private Label validarBusqueda, lblNombre; 
+    private Label validarBusqueda, lblNombre, lblDocumento;  
     @FXML
-    private ComboBox comboOpcion;
+    private ComboBox comboOpcion, comboPrestamos;
     @FXML 
-    private TextField campoBusqueda;
+    private TextField txtfBuscar;
     @FXML
     private HBox hboxFecha;
     @FXML
-    private TableView tablaDevolucion;
+    private TableView tablaPrestamo, tablaDevolucion;
     @FXML
-    private TableColumn clmnEjemplar, clmnTitulo, clmnCodigo, clmnDevolver;
+    private TableColumn clmnDocumento, clmnNombre, clmnApellido, clmnFechaPrestamo, clmnEstadoPrestamo, clmnEjemplar, 
+                        clmnTitulo, clmnCodigo, clmnFechaDevolucion;
     public ObservableList<Devolucion> datos;
    
     private final DatePicker fechaDevolucion;
