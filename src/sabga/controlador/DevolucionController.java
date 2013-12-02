@@ -20,8 +20,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import sabga.Sabga;
 import sabga.ScreensController;
-import sabga.atributos.Devolucion;
-import sabga.atributos.Material;
 import sabga.atributos.Prestamo;
 import sabga.configuracion.ControlledScreen;
 import sabga.modelo.Consultas;
@@ -73,12 +71,8 @@ public class DevolucionController implements Initializable, ControlledScreen {
     }
     
     @FXML
-    public  void buscar(){
-      
-       //ValidarMaterial validarBuscar = new ValidarMaterial(campoBusqueda.getText());
-       // validarBuscar.validarEditorialAC();
-       // validarBusqueda.setText(validarBuscar.getErrorNombreEditorial());
-              
+    public void buscar(ActionEvent evento){
+       buscarPrestamo();
     }
     
     @FXML
@@ -86,16 +80,27 @@ public class DevolucionController implements Initializable, ControlledScreen {
         listarPrestamos();
     }
     
-    private void listarPrestamos(){
-    
-           preparTablaPrestamo();
-           if(comboPrestamos.getSelectionModel().getSelectedIndex() == 0){
-               listaPrestamos.addAll(consulta.getListaPrestamo(1));
-           }
-           else if(comboPrestamos.getSelectionModel().getSelectedIndex() == 1){
-               listaPrestamos.addAll(consulta.getListaPrestamo(2));
-           }
-           tablaPrestamo.setItems(listaPrestamos);
+    private void buscarPrestamo() {
+        
+        if (!"".equals(txtfBuscar.getText()) && txtfBuscar.getText().length() < 254) {
+            preparTablaPrestamo();
+            listaPrestamos.addAll(consulta.buscarPrestamo(txtfBuscar.getText().trim()));
+            tablaPrestamo.setItems(listaPrestamos);
+        }
+        else{
+            System.out.println("Doesn't work at all");
+        }
+    }
+
+    private void listarPrestamos() {
+
+        preparTablaPrestamo();
+        if (comboPrestamos.getSelectionModel().getSelectedIndex() == 0) {
+            listaPrestamos.addAll(consulta.getListaPrestamo(1));
+        } else if (comboPrestamos.getSelectionModel().getSelectedIndex() == 1) {
+            listaPrestamos.addAll(consulta.getListaPrestamo(2));
+        }
+        tablaPrestamo.setItems(listaPrestamos);
     }
     
     private void preparTablaPrestamo(){

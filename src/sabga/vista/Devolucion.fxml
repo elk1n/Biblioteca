@@ -15,11 +15,10 @@
       <children>
         <ComboBox fx:id="comboPrestamos" editable="false" onAction="#listarPrestamos" prefHeight="25.0" prefWidth="140.0" promptText="Listar Prestamos">
           <items>
-            <FXCollections fx:factory="observableArrayList">
-            </FXCollections>
+            <FXCollections fx:factory="observableArrayList" />
           </items>
         </ComboBox>
-        <TextField id="campoBusqueda" fx:id="txtfBuscar" prefHeight="30.0" prefWidth="300.0" promptText="Buscar Prestamo" />
+        <TextField id="campoBusqueda" fx:id="txtfBuscar" onAction="#buscar" prefHeight="30.0" prefWidth="300.0" promptText="Buscar Prestamo" />
       </children>
     </HBox>
     <TableView fx:id="tablaPrestamo" editable="true" layoutX="27.0" layoutY="133.0" prefHeight="360.0" prefWidth="550.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
@@ -86,7 +85,7 @@
         <Font name="System Bold" size="14.0" />
       </font>
     </Label>
-    <Button layoutX="488.0" layoutY="44.0" minHeight="-1.0" mnemonicParsing="false" prefHeight="25.5" prefWidth="25.0" styleClass="botonBuscar" text="">
+    <Button layoutX="488.0" layoutY="44.0" minHeight="-1.0" mnemonicParsing="false" onAction="#buscar" prefHeight="25.5" prefWidth="25.0" styleClass="botonBuscar" text="">
       <stylesheets>
         <URL value="@css/estilo.css" />
       </stylesheets>
