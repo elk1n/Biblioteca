@@ -5,6 +5,7 @@ import java.sql.Types;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sabga.atributos.Autor;
+import sabga.atributos.Devolucion;
 import sabga.atributos.Ejemplar;
 import sabga.atributos.Materia;
 import sabga.atributos.Material;
@@ -362,7 +363,48 @@ public class Consultas {
         }
         return lista;       
     }
+    
+    public ObservableList<Devolucion> getListaDetallePrestamo(int id) {
 
+        ObservableList<Devolucion> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaDetallePrestamo(?)}");
+            con.getProcedimiento().setInt("idPrestamo", id);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                lista.add(new Devolucion(con.getResultado().getString("ejemplar"), con.getResultado().getString("titulo"),
+                                            con.getResultado().getString("codigo"), con.getResultado().getString("fecha"),
+                                            con.getResultado().getString("estado")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
+        } finally {
+            con.desconectar();
+        }
+        return lista;
+    }
+    
+    public void mapearInfoAdmin(int id){
+    
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getInfoAdmin(?,?,?) }");
+            con.getProcedimiento().setInt("idPrestamo", id);
+            con.getProcedimiento().registerOutParameter("nombre", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("id", Types.VARCHAR);
+            con.getProcedimiento().execute();
+  
+            nombre = con.getProcedimiento().getString("nombre");
+            documento = con.getProcedimiento().getString("id");
+           
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos del biblitecario", "Error Consulta");
+        } finally {
+            con.desconectar();
+        }
+    }
+    
     public void mapearBibliotecario(String nombreUsuario) {
 
         try {
@@ -389,7 +431,6 @@ public class Consultas {
         } finally {
             con.desconectar();
         }
-
     }
 
     public void mapearMaterial(int codigo) {

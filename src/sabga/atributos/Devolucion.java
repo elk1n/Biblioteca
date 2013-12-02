@@ -1,7 +1,6 @@
 
 package sabga.atributos;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -10,18 +9,22 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Devolucion {
 
-    private final SimpleIntegerProperty ejemplar;
+    private final SimpleStringProperty ejemplar;
     private final SimpleStringProperty titulo;
     private final SimpleStringProperty codigo;
-    
-    public Devolucion(int ejemplar, String titulo, String codigo){
+    private final SimpleStringProperty fecha;
+    private final SimpleStringProperty estado;
         
-        this.ejemplar = new SimpleIntegerProperty(ejemplar);
+    public Devolucion(String ejemplar, String titulo, String codigo, String fecha, String estado){
+        
+        this.ejemplar = new SimpleStringProperty(ejemplar);
         this.titulo = new SimpleStringProperty(titulo);
         this.codigo = new SimpleStringProperty(codigo);
+        this.fecha = new SimpleStringProperty(fecha);
+        this.estado = new SimpleStringProperty(estado);        
     }
 
-    public int getEjemplar(){
+    public String getEjemplar(){
         return this.ejemplar.get();
     }
     public String getTitulo(){
@@ -30,13 +33,12 @@ public class Devolucion {
     public String getCodigo(){
         return this.codigo.get();
     }
-    public void setEjemplar(int ejemplar){
-        this.ejemplar.set(ejemplar);
+    public String getFecha(){
+        return this.fecha.get();
     }
-    public void setTitulo(String titulo){
-        this.titulo.set(titulo);
+    public String getEstado(){
+        return this.estado.get();
     }
-    public void setCodigo(String codigo){
-        this.codigo.set(codigo);
-    }
+    
+    
 }

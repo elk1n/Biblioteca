@@ -20,6 +20,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import sabga.Sabga;
 import sabga.ScreensController;
+import sabga.atributos.Devolucion;
+import sabga.atributos.Ejemplar;
 import sabga.atributos.Prestamo;
 import sabga.configuracion.ControlledScreen;
 import sabga.modelo.Consultas;
@@ -45,8 +47,9 @@ public class DevolucionController implements Initializable, ControlledScreen {
     private TableView tablaPrestamo, tablaDevolucion;
     @FXML
     private TableColumn clmnDocumento, clmnNombre, clmnApellido, clmnFechaPrestamo, clmnEstadoPrestamo, clmnEjemplar, 
-                        clmnTitulo, clmnCodigo, clmnFechaDevolucion;
+                        clmnTitulo, clmnCodigo, clmnFechaDevolucion, clmnEstadoEjemplar;
     private final ObservableList<Prestamo> listaPrestamos; 
+    private final ObservableList<Devolucion> listaEjemplares;
     private final ObservableList prestamos;
     private final DatePicker fechaDevolucion;
     private final Consultas consulta;
@@ -54,6 +57,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
     public DevolucionController(){
        
        listaPrestamos = FXCollections.observableArrayList();
+       listaEjemplares = FXCollections.observableArrayList();
        prestamos = FXCollections.observableArrayList();
        fechaDevolucion = new DatePicker();
        consulta = new Consultas();
@@ -61,13 +65,6 @@ public class DevolucionController implements Initializable, ControlledScreen {
        fechaDevolucion.getCalendarView().showTodayButtonProperty().setValue(Boolean.FALSE);
        fechaDevolucion.getStylesheets().add("sabga/vista/css/DatePicker.css");
      
-    }
-    
-    @FXML
-    public void buscarDevolucion(ActionEvent evento) throws IOException{
-        
-        //ventanaPrincipal.pruebaDato();
-        // buscar();
     }
     
     @FXML
@@ -80,15 +77,39 @@ public class DevolucionController implements Initializable, ControlledScreen {
         listarPrestamos();
     }
     
+    public void mapearDetallePrestamo(){
+        detallePrestamo();
+    }
+    
+    private void detallePrestamo(){
+        
+        if(tablaPrestamo.getSelectionModel().getSelectedItem() != null){
+            prepararTablaDevolucion();
+            listaEjemplares.addAll(consulta.getListaDetallePrestamo(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo()));
+            consulta.mapearInfoAdmin(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo());
+            lblNombre.setText(consulta.getNombre());
+            lblDocumento.setText(consulta.getDocumento());
+            tablaDevolucion.setItems(listaEjemplares);
+        }
+    }
+    
+    private void prepararTablaDevolucion(){
+    
+        clmnEjemplar.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("ejemplar"));
+        clmnTitulo.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("titulo"));
+        clmnCodigo.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("codigo"));
+        clmnFechaDevolucion.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("fecha"));
+        clmnEstadoEjemplar.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("estado"));
+        listaEjemplares.clear();
+    
+    }
+    
     private void buscarPrestamo() {
         
         if (!"".equals(txtfBuscar.getText()) && txtfBuscar.getText().length() < 254) {
             preparTablaPrestamo();
             listaPrestamos.addAll(consulta.buscarPrestamo(txtfBuscar.getText().trim()));
             tablaPrestamo.setItems(listaPrestamos);
-        }
-        else{
-            System.out.println("Doesn't work at all");
         }
     }
 
