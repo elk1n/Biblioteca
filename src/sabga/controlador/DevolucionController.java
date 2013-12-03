@@ -2,7 +2,6 @@
 package sabga.controlador;
 
 import eu.schudt.javafx.controls.calendar.DatePicker;
-import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
@@ -21,7 +20,6 @@ import javafx.scene.layout.HBox;
 import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.atributos.Devolucion;
-import sabga.atributos.Ejemplar;
 import sabga.atributos.Prestamo;
 import sabga.configuracion.ControlledScreen;
 import sabga.modelo.Consultas;
@@ -53,6 +51,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
     private final ObservableList prestamos;
     private final DatePicker fechaDevolucion;
     private final Consultas consulta;
+    private int idPrestamo;
     
     public DevolucionController(){
        
@@ -81,11 +80,41 @@ public class DevolucionController implements Initializable, ControlledScreen {
         detallePrestamo();
     }
     
+    @FXML
+    public void aceptar(ActionEvent evento){
+        devolverRenovar();
+    }
+    
+    private void devolverRenovar(){
+    
+        if(comboOpcion.getSelectionModel().getSelectedIndex()==0){
+            devolverTodo();
+        }
+    }
+    
+    private void devolverTodo(){
+        
+        if(tablaPrestamo.getSelectionModel().getSelectedItem() != null && !listaEjemplares.isEmpty() && idPrestamo != 0){
+            
+            if(!verificarEstado(listaEjemplares, "Disponible")){
+                
+            }
+            System.out.println(consulta.getIdDevolucion(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo()));
+            // A VER SI ENCONTRAMOS UNA MEJOR MANERA DE HACER ESTA VAINA....  
+        
+            // SI TODA LA LISTA ESTA PRESTADA HACER UNA NUEVA SI EXISTE ALGUNO DEVUELTO HACER OTRA VAINA.
+            // AL DEVOLVER EL EJEMPLAR SI TODOS ESTAN PRESTADOS HACER ALGO DE LO CONTRARIO HACER OTRA VAINA.
+           
+            // EN LA RENOVACIÓN SE UTILIZA LA MISMA TÉCNICA QUE SE DESCRIBE EN EN LOS DOS PUNTOS ANTERIORES A VER SI ESTA COSA FUNCIONA.....
+        }       
+    }
+    
     private void detallePrestamo(){
         
         if(tablaPrestamo.getSelectionModel().getSelectedItem() != null){
             prepararTablaDevolucion();
             listaEjemplares.addAll(consulta.getListaDetallePrestamo(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo()));
+            idPrestamo = listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo();
             consulta.mapearInfoAdmin(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo());
             lblNombre.setText(consulta.getNombre());
             lblDocumento.setText(consulta.getDocumento());
@@ -122,6 +151,9 @@ public class DevolucionController implements Initializable, ControlledScreen {
             listaPrestamos.addAll(consulta.getListaPrestamo(2));
         }
         tablaPrestamo.setItems(listaPrestamos);
+        listaEjemplares.clear();
+        lblDocumento.setText(null);
+        lblNombre.setText(null);
     }
     
     private void preparTablaPrestamo(){
@@ -132,6 +164,16 @@ public class DevolucionController implements Initializable, ControlledScreen {
         clmnFechaPrestamo.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("fecha"));
         clmnEstadoPrestamo.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("estado"));
         listaPrestamos.clear();
+    }
+    
+    private Boolean verificarEstado(ObservableList<Devolucion> lista, String estado) {
+
+        for (Devolucion dato : lista) {
+            if (dato.getEstado().equals(estado)) {
+                return true;
+            }
+        }
+        return false;
     }
     
     private void inicio() {

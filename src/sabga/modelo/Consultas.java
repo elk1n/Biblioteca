@@ -26,7 +26,7 @@ public class Consultas {
     private ObservableList<Autor> obtenerAutores;
     private String titulo, clasificacion, publicacion, editorial, tipoMaterial, claseMaterial, mensaje, tipoUsuario, grado,
                    curso, jornada, nombre, apellido, correo, telefono, direccion, estado, documento, usuario;
-    private int paginas, anio, idPrestamo;
+    private int paginas, anio, idPrestamo, idDevolucion;
     private double multa;
 
     public Consultas() {
@@ -912,7 +912,29 @@ public class Consultas {
             con.desconectar();
         }
     }
+    
+    public void registrarDevolucion(){
+    
+        
+    }
 
+    public int getIdDevolucion(int prestamo){
+        
+        try {
+            con.conectar();
+            con.procedimiento("{ ? = CALL getIdDevolucion(?) }");
+            con.getProcedimiento().registerOutParameter(1, Types.TINYINT);
+            con.getProcedimiento().setInt("prestamo", prestamo);            
+            con.getProcedimiento().execute();
+            idDevolucion = con.getProcedimiento().getInt(1);
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar la devolución.", "Error Consulta Devolución");  
+        } finally {
+            con.desconectar();
+        }
+        return idDevolucion;
+    }
+    
     public String getTitulo() {
         return this.titulo;
     }
@@ -996,7 +1018,7 @@ public class Consultas {
     public String getUsuario() {
         return usuario;
     }
-
+    
     public double getMulta() {
         return multa;
     }

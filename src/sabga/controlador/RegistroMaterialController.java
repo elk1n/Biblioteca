@@ -738,8 +738,6 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                 
         comboClaseMaterial.setItems(consulta.llenarLista(select.getListaClaseMaterial(), select.getClaseMaterial()));
         comboClaseMaterialOM.setItems(comboClaseMaterial.getItems());
-        comboTipoMaterial.setItems(consulta.llenarLista(select.getListaTipoLibro(), select.getTipoLibro()));
-        
-    }    
-    
+        comboTipoMaterial.setItems(consulta.llenarLista(select.getListaTipoLibro(), select.getTipoLibro()));      
+    }        
 }
