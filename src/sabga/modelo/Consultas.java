@@ -913,26 +913,77 @@ public class Consultas {
         }
     }
     
-    public void registrarDevolucion(){
+    public void registrarDevolucion(int opcion, int prestamo, ObservableList<Devolucion> lista, String fecha ){
     
-        
+         try {
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL registrarDevolucion(?,?,?,?) }");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setInt("prestamo", prestamo);
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("id", Types.INTEGER);
+            con.getProcedimiento().execute();
+            mensaje = con.getProcedimiento().getString("mensaje");
+            idDevolucion = con.getProcedimiento().getInt("id");
+
+            for (Devolucion p : lista) {
+                con.procedimiento("{ CALL registrarDetalleDevolucion(?,?,?,?) }");
+                con.getProcedimiento().setInt("devolucion", idDevolucion);
+                con.getProcedimiento().setInt("ejemplar", Integer.parseInt(p.getEjemplar()));
+                con.getProcedimiento().setString("fechaDevolucion", fecha);
+                con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+                con.getProcedimiento().execute();
+                mensaje = con.getProcedimiento().getString("mensaje");
+            }
+            con.getConexion().commit();
+        } catch (SQLException e) {
+            try {
+                con.getConexion().rollback();
+                mensaje = "No se ha registrado la devolución.";
+            } catch (SQLException ex) {
+                mensaje = ex.getMessage();
+            }
+            mensaje = e.getMessage();
+        } finally {
+            con.desconectar();
+        }        
     }
 
+    public int getDevolucion(int prestamo){
+        
+        int devolucion=0;
+        try {
+            con.conectar();
+            con.procedimiento("{ ? = CALL getDevolucion(?) }");
+            con.getProcedimiento().registerOutParameter(1, Types.TINYINT);
+            con.getProcedimiento().setInt("prestamo", prestamo);
+            con.getProcedimiento().execute();
+            devolucion = con.getProcedimiento().getInt(1);
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar la devolución.", "Error Consulta Devolución");
+        } finally {
+            con.desconectar();
+        }
+        return devolucion;    
+    }
+    
     public int getIdDevolucion(int prestamo){
         
+        int devolucion = 0;
         try {
             con.conectar();
             con.procedimiento("{ ? = CALL getIdDevolucion(?) }");
             con.getProcedimiento().registerOutParameter(1, Types.TINYINT);
             con.getProcedimiento().setInt("prestamo", prestamo);            
             con.getProcedimiento().execute();
-            idDevolucion = con.getProcedimiento().getInt(1);
+            devolucion = con.getProcedimiento().getInt(1);
         } catch (SQLException e) {
             Utilidades.mensajeError(null, e.getMessage(), "Error al consultar la devolución.", "Error Consulta Devolución");  
         } finally {
             con.desconectar();
         }
-        return idDevolucion;
+        return devolucion;
     }
     
     public String getTitulo() {
@@ -1017,6 +1068,10 @@ public class Consultas {
 
     public String getUsuario() {
         return usuario;
+    }
+    
+    public int getIdDevolucion(){
+        return idDevolucion;
     }
     
     public double getMulta() {

@@ -87,8 +87,17 @@ public class DevolucionController implements Initializable, ControlledScreen {
     
     private void devolverRenovar(){
     
-        if(comboOpcion.getSelectionModel().getSelectedIndex()==0){
+        if(comboOpcion.getSelectionModel().getSelectedIndex() == 0){
             devolverTodo();
+        }
+        else if(comboOpcion.getSelectionModel().getSelectedIndex() == 1){
+            
+        }
+        else if(comboOpcion.getSelectionModel().getSelectedIndex() == 2){
+        
+        }
+        else if(comboOpcion.getSelectionModel().getSelectedIndex() == 3){
+        
         }
     }
     
@@ -96,15 +105,23 @@ public class DevolucionController implements Initializable, ControlledScreen {
         
         if(tablaPrestamo.getSelectionModel().getSelectedItem() != null && !listaEjemplares.isEmpty() && idPrestamo != 0){
             
-            if(!verificarEstado(listaEjemplares, "Disponible")){
+            if(consulta.getDevolucion(idPrestamo) == 0){
+            
+            }
+            else if(consulta.getDevolucion(idPrestamo) == 1){
                 
             }
-            System.out.println(consulta.getIdDevolucion(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo()));
-            // A VER SI ENCONTRAMOS UNA MEJOR MANERA DE HACER ESTA VAINA....  
-        
+            
+//            if(!verificarEstado(listaEjemplares, "Disponible")){
+//                
+//            }
+//            System.out.println(consulta.getIdDevolucion(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo()));
+            
+            
+            
+            // A VER SI ENCONTRAMOS UNA MEJOR MANERA DE HACER ESTA VAINA....          
             // SI TODA LA LISTA ESTA PRESTADA HACER UNA NUEVA SI EXISTE ALGUNO DEVUELTO HACER OTRA VAINA.
-            // AL DEVOLVER EL EJEMPLAR SI TODOS ESTAN PRESTADOS HACER ALGO DE LO CONTRARIO HACER OTRA VAINA.
-           
+            // AL DEVOLVER EL EJEMPLAR SI TODOS ESTAN PRESTADOS HACER ALGO DE LO CONTRARIO HACER OTRA VAINA.           
             // EN LA RENOVACIÓN SE UTILIZA LA MISMA TÉCNICA QUE SE DESCRIBE EN EN LOS DOS PUNTOS ANTERIORES A VER SI ESTA COSA FUNCIONA.....
         }       
     }
