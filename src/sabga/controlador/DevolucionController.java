@@ -4,6 +4,8 @@ package sabga.controlador;
 import eu.schudt.javafx.controls.calendar.DatePicker;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +24,7 @@ import sabga.ScreensController;
 import sabga.atributos.Devolucion;
 import sabga.atributos.Prestamo;
 import sabga.configuracion.ControlledScreen;
+import sabga.configuracion.Utilidades;
 import sabga.modelo.Consultas;
 
 /**
@@ -52,6 +55,8 @@ public class DevolucionController implements Initializable, ControlledScreen {
     private final DatePicker fechaDevolucion;
     private final Consultas consulta;
     private int idPrestamo;
+    private Calendar calendario;
+    private final SimpleDateFormat formato;
     
     public DevolucionController(){
        
@@ -63,7 +68,10 @@ public class DevolucionController implements Initializable, ControlledScreen {
        fechaDevolucion.setDateFormat(new SimpleDateFormat("YYYY-MM-dd"));       
        fechaDevolucion.getCalendarView().showTodayButtonProperty().setValue(Boolean.FALSE);
        fechaDevolucion.getStylesheets().add("sabga/vista/css/DatePicker.css");
-     
+       formato = new SimpleDateFormat("YYYY-MM-dd");
+       calendario = Calendar.getInstance();
+       calendario = new GregorianCalendar();
+    
     }
     
     @FXML
@@ -106,11 +114,20 @@ public class DevolucionController implements Initializable, ControlledScreen {
         if(tablaPrestamo.getSelectionModel().getSelectedItem() != null && !listaEjemplares.isEmpty() && idPrestamo != 0){
             
             if(consulta.getDevolucion(idPrestamo) == 0){
-            
+                consulta.registrarDevolucion(1, idPrestamo, listaEjemplares, formato.format(calendario.getTime()));
+                if(consulta.getMensaje() == null){
+                Utilidades.mensaje(null, "La devolución se ha registrado correctamente", "", "Registrar Devolución");
+                listaEjemplares.clear();
+                listaPrestamos.clear();
+           }else{
+               Utilidades.mensajeError(null, consulta.getMensaje(), "La devolución no ha sido registrada.", "Error Registro Devolución");
+           } 
             }
             else if(consulta.getDevolucion(idPrestamo) == 1){
                 
             }
+            
+      
             
 //            if(!verificarEstado(listaEjemplares, "Disponible")){
 //                
