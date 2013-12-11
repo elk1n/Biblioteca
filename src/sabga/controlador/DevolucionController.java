@@ -50,11 +50,12 @@ public class DevolucionController implements Initializable, ControlledScreen {
     private TableColumn clmnDocumento, clmnNombre, clmnApellido, clmnFechaPrestamo, clmnEstadoPrestamo, clmnEjemplar, 
                         clmnTitulo, clmnCodigo, clmnFechaDevolucion, clmnEstadoEjemplar;
     private final ObservableList<Prestamo> listaPrestamos; 
-    private final ObservableList<Devolucion> listaEjemplares;
+    private final ObservableList<Devolucion> listaEjemplares, ejemplarDevolucion;
     private final ObservableList prestamos;
     private final DatePicker fechaDevolucion;
     private final Consultas consulta;
-    private int idPrestamo;
+    private int idPrestamo, idEjemplar;
+    private String estado;
     private Calendar calendario;
     private final SimpleDateFormat formato;
     
@@ -63,6 +64,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
        listaPrestamos = FXCollections.observableArrayList();
        listaEjemplares = FXCollections.observableArrayList();
        prestamos = FXCollections.observableArrayList();
+       ejemplarDevolucion = FXCollections.observableArrayList();
        fechaDevolucion = new DatePicker();
        consulta = new Consultas();
        fechaDevolucion.setDateFormat(new SimpleDateFormat("YYYY-MM-dd"));       
@@ -93,54 +95,102 @@ public class DevolucionController implements Initializable, ControlledScreen {
         devolverRenovar();
     }
     
-    private void devolverRenovar(){
+    public void ejemplarDevolucion(){        
+        getEjemplarDevolucion();
+    }
     
-        if(comboOpcion.getSelectionModel().getSelectedIndex() == 0){
-            devolverTodo();
-        }
-        else if(comboOpcion.getSelectionModel().getSelectedIndex() == 1){
+    private void devolverRenovar() {
+
+        if (comboOpcion.getSelectionModel().getSelectedIndex() == 0) {
+            devolucionCompleta();
+        } else if (comboOpcion.getSelectionModel().getSelectedIndex() == 1) {
+            devolverEjemplar();
+        } else if (comboOpcion.getSelectionModel().getSelectedIndex() == 2) {
             
+        } else if (comboOpcion.getSelectionModel().getSelectedIndex() == 3) {
+
         }
-        else if(comboOpcion.getSelectionModel().getSelectedIndex() == 2){
-        
-        }
-        else if(comboOpcion.getSelectionModel().getSelectedIndex() == 3){
-        
+    }
+ 
+    private void devolverEjemplar() {
+
+        if (tablaPrestamo.getSelectionModel().getSelectedItem() != null && idPrestamo != 0 && tablaDevolucion.getSelectionModel().getSelectedItem() != null) {
+            if (consulta.getIdDevolucion(idPrestamo) == 0) {
+                consulta.registrarDevolucion(2, idPrestamo, ejemplarDevolucion, formato.format(calendario.getTime()));
+                if (consulta.getMensaje() == null) {
+                    Utilidades.mensaje(null, "La devolución se ha registrado correctamente", "", "Registrar Devolución");
+                } else {
+                    Utilidades.mensajeError(null, consulta.getMensaje(), "La devolución no ha sido registrada.", "Error Registro Devolución");
+                }
+            } else {
+                consulta.registrarDetalleDevolucion(consulta.getIdDevolucion(idPrestamo), idPrestamo, idEjemplar, formato.format(calendario.getTime()));
+                if (consulta.getMensaje() == null) {
+                    Utilidades.mensaje(null, "La devolución se ha registrado correctamente", "", "Registrar Devolución");
+                } else {
+                    Utilidades.mensajeError(null, consulta.getMensaje(), "La devolución no ha sido registrada.", "Error Registro Devolución");
+                }
+            }
+        } else {
+            Utilidades.mensajeAdvertencia(null, "Debe seleccionar un ejemplar de la lista. ", "", "Seleccionar Ejemplar");
         }
     }
     
-    private void devolverTodo(){
-        
-        if(tablaPrestamo.getSelectionModel().getSelectedItem() != null && !listaEjemplares.isEmpty() && idPrestamo != 0){
-            
-            if(consulta.getDevolucion(idPrestamo) == 0){
-                consulta.registrarDevolucion(1, idPrestamo, listaEjemplares, formato.format(calendario.getTime()));
-                if(consulta.getMensaje() == null){
-                Utilidades.mensaje(null, "La devolución se ha registrado correctamente", "", "Registrar Devolución");
-                listaEjemplares.clear();
-                listaPrestamos.clear();
-           }else{
-               Utilidades.mensajeError(null, consulta.getMensaje(), "La devolución no ha sido registrada.", "Error Registro Devolución");
-           } 
-            }
-            else if(consulta.getDevolucion(idPrestamo) == 1){
+    
+    
+    private void devolucionCompleta(){
                 
+        if (tablaPrestamo.getSelectionModel().getSelectedItem() != null && !listaEjemplares.isEmpty() 
+            && idPrestamo != 0 && estado.equalsIgnoreCase("Vigente")) {
+
+            if (consulta.getDevolucion(idPrestamo) == 0) {
+                
+                if(consulta.getIdDevolucion(idPrestamo) == 0){
+                    
+                    consulta.registrarDevolucion(1, idPrestamo, listaEjemplares, formato.format(calendario.getTime()));
+                    if (consulta.getMensaje() == null) {
+                        Utilidades.mensaje(null, "La devolución se ha registrado correctamente", "", "Registrar Devolución");
+                        listaEjemplares.clear();// Cambiar esto.
+                        listaPrestamos.clear(); // Cambiar esto.
+                    } else {
+                        Utilidades.mensajeError(null, consulta.getMensaje(), "La devolución no ha sido registrada.", "Error Registro Devolución");
+                    }
+                }else{
+                     Utilidades.mensaje(null, consulta.getMensaje(), "Ya existe la devolución.", "Registro Devolución");
+                }
+                    
+            } else if (consulta.getDevolucion(idPrestamo) == 1) {
+
             }
-            
-      
-            
+     
 //            if(!verificarEstado(listaEjemplares, "Disponible")){
 //                
 //            }
 //            System.out.println(consulta.getIdDevolucion(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo()));
             
-            
-            
+            /*  1. Registrar la devolución.
+                2. Registrar el detalle de la devolución.
+                3. Cambiar el estado del prestamo.
+                4. Cambiar el estado del ejemplar.
+                5. Cambiar el estado de la devolución.
+                6. Eso es todo por ahora.
+                
+                7. Cambiar estado y detalle....       
+         
+            */
             // A VER SI ENCONTRAMOS UNA MEJOR MANERA DE HACER ESTA VAINA....          
             // SI TODA LA LISTA ESTA PRESTADA HACER UNA NUEVA SI EXISTE ALGUNO DEVUELTO HACER OTRA VAINA.
             // AL DEVOLVER EL EJEMPLAR SI TODOS ESTAN PRESTADOS HACER ALGO DE LO CONTRARIO HACER OTRA VAINA.           
             // EN LA RENOVACIÓN SE UTILIZA LA MISMA TÉCNICA QUE SE DESCRIBE EN EN LOS DOS PUNTOS ANTERIORES A VER SI ESTA COSA FUNCIONA.....
         }       
+    }
+    
+    private void getEjemplarDevolucion(){
+        
+        ejemplarDevolucion.clear();
+        if(tablaDevolucion.getSelectionModel().getSelectedItem() != null){
+            ejemplarDevolucion.add(listaEjemplares.get(tablaDevolucion.getSelectionModel().getSelectedIndex()));
+            idEjemplar = Integer.parseInt(listaEjemplares.get(tablaDevolucion.getSelectionModel().getSelectedIndex()).getEjemplar());
+        }        
     }
     
     private void detallePrestamo(){
@@ -149,6 +199,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
             prepararTablaDevolucion();
             listaEjemplares.addAll(consulta.getListaDetallePrestamo(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo()));
             idPrestamo = listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo();
+            estado = listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getEstado();
             consulta.mapearInfoAdmin(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo());
             lblNombre.setText(consulta.getNombre());
             lblDocumento.setText(consulta.getDocumento());

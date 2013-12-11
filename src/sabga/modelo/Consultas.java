@@ -930,12 +930,41 @@ public class Consultas {
             for (Devolucion p : lista) {
                 con.procedimiento("{ CALL registrarDetalleDevolucion(?,?,?,?) }");
                 con.getProcedimiento().setInt("devolucion", idDevolucion);
+                con.getProcedimiento().setInt("prestamo", prestamo);
                 con.getProcedimiento().setInt("ejemplar", Integer.parseInt(p.getEjemplar()));
                 con.getProcedimiento().setString("fechaDevolucion", fecha);
                 con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
                 con.getProcedimiento().execute();
                 mensaje = con.getProcedimiento().getString("mensaje");
             }
+            con.getConexion().commit();
+        } catch (SQLException e) {
+            try {
+                con.getConexion().rollback();
+                mensaje = "No se ha registrado la devolución.";
+            } catch (SQLException ex) {
+                mensaje = ex.getMessage();
+            }
+            mensaje = e.getMessage();
+        } finally {
+            con.desconectar();
+        }        
+    }
+    
+    public void registrarDetalleDevolucion(int devolucion, int prestamo, int ejemplar, String fecha){
+    
+          try {
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+                con.procedimiento("{ CALL registrarDetalleDevolucion(?,?,?,?) }");
+                con.getProcedimiento().setInt("devolucion", devolucion);
+                con.getProcedimiento().setInt("prestamo", prestamo);
+                con.getProcedimiento().setInt("ejemplar", ejemplar);
+                con.getProcedimiento().setString("fechaDevolucion", fecha);
+                con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+                con.getProcedimiento().execute();
+                mensaje = con.getProcedimiento().getString("mensaje");
+
             con.getConexion().commit();
         } catch (SQLException e) {
             try {
@@ -986,6 +1015,7 @@ public class Consultas {
         return devolucion;
     }
     
+   
     public String getTitulo() {
         return this.titulo;
     }

@@ -240,7 +240,7 @@
           </columns>
         </TableView>
         <Button defaultButton="true" layoutX="416.0" layoutY="380.0" mnemonicParsing="false" onAction="#removerEjemplar" prefHeight="25.0" prefWidth="120.0" text="Remover Ejemplar" />
-        <Label font="$x2" layoutX="22.0" layoutY="8.0" text="Datos del Prestamo:" />
+        <Label font="$x2" layoutX="22.0" layoutY="8.0" text="Datos del Préstamo:" />
         <Label id="lblValidarPrestamo" fx:id="lblValidarEjemplar" layoutX="22.0" layoutY="385.0" prefWidth="350.0" text="" textFill="$x3" wrapText="true" />
       </children>
       <stylesheets>
