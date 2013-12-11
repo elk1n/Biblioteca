@@ -928,7 +928,7 @@ public class Consultas {
             idDevolucion = con.getProcedimiento().getInt("id");
 
             for (Devolucion p : lista) {
-                con.procedimiento("{ CALL registrarDetalleDevolucion(?,?,?,?) }");
+                con.procedimiento("{ CALL registrarDetalleDevolucion(?,?,?,?,?) }");
                 con.getProcedimiento().setInt("devolucion", idDevolucion);
                 con.getProcedimiento().setInt("prestamo", prestamo);
                 con.getProcedimiento().setInt("ejemplar", Integer.parseInt(p.getEjemplar()));
@@ -951,20 +951,21 @@ public class Consultas {
         }        
     }
     
-    public void registrarDetalleDevolucion(int devolucion, int prestamo, int ejemplar, String fecha){
+    public void registrarDetalleDevolucion(int devolucion, int prestamo,  ObservableList<Devolucion> lista, String fecha){
     
           try {
             con.conectar();
             con.getConexion().setAutoCommit(false);
-                con.procedimiento("{ CALL registrarDetalleDevolucion(?,?,?,?) }");
+            for(Devolucion p : lista){
+                con.procedimiento("{ CALL registrarDetalleDevolucion(?,?,?,?,?) }");
                 con.getProcedimiento().setInt("devolucion", devolucion);
                 con.getProcedimiento().setInt("prestamo", prestamo);
-                con.getProcedimiento().setInt("ejemplar", ejemplar);
+                con.getProcedimiento().setInt("ejemplar", Integer.parseInt(p.getEjemplar()));
                 con.getProcedimiento().setString("fechaDevolucion", fecha);
                 con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
                 con.getProcedimiento().execute();
                 mensaje = con.getProcedimiento().getString("mensaje");
-
+            }
             con.getConexion().commit();
         } catch (SQLException e) {
             try {
