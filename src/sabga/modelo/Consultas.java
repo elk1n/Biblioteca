@@ -840,7 +840,7 @@ public class Consultas {
         } catch (SQLException e) {
             try {
                 con.getConexion().rollback();
-                mensaje = "No ha sido posible cambiar la contraseñaf.";
+                mensaje = "No ha sido posible cambiar la contraseña.";
             } catch (SQLException ex) {
                 mensaje = ex.getMessage();
             }
@@ -1016,6 +1016,32 @@ public class Consultas {
         return devolucion;
     }
     
+    public void registrarRenovacion(int opcion, int prestamo, int ejemplar, String fecha) {
+
+        try {
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL registrarRenovacion(?,?,?,?,?) }");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setInt("prestamo", prestamo);
+            con.getProcedimiento().setInt("ejemplar", ejemplar);
+            con.getProcedimiento().setString("fecha", fecha);
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+            con.getProcedimiento().execute();
+            mensaje = con.getProcedimiento().getString("mensaje");
+            con.getConexion().commit();
+        } catch (SQLException e) {
+            try {
+                con.getConexion().rollback();
+                mensaje = "No se ha realizado la renovación.";
+            } catch (SQLException ex) {
+                mensaje = ex.getMessage();
+            }
+            mensaje = e.getMessage();
+        } finally {
+            con.desconectar();
+        }
+    }
    
     public String getTitulo() {
         return this.titulo;

@@ -159,6 +159,21 @@ public class ConfirmarMaterial extends ValidarMaterial {
         }else {
             return true;
         }
+    }
+    
+    public boolean confirmarRenovacion(Date fecha) {
 
+        fechas = Calendar.getInstance();
+        fechas = new GregorianCalendar();
+
+        if (fecha != null) {
+            if (fecha.before(fechas.getTime()) || fecha.equals(fechas.getTime())) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
     }
 }

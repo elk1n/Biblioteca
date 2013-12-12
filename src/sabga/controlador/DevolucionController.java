@@ -25,7 +25,9 @@ import sabga.atributos.Devolucion;
 import sabga.atributos.Prestamo;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Utilidades;
+import sabga.modelo.ConfirmarMaterial;
 import sabga.modelo.Consultas;
+import sabga.modelo.ValidarMaterial;
 
 /**
  * @author Elk1n
@@ -37,7 +39,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
     private ScreensController controlador;
     
     @FXML 
-    private Label validarBusqueda, lblNombre, lblDocumento;  
+    private Label lblBusqueda, lblNombre, lblDocumento, lblValidarFecha;  
     @FXML
     private ComboBox comboOpcion, comboPrestamos;
     @FXML 
@@ -50,7 +52,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
     private TableColumn clmnDocumento, clmnNombre, clmnApellido, clmnFechaPrestamo, clmnEstadoPrestamo, clmnEjemplar, 
                         clmnTitulo, clmnCodigo, clmnFechaDevolucion, clmnEstadoEjemplar;
     private final ObservableList<Prestamo> listaPrestamos; 
-    private final ObservableList<Devolucion> listaEjemplares, ejemplarDevolucion, listaEjemplaresRestantes;
+    private final ObservableList<Devolucion> listaEjemplares, ejemplarDevolucion, listaEjemplaresRestantes, ejemplarRenovacion;
     private final ObservableList prestamos;
     private final DatePicker fechaDevolucion;
     private final Consultas consulta;
@@ -66,6 +68,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
        prestamos = FXCollections.observableArrayList();
        ejemplarDevolucion = FXCollections.observableArrayList();
        listaEjemplaresRestantes = FXCollections.observableArrayList();
+       ejemplarRenovacion = FXCollections.observableArrayList();
        fechaDevolucion = new DatePicker();
        consulta = new Consultas();
        fechaDevolucion.setDateFormat(new SimpleDateFormat("YYYY-MM-dd"));       
@@ -114,7 +117,18 @@ public class DevolucionController implements Initializable, ControlledScreen {
     }
     
     private void renovarTodo(){
-        
+      
+        if(tablaPrestamo.getSelectionModel().getSelectedItem() != null && idPrestamo != 0 && 
+           !listaEjemplares.isEmpty() && estado.equalsIgnoreCase("Vigente")){
+            ValidarMaterial renovacion = new ValidarMaterial();
+            ConfirmarMaterial renovaciones = new ConfirmarMaterial();
+            renovacion.validarRevovacion(fechaDevolucion.getSelectedDate());
+            lblValidarFecha.setText(renovacion.getErrorFecha());
+            if(renovaciones.confirmarRenovacion(fechaDevolucion.getSelectedDate())){
+                listaEjemplares(); 
+                
+            }                      
+        }
     }
     
     private void renovarEjemplar(){
@@ -149,8 +163,8 @@ public class DevolucionController implements Initializable, ControlledScreen {
 
     private void devolucionCompleta() {
 
-        if (tablaPrestamo.getSelectionModel().getSelectedItem() != null && !listaEjemplares.isEmpty()
-                && idPrestamo != 0 && estado.equalsIgnoreCase("Vigente")) {
+        if (tablaPrestamo.getSelectionModel().getSelectedItem() != null && !listaEjemplares.isEmpty() && 
+            idPrestamo != 0 && estado.equalsIgnoreCase("Vigente")) {
             if (consulta.getIdDevolucion(idPrestamo) == 0) {
                 consulta.registrarDevolucion(1, idPrestamo, listaEjemplares, formato.format(calendario.getTime()));
                 if (consulta.getMensaje() == null) {
@@ -215,6 +229,11 @@ public class DevolucionController implements Initializable, ControlledScreen {
             preparTablaPrestamo();
             listaPrestamos.addAll(consulta.buscarPrestamo(txtfBuscar.getText().trim()));
             tablaPrestamo.setItems(listaPrestamos);
+            if(listaPrestamos.isEmpty()){
+                lblBusqueda.setText("No se han encontrado resultados.");
+            }else{
+                lblBusqueda.setText(null);
+            }
         }
     }
 
@@ -230,6 +249,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
         listaEjemplares.clear();
         lblDocumento.setText(null);
         lblNombre.setText(null);
+        lblBusqueda.setText(null);
     }
     
     private void preparTablaPrestamo(){
@@ -245,6 +265,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
     private void listaEjemplares() {
         
         if (!listaEjemplares.isEmpty()) {
+            listaEjemplaresRestantes.clear();
             for (Devolucion d : listaEjemplares) {
                 if (d.getEstado().contains("prestado")) {
                     listaEjemplaresRestantes.add(d);
