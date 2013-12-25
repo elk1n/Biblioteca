@@ -128,7 +128,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     public void ventanaPrestamo(ActionEvent evento){        
         ventanaPrincipal.cargarVista("paginaPrestamo", "vista/Prestamo.fxml");
         ventanaPrincipal.cambiarVista("paginaPrestamo");
-        ventanaPrincipal.setTitle("Prestamo");
+        ventanaPrincipal.setTitle("Préstamo");
         ventanaPrincipal.mostrarVistas();
         ventanaInicio = false;
         ventanaBusqueda = false;

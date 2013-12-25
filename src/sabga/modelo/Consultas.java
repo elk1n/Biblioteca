@@ -1016,19 +1016,21 @@ public class Consultas {
         return devolucion;
     }
     
-    public void registrarRenovacion(int opcion, int prestamo, int ejemplar, String fecha) {
+    public void registrarRenovacion(int opcion, int prestamo, ObservableList<Devolucion> lista, String fecha) {
 
         try {
             con.conectar();
             con.getConexion().setAutoCommit(false);
-            con.procedimiento("{ CALL registrarRenovacion(?,?,?,?,?) }");
-            con.getProcedimiento().setInt("opcion", opcion);
-            con.getProcedimiento().setInt("prestamo", prestamo);
-            con.getProcedimiento().setInt("ejemplar", ejemplar);
-            con.getProcedimiento().setString("fecha", fecha);
-            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
-            con.getProcedimiento().execute();
-            mensaje = con.getProcedimiento().getString("mensaje");
+            for(Devolucion p: lista){
+                con.procedimiento("{ CALL registrarRenovacion(?,?,?,?,?) }"); 
+                con.getProcedimiento().setInt("opcion", opcion);
+                con.getProcedimiento().setInt("prestamo", prestamo);
+                con.getProcedimiento().setInt("ejemplar", Integer.parseInt(p.getEjemplar()));
+                con.getProcedimiento().setString("fecha", fecha);
+                con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+                con.getProcedimiento().execute();
+                mensaje = con.getProcedimiento().getString("mensaje");
+            }            
             con.getConexion().commit();
         } catch (SQLException e) {
             try {

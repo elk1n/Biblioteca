@@ -52,7 +52,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
     private TableColumn clmnDocumento, clmnNombre, clmnApellido, clmnFechaPrestamo, clmnEstadoPrestamo, clmnEjemplar, 
                         clmnTitulo, clmnCodigo, clmnFechaDevolucion, clmnEstadoEjemplar;
     private final ObservableList<Prestamo> listaPrestamos; 
-    private final ObservableList<Devolucion> listaEjemplares, ejemplarDevolucion, listaEjemplaresRestantes, ejemplarRenovacion;
+    private final ObservableList<Devolucion> listaEjemplares, ejemplarDevolucion, listaEjemplaresRestantes;
     private final ObservableList prestamos;
     private final DatePicker fechaDevolucion;
     private final Consultas consulta;
@@ -68,7 +68,6 @@ public class DevolucionController implements Initializable, ControlledScreen {
        prestamos = FXCollections.observableArrayList();
        ejemplarDevolucion = FXCollections.observableArrayList();
        listaEjemplaresRestantes = FXCollections.observableArrayList();
-       ejemplarRenovacion = FXCollections.observableArrayList();
        fechaDevolucion = new DatePicker();
        consulta = new Consultas();
        fechaDevolucion.setDateFormat(new SimpleDateFormat("YYYY-MM-dd"));       
@@ -116,23 +115,50 @@ public class DevolucionController implements Initializable, ControlledScreen {
         }
     }
     
-    private void renovarTodo(){
-      
-        if(tablaPrestamo.getSelectionModel().getSelectedItem() != null && idPrestamo != 0 && 
-           !listaEjemplares.isEmpty() && estado.equalsIgnoreCase("Vigente")){
+    private void renovarTodo() {
+
+        if (tablaPrestamo.getSelectionModel().getSelectedItem() != null && idPrestamo != 0
+            && !listaEjemplares.isEmpty() && estado.equalsIgnoreCase("Vigente")) {
             ValidarMaterial renovacion = new ValidarMaterial();
             ConfirmarMaterial renovaciones = new ConfirmarMaterial();
             renovacion.validarRevovacion(fechaDevolucion.getSelectedDate());
             lblValidarFecha.setText(renovacion.getErrorFecha());
-            if(renovaciones.confirmarRenovacion(fechaDevolucion.getSelectedDate())){
-                listaEjemplares(); 
-                
-            }                      
+            if (renovaciones.confirmarRenovacion(fechaDevolucion.getSelectedDate())) {
+                listaEjemplares();
+                consulta.registrarRenovacion(1, idPrestamo, listaEjemplaresRestantes, formato.format(fechaDevolucion.getSelectedDate()));
+                if (consulta.getMensaje() == null) {
+                    Utilidades.mensaje(null, "La renovación se ha registrado exitosamente.", "", "Registrar Renovación");
+                    listarPrestamos();
+                } else {
+                    Utilidades.mensajeError(null, consulta.getMensaje(), "La renovación no ha sido registrada.", "Error Registro Renovación");
+                }
+            }
         }
     }
     
     private void renovarEjemplar(){
         
+        if (tablaPrestamo.getSelectionModel().getSelectedItem() != null && idPrestamo != 0
+                && !listaEjemplares.isEmpty() && estado.equalsIgnoreCase("Vigente")) {
+            ValidarMaterial renovacion = new ValidarMaterial();
+            ConfirmarMaterial renovaciones = new ConfirmarMaterial();
+            renovacion.validarRevovacion(fechaDevolucion.getSelectedDate());
+            lblValidarFecha.setText(renovacion.getErrorFecha());
+            if (renovaciones.confirmarRenovacion(fechaDevolucion.getSelectedDate())) {
+                if (tablaDevolucion.getSelectionModel().getSelectedItem() != null) {
+                    getEjemplarDevolucion();
+                    consulta.registrarRenovacion(1, idPrestamo, ejemplarDevolucion, formato.format(fechaDevolucion.getSelectedDate()));
+                    if (consulta.getMensaje() == null) {
+                        Utilidades.mensaje(null, "La renovación se ha registrado exitosamente.", "", "Registrar Renovación");
+                        listarPrestamos();
+                    } else {
+                        Utilidades.mensajeError(null, consulta.getMensaje(), "La renovación no ha sido registrada.", "Error Registro Renovación");
+                    }
+                } else {
+                    Utilidades.mensajeAdvertencia(null, "Debe seleccionar un ejemplar de la lista.", " ", "Seleccionar Ejemplar");
+                }
+            }
+        }           
     }
     
     private void devolverEjemplar() {
@@ -142,7 +168,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
             if (consulta.getIdDevolucion(idPrestamo) == 0) {
                 consulta.registrarDevolucion(2, idPrestamo, ejemplarDevolucion, formato.format(calendario.getTime()));
                 if (consulta.getMensaje() == null) {
-                    Utilidades.mensaje(null, "La devolución se ha registrado correctamente", "", "Registrar Devolución");
+                    Utilidades.mensaje(null, "La devolución se ha registrado correctamente.", "", "Registrar Devolución");
                      listarPrestamos();
                 } else {
                     Utilidades.mensajeError(null, consulta.getMensaje(), "La devolución no ha sido registrada.", "Error Registro Devolución");
@@ -151,7 +177,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
                  consulta.registrarDetalleDevolucion(consulta.getIdDevolucion(idPrestamo), idPrestamo, ejemplarDevolucion, formato.format(calendario.getTime()));
                 if (consulta.getMensaje() == null) {
                     listarPrestamos();
-                    Utilidades.mensaje(null, "La devolución se ha registrado correctamente", "", "Registrar Devolución");
+                    Utilidades.mensaje(null, "La devolución se ha registrado correctamente.", "", "Registrar Devolución");
                 } else {
                     Utilidades.mensajeError(null, consulta.getMensaje(), "La devolución no ha sido registrada.", "Error Registro Devolución");
                 }
@@ -169,7 +195,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
                 consulta.registrarDevolucion(1, idPrestamo, listaEjemplares, formato.format(calendario.getTime()));
                 if (consulta.getMensaje() == null) {
                     listarPrestamos();
-                    Utilidades.mensaje(null, "La devolución se ha registrado correctamente", "", "Registrar Devolución");                   
+                    Utilidades.mensaje(null, "La devolución se ha registrado correctamente.", "", "Registrar Devolución");                   
                 } else {
                     Utilidades.mensajeError(null, consulta.getMensaje(), "La devolución no ha sido registrada.", "Error Registro Devolución");
                 }
@@ -178,13 +204,13 @@ public class DevolucionController implements Initializable, ControlledScreen {
                 consulta.registrarDetalleDevolucion(consulta.getIdDevolucion(idPrestamo), idPrestamo, listaEjemplaresRestantes, formato.format(calendario.getTime()));
                 if (consulta.getMensaje() == null) {
                     listarPrestamos();
-                    Utilidades.mensaje(null, "La devolución se ha registrado correctamente", "", "Registrar Devolución");
+                    Utilidades.mensaje(null, "La devolución se ha registrado correctamente.", "", "Registrar Devolución");
                 } else {
                     Utilidades.mensajeError(null, consulta.getMensaje(), "La devolución no ha sido registrada.", "Error Registro Devolución");
                 }
             }
         } else {
-            Utilidades.mensaje(null, "Debe seleccionar un prestamo", "", "Registro Devolución");
+            Utilidades.mensaje(null, "Debe seleccionar un prestamo.", "", "Registro Devolución");
         }
     }
     
@@ -197,7 +223,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
             }            
         }        
     }
-    
+       
     private void detallePrestamo(){
         
         if(tablaPrestamo.getSelectionModel().getSelectedItem() != null){
@@ -230,9 +256,11 @@ public class DevolucionController implements Initializable, ControlledScreen {
             listaPrestamos.addAll(consulta.buscarPrestamo(txtfBuscar.getText().trim()));
             tablaPrestamo.setItems(listaPrestamos);
             if(listaPrestamos.isEmpty()){
+                comboPrestamos.getSelectionModel().clearSelection();
                 lblBusqueda.setText("No se han encontrado resultados.");
             }else{
                 lblBusqueda.setText(null);
+                comboPrestamos.getSelectionModel().clearSelection();
             }
         }
     }
@@ -267,7 +295,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
         if (!listaEjemplares.isEmpty()) {
             listaEjemplaresRestantes.clear();
             for (Devolucion d : listaEjemplares) {
-                if (d.getEstado().contains("prestado")) {
+                if (d.getEstado().contains("Prestado")) {
                     listaEjemplaresRestantes.add(d);
                 }
             }

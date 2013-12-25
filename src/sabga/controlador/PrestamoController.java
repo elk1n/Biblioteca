@@ -48,7 +48,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
     private TextField txtfBuscar, txtfBuscarUsuario, txtfBuscarReserva;
     @FXML 
     private Label lblNombre, lblDocumento, lblCorreo, lblGrado, lblCurso, lblJornada, lblTelefono, lblDireccion, lblMulta,
-                  lblValidarDocumento, lblValidarFecha, lblValidarEjemplar;
+                  lblValidarDocumento, lblValidarFecha, lblValidarEjemplar, lblBuscarUsuario;
     @FXML
     private Button btnDetalle;
     @FXML
@@ -355,22 +355,35 @@ public class PrestamoController implements Initializable, ControlledScreen{
     
     private void buscarUsuario(){
     
+        limpiarDatos();
          if (!"".equals(txtfBuscarUsuario.getText())) {
             prepararTablaUsuario();
             listaUsuarios.addAll(consulta.getListaUsuarioBusqueda(txtfBuscarUsuario.getText().trim()));
             tablaUsuarios.setItems(listaUsuarios);
+            if(listaUsuarios.isEmpty()){
+                comboListaUsuario.getSelectionModel().clearSelection();
+                lblBuscarUsuario.setText("No se han encontrado resultados.");
+            }else{
+                lblBuscarUsuario.setText(null);
+                comboListaUsuario.getSelectionModel().clearSelection();
+            }
         }   
     }
     
     private void listarUsuario(){
         
-        prepararTablaUsuario();
-        if(comboListaUsuario.getSelectionModel().getSelectedItem().toString().contains("Todos")){ 
-            listaUsuarios.addAll(consulta.getListaUsuarios(2, null));
-        }else {
-            listaUsuarios.addAll(consulta.getListaUsuarios(1, comboListaUsuario.getSelectionModel().getSelectedItem().toString()));            
+        if (!comboListaUsuario.getSelectionModel().isEmpty()) {
+            
+            limpiarDatos();
+            prepararTablaUsuario();
+            if (comboListaUsuario.getSelectionModel().getSelectedItem().toString().contains("Todos")) {
+                listaUsuarios.addAll(consulta.getListaUsuarios(2, null));
+            } else {
+                listaUsuarios.addAll(consulta.getListaUsuarios(1, comboListaUsuario.getSelectionModel().getSelectedItem().toString()));
+            }
+            tablaUsuarios.setItems(listaUsuarios);
+            lblBuscarUsuario.setText(null);
         }
-        tablaUsuarios.setItems(listaUsuarios);
     }
      
     private void prepararTablaUsuario(){
@@ -496,6 +509,15 @@ public class PrestamoController implements Initializable, ControlledScreen{
         reserva = false;
         tipoUsuario = null;
         listaPrestamo.clear();
+    }
+    
+    private void limpiarDatos(){
+        lblGrado.setText(null);
+        lblCurso.setText(null);
+        lblJornada.setText(null);
+        lblTelefono.setText(null);
+        lblDireccion.setText(null);
+        lblMulta.setText(null);   
     }
     
     @Override
