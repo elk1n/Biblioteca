@@ -20,6 +20,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import sabga.Sabga;
 import sabga.ScreensController;
@@ -48,9 +49,9 @@ public class PrestamoController implements Initializable, ControlledScreen{
     private TextField txtfBuscar, txtfBuscarUsuario, txtfBuscarReserva;
     @FXML 
     private Label lblNombre, lblDocumento, lblCorreo, lblGrado, lblCurso, lblJornada, lblTelefono, lblDireccion, lblMulta,
-                  lblValidarDocumento, lblValidarFecha, lblValidarEjemplar, lblBuscarUsuario;
+                  lblValidarDocumento, lblValidarFecha, lblValidarEjemplar, lblBuscarUsuario, lblBuscarReserva, lblBuscarMaterial;
     @FXML
-    private Button btnDetalle;
+    private Button btnDetalle, btnBorrarMaterial, btnBorrarUsuario, btnBorrarReserva;
     @FXML
     private HBox hboxFecha;
     @FXML
@@ -322,22 +323,30 @@ public class PrestamoController implements Initializable, ControlledScreen{
             listaReservas.addAll(consulta.getListaReservaBusqueda(txtfBuscarReserva.getText().trim()));
             tablaReserva.setItems(listaReservas);
             listaDetalleRe.clear();
+            if(listaReservas.isEmpty()){
+                comboReservas.getSelectionModel().clearSelection();
+                lblBuscarReserva.setText("No se han encontrado resultados.");
+            }else{
+                lblBuscarReserva.setText(null);
+                comboReservas.getSelectionModel().clearSelection();
+            }           
         }
     }
     
     private void listarReservas(){
         
-        prepararTablaReserva();
-        if(comboReservas.getSelectionModel().getSelectedIndex() == 0){
-            listaReservas.addAll(consulta.getListaReservas(1));
+        if (!comboReservas.getSelectionModel().isEmpty()) {
+            prepararTablaReserva();
+            if (comboReservas.getSelectionModel().getSelectedIndex() == 0) {
+                listaReservas.addAll(consulta.getListaReservas(1));
+            } else if (comboReservas.getSelectionModel().getSelectedIndex() == 1) {
+                listaReservas.addAll(consulta.getListaReservas(2));
+            } else if (comboReservas.getSelectionModel().getSelectedIndex() == 2) {
+                listaReservas.addAll(consulta.getListaReservas(3));
+            }
+            tablaReserva.setItems(listaReservas);
+            lblBuscarReserva.setText(null);
         }
-        else if(comboReservas.getSelectionModel().getSelectedIndex() == 1){
-            listaReservas.addAll(consulta.getListaReservas(2));
-        }
-        else if(comboReservas.getSelectionModel().getSelectedIndex() == 2){
-            listaReservas.addAll(consulta.getListaReservas(3));
-        }
-        tablaReserva.setItems(listaReservas);
     }
     
     private void prepararTablaReserva(){
@@ -372,8 +381,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
     
     private void listarUsuario(){
         
-        if (!comboListaUsuario.getSelectionModel().isEmpty()) {
-            
+        if (!comboListaUsuario.getSelectionModel().isEmpty()) {            
             limpiarDatos();
             prepararTablaUsuario();
             if (comboListaUsuario.getSelectionModel().getSelectedItem().toString().contains("Todos")) {
@@ -404,6 +412,13 @@ public class PrestamoController implements Initializable, ControlledScreen{
             prepararTablaMaterial();
             listaMaterial.addAll(consulta.getListaMaterialBusqueda(txtfBuscar.getText().trim()));
             tablaMaterial.setItems(listaMaterial);
+            if(listaMaterial.isEmpty()){
+                comboListar.getSelectionModel().clearSelection();
+                lblBuscarMaterial.setText("No se han encontrado resultados.");
+            }else{
+                lblBuscarMaterial.setText(null);
+                comboListar.getSelectionModel().clearSelection();
+            }
         }
     }
     
@@ -463,8 +478,11 @@ public class PrestamoController implements Initializable, ControlledScreen{
     
     private void listar(){    
         
-        listaMaterial.addAll(consulta.getListaMaterial(comboListar.getSelectionModel().getSelectedItem().toString()));
-        tablaMaterial.setItems(listaMaterial);
+        if (!comboListar.getSelectionModel().isEmpty()) {
+            listaMaterial.addAll(consulta.getListaMaterial(comboListar.getSelectionModel().getSelectedItem().toString()));
+            tablaMaterial.setItems(listaMaterial);
+            lblBuscarMaterial.setText(null);
+        }
     }
     
     private void mensajesError() {
@@ -486,6 +504,64 @@ public class PrestamoController implements Initializable, ControlledScreen{
         return false;  
     }
     
+    @FXML
+    public void borrarCampoMaterial(ActionEvent evento){
+        
+        txtfBuscar.setText(null);
+        btnBorrarMaterial.setVisible(false);
+        lblBuscarMaterial.setText(null);
+    }
+    
+    @FXML
+    public void borrarCampoUsuario(ActionEvent evento){
+        
+        txtfBuscarUsuario.setText(null);
+        btnBorrarUsuario.setVisible(false);
+        lblBuscarUsuario.setText(null);
+        
+    }
+    
+    @FXML
+    public void borrarCampoReserva(ActionEvent evento){
+        
+        txtfBuscarReserva.setText(null);
+        btnBorrarReserva.setVisible(false);
+        lblBuscarReserva.setText(null);
+    }
+    
+    @FXML
+    public void mostrarBotonMaterial(KeyEvent evento) {
+
+        if ("".equals(txtfBuscar.getText())){            
+            btnBorrarMaterial.setVisible(false);      
+        }
+        else {
+           btnBorrarMaterial.setVisible(true); 
+        }          
+    }
+    
+    @FXML
+    public void mostrarBotonUsuario(KeyEvent evento) {
+
+        if ("".equals(txtfBuscarUsuario.getText())){            
+            btnBorrarUsuario.setVisible(false);      
+        }
+        else {
+           btnBorrarUsuario.setVisible(true); 
+        }          
+    }
+    
+    @FXML
+    public void mostrarBotonReserva(KeyEvent evento) {
+
+        if ("".equals(txtfBuscarReserva.getText())){            
+            btnBorrarReserva.setVisible(false);      
+        }
+        else {
+           btnBorrarReserva.setVisible(true); 
+        }          
+    }
+    
     private void inicio(){
         
         comboListar.setItems(consulta.llenarLista(select.getListaTipoMaterial(), select.getTipoMaterial()));
@@ -495,6 +571,9 @@ public class PrestamoController implements Initializable, ControlledScreen{
         listaDeReservas.add("Canceladas");
         listaDeReservas.add("Prestadas");
         comboReservas.setItems(listaDeReservas);
+        btnBorrarMaterial.setVisible(false);
+        btnBorrarUsuario.setVisible(false);
+        btnBorrarReserva.setVisible(false);
     }
     
     private void limpiarCamposReserva() {

@@ -12,16 +12,36 @@
 
 <AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.DevolucionController">
   <children>
-    <HBox id="HBox" alignment="CENTER" layoutX="27.0" layoutY="43.0" spacing="10.0">
-      <children>
-        <ComboBox fx:id="comboPrestamos" editable="false" onAction="#listarPrestamos" prefHeight="25.0" prefWidth="140.0" promptText="Listar Préstamos">
-          <items>
-            <FXCollections fx:factory="observableArrayList" />
-          </items>
-        </ComboBox>
-        <TextField id="campoBusqueda" fx:id="txtfBuscar" onAction="#buscar" prefHeight="30.0" prefWidth="300.0" promptText="Buscar Préstamo" />
-      </children>
-    </HBox>
+    <Label layoutX="27.0" layoutY="9.0" text="Listar Préstamos">
+      <font>
+        <Font name="System Bold" size="14.0" />
+      </font>
+    </Label>
+    <ComboBox fx:id="comboPrestamos" editable="false" layoutX="27.0" layoutY="45.0" onAction="#listarPrestamos" prefHeight="25.0" prefWidth="140.0" promptText="Listar Préstamos">
+      <items>
+        <FXCollections fx:factory="observableArrayList" />
+      </items>
+    </ComboBox>
+    <TextField id="campoBusqueda" fx:id="txtfBuscar" layoutX="178.0" layoutY="42.0" onAction="#buscar" onKeyTyped="#mostrarBoton" prefHeight="30.0" prefWidth="300.0" promptText="Buscar Préstamo" styleClass="campoBusqueda">
+      <stylesheets>
+        <URL value="@css/estilo.css" />
+      </stylesheets>
+    </TextField>
+    <Button layoutX="487.0" layoutY="43.0" minHeight="-1.0" mnemonicParsing="false" onAction="#buscar" prefHeight="25.5" prefWidth="25.0" styleClass="botonBuscar" text="">
+      <stylesheets>
+        <URL value="@css/estilo.css" />
+      </stylesheets>
+    </Button>
+    <Button fx:id="btnBorrar" layoutX="453.0" layoutY="47.0" mnemonicParsing="false" onAction="#borrarCampo" styleClass="botonBorrar" text="">
+      <stylesheets>
+        <URL value="@css/estilo.css" />
+      </stylesheets>
+    </Button>
+    <Label id="lblValidarFecha" fx:id="lblBusqueda" alignment="CENTER_LEFT" layoutX="178.0" layoutY="92.0" prefWidth="300.0" text="" wrapText="true">
+      <textFill>
+        <Color blue="0.000" green="0.000" red="0.800" fx:id="x3" />
+      </textFill>
+    </Label>
     <TableView fx:id="tablaPrestamo" editable="true" layoutX="27.0" layoutY="126.0" onKeyTyped="#mapearDetallePrestamo" onMouseClicked="#mapearDetallePrestamo" prefHeight="370.0" prefWidth="550.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
       <columns>
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="84.0" text="Documento" fx:id="clmnDocumento" />
@@ -36,11 +56,6 @@
         <Font name="System Bold" size="16.0" fx:id="x1" />
       </font>
     </Label>
-    <Button layoutX="488.0" layoutY="44.0" minHeight="-1.0" mnemonicParsing="false" onAction="#buscar" prefHeight="25.5" prefWidth="25.0" styleClass="botonBuscar" text="">
-      <stylesheets>
-        <URL value="@css/estilo.css" />
-      </stylesheets>
-    </Button>
     <Pane layoutX="590.0" layoutY="14.0" prefHeight="482.0" prefWidth="631.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" styleClass="resultado">
       <children>
         <Label font="$x1" layoutX="23.0" layoutY="13.0" prefWidth="140.0" text="Detalle Préstamo" />
@@ -59,7 +74,7 @@
           </font>
         </Label>
         <Label font="$x2" layoutX="23.0" layoutY="47.0" text="Nombre Bibliotecario:" />
-        <Label font="$x1" layoutX="24.0" layoutY="349.0" prefWidth="140.0" text="Renovar Ejemplar" />
+        <Label font="$x1" layoutX="24.0" layoutY="349.0" prefWidth="140.0" text="Renovar" />
         <Label fx:id="lblNombre" layoutX="178.0" layoutY="47.0" prefWidth="250.0" text="" />
         <Label fx:id="lblDocumento" layoutX="178.0" layoutY="76.0" prefWidth="250.0" text="" />
         <HBox layoutX="25.0" layoutY="399.0" prefHeight="-1.0" prefWidth="-1.0">
@@ -79,21 +94,11 @@
           </items>
         </ComboBox>
         <Button defaultButton="true" layoutX="491.0" layoutY="397.0" mnemonicParsing="false" onAction="#aceptar" prefHeight="25.0" prefWidth="120.0" text="Aceptar " />
-        <Label fx:id="lblValidarFecha" alignment="CENTER_LEFT" layoutX="25.0" layoutY="429.0" prefWidth="278.0" text="" wrapText="true">
-          <textFill>
-            <Color blue="0.000" green="0.000" red="0.800" fx:id="x3" />
-          </textFill>
-        </Label>
+        <Label fx:id="lblValidarFecha" alignment="CENTER_LEFT" layoutX="25.0" layoutY="429.0" prefWidth="278.0" text="" textFill="$x3" wrapText="true" />
       </children>
       <stylesheets>
         <URL value="@css/estilo.css" />
       </stylesheets>
     </Pane>
-    <Label layoutX="27.0" layoutY="9.0" text="Listar Préstamos">
-      <font>
-        <Font name="System Bold" size="14.0" />
-      </font>
-    </Label>
-    <Label id="lblValidarFecha" fx:id="lblBusqueda" alignment="CENTER_LEFT" layoutX="178.0" layoutY="92.0" prefWidth="300.0" text="" textFill="$x3" wrapText="true" />
   </children>
 </AnchorPane>

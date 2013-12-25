@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -42,6 +43,8 @@ public class DevolucionController implements Initializable, ControlledScreen {
     private Label lblBusqueda, lblNombre, lblDocumento, lblValidarFecha;  
     @FXML
     private ComboBox comboOpcion, comboPrestamos;
+    @FXML
+    private Button btnBorrar;
     @FXML 
     private TextField txtfBuscar;
     @FXML
@@ -309,8 +312,29 @@ public class DevolucionController implements Initializable, ControlledScreen {
         prestamos.add("Vigentes");
         prestamos.add("Devueltos");
         comboPrestamos.setItems(prestamos);
+        btnBorrar.setVisible(false);
     }
+       
+    @FXML
+    public void borrarCampo(ActionEvent evento){
         
+        txtfBuscar.setText("");
+        btnBorrar.setVisible(false);
+        lblBusqueda.setText(null);
+    }
+  
+    @FXML
+    public void mostrarBoton(){
+        
+        if ("".equals(txtfBuscar.getText())){            
+            btnBorrar.setVisible(false);      
+        }
+        else {
+           btnBorrar.setVisible(true); 
+        }
+               
+    }
+    
     @Override
     public void setScreenParent(ScreensController screenParent) {       
         controlador = screenParent;        
