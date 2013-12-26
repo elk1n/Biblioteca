@@ -21,8 +21,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import sabga.Sabga;
 import sabga.ScreensController;
+import sabga.atributos.Atributos;
 import sabga.atributos.Usuario;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Dialogo;
@@ -50,6 +52,8 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     private TableView tablaUsuarios;
     @FXML
     private TableColumn clmnTipo, clmnDocumento, clmnNombre, clmnApellido, clmnCorreo;
+    @FXML
+    private AnchorPane panelFondo;
     @FXML 
     private TextField txtfFiltrar, txtfNombre, txtfApellido, txtfDocumento, txtfCorreo, txtfTelefono,
                       txtfDireccion, txtfBuscar;
@@ -57,12 +61,14 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     private ComboBox comboTipo, comboGrado, comboCurso, comboJornada, comboEstado, comboListar;     
     @FXML 
     private Label lblMulta, lblNombre, lblApellido, lblDocumento, lblCorreo, lblTelefono, lblDireccion, 
-                  lblGrado, lblCurso, lblJornada;
+                  lblGrado, lblCurso, lblJornada, lblResultado;
     
     private final ObservableList<Usuario> listaUsuarios;
     private final ObservableList<Usuario> filtrarUsuarios;
     private final ObservableList estados;
     private final Seleccion select;
+    private final Dialogo dialogos;
+    private final Atributos atributo;
     
    
     public EditarUsuarioController(){
@@ -70,6 +76,8 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
         dialogo = new Dialogo();
         consulta = new Consultas();
         select = new Seleccion();
+        dialogos = new Dialogo();
+        atributo = new Atributos();
         estados = FXCollections.observableArrayList();
         listaUsuarios = FXCollections.observableArrayList();
         filtrarUsuarios = FXCollections.observableArrayList();
@@ -96,6 +104,25 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     @FXML
     public void listarUsuarios(ActionEvent evento){
         listarUsuario();
+    }
+    
+    @FXML
+    public void detalleMultas(ActionEvent evento){
+        multas();
+    }
+        
+    private void multas(){
+        
+        if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){
+            
+            panelFondo.setDisable(true);
+            dialogos.mostrarDialogo("vista/dialogos/Multa.fxml", "Detalle Multas", null , null, 17);           
+            panelFondo.setDisable(false);
+            
+        }else{
+            Utilidades.mensaje(null, "Debe seleccionar un usuario. ", "", "Selección Usuario");
+        }
+        
     }
     
     private void guardarCambios(){
@@ -159,7 +186,7 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     }
     
     @FXML
-    private void mapearUsuario(){
+    public void mapearUsuario(){
     
         if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){
             consulta.mapearUsuarios(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
@@ -175,30 +202,43 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
             comboJornada.getSelectionModel().select(consulta.getJornada());
             comboTipo.getSelectionModel().select(consulta.getTipoUsuario());
             comboEstado.getSelectionModel().select(consulta.getEstado());
+            atributo.setNombreUsuario(consulta.getNombre());
+            atributo.setApellidoUsuario(consulta.getApellido());
+            atributo.setDocumentoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
+            atributo.setCorreoUsuario(consulta.getCorreo());            
         }
     }
     
     private void buscarUsuario(){
-        
+        limpiarDetalle();
         if (!"".equals(txtfBuscar.getText()) && radioBuscar.isSelected()) {
             tablaUsuarios();
             filtrarUsuarios.addAll(listaUsuarios);
             listaUsuarios.addAll(consulta.getListaUsuarioBusqueda(txtfBuscar.getText().trim()));
             tablaUsuarios.setItems(filtrarUsuarios);
+            if(filtrarUsuarios.isEmpty()){
+                comboListar.getSelectionModel().clearSelection();
+                lblResultado.setText("No se han encontrado resultados.");
+            }else{
+                lblResultado.setText(null);
+                comboListar.getSelectionModel().clearSelection();
+            }
         }
     }
     
     private void listarUsuario(){
         
-        tablaUsuarios();
-        filtrarUsuarios.addAll(listaUsuarios);
-        if(comboListar.getSelectionModel().getSelectedItem().toString().contains("Todos")){ 
-            listaUsuarios.addAll(consulta.getListaUsuarios(2, null));
-        }
-        else {
-            listaUsuarios.addAll(consulta.getListaUsuarios(1, comboListar.getSelectionModel().getSelectedItem().toString()));            
-        }
-        tablaUsuarios.setItems(filtrarUsuarios);
+        limpiarDetalle();
+        if (!comboListar.getSelectionModel().isEmpty()) {
+            tablaUsuarios();
+            filtrarUsuarios.addAll(listaUsuarios);
+            if (comboListar.getSelectionModel().getSelectedItem().toString().contains("Todos")) {
+                listaUsuarios.addAll(consulta.getListaUsuarios(2, null));
+            } else {
+                listaUsuarios.addAll(consulta.getListaUsuarios(1, comboListar.getSelectionModel().getSelectedItem().toString()));
+            }
+            tablaUsuarios.setItems(filtrarUsuarios);
+        }      
     }
    
     public void mensajesError(){
@@ -249,6 +289,21 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
         comboEstado.getSelectionModel().clearSelection();    
     }
     
+    private void limpiarDetalle(){
+        
+        txtfNombre.setText("");
+        txtfApellido.setText("");
+        txtfDocumento.setText("");
+        txtfCorreo.setText("");
+        txtfTelefono.setText("");
+        txtfDireccion.setText("");
+        comboGrado.getSelectionModel().clearSelection();
+        comboCurso.getSelectionModel().clearSelection();
+        comboJornada.getSelectionModel().clearSelection();
+        comboTipo.getSelectionModel().clearSelection();
+        comboEstado.getSelectionModel().clearSelection();            
+    }
+    
     @FXML
     private void buscarFiltrar(){
         
@@ -282,11 +337,12 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     }
     
     @FXML
-    private void borrarCampo(ActionEvent evento) {
+    public void borrarCampo(ActionEvent evento) {
         
         txtfFiltrar.setText("");
         txtfBuscar.setText("");
         btnBorrar.setVisible(false);
+        lblResultado.setText(null);
     }
            
     @FXML

@@ -50,7 +50,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     private final Dialogo dialogo; 
     @FXML
     private Label lblEditorial, lblValidarCodigo, lblValidarTitulo, lblValidarAnio, lblValidarPublicacion, lblValidarEditorial, lblValidarEjemplares,
-                    lblValidarPaginas, lblValidarAutor, lblValidarMateria, lblTipoMaterial;    
+                    lblValidarPaginas, lblValidarAutor, lblValidarMateria, lblTipoMaterial, lblResultado;    
     @FXML 
     private TextField txtfCodigoClasificacion, txtfTitulo, txtfAnio, txtfPublicacion, txtfPaginas, txtfFiltrar, txtfEjemplar, txtfBuscar;
     @FXML 
@@ -146,11 +146,19 @@ public class EditarMaterialController implements Initializable, ControlledScreen
    
     private void buscarMaterial() {
 
+        limpiarDetalle();
         if (!"".equals(txtfBuscar.getText()) && radioBuscar.isSelected()) {
             prepararTablaMaterial();
             filtrarMaterial.addAll(listaMaterial);
             listaMaterial.addAll(consulta.getListaMaterialBusqueda(txtfBuscar.getText().trim()));
             tablaMaterial.setItems(filtrarMaterial);
+            if(filtrarMaterial.isEmpty()){
+                comboMaterial.getSelectionModel().clearSelection();
+                lblResultado.setText("No se han encontrado resultados.");
+            }else{
+                lblResultado.setText(null);
+                comboMaterial.getSelectionModel().clearSelection();
+            }
         }
     }
     
@@ -456,10 +464,12 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     
     private void listar(){  
         
-        filtrarMaterial.addAll(listaMaterial);
-        listaMaterial.addAll(consulta.getListaMaterial(comboMaterial.getSelectionModel().getSelectedItem().toString()));
-        tablaMaterial.setItems(filtrarMaterial);
-        
+        limpiarDetalle();
+        if(!comboMaterial.getSelectionModel().isEmpty()){
+            filtrarMaterial.addAll(listaMaterial);
+            listaMaterial.addAll(consulta.getListaMaterial(comboMaterial.getSelectionModel().getSelectedItem().toString()));
+            tablaMaterial.setItems(filtrarMaterial);
+        }        
     }
     
     private void llenarComboBox(){
@@ -556,11 +566,12 @@ public class EditarMaterialController implements Initializable, ControlledScreen
   }
     
     @FXML
-    private void borrarCampo(ActionEvent evento) {
+    public void borrarCampo(ActionEvent evento) {
         
         txtfFiltrar.setText("");
         txtfBuscar.setText("");
         btnBorrar.setVisible(false);
+        lblResultado.setText(null);
     }
     
     @FXML
@@ -610,6 +621,21 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         txtfPublicacion.setText("");
         txtfPaginas.setText("");
         editorial.getTextbox().setText("");   
+    }
+    
+    private void limpiarDetalle(){
+        
+        lblTipoMaterial.setText(null);
+        txtfCodigoClasificacion.setText(null);
+        txtfTitulo.setText(null);
+        txtfPublicacion.setText(null);
+        txtfAnio.setText(null);
+        comboClaseMaterial.getSelectionModel().clearSelection();
+        txtfPaginas.setText(null);
+        lblEditorial.setText(null);
+        listaEjemplares.clear();
+        listaAutores.clear();
+        listaMaterias.clear();    
     }
     
     @Override

@@ -11,9 +11,9 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.EditarUsuarioController">
+<AnchorPane id="AnchorPane" fx:id="panelFondo" disable="false" prefHeight="525.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.EditarUsuarioController">
   <children>
-    <ComboBox fx:id="comboListar" layoutX="28.0" layoutY="49.0" onAction="#listarUsuarios" prefHeight="25.0" prefWidth="120.0" promptText="Listar Usuarios">
+    <ComboBox fx:id="comboListar" layoutX="28.0" layoutY="43.0" onAction="#listarUsuarios" prefHeight="25.0" prefWidth="120.0" promptText="Listar Usuarios">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="Item 1" />
@@ -22,19 +22,19 @@
         </FXCollections>
       </items>
     </ComboBox>
-    <TextField id="txtFiltrar" fx:id="txtfFiltrar" layoutX="184.0" layoutY="47.0" prefHeight="30.0" prefWidth="300.0" promptText="Filtrar Usuarios" />
-    <TextField fx:id="txtfBuscar" layoutX="184.0" layoutY="47.0" onAction="#buscarUsuario" onKeyTyped="#mostrarBoton" prefHeight="30.0" prefWidth="300.0" promptText="Buscar Usurios" />
-    <Button fx:id="btnBorrar" layoutX="458.0" layoutY="52.0" mnemonicParsing="false" onAction="#borrarCampo" styleClass="botonBorrar" text="">
+    <TextField id="txtFiltrar" fx:id="txtfFiltrar" layoutX="184.0" layoutY="41.0" prefHeight="30.0" prefWidth="300.0" promptText="Filtrar Usuarios" />
+    <TextField fx:id="txtfBuscar" layoutX="184.0" layoutY="41.0" onAction="#buscarUsuario" onKeyTyped="#mostrarBoton" prefHeight="30.0" prefWidth="300.0" promptText="Buscar Usurios" />
+    <Button fx:id="btnBorrar" layoutX="458.0" layoutY="46.0" mnemonicParsing="false" onAction="#borrarCampo" styleClass="botonBorrar" text="">
       <stylesheets>
         <URL value="@css/estilo.css" />
       </stylesheets>
     </Button>
-    <Button layoutX="492.0" layoutY="48.0" mnemonicParsing="false" onAction="#buscarUsuario" prefHeight="26.0" prefWidth="25.0" styleClass="botonBuscar" text="">
+    <Button layoutX="492.0" layoutY="42.0" mnemonicParsing="false" onAction="#buscarUsuario" prefHeight="26.0" prefWidth="25.0" styleClass="botonBuscar" text="">
       <stylesheets>
         <URL value="@css/estilo.css" />
       </stylesheets>
     </Button>
-    <HBox id="HBox" alignment="CENTER" layoutX="186.0" layoutY="84.0" spacing="20.0">
+    <HBox id="HBox" alignment="CENTER" layoutX="186.0" layoutY="78.0" spacing="20.0">
       <children>
         <RadioButton fx:id="radioBuscar" mnemonicParsing="false" onAction="#buscarFiltrar" selected="true" text="Buscar">
           <toggleGroup>
@@ -44,8 +44,8 @@
         <RadioButton fx:id="radioFiltrar" mnemonicParsing="false" onAction="#buscarFiltrar" text="Filtrar" toggleGroup="$buscarFiltrar" />
       </children>
     </HBox>
-    <Button fx:id="btnDetalle" defaultButton="true" layoutX="599.0" layoutY="75.0" maxWidth="-1.0" mnemonicParsing="false" onAction="#dialogoDetalleUsuario" prefHeight="25.0" prefWidth="120.0" text="Detalle Usuario" />
-    <TableView fx:id="tablaUsuarios" layoutX="28.0" layoutY="113.0" onKeyTyped="#mapearUsuario" onMouseClicked="#mapearUsuario" prefHeight="390.0" prefWidth="691.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
+    <Button fx:id="btnDetalle" defaultButton="true" layoutX="599.0" layoutY="95.0" maxWidth="-1.0" mnemonicParsing="false" onAction="#dialogoDetalleUsuario" prefHeight="25.0" prefWidth="120.0" text="Detalle Usuario" />
+    <TableView fx:id="tablaUsuarios" layoutX="28.0" layoutY="129.0" onKeyTyped="#mapearUsuario" onMouseClicked="#mapearUsuario" prefHeight="374.0" prefWidth="691.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
       <columns>
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="105.0" text="Tipo de Usuario" fx:id="clmnTipo" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="95.0" text="Documento" fx:id="clmnDocumento" />
@@ -165,11 +165,12 @@
     </ScrollPane>
     <HBox id="HBox" alignment="CENTER" layoutX="748.0" layoutY="477.0" spacing="250.0">
       <children>
-        <Button alignment="CENTER_RIGHT" defaultButton="true" mnemonicParsing="false" prefHeight="25.0" text="Actualizar Multas" />
+        <Button alignment="CENTER_RIGHT" defaultButton="true" mnemonicParsing="false" onAction="#detalleMultas" prefHeight="25.0" text="Actualizar Multas" />
         <Button cancelButton="false" defaultButton="true" maxWidth="-1.0" mnemonicParsing="false" onAction="#guardarCambios" prefHeight="25.0" prefWidth="120.0" text="Guardar Cambios" />
       </children>
     </HBox>
     <Label font="$x2" layoutX="28.0" layoutY="10.0" prefWidth="111.0" text="Listar Usuarios" />
     <Label font="$x2" layoutX="184.0" layoutY="10.0" prefWidth="111.0" text="Buscar Usuarios" />
+    <Label id="lbl" fx:id="lblResultado" layoutX="189.0" layoutY="100.0" prefWidth="289.0" text="" textFill="#cc0000" />
   </children>
 </AnchorPane>

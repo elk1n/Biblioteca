@@ -12,6 +12,11 @@ public class Atributos {
     private static String documento = "11111111";
     private static String nombre;
     private static String apellido;
+    private static String nombresUsuario;
+    private static String apellidoUsuario;
+    private static String documentoUsuario;
+    private static String correoUsuario;
+ 
     
     public void setDatoBusqueda(String parametro){
         datoBusqueda = parametro;
@@ -60,6 +65,39 @@ public class Atributos {
     public void setApellido(String lastName) {
         apellido = lastName;
     }
+
+    public String getNombresUsuario() {
+        return nombresUsuario;
+    }
+
+    public void setNombresUsuario(String nombres) {
+        Atributos.nombresUsuario = nombres;
+    }
+
+    public String getApellidoUsuario() {
+        return apellidoUsuario;
+    }
+
+    public void setApellidoUsuario(String apellido) {
+        apellidoUsuario = apellido;
+    }
+
+    public String getDocumentoUsuario() {
+        return documentoUsuario;
+    }
+
+    public void setDocumentoUsuario(String documento) {
+        documentoUsuario = documento;
+    }
+
+    public String getCorreoUsuario() {
+        return correoUsuario;
+    }
+
+    public void setCorreoUsuario(String correo) {
+        correoUsuario = correo;
+    }
    
+    
     
 }

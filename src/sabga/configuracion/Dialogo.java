@@ -25,6 +25,7 @@ import sabga.controlador.dialogos.NuevoTipoMaterialController;
 import sabga.controlador.dialogos.NuevoTipoUsuarioController;
 import sabga.controlador.dialogos.RestablecerContraseniaController;
 import sabga.controlador.dialogos.EditarOpcionesUsuarioController;
+import sabga.controlador.dialogos.MultaController;
 import sabga.controlador.dialogos.PreferenciasController;
 
 /**
@@ -160,6 +161,10 @@ public class Dialogo {
            case 16:
                controladorAyuda();
                break;
+               
+           case 17:
+               controladorMulta();
+               break;
        }
    }
       
@@ -245,9 +250,14 @@ public class Dialogo {
     private void controladorAyuda(){
         AyudaController controller = loader.getController();
         controller.setDialogStage(dialogStage);
-        dialogStage.showAndWait();
+        dialogStage.showAndWait();    
+    }   
     
-    } 
+    private void controladorMulta(){
+        MultaController controller = loader.getController();
+        controller.setDialogStage(dialogStage);
+        dialogStage.showAndWait();   
+    }
     
     private void controladorInicioSesion(Sabga sabga) {
         dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream( "vista/Imagenes/LogoBiblioteca1.png" )));
