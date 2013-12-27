@@ -9,6 +9,7 @@ import sabga.atributos.Devolucion;
 import sabga.atributos.Ejemplar;
 import sabga.atributos.Materia;
 import sabga.atributos.Material;
+import sabga.atributos.Multa;
 import sabga.atributos.Prestamo;
 import sabga.atributos.Reserva;
 import sabga.atributos.Usuario;
@@ -383,6 +384,47 @@ public class Consultas {
             con.desconectar();
         }
         return lista;
+    }
+    
+    public ObservableList<Multa> getMulta(int id){
+    
+        ObservableList<Multa> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaMultas(?) }");
+            con.getProcedimiento().setInt("id", id);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                    lista.add(new Multa(con.getResultado().getInt("id"), con.getResultado().getInt("documento"),
+                                        con.getResultado().getString("nombre"), con.getResultado().getString("fecha"), 
+                                        con.getResultado().getString("estado"), con.getResultado().getInt("valor")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+        } finally {
+            con.desconectar();
+        }
+        return lista;   
+    }
+    
+    public ObservableList<Devolucion> getListaDetalleDevolucion(int id){
+    
+            ObservableList<Devolucion> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaDetallePrestamo(?)}");
+            con.getProcedimiento().setInt("idPrestamo", id);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                lista.add(new Devolucion(con.getResultado().getString("ejemplar"), con.getResultado().getString("fecha")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
+        } finally {
+            con.desconectar();
+        }
+        return lista;
+    
     }
     
     public void mapearInfoAdmin(int id){

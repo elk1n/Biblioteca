@@ -10,10 +10,10 @@ import javafx.beans.property.SimpleStringProperty;
 public class Devolucion {
 
     private final SimpleStringProperty ejemplar;
-    private final SimpleStringProperty titulo;
-    private final SimpleStringProperty codigo;
+    private SimpleStringProperty titulo;
+    private SimpleStringProperty codigo;
     private final SimpleStringProperty fecha;
-    private final SimpleStringProperty estado;
+    private SimpleStringProperty estado;
         
     public Devolucion(String ejemplar, String titulo, String codigo, String fecha, String estado){
         
@@ -22,6 +22,12 @@ public class Devolucion {
         this.codigo = new SimpleStringProperty(codigo);
         this.fecha = new SimpleStringProperty(fecha);
         this.estado = new SimpleStringProperty(estado);        
+    }
+    
+    public Devolucion(String ejemplar, String fecha){
+        
+        this.ejemplar = new SimpleStringProperty(ejemplar);
+        this.fecha = new SimpleStringProperty(fecha);
     }
 
     public String getEjemplar(){
