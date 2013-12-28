@@ -395,9 +395,10 @@ public class Consultas {
             con.getProcedimiento().setInt("id", id);
             con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
-                    lista.add(new Multa(con.getResultado().getInt("id"), con.getResultado().getInt("documento"),
-                                        con.getResultado().getString("nombre"), con.getResultado().getString("fecha"), 
-                                        con.getResultado().getString("estado"), con.getResultado().getInt("valor")));
+                    lista.add(new Multa(con.getResultado().getInt("id"), con.getResultado().getInt("prestamo"), 
+                                        con.getResultado().getInt("documento"), con.getResultado().getString("nombre"), 
+                                        con.getResultado().getString("fecha"), con.getResultado().getString("estado"),
+                                        con.getResultado().getInt("valor")));
             }
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
@@ -412,8 +413,8 @@ public class Consultas {
             ObservableList<Devolucion> lista = FXCollections.observableArrayList();
         try {
             con.conectar();
-            con.procedimiento("{ CALL getListaDetallePrestamo(?)}");
-            con.getProcedimiento().setInt("idPrestamo", id);
+            con.procedimiento("{ CALL getListaDetalleDevolucion(?)}");
+            con.getProcedimiento().setInt("prestamo", id);
             con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
                 lista.add(new Devolucion(con.getResultado().getString("ejemplar"), con.getResultado().getString("fecha")));
@@ -1078,6 +1079,33 @@ public class Consultas {
             try {
                 con.getConexion().rollback();
                 mensaje = "No se ha realizado la renovación.";
+            } catch (SQLException ex) {
+                mensaje = ex.getMessage();
+            }
+            mensaje = e.getMessage();
+        } finally {
+            con.desconectar();
+        }
+    }
+    
+    public void pagarMultas(int opcion, int id, int valor){
+      
+        try {
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL pagarMulta(?,?,?,?) }");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setInt("id", id);
+            con.getProcedimiento().setInt("valor", valor);
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+            con.getProcedimiento().execute();
+            mensaje = con.getProcedimiento().getString("mensaje");
+
+            con.getConexion().commit();
+        } catch (SQLException e) {
+            try {
+                con.getConexion().rollback();
+                mensaje = "No se realizó el pago de la multa.";
             } catch (SQLException ex) {
                 mensaje = ex.getMessage();
             }

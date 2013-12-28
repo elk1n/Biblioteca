@@ -7,7 +7,8 @@ package sabga.modelo;
 public class ValidarUsuario extends Validacion {
 
     private String errorJornada, errorGrado, errorCurso, errorNuevoTipoUsuario, errorCorreo, errorDocumento, errorNombre, errorApellido,
-                   errorTelefono, errorDireccion, errorTipo, errorUsuario,  errorContrasenia, errorNombreUsuario, errorNuevaContrasenia;
+                   errorTelefono, errorDireccion, errorTipo, errorUsuario,  errorContrasenia, errorNombreUsuario, errorNuevaContrasenia,
+                   errorMulta;
 
     public ValidarUsuario() {
     
@@ -170,6 +171,13 @@ public class ValidarUsuario extends Validacion {
             this.errorNuevaContrasenia = getMensajeError();
         }    
     }
+    
+    public void validarPagoMulta(String valor){
+        
+        if(!validarNumero(valor, 10)){
+            this.errorMulta = getMensajeError();
+        }    
+    }
        
     public String getErrorJornada() {
         return this.errorJornada;
@@ -230,5 +238,11 @@ public class ValidarUsuario extends Validacion {
     public String getErrorNuevaContrasenia() {
         return this.errorNuevaContrasenia;
     }
+
+    public String getErrorMulta() {
+        return this.errorMulta;
+    }
+    
+    
     
 }

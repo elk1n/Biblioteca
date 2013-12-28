@@ -159,4 +159,8 @@ public class ConfirmarUsuario extends ValidarUsuario {
             return true;
         }
     }
+    
+    public boolean confirmarPagoMulta(String valor) {
+        return validarNumero(valor, 10);
+    }
 }
