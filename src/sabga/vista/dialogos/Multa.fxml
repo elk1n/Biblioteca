@@ -70,6 +70,6 @@
     <Label font="$x2" layoutX="769.0" layoutY="192.0" text="Valor:" />
     <TextField fx:id="txtfMulta" alignment="CENTER_RIGHT" layoutX="910.0" layoutY="186.0" prefHeight="30.0" prefWidth="80.0" text="" />
     <Label font="$x1" layoutX="769.0" layoutY="135.0" text="Pago de Multas" />
-    <Label fx:id="lblValidar" layoutX="769.0" layoutY="231.0" prefWidth="221.0" text="" textFill="#cc0000" />
+    <Label fx:id="lblValidar" layoutX="769.0" layoutY="231.0" prefWidth="221.0" text="" textFill="#cc0000" wrapText="true" />
   </children>
 </AnchorPane>

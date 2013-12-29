@@ -428,6 +428,90 @@ public class Consultas {
     
     }
     
+    public ObservableList<Prestamo> getListaPrestamoUsusario(String id){
+       
+        ObservableList<Prestamo> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaPrestamoUsuario(?) }");
+            con.getProcedimiento().setString("id", id);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                    lista.add(new Prestamo(con.getResultado().getInt("id"), con.getResultado().getString("fecha"),
+                                           con.getResultado().getString("estado"), con.getResultado().getString("reserva"),
+                                           con.getResultado().getString("documento"), con.getResultado().getString("nombres")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+        } finally {
+            con.desconectar();
+        }
+        return lista;       
+    }
+    
+    public ObservableList<Ejemplar> getListaDetallePrestamoUsuario(int prestamo){
+    
+            ObservableList<Ejemplar> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaDetallePrestamoUsuario(?)}");
+            con.getProcedimiento().setInt("prestamo", prestamo);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                lista.add(new Ejemplar(con.getResultado().getString("titulo"), con.getResultado().getString("ejemplar"),
+                                       con.getResultado().getString("fecha"), con.getResultado().getString("codigo"), 
+                                       con.getResultado().getString("estado"),
+                                       con.getResultado().getString("tipo"), con.getResultado().getString("clase")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
+        } finally {
+            con.desconectar();
+        }
+        return lista;    
+    }
+    
+    public ObservableList<Reserva> getListaReservaUsuario(String documento){
+        
+            ObservableList<Reserva> listaReservas = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaReservaUsuario(?) }");
+            con.getProcedimiento().setString("documento", documento);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                listaReservas.add(new Reserva(con.getResultado().getInt("id"), con.getResultado().getString("fecha"),
+                                              con.getResultado().getString("estado")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+        } finally {
+            con.desconectar();
+        }
+        return listaReservas;  
+    }
+    
+    public ObservableList<Ejemplar> getListaDetalleReservaUsuario(int reserva){
+    
+            ObservableList<Ejemplar> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaDetalleReservaUsuario(?)}");
+            con.getProcedimiento().setInt("reserva", reserva);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                lista.add(new Ejemplar(con.getResultado().getString("titulo"), con.getResultado().getString("ejemplar"),
+                                       con.getResultado().getString("codigo"), con.getResultado().getString("estado"),
+                                       con.getResultado().getString("tipo"), con.getResultado().getString("clase")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
+        } finally {
+            con.desconectar();
+        }
+        return lista;    
+    }
+    
     public void mapearInfoAdmin(int id){
     
         try {

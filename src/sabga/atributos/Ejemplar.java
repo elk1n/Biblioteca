@@ -2,7 +2,6 @@
 package sabga.atributos;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 /**
  * @author Elk1n
@@ -10,10 +9,16 @@ import javafx.beans.property.StringProperty;
 
 public class Ejemplar {
     
-    private final StringProperty ejemplar;
-    private final StringProperty estado;
-    private final StringProperty disponibilidad;
-    
+    private SimpleStringProperty titulo;
+    private final SimpleStringProperty ejemplar;
+    private SimpleStringProperty fecha;
+    private SimpleStringProperty codigo;
+    private final SimpleStringProperty estado;
+    private SimpleStringProperty tipo;
+    private SimpleStringProperty clase;
+    private SimpleStringProperty disponibilidad;
+   
+   
     public Ejemplar(String ejemplar, String estado, String disponibilidad){
          
           this.ejemplar = new SimpleStringProperty(ejemplar);
@@ -21,16 +26,57 @@ public class Ejemplar {
           this.disponibilidad = new SimpleStringProperty(disponibilidad);   
     }
     
+    public Ejemplar(String titulo, String ejemplar, String fecha, String codigo, String estado, String tipo, String clase){
+        
+        this.titulo = new SimpleStringProperty(titulo);
+        this.ejemplar = new SimpleStringProperty(ejemplar);
+        this.fecha = new SimpleStringProperty(fecha);
+        this.codigo = new SimpleStringProperty(codigo);
+        this.estado = new SimpleStringProperty(estado);
+        this.tipo = new SimpleStringProperty(tipo);
+        this.clase = new SimpleStringProperty(clase);        
+    }
+    
+    public Ejemplar(String titulo, String ejemplar, String codigo, String estado, String tipo, String clase){
+        
+        this.titulo = new SimpleStringProperty(titulo);
+        this.ejemplar = new SimpleStringProperty(ejemplar);
+        this.codigo = new SimpleStringProperty(codigo);
+        this.estado = new SimpleStringProperty(estado);
+        this.tipo = new SimpleStringProperty(tipo);
+        this.clase = new SimpleStringProperty(clase);        
+    }
+    
+    public String getTitulo(){
+        return this.titulo.get();
+    }
+    
+    public String getCodigo(){
+        return this.codigo.get();
+    }
+    
+    public String getFecha(){
+        return this.fecha.get();
+    }
+    
     public String getEjemplar(){
         return ejemplar.get();
     }
     
+    public String getTipo(){
+        return this.tipo.get();
+    }
+    
+    public String getClase(){
+        return this.clase.get();
+    }
+    
     public String getEstado(){
-        return estado.get();
+        return this.estado.get();
     }
     
     public String getDisponibilidad(){
-        return disponibilidad.get();
+        return this.disponibilidad.get();
     }
 
 }

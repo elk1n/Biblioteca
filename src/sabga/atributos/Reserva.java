@@ -10,14 +10,14 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Reserva {
     
-    public SimpleIntegerProperty id;
-    public SimpleStringProperty documento;
-    public SimpleStringProperty nombre;
-    public SimpleStringProperty apellido;
-    public SimpleStringProperty correo;
-    public SimpleStringProperty fecha;
-    public SimpleStringProperty estado;
-    public SimpleStringProperty tipoUsuario;
+    private final SimpleIntegerProperty id;
+    private SimpleStringProperty documento;
+    private SimpleStringProperty nombre;
+    private SimpleStringProperty apellido;
+    private SimpleStringProperty correo;
+    private final SimpleStringProperty fecha;
+    private final SimpleStringProperty estado;
+    private SimpleStringProperty tipoUsuario;
     
     public Reserva (int id, String documento, String nombre, String apellido, String correo, String fecha, String estado, String tipoUsuario){
         
@@ -31,6 +31,13 @@ public class Reserva {
         this.tipoUsuario = new SimpleStringProperty(tipoUsuario);
     }
 
+    public Reserva(int id, String fecha, String estado){
+    
+        this.id = new SimpleIntegerProperty(id);
+        this.fecha = new SimpleStringProperty(fecha);
+        this.estado = new SimpleStringProperty(estado);
+    }
+    
     public int getId() {
         return this.id.get();
     }

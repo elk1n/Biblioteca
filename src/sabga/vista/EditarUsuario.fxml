@@ -56,7 +56,8 @@
       <contextMenu>
         <ContextMenu>
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#dialogoDetalleUsuario" text="Detalles del Usuario" />
+            <MenuItem mnemonicParsing="false" onAction="#dialogoDetalleUsuario" text="Ver Detalle de Usuario" />
+            <MenuItem mnemonicParsing="false" onAction="#detalleMultas" text="Ver Multas" />
           </items>
         </ContextMenu>
       </contextMenu>
@@ -163,9 +164,9 @@
         </AnchorPane>
       </content>
     </ScrollPane>
-    <HBox id="HBox" alignment="CENTER" layoutX="748.0" layoutY="477.0" spacing="250.0">
+    <HBox id="HBox" alignment="CENTER" layoutX="748.0" layoutY="477.0" spacing="240.0">
       <children>
-        <Button alignment="CENTER_RIGHT" defaultButton="true" mnemonicParsing="false" onAction="#detalleMultas" prefHeight="25.0" text="Actualizar Multas" />
+        <Button alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#detalleMultas" prefHeight="25.0" prefWidth="120.0" text="Ver Multas" />
         <Button cancelButton="false" defaultButton="true" maxWidth="-1.0" mnemonicParsing="false" onAction="#guardarCambios" prefHeight="25.0" prefWidth="120.0" text="Guardar Cambios" />
       </children>
     </HBox>

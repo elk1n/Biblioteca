@@ -111,18 +111,20 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
         multas();
     }
         
+    @FXML
+    public void dialogoDetalleUsuario(ActionEvent evento){
+        dialogoDetalleUsuario();
+    }
+    
     private void multas(){
         
-        if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){
-            
+        if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
             panelFondo.setDisable(true);
             dialogos.mostrarDialogo("vista/dialogos/Multa.fxml", "Detalle Multas", null , null, 17);           
-            panelFondo.setDisable(false);
-            
+            panelFondo.setDisable(false);     
         }else{
             Utilidades.mensaje(null, "Debe seleccionar un usuario. ", "", "Selección Usuario");
         }
-        
     }
     
     private void guardarCambios(){
@@ -345,12 +347,15 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
         lblResultado.setText(null);
     }
            
-    @FXML
-    public void dialogoDetalleUsuario(ActionEvent evento){        
-        paginaPrincipal = new Sabga();
-        btnDetalle.setDisable(true);
-        dialogo.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información Detallada del Usuario", paginaPrincipal.getPrimaryStage(), null,5);       
-        btnDetalle.setDisable(false);
+    private void dialogoDetalleUsuario(){
+        
+        if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
+            panelFondo.setDisable(true);
+            dialogos.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información del Usuario", null , null, 5);           
+            panelFondo.setDisable(false);     
+        }else{
+            Utilidades.mensaje(null, "Debe seleccionar un usuario. ", "", "Selección Usuario");
+        }
     }
           
     @Override

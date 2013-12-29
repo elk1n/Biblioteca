@@ -44,7 +44,7 @@ public class MultaController implements Initializable {
     
     private final Atributos atributo;
     private final Consultas consulta;
-    private final ObservableList<Devolucion> listaEjemplares;
+    private final ObservableList<Devolucion> listaEjemplares, listaDevoluciones;
     private final ObservableList<Multa> listaPrestamos;
       
     public void setDialogStage(Stage dialogStage) {
@@ -57,6 +57,7 @@ public class MultaController implements Initializable {
         consulta = new Consultas();
         listaEjemplares = FXCollections.observableArrayList();
         listaPrestamos = FXCollections.observableArrayList();
+        listaDevoluciones = FXCollections.observableArrayList();
     }
     
     public void setTablaDetalle(){
@@ -113,7 +114,9 @@ public class MultaController implements Initializable {
         
         clmnEjemplarDevo.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("ejemplar"));
         clmnFechaEntrega.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("fecha"));
-        tablaDevolucion.setItems(consulta.getListaDetalleDevolucion(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getPrestamo()));
+        listaDevoluciones.clear();
+        listaDevoluciones.addAll(consulta.getListaDetalleDevolucion(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getPrestamo()));
+        tablaDevolucion.setItems(listaDevoluciones);
     }
     
     private void pagarMulta(){
@@ -140,7 +143,10 @@ public class MultaController implements Initializable {
     private boolean validar(){
     
         ConfirmarUsuario confirmar = new ConfirmarUsuario();
-        if(confirmar.confirmarPagoMulta(txtfMulta.getText())){            
+        if(confirmar.confirmarPagoMulta(txtfMulta.getText())){
+            if(Integer.parseInt(txtfMulta.getText()) > listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getValor()){
+                lblValidar.setText("El valor a pagar no puede se mayor al valor de la deuda.");
+            }
             return Integer.parseInt(txtfMulta.getText()) <= listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getValor();        
         }else{
             return false;
@@ -160,6 +166,8 @@ public class MultaController implements Initializable {
         if (consulta.getMensaje() == null) {
             Utilidades.mensaje(null, "La multa se actualizó correctamente.", "", "Pagar Multa");
             listaPrestamos.clear();
+            listaEjemplares.clear();
+            listaDevoluciones.clear();
             detalleMulta();
             txtfMulta.clear();
         } else {

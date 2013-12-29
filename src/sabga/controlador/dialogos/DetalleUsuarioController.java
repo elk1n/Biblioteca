@@ -1,7 +1,18 @@
 package sabga.controlador.dialogos;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import sabga.atributos.Atributos;
+import sabga.atributos.Ejemplar;
+import sabga.atributos.Prestamo;
+import sabga.atributos.Reserva;
+import sabga.modelo.Consultas;
 
 /**
  * @author Elk1n
@@ -9,16 +20,99 @@ import javafx.stage.Stage;
 
 public class DetalleUsuarioController {
 
+    @FXML
+    private Label lblNombre;
+    @FXML
+    private TableView tablaPrestamo, tablaDetallePres, tablaReserva, tablaDetalleRese;
+    @FXML
+    private TableColumn clmnFechaPres, clmnEstadoPres, clmnReserva, clmnDocumento, clmnNombre, clmnTitulo, clmnEjemplar, clmnCodigo,
+                        clmnEstadoEjem, clmnTipo, clmnClaseMate, clmnFechaRese, clmnEstadoRese, clmnTituloRese, clmnEjemplarRese,
+                        clmnCodigoRese, clmnEstadoEjemRese, clmnTipoRese, clmnClaseRese, clmnFechaDevo;  
     private Stage dialogStage;
-
+    private final Atributos atributo;
+    private final Consultas consulta;
+    private final ObservableList<Prestamo> listaPrestamos;
+    private final ObservableList<Reserva> listaReservas;
+    
+    public DetalleUsuarioController(){
+        atributo = new Atributos();
+        listaPrestamos = FXCollections.observableArrayList();
+        listaReservas = FXCollections.observableArrayList();
+        consulta = new Consultas();
+    }
+    
+    public void mostrarDetallePres(){
+        detallePrestamo();
+    }
+    
+    public void mostrarDetalleRese(){
+        detalleReserva();
+    }
+        
+    private void prestamos(){
+        
+        listaPrestamos.clear();
+        clmnFechaPres.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("documento"));
+        clmnEstadoPres.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("nombre"));
+        clmnReserva.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("apellido"));
+        clmnDocumento.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("fecha"));
+        clmnNombre.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("estado"));
+        listaPrestamos.addAll(consulta.getListaPrestamoUsusario(atributo.getDocumentoUsuario()));
+        tablaPrestamo.setItems(listaPrestamos);
+    }
+   
+    private void detallePrestamo(){
+        
+        if(tablaPrestamo.getSelectionModel().getSelectedItem() != null){      
+           clmnTitulo.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("titulo"));
+           clmnEjemplar.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("ejemplar"));
+           clmnFechaDevo.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("fecha"));
+           clmnCodigo.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("codigo"));
+           clmnEstadoEjem.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("estado"));
+           clmnTipo.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("tipo"));
+           clmnClaseMate.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("clase"));
+           tablaDetallePres.setItems(consulta.getListaDetallePrestamoUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo()));
+        }
+    }
+    
+    private void reservas(){
+        
+        listaReservas.clear();
+        clmnFechaRese.setCellValueFactory(new PropertyValueFactory<Reserva, String>("fecha"));
+        clmnEstadoRese.setCellValueFactory(new PropertyValueFactory<Reserva, String>("estado"));
+        listaReservas.setAll(consulta.getListaReservaUsuario(atributo.getDocumentoUsuario()));
+        tablaReserva.setItems(listaReservas);
+    }
+    
+    private void detalleReserva(){
+        
+        if(tablaReserva.getSelectionModel().getSelectedItem() != null){      
+           clmnTituloRese.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("titulo"));
+           clmnEjemplarRese.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("ejemplar"));
+           clmnCodigoRese.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("codigo"));
+           clmnEstadoEjemRese.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("estado"));
+           clmnTipoRese.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("tipo"));
+           clmnClaseRese.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("clase"));
+           tablaDetalleRese.setItems(consulta.getListaDetalleReservaUsuario(listaReservas.get(tablaReserva.getSelectionModel().getSelectedIndex()).getId()));
+        }
+    }
+   
     public void setDialogStage(Stage dialogStage) {
-
         this.dialogStage = dialogStage;
-
     }
 
+    public void cerrar(){
+        this.dialogStage.close();
+    }
+    
+    public void inicio(){
+        lblNombre.setText(atributo.getNombreUsuario()+" "+atributo.getApellidoUsuario());
+        prestamos();
+        reservas();
+    }
+    
     @FXML
     public void initialize() {
-        // TODO
+        inicio();
     }
 }
