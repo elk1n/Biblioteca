@@ -9,6 +9,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import sabga.atributos.Atributos;
+import sabga.atributos.Devolucion;
 import sabga.atributos.Ejemplar;
 import sabga.atributos.Prestamo;
 import sabga.atributos.Reserva;
@@ -23,21 +24,25 @@ public class DetalleUsuarioController {
     @FXML
     private Label lblNombre;
     @FXML
-    private TableView tablaPrestamo, tablaDetallePres, tablaReserva, tablaDetalleRese;
+    private TableView tablaPrestamo, tablaDetallePres, tablaReserva, tablaDetalleRese, tablaDevolucion, tablaDetalleDevo;
     @FXML
     private TableColumn clmnFechaPres, clmnEstadoPres, clmnReserva, clmnDocumento, clmnNombre, clmnTitulo, clmnEjemplar, clmnCodigo,
                         clmnEstadoEjem, clmnTipo, clmnClaseMate, clmnFechaRese, clmnEstadoRese, clmnTituloRese, clmnEjemplarRese,
-                        clmnCodigoRese, clmnEstadoEjemRese, clmnTipoRese, clmnClaseRese, clmnFechaDevo;  
+                        clmnCodigoRese, clmnEstadoEjemRese, clmnTipoRese, clmnClaseRese, clmnFechaDevo, clmnFechaPresDevo, clmnEstadoPresDevo,
+                        clmnEstadoDevo, clmnDocumentoDevo, clmnNombreDevo, clmnTituloDevo, clmnEjemplarDevo, clmnFechaDevolucion,
+                        clmnFechaEntrega, clmnCodigoDevo, clmnEstadoEjemDevo, clmnTipoDevo, clmnClaseDevo;  
     private Stage dialogStage;
     private final Atributos atributo;
     private final Consultas consulta;
     private final ObservableList<Prestamo> listaPrestamos;
     private final ObservableList<Reserva> listaReservas;
+    private final ObservableList<Devolucion> listaDevolucion;
     
     public DetalleUsuarioController(){
         atributo = new Atributos();
         listaPrestamos = FXCollections.observableArrayList();
         listaReservas = FXCollections.observableArrayList();
+        listaDevolucion = FXCollections.observableArrayList();
         consulta = new Consultas();
     }
     
@@ -48,7 +53,12 @@ public class DetalleUsuarioController {
     public void mostrarDetalleRese(){
         detalleReserva();
     }
-        
+    
+    public void mostrarDetalleDevo(){
+        detalleDevolucion();
+    }
+    
+    
     private void prestamos(){
         
         listaPrestamos.clear();
@@ -97,6 +107,36 @@ public class DetalleUsuarioController {
         }
     }
    
+    private void devoluciones(){
+        
+        listaDevolucion.clear();
+        clmnFechaPresDevo.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("fecha"));
+        clmnEstadoPresDevo.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("estadoPrestamo"));
+        clmnEstadoDevo.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("estado"));
+        clmnDocumentoDevo.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("documento"));
+        clmnNombreDevo.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("nombre"));
+        listaDevolucion.addAll(consulta.getListaDevolucionUsuario(atributo.getDocumentoUsuario()));
+        tablaDevolucion.setItems(listaDevolucion);        
+    }
+    
+    private void detalleDevolucion() {
+
+        if (tablaDevolucion.getSelectionModel().getSelectedItem() != null) {
+            clmnTituloDevo.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("titulo"));
+            clmnEjemplarDevo.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("ejemplar"));
+            clmnFechaDevolucion.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("fecha"));
+            clmnFechaEntrega.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("fechaEntrega"));
+            clmnCodigoDevo.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("codigo"));
+            clmnEstadoEjemDevo.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("estado"));
+            clmnTipoDevo.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("tipo"));
+            clmnClaseDevo.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("clase"));
+            tablaDetalleDevo.setItems(consulta.getListaDetalleDevolucionUsuario(listaDevolucion.get(tablaDevolucion.getSelectionModel().getSelectedIndex()).getIdDevolucion(),
+                                                                                listaDevolucion.get(tablaDevolucion.getSelectionModel().getSelectedIndex()).getIdPrestamo()));
+
+        }
+
+    }
+    
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
@@ -109,6 +149,7 @@ public class DetalleUsuarioController {
         lblNombre.setText(atributo.getNombreUsuario()+" "+atributo.getApellidoUsuario());
         prestamos();
         reservas();
+        devoluciones();
     }
     
     @FXML

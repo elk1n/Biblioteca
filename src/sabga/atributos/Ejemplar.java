@@ -12,6 +12,7 @@ public class Ejemplar {
     private SimpleStringProperty titulo;
     private final SimpleStringProperty ejemplar;
     private SimpleStringProperty fecha;
+    private SimpleStringProperty fechaEntrega;
     private SimpleStringProperty codigo;
     private final SimpleStringProperty estado;
     private SimpleStringProperty tipo;
@@ -45,6 +46,23 @@ public class Ejemplar {
         this.estado = new SimpleStringProperty(estado);
         this.tipo = new SimpleStringProperty(tipo);
         this.clase = new SimpleStringProperty(clase);        
+    }
+    
+    public Ejemplar(String titulo, String ejemplar, String fechaDevolucion, String fechaEntrega, String codigo, String estado,
+                    String tipo, String clase){
+    
+        this.titulo = new SimpleStringProperty(titulo);
+        this.ejemplar = new SimpleStringProperty(ejemplar);
+        this.fecha = new SimpleStringProperty(fechaDevolucion);
+        this.fechaEntrega = new SimpleStringProperty(fechaEntrega);
+        this.codigo = new SimpleStringProperty(codigo);
+        this.estado = new SimpleStringProperty(estado);
+        this.tipo = new SimpleStringProperty(tipo);
+        this.clase = new SimpleStringProperty(clase);
+    }
+    
+    public String getFechaEntrega(){
+        return this.fechaEntrega.get();
     }
     
     public String getTitulo(){

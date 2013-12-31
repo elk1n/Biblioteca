@@ -410,7 +410,7 @@ public class Consultas {
     
     public ObservableList<Devolucion> getListaDetalleDevolucion(int id){
     
-            ObservableList<Devolucion> lista = FXCollections.observableArrayList();
+        ObservableList<Devolucion> lista = FXCollections.observableArrayList();
         try {
             con.conectar();
             con.procedimiento("{ CALL getListaDetalleDevolucion(?)}");
@@ -424,8 +424,7 @@ public class Consultas {
         } finally {
             con.desconectar();
         }
-        return lista;
-    
+        return lista;    
     }
     
     public ObservableList<Prestamo> getListaPrestamoUsusario(String id){
@@ -510,6 +509,51 @@ public class Consultas {
             con.desconectar();
         }
         return lista;    
+    }
+    
+    public ObservableList<Devolucion> getListaDevolucionUsuario(String documento){
+    
+        ObservableList<Devolucion> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaDevolucionUsuario(?)}");
+            con.getProcedimiento().setString("documento", documento);
+                con.setResultado(con.getProcedimiento().executeQuery());
+                while (con.getResultado().next()) {
+                    lista.add(new Devolucion(con.getResultado().getInt("idD"), con.getResultado().getInt("id"),
+                                             con.getResultado().getString("fecha"), con.getResultado().getString("estado"),
+                                             con.getResultado().getString("estadoD"), con.getResultado().getString("documento"),
+                                             con.getResultado().getString("nombres")));
+                }
+            } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
+        } finally {
+            con.desconectar();
+        }
+        return lista;    
+    }
+    
+    public ObservableList<Ejemplar> getListaDetalleDevolucionUsuario(int devolucion, int prestamo){
+    
+            ObservableList<Ejemplar> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaDetalleDevolucionUsuario(?, ?)}");
+            con.getProcedimiento().setInt("devolucion", devolucion);
+            con.getProcedimiento().setInt("prestamo", prestamo);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                lista.add(new Ejemplar(con.getResultado().getString("titulo"), con.getResultado().getString("ejemplar"),
+                                       con.getResultado().getString("fecha"), con.getResultado().getString("fechaD"), 
+                                       con.getResultado().getString("codigo"), con.getResultado().getString("estado"),
+                                       con.getResultado().getString("tipo"), con.getResultado().getString("clase")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
+        } finally {
+            con.desconectar();
+        }
+        return lista;      
     }
     
     public void mapearInfoAdmin(int id){
