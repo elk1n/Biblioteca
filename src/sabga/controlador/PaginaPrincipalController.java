@@ -1,4 +1,3 @@
-
 package sabga.controlador;
 
 import java.net.URL;
@@ -12,9 +11,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Dialogs;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import sabga.Sabga;
 import sabga.configuracion.ControlledScreen;
@@ -22,7 +22,6 @@ import sabga.ScreensController;
 import sabga.atributos.Atributos;
 import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
-
 
 public class PaginaPrincipalController implements Initializable, ControlledScreen {
     
@@ -44,11 +43,14 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     @FXML
     private MenuButton menuAdmin;
     @FXML
-    private HBox hboxAdmin;
-    @FXML
     private AnchorPane panelCentral;
     @FXML
     private Pane panelInicio, panelBusqueda;
+    @FXML
+    private TableView tablaDevolucion, tablaReservas;
+    @FXML
+    private TableColumn clmnDocumentoD, clmnNombreD, clmnTituloD, clmnEjemplarD, clmnCodigoD, clmnFechaD, clmnDocumentoR,
+                        clmnNombreR, clmnApellidoR, clmnFechaR, clmnTituloR;
 
     public PaginaPrincipalController(){       
         dialogo = new Dialogo();
@@ -125,7 +127,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     }
     
     @FXML
-    public void ventanaPrestamo(ActionEvent evento){        
+    public void ventanaPrestamo(){        
         ventanaPrincipal.cargarVista("paginaPrestamo", "vista/Prestamo.fxml");
         ventanaPrincipal.cambiarVista("paginaPrestamo");
         ventanaPrincipal.setTitle("Préstamo");
@@ -135,7 +137,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     }
     
     @FXML
-    public void ventanaRegistroUsuarios(ActionEvent evento){        
+    public void ventanaRegistroUsuarios(    ){        
         ventanaPrincipal.cargarVista("paginaRegistroUsuarios", "vista/RegistroUsuario.fxml");
         ventanaPrincipal.cambiarVista("paginaRegistroUsuarios");
         ventanaPrincipal.setTitle("Registro de Usuarios");
@@ -145,7 +147,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     }
     
     @FXML
-    public void ventanaEstadoUsuario(ActionEvent evento){        
+    public void ventanaEstadoUsuario(){        
         ventanaPrincipal.cargarVista("paginaEstadoUsuario", "vista/EditarUsuario.fxml");
         ventanaPrincipal.cambiarVista("paginaEstadoUsuario");
         ventanaPrincipal.setTitle("Cuentas de Usuario");
@@ -175,7 +177,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     }
     
     @FXML
-    public void ventanaDevolucion(ActionEvent evento){        
+    public void ventanaDevolucion(){        
         ventanaPrincipal.cargarVista("paginaDevolucion", "vista/Devolucion.fxml");
         ventanaPrincipal.cambiarVista("paginaDevolucion");
         ventanaPrincipal.setTitle("Devolución o Renovación");
@@ -185,7 +187,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     }
     
     @FXML
-    public void ventanaReservaEscritorio(ActionEvent evento){        
+    public void ventanaReservaEscritorio(){        
         ventanaPrincipal.cargarVista("paginaReserva", "vista/ReservaEscritorio.fxml");
         ventanaPrincipal.cambiarVista("paginaReserva");
         ventanaPrincipal.setTitle("Reservar");

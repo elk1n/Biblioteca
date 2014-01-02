@@ -16,138 +16,150 @@
   <center>
     <AnchorPane id="panel" fx:id="panelCentral" prefHeight="200.0" prefWidth="200.0">
       <children>
-        <Pane fx:id="panelInicio" disable="false" prefHeight="540.0" prefWidth="1260.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-13.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="0.0">
+        <Pane fx:id="panelInicio" disable="false" prefHeight="540.0" prefWidth="1260.0" visible="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="1.0">
           <children>
-            <Pane layoutX="50.0" layoutY="32.0" prefHeight="475.0" prefWidth="499.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" styleClass="resultado">
+            <Pane layoutX="25.0" layoutY="27.0" prefHeight="490.0" prefWidth="500.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" styleClass="resultado">
               <children>
-                <Label layoutX="14.0" layoutY="11.0" text="Inicio">
+                <Label layoutX="16.0" layoutY="14.0" text="Inicio">
                   <font>
                     <Font name="System Bold" size="16.0" fx:id="x4" />
                   </font>
                 </Label>
-                <Pane layoutX="41.0" layoutY="55.0" onMouseClicked="#ventanaRegistroMaterial" prefHeight="89.0" prefWidth="133.0" scaleY="1.0" scaleZ="1.0" style="&#10;" styleClass="botonInicio">
+                <GridPane id="GridPane" hgap="30.0" layoutX="40.0" layoutY="64.0" prefHeight="390.0" prefWidth="425.0" vgap="30.0">
                   <children>
-                    <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="44.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-                      <image>
-                        <Image url="@Imagenes/Registro.png" backgroundLoading="false" />
-                      </image>
-                    </ImageView>
-                    <Label layoutX="18.0" layoutY="66.0" text="Registrar Material" textFill="WHITE" />
+                    <Pane onMouseClicked="#ventanaEstadoUsuario" prefHeight="110.0" prefWidth="140.0" scaleY="1.0" scaleZ="1.0" style="&#10;" styleClass="botonInicio" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                      <children>
+                        <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@Imagenes/Editar_Usuario.png" />
+                          </image>
+                        </ImageView>
+                        <Label layoutX="20.0" layoutY="86.0" text="Edirar Usuario" textFill="WHITE" />
+                      </children>
+                      <rotationAxis>
+                        <Point3D z="1.0" />
+                      </rotationAxis>
+                      <stylesheets>
+                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                      </stylesheets>
+                    </Pane>
+                    <Pane onMouseClicked="#ventanaPrestamo" prefHeight="110.0" prefWidth="140.0" scaleY="1.0" scaleZ="1.0" style="&#10;" styleClass="botonInicio" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                      <children>
+                        <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="30.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@Imagenes/Prestamo.png" />
+                          </image>
+                        </ImageView>
+                        <Label layoutX="20.0" layoutY="86.0" text="Préstamo" textFill="WHITE" />
+                      </children>
+                      <rotationAxis>
+                        <Point3D z="1.0" />
+                      </rotationAxis>
+                      <stylesheets>
+                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                      </stylesheets>
+                    </Pane>
+                    <Pane onMouseClicked="#ventanaDevolucion" prefHeight="110.0" prefWidth="140.0" scaleY="1.0" scaleZ="1.0" style="&#10;" styleClass="botonInicio" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                      <children>
+                        <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="30.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@Imagenes/Devolucion.png" />
+                          </image>
+                        </ImageView>
+                        <Label layoutX="20.0" layoutY="86.0" text="Devolución" textFill="WHITE" />
+                      </children>
+                      <rotationAxis>
+                        <Point3D z="1.0" />
+                      </rotationAxis>
+                      <stylesheets>
+                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                      </stylesheets>
+                    </Pane>
+                    <Pane onMouseClicked="#ventanaRegistroMaterial" prefHeight="110.0" prefWidth="140.0" scaleY="1.0" scaleZ="1.0" style="&#10;" styleClass="botonInicio" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                      <children>
+                        <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="30.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@Imagenes/Registro.png" backgroundLoading="false" />
+                          </image>
+                        </ImageView>
+                        <Label layoutX="20.0" layoutY="86.0" text="Registrar Material" textFill="WHITE" />
+                      </children>
+                      <rotationAxis>
+                        <Point3D z="1.0" />
+                      </rotationAxis>
+                      <stylesheets>
+                        <URL value="@css/estilo.css" />
+                      </stylesheets>
+                    </Pane>
+                    <Pane onMouseClicked="#ventanaRegistroUsuarios" prefHeight="110.0" prefWidth="140.0" scaleY="1.0" scaleZ="1.0" style="&#10;" styleClass="botonInicio" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                      <children>
+                        <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@Imagenes/Registro_Usuario.png" />
+                          </image>
+                        </ImageView>
+                        <Label layoutX="20.0" layoutY="86.0" text="Registrar Usuario" textFill="WHITE" />
+                      </children>
+                      <rotationAxis>
+                        <Point3D z="1.0" />
+                      </rotationAxis>
+                      <stylesheets>
+                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                      </stylesheets>
+                    </Pane>
+                    <Pane onMouseClicked="#ventanaReservaEscritorio" prefHeight="110.0" prefWidth="140.0" scaleY="1.0" scaleZ="1.0" style="&#10;" styleClass="botonInicio" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                      <children>
+                        <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="30.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@Imagenes/Reservar.png" />
+                          </image>
+                        </ImageView>
+                        <Label layoutX="20.0" layoutY="86.0" prefHeight="18.6209716796875" text="Reserva" textFill="WHITE" />
+                      </children>
+                      <rotationAxis>
+                        <Point3D z="1.0" />
+                      </rotationAxis>
+                      <stylesheets>
+                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                      </stylesheets>
+                    </Pane>
                   </children>
-                  <rotationAxis>
-                    <Point3D z="1.0" />
-                  </rotationAxis>
-                  <stylesheets>
-                    <URL value="@css/estilo.css" />
-                  </stylesheets>
-                </Pane>
-                <Pane layoutX="41.0" layoutY="199.0" onMouseClicked="#ventanaRegistroMaterial" prefHeight="89.0" prefWidth="133.0" scaleY="1.0" scaleZ="1.0" style="&#10;" styleClass="botonInicio">
-                  <children>
-                    <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="44.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-                      <image>
-                        <Image url="file:/F:/Proyecto/Sabga/src/sabga/vista/Imagenes/Registro.png" backgroundLoading="false" />
-                      </image>
-                    </ImageView>
-                    <Label layoutX="18.0" layoutY="66.0" text="Registrar Material" textFill="WHITE" />
-                  </children>
-                  <rotationAxis>
-                    <Point3D z="1.0" />
-                  </rotationAxis>
-                  <stylesheets>
-                    <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
-                  </stylesheets>
-                </Pane>
-                <Pane layoutX="41.0" layoutY="351.0" onMouseClicked="#ventanaRegistroMaterial" prefHeight="89.0" prefWidth="133.0" scaleY="1.0" scaleZ="1.0" style="&#10;" styleClass="botonInicio">
-                  <children>
-                    <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="44.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-                      <image>
-                        <Image url="file:/F:/Proyecto/Sabga/src/sabga/vista/Imagenes/Registro.png" backgroundLoading="false" />
-                      </image>
-                    </ImageView>
-                    <Label layoutX="18.0" layoutY="66.0" text="Registrar Material" textFill="WHITE" />
-                  </children>
-                  <rotationAxis>
-                    <Point3D z="1.0" />
-                  </rotationAxis>
-                  <stylesheets>
-                    <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
-                  </stylesheets>
-                </Pane>
-                <Pane layoutX="302.0" layoutY="209.0" onMouseClicked="#ventanaRegistroMaterial" prefHeight="89.0" prefWidth="133.0" scaleY="1.0" scaleZ="1.0" style="&#10;" styleClass="botonInicio">
-                  <children>
-                    <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="44.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-                      <image>
-                        <Image url="file:/F:/Proyecto/Sabga/src/sabga/vista/Imagenes/Registro.png" backgroundLoading="false" />
-                      </image>
-                    </ImageView>
-                    <Label layoutX="18.0" layoutY="66.0" text="Registrar Material" textFill="WHITE" />
-                  </children>
-                  <rotationAxis>
-                    <Point3D z="1.0" />
-                  </rotationAxis>
-                  <stylesheets>
-                    <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
-                  </stylesheets>
-                </Pane>
-                <Pane layoutX="303.0" layoutY="351.0" onMouseClicked="#ventanaRegistroMaterial" prefHeight="89.0" prefWidth="133.0" scaleY="1.0" scaleZ="1.0" style="&#10;" styleClass="botonInicio">
-                  <children>
-                    <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="44.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-                      <image>
-                        <Image url="file:/F:/Proyecto/Sabga/src/sabga/vista/Imagenes/Registro.png" backgroundLoading="false" />
-                      </image>
-                    </ImageView>
-                    <Label layoutX="18.0" layoutY="66.0" text="Registrar Material" textFill="WHITE" />
-                  </children>
-                  <rotationAxis>
-                    <Point3D z="1.0" />
-                  </rotationAxis>
-                  <stylesheets>
-                    <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
-                  </stylesheets>
-                </Pane>
-                <Pane layoutX="304.0" layoutY="52.0" onMouseClicked="#ventanaRegistroMaterial" prefHeight="89.0" prefWidth="133.0" scaleY="1.0" scaleZ="1.0" style="&#10;" styleClass="botonInicio">
-                  <children>
-                    <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="44.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-                      <image>
-                        <Image url="file:/F:/Proyecto/Sabga/src/sabga/vista/Imagenes/Registro.png" backgroundLoading="false" />
-                      </image>
-                    </ImageView>
-                    <Label layoutX="18.0" layoutY="66.0" text="Registrar Material" textFill="WHITE" />
-                  </children>
-                  <rotationAxis>
-                    <Point3D z="1.0" />
-                  </rotationAxis>
-                  <stylesheets>
-                    <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
-                  </stylesheets>
-                </Pane>
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                </GridPane>
               </children>
               <stylesheets>
                 <URL value="@css/estilo.css" />
               </stylesheets>
             </Pane>
-            <TableView id="tabla1" layoutX="616.0" layoutY="318.0" prefHeight="188.0" prefWidth="626.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
+            <Label font="$x4" layoutX="553.0" layoutY="21.0" text="Entregas del Día" />
+            <TableView id="tabla2" fx:id="tablaDevoluciones" layoutX="553.0" layoutY="56.0" prefHeight="219.0" prefWidth="686.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
               <columns>
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="83.0" text="Documento" />
-                <TableColumn prefWidth="100.0" text="Tipo de material" />
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="97.0" text="Titulo" />
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="101.0" text="Autor" />
-                <TableColumn prefWidth="90.0" text="F.devolución" />
-                <TableColumn prefWidth="130.0" text="Estado del prestamo" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="76.0" text="Documento" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="148.0" text="Nombre" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="134.0" text="Título" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="81.0" text="Ejemplar" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="123.0" text="Código Clasificación" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="110.0" text="Fecha Préstamo" />
               </columns>
             </TableView>
-            <TableView id="tabla2" layoutX="616.0" layoutY="68.0" prefHeight="188.0" prefWidth="623.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
+            <Label font="$x4" layoutX="553.0" layoutY="288.0" text="Reservas Pendientes" />
+            <TableView id="tabla1" layoutX="550.0" layoutY="321.0" prefHeight="194.0" prefWidth="689.0001220703125" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
               <columns>
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="85.0" text="Documento" />
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="105.0" text="Tipo de material" />
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="82.0" text="Titulo" />
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="111.0" text="Autor" />
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="88.0" text="F.devolución" />
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="129.0" text="Estado del prestamo" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="76.0" text="Documento" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="151.0" text="Nombre" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="130.0" text="Apellido" />
+                <TableColumn prefWidth="90.0" text="Fecha Reserva" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="229.0" text="Títulos" />
               </columns>
             </TableView>
-            <Label font="$x4" layoutX="616.0" layoutY="32.0" text="Entregas del Día" />
-            <Label font="$x4" layoutX="620.0" layoutY="283.0" text="Reservas Pendientes" />
           </children>
         </Pane>
         <Pane fx:id="panelBusqueda" disable="true" prefHeight="540.0" prefWidth="1260.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
