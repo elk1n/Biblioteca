@@ -19,7 +19,7 @@
         <Label fx:id="lblTitulo" font="$x1" text="Título" />
       </children>
     </HBox>
-    <TreeView id="arbol" fx:id="menu" layoutX="14.0" layoutY="69.0" prefHeight="560.0" prefWidth="220.0" showRoot="true" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" />
-    <TextArea fx:id="lblContenido" disable="false" editable="false" layoutX="259.0" layoutY="70.0" prefHeight="556.0" prefWidth="567.0" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );&#10;-fx-font-size: 14;" wrapText="true" />
+    <TreeView id="arbol" fx:id="menu" layoutX="14.0" layoutY="69.0" prefHeight="555.0" prefWidth="220.0" showRoot="true" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" />
+    <TextArea fx:id="lblContenido" disable="false" editable="false" layoutX="259.0" layoutY="69.0" prefHeight="554.0" prefWidth="567.0" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );&#10;-fx-font-size: 14;" wrapText="true" />
   </children>
 </AnchorPane>

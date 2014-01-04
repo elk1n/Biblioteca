@@ -57,6 +57,14 @@ public class AyudaController implements Initializable {
     private final TreeItem<String> codigoBarras;
     private final TreeItem<String> usuarios;
     private final TreeItem<String> registrarUsuario;
+    private final TreeItem<String> editarUsuario;
+    private final TreeItem<String> nuevoGrado;
+    private final TreeItem<String> nuevoCurso;
+    private final TreeItem<String> nuevaJornda;
+    private final TreeItem<String> editarOpcionesUsuario;
+    private final TreeItem<String> nuevoUsuario;
+    private final TreeItem<String> prestamo;
+    private final TreeItem<String> devolucion;
     
     public AyudaController(){
         
@@ -91,6 +99,14 @@ public class AyudaController implements Initializable {
         codigoBarras = new TreeItem<>("Código de Barras");
         usuarios = new TreeItem<>("Usuarios");
         registrarUsuario = new TreeItem<>("Registrar Usuario");
+        editarUsuario = new TreeItem<>("Editar Información del Usuario");
+        nuevoGrado = new TreeItem<>("Nuevo Grado");
+        nuevoCurso = new TreeItem<>("Nuevo Curso");
+        nuevaJornda = new TreeItem<>("Nueva Jornada");
+        nuevoUsuario = new TreeItem<>("Nuevo Tipo de Usuario");
+        editarOpcionesUsuario = new TreeItem<>("Editar Opciones Usuario");
+        prestamo = new TreeItem<>("Préstamo de Material");
+        devolucion = new TreeItem<>("Devolución de Material");
         ingreso.getChildren().addAll(ingresar, restablecer, inicioSesion);         
         administrar.getChildren().addAll(miCuenta, contrasenia);
         auxiliar.getChildren().addAll(registrarAuxiliar, editarAuxiliar);
@@ -98,8 +114,8 @@ public class AyudaController implements Initializable {
                                                    edicionGeneral, editarEjemplares, editarAutores, editarMaterias, nuevoAutor,
                                                    nuevaEditorial, nuevaMateria, nuevoTipo, nuevaClase, editarOpciones, detalleMaterial,
                                                    codigoBarras);
-        usuarios.getChildren().addAll(registrarUsuario);
-        ayuda.getChildren().addAll(ingreso, administrar, auxiliar, materialBibliotecario, usuarios);
+        usuarios.getChildren().addAll(registrarUsuario, editarUsuario, nuevoGrado, nuevoCurso, nuevaJornda, nuevoUsuario, editarOpcionesUsuario);
+        ayuda.getChildren().addAll(ingreso, administrar, auxiliar, materialBibliotecario, usuarios, prestamo, devolucion);
     }
         
     public void setDialogStage(Stage dialogStage) {
@@ -199,6 +215,30 @@ public class AyudaController implements Initializable {
             }else if (seleccion.getValue().equals(registrarUsuario.getValue())) {
                 lblTitulo.setText("Registrar Usuario");
                 lblContenido.setText(contenido(30));
+            }else if (seleccion.getValue().equals(editarUsuario.getValue())) {
+                lblTitulo.setText("Editar Información del Usuario");
+                lblContenido.setText(contenido(31));
+            }else if (seleccion.getValue().equals(nuevoGrado.getValue())) {
+                lblTitulo.setText("Registrar Nuevo Grado");
+                lblContenido.setText(contenido(32));
+            }else if (seleccion.getValue().equals(nuevoCurso.getValue())) {
+                lblTitulo.setText("Registrar Nuevo Curso");
+                lblContenido.setText(contenido(33));
+            }else if (seleccion.getValue().equals(nuevaJornda.getValue())) {
+                lblTitulo.setText("Registrar Nueva Jornada");
+                lblContenido.setText(contenido(34));
+            }else if (seleccion.getValue().equals(nuevoUsuario.getValue())) {
+                lblTitulo.setText("Registrar Nuevo Tipo de Usuario");
+                lblContenido.setText(contenido(35));
+            }else if (seleccion.getValue().equals(editarOpcionesUsuario.getValue())) {
+                lblTitulo.setText("Editar Opciones de Usuario");
+                lblContenido.setText(contenido(36));
+            }else if (seleccion.getValue().equals(prestamo.getValue())) {
+                lblTitulo.setText("Préstamo de Material Bibliográfico");
+                lblContenido.setText(contenido(37));
+            }else if (seleccion.getValue().equals(prestamo.getValue())) {
+                lblTitulo.setText("Devolución de Material Bibliográfico");
+                lblContenido.setText(contenido(38));
             }
         } catch (Exception e) {
            
@@ -510,6 +550,62 @@ public class AyudaController implements Initializable {
                             "•	Llenar los campos necesarios del formulario.\n" +
                             "•	Presionar el botón Guardar nuevo usuario.\n\n" +
                             "Nota: Si los datos ingresados son correctos se puede observar un mensaje donde se afirma que el registro fue exitoso.";
+                break;
+            case 31:
+                contenido = "Una vez que el usuario se encuentre registrado, el Bibliotecario podrá modificar los "
+                            + "datos y el estado del usuario.\n\n"+
+                            "Luego de elegir la opción deseada, automáticamente se carga una tabla con información, los pasos a seguir son:\n\n" +
+                            "•	Seleccionar la fila que desea modificar.\n" +
+                            "•	En el panel derecho se cargará toda la información. \n" +
+                            "•	Modificar el dato del usuario.\n" +
+                            "•	Presionar el botón Actualizar Información.";
+                break;
+            case 32:
+                contenido = "Esta opción permite ingresar un nuevo grado a la aplicación.\n\n"+
+                            "•	Hacer clic en el menú Usuarios.\n"+
+                            "•	Seleccionar Opciones de Usuario.\n"+
+                            "•	Seleccionar Registrar Grado.\n"+
+                            "•	Ingresar un nombre o identificador para el grado.\n"+
+                            "•	Hacer clic en el botón Guardar Grado.";
+                break;
+            case 33:
+                contenido = "Esta opción permite ingresar un nuevo curso a la aplicación.\n\n"+
+                            "•	Hacer clic en el menú Usuarios.\n"+
+                            "•	Seleccionar Opciones de Usuario.\n"+
+                            "•	Seleccionar Registrar Curso.\n"+
+                            "•	Ingresar un nombre o identificador para el curso.\n"+
+                            "•	Hacer clic en el botón Guardar Curso.";
+                break;
+            case 34:
+                contenido = "Esta opción permite ingresar una nueva jornada a la aplicación.\n\n"+
+                            "•	Hacer clic en el menú Usuarios.\n"+
+                            "•	Seleccionar Opciones de Usuario.\n"+
+                            "•	Seleccionar Registrar Jornada.\n"+
+                            "•	Ingresar un nombre para la nueva jornada.\n"+
+                            "•	Hacer clic en el botón Guardar Jornada.";                            
+                break;
+            case 35:
+                contenido = "Esta opción permite ingresar un nuevo tipo de usuario a la aplicación.\n\n"+
+                            "•	Hacer clic en el menú Usuarios.\n"+
+                            "•	Seleccionar Opciones de Usuario.\n"+
+                            "•	Seleccionar Registrar Tipo de Usuario.\n"+
+                            "•	Ingresar un nombre para el nuevo tipo de usuario.\n"+
+                            "•	Hacer clic en el botón Guardar Tipo Usuario.";  
+                break;
+            case 36:
+                contenido = "Este sub-menú permite modificar y eliminar  el grado, curso, jornada y tipo del usuario.\n\n"+
+                            "•	Seleccionar la opción que desea modificar.\n" +
+                            "•	Automáticamente se cargan los datos en la tabla, seleccionar uno.\n" +
+                            "•	El dato aparece en un campo, allí se modifica.\n" +
+                            "•	Hacer clic en el botón Guardar Cambios.\n" +
+                            "•	Si desea eliminarlo hacer clic en el botón Eliminar.\n\n" +
+                            "Nota: Solo podrá eliminar una selección si no se encuetra asociada a un usuario.";
+                break;
+            case 37:
+                contenido = "";
+                break;
+            case 38:
+                contenido = "";
                 break;
         }
         return contenido;
