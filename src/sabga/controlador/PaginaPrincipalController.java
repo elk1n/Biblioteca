@@ -13,6 +13,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -20,8 +21,11 @@ import sabga.Sabga;
 import sabga.configuracion.ControlledScreen;
 import sabga.ScreensController;
 import sabga.atributos.Atributos;
+import sabga.atributos.Devolucion;
+import sabga.atributos.Reserva;
 import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
+import sabga.modelo.Consultas;
 
 public class PaginaPrincipalController implements Initializable, ControlledScreen {
     
@@ -31,6 +35,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     private final  Atributos atributos;
     private boolean ventanaInicio = false;
     private boolean ventanaBusqueda = false;
+    private final Consultas consulta;
     
     @FXML
     private TextField campoBusqueda;
@@ -50,11 +55,12 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     private TableView tablaDevolucion, tablaReservas;
     @FXML
     private TableColumn clmnDocumentoD, clmnNombreD, clmnTituloD, clmnEjemplarD, clmnCodigoD, clmnFechaD, clmnDocumentoR,
-                        clmnNombreR, clmnApellidoR, clmnFechaR, clmnTituloR;
+                        clmnNombreR, clmnEjemplarR, clmnFechaR, clmnTituloR, clmnCodigoR;
 
     public PaginaPrincipalController(){       
         dialogo = new Dialogo();
         atributos = new Atributos();
+        consulta = new Consultas();
     }
     
     @Override
@@ -312,6 +318,18 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         }    
     }
     
+    public void entregasDia(){
+        if(tablaDevolucion.getSelectionModel().getSelectedItem() != null){
+            ventanaDevolucion();
+        }    
+    }
+    
+    public void reservasDia(){
+        if(tablaReservas.getSelectionModel().getSelectedItem() != null){
+            ventanaPrestamo();
+        }
+    }
+    
     public String getCampoBusqueda(){
         return campoBusqueda.getText();
     }
@@ -319,15 +337,44 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     public void setUsuario(String usuario){
           menuAdmin.setText(atributos.getUsuarioAdmin());
     }
-             
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {        
+    
+    private void devolucionesDia(){
+        
+        clmnDocumentoD.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("documento"));
+        clmnNombreD.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("nombre"));
+        clmnTituloD.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("titulo"));
+        clmnEjemplarD.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("ejemplar"));
+        clmnCodigoD.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("codigo"));
+        clmnFechaD.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("fecha")); 
+        tablaDevolucion.setItems(consulta.getListaDevolucionDia());
+    }
+    
+    private void reservasPendientes(){
+        
+        clmnDocumentoR.setCellValueFactory(new PropertyValueFactory<Reserva, String>("documento"));
+        clmnNombreR.setCellValueFactory(new PropertyValueFactory<Reserva, String>("nombre"));
+        clmnTituloR.setCellValueFactory(new PropertyValueFactory<Reserva, String>("apellido"));
+        clmnEjemplarR.setCellValueFactory(new PropertyValueFactory<Reserva, String>("correo"));
+        clmnCodigoR.setCellValueFactory(new PropertyValueFactory<Reserva, String>("estado"));
+        clmnFechaR.setCellValueFactory(new PropertyValueFactory<Reserva, String>("fecha"));
+        tablaReservas.setItems(consulta.getListaReservasDia());
+    }
+    
+    private void inicio(){
+        
+        devolucionesDia();
+        reservasPendientes();
         botonBorrarBusqueda.setVisible(false);
         barraMenu.setPrefWidth(java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth());
         panelInicio.setDisable(false);
         panelInicio.setVisible(true);
         panelBusqueda.setDisable(true);
-        panelBusqueda.setVisible(false);
+        panelBusqueda.setVisible(false);    
+    }
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {        
+        inicio();
     }    
     
 }

@@ -55,7 +55,7 @@
         <RowConstraints maxHeight="17.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <Accordion minWidth="330.0" prefHeight="416.0" prefWidth="359.0" AnchorPane.bottomAnchor="73.0" AnchorPane.rightAnchor="16.0">
+    <Accordion minWidth="330.0" prefHeight="416.0" prefWidth="359.0" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" AnchorPane.bottomAnchor="73.0" AnchorPane.rightAnchor="16.0">
       <expandedPane>
         <TitledPane fx:id="x3" animated="false" minWidth="343.0" prefHeight="367.0" prefWidth="343.0" text="Autores">
           <content>

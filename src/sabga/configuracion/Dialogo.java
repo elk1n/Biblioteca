@@ -54,7 +54,6 @@ public class Dialogo {
             dialogStage.setTitle(titulo);            
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.centerOnScreen();
-           // dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
             dialogStage.initOwner(owner);
             scene = new Scene(page);
             dialogStage.setScene(scene);
@@ -250,7 +249,8 @@ public class Dialogo {
     private void controladorAyuda(){
         AyudaController controller = loader.getController();
         controller.setDialogStage(dialogStage);
-        dialogStage.showAndWait();    
+        dialogStage.getIcons().add(new Image( Sabga.class.getResourceAsStream("vista/Imagenes/Ayuda.png")));
+        dialogStage.show();    
     }   
     
     private void controladorMulta(){

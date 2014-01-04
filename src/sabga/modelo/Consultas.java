@@ -556,6 +556,48 @@ public class Consultas {
         return lista;      
     }
     
+    public ObservableList<Devolucion> getListaDevolucionDia(){
+    
+        ObservableList<Devolucion> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaDevolucionesDia()}");
+                con.setResultado(con.getProcedimiento().executeQuery());
+                while (con.getResultado().next()) {
+                    lista.add(new Devolucion(con.getResultado().getString("id"), con.getResultado().getString("nombre"),
+                                             con.getResultado().getString("titulo"), con.getResultado().getString("ejemplar"),
+                                             con.getResultado().getString("codigo"), con.getResultado().getString("fecha")));
+                }
+            } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
+        } finally {
+            con.desconectar();
+        }
+        return lista;    
+        
+    }
+    
+    public ObservableList<Reserva> getListaReservasDia(){
+    
+        ObservableList<Reserva> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaReservasDia()}");
+                con.setResultado(con.getProcedimiento().executeQuery());
+                while (con.getResultado().next()) {
+                    lista.add(new Reserva(con.getResultado().getString("id"), con.getResultado().getString("nombre"),
+                                          con.getResultado().getString("titulo"), con.getResultado().getString("ejemplar"),
+                                          con.getResultado().getString("codigo"), con.getResultado().getString("fecha")));
+                }
+            } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
+        } finally {
+            con.desconectar();
+        }
+        return lista;    
+        
+    }
+        
     public void mapearInfoAdmin(int id){
     
         try {

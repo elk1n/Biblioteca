@@ -48,6 +48,16 @@ public class Devolucion {
         this.nombres = new SimpleStringProperty(nombres);
     }
     
+    public Devolucion(String documento, String nombre, String titulo, String ejemplar, String codigo, String fecha){
+    
+        this.documento = new SimpleStringProperty(documento);
+        this.nombres = new SimpleStringProperty(nombre);
+        this.titulo = new SimpleStringProperty(titulo);
+        this.ejemplar = new SimpleStringProperty(ejemplar);
+        this.codigo = new SimpleStringProperty(codigo);
+        this.fecha = new SimpleStringProperty(fecha);
+    }
+    
     public String getEjemplar(){
         return this.ejemplar.get();
     }

@@ -10,7 +10,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Reserva {
     
-    private final SimpleIntegerProperty id;
+    private SimpleIntegerProperty id;
     private SimpleStringProperty documento;
     private SimpleStringProperty nombre;
     private SimpleStringProperty apellido;
@@ -38,34 +38,37 @@ public class Reserva {
         this.estado = new SimpleStringProperty(estado);
     }
     
-    public int getId() {
-        return this.id.get();
+    public Reserva(String documento, String nombre, String titulo, String ejemplar, String codigo, String fecha ){
+    
+            this.documento = new SimpleStringProperty(documento);
+            this.nombre = new SimpleStringProperty(nombre);
+            this.apellido = new SimpleStringProperty(titulo);
+            this.correo = new SimpleStringProperty(ejemplar);
+            this.estado = new SimpleStringProperty(codigo);
+            this.fecha = new SimpleStringProperty(fecha);
     }
     
+    public int getId() {
+        return this.id.get();
+    }    
     public String getDocumento(){
         return this.documento.get();
     }
-
     public String getNombre() {
         return this.nombre.get();
     }
-
     public String getApellido() {
         return this.apellido.get();
-    }
-    
+    }    
     public String getCorreo(){
         return this.correo.get();
-    }
-    
+    }    
     public String getFecha(){
         return this.fecha.get();   
-    }
-    
+    }    
     public String getEstado(){
         return this.estado.get();
-    }
-   
+    }   
     public String getTipoUsuario(){
         return this.tipoUsuario.get();
     }
