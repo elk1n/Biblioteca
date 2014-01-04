@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -46,6 +45,18 @@ public class AyudaController implements Initializable {
     private final TreeItem<String> filtrarMaterial;
     private final TreeItem<String> edicionGeneral;
     private final TreeItem<String> editarEjemplares;
+    private final TreeItem<String> editarAutores;
+    private final TreeItem<String> editarMaterias;
+    private final TreeItem<String> nuevoAutor;
+    private final TreeItem<String> nuevaEditorial;
+    private final TreeItem<String> nuevaMateria;
+    private final TreeItem<String> nuevoTipo;
+    private final TreeItem<String> nuevaClase;
+    private final TreeItem<String> editarOpciones;
+    private final TreeItem<String> detalleMaterial;
+    private final TreeItem<String> codigoBarras;
+    private final TreeItem<String> usuarios;
+    private final TreeItem<String> registrarUsuario;
     
     public AyudaController(){
         
@@ -68,12 +79,27 @@ public class AyudaController implements Initializable {
         filtrarMaterial = new TreeItem<>("Filtrar Material");
         edicionGeneral = new TreeItem<>("Editar Información General");
         editarEjemplares = new TreeItem<>("Editar Ejemplares");
+        editarAutores = new TreeItem<>("Editar Autores");
+        editarMaterias = new TreeItem<>("Editar Materias");
+        nuevoAutor = new TreeItem<>("Registrar Nuevo Autor");
+        nuevaEditorial = new TreeItem<>("Registrar Nueva Editorial");
+        nuevaMateria = new TreeItem<>("Registrar Nueva Materia");
+        nuevoTipo = new TreeItem<>("Nuevo Tipo de Material");
+        nuevaClase = new TreeItem<>("Nueva Clase de Material");
+        editarOpciones = new TreeItem<>("Editar Opciones de Material");
+        detalleMaterial = new TreeItem<>("Ver Detalle del Material");
+        codigoBarras = new TreeItem<>("Código de Barras");
+        usuarios = new TreeItem<>("Usuarios");
+        registrarUsuario = new TreeItem<>("Registrar Usuario");
         ingreso.getChildren().addAll(ingresar, restablecer, inicioSesion);         
         administrar.getChildren().addAll(miCuenta, contrasenia);
         auxiliar.getChildren().addAll(registrarAuxiliar, editarAuxiliar);
         materialBibliotecario.getChildren().addAll(registrarLibro, registrarOtros, listarMaterial, buscarMaterial, filtrarMaterial,
-                                                   edicionGeneral, editarEjemplares);
-        ayuda.getChildren().addAll(ingreso, administrar, auxiliar, materialBibliotecario);
+                                                   edicionGeneral, editarEjemplares, editarAutores, editarMaterias, nuevoAutor,
+                                                   nuevaEditorial, nuevaMateria, nuevoTipo, nuevaClase, editarOpciones, detalleMaterial,
+                                                   codigoBarras);
+        usuarios.getChildren().addAll(registrarUsuario);
+        ayuda.getChildren().addAll(ingreso, administrar, auxiliar, materialBibliotecario, usuarios);
     }
         
     public void setDialogStage(Stage dialogStage) {
@@ -137,9 +163,45 @@ public class AyudaController implements Initializable {
             }else if (seleccion.getValue().equals(editarEjemplares.getValue())) {
                 lblTitulo.setText("Editar Número de Ejemplares");
                 lblContenido.setText(contenido(18));
+            }else if (seleccion.getValue().equals(editarAutores.getValue())) {
+                lblTitulo.setText("Editar Autores");
+                lblContenido.setText(contenido(19));
+            }else if (seleccion.getValue().equals(editarMaterias.getValue())) {
+                lblTitulo.setText("Editar Materias");
+                lblContenido.setText(contenido(20));
+            }else if (seleccion.getValue().equals(nuevoAutor.getValue())) {
+                lblTitulo.setText("Registrar Nuevo Autor");
+                lblContenido.setText(contenido(21));
+            }else if (seleccion.getValue().equals(nuevaEditorial.getValue())) {
+                lblTitulo.setText("Registrar Nueva Editorial");
+                lblContenido.setText(contenido(22));
+            }else if (seleccion.getValue().equals(nuevaMateria.getValue())) {
+                lblTitulo.setText("Registrar Nueva Materia");
+                lblContenido.setText(contenido(23));
+            }else if (seleccion.getValue().equals(nuevoTipo.getValue())) {
+                lblTitulo.setText("Registrar Nuevo Tipo de Material");
+                lblContenido.setText(contenido(24));
+            }else if (seleccion.getValue().equals(nuevaClase.getValue())) {
+                lblTitulo.setText("Registrar Nueva Clase de Material");
+                lblContenido.setText(contenido(25));
+            }else if (seleccion.getValue().equals(editarOpciones.getValue())) {
+                lblTitulo.setText("Editar Opciones de Material");
+                lblContenido.setText(contenido(26));
+            }else if (seleccion.getValue().equals(detalleMaterial.getValue())) {
+                lblTitulo.setText("Ver Detalle del Material");
+                lblContenido.setText(contenido(27));
+            }else if (seleccion.getValue().equals(codigoBarras.getValue())) {
+                lblTitulo.setText("Código de Barras");
+                lblContenido.setText(contenido(28));
+            }else if (seleccion.getValue().equals(usuarios.getValue())) {
+                lblTitulo.setText("Usuarios");
+                lblContenido.setText(contenido(29));
+            }else if (seleccion.getValue().equals(registrarUsuario.getValue())) {
+                lblTitulo.setText("Registrar Usuario");
+                lblContenido.setText(contenido(30));
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+           
         }
         
     }
@@ -352,8 +414,103 @@ public class AyudaController implements Initializable {
                             "       o	Seleccionar un ejemplar del Listado de Ejemplares.\n" +
                             "       o	Hacer clic en el botón Eliminar Ejemplar.";
                 break;
-                
-                
+            case 19:
+                contenido = "Permite asociar y/o desasociar libros y autores.\n\n"
+                        +   "•	Asociar autor.\n" +
+                            "       o	Ingresar el nombre del autor en el campo de búsqueda.\n" +
+                            "       o	Seleccionar el autor.\n" +
+                            "       o	Hacer clic en el botón Añadir Autor.\n\n" +
+                            "Nota: si el autor no se encuentra en la lista de resultados, hacer clic en el botón Nuevo Autor.\n\n" +
+                            "•	Desasociar Autor.\n" +
+                            "       o	Seleccionar un autor de la tabla de autores.\n" +
+                            "       o	Hacer clic en el botón Remover Autor\n";
+                break;
+            case 20:
+                contenido = "Permite asociar y/o materias y material bibliotecario.\n\n"+
+                            "•	Asociar Materia.\n" +
+                            "       o	Ingresar el nombre de la materia en el campo de búsqueda.\n" +
+                            "       o	Seleccionar la materia.\n" +
+                            "       o	Hacer clic en el botón Añadir Materia.\n\n" +
+                            "Nota: si la materia no se encuentra en la lista de resultados, hacer clic en el botón Nueva Materia.\n\n" +
+                            "•	Desasociar Materia.\n" +
+                            "       o	Seleccionar una materia de la lista.\n" +
+                            "       o	Hacer clic en el botón Remover Materia.";
+                break;
+            case 21:
+                contenido = "Permite el registro de un autor. \n\n"+
+                            "•	Hacer clic en la opción Nuevo Autor del menú Material y el submenú Opciones de "+
+                            "\n        Material o hacer clic en el botón Nuevo Autor que se encuentra en las ventanas "+
+                            "\n        Registrar Material y Editar Material.\n" +
+                            "•	Ingresar el o los nombres del autor.\n" +
+                            "•	Ingresar el o los apellidos del autor.\n" +
+                            "•	Hacer clic en el botón Guardar Autor.\n";
+                break;
+            case 22:
+                contenido = "Permite el registro de una nueva editorial.\n\n"+
+                            "•	Hacer clic en la opción Nueva Editorial del menú Material y el submenú Opciones "+
+                            "\n        de Material o hacer clic en el botón Nueva Editorial que se encuentra en las "+
+                            "\n        ventanas Registrar Material y Editar Material.\n" +
+                            "•	Ingresar el nombre de la editorial.\n" +
+                            "•	Hacer clic en el botón Guardar Editorial.";
+                break;
+            case 23:
+                contenido = "Permite el registro de una nueva materia.\n\n"+
+                            "•	Hacer clic en la opción Nueva Materia del menú Material y el submenú Opciones de "+
+                            "\n        Material o hacer clic en el botón Nueva Materia que se encuentra en las ventanas"+
+                            "\n        Registrar Material y Editar Material.\n" +
+                            "•	Ingresar el nombre de la materia.\n" +
+                            "•	Hacer clic en el botón Guardar Materia.";
+                break;
+            case 24:
+                contenido = "Permite registra un nuevo tipo de material.\n\n"+
+                            "•	Hacer clic en la opción Nuevo Tipo de Material, que se encuentra en el menú"+
+                            "\n        Materia y el submenú Opciones de Material.\n" +
+                            "•	Ingresar el nombre del nuevo tipo de material.\n" +
+                            "•	Hacer clic en el botón Guardar Tipo Material.";
+                break;
+            case 25:
+                contenido = "Permite el registro de una nueva clase de material.\n\n"+
+                            "•	Hacer clic en la opción Nueva Clase de Material que se encuentra en el menú"+
+                            "\n        Materia y el submenú Opciones de Material.\n" +
+                            "•	Ingresar el nombre de la nueva clase de material.\n" +
+                            "•	Hacer clic en el botón Guardar Clase Material.";
+                break;
+            case 26:
+                contenido = "Permite editar la información de los autores, editoriales, materias, tipos y clases de material.\n\n"+
+                            "•	Hacer clic en el botón listar y seleccionar una opción.\n" +
+                            "•	Seleccionar un autor, materia, editorial, tipo o clase de material de la tabla de\n        resultados.\n" +
+                            "•	La información se carga en el panel de la derecha, donde puede modificar la\n        información.\n" +
+                            "•	Hacer clic en el botón Guardar Cambios.\n" +
+                            "•	Eliminar un autor, materia, editorial, tipo o clase de material.\n" +
+                            "       o	Seleccionar un autor, materia, editorial, tipo o clase de material de la tabla de\n                resultados.\n" +
+                            "       o	Hacer clic en el botón Eliminar.\n\n" +
+                            "Nota: el ítem solo puede ser eliminado si no se encuentra asociado a un material.\n";
+                break;
+            case 27:
+                contenido = "Visualiza la información detallada del material se accede mediante el botón Detalle Material,"
+                            + " se encuentra en la ventana Editar Material.";
+                break;
+            case 28:
+                contenido = "Visualiza una imagen del código de barra del material bibliotecario, permite guardarlo en formato "
+                             + "de imagen o imprimirlo, se accede mediante el botón Código de Barras que se encuentra en la "
+                             + "ventana Editar Material o después de registrar un nuevo material siguiendo los pasos en la ventana de dialogo.";
+                break;
+            case 29:
+                contenido = "En este menú se puede visualizar diferentes sub-menús en los cuales podrá registrar y editar "
+                            + "los diferentes datos del usuario.";
+                break;
+            case 30:
+                contenido = "Es uno de los  módulos de la aplicación SABGA que ayuda al Administrador a sistematizar la información."
+                            + " Este registro permite  buscar, modificar o inhabilitar algún dato por medio del documento de identidad"
+                            + " para que los  usuarios de la Institución Educativa puedan hacer uso de los recursos de la biblioteca.\n\n"+
+                            "•	Diríjase al menú ubicado bajo de la barra del Buscador.\n" +
+                            "•	Seleccionar el menú Usuario.\n" +
+                            "•	Seleccionar el submenú Registro de usuario.\n" +
+                            "•	Elegir la opción del rol que desea registrar.\n" +
+                            "•	Llenar los campos necesarios del formulario.\n" +
+                            "•	Presionar el botón Guardar nuevo usuario.\n\n" +
+                            "Nota: Si los datos ingresados son correctos se puede observar un mensaje donde se afirma que el registro fue exitoso.";
+                break;
         }
         return contenido;
     }
