@@ -277,6 +277,6 @@
         <URL value="@css/estilo.css" />
       </stylesheets>
     </Pane>
-    <Button defaultButton="true" layoutX="1090.0" layoutY="479.0" mnemonicParsing="false" onAction="#prestar" prefHeight="25.0" prefWidth="120.0" text="Prestar" />
+    <Button defaultButton="true" layoutX="1090.0" layoutY="489.0" mnemonicParsing="false" onAction="#prestar" prefHeight="25.0" prefWidth="120.0" text="Prestar" />
   </children>
 </AnchorPane>

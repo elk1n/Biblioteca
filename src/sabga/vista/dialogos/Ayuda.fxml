@@ -16,10 +16,10 @@
             <Font name="System Bold" size="16.0" fx:id="x1" />
           </font>
         </Label>
-        <Label fx:id="lblTitulo" font="$x1" text="Título" />
+        <Label fx:id="lblTitulo" font="$x1" text="Ayuda" />
       </children>
     </HBox>
     <TreeView id="arbol" fx:id="menu" layoutX="14.0" layoutY="69.0" prefHeight="555.0" prefWidth="220.0" showRoot="true" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" />
-    <TextArea fx:id="lblContenido" disable="false" editable="false" layoutX="259.0" layoutY="69.0" prefHeight="554.0" prefWidth="567.0" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );&#10;-fx-font-size: 14;" wrapText="true" />
+    <TextArea fx:id="lblContenido" disable="false" editable="false" layoutX="259.0" layoutY="69.0" prefHeight="554.0" prefWidth="567.0" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );&#10;-fx-font-size: 14;" text="Por favor seleccione un tema del menú de ayuda.&#10;" wrapText="true" />
   </children>
 </AnchorPane>

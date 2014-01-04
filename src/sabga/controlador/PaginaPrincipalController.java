@@ -143,7 +143,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     }
     
     @FXML
-    public void ventanaRegistroUsuarios(    ){        
+    public void ventanaRegistroUsuarios(){        
         ventanaPrincipal.cargarVista("paginaRegistroUsuarios", "vista/RegistroUsuario.fxml");
         ventanaPrincipal.cambiarVista("paginaRegistroUsuarios");
         ventanaPrincipal.setTitle("Registro de Usuarios");
@@ -280,6 +280,11 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     @FXML
     public void dialogoAyuda(ActionEvent evento){
         dialogo.mostrarDialogo("vista/dialogos/Ayuda.fxml", "Ayuda", ventanaPrincipal.getPrimaryStage(), null, 16);
+    }
+    
+    @FXML
+    public void dialogoAcercaDe(ActionEvent evento){
+        dialogo.mostrarDialogo("vista/dialogos/AcercaDe.fxml", "Acerca de SABGA", ventanaPrincipal.getPrimaryStage(), null, 18);
     }
     
    @FXML

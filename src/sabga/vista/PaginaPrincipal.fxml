@@ -310,6 +310,12 @@
                     <MenuItem mnemonicParsing="false" onAction="#ventanaPazySalvo" text="Expedir Paz y Salvo" />
                   </items>
                 </Menu>
+                <Menu mnemonicParsing="false" text="Ayuda">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#dialogoAyuda" text="Contenidos de Ayuda" />
+                    <MenuItem mnemonicParsing="false" onAction="#dialogoAcercaDe" text="Acerca de SABGA" />
+                  </items>
+                </Menu>
               </menus>
             </MenuBar>
           </children>

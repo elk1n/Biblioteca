@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sabga.Sabga;
+import sabga.controlador.dialogos.AcercaDeController;
 import sabga.controlador.dialogos.AyudaController;
 import sabga.controlador.dialogos.CodigoBarrasController;
 import sabga.controlador.dialogos.DetalleMaterialController;
@@ -74,7 +75,7 @@ public class Dialogo {
             dialogStage.setTitle("Código de Barras");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.centerOnScreen();
-            dialogStage.getIcons().add(new Image("file:vista/Imagenes/CodigoBarras.png"));
+            dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream("vista/Imagenes/CodigoBarras.png")));
             dialogStage.initOwner(owner);
             dialogStage.setResizable(false);
             scene = new Scene(page);
@@ -164,6 +165,9 @@ public class Dialogo {
            case 17:
                controladorMulta();
                break;
+           case 18:
+               controladorAcerdaDe();
+               break;
        }
    }
       
@@ -249,9 +253,16 @@ public class Dialogo {
     private void controladorAyuda(){
         AyudaController controller = loader.getController();
         controller.setDialogStage(dialogStage);
-        dialogStage.getIcons().add(new Image( Sabga.class.getResourceAsStream("vista/Imagenes/Ayuda.png")));
+        dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream("vista/Imagenes/Ayuda.png")));
         dialogStage.show();    
     }   
+    
+    private void controladorAcerdaDe(){
+        AcercaDeController controller = loader.getController();
+        controller.setDialogStage(dialogStage);
+        dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream("vista/Imagenes/LogoBiblioteca1.png")));
+        dialogStage.showAndWait();
+    }
     
     private void controladorMulta(){
         MultaController controller = loader.getController();

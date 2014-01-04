@@ -65,7 +65,7 @@ public class DetalleMaterialController implements Initializable {
     }
     
     @FXML
-    private void cerrar(ActionEvent evento){
+    public void cerrar(ActionEvent evento){
         this.dialogStage.close();
     }
     

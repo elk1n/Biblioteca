@@ -59,6 +59,7 @@
         <ContextMenu>
           <items>
             <MenuItem mnemonicParsing="false" onAction="#dialogoDetalleMaterial" text="Detalle del Material" />
+            <MenuItem mnemonicParsing="false" onAction="#codigoBarras" text="Ver Código de Barras" />
           </items>
         </ContextMenu>
       </contextMenu>

@@ -65,6 +65,8 @@ public class AyudaController implements Initializable {
     private final TreeItem<String> nuevoUsuario;
     private final TreeItem<String> prestamo;
     private final TreeItem<String> devolucion;
+    private final TreeItem<String> reserva;
+    private final TreeItem<String> recibo;
     
     public AyudaController(){
         
@@ -107,6 +109,8 @@ public class AyudaController implements Initializable {
         editarOpcionesUsuario = new TreeItem<>("Editar Opciones Usuario");
         prestamo = new TreeItem<>("Préstamo de Material");
         devolucion = new TreeItem<>("Devolución de Material");
+        reserva = new TreeItem<>("Reserva de Material");
+        recibo = new TreeItem<>("Generar Paz y Salvo");
         ingreso.getChildren().addAll(ingresar, restablecer, inicioSesion);         
         administrar.getChildren().addAll(miCuenta, contrasenia);
         auxiliar.getChildren().addAll(registrarAuxiliar, editarAuxiliar);
@@ -115,7 +119,7 @@ public class AyudaController implements Initializable {
                                                    nuevaEditorial, nuevaMateria, nuevoTipo, nuevaClase, editarOpciones, detalleMaterial,
                                                    codigoBarras);
         usuarios.getChildren().addAll(registrarUsuario, editarUsuario, nuevoGrado, nuevoCurso, nuevaJornda, nuevoUsuario, editarOpcionesUsuario);
-        ayuda.getChildren().addAll(ingreso, administrar, auxiliar, materialBibliotecario, usuarios, prestamo, devolucion);
+        ayuda.getChildren().addAll(ingreso, administrar, auxiliar, materialBibliotecario, usuarios, prestamo, devolucion, reserva, recibo);
     }
         
     public void setDialogStage(Stage dialogStage) {
@@ -236,9 +240,15 @@ public class AyudaController implements Initializable {
             }else if (seleccion.getValue().equals(prestamo.getValue())) {
                 lblTitulo.setText("Préstamo de Material Bibliográfico");
                 lblContenido.setText(contenido(37));
-            }else if (seleccion.getValue().equals(prestamo.getValue())) {
-                lblTitulo.setText("Devolución de Material Bibliográfico");
+            }else if (seleccion.getValue().equals(devolucion.getValue())) {
+                lblTitulo.setText("Devolución o Renovación de Material Bibliográfico");
                 lblContenido.setText(contenido(38));
+            }else if (seleccion.getValue().equals(reserva.getValue())) {
+                lblTitulo.setText("Reserva de Material Bibliográfico");
+                lblContenido.setText(contenido(39));
+            }else if (seleccion.getValue().equals(recibo.getValue())) {
+                lblTitulo.setText("Generar Paz y Salvo");
+                lblContenido.setText(contenido(40));
             }
         } catch (Exception e) {
            
@@ -602,11 +612,67 @@ public class AyudaController implements Initializable {
                             "Nota: Solo podrá eliminar una selección si no se encuetra asociada a un usuario.";
                 break;
             case 37:
-                contenido = "";
+                contenido = "Permite registrar el prestamo de material bibliográfico a los estudiantes de la institución"
+                        + " registrados en la biblioteca.\n\n"+
+                            "•	Hacer clic en el botón Listar Material o realizar una búsqueda a través del campo\n        Buscar Material.\n" +
+                            "•	Seleccionar un material de la lista.\n" +
+                            "•	Seleccionar un ejemplar.\n" +
+                            "•	Hacer clic en el botón Listar Usuarios o realizar una búsqueda a través del campo\n        Buscar Usuario.\n" +
+                            "•	Seleccionar un usuario.\n" +
+                            "•	Hacer clic en el campo Fecha Devolución y seleccionar una fecha para entregar el\n        material.\n" +
+                            "•	Hacer clic en el botón Prestar.\n\n" +
+                            "Para quitar un ejemplar del préstamo.\n\n" +
+                            "•	Seleccionar el ejemplar de la lista.\n" +
+                            "•	Hacer clic en el botón Remover Ejemplar.\n\n" +
+                            "Si se ha realizado una reserva.\n\n" +
+                            "•	Hacer clic en el botón Listar Reservas o realizar una búsqueda a través del campo\n        Buscar Reservas.\n" +
+                            "•	Seleccionar una reserva.\n" +
+                            "•	Hacer clic en el campo Fecha Devolución y seleccionar una fecha para entregar el\n        material.\n" +
+                            "•	Hacer clic en el botón Prestar.";
                 break;
             case 38:
-                contenido = "";
+                contenido = "Permite registrar la devolución o renovación del material prestado a los usuarios de la "
+                            + "institución que se encuentran registrados en la biblioteca.\n\n" +
+                            "•	Hacer clic en el  botón Listar Préstamos o buscar un préstamo mediante el campo\n        Buscar Préstamo.\n" +
+                            "•	Seleccionar un préstamo.\n\n"+ 
+                            "Realizar una devolución de todo el material prestado.\n\n" +
+                            "•	Seleccionar la opción Devolver Todo.\n" +
+                            "•	Hacer clic en el botón Aceptar.\n\n" +
+                            "Devolver un ejemplar.\n\n" +
+                            "•	Seleccionar un ejemplar de la lista.\n" +
+                            "•	Seleccionar la opción Devolver Ejemplar.\n" +
+                            "•	Hacer clic en el botón Aceptar.\n\n" +
+                            "Renovar todos los ejemplares del préstamo.\n\n"+ 
+                            "•	Seleccionar una fecha de devolución.\n" +
+                            "•	Seleccionar la opción Renovar Todo.\n" +
+                            "•	Hacer clic en el botón Aceptar.\n\n" +
+                            "Renovar un ejemplar.\n\n" +
+                            "•	Seleccionar un ejemplar de la lista.\n" +
+                            "•	Seleccionar una fecha de devolución.\n" +
+                            "•	Seleccionar la opción Renovar Ejemplar.\n" +
+                            "•	Hacer clic en el botón Aceptar.";
                 break;
+            case 39:
+                contenido = "Permite reservar ejemplares del material bibliográfico con el fin de realizar un préstamo.\n\n"+
+                            "•	Hacer clic en el botón Listar Material o realizar una búsqueda a través del campo\n        Buscar Material.\n" +
+                            "•	Seleccionar un material de la lista.\n" +
+                            "•	Seleccionar un ejemplar.\n" +
+                            "•	Hacer clic en el botón Listar Usuarios o realizar una búsqueda a través del campo\n        Buscar Usuario.\n" +
+                            "•	Seleccionar un usuario.\n" +
+                            "•	Hacer clic en el botón Prestar.\n\n"+
+                            "Para quitar un ejemplar de la reserva.\n\n" +
+                            "•	Seleccionar el ejemplar de la lista.\n" +
+                            "•	Hacer clic en el botón Remover Ejemplar.";
+                break;
+            case 40:
+                contenido = "Permite generar un paz y salvo, indica que el usuario no tiene multas o prestamos por devolver.\n\n"+
+                            "•	Hacer clic en el botón Listar Usuarios o realizar una búsqueda a través del campo\n        Buscar Usuario.\n" +
+                            "•	Seleccionar un usuario.\n" +
+                            "•	Hacer clic en el botón Imprimir o\n"+
+                            "•	Hacer clic en el Guardar para salvar una imagen del paz y salvo.\n\n"+
+                            "También puede ingresar los datos manualmente en los campos.";
+                break;
+                
         }
         return contenido;
     }
