@@ -7,184 +7,241 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="1160.0" xmlns:fx="http://javafx.com/fxml" fx:controller="sabga.controlador.PazySalvoController">
+<AnchorPane id="AnchorPane" disable="false" prefHeight="520.0" prefWidth="1260.0" visible="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.PazySalvoController">
   <children>
-    <SplitPane dividerPositions="0.11281070745697896" focusTraversable="true" orientation="VERTICAL" prefHeight="520.0" prefWidth="1260.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <items>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="78.0" prefWidth="998.0">
+    <Pane fx:id="panelBuscar" disable="true" prefHeight="520.0" prefWidth="1260.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <HBox id="HBox" alignment="CENTER" layoutX="45.0" layoutY="23.0" spacing="100.0">
           <children>
-            <GridPane layoutX="258.0" layoutY="7.0" prefHeight="44.0" prefWidth="621.0">
-              <children>
-                <Label text="Buscar Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <Button id="btonAceptar" mnemonicParsing="false" onAction="#aceptar" prefWidth="81.0" text="Aceptar" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                <TextField id="txtBuscar" fx:id="campoBuscar" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Label fx:id="validar" text="Los datos ingresados son incorrectos" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                <Button defaultButton="true" mnemonicParsing="false" onAction="#imprimir" prefHeight="25.0" prefWidth="120.0" text="Imprimir" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-              </children>
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="115.0" minWidth="10.0" prefWidth="115.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="146.0" minWidth="10.0" prefWidth="146.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="113.0" minWidth="10.0" prefWidth="26.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.0" minWidth="10.0" prefWidth="117.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="217.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-            </GridPane>
-            <Button defaultButton="true" layoutX="805.0" layoutY="28.0" mnemonicParsing="false" onAction="#guardar" prefHeight="25.0" prefWidth="120.0" text="Guardar" />
+            <Label text="Listar Usuarios">
+              <font>
+                <Font name="System Bold" size="14.0" fx:id="x5" />
+              </font>
+            </Label>
+            <Label font="$x5" text="Buscar Usuario" />
           </children>
-        </AnchorPane>
-        <AnchorPane fx:id="imagenPaz" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+        </HBox>
+        <ComboBox id="comboListaUsuario" fx:id="comboListar" layoutX="45.0" layoutY="59.0" onAction="#listarUsuarios" prefHeight="25.0" prefWidth="120.0" promptText="Listar Usuarios">
+          <items>
+            <FXCollections fx:factory="observableArrayList">
+              <String fx:value="Item 1" />
+              <String fx:value="Item 2" />
+              <String fx:value="Item 3" />
+            </FXCollections>
+          </items>
+        </ComboBox>
+        <TextField id="txtfBuscarUsuario" fx:id="txtfBuscar" layoutX="242.0" layoutY="56.0" onAction="#buscarUsuario" onKeyTyped="#mostrarBoton" prefHeight="30.0" prefWidth="250.0" promptText="Buscar Usuario" styleClass="campoBusqueda">
+          <stylesheets>
+            <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+          </stylesheets>
+        </TextField>
+        <Button layoutX="501.0" layoutY="58.0" mnemonicParsing="false" onAction="#buscarUsuario" prefHeight="25.0" prefWidth="25.0" styleClass="botonBuscar" text="">
+          <stylesheets>
+            <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+          </stylesheets>
+        </Button>
+        <Button id="btnBorrarUsuario" fx:id="btnBorrar" layoutX="462.0" layoutY="60.0" mnemonicParsing="false" onAction="#borrarCampo" prefWidth="25.0001220703125" styleClass="botonBorrar" text="">
+          <stylesheets>
+            <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+          </stylesheets>
+        </Button>
+        <Label fx:id="lblBuscarUsuario" layoutX="246.0" layoutY="93.0" prefWidth="246.0" text="" textFill="#cc0000" />
+        <TableView fx:id="tablaUsuarios" layoutX="43.0" layoutY="126.0" onKeyTyped="#seleccionUsuario" onMouseClicked="#seleccionUsuario" prefHeight="312.0" prefWidth="1167.0">
+          <columns>
+            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="100.0" text="Tipo Usuario" fx:id="clmnTipo" />
+            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="87.0" text="Documento" fx:id="clmnDocumento" />
+            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="167.0" text="Nombre" fx:id="clmnNombre" />
+            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="170.0" text="Apellido" fx:id="clmnApellido" />
+            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="175.0" text="Correo" fx:id="clmnCorreo" />
+            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="103.0" text="Teléfono" fx:id="clmnTelefono" />
+            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="86.0" text="Grado" fx:id="clmnGrado" />
+            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="83.0" text="Curso" fx:id="clmnCurso" />
+            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="95.0" text="Jornada" fx:id="clmnJornada" />
+            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="83.0" text="Estado" fx:id="clmnEstado" />
+          </columns>
+          <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#detalleUsuario" text="Ver Detalle Usuario" />
+                <MenuItem mnemonicParsing="false" onAction="#detalleMultas" text="Ver Multas" />
+              </items>
+            </ContextMenu>
+          </contextMenu>
+        </TableView>
+        <HBox id="HBox" alignment="CENTER" layoutX="835.0" layoutY="465.0" spacing="40.0">
           <children>
-            <GridPane fx:id="pazysalvoGrid" alignment="CENTER" layoutX="42.0" layoutY="20.0" prefHeight="430.0" prefWidth="914.0">
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#vistaPazySalvo" prefHeight="25.0" text="Ingresar Formulario Manualmente" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#cargarDatosUsuario" prefHeight="25.0" prefWidth="135.0" text="Generar Paz y Salvo" />
+          </children>
+        </HBox>
+        <HBox id="HBox" alignment="CENTER" layoutX="926.0" layoutY="88.0" spacing="40.0">
+          <children>
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#detalleUsuario" prefHeight="25.0" prefWidth="120.0" text="Detalle Usuario" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#detalleMultas" prefHeight="25.0" prefWidth="120.0" text="Ver Multas" />
+          </children>
+        </HBox>
+      </children>
+    </Pane>
+    <Pane fx:id="panelRecibo" disable="false" prefHeight="520.0" prefWidth="1260.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <Pane fx:id="recibo" disable="false" layoutX="95.0" layoutY="0.0" prefHeight="471.0" prefWidth="1070.0" style="-fx-background-radius: 5px;  &#10;-fx-background-color: #F5F5F5;" visible="true">
+          <children>
+            <ImageView fitHeight="143.0" fitWidth="143.0" layoutX="24.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@Imagenes/LogoBiblioteca.png" preserveRatio="false" smooth="false" />
+              </image>
+            </ImageView>
+            <VBox id="VBox" alignment="CENTER" layoutX="300.0" layoutY="9.0" spacing="5.0">
               <children>
-                <Label prefWidth="220.0" text="INSTITUCIÓN EDUCATIVA" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                  <font>
-                    <Font size="18.0" />
-                  </font>
-                  <GridPane.margin>
-                    <Insets left="350.0" top="-40.0" />
-                  </GridPane.margin>
-                </Label>
-                <Label text="GILBERTO ALZATE AVENDAÑO" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                  <font>
-                    <Font name="System Bold" size="22.0" />
-                  </font>
-                  <GridPane.margin>
-                    <Insets left="300.0" top="30.0" />
-                  </GridPane.margin>
-                </Label>
-                <Label text="CERTIFICADO DE PAZ Y SALVO" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                  <font>
-                    <Font name="System Bold" size="18.0" />
-                  </font>
-                  <GridPane.margin>
-                    <Insets left="330.0" />
-                  </GridPane.margin>
-                </Label>
-                <Label text="DATOS DEL ALUMNO" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                <Label alignment="CENTER" prefWidth="220.0" text="INSTITUCIÓN EDUCATIVA">
                   <font>
                     <Font size="16.0" fx:id="x2" />
                   </font>
-                  <GridPane.margin>
-                    <Insets left="390.0" />
-                  </GridPane.margin>
                 </Label>
-                <GridPane GridPane.columnIndex="0" GridPane.rowIndex="3">
-                  <children>
-                    <Label font="$x2" text="Grado:" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                      <GridPane.margin>
-                        <Insets left="10.0" fx:id="x1" />
-                      </GridPane.margin>
-                    </Label>
-                    <ComboBox fx:id="comboCurso" prefHeight="25.0" prefWidth="142.0" promptText="Seleccionar" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                      <items>
-                        <FXCollections fx:factory="observableArrayList">
-                          <String fx:value="Item 1" />
-                          <String fx:value="Item 2" />
-                          <String fx:value="Item 3" />
-                        </FXCollections>
-                      </items>
-                    </ComboBox>
-                    <Label alignment="TOP_RIGHT" font="$x2" prefWidth="194.0" text="Número de identificación:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                    <TextField fx:id="campoDocumento" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                    <Label font="$x2" text="Fecha de solicitud:" GridPane.columnIndex="2" GridPane.margin="$x1" GridPane.rowIndex="0" />
-                    <TextField fx:id="campoFecha" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-                    <TextField fx:id="campoNombre" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                    <Label font="$x2" text="Nombres:" GridPane.columnIndex="0" GridPane.margin="$x1" GridPane.rowIndex="1" />
-                    <Label font="$x2" text="Sección:" GridPane.columnIndex="2" GridPane.margin="$x1" GridPane.rowIndex="2" />
-                    <ComboBox fx:id="comboGrupo" prefHeight="25.0" prefWidth="142.0" promptText="Seleccionar" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                      <items>
-                        <FXCollections fx:factory="observableArrayList">
-                          <String fx:value="Item 1" />
-                          <String fx:value="Item 2" />
-                          <String fx:value="Item 3" />
-                        </FXCollections>
-                      </items>
-                    </ComboBox>
-                    <Label font="$x2" prefHeight="58.0" text="Jornada:" GridPane.columnIndex="4" GridPane.margin="$x1" GridPane.rowIndex="2" />
-                    <Label font="$x2" text="Apellidos:" GridPane.columnIndex="2" GridPane.margin="$x1" GridPane.rowIndex="1" />
-                    <ComboBox fx:id="comboJornada" prefHeight="25.0" prefWidth="146.0" promptText="Seleccionar" GridPane.columnIndex="5" GridPane.rowIndex="2">
-                      <items>
-                        <FXCollections fx:factory="observableArrayList">
-                          <String fx:value="Item 1" />
-                          <String fx:value="Item 2" />
-                          <String fx:value="Item 3" />
-                        </FXCollections>
-                      </items>
-                    </ComboBox>
-                    <TextField fx:id="campoApellido" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  </children>
-                  <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="227.0" minWidth="10.0" prefWidth="194.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="227.0" minWidth="10.0" prefWidth="165.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="329.0" minWidth="10.0" prefWidth="148.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="329.0" minWidth="10.0" prefWidth="154.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.0" minWidth="10.0" prefWidth="89.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="357.0" minWidth="10.0" prefWidth="164.0" />
-                  </columnConstraints>
-                  <rowConstraints>
-                    <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
-                  </rowConstraints>
-                </GridPane>
-                <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" font="$x2" prefWidth="596.0" text="EL ESTUDIANTE SE ENCUENTRA A PAZ Y SALVO CON LA INSTITUCIÓN EDUCATIVA " GridPane.columnIndex="0" GridPane.rowIndex="4">
-                  <GridPane.margin>
-                    <Insets left="130.0" />
-                  </GridPane.margin>
-                </Label>
-                <GridPane GridPane.columnIndex="0" GridPane.rowIndex="5">
-                  <children>
-                    <Label font="$x2" prefWidth="120.0" text="BIBLIOTECARIO" GridPane.columnIndex="0" GridPane.margin="$x1" GridPane.rowIndex="0" />
-                    <Label font="$x2" text="NOMBRE:" GridPane.columnIndex="1" GridPane.margin="$x1" GridPane.rowIndex="0" />
-                    <Label font="$x2" text="FIRMA:" GridPane.columnIndex="2" GridPane.margin="$x1" GridPane.rowIndex="0" />
-                  </children>
-                  <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="129.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="824.0" minWidth="10.0" prefWidth="354.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="824.0" minWidth="10.0" prefWidth="431.0" />
-                  </columnConstraints>
-                  <rowConstraints>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  </rowConstraints>
-                </GridPane>
-                <Label text="Sede Administrativa y Bachillerato: Calle 92 # 51A 100 - PBX: 4480108" GridPane.columnIndex="0" GridPane.rowIndex="6">
+                <Label alignment="CENTER" text="GILBERTO ALZATE AVENDAÑO">
                   <font>
-                    <Font size="20.0" />
+                    <Font name="System Bold" size="20.0" />
                   </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="489.0" text="Creada por Resolución Departamental 16210 del 27 de Noviembre de 2007" textAlignment="LEFT">
+                  <font>
+                    <Font size="14.0" fx:id="x3" />
+                  </font>
+                </Label>
+              </children>
+            </VBox>
+            <VBox id="VBox" alignment="CENTER" layoutX="429.0" layoutY="108.0" spacing="5.0">
+              <children>
+                <Label alignment="CENTER" text="CERTIFICADO DE PAZ Y SALVO">
+                  <font>
+                    <Font name="System Bold" size="16.0" />
+                  </font>
+                </Label>
+                <Label font="$x2" text="DATOS DEL ALUMNO" />
+              </children>
+            </VBox>
+            <GridPane hgap="15.0" layoutX="21.0" layoutY="165.0" prefHeight="95.00009999999747" prefWidth="1025.0">
+              <children>
+                <Label font="$x3" text="Nombres:" GridPane.columnIndex="0" GridPane.rowIndex="0">
                   <GridPane.margin>
-                    <Insets left="140.0" />
+                    <Insets left="10.0" fx:id="x1" />
                   </GridPane.margin>
                 </Label>
-                <ImageView fitHeight="107.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                  <image>
-                    <Image url="@Imagenes/LogoBiblioteca.png" preserveRatio="false" smooth="false" />
-                  </image>
-                </ImageView>
+                <TextField id="campoNombre" fx:id="txtfNombre" prefHeight="30.0" prefWidth="200.0" style="-fx-font-size: 14;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label font="$x3" text="Sección:" GridPane.columnIndex="0" GridPane.margin="$x1" GridPane.rowIndex="1" />
+                <ComboBox id="comboJornada" fx:id="comboCurso" opacity="1.0" prefHeight="25.0" prefWidth="142.0" promptText="Curso" style="" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <items>
+                    <FXCollections fx:factory="observableArrayList">
+                      <String fx:value="Item 1" />
+                      <String fx:value="Item 2" />
+                      <String fx:value="Item 3" />
+                    </FXCollections>
+                  </items>
+                </ComboBox>
+                <Label font="$x3" text="Grado:" GridPane.columnIndex="0" GridPane.margin="$x1" GridPane.rowIndex="2" />
+                <ComboBox id="comboCurso" fx:id="comboGrado" prefHeight="25.0" prefWidth="142.0" promptText="Grado" style="" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <items>
+                    <FXCollections fx:factory="observableArrayList">
+                      <String fx:value="Item 1" />
+                      <String fx:value="Item 2" />
+                      <String fx:value="Item 3" />
+                    </FXCollections>
+                  </items>
+                </ComboBox>
+                <Label font="$x3" text="Apellidos:" GridPane.columnIndex="2" GridPane.margin="$x1" GridPane.rowIndex="0" />
+                <TextField id="campoFecha" fx:id="txtfApellido" prefHeight="30.0" prefWidth="200.0" style="-fx-font-size: 14;" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                <Label font="$x3" text="Fecha de solicitud:" GridPane.columnIndex="2" GridPane.margin="$x1" GridPane.rowIndex="1" />
+                <Label fx:id="lblFecha" font="$x3" prefWidth="380.9998779296875" text="Fecha" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                <Label font="$x3" prefHeight="-1.0" text="Jornada:" GridPane.columnIndex="2" GridPane.margin="$x1" GridPane.rowIndex="2" />
+                <ComboBox id="comboGrupo" fx:id="comboJornada" opacity="1.0" prefHeight="25.0" prefWidth="142.0" promptText="Jornada" style="" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                  <items>
+                    <FXCollections fx:factory="observableArrayList">
+                      <String fx:value="Item 1" />
+                      <String fx:value="Item 2" />
+                      <String fx:value="Item 3" />
+                    </FXCollections>
+                  </items>
+                </ComboBox>
               </children>
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="227.0" minWidth="10.0" prefWidth="97.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="352.0" minWidth="10.0" prefWidth="334.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="329.0" minWidth="10.0" prefWidth="168.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="389.0" minWidth="10.0" prefWidth="381.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="132.0" minHeight="10.0" prefHeight="103.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="87.0" minHeight="0.0" prefHeight="27.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="65.0" minHeight="10.0" prefHeight="21.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="128.0" minHeight="10.0" prefHeight="117.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="75.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="103.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="92.0" minHeight="10.0" prefHeight="58.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
+            <Label alignment="CENTER" contentDisplay="CENTER" font="$x2" layoutX="119.0" layoutY="273.0" prefWidth="850.0" text="EL ESTUDIANTE SE ENCUENTRA A PAZ Y SALVO CON LA INSTITUCIÓN EDUCATIVA Y/O SECCIÓN BÁSICA PRIMARIA" textAlignment="CENTER" />
+            <GridPane hgap="10.0" layoutX="31.0" layoutY="303.0" prefHeight="103.00009155273438" prefWidth="1008.9998779296875">
+              <children>
+                <Label font="$x3" text="Secretaría" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label font="$x3" text="Biblioteca" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <Label font="$x3" text="Director de Grupo" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <Label font="$x3" text="Coordinación" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <Label font="$x3" prefWidth="61.0" text="Nombre:" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label font="$x3" prefWidth="61.0" text="Nombre:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label font="$x3" prefWidth="61.0" text="Nombre:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label font="$x3" prefWidth="61.0" text="Nombre:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label font="$x3" prefWidth="42.0" text="Firma:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                <Label font="$x3" prefWidth="42.0" text="Firma:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <Label font="$x3" prefWidth="42.0" text="Firma:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <Label font="$x3" prefWidth="42.0" text="Firma:" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <Label ellipsisString="" font="$x3" prefWidth="396.0" text="                                                                                                       " underline="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="0" />
+                <Label fx:id="lblBibliotecario" ellipsisString="" font="$x3" prefWidth="395.9998779296875" text="                                                                                                        " underline="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                <Label ellipsisString="" font="$x3" prefWidth="396.0" text="                                                                                                       " underline="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                <Label fx:id="lblCoordinacion" font="$x3" prefWidth="396.0" text="                                                                                                       " underline="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                <Label font="$x3" prefWidth="334.0" text="                                                                                     " underline="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="0" />
+                <Label font="$x3" prefWidth="334.0" text="                                                                                     " underline="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                <Label font="$x3" prefWidth="334.0" text="                                                                                     " underline="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                <Label font="$x3" prefWidth="334.0" text="                                                                                     " underline="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+              </children>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="10.0" prefWidth="153.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="485.0" minWidth="10.0" prefWidth="457.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="378.0" minWidth="10.0" prefWidth="378.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+            <VBox id="VBox" alignment="CENTER" layoutX="301.0" layoutY="415.0" spacing="5.0">
+              <children>
+                <Label text="Sede Administrativa y Bachillerato: Calle 92 # 51 A 100 - PBX: 4480108">
+                  <font>
+                    <Font size="15.0" fx:id="x4" />
+                  </font>
+                </Label>
+                <Label font="$x4" text="www.alzateavendano.edu.co - Email: ie.gilbertoalzate@medellin.gov.co" />
+              </children>
+            </VBox>
           </children>
-        </AnchorPane>
-      </items>
-    </SplitPane>
+          <effect>
+            <ColorAdjust />
+          </effect>
+          <stylesheets>
+            <URL value="@css/estilo.css" />
+          </stylesheets>
+        </Pane>
+        <HBox id="HBox" fx:id="hboxBotones" alignment="CENTER" disable="false" layoutX="725.0" layoutY="487.0" spacing="40.0" visible="true">
+          <children>
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#vistaBusqueda" prefHeight="25.0" prefWidth="120.0" text="Cancelar" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#imprimirCaptura" prefHeight="25.0" prefWidth="120.0" text="Imprimir" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarCaptura" prefHeight="25.0" prefWidth="120.0" text="Guardar" />
+          </children>
+        </HBox>
+      </children>
+    </Pane>
   </children>
 </AnchorPane>

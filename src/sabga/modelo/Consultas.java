@@ -254,6 +254,31 @@ public class Consultas {
         }
         return lista;
     }
+    
+     public ObservableList<Usuario> getListaUsuariosRecibo(int opcion, String tipo) {
+
+        ObservableList<Usuario> lista = FXCollections.observableArrayList();
+
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaUsuarios(?,?) }");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setString("parametro", tipo);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                lista.add(new Usuario(con.getResultado().getString("tipo"), con.getResultado().getString("documento"),
+                                      con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
+                                      con.getResultado().getString("correo"), con.getResultado().getString("telefono"), 
+                                      con.getResultado().getString("grado"), con.getResultado().getString("curso"),
+                                      con.getResultado().getString("jornada"), con.getResultado().getString("estado")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
+        } finally {
+            con.desconectar();
+        }
+        return lista;
+    }
 
     public ObservableList<Reserva> getListaReservas(int estado) {
 
@@ -1192,43 +1217,7 @@ public class Consultas {
             con.desconectar();
         }        
     }
-
-    public int getDevolucion(int prestamo){
-        
-        int devolucion=0;
-        try {
-            con.conectar();
-            con.procedimiento("{ ? = CALL getDevolucion(?) }");
-            con.getProcedimiento().registerOutParameter(1, Types.TINYINT);
-            con.getProcedimiento().setInt("prestamo", prestamo);
-            con.getProcedimiento().execute();
-            devolucion = con.getProcedimiento().getInt(1);
-        } catch (SQLException e) {
-            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar la devolución.", "Error Consulta Devolución");
-        } finally {
-            con.desconectar();
-        }
-        return devolucion;    
-    }
-    
-    public int getIdDevolucion(int prestamo){
-        
-        int devolucion = 0;
-        try {
-            con.conectar();
-            con.procedimiento("{ ? = CALL getIdDevolucion(?) }");
-            con.getProcedimiento().registerOutParameter(1, Types.TINYINT);
-            con.getProcedimiento().setInt("prestamo", prestamo);            
-            con.getProcedimiento().execute();
-            devolucion = con.getProcedimiento().getInt(1);
-        } catch (SQLException e) {
-            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar la devolución.", "Error Consulta Devolución");  
-        } finally {
-            con.desconectar();
-        }
-        return devolucion;
-    }
-    
+       
     public void registrarRenovacion(int opcion, int prestamo, ObservableList<Devolucion> lista, String fecha) {
 
         try {
@@ -1284,7 +1273,97 @@ public class Consultas {
             con.desconectar();
         }
     }
+    
+    public int getDevolucion(int prestamo){
+        
+        int devolucion=0;
+        try {
+            con.conectar();
+            con.procedimiento("{ ? = CALL getDevolucion(?) }");
+            con.getProcedimiento().registerOutParameter(1, Types.TINYINT);
+            con.getProcedimiento().setInt("prestamo", prestamo);
+            con.getProcedimiento().execute();
+            devolucion = con.getProcedimiento().getInt(1);
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar la devolución.", "Error Consulta Devolución");
+        } finally {
+            con.desconectar();
+        }
+        return devolucion;    
+    }
+    
+    public int getIdDevolucion(int prestamo){
+        
+        int devolucion = 0;
+        try {
+            con.conectar();
+            con.procedimiento("{ ? = CALL getIdDevolucion(?) }");
+            con.getProcedimiento().registerOutParameter(1, Types.TINYINT);
+            con.getProcedimiento().setInt("prestamo", prestamo);            
+            con.getProcedimiento().execute();
+            devolucion = con.getProcedimiento().getInt(1);
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar la devolución.", "Error Consulta Devolución");  
+        } finally {
+            con.desconectar();
+        }
+        return devolucion;
+    }
+    
+    public int getValorMulta(String documento){
+    
+        int valor = 0;
+        try {
+            con.conectar();
+            con.procedimiento("{ ? = CALL getMultaUsuario(?) }");
+            con.getProcedimiento().registerOutParameter(1, Types.TINYINT);
+            con.getProcedimiento().setString("id", documento);            
+            con.getProcedimiento().execute();
+            valor = con.getProcedimiento().getInt(1);
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar la multa", "Error Consulta Multa");  
+        } finally {
+            con.desconectar();
+        }
+        return valor;
+    }
    
+    public int getEstadoPrestamos(String documento){
+    
+        int cantidad = 0;
+        try {
+            con.conectar();
+            con.procedimiento("{ ? = CALL getEstadoPrestamos(?) }");
+            con.getProcedimiento().registerOutParameter(1, Types.TINYINT);
+            con.getProcedimiento().setString("id", documento);            
+            con.getProcedimiento().execute();
+            cantidad = con.getProcedimiento().getInt(1);
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los prestamos", "Error Consulta Prestamos");  
+        } finally {
+            con.desconectar();
+        }
+        return cantidad;
+    }
+    
+    public String getNombreBibliotecario(String usuario){
+    
+        String nombreBibliotecario = "";
+        try {
+            con.conectar();
+            con.procedimiento("{ ? = CALL getNombreBiblitecario(?) }");
+            con.getProcedimiento().registerOutParameter(1, Types.VARCHAR);
+            con.getProcedimiento().setString("usuario", usuario);            
+            con.getProcedimiento().execute();
+            nombreBibliotecario = con.getProcedimiento().getString(1);
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar los datos del bibliotecario", "Error Consulta Datos");  
+        } finally {
+            con.desconectar();
+        }
+        return nombreBibliotecario;
+    }
+    
     public String getTitulo() {
         return this.titulo;
     }

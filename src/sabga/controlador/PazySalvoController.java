@@ -13,7 +13,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +26,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.SnapshotParameters;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -34,7 +37,12 @@ import sabga.configuracion.Conexion;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Utilidades;
 import javafx.scene.control.Dialogs;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -48,6 +56,10 @@ import javax.print.attribute.DocAttributeSet;
 import javax.print.attribute.HashDocAttributeSet;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
+import sabga.atributos.Atributos;
+import sabga.configuracion.Dialogo;
+import sabga.modelo.Consultas;
+import sabga.modelo.Seleccion;
 
 /**
  * FXML Controller class
@@ -58,252 +70,247 @@ public class PazySalvoController implements Initializable, ControlledScreen {
 
     private Sabga ventanaPrincipal;
     private ScreensController controlador;
-    private Conexion con;
-    public Usuario us;
     @FXML
-    private Insets x1;
+    private Pane panelBuscar, panelRecibo, recibo;
     @FXML
-    private Label validar;
+    private ComboBox comboListar, comboJornada, comboGrado, comboCurso;
     @FXML
-    public Panel panel1;
-    private Stage dialogStage;
-    private String codigoBarras;
-    private BufferedImage symbol;
-    private int nCopias;
-    private BufferedImage ima;
-    private Dialogs.DialogResponse dialogoo;
+    private TextField txtfBuscar, txtfNombre, txtfApellido;
     @FXML
-    private GridPane pazysalvoGrid;
+    private Button btnBorrar;
     @FXML
-    private TextField txtBuscar;
-    private final ObservableList<Usuario> listaUsuario;
-    private final ObservableList<Usuario> usuarios;
-    private final ObservableList<Integer> idUsuarios;
-    public int variable;
-    private String idU;
+    private TableView tablaUsuarios;
     @FXML
-    private TextField campoNombre, campoApellido, campoBuscar, campoDocumento, campoFecha;
+    private TableColumn clmnTipo, clmnDocumento, clmnNombre, clmnApellido, clmnCorreo, clmnTelefono, clmnGrado, clmnCurso, clmnJornada,
+                        clmnEstado;
     @FXML
-    private ComboBox comboCurso, comboGrupo, comboJornada;
-    private String nombre, apellido, documento, jornada, curso, grupo, tipo;
-
-    public ObservableList curso1;
-    public ObservableList grado1;
-    public ObservableList jornada1;
-
-    //Constructor
+    private Label lblBuscarUsuario, lblFecha, lblBibliotecario, lblCoordinacion;
+    private final ObservableList<Usuario> listaUsuarios;
+    private final Conexion con;
+    private final Consultas consulta;
+    private final Seleccion select;
+    private final Atributos atributo;
+    private final Dialogo dialogo;
+    private Calendar calendario;
+    private final SimpleDateFormat formato;
+    private BufferedImage imagen;
+   
     public PazySalvoController() {
+        
         con = new Conexion();
-        listaUsuario = FXCollections.observableArrayList();
-        usuarios = FXCollections.observableArrayList();
-        idUsuarios = FXCollections.observableArrayList();
-
-        this.grado1 = FXCollections.observableArrayList();
-        this.jornada1 = FXCollections.observableArrayList();
-        this.curso1 = FXCollections.observableArrayList();
+        consulta = new Consultas();
+        select = new Seleccion();
+        atributo = new Atributos();
+        dialogo = new Dialogo();
+        listaUsuarios = FXCollections.observableArrayList();
+        calendario = Calendar.getInstance();
+        calendario = new GregorianCalendar();
+        formato = new SimpleDateFormat("EEEE dd 'de' MMMM 'de' YYYY hh:mm aa");
     }
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void setScreenParent(ScreensController screenParent) {
-
-        controlador = screenParent;
-    }
-    public double contTotal, contSubtotal, Total;
-    SimpleDateFormat formatoFecha = new SimpleDateFormat("YYYY-MM-DD");
-
-    public void setVentanaPrincipal(Sabga ventanaPrincipal) {
-
-        this.ventanaPrincipal = ventanaPrincipal;
-    }
-
-    public void cargarCombo() {
-
-        try {
-            Conexion con = new Conexion();
-            con.conectar();
-            con.setResultado(con.getStatement().executeQuery("SELECT * FROM tbl_CURSO"));
-
-            while (con.getResultado().next()) {
-                curso1.add(con.getResultado().getObject("curso"));
-            }
-            comboCurso.setItems(curso1);
-
-            con.desconectar();
-        } catch (SQLException ex) {
-
-            Logger.getLogger(RegistroUsuarioController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void cargarJornada() {
-
-        try {
-            Conexion con = new Conexion();
-            con.conectar();
-            con.setResultado(con.getStatement().executeQuery("SELECT * FROM tbl_JORNADA"));
-
-            while (con.getResultado().next()) {
-                jornada1.add(con.getResultado().getObject("jornada"));
-            }
-            comboJornada.setItems(jornada1);
-            con.desconectar();
-        } catch (SQLException ex) {
-
-            Logger.getLogger(RegistroUsuarioController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void cargarCurso() {
-
-        try {
-            Conexion con = new Conexion();
-            con.conectar();
-            con.setResultado(con.getStatement().executeQuery("SELECT * FROM tbl_GRADO"));
-
-            while (con.getResultado().next()) {
-                grado1.add(con.getResultado().getObject("grado"));
-            }
-            comboGrupo.setItems(grado1);
-            con.desconectar();
-        } catch (SQLException ex) {
-
-            Logger.getLogger(RegistroUsuarioController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void listarUsuarios() {
-
-        //listaUsuario.removeAll(listaUsuario);
-        Conexion conex = new Conexion();
-        conex.conectar();
-        try {
-
-            //String uno=campoBuscar.getText();
-            conex.setResultado(conex.getStatement().executeQuery("SELECT  u.documento_usuario,u.nombre, u.apellidos,g.grado,c.curso,j.jornada,t.tipo_usuario  FROM tbl_USUARIO u join tbl_grado g on u.id_grado=g.grado join tbl_curso c on u.id_curso=c.id_curso join tbl_jornada j on u.id_jornada=j.id_jornada join tbl_tipo_usuario t on u.id_tipo_usuario=t.id_tipo_usuario  WHERE u.documento_usuario= '" + campoBuscar.getText() + "'OR u.nombre= '" + campoBuscar.getText() + "'"));
-
-            if (conex.getResultado().next()) {
-                documento = conex.getResultado().getString("u.documento_usuario");
-                nombre = conex.getResultado().getString("u.nombre");
-                apellido = conex.getResultado().getString("u.apellidos");
-                grupo = conex.getResultado().getString("g.grado");
-                curso = conex.getResultado().getString("c.curso");
-                jornada = conex.getResultado().getString("j.jornada");
-                tipo = conex.getResultado().getString("t.tipo_usuario");
-
-            } else {
-                dialogoo = Dialogs.showErrorDialog(null, "Los datos ingresados no existen en la base de datos", "Mesaje de error", "Mensaje", Dialogs.DialogOptions.OK);
-            }
-
-        } catch (SQLException ex) {
-
-            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
-
-        } finally {
-            conex.desconectar();
-        }
-    }
-
-    public void obtenerIdUsuario() {
-
-        try {
-            con.conectar();
-            con.setResultado(con.getStatement().executeQuery("SELECT documento_usuario FROM tbl_USUARIO WHERE documento_usuario= '" + campoBuscar.getText() + "'"));
-
-            if (con.getResultado().first()) {
-
-                idU = con.getResultado().getString("documento_usuario");
-            }
-            System.out.print(idU);
-        } catch (SQLException ex) {
-
-            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
-
-        } finally {
-            con.desconectar();
-        }
-
+    @FXML
+    public void vistaPazySalvo(ActionEvent evento){
+        vistaPazySalvo();
     }
     
-     /*  public void mapearDatos() {                               
-     listarUsuarios();
-     //obtenerIdUsuario();
-     // if(idU.equals(campoDocumento.getText())){
-     campoDocumento.setText(documento);
-     campoNombre.setText(nombre);
-     campoApellido.setText(apellido);
-     comboCurso.setValue(curso);
-     comboGrupo.setValue(grupo);
-     comboJornada.setValue(jornada);            
-     } */
-
-    //Metodo para mapear los datos de una consulta en diferentes campos de textos
-    public void aceptar(ActionEvent evento) {
-
-        try {
-            listarUsuarios();
-            //obtenerIdUsuario();
-            // if(idU.equals(campoDocumento.getText())){
-            campoDocumento.setText(documento);
-            campoNombre.setText(nombre);
-            campoApellido.setText(apellido);
-            comboCurso.setValue(curso);
-            comboGrupo.setValue(grupo);
-            comboJornada.setValue(jornada);
-            /*  }                   
-             else{
-             campoDocumento.setText("");
-             campoNombre.setText("");
-             campoApellido.setText("");
-             comboCurso.setValue("");
-             comboGrupo.setValue("");
-             comboJornada.setValue("");
-             validar.setVisible(true); 
-             }*/
-        } catch (Exception e) {
-            Utilidades.mensajeError(null, e.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
-        }
-
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        pazysalvoGrid.setGridLinesVisible(true);
-        cargarCombo();
-        cargarCurso();
-        cargarJornada();
-
-        //Formato fecha del día      
-        java.util.Date fecha = new Date();
-        int dia = fecha.getDate();
-        int mes = fecha.getMonth() + 1;
-        int anio = fecha.getYear() + 1900;
-        String d = Integer.toString(dia);
-        String m = Integer.toString(mes);
-        String a = Integer.toString(anio);
-        campoFecha.setDisable(true);
-        campoFecha.setText(a + "-" + m + "-" + d);
-
-    }
-
-    //Metodo para guardar el contenido de un gridPanel como imagen 
-    public void CrearImagen() {
-        
-        WritableImage snapshot = pazysalvoGrid.snapshot(new SnapshotParameters(), null);
-        
-        ima = javafx.embed.swing.SwingFXUtils.fromFXImage(snapshot, null);
-       }
-
     @FXML
-    public void guardar(ActionEvent evento) {
-        CrearImagen();
-        guardar();
+    public void vistaBusqueda(ActionEvent evento){
+        vistaBusqueda();
     }
-
-    //Metodo para guardar el certificado
-    private void guardar() {
+       
+    @FXML
+    public void listarUsuarios(ActionEvent evento){
+        listarUsuarios();
+    }
+    
+    @FXML
+    public void buscarUsuario(ActionEvent evento){    
+        buscarUsuario();
+    }
+    
+    @FXML
+    public void detalleMultas(ActionEvent evento){
+        multas();
+    }
+        
+    @FXML
+    public void detalleUsuario(ActionEvent evento){
+        dialogoDetalleUsuario();
+    }
+    
+    @FXML
+    public void cargarDatosUsuario(ActionEvent evento){
+        setDatosUsuario();
+    } 
+    
+    public void seleccionUsuario(){
+        seleccionarUsuario();
+    }
+    
+    @FXML
+    public void guardarCaptura(ActionEvent evento) {
+        
+        if(!txtfNombre.getText().isEmpty() && !txtfApellido.getText().isEmpty()){
+            crearCaptura();
+            guardarCaptura();
+        }else{
+            Utilidades.mensajeAdvertencia(null, "Debe ingresar un nombre y un apellido", "", "Debe Ingresar Datos");
+        }         
+    }
+    
+    @FXML
+    public void imprimirCaptura(ActionEvent evento) {
+        
+        if(!txtfNombre.getText().isEmpty() && !txtfApellido.getText().isEmpty()){
+            crearCaptura();
+            imprimirCaptura();
+        }else{
+            Utilidades.mensajeAdvertencia(null, "Debe ingresar un nombre y un apellido", "", "Debe Ingresar Datos");
+        }        
+    }
+    
+    private void setDatosUsuario(){
+        
+        if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
+            if(consulta.getValorMulta(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento())>0 ||
+               consulta.getEstadoPrestamos(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento())>0){
+                
+                Utilidades.mensajeOpcion(null, "Desea expedir el Paz y Salvo?",
+                                        "El usuario se encuentra multado o tiene ejemplares por devolver. Por favor verifique las Multas "
+                                        + "o el Detalle de Usuario.",
+                                        "Seleccionar Usuario");
+                    if (Utilidades.getMensajeOpcion() == Dialogs.DialogResponse.YES) {
+                            cargarDatosUsuario();
+                    }                
+            }else{
+                cargarDatosUsuario();
+            }  
+        }else{
+            Utilidades.mensaje(null, "Debe seleccionar un usuario. ", "", "Selección Usuario");
+        }            
+    }
+    
+    private void cargarDatosUsuario(){
+        
+        txtfNombre.setText(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getNombre());
+        txtfApellido.setText(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getApellido());
+        comboCurso.getSelectionModel().select(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getCurso());
+        comboGrado.getSelectionModel().select(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getGrado());
+        comboJornada.getSelectionModel().select(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getJornada());
+        lblBibliotecario.setText(consulta.getNombreBibliotecario(atributo.getUsuarioAdmin())+lblCoordinacion.getText());
+        vistaPazySalvo();
+        
+    }
+    
+    private void seleccionarUsuario(){
+        
+        if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
+            atributo.setDocumentoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
+            atributo.setNombreUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getNombre());
+            atributo.setApellidoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getApellido());
+            atributo.setCorreoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getCorreo());   
+        }
+    }
+    
+    private void dialogoDetalleUsuario(){
+        
+        if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
+            panelBuscar.setDisable(true);
+            dialogo.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información del Usuario", null , null, 5);           
+            panelBuscar.setDisable(false);     
+        }else{
+            Utilidades.mensaje(null, "Debe seleccionar un usuario. ", "", "Selección Usuario");
+        }
+    }
+    
+    private void multas(){
+        
+        if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
+            panelBuscar.setDisable(true);
+            dialogo.mostrarDialogo("vista/dialogos/Multa.fxml", "Detalle Multas", null , null, 17);           
+            panelBuscar.setDisable(false);     
+        }else{
+            Utilidades.mensaje(null, "Debe seleccionar un usuario. ", "", "Selección Usuario");
+        }
+    }
+    
+    private void listarUsuarios(){
+        
+         if (!comboListar.getSelectionModel().isEmpty()) {            
+            prepararTabla();
+            if (comboListar.getSelectionModel().getSelectedItem().toString().contains("Todos")) {
+                listaUsuarios.addAll(consulta.getListaUsuariosRecibo(4, null));
+            } else {
+                listaUsuarios.addAll(consulta.getListaUsuariosRecibo(3, comboListar.getSelectionModel().getSelectedItem().toString()));
+            }
+            tablaUsuarios.setItems(listaUsuarios);
+            lblBuscarUsuario.setText(null);
+        }
+    }
+    
+    private void buscarUsuario(){
+    
+         if (!"".equals(txtfBuscar.getText())) {
+            prepararTabla();
+            listaUsuarios.addAll(consulta.getListaUsuariosRecibo(5, txtfBuscar.getText().trim()));
+            tablaUsuarios.setItems(listaUsuarios);
+            if(listaUsuarios.isEmpty()){
+                comboListar.getSelectionModel().clearSelection();
+                lblBuscarUsuario.setText("No se han encontrado resultados.");
+            }else{
+                lblBuscarUsuario.setText(null);
+                comboListar.getSelectionModel().clearSelection();
+            }
+        }   
+    }
+     
+    private void prepararTabla(){
+    
+        clmnTipo.setCellValueFactory(new PropertyValueFactory<Usuario, String>("tipo"));
+        clmnDocumento.setCellValueFactory(new PropertyValueFactory<Usuario, String>("documento"));
+        clmnNombre.setCellValueFactory(new PropertyValueFactory<Usuario, String>("nombre"));
+        clmnApellido.setCellValueFactory(new PropertyValueFactory<Usuario, String>("apellido"));
+        clmnCorreo.setCellValueFactory(new PropertyValueFactory<Usuario, String>("correo"));
+        clmnTelefono.setCellValueFactory(new PropertyValueFactory<Usuario, String>("telefono"));
+        clmnGrado.setCellValueFactory(new PropertyValueFactory<Usuario, String>("grado"));
+        clmnCurso.setCellValueFactory(new PropertyValueFactory<Usuario, String>("curso"));
+        clmnJornada.setCellValueFactory(new PropertyValueFactory<Usuario, String>("jornada"));
+        clmnEstado.setCellValueFactory(new PropertyValueFactory<Usuario, String>("estado"));
+        listaUsuarios.clear();
+    
+    }
+    
+    private void vistaPazySalvo(){
+        
+        panelRecibo.setDisable(false);
+        panelRecibo.setVisible(true);
+        panelBuscar.setDisable(true);
+        panelBuscar.setVisible(false);
+        lblBibliotecario.setText(consulta.getNombreBibliotecario(atributo.getUsuarioAdmin())+lblCoordinacion.getText());
+    }
+    
+    private void vistaBusqueda(){
+        
+        panelRecibo.setDisable(true);
+        panelRecibo.setVisible(false);
+        panelBuscar.setDisable(false);
+        panelBuscar.setVisible(true);
+        txtfNombre.clear();
+        txtfApellido.clear();
+        lblBibliotecario.setText(lblCoordinacion.getText());
+        comboCurso.getSelectionModel().clearSelection();
+        comboJornada.getSelectionModel().clearSelection();
+        comboGrado.getSelectionModel().clearSelection();
+    }
+    
+    private void crearCaptura(){
+        
+        WritableImage snapshot = recibo.snapshot(new SnapshotParameters(), null);       
+        imagen = javafx.embed.swing.SwingFXUtils.fromFXImage(snapshot, null);
+    }
+    
+    private void guardarCaptura() {
+        
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Guardar ");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
@@ -317,41 +324,83 @@ public class PazySalvoController implements Initializable, ControlledScreen {
                 file = new File(file.getParentFile(), name);
             }
             try {
-                ImageIO.write(ima, "png", file);
+                ImageIO.write(imagen, "png", file);
             } catch (IOException ex) {
-                Utilidades.mensajeError(null, ex.getMessage(), "Error al guardar el código de barras", "Error Código Barras");
+                Utilidades.mensajeError(null, ex.getMessage(), "Error al guardar la imagen", "Error Imagen");
             }
         }
     }
-
-    public void imprimirCertificado() {
+    
+    private void imprimirCaptura() {
 
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(ima, "PNG", baos);
+            ImageIO.write(imagen, "PNG", baos);
             byte[] data = baos.toByteArray();
             ByteArrayInputStream bais = new ByteArrayInputStream(data);
             PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
             DocFlavor flavor = DocFlavor.INPUT_STREAM.PNG;
             PrinterJob pj = PrinterJob.getPrinterJob();
-            boolean okay = pj.printDialog(pras);
-            // pj.setCopies(copias);        
+            boolean okay = pj.printDialog(pras);       
             if (okay) {
-                // lblMensajes.setText("Imprimiendo...");
                 PrintService service = pj.getPrintService();
                 DocPrintJob job = service.createPrintJob();
                 DocAttributeSet das = new HashDocAttributeSet();
                 Doc doc = new SimpleDoc(bais, flavor, das);
-                job.print(doc, pras);
-                //lblMensajes.setText("Completado: " + service.getName());         
+                job.print(doc, pras);        
             }
         } catch (HeadlessException | IOException | PrintException ex) {
-            Utilidades.mensajeError(null, ex.getMessage(), "Error al imprimir el Certificado", "Error Imprimir");
+            Utilidades.mensajeError(null, ex.getMessage(), "Error al imprimir el Paz y Salvo", "Error Imprimir");
         }
     }
+    
+    @FXML
+    public void mostrarBoton(KeyEvent evento) {
 
-    public void imprimir(ActionEvent evento) {
-        CrearImagen();
-        imprimirCertificado();
+        if ("".equals(txtfBuscar.getText())){            
+            btnBorrar.setVisible(false);      
+        }
+        else {
+           btnBorrar.setVisible(true); 
+        }                 
     }
+    
+    @FXML
+    public void borrarCampo(ActionEvent evento) {      
+        txtfBuscar.setText("");
+        lblBuscarUsuario.setText(null);
+        btnBorrar.setVisible(false);
+    }
+    
+    /**
+     * Initializes the controller class.
+     * @param screenParent
+     */
+    
+    @Override
+    public void setScreenParent(ScreensController screenParent) {
+        controlador = screenParent;
+    }
+    
+    public void setVentanaPrincipal(Sabga ventanaPrincipal) {
+        this.ventanaPrincipal = ventanaPrincipal;
+    }
+
+    private void inicio(){   
+        
+        vistaBusqueda();
+        btnBorrar.setVisible(false);
+        comboListar.setItems(consulta.llenarLista(select.getListaUsuarios(), select.getUsuarios()));
+        comboListar.getItems().add("Todos");
+        comboGrado.setItems(consulta.llenarLista(select.getListaGrado(), select.getGrado()));
+        comboCurso.setItems(consulta.llenarLista(select.getListaCurso(), select.getCurso()));
+        comboJornada.setItems(consulta.llenarLista(select.getListaJornada(), select.getJornada()));
+        lblFecha.setText(formato.format(calendario.getTime()));
+    }
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        inicio();
+    }
+   
 }

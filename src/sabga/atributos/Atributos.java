@@ -35,11 +35,11 @@ public class Atributos {
     }
 
     public String getNombreUsuario() {
-        return nombreUsuario;
+        return nombre;
     }
 
-    public void setNombreUsuario(String nombre) {
-        nombreUsuario = nombre;
+    public void setNombreUsuario(String nombres) {
+        nombre = nombres;
     }
 
     public String getDocumento() {

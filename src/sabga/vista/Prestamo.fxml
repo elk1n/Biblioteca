@@ -14,7 +14,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="contenedor" prefHeight="520.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.PrestamoController">
   <children>
-    <TabPane layoutX="7.0" layoutY="7.0" prefHeight="506.0" prefWidth="647.0" rotateGraphic="false" side="TOP" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); &#10;" tabClosingPolicy="UNAVAILABLE" visible="true">
+    <TabPane layoutX="17.0" layoutY="7.0" prefHeight="506.0" prefWidth="647.0" rotateGraphic="false" side="TOP" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); &#10;" tabClosingPolicy="UNAVAILABLE" visible="true">
       <tabs>
         <Tab text="Material">
           <content>
@@ -220,7 +220,7 @@
         </Tab>
       </tabs>
     </TabPane>
-    <Pane layoutX="674.0" layoutY="21.0" prefHeight="439.0" prefWidth="554.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" styleClass="resultado">
+    <Pane layoutX="686.0" layoutY="21.0" prefHeight="439.0" prefWidth="554.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" styleClass="resultado">
       <children>
         <GridPane id="GridPane" hgap="25.0" layoutX="22.0" layoutY="42.0" prefHeight="131.0" prefWidth="517.0">
           <children>
@@ -277,6 +277,6 @@
         <URL value="@css/estilo.css" />
       </stylesheets>
     </Pane>
-    <Button defaultButton="true" layoutX="1090.0" layoutY="489.0" mnemonicParsing="false" onAction="#prestar" prefHeight="25.0" prefWidth="120.0" text="Prestar" />
+    <Button defaultButton="true" layoutX="1102.0" layoutY="489.0" mnemonicParsing="false" onAction="#prestar" prefHeight="25.0" prefWidth="120.0" text="Prestar" />
   </children>
 </AnchorPane>

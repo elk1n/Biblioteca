@@ -307,7 +307,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Paz y Salvo">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#ventanaPazySalvo" text="Expedir Paz y Salvo" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaPazySalvo" text="Generar Paz y Salvo" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Ayuda">

@@ -90,6 +90,22 @@ public class Usuario {
         this.estado = new SimpleStringProperty(estado);
     }
     
+    public Usuario (String tipo, String documento, String nombre, String apellido, String correo, String telefono,
+                    String grado, String curso, String jornada, String estado){
+        
+        this.tipo = new SimpleStringProperty(tipo);
+        this.documento = new SimpleStringProperty(documento);
+        this.nombre = new SimpleStringProperty(nombre);
+        this.apellido = new SimpleStringProperty(apellido);
+        this.correo = new SimpleStringProperty(correo);
+        this.telefono = new SimpleStringProperty(telefono);
+        this.grado = new SimpleStringProperty(grado);
+        this.curso = new SimpleStringProperty(curso);
+        this.jornada = new SimpleStringProperty(jornada);        
+        this.estado = new SimpleStringProperty(estado);
+    
+    }
+    
     public String getTipo() {
         return this.tipo.get();
     }
