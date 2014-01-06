@@ -304,18 +304,18 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Préstamo">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#ventanaPrestamo" text="Préstamo" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaPrestamo" text="Préstar Material" />
                     <MenuItem mnemonicParsing="false" onAction="#ventanaDevolucion" text="Devolución o Renovación" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Reserva">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#ventanaReservaEscritorio" text="Reservar" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaReservaEscritorio" text="Reservar Material" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Paz y Salvo">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#ventanaPazySalvo" text="Generar Paz y Salvo" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaPazySalvo" text="Expedir Paz y Salvo" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Ayuda">

@@ -1,263 +1,377 @@
 
 package sabga.controlador;
 
-import sabga.atributos.Usuario;
 import java.net.URL;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
-import np.com.ngopal.control.AutoFillTextBox;
 import sabga.Sabga;
 import sabga.ScreensController;
+import sabga.atributos.Atributos;
+import sabga.atributos.Ejemplar;
 import sabga.atributos.Material;
-import sabga.configuracion.Conexion;
+import sabga.atributos.Prestamo;
+import sabga.atributos.Usuario;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.Consultas;
-import sabga.modelo.ValidarMaterial;
+import sabga.modelo.Seleccion;
 
 /**
- *
  * @author Nanny
  */
+
 public class ReservaEscritorioController implements Initializable, ControlledScreen {
 
-    private Conexion con;
-    private Dialogs.DialogResponse dialogoo;
     private Sabga ventanaPrincipal;
     private ScreensController controlador;
-    private final Dialogo dialogo;
     @FXML
-    private Label campoFecha, lbNombre, lbDocumento, lbApellidos;
+    private ComboBox comboListarMaterial, comboListarUsuario;
     @FXML
-    private TextField campoBuscar, txtfFiltrar, txtfBuscar;
+    private TextField txtfBuscar, txtfBuscarUsuario;
     @FXML
-    private Button btnBorrar, btnDetalle, btnEditorial, btnAutor, btnMateria, btnCodigoBarras, btnBorrarBusqueda;
+    private Button  btnBorrarMaterial, btnBorrarUsuario, btnDetalle;
     @FXML
-    private ComboBox comboMaterial;
+    private TableView tablaMaterial, tablaEjemplar, tablaUsuarios, tablaReserva;
     @FXML
-    private Tooltip est;
+    private TableColumn clmnTitulo, clmnCodigo, clmnClase, clmnTipo, clmnEjemplar, clmnEstado, clmnDispo, clmnDocumento,
+                        clmnNombre, clmnApellido, clmnCorreo, clmnTipoUsuario, clmnEstadoUsuario, clmnEjemplarRe,
+                        clmnTituloRe, clmnCodigoRe;
     @FXML
-    private TableView tablaMaterial, tablaMaterial2;
+    private Label lblNombre, lblDocumento, lblCorreo, lblGrado, lblCurso, lblJornada, lblTelefono, lblDireccion, lblMulta,
+                  lblValidarDocumento, lblValidarEjemplar, lblBuscarUsuario, lblBuscarMaterial;
     @FXML
-    private TableColumn tDocumento, tTipo, tNombre, tApellido;
-
-    @FXML
-    private TableColumn clmnTitulo, clmnCodigo, clmnClase, clCodigo, clTitulo, clClaseMaterial, clmnEjemplar, clmnEstado;
-    //private final AutoFillTextBox editorial, autores, materias ;    
-    private final ObservableList<Material> filtrarMaterial;
-    private final ObservableList<Material> listaMaterial;
-    private final ObservableList<Material> listaMaterial2;
-    // private final ObservableList listaBusquedaMaterias, listaBusquedaAutores, disponibilidad;
+    private MenuItem detalleUsuario, multasUsuario, detalleUsuario2, multasUsuario2;
+    private String titulo, codigoClasificacion, tipoUsuario;  
     private final Consultas consulta;
-    private String nombre, documento, apellido;
-    public int variable;
-
+    private final Seleccion select;
+    private final Dialogo dialogos;
+    private final Atributos atributo;
+    private final ObservableList<Material> listaMaterial;
+    private final ObservableList<Ejemplar> listaEjemplares;
+    private final ObservableList<Usuario> listaUsuarios;
+    private final ObservableList<Prestamo> listaReserva;
+    
     public ReservaEscritorioController() {
-        con = new Conexion();
-        dialogo = new Dialogo();
+        
         consulta = new Consultas();
-//        editorial = new AutoFillTextBox();
-//        autores = new AutoFillTextBox();
-//        materias = new AutoFillTextBox();
-//        listaBusquedaMaterias = FXCollections.observableArrayList();
-        //       listaBusquedaAutores = FXCollections.observableArrayList();
-        filtrarMaterial = FXCollections.observableArrayList();
+        select = new Seleccion();
+        dialogos = new Dialogo();
+        atributo = new Atributos();
+        listaReserva = FXCollections.observableArrayList();
         listaMaterial = FXCollections.observableArrayList();
-//        listaMaterias = FXCollections.observableArrayList();
-        listaMaterial2 = FXCollections.observableArrayList();
-//        disponibilidad = FXCollections.observableArrayList();
-        listaMaterial.addListener(new ListChangeListener<Material>() {
-            @Override
-            public void onChanged(ListChangeListener.Change<? extends Material> change) {
-                updateFilteredData();
+        listaEjemplares = FXCollections.observableArrayList();
+        listaUsuarios = FXCollections.observableArrayList();
+    }
+
+    @FXML
+    public void listarMaterial(ActionEvent evento){                        
+        listar();    
+    }
+    
+    @FXML
+    public void buscarMaterial(ActionEvent evento){
+        buscarMaterial();
+    }
+    
+    @FXML
+    public void dialogoDetalleMaterial(ActionEvent evento){        
+       detalleMaterialEjemplar();
+    }
+    
+    @FXML
+    public void listarUsuarios(ActionEvent evento){
+        listarUsuario();  
+    }
+    
+    @FXML
+    public void buscarUsuario(ActionEvent evento){    
+        buscarUsuario();
+    }
+    
+    @FXML
+    public void verDetalleUsuario(){
+        dialogoDetalleUsuario();
+    }
+    
+    @FXML
+    public void verMultasUsuario(){
+        dialogoMultasUsuario();
+    }
+    
+    @FXML
+    public void removerEjemplar(ActionEvent evento){
+        removerEjemplar();
+    }
+    
+    public void cargarEjemplar(){    
+        mapearEjemplar();
+    }
+    
+    public void seleccionarUsuario(){
+        mapearDatosUsuario();
+    }
+        
+    private void prepararTablaPrestamo(){
+    
+        clmnEjemplarRe.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("ejemplar"));
+        clmnTituloRe.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("titulo"));
+        clmnCodigoRe.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("codigo"));
+        tablaReserva.setItems(listaReserva);       
+    }
+    
+    private void removerEjemplar(){
+         
+        if(!listaReserva.isEmpty()){
+            if(tablaReserva.getSelectionModel().getSelectedItem() != null){
+                listaReserva.remove(tablaReserva.getSelectionModel().getSelectedIndex());
+            } 
+        }    
+    }
+    
+    private void mapearDatosUsuario(){
+    
+        if (tablaUsuarios.getSelectionModel().getSelectedItem() != null) {
+            consulta.mapearUsuarios(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
+            lblGrado.setText(consulta.getGrado());
+            lblCurso.setText(consulta.getCurso());
+            lblJornada.setText(consulta.getJornada());
+            lblDireccion.setText(consulta.getDireccion());
+            lblTelefono.setText(consulta.getTelefono());
+            lblMulta.setText(String.valueOf(consulta.getMulta()));
+            atributo.setDocumentoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
+            atributo.setNombreUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getNombre());
+            atributo.setApellidoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getApellido());
+            atributo.setCorreoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getCorreo());   
+        }  
+    }
+    
+    private void buscarUsuario(){
+    
+         limpiarDatos();   
+         if (!"".equals(txtfBuscarUsuario.getText())) {
+            prepararTablaUsuario();
+            listaUsuarios.addAll(consulta.getListaUsuarioBusqueda(txtfBuscarUsuario.getText().trim()));
+            tablaUsuarios.setItems(listaUsuarios);
+            if(listaUsuarios.isEmpty()){
+                comboListarUsuario.getSelectionModel().clearSelection();
+                lblBuscarUsuario.setText("No se han encontrado resultados.");
+            }else{
+                lblBuscarUsuario.setText(null);
+                comboListarUsuario.getSelectionModel().clearSelection();
             }
-        });
+        }   
     }
-
-    @FXML
-    public void buscarUsu(ActionEvent evento){}
-    @FXML
-    public void guardarCambios(ActionEvent evento) {
-
+    
+    private void listarUsuario(){
+        
+        if (!comboListarUsuario.getSelectionModel().isEmpty()) {            
+            limpiarDatos();
+            prepararTablaUsuario();
+            if (comboListarUsuario.getSelectionModel().getSelectedItem().toString().contains("Todos")) {
+                listaUsuarios.addAll(consulta.getListaUsuarios(2, null));
+            } else {
+                listaUsuarios.addAll(consulta.getListaUsuarios(1, comboListarUsuario.getSelectionModel().getSelectedItem().toString()));
+            }
+            tablaUsuarios.setItems(listaUsuarios);
+            lblBuscarUsuario.setText(null);
+        }
     }
-
-    @FXML
-    public void buscarMaterial(ActionEvent evento) {
+    
+    private void prepararTablaUsuario(){
+        
+        clmnDocumento.setCellValueFactory(new PropertyValueFactory<Usuario, String>("documento"));
+        clmnNombre.setCellValueFactory(new PropertyValueFactory<Usuario, String>("nombre"));
+        clmnApellido.setCellValueFactory(new PropertyValueFactory<Usuario, String>("apellido"));
+        clmnCorreo.setCellValueFactory(new PropertyValueFactory<Usuario, String>("correo"));
+        clmnTipoUsuario.setCellValueFactory(new PropertyValueFactory<Usuario, String>("tipo"));
+        clmnEstadoUsuario.setCellValueFactory(new PropertyValueFactory<Usuario, String>("estado"));
+        tablaUsuarios.setEditable(true);
+        listaUsuarios.clear();      
+    }
+    
+    private void buscarMaterial() {
 
         if (!"".equals(txtfBuscar.getText())) {
             prepararTablaMaterial();
-            filtrarMaterial.addAll(listaMaterial);
             listaMaterial.addAll(consulta.getListaMaterialBusqueda(txtfBuscar.getText().trim()));
-            tablaMaterial.setItems(filtrarMaterial);
-        }
-    }
-
-    @FXML
-    private void listarMaterial(ActionEvent evento) {
-        prepararTablaMaterial();
-        listar();
-    }
-
-    public void prepararTablaMaterial() {
-
-        clmnTitulo = new TableColumn("Titulo");
-        clmnTitulo.setCellValueFactory(new PropertyValueFactory<Material, String>("titulo"));
-        clmnTitulo.setPrefWidth(150);
-        tablaMaterial.getColumns().add(clmnTitulo);
-        clmnCodigo = new TableColumn("Codigo");
-        clmnCodigo.setCellValueFactory(new PropertyValueFactory<Material, String>("codigo"));
-        clmnCodigo.setPrefWidth(150);
-        tablaMaterial.getColumns().add(clmnCodigo);
-        clmnClase = new TableColumn("Clase de material");
-        clmnClase.setCellValueFactory(new PropertyValueFactory<Material, String>("clase"));
-        clmnClase.setPrefWidth(150);
-        tablaMaterial.getColumns().add(clmnClase);
-        tablaMaterial.setEditable(true);
-        filtrarMaterial.clear();
-        listaMaterial.clear();
-    }
-
-    private void listar() {
-
-        filtrarMaterial.addAll(listaMaterial);
-        listaMaterial.addAll(consulta.getListaMaterial(comboMaterial.getSelectionModel().getSelectedItem().toString()));
-        tablaMaterial.setItems(filtrarMaterial);
-    }
-
-    
-    private void llenarComboBox() {
-        comboMaterial.setItems(consulta.llenarLista("SELECT tipo_material FROM tbl_TIPO_MATERIAL", "tipo_material"));
-    }
-
-    private Boolean verificarDuplicados(ObservableList lista, String datoVefificar) {
-
-        for (Object dato : lista) {
-            if (dato.toString().equals(datoVefificar)) {
-                return true;
+            tablaMaterial.setItems(listaMaterial);
+            if(listaMaterial.isEmpty()){
+                comboListarMaterial.getSelectionModel().clearSelection();
+                lblBuscarMaterial.setText("No se han encontrado resultados.");
+            }else{
+                lblBuscarMaterial.setText(null);
+                comboListarMaterial.getSelectionModel().clearSelection();
             }
         }
-        return false;
     }
-
-//    @FXML
-//     public void dialogoNuevaEditorial(ActionEvent evento){        
-//         ventanaPrincipal = new Sabga();
-//         btnEditorial.setDisable(true);
-//         dialogo.mostrarDialogo("vista/dialogos/NuevaEditorial.fxml", "Nueva Editorial", ventanaPrincipal.getPrimaryStage(), null, 3);
-//         btnEditorial.setDisable(false);
-//     }    
-    @FXML
-    public void dialogoDetalleMaterial(ActionEvent evento) {
-
+    
+    private void listar(){    
+        
+        if (!comboListarMaterial.getSelectionModel().isEmpty()) {
+            prepararTablaMaterial();
+            listaMaterial.addAll(consulta.getListaMaterial(comboListarMaterial.getSelectionModel().getSelectedItem().toString()));
+            tablaMaterial.setItems(listaMaterial);
+            lblBuscarMaterial.setText(null);
+        }
+    }
+    
+    private void prepararTablaMaterial(){   
+        
+        clmnTitulo.setCellValueFactory(new PropertyValueFactory<Material, String>("titulo"));        
+        clmnCodigo.setCellValueFactory(new PropertyValueFactory<Material, String>("codigo"));
+        clmnTipo.setCellValueFactory(new PropertyValueFactory<Material, String>("tipo"));
+        clmnClase.setCellValueFactory(new PropertyValueFactory<Material, String>("clase"));        
+        listaMaterial.clear();
+        listaEjemplares.clear();           
+    }
+    
+    private void mapearEjemplar(){
+        
         if (tablaMaterial.getSelectionModel().getSelectedItem() != null) {
-            ventanaPrincipal = new Sabga();
-            btnDetalle.setDisable(true);
-            dialogo.setId(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()));
-            dialogo.mostrarDialogo("vista/dialogos/DetalleMaterial.fxml", "Detalle Material", ventanaPrincipal.getPrimaryStage(), null, 4);
-            btnDetalle.setDisable(false);
+            listaEjemplares.clear();
+            clmnEjemplar.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("ejemplar"));
+            clmnEstado.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("estado"));
+            clmnDispo.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("disponibilidad"));
+            tablaEjemplar.setEditable(true);
+            listaEjemplares.addAll(consulta.listaEjemplares(Integer.parseInt(listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId())));
+            tablaEjemplar.setItems(listaEjemplares);
+            titulo = listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getTitulo();
+            codigoClasificacion = listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getCodigo();
+         }
+    }
+    
+    private void detalleMaterialEjemplar(){
+        
+        if (tablaMaterial.getSelectionModel().getSelectedItem() != null) {           
+            detalleMaterial(Integer.parseInt(listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()));            
         } else {
             Utilidades.mensaje(null, "Debe seleccionar un material de la lista", "Para ver el detalle del material", "Detalle Material");
+        }         
+    }
+    
+    private void detalleMaterial(int id) {
+        
+        ventanaPrincipal = new Sabga();
+        btnDetalle.setDisable(true);
+        dialogos.setId(id);
+        dialogos.mostrarDialogo("vista/dialogos/DetalleMaterial.fxml", "Detalle Material", ventanaPrincipal.getPrimaryStage(), null, 4);        
+        btnDetalle.setDisable(false);        
+    }
+    
+    private void dialogoDetalleUsuario(){
+        
+        if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
+            detalleUsuario.setDisable(true);
+            detalleUsuario2.setDisable(true);
+            dialogos.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información del Usuario", null , null, 5);           
+            detalleUsuario.setDisable(false);
+            detalleUsuario2.setDisable(false);
+        }else{
+            Utilidades.mensaje(null, "Debe seleccionar un usuario. ", "", "Selección Usuario");
         }
     }
-
-    private void updateFilteredData() {
-        filtrarMaterial.clear();
-
-        for (Material m : listaMaterial) {
-            if (matchesFilter(m)) {
-                filtrarMaterial.add(m);
-            }
+    
+    private void dialogoMultasUsuario(){
+        
+        if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
+            multasUsuario.setDisable(true);
+            multasUsuario2.setDisable(true);
+            dialogos.mostrarDialogo("vista/dialogos/Multa.fxml", "Detalle Multas", null , null, 17);           
+            multasUsuario.setDisable(false);
+            multasUsuario2.setDisable(false);
+        }else{
+            Utilidades.mensaje(null, "Debe seleccionar un usuario. ", "", "Selección Usuario");
         }
-        reapplyTableSortOrder();
     }
-
+    
+    private Boolean verificarDuplicados(ObservableList<Prestamo> lista ,String ejemplar){
+        
+        for(Prestamo dato: lista){
+           if(dato.getEjemplar().equals(ejemplar)){
+               return true;
+           }            
+        }
+        return false;  
+    }
+        
+    private void inicio(){
+        
+        comboListarMaterial.setItems(consulta.llenarLista(select.getListaTipoMaterial(), select.getTipoMaterial()));
+        comboListarUsuario.setItems(consulta.llenarLista(select.getListaUsuarios(), select.getUsuarios()));
+        comboListarUsuario.getItems().add("Todos");
+        btnBorrarMaterial.setVisible(false);
+        btnBorrarUsuario.setVisible(false);
+    }
+    
+    private void limpiarDatos(){
+        
+        lblGrado.setText(null);
+        lblCurso.setText(null);
+        lblJornada.setText(null);
+        lblTelefono.setText(null);
+        lblDireccion.setText(null);
+        lblMulta.setText(null);   
+    }
+        
     @FXML
-    private void borrarCampo(ActionEvent evento) {
+    public void mostrarBotonMaterial(KeyEvent evento) {
 
-        switch (Utilidades.getDesencadenador(evento)) {
-            case "btnBorrar":
-                txtfFiltrar.setText("");
-                btnBorrar.setVisible(false);
-                break;
-            case "btnBorrarBusqueda":
-                txtfBuscar.setText("");
-                btnBorrarBusqueda.setVisible(false);
-                break;
+        if ("".equals(txtfBuscar.getText())){            
+            btnBorrarMaterial.setVisible(false);      
         }
+        else {
+           btnBorrarMaterial.setVisible(true); 
+        }          
     }
-
-    private void mostrarBoton() {
-
-        if (txtfFiltrar.getText() == null || txtfFiltrar.getText().isEmpty()) {
-            btnBorrar.setVisible(false);
-        } else {
-            btnBorrar.setVisible(true);
-        }
-    }
-
+    
     @FXML
-    private void mostrarBoton(KeyEvent evento) {
+    public void mostrarBotonUsuario(KeyEvent evento) {
 
-        if (txtfBuscar.getText() == null || txtfBuscar.getText().isEmpty()) {
-            btnBorrarBusqueda.setVisible(false);
-        } else {
-            btnBorrarBusqueda.setVisible(true);
+        if ("".equals(txtfBuscarUsuario.getText())){            
+            btnBorrarUsuario.setVisible(false);      
         }
+        else {
+           btnBorrarUsuario.setVisible(true); 
+        }          
     }
-
-    private boolean matchesFilter(Material material) {
-        String filterString = txtfFiltrar.getText();
-        if (filterString == null || filterString.isEmpty()) {
-            return true;
-        }
-
-        String lowerCaseFilterString = filterString.toLowerCase();
-
-        if (material.getTitulo().toLowerCase().indexOf(lowerCaseFilterString) != -1) {
-            return true;
-        } else if (material.getCodigo().toLowerCase().indexOf(lowerCaseFilterString) != -1) {
-            return true;
-        } else if (material.getClase().toLowerCase().indexOf(lowerCaseFilterString) != -1) {
-            return true;
-        }
-        return false;
+   
+    @FXML
+    public void borrarCampoMaterial(ActionEvent evento){
+        
+        txtfBuscar.setText(null);
+        btnBorrarMaterial.setVisible(false);
+        lblBuscarMaterial.setText(null);
     }
-
-    private void reapplyTableSortOrder() {
-        ArrayList<TableColumn<Material, ?>> sortOrder = new ArrayList<>(tablaMaterial.getSortOrder());
-        tablaMaterial.getSortOrder().clear();
-        tablaMaterial.getSortOrder().addAll(sortOrder);
+    
+    @FXML
+    public void borrarCampoUsuario(ActionEvent evento){
+        
+        txtfBuscarUsuario.setText(null);
+        btnBorrarUsuario.setVisible(false);
+        lblBuscarUsuario.setText(null);
+        
     }
-
-    public void setScreenParent(ScreensController screenParent) {
-        controlador = screenParent;
+    
+    @Override
+    public void setScreenParent(ScreensController screenParent) { 
+        controlador = screenParent;        
     }
-
-    public void setVentanaPrincipal(Sabga ventanaPrincipal) {
+    
+    public void setVentanaPrincipal(Sabga ventanaPrincipal){        
         this.ventanaPrincipal = ventanaPrincipal;
     }
 
@@ -267,144 +381,9 @@ public class ReservaEscritorioController implements Initializable, ControlledScr
      * @param url
      * @param rb
      */
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        llenarComboBox();
-        //Formato fecha del día      
-        java.util.Date fecha = new Date();
-        int dia = fecha.getDate();
-        int mes = fecha.getMonth() + 1;
-        int anio = fecha.getYear() + 1900;
-        String d = Integer.toString(dia);
-        String m = Integer.toString(mes);
-        String a = Integer.toString(anio);
-        campoFecha.setDisable(true);
-        campoFecha.setText(a + "-" + m + "-" + d);
-        txtfFiltrar.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable,
-                    String oldValue, String newValue) {
-                mostrarBoton();
-                updateFilteredData();
-            }
-        });
-
-        // PRUEBA DE TOOLTIP.....WORKS BY THE WAY :)
-        Platform.runLater(new Runnable() {
-            private Tooltip detalle;
-
-            @Override
-            public void run() {
-                detalle = new Tooltip("Muestra en detalle la información del material.\nDebe seleccionarlo de la lista.");
-                btnDetalle.setTooltip(detalle);
-           // MenuItem h = new MenuItem("Esto es una prueba de un menÃº contextual ");
-                // ContextMenu es = new ContextMenu(h);            
-                // botonNuevaEditorial.setContextMenu(es);                 
-            }
-        });
-
+        inicio();     
     }
-
-    //----------
-    public void listarUsuarios() {
-
-        Conexion conex = new Conexion();
-        conex.conectar();
-        try {
-
-            conex.setResultado(conex.getStatement().executeQuery("SELECT  documento_usuario,nombre,apellidos  FROM tbl_USUARIO WHERE documento_usuario= '" + campoBuscar.getText() + "'OR nombre= '" + campoBuscar.getText() + "'"));
-
-            if (conex.getResultado().next()) {
-                documento = conex.getResultado().getString("documento_usuario");
-                nombre = conex.getResultado().getString("nombre");
-                apellido = conex.getResultado().getString("apellidos");
-                campoBuscar.setDisable(true);
-                Dialogs.showInformationDialog(null, "Los datos ingresados son correctos", "Mensaje");
-                tablaMaterial2.setDisable(false);
-                tablaMaterial.setDisable(false);
-                lbNombre.setText(nombre);
-                lbDocumento.setText(documento);
-                lbApellidos.setText(apellido);
-            } else {
-                dialogoo = Dialogs.showErrorDialog(null, "Los datos ingresados no existen en la base de datos", "Mesaje de error", "Mensaje", Dialogs.DialogOptions.OK);
-            }
-
-        } catch (SQLException ex) {
-
-            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
-
-        } finally {
-            conex.desconectar();
-        }
-    }
-
-    public void aceptar(ActionEvent evento) {
-        listarUsuarios();
-    }
-
-    @FXML
-    public void removerMateria(ActionEvent evento) {
-        if (tablaMaterial2.getSelectionModel().getSelectedItem() != null) {
-            listaMaterial.remove(tablaMaterial2.getSelectionModel().getSelectedIndex());
-        } else {
-            Utilidades.mensajeAdvertencia(null, "Debe seleccionar al menos una de la lista", "Pare remover una materia", "Remover Materia");
-        }
-    }
-
-    //Mapear de una tabla a otra
-    @FXML
-    public void mapearDatos() {
-
-        //if(campoBuscar.equals(nombre)||campoBuscar.equals(documento)){
-        if (tablaMaterial.getSelectionModel().getSelectedItem() != null) {
-
-            clTitulo.setCellValueFactory(new PropertyValueFactory<Material, String>("titulo"));
-            clCodigo.setCellValueFactory(new PropertyValueFactory<Material, String>("codigo"));
-            clClaseMaterial.setCellValueFactory(new PropertyValueFactory<Material, String>("clase"));
-            tablaMaterial2.setEditable(true);
-//            listaMaterial2.add(new Material(listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getTitulo(),
-//                    listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getCodigo(),
-//                    listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getClase(),
-//                    listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()));
-//            tablaMaterial2.setItems(listaMaterial2);
-
-        } else {
-            Dialogs.showErrorDialog(null, "Debe ingresar primero el dato del usuario", "Mensaje");
-        }
-    }
-
-    @FXML
-    private void eliminarMaterial() throws SQLException {
-        
-        if(!listaMaterial2.isEmpty()){        
-            listaMaterial2.remove(tablaMaterial2.getSelectionModel().getSelectedIndex());
-        }
-       
-    }
-
-    public void eliminarM(ActionEvent evento) throws SQLException {
-        eliminarMaterial();
-    }
-
-    public void tablaUsuario() {
-        tDocumento = new TableColumn("Documento");
-        tDocumento.setCellValueFactory(new PropertyValueFactory<Usuario, String>("documento"));
-        tDocumento.setPrefWidth(150);
-        tablaMaterial.getColumns().add(tDocumento);
-        tTipo = new TableColumn("Tipo de usuario");
-        tTipo.setCellValueFactory(new PropertyValueFactory<Usuario, String>("tipo"));
-        tTipo.setPrefWidth(150);
-        tablaMaterial.getColumns().add(tTipo);
-        tNombre = new TableColumn("Nombre");
-        tNombre.setCellValueFactory(new PropertyValueFactory<Usuario, String>("nombre"));
-        tNombre.setPrefWidth(150);
-        tablaMaterial.getColumns().add(tNombre);
-        tApellido = new TableColumn("Apellidos");
-        tApellido.setCellValueFactory(new PropertyValueFactory<Usuario, String>("apellido"));
-        tApellido.setPrefWidth(150);
-        tablaMaterial.getColumns().add(tApellido);
-
-        //tablaPersonas.setEditable(true);
-        //tablaPersonas.setItems(listaUsuario);
-    }
+    
 }

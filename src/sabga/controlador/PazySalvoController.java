@@ -3,7 +3,6 @@ package sabga.controlador;
 
 import sabga.atributos.Usuario;
 import java.awt.HeadlessException;
-import java.awt.Panel;
 import java.awt.image.BufferedImage;
 import java.awt.print.PrinterJob;
 import java.io.ByteArrayInputStream;
@@ -11,26 +10,20 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.configuracion.Conexion;
@@ -44,7 +37,6 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import javax.print.Doc;
 import javax.print.DocFlavor;
@@ -86,7 +78,6 @@ public class PazySalvoController implements Initializable, ControlledScreen {
     @FXML
     private Label lblBuscarUsuario, lblFecha, lblBibliotecario, lblCoordinacion;
     private final ObservableList<Usuario> listaUsuarios;
-    private final Conexion con;
     private final Consultas consulta;
     private final Seleccion select;
     private final Atributos atributo;
@@ -97,7 +88,6 @@ public class PazySalvoController implements Initializable, ControlledScreen {
    
     public PazySalvoController() {
         
-        con = new Conexion();
         consulta = new Consultas();
         select = new Seleccion();
         atributo = new Atributos();

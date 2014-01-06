@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -61,9 +62,12 @@ public class PrestamoController implements Initializable, ControlledScreen{
                         clmnNombre, clmnApellido, clmnCorreo, clmnTipoUsuario, clmnEstadoUsuario, clmnDocumentoRe, clmnNombreRe,
                         clmnApellidoRe, clmnFecha, clmnEstadoRe, clmnTituloDe, clmnCodigoDe, clmnAutor, clmnEditorial, clmnMateria,
                         clmnEjemplarRe, clmnEjemplarPr, clmnTituloPr, clmnCodigoPr, clmnCorreoRe;
+    @FXML
+    private MenuItem detalleUsuario, multasUsuario, detalleUsuario2, multasUsuario2;
     private final DatePicker fechaDevolucion;
     private final Consultas consulta;
     private final Seleccion select;
+    private final Atributos atributo;
     private final ObservableList<Material> listaMaterial;
     private final ObservableList<Ejemplar> listaEjemplares;
     private final ObservableList<Usuario> listaUsuarios;
@@ -95,7 +99,8 @@ public class PrestamoController implements Initializable, ControlledScreen{
        listaDeReservas = FXCollections.observableArrayList();
        consulta = new Consultas();
        select = new Seleccion();
-       dialogos = new Dialogo();       
+       dialogos = new Dialogo(); 
+       atributo = new Atributos();
     }
     
     @FXML
@@ -159,6 +164,16 @@ public class PrestamoController implements Initializable, ControlledScreen{
     
     public void addUsuario(){
         seleccionarUsuario();
+    }
+    
+    @FXML
+    public void verDetalleUsuario(){
+        dialogoDetalleUsuario();
+    }
+    
+    @FXML
+    public void verMultasUsuario(){
+        dialogoMultasUsuario();
     }
     
     @FXML
@@ -227,6 +242,10 @@ public class PrestamoController implements Initializable, ControlledScreen{
             lblDireccion.setText(consulta.getDireccion());
             lblTelefono.setText(consulta.getTelefono());
             lblMulta.setText(String.valueOf(consulta.getMulta()));
+            atributo.setDocumentoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
+            atributo.setNombreUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getNombre());
+            atributo.setApellidoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getApellido());
+            atributo.setCorreoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getCorreo());   
             if (listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getEstado().equals("Habilitado")) {
                 if (consulta.getMulta() > 0) {
                     Utilidades.mensajeOpcion(null, "Desea continuar con el prestamo?", "El usuario se encuentra multado.", "Seleccionar Usuario");
@@ -358,8 +377,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
         clmnFecha.setCellValueFactory(new PropertyValueFactory<Reserva, String>("fecha"));
         clmnEstadoRe.setCellValueFactory(new PropertyValueFactory<Reserva, String>("estado"));
         tablaReserva.setEditable(true);
-        listaReservas.clear();
-        
+        listaReservas.clear();        
     }
     
     private void buscarUsuario(){
@@ -502,6 +520,32 @@ public class PrestamoController implements Initializable, ControlledScreen{
            }            
         }
         return false;  
+    }
+    
+    private void dialogoDetalleUsuario(){
+        
+        if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
+            detalleUsuario.setDisable(true);
+            detalleUsuario2.setDisable(true);
+            dialogos.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información del Usuario", null , null, 5);           
+            detalleUsuario.setDisable(false);
+            detalleUsuario2.setDisable(false);
+        }else{
+            Utilidades.mensaje(null, "Debe seleccionar un usuario. ", "", "Selección Usuario");
+        }
+    }
+    
+    private void dialogoMultasUsuario(){
+        
+        if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
+            multasUsuario.setDisable(true);
+            multasUsuario2.setDisable(true);
+            dialogos.mostrarDialogo("vista/dialogos/Multa.fxml", "Detalle Multas", null , null, 17);           
+            multasUsuario.setDisable(false);
+            multasUsuario2.setDisable(false);
+        }else{
+            Utilidades.mensaje(null, "Debe seleccionar un usuario. ", "", "Selección Usuario");
+        }
     }
     
     @FXML
