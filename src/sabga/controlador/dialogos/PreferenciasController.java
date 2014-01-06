@@ -30,17 +30,18 @@ public class PreferenciasController implements Initializable {
     private final String PUERTO_BASE = "8889";
     private final String NOMBRE = "SABGA";
     private final String USUARIO = "root";
-    private final String CONTRASENIA = "";
-    
+    private final String CONTRASENIA = "";    
     private final int NUMERO_MAXIMO_EJEMPLARES = 3;
+    private final int VALOR_MULTA = 100;
     
     @FXML
-    private TextField txtfCorreo, txtfPuerto, txtfHost, txtfEjemplares, txtfDireccion, txtfPuertoB, txtfBase, txtfUsuario;
-                     
+    private TextField txtfCorreo, txtfPuerto, txtfHost, txtfEjemplares, txtfDireccion, txtfPuertoB, txtfBase, txtfUsuario,
+                      txtfMulta;                    
     @FXML
     private PasswordField pswfClave, txtfContrasenia;
     @FXML
-    private Label lblCorreo, lblClave, lblHost, lblPuerto, lblDireccion, lblPuertoB, lblBase, lblUsuario, lblContrasenia;
+    private Label lblCorreo, lblClave, lblHost, lblPuerto, lblDireccion, lblPuertoB, lblBase, lblUsuario, lblContrasenia,
+                  lblEjemplares, lblMulta;
     
     public PreferenciasController(){        
         configuracion = new Preferencias();
@@ -54,16 +55,27 @@ public class PreferenciasController implements Initializable {
     
     @FXML
     public void setValoresBase(){
-        setValoresPrederminadosBase();
+        setValoresPredeterminadosBase();
+    }
+    
+    @FXML
+    public void setValoresGeneral(){
+        setValoresPredeterminadosGeneral();
     }
     
     @FXML
     public void cambiarDatosCorreo(ActionEvent evento){    
         guardarCambios();       
     }
+    
     @FXML
     public void cambiarDatosBase(ActionEvent evento){
         guardarCambiosBase();
+    }
+    
+    @FXML
+    public void cambiarDatosGeneral(ActionEvent evento){
+        guardarCambiosGeneral();
     }
     
     @FXML
@@ -134,6 +146,22 @@ public class PreferenciasController implements Initializable {
         }
         cargarValoresBaseDatos();
     }
+    
+    private void guardarCambiosGeneral(){
+    
+        if (validar.validarNumero(txtfEjemplares.getText(), 10)) {
+            configuracion.setNuemeroEjemplares(txtfEjemplares.getText().trim());
+            lblEjemplares.setText(null);
+        } else {
+            lblEjemplares.setText(validar.getMensajeError());
+        }
+        if (validar.validarNumero(txtfMulta.getText(), 10)) {
+            configuracion.setValorMulta(txtfMulta.getText().trim());
+            lblMulta.setText(null);
+        } else {
+            lblMulta.setText(validar.getMensajeError());
+        }
+    }
         
     private void setValoresPredeterminadosCorreo(){
         
@@ -145,7 +173,7 @@ public class PreferenciasController implements Initializable {
         cargarValoresCorreo();        
     }
     
-    private void setValoresPrederminadosBase(){
+    private void setValoresPredeterminadosBase(){
     
         configuracion.setDireccionBase(DIRECCION);
         configuracion.setPuertoBase(PUERTO_BASE);
@@ -154,6 +182,14 @@ public class PreferenciasController implements Initializable {
         configuracion.setContraseniaBase(CONTRASENIA);
         limpiarCamposBase();
         cargarValoresBaseDatos();        
+    }
+    
+    private void setValoresPredeterminadosGeneral(){
+    
+        configuracion.setNuemeroEjemplares(String.valueOf(NUMERO_MAXIMO_EJEMPLARES));
+        configuracion.setValorMulta(String.valueOf(VALOR_MULTA));
+        limpiarCamposGeneral();
+        cargarValoresGeneral();
     }
         
     private void cargarValoresCorreo(){
@@ -167,6 +203,7 @@ public class PreferenciasController implements Initializable {
     private void cargarValoresGeneral(){
         
         txtfEjemplares.setText(String.valueOf(configuracion.getNumeroEjemplares()));
+        txtfMulta.setText(String.valueOf(configuracion.getValorMulta()));
              
     }
     
@@ -195,6 +232,12 @@ public class PreferenciasController implements Initializable {
         lblBase.setText(null);
         lblUsuario.setText(null);
         lblContrasenia.setText(null);
+    }
+    
+    private void limpiarCamposGeneral(){
+        
+        lblEjemplares.setText(null);
+        lblMulta.setText(null);
     }
     
     public void setDialogStage(Stage dialogStage) {

@@ -264,7 +264,11 @@
                     </MenuItem>
                     <MenuItem mnemonicParsing="false" text="Cerrar Sesión" />
                     <SeparatorMenuItem mnemonicParsing="false" />
-                    <MenuItem mnemonicParsing="false" onAction="#salir" text="Salir de SABGA" fx:id="salir" />
+                    <MenuItem mnemonicParsing="false" onAction="#salir" text="Salir de SABGA" fx:id="salir">
+                      <accelerator>
+                        <KeyCodeCombination alt="DOWN" code="F4" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                      </accelerator>
+                    </MenuItem>
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Material">

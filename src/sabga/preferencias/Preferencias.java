@@ -126,4 +126,12 @@ public class Preferencias {
     public void setContraseniaBase(String contrasenia){
         setPreferencia("clave", contrasenia);
     }
+    
+    public int getValorMulta(){
+        return Integer.parseInt(propiedades.getProperty("multa"));
+    }
+    
+    public void setValorMulta(String valor_multa){
+         setPreferencia("multa", valor_multa);
+    }
 }
