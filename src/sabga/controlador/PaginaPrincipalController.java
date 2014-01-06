@@ -374,7 +374,8 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         panelInicio.setDisable(false);
         panelInicio.setVisible(true);
         panelBusqueda.setDisable(true);
-        panelBusqueda.setVisible(false);    
+        panelBusqueda.setVisible(false);  
+        
     }
     
     @Override

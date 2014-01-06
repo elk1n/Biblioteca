@@ -70,6 +70,60 @@ public class Preferencias {
     public void setCorreo(String mail){     
         setPreferencia("correo", mail);
     }
+    
+    public void setContrasenia(String clave){
+        setPreferencia("contrasenia", clave);
+    }
+    
+    public void setHost(String host){
+        setPreferencia("host", host);
+    }
+    
+    public void setPuerto(String puerto){
+        setPreferencia("puerto", puerto);
+    }
+    
+    public void setNuemeroEjemplares(String numeroEjemplares){
+        setPreferencia("numeroMaximoEjemplares", numeroEjemplares);
+    }
 
-
+    public String getDireccionBase(){
+        return propiedades.getProperty("direccion");
+    }
+    
+    public String getPuertoBaseDatos(){
+        return propiedades.getProperty("puertoBase");
+    }
+    
+    public String getNombreBaseDatos(){
+        return propiedades.getProperty("baseDatos");
+    }
+    
+    public String getUsuarioBase(){
+        return propiedades.getProperty("usuario");
+    }
+    
+    public String getContraseniaBase(){
+        return propiedades.getProperty("clave");
+    }
+    
+    public void setDireccionBase(String urlBaseDatos){
+        setPreferencia("direccion", urlBaseDatos);
+    }
+    
+    public void setPuertoBase(String puertoBaseDatos){
+        setPreferencia("puertoBase", puertoBaseDatos);
+    }
+    
+    public void setNombreBaseDatos(String nombreBaseDatos){
+        setPreferencia("baseDatos", nombreBaseDatos);
+    }
+    
+    public void setUsuarioBaseDatos(String nombreBase){
+        setPreferencia("usuario", nombreBase);
+    }
+    
+    public void setContraseniaBase(String contrasenia){
+        setPreferencia("clave", contrasenia);
+    }
 }

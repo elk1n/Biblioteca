@@ -257,7 +257,11 @@
                 <Menu mnemonicParsing="false" style="" styleClass="modItem" text="SABGA">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#ventanaInicio" text="Inicio" />
-                    <MenuItem mnemonicParsing="false" onAction="#dialogoPreferencias" text="Preferencias..." />
+                    <MenuItem mnemonicParsing="false" onAction="#dialogoPreferencias" text="Preferencias...">
+                      <accelerator>
+                        <KeyCodeCombination alt="UP" code="COMMA" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                      </accelerator>
+                    </MenuItem>
                     <MenuItem mnemonicParsing="false" text="Cerrar Sesión" />
                     <SeparatorMenuItem mnemonicParsing="false" />
                     <MenuItem mnemonicParsing="false" onAction="#salir" text="Salir de SABGA" fx:id="salir" />

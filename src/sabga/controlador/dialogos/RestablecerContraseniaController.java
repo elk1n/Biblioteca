@@ -30,12 +30,9 @@ public class RestablecerContraseniaController implements Initializable {
     @FXML 
     private Pane panelAyuda;
     @FXML
-    private ToggleButton btnAyuda;
-    
+    private ToggleButton btnAyuda;    
     private final Conexion con;
-    
-    private String usuario = null, clave;
-    
+    private String usuario = null, clave;    
     public RestablecerContraseniaController(){
     
         con = new Conexion();

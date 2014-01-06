@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import sabga.preferencias.Preferencias;
 
 /**
  * @author Elk1n
@@ -13,18 +14,27 @@ import java.sql.Statement;
 
 public class Conexion {
 
-    private final String puerto = "8889/";
-    private final String nombreBaseDatos = "SABGA";
-    private final String usuario = "root";  // Windows
-    private final String contrasenia = ""; //root
-    private final String url = "jdbc:mysql://localhost:"; // localhost, 192.168.1.3
-    private final String driver = "com.mysql.jdbc.Driver";
+    private final Preferencias pref;
+    private final String puerto, nombreBaseDatos, usuario, contrasenia, direccion, url, driver, cadenaConexion;
     private Connection conexion = null;
     private Statement stm = null;
     private ResultSet resultado = null;
-    private final String cadenaConexion = url + puerto + nombreBaseDatos;
     private CallableStatement procedimiento; 
 
+    public Conexion(){
+        
+        pref = new Preferencias();
+        puerto = pref.getPuertoBaseDatos();
+        nombreBaseDatos = pref.getNombreBaseDatos();
+        usuario = pref.getUsuarioBase();  // Windows
+        contrasenia = pref.getContraseniaBase(); //root
+        direccion = pref.getDireccionBase();
+        url = "jdbc:mysql://"+direccion+":"; // localhost, 192.168.1.3
+        driver = "com.mysql.jdbc.Driver";
+        cadenaConexion = url + puerto +"/"+ nombreBaseDatos;
+    
+    }
+    
     public void conectar() {
 
         try {
@@ -69,12 +79,10 @@ public class Conexion {
     }
 
     public Connection getConexion() {
-
         return conexion;
     }
 
     public void setResultado(ResultSet resultado) {
-
         this.resultado = resultado;
     }
 }
