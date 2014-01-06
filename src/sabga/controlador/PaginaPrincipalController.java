@@ -84,6 +84,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
             panelBusqueda.setVisible(false);
             ventanaPrincipal.vistaInicial(panelInicio);
             ventanaPrincipal.setTitle("SABGA");
+            reservasPendientes();
         }
     }
     

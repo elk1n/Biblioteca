@@ -179,7 +179,7 @@ public class ValidarMaterial extends Validacion{
 
     }
 
-    public void validarRevovacion(Date fecha) {
+    public void validarRenovacion(Date fecha) {
 
         this.calendario = Calendar.getInstance();
         this.calendario = new GregorianCalendar();
@@ -193,6 +193,27 @@ public class ValidarMaterial extends Validacion{
         } else {
             this.errorFecha = "Debe seleccionar una fecha de devolución.";
         }
+    }
+    
+    public void validarReserva(ObservableList lista, String documento, String tipoUsuario, int numeroEjemplares){
+    
+        pref = new Preferencias();
+        if (lista.isEmpty()) {
+            this.errorEjemplares = "Debe seleccioanr al menos un ejemplar.";
+        } else {
+            this.errorEjemplares = "";
+        }
+        if (!validarCampoTexto(documento, 15)) {
+            this.errorDocumento = getMensajeError();
+        }
+        if (validarCampoTexto(tipoUsuario, 32)) {
+            if (tipoUsuario.contains("estudiante") && numeroEjemplares > pref.getNumeroEjemplares()) {
+                this.errorTipoUsuario = "El tipo de usuario puede reservar un máximo de " + pref.getNumeroEjemplares() + " ejemplares.";
+            } else {
+                this.errorTipoUsuario = "";
+            }
+        }
+    
     }
     
     public String getErrorCodigoClasificacion(){      

@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
@@ -27,8 +28,10 @@ import sabga.atributos.Usuario;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
+import sabga.modelo.ConfirmarMaterial;
 import sabga.modelo.Consultas;
 import sabga.modelo.Seleccion;
+import sabga.modelo.ValidarMaterial;
 
 /**
  * @author Nanny
@@ -60,6 +63,8 @@ public class ReservaEscritorioController implements Initializable, ControlledScr
     private final Seleccion select;
     private final Dialogo dialogos;
     private final Atributos atributo;
+    private ValidarMaterial validarReserva;
+    private ConfirmarMaterial confirmarMaterial;
     private final ObservableList<Material> listaMaterial;
     private final ObservableList<Ejemplar> listaEjemplares;
     private final ObservableList<Usuario> listaUsuarios;
@@ -122,9 +127,86 @@ public class ReservaEscritorioController implements Initializable, ControlledScr
     }
     
     public void seleccionarUsuario(){
-        mapearDatosUsuario();
+        cargarUsuario();
     }
+    
+    public void addEjemplar(){
+        sumarEjemplar();
+    }
+    
+    @FXML
+    public void reservar(ActionEvent evento){    
+        reservarMaterial();
+    }
+    
+    private void reservarMaterial(){
         
+        confirmarMaterial = new ConfirmarMaterial();
+        mensajesError();
+        if(confirmarMaterial.confirmarReserva(listaReserva, lblDocumento.getText(), tipoUsuario, listaReserva.size())){           
+              consulta.registrarReserva(lblDocumento.getText(), listaReserva);           
+              if(consulta.getMensaje() == null){
+               Utilidades.mensaje(null, "La reserva se ha registrado correctamente.", "", "Registrar Reserva");
+               limpiarCamposReserva();
+               limpiarCampos();
+           }else{
+               Utilidades.mensajeError(null, consulta.getMensaje(), "La reserva no ha sido registrada.", "Error Registro Reserva");
+           }  
+        }        
+    }
+    
+    private void sumarEjemplar(){
+        
+        if(tablaEjemplar.getSelectionModel().getSelectedItem() != null){
+            prepararTablaPrestamo();
+            String ejemplar = listaEjemplares.get(tablaEjemplar.getSelectionModel().getSelectedIndex()).getEjemplar();
+            if(!verificarDuplicados(listaReserva, ejemplar)){
+                if(listaEjemplares.get(tablaEjemplar.getSelectionModel().getSelectedIndex()).getEstado().equals("Disponible") &&
+                   listaEjemplares.get(tablaEjemplar.getSelectionModel().getSelectedIndex()).getDisponibilidad().equals("Habilitado")){
+                   listaReserva.add(new Prestamo(ejemplar, titulo, codigoClasificacion));
+                }
+                else{
+                    Utilidades.mensaje(null, "El ejemplar se encuentra reservado, prestado, inhabilitado o en mantenimiento y no puede reservarse.",
+                                             "", "Seleccionar Ejemplar");
+                }
+            }else{
+                Utilidades.mensaje(null, "El ejemplar seleccionado ya se ecuentra en la lista.", "", "Seleccionar Ejemplar");
+            }
+        }    
+    }
+    
+    private void cargarUsuario(){
+    
+        if (tablaUsuarios.getSelectionModel().getSelectedItem() != null) {
+            mapearDatosUsuario();
+            if (listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getEstado().equals("Habilitado")) {
+                if (consulta.getMulta() > 0) {
+                    Utilidades.mensajeOpcion(null, "Desea continuar con la reserva?", "El usuario se encuentra multado.", "Seleccionar Usuario");
+                    if (Utilidades.getMensajeOpcion() == Dialogs.DialogResponse.YES) {
+                        String nombre = listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getNombre();
+                        String apellido = listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getApellido();
+                        lblNombre.setText(nombre + " " + apellido);
+                        lblDocumento.setText(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
+                        lblCorreo.setText(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getCorreo());
+                        tipoUsuario = listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getTipo().toLowerCase();
+                    }else{
+                        limpiarCamposReserva();
+                    }
+                } else {
+                    String nombre = listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getNombre();
+                    String apellido = listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getApellido();
+                    lblNombre.setText(nombre + " " + apellido);
+                    lblDocumento.setText(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
+                    lblCorreo.setText(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getCorreo());
+                    tipoUsuario = listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getTipo().toLowerCase();
+                }
+            } else {
+                limpiarCamposReserva();
+                Utilidades.mensaje(null, "El usuario se encuentra inhabilitado.", "", "Seleccionar Ususario");
+            }
+        }
+    }
+    
     private void prepararTablaPrestamo(){
     
         clmnEjemplarRe.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("ejemplar"));
@@ -144,19 +226,17 @@ public class ReservaEscritorioController implements Initializable, ControlledScr
     
     private void mapearDatosUsuario(){
     
-        if (tablaUsuarios.getSelectionModel().getSelectedItem() != null) {
-            consulta.mapearUsuarios(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
-            lblGrado.setText(consulta.getGrado());
-            lblCurso.setText(consulta.getCurso());
-            lblJornada.setText(consulta.getJornada());
-            lblDireccion.setText(consulta.getDireccion());
-            lblTelefono.setText(consulta.getTelefono());
-            lblMulta.setText(String.valueOf(consulta.getMulta()));
-            atributo.setDocumentoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
-            atributo.setNombreUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getNombre());
-            atributo.setApellidoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getApellido());
-            atributo.setCorreoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getCorreo());   
-        }  
+        consulta.mapearUsuarios(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
+        lblGrado.setText(consulta.getGrado());
+        lblCurso.setText(consulta.getCurso());
+        lblJornada.setText(consulta.getJornada());
+        lblDireccion.setText(consulta.getDireccion());
+        lblTelefono.setText(consulta.getTelefono());
+        lblMulta.setText(String.valueOf(consulta.getMulta()));
+        atributo.setDocumentoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
+        atributo.setNombreUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getNombre());
+        atributo.setApellidoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getApellido());
+        atributo.setCorreoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getCorreo());
     }
     
     private void buscarUsuario(){
@@ -298,6 +378,14 @@ public class ReservaEscritorioController implements Initializable, ControlledScr
         }
     }
     
+    private void mensajesError() {
+
+        validarReserva = new ValidarMaterial();
+        validarReserva.validarReserva(listaReserva, lblDocumento.getText(), tipoUsuario, listaReserva.size());
+        lblValidarDocumento.setText(validarReserva.getErrorDocumento());
+        lblValidarEjemplar.setText(validarReserva.getErrorEjemplares()+"\n"+ validarReserva.getErrorTipoUsuario());
+    }
+    
     private Boolean verificarDuplicados(ObservableList<Prestamo> lista ,String ejemplar){
         
         for(Prestamo dato: lista){
@@ -307,7 +395,14 @@ public class ReservaEscritorioController implements Initializable, ControlledScr
         }
         return false;  
     }
-        
+    
+    private void limpiarCamposReserva() {
+        lblNombre.setText(null);
+        lblDocumento.setText(null);
+        lblCorreo.setText(null);
+        tipoUsuario = null;
+    }
+    
     private void inicio(){
         
         comboListarMaterial.setItems(consulta.llenarLista(select.getListaTipoMaterial(), select.getTipoMaterial()));
@@ -326,7 +421,12 @@ public class ReservaEscritorioController implements Initializable, ControlledScr
         lblDireccion.setText(null);
         lblMulta.setText(null);   
     }
-        
+    
+    private void limpiarCampos(){        
+        tipoUsuario = null;
+        listaReserva.clear();
+    }  
+    
     @FXML
     public void mostrarBotonMaterial(KeyEvent evento) {
 

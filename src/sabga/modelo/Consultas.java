@@ -1151,6 +1151,41 @@ public class Consultas {
         }
     }
     
+    public void registrarReserva(String usuario, ObservableList<Prestamo> ejemplares) {
+
+        try {
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL registrarReserva(?,?,?) }");
+            con.getProcedimiento().setString("documento", usuario);
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("id", Types.INTEGER);
+            con.getProcedimiento().execute();
+            mensaje = con.getProcedimiento().getString("mensaje");
+            idPrestamo = con.getProcedimiento().getInt("id");
+
+            for (Prestamo p : ejemplares) {
+                con.procedimiento("{ CALL registrarDetalleReserva(?,?,?) }");
+                con.getProcedimiento().setInt("ejemplar", Integer.parseInt(p.getEjemplar()));
+                con.getProcedimiento().setInt("reserva", idPrestamo);
+                con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+                con.getProcedimiento().execute();
+                mensaje = con.getProcedimiento().getString("mensaje");
+            }
+            con.getConexion().commit();
+        } catch (SQLException e) {
+            try {
+                con.getConexion().rollback();
+                mensaje = "No se ha registrado la reserva.";
+            } catch (SQLException ex) {
+                mensaje = ex.getMessage();
+            }
+            mensaje = e.getMessage();
+        } finally {
+            con.desconectar();
+        }
+    }
+    
     public void registrarDevolucion(int opcion, int prestamo, ObservableList<Devolucion> lista, String fecha ){
     
          try {

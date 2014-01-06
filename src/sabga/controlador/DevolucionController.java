@@ -124,7 +124,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
             && !listaEjemplares.isEmpty() && estado.equalsIgnoreCase("Vigente")) {
             ValidarMaterial renovacion = new ValidarMaterial();
             ConfirmarMaterial renovaciones = new ConfirmarMaterial();
-            renovacion.validarRevovacion(fechaDevolucion.getSelectedDate());
+            renovacion.validarRenovacion(fechaDevolucion.getSelectedDate());
             lblValidarFecha.setText(renovacion.getErrorFecha());
             if (renovaciones.confirmarRenovacion(fechaDevolucion.getSelectedDate())) {
                 listaEjemplares();
@@ -145,7 +145,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
                 && !listaEjemplares.isEmpty() && estado.equalsIgnoreCase("Vigente")) {
             ValidarMaterial renovacion = new ValidarMaterial();
             ConfirmarMaterial renovaciones = new ConfirmarMaterial();
-            renovacion.validarRevovacion(fechaDevolucion.getSelectedDate());
+            renovacion.validarRenovacion(fechaDevolucion.getSelectedDate());
             lblValidarFecha.setText(renovacion.getErrorFecha());
             if (renovaciones.confirmarRenovacion(fechaDevolucion.getSelectedDate())) {
                 if (tablaDevolucion.getSelectionModel().getSelectedItem() != null) {

@@ -176,4 +176,18 @@ public class ConfirmarMaterial extends ValidarMaterial {
             return false;
         }
     }
+    
+    public boolean confirmarReserva(ObservableList lista, String documento, String tipoUsuario, int numeroEjemplares){
+    
+        pref = new Preferencias();
+        if (lista.isEmpty()) {
+            return false;
+        }else if (!validarCampoTexto(documento, 15)) {
+            return false;
+        } else if(!validarCampoTexto(tipoUsuario, 32) || tipoUsuario.contains("estudiante") && numeroEjemplares > pref.getNumeroEjemplares()){
+            return false;
+        }else {
+            return true;
+        }    
+    }
 }
