@@ -1309,6 +1309,47 @@ public class Consultas {
         }
     }
     
+    public void cancelarReserva(){
+    
+        try {
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL cancelarReserva() }");
+            con.getProcedimiento().execute();
+            con.getConexion().commit();
+        } catch (SQLException e) {
+            try {
+                con.getConexion().rollback();
+            } catch (SQLException ex) {
+                Utilidades.mensajeError(null, ex.getMessage(), "Error al cancelar la reserva. ", "Error");
+            }
+            Utilidades.mensajeError(null, e.getMessage(), "Error al cancelar la reserva. ", "Error");
+        } finally {
+            con.desconectar();
+        }
+    }
+    
+    public void setValorMulta(int valor){
+    
+        try {
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL registrarValorMulta(?) }");
+            con.getProcedimiento().setInt("valor", valor);
+            con.getProcedimiento().execute();
+            con.getConexion().commit();
+        } catch (SQLException e) {
+            try {
+                con.getConexion().rollback();
+            } catch (SQLException ex) {
+                Utilidades.mensajeError(null, ex.getMessage(), "Error al guardar el valor. ", "Error Guardar Valor");
+            }
+            Utilidades.mensajeError(null, e.getMessage(), "Error al guardar el valor. ", "Error Guardar Valor");
+        } finally {
+            con.desconectar();
+        }
+    }
+    
     public int getDevolucion(int prestamo){
         
         int devolucion=0;
@@ -1379,6 +1420,24 @@ public class Consultas {
             con.desconectar();
         }
         return cantidad;
+    }
+    
+    public int getValorPorMulta(){
+        
+            int valorMulta=0;
+        try {
+            con.conectar();
+            con.procedimiento("{ ? = CALL getValorMulta() }");
+            con.getProcedimiento().registerOutParameter(1, Types.TINYINT);
+            con.getProcedimiento().execute();
+            valorMulta = con.getProcedimiento().getInt(1);
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar el valor de la multa.", "Error Consulta Multa");
+        } finally {
+            con.desconectar();
+        }
+        return valorMulta; 
+    
     }
     
     public String getNombreBibliotecario(String usuario){

@@ -295,7 +295,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     }
     
     @FXML
-    private void salir(ActionEvent evento){
+    public void salir(ActionEvent evento){
 
         Utilidades.mensajeConfirmacion(ventanaPrincipal.getPrimaryStage(), "Los cambios no guardados se perderan", "Realmente desea salir?","Salir de SABGA");
          if(Utilidades.getMensajeConfimacion() == Dialogs.DialogResponse.OK){             
@@ -309,13 +309,13 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     }
     
     @FXML
-    private void borrarCampo(ActionEvent event){        
+    public void borrarCampo(ActionEvent event){        
         campoBusqueda.setText("");
         botonBorrarBusqueda.setVisible(false);        
     }
     
     @FXML
-    private void mostrarBoton(KeyEvent event){
+    public void mostrarBoton(KeyEvent event){
        
         if ("".equals(campoBusqueda.getText())){            
             botonBorrarBusqueda.setVisible(false);      
@@ -366,8 +366,13 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         tablaReservas.setItems(consulta.getListaReservasDia());
     }
     
+    private void cancelarReservas(){
+        consulta.cancelarReserva();
+    }
+    
     private void inicio(){
         
+       //cancelarReservas();
         devolucionesDia();
         reservasPendientes();
         botonBorrarBusqueda.setVisible(false);

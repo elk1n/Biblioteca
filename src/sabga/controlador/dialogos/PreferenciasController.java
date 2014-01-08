@@ -1,6 +1,13 @@
 
 package sabga.controlador.dialogos;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -9,7 +16,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import sabga.configuracion.Utilidades;
+import sabga.modelo.Consultas;
 import sabga.modelo.Validacion;
 import sabga.preferencias.Preferencias;
 
@@ -33,19 +43,29 @@ public class PreferenciasController implements Initializable {
     private final String CONTRASENIA = "";    
     private final int NUMERO_MAXIMO_EJEMPLARES = 3;
     private final int VALOR_MULTA = 100;
-    
+    private final int BUFFER = 10485760;  
+    private final String RUTA = "C:/Wamp/bin/mysql/mysql5.6.12/bin/mysqldump.exe";
+    //para guardar en memmoria
+    private StringBuffer temp = null;
+    //para guardar el archivo SQL
+    private FileWriter  fichero = null;
+    private PrintWriter pw = null;
+       
     @FXML
     private TextField txtfCorreo, txtfPuerto, txtfHost, txtfEjemplares, txtfDireccion, txtfPuertoB, txtfBase, txtfUsuario,
-                      txtfMulta;                    
+                      txtfMulta, txtfRuta;                    
     @FXML
     private PasswordField pswfClave, txtfContrasenia;
     @FXML
     private Label lblCorreo, lblClave, lblHost, lblPuerto, lblDireccion, lblPuertoB, lblBase, lblUsuario, lblContrasenia,
-                  lblEjemplares, lblMulta;
+                  lblEjemplares, lblMulta, lblRuta;
+    
+    private final Consultas consulta;
     
     public PreferenciasController(){        
         configuracion = new Preferencias();
-        validar = new Validacion();                  
+        validar = new Validacion();  
+        consulta = new Consultas();
     }
     
     @FXML
@@ -81,6 +101,11 @@ public class PreferenciasController implements Initializable {
     @FXML
     public void cancelar(){        
         dialogStage.close();
+    }
+   
+    @FXML
+    public void guardarCopiaSeguridad(ActionEvent evento){
+        guardarCopiaSeguridad();
     }
        
     private void guardarCambios(){
@@ -144,6 +169,12 @@ public class PreferenciasController implements Initializable {
         } else {
             lblContrasenia.setText(validar.getMensajeError());
         }
+        if (validar.validarCampoTexto(txtfRuta.getText(), 255)) {
+            configuracion.setRutaAmysqldump(txtfRuta.getText());
+            lblRuta.setText(null);
+        } else {
+            lblRuta.setText(validar.getMensajeError());
+        }
         cargarValoresBaseDatos();
     }
     
@@ -156,7 +187,7 @@ public class PreferenciasController implements Initializable {
             lblEjemplares.setText(validar.getMensajeError());
         }
         if (validar.validarNumero(txtfMulta.getText(), 10)) {
-            configuracion.setValorMulta(txtfMulta.getText().trim());
+            consulta.setValorMulta(Integer.parseInt(txtfMulta.getText().trim()));
             lblMulta.setText(null);
         } else {
             lblMulta.setText(validar.getMensajeError());
@@ -180,6 +211,7 @@ public class PreferenciasController implements Initializable {
         configuracion.setNombreBaseDatos(NOMBRE);
         configuracion.setUsuarioBaseDatos(USUARIO);
         configuracion.setContraseniaBase(CONTRASENIA);
+        configuracion.setRutaAmysqldump(RUTA);
         limpiarCamposBase();
         cargarValoresBaseDatos();        
     }
@@ -187,7 +219,7 @@ public class PreferenciasController implements Initializable {
     private void setValoresPredeterminadosGeneral(){
     
         configuracion.setNuemeroEjemplares(String.valueOf(NUMERO_MAXIMO_EJEMPLARES));
-        configuracion.setValorMulta(String.valueOf(VALOR_MULTA));
+        consulta.setValorMulta(VALOR_MULTA);
         limpiarCamposGeneral();
         cargarValoresGeneral();
     }
@@ -203,7 +235,7 @@ public class PreferenciasController implements Initializable {
     private void cargarValoresGeneral(){
         
         txtfEjemplares.setText(String.valueOf(configuracion.getNumeroEjemplares()));
-        txtfMulta.setText(String.valueOf(configuracion.getValorMulta()));
+        txtfMulta.setText(String.valueOf(consulta.getValorPorMulta()));
              
     }
     
@@ -214,6 +246,7 @@ public class PreferenciasController implements Initializable {
         txtfBase.setText(configuracion.getNombreBaseDatos());
         txtfUsuario.setText(configuracion.getUsuarioBase());
         txtfContrasenia.setText(configuracion.getContraseniaBase());
+        txtfRuta.setText(configuracion.getRutaAmysqldump());
     
     }
     
@@ -232,12 +265,66 @@ public class PreferenciasController implements Initializable {
         lblBase.setText(null);
         lblUsuario.setText(null);
         lblContrasenia.setText(null);
+        lblRuta.setText(null);
     }
     
     private void limpiarCamposGeneral(){
         
         lblEjemplares.setText(null);
         lblMulta.setText(null);
+    }
+    
+    private void guardarCopiaSeguridad() {
+        
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Guardar copia de seguridad de la base de datos "+configuracion.getNombreBaseDatos());
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("SQL Files (*.sql)", "*.sql"));
+        File file = fileChooser.showSaveDialog(null);
+
+        if (file != null) {
+            String name = file.getName();
+            if (name.indexOf(".") == -1) {
+                name += ".sql";
+                file = new File(file.getParentFile(), name);
+            }
+            try {
+                Process run = Runtime.getRuntime().exec(
+                configuracion.getRutaAmysqldump()+
+                " --host=" + configuracion.getDireccionBase() + 
+                " --port=" + configuracion.getPuertoBaseDatos() +
+                " --user=" + configuracion.getUsuarioBase() + 
+                " --password=" + configuracion.getContraseniaBase() +
+                " --compact --complete-insert --extended-insert --databases" +
+                " --default-character-set=utf8 --routines --add-drop-table " +
+                configuracion.getNombreBaseDatos());
+                //se guarda en memoria el backup
+                InputStream in = run.getInputStream();
+                BufferedReader br = new BufferedReader(new InputStreamReader(in));
+                temp = new StringBuffer();
+                int count;
+                char[] cbuf = new char[BUFFER];
+                while ((count = br.read(cbuf, 0, BUFFER)) != -1)
+                    temp.append(cbuf, 0, count);
+                br.close();
+                in.close();        
+                /* se crea y escribe el archivo SQL */
+                fichero = new FileWriter(file);
+                pw = new PrintWriter(fichero);                                                    
+                pw.println(temp.toString());  
+                
+            } catch (IOException ex) {
+                Utilidades.mensajeError(null, ex.getMessage(), "Error al guardar la copia de seguridad", "Error Copia Seguridad");
+            }finally{
+                try {
+                    if (null != fichero){
+                        fichero.close();
+                    }
+                } catch (IOException ex) {
+                    Utilidades.mensajeError(null, ex.getMessage(), "Error al cerrar el archivo", "Error Copia Seguridad");                    
+                }
+            }
+        }
     }
     
     public void setDialogStage(Stage dialogStage) {

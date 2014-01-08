@@ -26,7 +26,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import sabga.Sabga;
 import sabga.ScreensController;
-import sabga.configuracion.Conexion;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Utilidades;
 import javafx.scene.control.Dialogs;
@@ -302,7 +301,7 @@ public class PazySalvoController implements Initializable, ControlledScreen {
     private void guardarCaptura() {
         
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Guardar ");
+        fileChooser.setTitle("Guardar Paz y Salvo");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files (*.png)", "*.png", "*.jpg", "*.gif", "*.jpeg"));
         File file = fileChooser.showSaveDialog(null);

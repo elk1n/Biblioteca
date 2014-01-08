@@ -127,11 +127,11 @@ public class Preferencias {
         setPreferencia("clave", contrasenia);
     }
     
-    public int getValorMulta(){
-        return Integer.parseInt(propiedades.getProperty("multa"));
+    public String getRutaAmysqldump(){
+        return propiedades.getProperty("rutamysqldump");
     }
     
-    public void setValorMulta(String valor_multa){
-         setPreferencia("multa", valor_multa);
+    public void setRutaAmysqldump(String ruta){
+        setPreferencia("rutamysqldump", ruta);
     }
 }
