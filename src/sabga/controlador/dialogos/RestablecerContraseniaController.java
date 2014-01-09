@@ -2,8 +2,6 @@
 package sabga.controlador.dialogos;
 
 import java.net.URL;
-import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,11 +11,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 import sabga.Sabga;
-import sabga.configuracion.Conexion;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.ConfirmarUsuario;
+import sabga.modelo.Consultas;
 import sabga.modelo.ValidarUsuario;
-
 
 public class RestablecerContraseniaController implements Initializable {
     
@@ -31,11 +28,11 @@ public class RestablecerContraseniaController implements Initializable {
     private Pane panelAyuda;
     @FXML
     private ToggleButton btnAyuda;    
-    private final Conexion con;
-    private String usuario = null, clave;    
+    private String usuario = null, clave;
+    private final Consultas consulta;
     public RestablecerContraseniaController(){
-    
-        con = new Conexion();
+        
+        consulta = new Consultas();
     }
            
     public void setVentanaPrincipal(Sabga ventanaPrincipal) {       
@@ -57,73 +54,32 @@ public class RestablecerContraseniaController implements Initializable {
     }
     
     private void cambiarContrasenia(){
-        
-        validarUsuario();
-        if(usuario != null){
-            try {               
-                guardarContrasenia();               
-            } catch (SQLException ex) {
-                Utilidades.mensajeError(null, ex.getMessage(), "Error al guardar la nueva clave", "Error Guardar Clave");
-            }                                  
-        }
-        else{
-             lblValidacion.setText("No se ha encontrado el documento o correo del usuario.");
-        }     
+       
+        usuario = consulta.validarUsuario(txtfDocumento.getText().trim(), txtfCorreo.getText().trim());
+        if (usuario != null) {
+            guardarContrasenia();
+        } else {
+            lblValidacion.setText("No se ha encontrado el documento o correo del usuario.");
+        }    
     }
     
-    private void guardarContrasenia() throws SQLException{
+    private void guardarContrasenia(){
           
+        clave = Utilidades.claveAleatoria();
         String asunto = "Nueva Contraseña";
-        String mensaje= "Usted a solicitado una nueva clave para el ingreso al sistema SABGA.\n"+
-                        "Usuario: "+ usuario+"\n"+
-                        "Contraseña: "+clave+"\n\n"+
+        String mensaje= "Usted a solicitado una nueva clave para el ingreso al sistema SABGA. \n"+
+                        "Usuario: "+ usuario+" \n"+
+                        "Contraseña: "+clave+" \n\n"+
                         "Despues de ingresar, si lo desea puede cambiar la contraseña por una que pueda recordar fácilmente en el "+
                         "botón Menú opción Mi Cuenta.";
-                
-          try {
-
-            clave = Utilidades.claveAleatoria();
-            con.conectar();
-            con.getConexion().setAutoCommit(false);
-            con.procedimiento("{ CALL nuevaContrasenia(?,?,?) }");            
-            con.getProcedimiento().setString("documento", txtfDocumento.getText().trim());
-            con.getProcedimiento().setString("email", txtfCorreo.getText().trim());
-            con.getProcedimiento().setString("clave", Utilidades.encriptar(clave));
-            con.getProcedimiento().execute();
-            
-            if(Utilidades.enviarCorreo(txtfCorreo.getText().trim(), asunto, mensaje)){
-                con.getConexion().commit();
-                Utilidades.mensaje(null,"La nueva clave se ha generado correctamente", "La contraseña se ha enviado a su correo", "Cotraseña Generada");
-                cancelar(null);
-            }
-            else{
-                con.getConexion().rollback();
-                lblValidacion.setText("No se ha realizado el cambio de contraseña, favor intente nuevamente");
-            }           
-        } catch (SQLException e) {
-            con.getConexion().rollback();
-            Utilidades.mensajeError(null, e.getMessage(), "Error al guardar la nueva clave", "Error Guardar Clave");  
-        } finally {
-            con.desconectar();
-        }   
-    
-    }
-    
-    private void validarUsuario(){
-    
-         try {
-            con.conectar();
-            con.procedimiento("{ ? = CALL verificarBibliotecario(?,?) }");
-            con.getProcedimiento().registerOutParameter(1, Types.VARCHAR);
-            con.getProcedimiento().setString("documento", txtfDocumento.getText().trim());
-            con.getProcedimiento().setString("email",txtfCorreo.getText().trim());                   
-            con.getProcedimiento().execute();
-            usuario = con.getProcedimiento().getString(1);
-        } catch (SQLException e) {
-            Utilidades.mensajeError(null, e.getMessage(), "Error al verificar el usuario", "Error Vefificar Usuario");  
-        } finally {
-            con.desconectar();
-        }     
+             
+        if (Utilidades.enviarCorreo(txtfCorreo.getText().trim(), asunto, mensaje)) {
+            consulta.guardarContrasenia(txtfDocumento.getText().trim(), txtfCorreo.getText().trim(), clave);
+            Utilidades.mensaje(null, "La nueva clave se ha generado correctamente", "La contraseña se ha enviado a su correo", "Cotraseña Generada");
+            cancelar(null);
+        } else {
+            lblValidacion.setText("No se ha realizado el cambio de contraseña, favor intente nuevamente");
+        }
     }
               
     private void mensajesError(){
@@ -135,7 +91,7 @@ public class RestablecerContraseniaController implements Initializable {
     }
     
     @FXML
-    private void cancelar(ActionEvent evento){        
+    public void cancelar(ActionEvent evento){        
         this.ventanaPrincipal.ocultarDialogo();
         this.ventanaPrincipal.dialogoInicioSesion();       
     }

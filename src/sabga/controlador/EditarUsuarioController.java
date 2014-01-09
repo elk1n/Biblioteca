@@ -153,6 +153,7 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
                                        estado);
                 if (consulta.getMensaje() == null) {
                     limpiarCampos();
+                    listarUsuario();
                     Utilidades.mensaje(null, "La información se ha actualizado correctamente.", "", "Editar Datos Usuario");
                 } else {
                     Utilidades.mensajeError(null, consulta.getMensaje(), "La información no ha sido actualizada.", "Error Edición");

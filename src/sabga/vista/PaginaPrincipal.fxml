@@ -206,36 +206,6 @@
             <RadioButton fx:id="radioUsuario" font="$x1" mnemonicParsing="false" onAction="#opcionesBusqueda" text="Usuarios" toggleGroup="$busqueda" />
           </children>
         </HBox>
-        <HBox id="HBox" fx:id="hboxAdmin" alignment="CENTER_RIGHT" fillHeight="true" layoutX="1111.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" spacing="15.0">
-          <children>
-            <MenuButton fx:id="menuAdmin" font="$x1" mnemonicParsing="false" prefHeight="25.0" text="Menú" HBox.hgrow="ALWAYS">
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#ventanaCuenta" text="Mi Cuenta" />
-                <Menu mnemonicParsing="false" text="Bibliotecario Auxiliar">
-                  <items>
-                    <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroAdmin" text="Registrar Auxiliar" />
-                    <MenuItem mnemonicParsing="false" onAction="#ventanaEditarAdmin" text="Editar Información Auxiliar" />
-                  </items>
-                </Menu>
-                <MenuItem mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" />
-              </items>
-              <HBox.margin>
-                <Insets fx:id="x7" />
-              </HBox.margin>
-            </MenuButton>
-            <Button id="botonAyuda" contentDisplay="CENTER" font="$x1" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#dialogoAyuda" prefHeight="25.0" prefWidth="25.0" styleClass="botonAyuda" text="" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="ALWAYS">
-              <stylesheets>
-                <URL value="@css/estilo.css" />
-              </stylesheets>
-              <HBox.margin>
-                <Insets fx:id="x2" />
-              </HBox.margin>
-            </Button>
-          </children>
-          <padding>
-            <Insets fx:id="x8" />
-          </padding>
-        </HBox>
         <HBox id="HBox" alignment="CENTER" layoutX="391.0" layoutY="71.0" spacing="15.0">
           <children>
             <TextField fx:id="campoBusqueda" onKeyTyped="#mostrarBoton" prefHeight="30.0" prefWidth="400.0" promptText="Ingrese el material o usuario a buscar">
@@ -245,6 +215,14 @@
             </TextField>
           </children>
         </HBox>
+        <Button font="$x1" layoutX="798.0" layoutY="73.0" mnemonicParsing="false" onAction="#ventanaBuscar" prefHeight="25.0" prefWidth="25.0" styleClass="botonBuscar" text="">
+          <rotationAxis>
+            <Point3D />
+          </rotationAxis>
+          <stylesheets>
+            <URL value="@css/estilo.css" />
+          </stylesheets>
+        </Button>
         <Button fx:id="botonBorrarBusqueda" contentDisplay="CENTER" graphicTextGap="2.0" layoutX="764.0" layoutY="76.0" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#borrarCampo" opacity="0.79" prefHeight="20.0" prefWidth="20.0" styleClass="botonBorrarBusqueda">
           <stylesheets>
             <URL value="@css/estilo.css" />
@@ -257,12 +235,12 @@
                 <Menu mnemonicParsing="false" style="" styleClass="modItem" text="SABGA">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#ventanaInicio" text="Inicio" />
-                    <MenuItem mnemonicParsing="false" onAction="#dialogoPreferencias" text="Preferencias...">
+                    <MenuItem mnemonicParsing="false" onAction="#dialogoPreferencias" text="Preferencias..." fx:id="menuPreferencias">
                       <accelerator>
                         <KeyCodeCombination alt="UP" code="COMMA" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                       </accelerator>
                     </MenuItem>
-                    <MenuItem mnemonicParsing="false" text="Cerrar Sesión" />
+                    <MenuItem mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" />
                     <SeparatorMenuItem mnemonicParsing="false" />
                     <MenuItem mnemonicParsing="false" onAction="#salir" text="Salir de SABGA" fx:id="salir">
                       <accelerator>
@@ -315,7 +293,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Paz y Salvo">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#ventanaPazySalvo" text="Expedir Paz y Salvo" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaPazySalvo" text="Expedir Paz y Salvo" fx:id="menuPazysalvo" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Ayuda">
@@ -328,14 +306,36 @@
             </MenuBar>
           </children>
         </AnchorPane>
-        <Button font="$x1" layoutX="798.0" layoutY="73.0" mnemonicParsing="false" onAction="#ventanaBuscar" prefHeight="25.0" prefWidth="25.0" styleClass="botonBuscar" text="">
-          <rotationAxis>
-            <Point3D />
-          </rotationAxis>
-          <stylesheets>
-            <URL value="@css/estilo.css" />
-          </stylesheets>
-        </Button>
+        <HBox id="HBox" fx:id="hboxAdmin" alignment="CENTER_RIGHT" fillHeight="true" layoutX="1111.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" spacing="15.0">
+          <children>
+            <MenuButton fx:id="menuAdmin" font="$x1" mnemonicParsing="false" prefHeight="25.0" text="Menú" HBox.hgrow="ALWAYS">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#ventanaCuenta" text="Mi Cuenta" />
+                <Menu mnemonicParsing="false" text="Bibliotecario Auxiliar" fx:id="menuAuxiliar">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaRegistroAdmin" text="Registrar Auxiliar" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaEditarAdmin" text="Editar Información Auxiliar" />
+                  </items>
+                </Menu>
+                <MenuItem mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" />
+              </items>
+              <HBox.margin>
+                <Insets fx:id="x7" />
+              </HBox.margin>
+            </MenuButton>
+            <Button id="botonAyuda" contentDisplay="CENTER" font="$x1" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#dialogoAyuda" prefHeight="25.0" prefWidth="25.0" styleClass="botonAyuda" text="" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+              <stylesheets>
+                <URL value="@css/estilo.css" />
+              </stylesheets>
+              <HBox.margin>
+                <Insets fx:id="x2" />
+              </HBox.margin>
+            </Button>
+          </children>
+          <padding>
+            <Insets fx:id="x8" />
+          </padding>
+        </HBox>
       </children>
       <padding>
         <Insets fx:id="x5" />

@@ -8,8 +8,8 @@ package sabga.atributos;
 public class Atributos {
 
     private static String datoBusqueda = "";
-    private static String nombreUsuario = "admin";
-    private static String documento = "11111111";
+    private static String nombreUsuario;
+    private static String documento;
     private static String nombre;
     private static String apellido;
     private static String nombresUsuario;

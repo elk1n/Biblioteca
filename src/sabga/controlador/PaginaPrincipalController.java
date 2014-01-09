@@ -2,6 +2,8 @@ package sabga.controlador;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,8 +11,10 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialogs;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -27,6 +31,7 @@ import sabga.atributos.Usuario;
 import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.Consultas;
+import sabga.modelo.ValidarUsuario;
 
 public class PaginaPrincipalController implements Initializable, ControlledScreen {
     
@@ -57,11 +62,19 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     @FXML
     private TableColumn clmnDocumentoD, clmnNombreD, clmnTituloD, clmnEjemplarD, clmnCodigoD, clmnFechaD, clmnDocumentoR,
                         clmnNombreR, clmnEjemplarR, clmnFechaR, clmnTituloR, clmnCodigoR;
+    @FXML
+    private Menu menuAuxiliar;
+    @FXML
+    private MenuItem menuPazysalvo, menuPreferencias;
+    private final ObservableList<Usuario> listaCorreos;
+    private final ValidarUsuario validar;
 
     public PaginaPrincipalController(){       
         dialogo = new Dialogo();
         atributos = new Atributos();
         consulta = new Consultas();
+        listaCorreos = FXCollections.observableArrayList();
+        validar = new ValidarUsuario();
     }
     
     @Override
@@ -289,7 +302,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         dialogo.mostrarDialogo("vista/dialogos/AcercaDe.fxml", "Acerca de SABGA", ventanaPrincipal.getPrimaryStage(), null, 18);
     }
     
-   @FXML
+    @FXML
     private void opcionesBusqueda(ActionEvent evento) {
         
        
@@ -307,6 +320,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     @FXML
     public void cerrarSesion(ActionEvent evento){
         ventanaPrincipal.cerrarSesion();
+        ventanaInicio();
     }
     
     @FXML
@@ -368,14 +382,26 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         consulta.enviarCorreoUsuarios();
     }
     
-    private void enviarCorreos(){
+    private void enviarCorreos() {
         
-        for(Usuario u: consulta.enviarCorreoUsuarios()){            
-            String mensaje = "Señor(a) "+u.getNombre()+" recuerde que tiene pendiente la devolución de:\n"+
-                             consulta.getDetalleCorreoUsuario(u.getDocumento());        
-            Utilidades.enviarCorreo(u.getCorreo(), "Recordatorio, entrega de material bibliográfico", mensaje);
-        }
-    
+        if (consulta.getEstadoCorreos() == 1) {
+            listaCorreos.clear();
+            listaCorreos.addAll(consulta.enviarCorreoUsuarios());
+            if (!listaCorreos.isEmpty()) {
+                boolean resultado = false;
+                for (Usuario u : listaCorreos) {
+                    String mensaje = "Señor(a) " + u.getNombre() + " recuerde que tiene pendiente la devolución de: \n\n"
+                                    + consulta.getDetalleCorreoUsuario(u.getDocumento());
+                    if (validar.validarCorreo(u.getCorreo(), 90)) {
+                      resultado = Utilidades.enviarCorreo(u.getCorreo(), "Entrega de material bibliográfico", mensaje);
+                    }
+                }
+                if(resultado){
+                    consulta.setEstadoCorreos(0);
+                }
+                
+            }
+        }  
     }
     
     private void cancelarReservas(){
@@ -392,7 +418,11 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         panelInicio.setDisable(false);
         panelInicio.setVisible(true);
         panelBusqueda.setDisable(true);
-        panelBusqueda.setVisible(false); 
+        panelBusqueda.setVisible(false);
+        enviarCorreos();
+//        menuAuxiliar.setDisable(true);
+//        menuPazysalvo.setDisable(true);
+//        menuPreferencias.setDisable(true);
         
     }
     

@@ -2,6 +2,8 @@ package sabga.modelo;
 
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sabga.atributos.Autor;
@@ -921,26 +923,7 @@ public class Consultas {
 
     }
 
-    public int getId(int opcion, String nombre) {
-
-        int id = 0;
-
-        try {
-            con.conectar();
-            con.procedimiento("{ ? = CALL getId(?,?) }");
-            con.getProcedimiento().registerOutParameter(1, Types.INTEGER);
-            con.getProcedimiento().setInt("opcion", opcion);
-            con.getProcedimiento().setString("nombre", nombre);
-            con.getProcedimiento().execute();
-            id = con.getProcedimiento().getInt(1);
-        } catch (SQLException e) {
-            Utilidades.mensajeError(null, e.getMessage(), "No ha sido posible realizar la operación solicitada.", "Error");
-        } finally {
-            con.desconectar();
-        }
-        return id;
-    }
-
+    
     public void eliminarMaterial(int codigo) throws SQLException {
 
         try {
@@ -1350,6 +1333,51 @@ public class Consultas {
         }
     }
     
+    public void setEstadoCorreos(int estado){
+    
+        try {
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL setEstadoCorreos(?) }");
+            con.getProcedimiento().setInt("estado", estado);
+            con.getProcedimiento().execute();
+            con.getConexion().commit();
+        } catch (SQLException e) {
+            try {
+                con.getConexion().rollback();
+            } catch (SQLException ex) {
+                Utilidades.mensajeError(null, ex.getMessage(), "Error al guardar el estado. ", "Error Guardar Estado");
+            }
+            Utilidades.mensajeError(null, e.getMessage(), "Error al guardar el estado. ", "Error Guardar Estado");
+        } finally {
+            con.desconectar();
+        }
+    }
+    
+    public void guardarContrasenia(String documento, String correo, String clave){
+    
+        try {
+
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL nuevaContrasenia(?,?,?) }");
+            con.getProcedimiento().setString("documento", documento);
+            con.getProcedimiento().setString("email", correo);
+            con.getProcedimiento().setString("clave", Utilidades.encriptar(clave));
+            con.getProcedimiento().execute();
+            con.getConexion().commit();
+        } catch (SQLException e) {
+            try {
+                con.getConexion().rollback();
+            } catch (SQLException ex) {
+                Utilidades.mensajeError(null, ex.getMessage(), "Error al guardar la nueva contraseña.", "Error Guardar Contraseña");
+            }
+            Utilidades.mensajeError(null, e.getMessage(), "Error al guardar la nueva contraseña.", "Error Guardar Contraseña");
+        } finally {
+            con.desconectar();
+        } 
+    }
+    
     public ObservableList<Usuario> enviarCorreoUsuarios(){
         
         ObservableList<Usuario> lista = FXCollections.observableArrayList();        
@@ -1382,7 +1410,7 @@ public class Consultas {
             while (con.getResultado().next()) { 
                 
                 contenido += "El "+con.getResultado().getString("tipo")+" " +con.getResultado().getString("titulo")+
-                           " para entregar el día "+con.getResultado().getString("fecha")+"./n";    
+                           " para entregar el día "+con.getResultado().getString("fecha")+". \n\n";    
             }
                                 
         } catch (SQLException e) {            
@@ -1465,9 +1493,9 @@ public class Consultas {
         return cantidad;
     }
     
-    public int getValorPorMulta(){
-        
-            int valorMulta=0;
+    public int getValorPorMulta() {
+
+        int valorMulta = 0;
         try {
             con.conectar();
             con.procedimiento("{ ? = CALL getValorMulta() }");
@@ -1479,10 +1507,87 @@ public class Consultas {
         } finally {
             con.desconectar();
         }
-        return valorMulta; 
-    
+        return valorMulta;
+
     }
     
+    public int getEstadoCorreos() {
+
+        int estadoCorreos = 0;
+        try {
+            con.conectar();
+            con.procedimiento("{ ? = CALL getEstadoCorreos() }");
+            con.getProcedimiento().registerOutParameter(1, Types.TINYINT);
+            con.getProcedimiento().execute();
+            estadoCorreos = con.getProcedimiento().getInt(1);
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar el estado del envió de correos.", "Error Consulta Estado");
+        } finally {
+            con.desconectar();
+        }
+        return estadoCorreos;
+
+    }
+    
+    public int getId(int opcion, String nombre) {
+
+        int id = 0;
+
+        try {
+            con.conectar();
+            con.procedimiento("{ ? = CALL getId(?,?) }");
+            con.getProcedimiento().registerOutParameter(1, Types.INTEGER);
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setString("nombre", nombre);
+            con.getProcedimiento().execute();
+            id = con.getProcedimiento().getInt(1);
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "No ha sido posible realizar la operación solicitada.", "Error");
+        } finally {
+            con.desconectar();
+        }
+        return id;
+    }
+    
+    public int consultarUsuario(String usuario, String contrasenia, String tipo){
+        
+        int ingreso = 0;
+        try {
+            con.conectar();
+            con.procedimiento("{ ? = CALL inicioSesion(?,?,?) }");
+            con.getProcedimiento().registerOutParameter(1, Types.TINYINT);
+            con.getProcedimiento().setString("usuario", usuario );
+            con.getProcedimiento().setString("clave", contrasenia);            
+            con.getProcedimiento().setString("tipo", tipo );            
+            con.getProcedimiento().execute();
+            ingreso = con.getProcedimiento().getInt(1);
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al inciar sesión", "Error Iniciar Sesión");  
+        } finally {
+            con.desconectar();
+        }
+        return ingreso;
+    }
+    
+    public String validarUsuario(String documento, String correo){
+    
+        String nombreUsuario = null;
+         try {
+            con.conectar();
+            con.procedimiento("{ ? = CALL verificarBibliotecario(?,?) }");
+            con.getProcedimiento().registerOutParameter(1, Types.VARCHAR);
+            con.getProcedimiento().setString("documento", documento );
+            con.getProcedimiento().setString("email", correo);                   
+            con.getProcedimiento().execute();
+            nombreUsuario = con.getProcedimiento().getString(1);
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al verificar el usuario", "Error Vefificar Usuario");  
+        } finally {
+            con.desconectar();
+        }
+        return nombreUsuario; 
+    }
+               
     public String getNombreBibliotecario(String usuario){
     
         String nombreBibliotecario = "";

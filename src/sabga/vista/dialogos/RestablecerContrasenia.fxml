@@ -22,14 +22,14 @@
       <children>
         <Label text="Número de Identificación:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
         <Label text="Correo Electrónico:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <TextField id="campoDocumento" prefHeight="30.0" prefWidth="250.0" promptText="Documento de indentidad" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-        <TextField id="campoCorreo" prefHeight="30.0" prefWidth="250.0" promptText="E-mail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <Label id="validarCorreo" alignment="CENTER_RIGHT" prefWidth="267.0" text="" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <TextField id="campoDocumento" fx:id="txtfDocumento" prefHeight="30.0" prefWidth="250.0" promptText="Documento de indentidad" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <TextField id="campoCorreo" fx:id="txtfCorreo" prefHeight="30.0" prefWidth="250.0" promptText="E-mail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Label id="validarCorreo" fx:id="lblValidarCorreo" alignment="CENTER_RIGHT" prefWidth="267.0" text="" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
           <textFill>
             <Color blue="0.000" green="0.145" red="0.600" fx:id="x1" />
           </textFill>
         </Label>
-        <Label id="validarDocumento" alignment="CENTER_RIGHT" prefWidth="267.0" text="" textFill="$x1" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label id="validarDocumento" fx:id="lblValidarDocumento" alignment="CENTER_RIGHT" prefWidth="267.0" text="" textFill="$x1" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="164.0" minWidth="10.0" prefWidth="141.0" />
