@@ -1350,6 +1350,49 @@ public class Consultas {
         }
     }
     
+    public ObservableList<Usuario> enviarCorreoUsuarios(){
+        
+        ObservableList<Usuario> lista = FXCollections.observableArrayList();        
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getCorreoUsuario() }");
+            con.setResultado(con.getProcedimiento().executeQuery());            
+            while (con.getResultado().next()) {
+                lista.add(new Usuario(con.getResultado().getString("documento"), con.getResultado().getString("email"),
+                                      con.getResultado().getString("nombre")));                      
+            }
+                                
+        } catch (SQLException e) {            
+            Utilidades.mensajeError(null, e.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
+        } finally {
+            con.desconectar();
+        }
+        return lista;
+    }
+    
+    public String getDetalleCorreoUsuario(String documento){
+    
+        String contenido = "";
+        
+         try {
+            con.conectar();
+            con.procedimiento("{ CALL getCorreoDetalleUsuario(?) }");                 
+            con.getProcedimiento().setString("id", documento);
+            con.setResultado(con.getProcedimiento().executeQuery());          
+            while (con.getResultado().next()) { 
+                
+                contenido += "El "+con.getResultado().getString("tipo")+" " +con.getResultado().getString("titulo")+
+                           " para entregar el día "+con.getResultado().getString("fecha")+"./n";    
+            }
+                                
+        } catch (SQLException e) {            
+            Utilidades.mensajeError(null, e.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
+        } finally {
+            con.desconectar();
+        }
+         return contenido;
+    }
+    
     public int getDevolucion(int prestamo){
         
         int devolucion=0;

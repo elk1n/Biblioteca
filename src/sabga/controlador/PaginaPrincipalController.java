@@ -23,6 +23,7 @@ import sabga.ScreensController;
 import sabga.atributos.Atributos;
 import sabga.atributos.Devolucion;
 import sabga.atributos.Reserva;
+import sabga.atributos.Usuario;
 import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.Consultas;
@@ -364,6 +365,17 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         clmnCodigoR.setCellValueFactory(new PropertyValueFactory<Reserva, String>("estado"));
         clmnFechaR.setCellValueFactory(new PropertyValueFactory<Reserva, String>("fecha"));
         tablaReservas.setItems(consulta.getListaReservasDia());
+        consulta.enviarCorreoUsuarios();
+    }
+    
+    private void enviarCorreos(){
+        
+        for(Usuario u: consulta.enviarCorreoUsuarios()){            
+            String mensaje = "Señor(a) "+u.getNombre()+" recuerde que tiene pendiente la devolución de:\n"+
+                             consulta.getDetalleCorreoUsuario(u.getDocumento());        
+            Utilidades.enviarCorreo(u.getCorreo(), "Recordatorio, entrega de material bibliográfico", mensaje);
+        }
+    
     }
     
     private void cancelarReservas(){
@@ -380,7 +392,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         panelInicio.setDisable(false);
         panelInicio.setVisible(true);
         panelBusqueda.setDisable(true);
-        panelBusqueda.setVisible(false);  
+        panelBusqueda.setVisible(false); 
         
     }
     

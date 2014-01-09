@@ -106,6 +106,13 @@ public class Usuario {
     
     }
     
+    public Usuario(String documento, String correo, String nombre){
+    
+        this.documento = new SimpleStringProperty(documento);
+        this.correo = new SimpleStringProperty(correo);
+        this.nombre = new SimpleStringProperty(nombre);
+    }
+    
     public String getTipo() {
         return this.tipo.get();
     }

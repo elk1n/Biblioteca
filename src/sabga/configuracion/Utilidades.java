@@ -102,7 +102,7 @@ public class Utilidades {
         return pswd;
     }
     
-    public static boolean enviarCorreo(String destinatario, String usuario, String clave){
+    public static boolean enviarCorreo(String destinatario, String asunto, String mensaje){
            
          pref = new Preferencias();          
         try {
@@ -118,11 +118,8 @@ public class Utilidades {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(pref.getCorreo(), "Biblioteca Gilberto Alzate"));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
-            message.setSubject("Nueva Contraseña");
-            message.setText("Usted a solicitado una nueva clave para el ingreso al sistema SABGA.\n"
-                            +"Usuario: "+ usuario+"\n"+"Contraseña: "+clave+"\n\n"+
-                             "Despues de ingresar, si lo desea puede cambiar la contraseña por una que pueda recordar fácilmente en el "
-                            + "menú administrador submenú confuguración.");
+            message.setSubject(asunto);
+            message.setText(mensaje);
 
             Transport t = session.getTransport("smtp");
 
@@ -131,7 +128,7 @@ public class Utilidades {
             t.close();
             return true;
         } catch (AddressException e) {
-            mensajeError(null,e.getMessage(),"Error en la dirección de correo","Error Enviar Mensaje");
+            mensajeError(null,e.getMessage(),"Error en la dirección de correo", "Error Enviar Mensaje");
             return false;
         } catch (MessagingException | UnsupportedEncodingException e) {
             mensajeError(null,e.getMessage(),"Error al eviar el mensaje de correo","Error Enviar Mensaje");

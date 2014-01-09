@@ -73,6 +73,13 @@ public class RestablecerContraseniaController implements Initializable {
     
     private void guardarContrasenia() throws SQLException{
           
+        String asunto = "Nueva Contraseña";
+        String mensaje= "Usted a solicitado una nueva clave para el ingreso al sistema SABGA.\n"+
+                        "Usuario: "+ usuario+"\n"+
+                        "Contraseña: "+clave+"\n\n"+
+                        "Despues de ingresar, si lo desea puede cambiar la contraseña por una que pueda recordar fácilmente en el "+
+                        "botón Menú opción Mi Cuenta.";
+                
           try {
 
             clave = Utilidades.claveAleatoria();
@@ -84,7 +91,7 @@ public class RestablecerContraseniaController implements Initializable {
             con.getProcedimiento().setString("clave", Utilidades.encriptar(clave));
             con.getProcedimiento().execute();
             
-            if(Utilidades.enviarCorreo(txtfCorreo.getText().trim(), usuario, clave)){
+            if(Utilidades.enviarCorreo(txtfCorreo.getText().trim(), asunto, mensaje)){
                 con.getConexion().commit();
                 Utilidades.mensaje(null,"La nueva clave se ha generado correctamente", "La contraseña se ha enviado a su correo", "Cotraseña Generada");
                 cancelar(null);
@@ -134,7 +141,7 @@ public class RestablecerContraseniaController implements Initializable {
     }
     
     @FXML
-    private void ayuda(ActionEvent evento){    
+    public void ayuda(ActionEvent evento){    
         
         if(btnAyuda.isSelected()){         
             panelAyuda.setVisible(true);         
