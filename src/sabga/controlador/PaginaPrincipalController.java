@@ -10,7 +10,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialogs;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuButton;
@@ -19,7 +21,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import sabga.Sabga;
 import sabga.configuracion.ControlledScreen;
@@ -31,6 +32,7 @@ import sabga.atributos.Usuario;
 import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.Consultas;
+import sabga.modelo.Seleccion;
 import sabga.modelo.ValidarUsuario;
 
 public class PaginaPrincipalController implements Initializable, ControlledScreen {
@@ -48,36 +50,43 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     @FXML
     private RadioButton radioUsuario, radioMaterial;
     @FXML 
-    private Button botonBorrarBusqueda;
+    private Button botonBorrarBusqueda, btnDetalleUsuario, btnMultas;
     @FXML
     private MenuBar barraMenu;   
     @FXML
+    private Label lblResultadoUsuario;
+    @FXML
     private MenuButton menuAdmin;
     @FXML
-    private AnchorPane panelCentral;
+    private ComboBox comboListarUsuario;
     @FXML
-    private Pane panelInicio, panelBusqueda;
+    private Pane panelInicio, panelBusqueda, panelBuscarUsuario, panelBuscarMaterial;
     @FXML
-    private TableView tablaDevolucion, tablaReservas;
+    private TableView tablaDevolucion, tablaReservas, tablaUsuarios;
     @FXML
     private TableColumn clmnDocumentoD, clmnNombreD, clmnTituloD, clmnEjemplarD, clmnCodigoD, clmnFechaD, clmnDocumentoR,
-                        clmnNombreR, clmnEjemplarR, clmnFechaR, clmnTituloR, clmnCodigoR;
+                        clmnNombreR, clmnEjemplarR, clmnFechaR, clmnTituloR, clmnCodigoR, clmnTipo, clmnDocumento, clmnNombre,
+                        clmnApellido, clmnCorreo, clmnTelefono, clmnGrado, clmnCurso, clmnJornada, clmnEstado;
     @FXML
     private Menu menuAuxiliar;
     @FXML
-    private MenuItem menuPazysalvo, menuPreferencias;
+    private MenuItem menuPazysalvo, menuPreferencias, menuMultas, menuDetalleUsuario;
     private final ObservableList<Usuario> listaCorreos;
+    private final ObservableList<Usuario> listaUsuarios;
     private final ValidarUsuario validar;
+    private final Seleccion select;
 
     public PaginaPrincipalController(){       
         dialogo = new Dialogo();
         atributos = new Atributos();
-        consulta = new Consultas();
-        listaCorreos = FXCollections.observableArrayList();
+        consulta = new Consultas();        
         validar = new ValidarUsuario();
+        select = new Seleccion();
+        listaCorreos = FXCollections.observableArrayList();
+        listaUsuarios = FXCollections.observableArrayList();
     }
     
-    @Override
+    @Override   
     public void setScreenParent(ScreensController screenParent) {       
          controlador = screenParent;         
     }
@@ -85,6 +94,47 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     public void setVentanaPrincipal(Sabga ventanaPrincipal) {      
 	this.ventanaPrincipal = ventanaPrincipal;
     } 
+    
+    @FXML
+    public void busqueda(ActionEvent evento){    
+        ventanaBuscar();
+        buscar();
+    }
+    
+    @FXML
+    public void listarLosUsuarios(ActionEvent event){
+        listarUsuarios();
+    }
+    
+    @FXML
+    public void dialogoDetalleUsuario(ActionEvent evento){
+        detalleUsuario();
+    }
+    
+    @FXML
+    public void dialogoMultasUsuario(){
+        multasUsuario();
+    }
+    
+    public void seleccionDeUsuario(){
+        seleccionarUsuario();
+    }
+    
+    private void prepararTablaUsuarios(){
+    
+        clmnTipo.setCellValueFactory(new PropertyValueFactory<Usuario, String>("tipo"));
+        clmnDocumento.setCellValueFactory(new PropertyValueFactory<Usuario, String>("documento"));
+        clmnNombre.setCellValueFactory(new PropertyValueFactory<Usuario, String>("nombre"));
+        clmnApellido.setCellValueFactory(new PropertyValueFactory<Usuario, String>("apellido"));
+        clmnCorreo.setCellValueFactory(new PropertyValueFactory<Usuario, String>("correo"));
+        clmnTelefono.setCellValueFactory(new PropertyValueFactory<Usuario, String>("telefono"));
+        clmnGrado.setCellValueFactory(new PropertyValueFactory<Usuario, String>("grado"));
+        clmnCurso.setCellValueFactory(new PropertyValueFactory<Usuario, String>("curso"));
+        clmnJornada.setCellValueFactory(new PropertyValueFactory<Usuario, String>("jornada"));
+        clmnEstado.setCellValueFactory(new PropertyValueFactory<Usuario, String>("estado"));
+        listaUsuarios.clear();
+    
+    }
     
     @FXML
     public void ventanaInicio(){
@@ -102,8 +152,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         }
     }
     
-    @FXML
-    public void ventanaBuscar(ActionEvent evento){
+    private void ventanaBuscar(){
         
         if (!ventanaBusqueda) {
             ventanaBusqueda = true;
@@ -112,9 +161,93 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
             panelInicio.setVisible(false);
             panelBusqueda.setDisable(false);
             panelBusqueda.setVisible(true);
-            ventanaPrincipal.vistaInicial(panelCentral);
-            ventanaPrincipal.setTitle("Buscar");
+            ventanaPrincipal.vistaInicial(panelBusqueda);
+            ventanaPrincipal.setTitle("Buscar");            
         }
+    }
+    
+    private void buscar(){
+        
+        if(radioUsuario.isSelected()){
+            panelBuscarMaterial.setVisible(false);
+            panelBuscarMaterial.setDisable(true);
+            panelBuscarUsuario.setVisible(true);
+            panelBuscarUsuario.setDisable(false);
+            buscarUsuario();
+            
+        }else{
+            panelBuscarUsuario.setVisible(false);
+            panelBuscarUsuario.setDisable(true);
+            panelBuscarMaterial.setVisible(true);
+            panelBuscarMaterial.setDisable(false);
+            
+        }
+    }
+    
+    private void listarUsuarios(){
+        
+         if (!comboListarUsuario.getSelectionModel().isEmpty()) {            
+            prepararTablaUsuarios();
+            if (comboListarUsuario.getSelectionModel().getSelectedItem().toString().contains("Todos")) {
+                listaUsuarios.addAll(consulta.getListaUsuariosRecibo(4, null));
+            } else {
+                listaUsuarios.addAll(consulta.getListaUsuariosRecibo(3, comboListarUsuario.getSelectionModel().getSelectedItem().toString()));
+            }
+            tablaUsuarios.setItems(listaUsuarios);
+            lblResultadoUsuario.setText(null);
+        }
+    }
+    
+    private void buscarUsuario(){
+    
+         if (!"".equals(campoBusqueda.getText())) {
+            prepararTablaUsuarios();
+            listaUsuarios.addAll(consulta.getListaUsuariosRecibo(5, campoBusqueda.getText().trim()));
+            tablaUsuarios.setItems(listaUsuarios);
+            if(listaUsuarios.isEmpty()){
+                comboListarUsuario.getSelectionModel().clearSelection();
+                lblResultadoUsuario.setText("No se han encontrado resultados.");
+            }else{
+                lblResultadoUsuario.setText(null);
+                comboListarUsuario.getSelectionModel().clearSelection();
+            }
+        }   
+    }
+      
+    private void detalleUsuario(){
+        
+        if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
+            menuDetalleUsuario.setDisable(true);
+            btnDetalleUsuario.setDisable(true);
+            dialogo.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información del Usuario", null , null, 5);           
+            menuDetalleUsuario.setDisable(false);  
+            btnDetalleUsuario.setDisable(false); 
+        }else{
+            Utilidades.mensaje(null, "Debe seleccionar un usuario. ", "", "Selección Usuario");
+        }
+    }
+    
+    private void multasUsuario(){
+        
+        if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
+            menuMultas.setDisable(true);
+            btnMultas.setDisable(true);
+            dialogo.mostrarDialogo("vista/dialogos/Multa.fxml", "Detalle Multas", null , null, 17);           
+            menuMultas.setDisable(false); 
+            btnMultas.setDisable(false);
+        }else{
+            Utilidades.mensaje(null, "Debe seleccionar un usuario. ", "", "Selección Usuario");
+        }
+    }
+      
+    private void seleccionarUsuario(){
+        
+        if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
+            atributos.setDocumentoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
+            atributos.setNombreUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getNombre());
+            atributos.setApellidoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getApellido());
+            atributos.setCorreoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getCorreo());   
+        }    
     }
     
     @FXML
@@ -301,13 +434,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     public void dialogoAcercaDe(ActionEvent evento){
         dialogo.mostrarDialogo("vista/dialogos/AcercaDe.fxml", "Acerca de SABGA", ventanaPrincipal.getPrimaryStage(), null, 18);
     }
-    
-    @FXML
-    private void opcionesBusqueda(ActionEvent evento) {
-        
-       
-    }
-    
+   
     @FXML
     public void salir(ActionEvent evento){
 
@@ -326,6 +453,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     @FXML
     public void borrarCampo(ActionEvent event){        
         campoBusqueda.setText("");
+        lblResultadoUsuario.setText(null);
         botonBorrarBusqueda.setVisible(false);        
     }
     
@@ -410,8 +538,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     private void tipoUsuario(){
         
-        if(atributos.getTipoUsuario()!= null){
-            
+        if(atributos.getTipoUsuario()!= null){            
             if(atributos.getTipoUsuario().contains("auxiliar")){
                 menuAuxiliar.setDisable(true);
                 menuPazysalvo.setDisable(true);
@@ -424,8 +551,11 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     private void inicio(){
         
        //cancelarReservas();
+       // ventanaInicio();
         devolucionesDia();
         reservasPendientes();
+        comboListarUsuario.setItems(consulta.llenarLista(select.getListaUsuarios(), select.getUsuarios()));
+        comboListarUsuario.getItems().add("Todos");
         botonBorrarBusqueda.setVisible(false);
         barraMenu.setPrefWidth(java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth());
         panelInicio.setDisable(false);

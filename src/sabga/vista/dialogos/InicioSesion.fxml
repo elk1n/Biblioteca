@@ -15,7 +15,7 @@
   <children>
     <Label fx:id="labelTitulo" text="SABGA" AnchorPane.bottomAnchor="539.0" AnchorPane.rightAnchor="207.0">
       <font>
-        <Font size="22.0" />
+        <Font name="System Bold" size="22.0" />
       </font>
     </Label>
     <ImageView fitHeight="132.5" fitWidth="132.5" pickOnBounds="true" preserveRatio="true" smooth="false" AnchorPane.bottomAnchor="392.0" AnchorPane.rightAnchor="175.0">
@@ -30,7 +30,7 @@
             <FXCollections fx:factory="observableArrayList" />
           </items>
         </ComboBox>
-        <Label labelFor="$comboTipoAdmin" text="Tipo de Administrador" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.valignment="TOP">
+        <Label labelFor="$comboTipoAdmin" text="Tipo de Administrador:" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.valignment="TOP">
           <font>
             <Font name="System Bold" size="13.0" fx:id="x1" />
           </font>

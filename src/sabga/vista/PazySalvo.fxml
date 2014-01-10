@@ -14,7 +14,7 @@
 
 <AnchorPane id="AnchorPane" disable="false" prefHeight="520.0" prefWidth="1260.0" visible="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.PazySalvoController">
   <children>
-    <Pane fx:id="panelBuscar" disable="true" prefHeight="520.0" prefWidth="1260.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <Pane fx:id="panelBuscar" disable="false" prefHeight="520.0" prefWidth="1260.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
         <HBox id="HBox" alignment="CENTER" layoutX="45.0" layoutY="23.0" spacing="100.0">
           <children>
@@ -51,7 +51,7 @@
           </stylesheets>
         </Button>
         <Label fx:id="lblBuscarUsuario" layoutX="246.0" layoutY="93.0" prefWidth="246.0" text="" textFill="#cc0000" />
-        <TableView fx:id="tablaUsuarios" layoutX="43.0" layoutY="126.0" onKeyTyped="#seleccionUsuario" onMouseClicked="#seleccionUsuario" prefHeight="312.0" prefWidth="1167.0">
+        <TableView fx:id="tablaUsuarios" layoutX="43.0" layoutY="126.0" onKeyTyped="#seleccionUsuario" onMouseClicked="#seleccionUsuario" prefHeight="312.0" prefWidth="1167.0" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); &#10;">
           <columns>
             <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="100.0" text="Tipo Usuario" fx:id="clmnTipo" />
             <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="87.0" text="Documento" fx:id="clmnDocumento" />
@@ -87,7 +87,7 @@
         </HBox>
       </children>
     </Pane>
-    <Pane fx:id="panelRecibo" disable="false" prefHeight="520.0" prefWidth="1260.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <Pane fx:id="panelRecibo" disable="true" prefHeight="520.0" prefWidth="1260.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
         <Pane fx:id="recibo" disable="false" layoutX="95.0" layoutY="0.0" prefHeight="471.0" prefWidth="1070.0" style="-fx-background-radius: 5px;  &#10;-fx-background-color: #F5F5F5;" visible="true">
           <children>

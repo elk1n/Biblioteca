@@ -265,8 +265,7 @@ public class PazySalvoController implements Initializable, ControlledScreen {
         clmnCurso.setCellValueFactory(new PropertyValueFactory<Usuario, String>("curso"));
         clmnJornada.setCellValueFactory(new PropertyValueFactory<Usuario, String>("jornada"));
         clmnEstado.setCellValueFactory(new PropertyValueFactory<Usuario, String>("estado"));
-        listaUsuarios.clear();
-    
+        listaUsuarios.clear();    
     }
     
     private void vistaPazySalvo(){
