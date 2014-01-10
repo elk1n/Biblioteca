@@ -16,7 +16,7 @@
   <center>
     <AnchorPane id="panel" fx:id="panelCentral" prefHeight="200.0" prefWidth="200.0">
       <children>
-        <Pane fx:id="panelInicio" disable="false" prefHeight="540.0" prefWidth="1260.0" visible="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="1.0">
+        <Pane fx:id="panelInicio" disable="false" prefHeight="530.0" prefWidth="1260.0" visible="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="1.0">
           <children>
             <Pane layoutX="25.0" layoutY="27.0" prefHeight="490.0" prefWidth="500.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" styleClass="resultado">
               <children>

@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javafx.scene.control.Dialogs;
+import sabga.atributos.Atributos;
 import sabga.preferencias.Preferencias;
 
 /**
@@ -19,7 +21,7 @@ public class Conexion {
     private Connection conexion = null;
     private Statement stm = null;
     private ResultSet resultado = null;
-    private CallableStatement procedimiento; 
+    private CallableStatement procedimiento;
 
     public Conexion(){
         
@@ -32,7 +34,7 @@ public class Conexion {
         url = "jdbc:mysql://"+direccion+":"; // localhost, 192.168.1.3
         driver = "com.mysql.jdbc.Driver";
         cadenaConexion = url + puerto +"/"+ nombreBaseDatos;
-    
+            
     }
     
     public void conectar() {
@@ -41,7 +43,7 @@ public class Conexion {
             Class.forName(driver);
             conexion = DriverManager.getConnection(cadenaConexion, usuario, contrasenia);
             stm = conexion.createStatement();
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {            
             Utilidades.mensajeError(null,"Recuerde que la base de datos es indispensable para el correcto funcionamiento de la aplicación "
                     + "" ,"No ha sido posible conectarse a la base de datos, verifique su conexión a Internet o"
                     + " contacte con su administrador de servidor de base de datos.", "Error Acceso Base Datos");

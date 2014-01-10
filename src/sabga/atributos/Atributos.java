@@ -16,7 +16,8 @@ public class Atributos {
     private static String apellidoUsuario;
     private static String documentoUsuario;
     private static String correoUsuario;
- 
+    private static String tipoUsuario;
+    private static int estadoBaseDatos = 1;
     
     public void setDatoBusqueda(String parametro){
         datoBusqueda = parametro;
@@ -96,6 +97,22 @@ public class Atributos {
 
     public void setCorreoUsuario(String correo) {
         correoUsuario = correo;
+    }
+
+    public String getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public  void setTipoUsuario(String tipo_usuario) {
+        tipoUsuario = tipo_usuario;
+    }
+
+    public int getEstadoBaseDatos() {
+        return estadoBaseDatos;
+    }
+
+    public void setEstadoBaseDatos(int estado) {
+       estadoBaseDatos = estado;
     }
    
     

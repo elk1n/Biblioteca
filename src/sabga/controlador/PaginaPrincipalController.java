@@ -311,8 +311,8 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     @FXML
     public void salir(ActionEvent evento){
 
-        Utilidades.mensajeConfirmacion(ventanaPrincipal.getPrimaryStage(), "Los cambios no guardados se perderan", "Realmente desea salir?","Salir de SABGA");
-         if(Utilidades.getMensajeConfimacion() == Dialogs.DialogResponse.OK){             
+        Utilidades.mensajeOpcion(ventanaPrincipal.getPrimaryStage(), "Los cambios no guardados se perderan", "Realmente desea salir?","Salir de SABGA");
+         if(Utilidades.getMensajeOpcion() == Dialogs.DialogResponse.YES){             
              System.exit(0);         
          }     
     }
@@ -408,6 +408,19 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         consulta.cancelarReserva();
     }
     
+    private void tipoUsuario(){
+        
+        if(atributos.getTipoUsuario()!= null){
+            
+            if(atributos.getTipoUsuario().contains("auxiliar")){
+                menuAuxiliar.setDisable(true);
+                menuPazysalvo.setDisable(true);
+                menuPreferencias.setDisable(true);
+            }
+        }
+    
+    }
+    
     private void inicio(){
         
        //cancelarReservas();
@@ -420,10 +433,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         panelBusqueda.setDisable(true);
         panelBusqueda.setVisible(false);
         enviarCorreos();
-//        menuAuxiliar.setDisable(true);
-//        menuPazysalvo.setDisable(true);
-//        menuPreferencias.setDisable(true);
-        
+        tipoUsuario();
     }
     
     @Override

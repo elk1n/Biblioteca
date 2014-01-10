@@ -1,12 +1,10 @@
 
 package sabga.controlador.dialogos;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,7 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import sabga.Sabga;
 import sabga.atributos.Atributos;
-import sabga.configuracion.Conexion;
+import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.ConfirmarUsuario;
 import sabga.modelo.Consultas;
@@ -42,11 +40,13 @@ public class InicioSesionController implements Initializable{
     private final Consultas consulta;
     private final Atributos atributos;
     private final Seleccion select;
+    private final Dialogo dialogo;
  
     public InicioSesionController(){                
         consulta = new Consultas();
         atributos = new Atributos();
         select = new Seleccion();
+        dialogo = new Dialogo();
     }
    
     public void setVentanaPrincipal(Sabga ventanaPrincipal) {        
@@ -72,6 +72,7 @@ public class InicioSesionController implements Initializable{
                     atributos.setDocumento(consulta.getDocumento());
                     atributos.setNombre(consulta.getNombre());
                     atributos.setApellido(consulta.getApellido());
+                    atributos.setTipoUsuario(comboTipoAdmin.getSelectionModel().getSelectedItem().toString().toLowerCase());
                     this.ventanaPrincipal.inciarSesion();
                     campoUsuario.clear();
                     campoContrasenia.clear();
@@ -101,8 +102,12 @@ public class InicioSesionController implements Initializable{
     }
     
     private void inicio(){
-        
-        comboTipoAdmin.setItems(consulta.llenarLista(select.getListaTipoAdmin(), select.getTipoAdmin()));
+       try{
+           comboTipoAdmin.setItems(consulta.llenarLista(select.getListaTipoAdmin(), select.getTipoAdmin()));
+       }
+        catch(Exception ex){            
+           atributos.setEstadoBaseDatos(0);
+       }
         comboTipoAdmin.getSelectionModel().selectFirst();
     }
        

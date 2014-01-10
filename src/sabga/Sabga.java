@@ -1,6 +1,9 @@
 
 package sabga;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -9,7 +12,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import sabga.atributos.Atributos;
 import sabga.configuracion.Dialogo;
+import sabga.configuracion.Utilidades;
 import sabga.controlador.PaginaPrincipalController;
 
 /**
@@ -51,12 +56,14 @@ public class Sabga extends Application {
     private ScreensController controller;
     private ScreensController controladorVistas;
     private final Dialogo dialogo;
-    Group root;
+    private final Atributos atributos;
+    private final Group root;
     
     public Sabga(){           
         pantallas = new ScreensController();
         dialogo = new Dialogo();
-        root =  new Group();                 
+        root =  new Group();   
+        atributos = new Atributos();
     }
     
     @Override
@@ -69,18 +76,17 @@ public class Sabga extends Application {
         this.primaryStage.setMinWidth(1000);
         this.primaryStage.centerOnScreen();
 
-        FXMLLoader cargador =  new FXMLLoader(Sabga.class.getResource("vista/PaginaPrincipal.fxml"));
-        rootLayout = (BorderPane) cargador.load();
-        Scene scene = new Scene(rootLayout);
-        
-        primaryStage.setScene(scene);
+//        FXMLLoader cargador =  new FXMLLoader(Sabga.class.getResource("vista/PaginaPrincipal.fxml"));
+//        rootLayout = (BorderPane) cargador.load();
+//        Scene scene = new Scene(rootLayout);        
+//        primaryStage.setScene(scene);
         //Quitar el comentario para habilitar la pàgina de login o inicio de sesión
         dialogoInicioSesion();        
         //primaryStage.show();
         
-        PaginaPrincipalController controller = cargador.getController();
-        controller.setVentanaPrincipal(this);
-        controladores();
+       // PaginaPrincipalController controller = cargador.getController();
+       // controller.setVentanaPrincipal(this);
+        //controladores();
         //mostrarVistas();        
     }
     
@@ -91,6 +97,7 @@ public class Sabga extends Application {
     }
     
     public void mostrarVistas(){
+        
         root.getChildren().clear();
         root.setLayoutY(140);
         root.getChildren().addAll(pantallas);
@@ -117,9 +124,21 @@ public class Sabga extends Application {
     }
     
     public void inciarSesion(){  
-        primaryStage.show();
-        primaryStage.setOnShown(null);
-        dialogo.getDialogStage().close();       
+        
+        try {
+            FXMLLoader cargador =  new FXMLLoader(Sabga.class.getResource("vista/PaginaPrincipal.fxml"));
+            rootLayout = (BorderPane) cargador.load();
+            Scene scene = new Scene(rootLayout);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+            
+            PaginaPrincipalController controller = cargador.getController();
+            controller.setVentanaPrincipal(this);
+            controladores();
+            dialogo.getDialogStage().close();            
+        } catch (IOException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible iniciar la aplicación.", "Error Inicio Aplicación");
+        }
     }
     
     public void cerrarSesion(){      
@@ -127,8 +146,13 @@ public class Sabga extends Application {
         dialogo.getDialogStage().show();        
     }
         
-    public void dialogoInicioSesion(){        
+    public void dialogoInicioSesion(){
+        
         dialogo.mostrarDialogo("vista/dialogos/InicioSesion.fxml","Inicio De Sesión", this.primaryStage, this, 6);
+        if(atributos.getEstadoBaseDatos() == 0){
+            dialogo.getDialogStage().close();
+            dialogo.mostrarDialogo("vista/dialogos/Preferencias.fxml", "Preferencias", null, null, 15);            
+        }        
     }
     
     public void dialogoRestablecerContrasenia(){        

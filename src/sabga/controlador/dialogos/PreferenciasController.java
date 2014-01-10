@@ -233,10 +233,12 @@ public class PreferenciasController implements Initializable {
     }
     
     private void cargarValoresGeneral(){
+        try{
+            txtfEjemplares.setText(String.valueOf(configuracion.getNumeroEjemplares()));
+            txtfMulta.setText(String.valueOf(consulta.getValorPorMulta()));
+        }catch(Exception e){
         
-        txtfEjemplares.setText(String.valueOf(configuracion.getNumeroEjemplares()));
-        txtfMulta.setText(String.valueOf(consulta.getValorPorMulta()));
-             
+        }     
     }
     
     private void cargarValoresBaseDatos(){
