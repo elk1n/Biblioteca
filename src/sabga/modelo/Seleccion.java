@@ -11,7 +11,7 @@ public class Seleccion {
     private final String claseMaterial = "clase_material";
     private final String listaTipoMaterial = "SELECT tipo_material FROM tbl_TIPO_MATERIAL";
     private final String tipoMaterial = "tipo_material";
-    private final String listaMateria = "SELECT nombre_materia FROM tbl_MATERIA";
+    private final String listaMateria = "SELECT nombre_materia FROM tbl_MATERIA ORDER BY 1";
     private final String materia = "nombre_materia";
     private final String listaEditorial = "SELECT nombre_editorial FROM tbl_EDITORIAL";
     private final String editorial = "nombre_editorial";
@@ -29,6 +29,9 @@ public class Seleccion {
     private final String tipoUsuarios= "tipo_usuario";
     private final String listaTipoAdmin = "SELECT DISTINCT tipo_administrador FROM tbl_BIBLIOTECARIO";
     private final String tipoAdmin = "tipo_administrador";
+    private final String listaAutores = "SELECT CONCAT(CONCAT(nombre_autor, ' '), apellidos_autor) AS 'nombre' " +
+                                        "FROM tbl_AUTOR ORDER BY 1";
+    private final String nombres = "nombre";
 
     public String getListaJornada() {
         return listaJornada;
@@ -96,6 +99,16 @@ public class Seleccion {
     public String getTipoAdmin() {
         return tipoAdmin;
     }
+
+    public String getListaAutores() {
+        return listaAutores;
+    }
+
+    public String getNombresAutor() {
+        return nombres;
+    }
+
+    
     
     
 }

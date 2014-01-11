@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuButton;
@@ -26,7 +27,11 @@ import sabga.Sabga;
 import sabga.configuracion.ControlledScreen;
 import sabga.ScreensController;
 import sabga.atributos.Atributos;
+import sabga.atributos.Autor;
 import sabga.atributos.Devolucion;
+import sabga.atributos.Ejemplar;
+import sabga.atributos.Materia;
+import sabga.atributos.Material;
 import sabga.atributos.Reserva;
 import sabga.atributos.Usuario;
 import sabga.configuracion.Dialogo;
@@ -54,25 +59,32 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     @FXML
     private MenuBar barraMenu;   
     @FXML
-    private Label lblResultadoUsuario;
+    private Label lblResultadoUsuario, lblResultadoMaterial;
     @FXML
     private MenuButton menuAdmin;
     @FXML
-    private ComboBox comboListarUsuario;
+    private ComboBox comboListarUsuario, comboListarMaterial, comboListarxMateria, comboListarxAutor;
     @FXML
     private Pane panelInicio, panelBusqueda, panelBuscarUsuario, panelBuscarMaterial;
     @FXML
-    private TableView tablaDevolucion, tablaReservas, tablaUsuarios;
+    private TableView tablaDevolucion, tablaReservas, tablaUsuarios, tablaMaterial, tablaEjemplar,  tablaAutores;
     @FXML
     private TableColumn clmnDocumentoD, clmnNombreD, clmnTituloD, clmnEjemplarD, clmnCodigoD, clmnFechaD, clmnDocumentoR,
                         clmnNombreR, clmnEjemplarR, clmnFechaR, clmnTituloR, clmnCodigoR, clmnTipo, clmnDocumento, clmnNombre,
-                        clmnApellido, clmnCorreo, clmnTelefono, clmnGrado, clmnCurso, clmnJornada, clmnEstado;
+                        clmnApellido, clmnCorreo, clmnTelefono, clmnGrado, clmnCurso, clmnJornada, clmnEstado, clmnTituloM,
+                        clmnCodigoM, clmnTipoM, clmnClaseM, clmnEditorialM, clmnPublicacionM, clmnAnioM, clmnNumeroM, clmnEjemplarE,
+                        clmnEstadoE, clmnDispoE, clmnNombreA, clmnApellidoA;
+    @FXML
+    private ListView<Materia>  listaMaterias;
     @FXML
     private Menu menuAuxiliar;
     @FXML
     private MenuItem menuPazysalvo, menuPreferencias, menuMultas, menuDetalleUsuario;
     private final ObservableList<Usuario> listaCorreos;
     private final ObservableList<Usuario> listaUsuarios;
+    private final ObservableList<Material> listaMaterial;
+    private final ObservableList<Ejemplar> listaEjemplares;
+    private final ObservableList<Autor> listaAutor;
     private final ValidarUsuario validar;
     private final Seleccion select;
 
@@ -84,6 +96,9 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         select = new Seleccion();
         listaCorreos = FXCollections.observableArrayList();
         listaUsuarios = FXCollections.observableArrayList();
+        listaMaterial = FXCollections.observableArrayList();
+        listaEjemplares = FXCollections.observableArrayList();
+        listaAutor = FXCollections.observableArrayList();
     }
     
     @Override   
@@ -107,6 +122,21 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     }
     
     @FXML
+    public void listarElMaterial(ActionEvent evento){
+        listarMaterial();
+    }
+    
+    @FXML
+    public void listarMaterialxMateria(ActionEvent evento){    
+        listarPorMaterias();
+    }
+    
+    @FXML
+    public void listarMaterialxAutor(ActionEvent evento){    
+        listarPorAutor();
+    }
+    
+    @FXML
     public void dialogoDetalleUsuario(ActionEvent evento){
         detalleUsuario();
     }
@@ -118,6 +148,124 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     public void seleccionDeUsuario(){
         seleccionarUsuario();
+    }
+    
+    public void listarEjemplar(){
+        listarEjemplares();
+    }
+    
+    @FXML
+    public void verUsuarios(ActionEvent evento){       
+        radioUsuario.setSelected(true);
+        ventanaBuscar();
+        buscar();    
+    }
+    
+    @FXML
+    public void verMaterial(ActionEvent evento){       
+        radioMaterial.setSelected(true);
+        ventanaBuscar();
+        buscar();    
+    }
+    
+    private void listarPorAutor(){
+    
+        if (!comboListarxAutor.getSelectionModel().isEmpty()) {
+            prepararTablaMaterial();
+            listaMaterial.addAll(consulta.getListaMaterialInicio(4, comboListarxAutor.getSelectionModel().getSelectedItem().toString()));
+            tablaMaterial.setItems(listaMaterial);
+            lblResultadoMaterial.setText(null);
+            listaEjemplares.clear();
+            listaMaterias.getItems().clear();
+            listaAutor.clear();
+        }
+        
+    }
+    
+    private void listarPorMaterias(){
+    
+        if (!comboListarxMateria.getSelectionModel().isEmpty()) {
+            prepararTablaMaterial();
+            listaMaterial.addAll(consulta.getListaMaterialInicio(3, comboListarxMateria.getSelectionModel().getSelectedItem().toString()));
+            tablaMaterial.setItems(listaMaterial);
+            lblResultadoMaterial.setText(null);
+            listaEjemplares.clear();
+            listaMaterias.getItems().clear();
+            listaAutor.clear();
+        }
+        
+    }
+    
+    private void listarEjemplares(){
+    
+        if (tablaMaterial.getSelectionModel().getSelectedItem() != null) {
+            listaEjemplares.clear();
+            clmnEjemplarE.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("ejemplar"));
+            clmnEstadoE.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("estado"));
+            clmnDispoE.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("disponibilidad"));
+            listaEjemplares.addAll(consulta.listaEjemplares(listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getIdMaterial()));
+            tablaEjemplar.setItems(listaEjemplares);
+            listaMaterias.setItems(consulta.listaMaterias(listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getIdMaterial()));
+            listaAutores();
+        }    
+    }
+    
+    private void listaAutores(){
+        
+        listaAutor.clear();
+        clmnNombreA.setCellValueFactory(new PropertyValueFactory<Autor, String>("nombreAutor"));
+        clmnApellidoA.setCellValueFactory(new PropertyValueFactory<Autor, String>("apellidosAutor"));
+        listaAutor.addAll(consulta.listaAutores(listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getIdMaterial()));
+        tablaAutores.setItems(listaAutor);     
+    }
+    
+    private void listarMaterial(){    
+        
+        if (!comboListarMaterial.getSelectionModel().isEmpty()) {
+            prepararTablaMaterial();
+            listaMaterial.addAll(consulta.getListaMaterialInicio(2,comboListarMaterial.getSelectionModel().getSelectedItem().toString()));
+            tablaMaterial.setItems(listaMaterial);
+            lblResultadoMaterial.setText(null);
+            listaEjemplares.clear();
+            listaMaterias.getItems().clear();
+            listaAutor.clear();
+        }
+    }
+    
+    private void buscarMaterial(){
+    
+         if (!"".equals(campoBusqueda.getText())) {
+            prepararTablaMaterial();
+            listaMaterial.addAll(consulta.getListaMaterialInicio(1, campoBusqueda.getText().trim()));
+            tablaMaterial.setItems(listaMaterial);
+            listaEjemplares.clear();
+            listaMaterias.getItems().clear();
+            listaAutor.clear();
+            if(listaMaterial.isEmpty()){
+                comboListarMaterial.getSelectionModel().clearSelection();
+                comboListarxMateria.getSelectionModel().clearSelection();
+                comboListarxAutor.getSelectionModel().clearSelection();
+                lblResultadoMaterial.setText("No se han encontrado resultados.");
+            }else{
+                lblResultadoMaterial.setText(null);
+                comboListarMaterial.getSelectionModel().clearSelection();
+                comboListarxMateria.getSelectionModel().clearSelection();
+                comboListarxAutor.getSelectionModel().clearSelection();
+            }
+        }   
+    }
+    
+    private void prepararTablaMaterial(){
+    
+        clmnTituloM.setCellValueFactory(new PropertyValueFactory<Material, String>("titulo"));
+        clmnCodigoM.setCellValueFactory(new PropertyValueFactory<Material, String>("codigo"));
+        clmnTipoM.setCellValueFactory(new PropertyValueFactory<Material, String>("tipo"));
+        clmnClaseM.setCellValueFactory(new PropertyValueFactory<Material, String>("clase"));
+        clmnEditorialM.setCellValueFactory(new PropertyValueFactory<Material, String>("editorial"));
+        clmnPublicacionM.setCellValueFactory(new PropertyValueFactory<Material, String>("publicacion"));
+        clmnAnioM.setCellValueFactory(new PropertyValueFactory<Material, String>("anioPublicacion"));
+        clmnNumeroM.setCellValueFactory(new PropertyValueFactory<Material, String>("numeroPaginas"));
+        listaMaterial.clear();
     }
     
     private void prepararTablaUsuarios(){
@@ -180,6 +328,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
             panelBuscarUsuario.setDisable(true);
             panelBuscarMaterial.setVisible(true);
             panelBuscarMaterial.setDisable(false);
+            buscarMaterial();
             
         }
     }
@@ -438,7 +587,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     @FXML
     public void salir(ActionEvent evento){
 
-        Utilidades.mensajeOpcion(ventanaPrincipal.getPrimaryStage(), "Los cambios no guardados se perderan", "Realmente desea salir?","Salir de SABGA");
+        Utilidades.mensajeOpcion(ventanaPrincipal.getPrimaryStage(), "Los cambios no guardados se perderán", "Realmente desea salir?","Salir de SABGA");
          if(Utilidades.getMensajeOpcion() == Dialogs.DialogResponse.YES){             
              System.exit(0);         
          }     
@@ -454,6 +603,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     public void borrarCampo(ActionEvent event){        
         campoBusqueda.setText("");
         lblResultadoUsuario.setText(null);
+        lblResultadoMaterial.setText(null);
         botonBorrarBusqueda.setVisible(false);        
     }
     
@@ -550,12 +700,15 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     private void inicio(){
         
-       //cancelarReservas();
-       // ventanaInicio();
+        //cancelarReservas();
+        // ventanaInicio();
         devolucionesDia();
         reservasPendientes();
-        comboListarUsuario.setItems(consulta.llenarLista(select.getListaUsuarios(), select.getUsuarios()));
+        comboListarUsuario.setItems(consulta.llenarLista(select.getListaUsuarios(), select.getUsuarios()));        
         comboListarUsuario.getItems().add("Todos");
+        comboListarMaterial.setItems(consulta.llenarLista(select.getListaTipoMaterial(), select.getTipoMaterial()));
+        comboListarxMateria.setItems(consulta.llenarLista(select.getListaMateria(), select.getMateria()));
+        comboListarxAutor.setItems(consulta.llenarLista(select.getListaAutores(), select.getNombresAutor()));
         botonBorrarBusqueda.setVisible(false);
         barraMenu.setPrefWidth(java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth());
         panelInicio.setDisable(false);

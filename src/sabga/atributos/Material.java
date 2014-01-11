@@ -10,16 +10,19 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Material {
     
-   public SimpleStringProperty titulo;
-   public SimpleStringProperty codigo;
-   public SimpleStringProperty tipo;
-   public SimpleStringProperty clase;
-   public SimpleStringProperty id;
-   public SimpleIntegerProperty idMaterial;
-   public SimpleStringProperty autores;
-   public SimpleStringProperty editorial;
-   public SimpleStringProperty materias;
-   public SimpleStringProperty ejemplar;
+   private SimpleStringProperty titulo;
+   private SimpleStringProperty codigo;
+   private SimpleStringProperty tipo;
+   private SimpleStringProperty clase;
+   private SimpleStringProperty id;
+   private SimpleIntegerProperty idMaterial;
+   private SimpleStringProperty autores;
+   private SimpleStringProperty editorial;
+   private SimpleStringProperty materias;
+   private SimpleStringProperty ejemplar;
+   private SimpleStringProperty publicacion;
+   private SimpleStringProperty anio;
+   private SimpleIntegerProperty paginas;
     
     
     public Material(String titulo, String codigo, String tipo, String clase, String id){
@@ -42,6 +45,22 @@ public class Material {
         this.materias = new SimpleStringProperty(materias);
                
     }
+    
+    public Material(int id, String titulo, String codigo, String tipo, String clase, String editorial, String publicacion,
+                    String anioPublicacion, int numeroPaginas){
+    
+        this.idMaterial = new SimpleIntegerProperty(id);
+        this.titulo = new SimpleStringProperty(titulo);
+        this.codigo = new SimpleStringProperty(codigo);
+        this.tipo = new SimpleStringProperty(tipo);
+        this.clase = new SimpleStringProperty(clase);
+        this.editorial = new SimpleStringProperty(editorial);
+        this.publicacion = new SimpleStringProperty(publicacion);
+        this.anio = new SimpleStringProperty(anioPublicacion);
+        this.paginas = new SimpleIntegerProperty(numeroPaginas);
+    
+    }
+    
     public String getTitulo(){    
         return titulo.get();
     }
@@ -80,6 +99,18 @@ public class Material {
     
     public String getEjemplar(){
         return ejemplar.get();
+    }
+    
+    public String getPublicacion(){
+        return this.publicacion.get();
+    }
+    
+    public String getAnioPublicacion(){
+        return this.anio.get();
+    }
+    
+    public int getNumeroPaginas(){
+        return this.paginas.get();
     }
     
     @Override

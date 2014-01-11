@@ -2,8 +2,6 @@ package sabga.modelo;
 
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sabga.atributos.Autor;
@@ -62,8 +60,8 @@ public class Consultas {
             con.conectar();
             con.setResultado(con.getStatement().executeQuery("SELECT * FROM tbl_AUTOR ORDER BY nombre_autor, apellidos_autor"));
             while (con.getResultado().next()) {
-                obtenerAutores.add(new Autor(con.getResultado().getString("nombre_autor"), con.getResultado().getString("apellidos_autor"),
-                        con.getResultado().getString("id_autor")));
+                obtenerAutores.add(new Autor(con.getResultado().getInt("id_autor"), con.getResultado().getString("nombre_autor"),
+                                             con.getResultado().getString("apellidos_autor")));
             }
             for (Autor datos : obtenerAutores) {
                 listaAutores.add(datos.toString());
@@ -177,8 +175,8 @@ public class Consultas {
             con.getProcedimiento().setInt("id", id);
             con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
-                listaAutores.add(new Autor(con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
-                        con.getResultado().getString("id")));
+                listaAutores.add(new Autor(con.getResultado().getInt("id"), con.getResultado().getString("nombre"),
+                                           con.getResultado().getString("apellido")));
             }
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
@@ -624,7 +622,31 @@ public class Consultas {
         return lista;    
         
     }
-        
+    
+    public ObservableList<Material> getListaMaterialInicio(int opcion, String parametroBusqueda) {
+
+         ObservableList<Material> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL buscarMaterialInicio(?,?) }");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setString("parametro", parametroBusqueda);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                lista.add(new Material(con.getResultado().getInt("id"), con.getResultado().getString("titulo"),
+                                       con.getResultado().getString("codigo"), con.getResultado().getString("tipo"),
+                                       con.getResultado().getString("clase"), con.getResultado().getString("editorial"),
+                                       con.getResultado().getString("publicacion"), con.getResultado().getString("anio_publicacion"),
+                                       con.getResultado().getInt("numero_paginas")));
+            }
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar el material. ", "Error Consulta");
+        } finally {
+            con.desconectar();
+        }        
+     return lista;
+    }
+    
     public void mapearInfoAdmin(int id){
     
         try {

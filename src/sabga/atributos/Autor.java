@@ -1,8 +1,8 @@
 
 package sabga.atributos;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 /**
   * @author Elk1n
@@ -10,15 +10,16 @@ import javafx.beans.property.StringProperty;
 
 public class Autor {
     
-    private final StringProperty nombreAutor;
-    private final StringProperty apellidosAutor;
-    private final StringProperty idAutor;
+    private final SimpleIntegerProperty idAutor;
+    private final SimpleStringProperty nombreAutor;
+    private final SimpleStringProperty apellidosAutor;
     
-    public Autor(String nombre, String apellidos, String id){
+    
+    public Autor(int id, String nombre, String apellido){
         
-          this.nombreAutor = new SimpleStringProperty(nombre);
-          this.apellidosAutor = new SimpleStringProperty(apellidos);
-          this.idAutor = new SimpleStringProperty(id);
+        this.idAutor = new SimpleIntegerProperty(id);
+        this.nombreAutor = new SimpleStringProperty(nombre);
+        this.apellidosAutor = new SimpleStringProperty(apellido);          
     }
         
     public String getNombreAutor(){    
@@ -30,19 +31,7 @@ public class Autor {
     }
     
     public int getIdAutor(){        
-        return Integer.parseInt(this.idAutor.get());
-    }
-    
-    public void setNombreAutor(String nombre){
-        this.nombreAutor.set(nombre);
-    }
-    
-    public void setApellidos(String apellidos){    
-        this.apellidosAutor.set(apellidos);
-    }
-    
-    public void setIdAutor(String id){
-        this.idAutor.set(id);
+        return this.idAutor.get();
     }
     
     @Override

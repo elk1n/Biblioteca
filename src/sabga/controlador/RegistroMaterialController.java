@@ -460,8 +460,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         
         if (listaAutores.indexOf(buscarAutor.getText()) != -1) {
             if (!verificarDuplicados(buscarAutor.getText())) {
-                autores.add(new Autor(obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getNombreAutor(), 
-                                      obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getApellidosAutor(),"0"));
+                autores.add(new Autor(0, obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getNombreAutor(), 
+                                         obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getApellidosAutor()));
                 contenedorAutores.setPrefHeight(contenedorAutores.getPrefHeight() + 25);
                 tablaAutores.setPrefHeight(tablaAutores.getPrefHeight() + 25);
                 buscarAutor.getTextbox().setText("");

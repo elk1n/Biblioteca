@@ -162,7 +162,7 @@
                                     </TableView>
                                     <Button defaultButton="true" layoutX="464.0" layoutY="102.0" mnemonicParsing="false" onAction="#removerMateria" prefHeight="25.0" prefWidth="120.0" text="Remover" />
                                     <Button id="registrarAutor" fx:id="btnNuevaMateria" defaultButton="true" layoutX="464.0" layoutY="59.0" mnemonicParsing="false" onAction="#dialogoNuevaMateria" prefHeight="25.0" prefWidth="120.0" text="Nueva Materia" />
-                                    <Label fx:id="validarMateria" alignment="CENTER_RIGHT" layoutX="97.0" layoutY="64.0" prefWidth="350.0" text="Validacion" textFill="$x1" />
+                                    <Label fx:id="validarMateria" alignment="CENTER_RIGHT" layoutX="97.0" layoutY="64.0" prefWidth="350.0" text="" textFill="$x1" />
                                   </children>
                                 </AnchorPane>
                               </content>

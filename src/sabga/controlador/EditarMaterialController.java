@@ -300,9 +300,9 @@ public class EditarMaterialController implements Initializable, ControlledScreen
                                                      obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getIdAutor());
                         if (consulta.getMensaje() == null) {
                             Utilidades.mensaje(null, "El autor se ha añadido correctamente.", "Adición exitosa.", "Añadir Autor");
-                            listaAutores.add(new Autor(obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getNombreAutor(),
-                                                       obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getApellidosAutor(),
-                                                       String.valueOf(obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getIdAutor())));
+                            listaAutores.add(new Autor(obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getIdAutor(),
+                                                       obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getNombreAutor(),
+                                                       obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getApellidosAutor()));
                             autores.getTextbox().setText("");
                         } else {
                             Utilidades.mensajeAdvertencia(null, "No ha sido posible añadir el autor.", "Error al añadir el autor.", "Añadir Autor");
