@@ -36,7 +36,6 @@ import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.ConfirmarMaterial;
 import sabga.modelo.Consultas;
-import sabga.modelo.Seleccion;
 import sabga.modelo.ValidarMaterial;
 
 /**
@@ -76,12 +75,10 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     private final ObservableList<Ejemplar> listaEjemplares;
     private final ObservableList listaBusquedaMaterias, listaBusquedaAutores, disponibilidad;
     private final Consultas consulta;
-    private final Seleccion select;
 
     public EditarMaterialController(){
         dialogo = new Dialogo();       
         consulta = new Consultas();
-        select = new Seleccion();
         editorial = new AutoFillTextBox();
         autores = new AutoFillTextBox();
         materias = new AutoFillTextBox();
@@ -474,8 +471,8 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     
     private void llenarComboBox(){
         
-        comboClaseMaterial.setItems(consulta.llenarLista(select.getListaClaseMaterial(), select.getClaseMaterial()));
-        comboMaterial.setItems(consulta.llenarLista(select.getListaTipoMaterial(), select.getTipoMaterial()));           
+        comboClaseMaterial.setItems(consulta.llenarLista(1));
+        comboMaterial.setItems(consulta.llenarLista(2));           
     }
     
     private Boolean verificarDuplicados(ObservableList lista, String datoVefificar){
@@ -493,7 +490,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
          ventanaPrincipal = new Sabga();
          btnEditorial.setDisable(true);
          dialogo.mostrarDialogo("vista/dialogos/NuevaEditorial.fxml", "Nueva Editorial", ventanaPrincipal.getPrimaryStage(), null, 3);
-         editorial.setData(consulta.llenarLista(select.getListaEditorial(), select.getEditorial()));
+         editorial.setData(consulta.llenarLista(4));
          btnEditorial.setDisable(false);
      }
     
@@ -502,7 +499,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         ventanaPrincipal = new Sabga();
         btnAutor.setDisable(true);
         dialogo.mostrarDialogo("vista/dialogos/NuevoAutor.fxml", "Nuevo Autor", ventanaPrincipal.getPrimaryStage(), null, 1);
-        listaBusquedaAutores.addAll(consulta.listaAutores());
+        listaBusquedaAutores.addAll(consulta.llenarLista(12));
         obtenerAutores.addAll(consulta.getListaAutores());
         btnAutor.setDisable(false);
     }
@@ -512,7 +509,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         ventanaPrincipal = new Sabga();
         btnMateria.setDisable(true);
         dialogo.mostrarDialogo("vista/dialogos/NuevaMateria.fxml", "Nueva Materia", ventanaPrincipal.getPrimaryStage(), null, 2);
-        listaBusquedaMaterias.addAll(consulta.llenarLista(select.getListaMateria(), select.getMateria()));
+        listaBusquedaMaterias.addAll(consulta.llenarLista(3));
         btnMateria.setDisable(false);
     }
     
@@ -657,10 +654,10 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         materias.getTextbox().setPromptText("Materia");
         autores.getTextbox().setPromptText("Autor");
         editorial.getTextbox().setPromptText("Buscar Editorial");
-        listaBusquedaMaterias.addAll(consulta.llenarLista(select.getListaMateria(), select.getMateria()));
-        listaBusquedaAutores.addAll(consulta.listaAutores());
+        listaBusquedaMaterias.addAll(consulta.llenarLista(3));
+        listaBusquedaAutores.addAll(consulta.llenarLista(12));
         obtenerAutores.addAll(consulta.getListaAutores());
-        editorial.setData(consulta.llenarLista(select.getListaEditorial(), select.getEditorial()));
+        editorial.setData(consulta.llenarLista(4));
         materias.setData(listaBusquedaMaterias);
         autores.setData(listaBusquedaAutores);        
         hboxEditorial.getChildren().add(editorial);

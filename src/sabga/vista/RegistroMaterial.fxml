@@ -196,7 +196,7 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="488.0" prefWidth="1260.0">
               <children>
-                <HBox id="HBox" alignment="CENTER" layoutX="95.0" layoutY="60.0" spacing="130.0">
+                <HBox id="HBox" alignment="CENTER" layoutX="81.0" layoutY="60.0" spacing="130.0">
                   <children>
                     <ComboBox fx:id="comboTipoMaterial" prefHeight="25.0" prefWidth="150.0" promptText="Tipo de Material">
                       <items>
@@ -218,7 +218,7 @@
                     </ComboBox>
                   </children>
                 </HBox>
-                <GridPane id="GridPane" layoutX="90.0" layoutY="149.0" prefHeight="237.0" prefWidth="465.0">
+                <GridPane id="GridPane" layoutX="76.0" layoutY="149.0" prefHeight="237.0" prefWidth="465.0">
                   <children>
                     <Label text="Código de Clasificación:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                     <Label text="Título:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
@@ -247,7 +247,7 @@
                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                 </GridPane>
-                <ScrollPane layoutX="585.0" layoutY="60.0" prefHeight="340.0" prefWidth="625.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
+                <ScrollPane layoutX="571.0" layoutY="60.0" prefHeight="340.0" prefWidth="625.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
                   <content>
                     <AnchorPane id="Content" fx:id="contenedorMateriasOM" maxHeight="600.0" minHeight="0.0" minWidth="0.0" prefHeight="332.0" prefWidth="609.0">
                       <children>
@@ -274,16 +274,16 @@
                     </AnchorPane>
                   </content>
                 </ScrollPane>
-                <HBox id="HBox" alignment="CENTER" layoutX="939.0" layoutY="428.0" spacing="30.0">
+                <HBox id="HBox" alignment="CENTER" layoutX="925.0" layoutY="428.0" spacing="30.0">
                   <children>
                     <Button cancelButton="true" mnemonicParsing="false" onAction="#limpiarCamposOtros" prefHeight="25.0" prefWidth="120.0" text="Cancelar" />
                     <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarOtroMaterial" prefHeight="25.0" prefWidth="120.0" text="Registrar Material" />
                   </children>
                 </HBox>
-                <Label id="validarClaseMaterialOM" fx:id="validarTipoMaterialOM" alignment="CENTER_RIGHT" layoutX="17.0" layoutY="95.0" prefWidth="228.0" text="" textFill="$x3" />
-                <Label fx:id="validarClaseMaterialOM" alignment="CENTER_RIGHT" layoutX="273.0" layoutY="95.0" prefWidth="252.0" text="" textFill="$x3" />
-                <Label font="$x2" labelFor="$comboTipoMaterial" layoutX="95.0" layoutY="29.0" text="Tipo de Material" />
-                <Label font="$x2" labelFor="$comboClaseMaterialOM" layoutX="375.0" layoutY="26.0" text="Clase de Material" />
+                <Label id="validarClaseMaterialOM" fx:id="validarTipoMaterialOM" alignment="CENTER_RIGHT" layoutX="3.0" layoutY="95.0" prefWidth="228.0" text="" textFill="$x3" />
+                <Label fx:id="validarClaseMaterialOM" alignment="CENTER_RIGHT" layoutX="259.0" layoutY="95.0" prefWidth="252.0" text="" textFill="$x3" />
+                <Label font="$x2" labelFor="$comboTipoMaterial" layoutX="81.0" layoutY="29.0" text="Tipo de Material" />
+                <Label font="$x2" labelFor="$comboClaseMaterialOM" layoutX="361.0" layoutY="26.0" text="Clase de Material" />
               </children>
             </AnchorPane>
           </content>

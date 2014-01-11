@@ -30,7 +30,6 @@ import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.ConfirmarMaterial;
 import sabga.modelo.Consultas;
-import sabga.modelo.Seleccion;
 import sabga.modelo.ValidarMaterial;
 
 /**
@@ -60,7 +59,6 @@ public class ReservaEscritorioController implements Initializable, ControlledScr
     private MenuItem detalleUsuario, multasUsuario, detalleUsuario2, multasUsuario2;
     private String titulo, codigoClasificacion, tipoUsuario;  
     private final Consultas consulta;
-    private final Seleccion select;
     private final Dialogo dialogos;
     private final Atributos atributo;
     private ValidarMaterial validarReserva;
@@ -73,7 +71,6 @@ public class ReservaEscritorioController implements Initializable, ControlledScr
     public ReservaEscritorioController() {
         
         consulta = new Consultas();
-        select = new Seleccion();
         dialogos = new Dialogo();
         atributo = new Atributos();
         listaReserva = FXCollections.observableArrayList();
@@ -405,8 +402,8 @@ public class ReservaEscritorioController implements Initializable, ControlledScr
     
     private void inicio(){
         
-        comboListarMaterial.setItems(consulta.llenarLista(select.getListaTipoMaterial(), select.getTipoMaterial()));
-        comboListarUsuario.setItems(consulta.llenarLista(select.getListaUsuarios(), select.getUsuarios()));
+        comboListarMaterial.setItems(consulta.llenarLista(2));
+        comboListarUsuario.setItems(consulta.llenarLista(6));
         comboListarUsuario.getItems().add("Todos");
         btnBorrarMaterial.setVisible(false);
         btnBorrarUsuario.setVisible(false);

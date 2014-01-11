@@ -31,7 +31,6 @@ import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.ConfirmarUsuario;
 import sabga.modelo.Consultas;
-import sabga.modelo.Seleccion;
 import sabga.modelo.ValidarUsuario;
 
 /**
@@ -66,7 +65,6 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     private final ObservableList<Usuario> listaUsuarios;
     private final ObservableList<Usuario> filtrarUsuarios;
     private final ObservableList estados;
-    private final Seleccion select;
     private final Dialogo dialogos;
     private final Atributos atributo;
     
@@ -75,7 +73,6 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
         
         dialogo = new Dialogo();
         consulta = new Consultas();
-        select = new Seleccion();
         dialogos = new Dialogo();
         atributo = new Atributos();
         estados = FXCollections.observableArrayList();
@@ -411,11 +408,11 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
         
         btnBorrar.setVisible(false);
         buscarFiltrar();
-        comboGrado.setItems(consulta.llenarLista(select.getListaGrado(), select.getGrado()));
-        comboCurso.setItems(consulta.llenarLista(select.getListaCurso(), select.getCurso()));
-        comboJornada.setItems(consulta.llenarLista(select.getListaJornada(), select.getJornada()));
-        comboTipo.setItems(consulta.llenarLista(select.getListaTipoUsuario(), select.getTipoUsuario()));        
-        comboListar.setItems(consulta.llenarLista(select.getListaUsuarios(), select.getUsuarios()));
+        comboGrado.setItems(consulta.llenarLista(7));
+        comboCurso.setItems(consulta.llenarLista(8));
+        comboJornada.setItems(consulta.llenarLista(9));
+        comboTipo.setItems(consulta.llenarLista(6));        
+        comboListar.setItems(consulta.llenarLista(6));
         comboListar.getItems().add("Todos");
         comboEstado.setItems(estados);        
     }

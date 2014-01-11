@@ -37,7 +37,6 @@ import sabga.atributos.Usuario;
 import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.Consultas;
-import sabga.modelo.Seleccion;
 import sabga.modelo.ValidarUsuario;
 
 public class PaginaPrincipalController implements Initializable, ControlledScreen {
@@ -86,14 +85,12 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     private final ObservableList<Ejemplar> listaEjemplares;
     private final ObservableList<Autor> listaAutor;
     private final ValidarUsuario validar;
-    private final Seleccion select;
 
     public PaginaPrincipalController(){       
         dialogo = new Dialogo();
         atributos = new Atributos();
         consulta = new Consultas();        
         validar = new ValidarUsuario();
-        select = new Seleccion();
         listaCorreos = FXCollections.observableArrayList();
         listaUsuarios = FXCollections.observableArrayList();
         listaMaterial = FXCollections.observableArrayList();
@@ -616,7 +613,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
            botonBorrarBusqueda.setVisible(true); 
         }    
     }
-    
+       
     public void entregasDia(){
         if(tablaDevolucion.getSelectionModel().getSelectedItem() != null){
             ventanaDevolucion();
@@ -704,11 +701,11 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         // ventanaInicio();
         devolucionesDia();
         reservasPendientes();
-        comboListarUsuario.setItems(consulta.llenarLista(select.getListaUsuarios(), select.getUsuarios()));        
+        comboListarUsuario.setItems(consulta.llenarLista(6));        
         comboListarUsuario.getItems().add("Todos");
-        comboListarMaterial.setItems(consulta.llenarLista(select.getListaTipoMaterial(), select.getTipoMaterial()));
-        comboListarxMateria.setItems(consulta.llenarLista(select.getListaMateria(), select.getMateria()));
-        comboListarxAutor.setItems(consulta.llenarLista(select.getListaAutores(), select.getNombresAutor()));
+        comboListarMaterial.setItems(consulta.llenarLista(2));
+        comboListarxMateria.setItems(consulta.llenarLista(3));
+        comboListarxAutor.setItems(consulta.llenarLista(12));
         botonBorrarBusqueda.setVisible(false);
         barraMenu.setPrefWidth(java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth());
         panelInicio.setDisable(false);

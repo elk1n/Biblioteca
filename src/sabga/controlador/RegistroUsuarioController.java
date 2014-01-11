@@ -17,7 +17,6 @@ import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.ConfirmarUsuario;
 import sabga.modelo.Consultas;
-import sabga.modelo.Seleccion;
 import sabga.modelo.ValidarUsuario;
 
 /**
@@ -41,11 +40,9 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
     private Label lblNombre, lblApellido, lblGrado, lblCurso, lblCorreo, lblDocumento, lblJornada,
                   lblTelefono, lblDireccion, etiquetaCurso, etiquetaGrupo, etiquetaJornada;
     private final Consultas consulta;
-    private final Seleccion select;
-       
+         
     public RegistroUsuarioController() {
         consulta = new Consultas();
-        select = new Seleccion();
     }
     
    @FXML
@@ -194,10 +191,10 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
     
     private void inicio(){
         
-        comboTipoUsuario.setItems(consulta.llenarLista(select.getListaTipoUsuario(), select.getTipoUsuario())); 
-        comboGrado.setItems(consulta.llenarLista(select.getListaGrado(), select.getGrado()));
-        comboCurso.setItems(consulta.llenarLista(select.getListaCurso(), select.getCurso()));
-        comboJornada.setItems(consulta.llenarLista(select.getListaJornada(), select.getJornada()));
+        comboTipoUsuario.setItems(consulta.llenarLista(6)); 
+        comboGrado.setItems(consulta.llenarLista(7));
+        comboCurso.setItems(consulta.llenarLista(8));
+        comboJornada.setItems(consulta.llenarLista(9));
         gridRegistrar1.setVisible(false);
         gridRegistrar2.setVisible(false);
         botonCancelar.setVisible(false);

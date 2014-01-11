@@ -12,6 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import sabga.atributos.Autor;
 import sabga.atributos.Ejemplar;
 import sabga.atributos.Materia;
 import sabga.modelo.Consultas;
@@ -23,14 +24,13 @@ import sabga.modelo.Consultas;
 public class DetalleMaterialController implements Initializable {
 
     private Stage dialogStage;
-    private int id;
     private final Consultas consulta;
     @FXML
-    private ListView <Materia>listaMaterias, listaAutores, listaEjemplares;
+    private ListView <Materia>listaMaterias;
     @FXML
-    private TableView tblEjemplares;
+    private TableView tblEjemplares, tablaAutores;
     @FXML
-    private TableColumn clmnEjemplar, clmnEstado, clmnDispo;
+    private TableColumn clmnEjemplar, clmnEstado, clmnDispo, clmnNombre, clmnApellido;
     @FXML
     private Label lblTitulo, lblCodigo, lblEditorial, lblPublicacion, lblAnio, lblClase, lblTipo;
                 
@@ -49,17 +49,16 @@ public class DetalleMaterialController implements Initializable {
         lblClase.setText(consulta.getClaseMaterial());
         lblTipo.setText(consulta.getTipoMaterial());
         listaMaterias.setItems(consulta.listaMaterias(id));
-        listaAutores.setItems(consulta.listaAutoresMaterial(id));
         clmnEjemplar.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("ejemplar"));
         clmnEstado.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("estado"));
         clmnDispo.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("disponibilidad"));
+        clmnNombre.setCellValueFactory(new PropertyValueFactory<Autor, String>("nombreAutor"));
+        clmnApellido.setCellValueFactory(new PropertyValueFactory<Autor, String>("apellidosAutor"));
+        tablaAutores.setItems(consulta.listaAutores(id));
         tblEjemplares.setItems(consulta.listaEjemplares(id));
+        
     }
-    
-    public void setId(int codigo){
-        this.id = codigo;
-    }
-   
+  
     public void setDialogStage(Stage dialogStage) {     
         this.dialogStage = dialogStage;	 
     }

@@ -34,7 +34,6 @@ import sabga.atributos.Materia;
 import sabga.configuracion.Conexion;
 import sabga.modelo.ConfirmarMaterial;
 import sabga.modelo.Consultas;
-import sabga.modelo.Seleccion;
 import sabga.modelo.Validacion;
 
 /**
@@ -74,7 +73,6 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private final Validacion validar;
     private ValidarMaterial validarMaterial;
     private ConfirmarMaterial confirmar;
-    private final Seleccion select;
     private final Consultas consulta;
     
     private final Conexion con;
@@ -94,7 +92,6 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         
         con = new Conexion();
         dialogo = new Dialogo();
-        select = new Seleccion();
         consulta = new Consultas();
         buscarAutor = new AutoFillTextBox();
         buscarMateria = new AutoFillTextBox();
@@ -237,6 +234,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
             con.getProcedimiento().execute();           
             mensaje = con.getProcedimiento().getString("mensaje");
             material = con.getProcedimiento().getInt("material");
+            
             if(obtenerIdAutoresMaterias() && llenarTablaDetalle()){               
                 con.getConexion().commit();                
             }
@@ -502,7 +500,6 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         tablaMateriasOM.setEditable(true);	
         tablaMateriasOM.setItems(materiasOM);
         
-
     }
     
     @FXML
@@ -597,7 +594,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         btnNuevoAutor.setDisable(true);
         dialogo.mostrarDialogo("vista/dialogos/NuevoAutor.fxml", "Nuevo Autor", ventanaPrincipal.getPrimaryStage(), null, 1); 
         listaAutores.clear();
-        listaAutores.addAll(consulta.listaAutores());        
+        listaAutores.addAll(consulta.llenarLista(12));        
         obtenerAutores.addAll(consulta.getListaAutores());
         btnNuevoAutor.setDisable(false);
     }
@@ -646,16 +643,16 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     }
     
     public void llenarAutores(){     
-        listaAutores.addAll(consulta.listaAutores());        
+        listaAutores.addAll(consulta.llenarLista(12));        
         obtenerAutores.addAll(consulta.getListaAutores());
     }
     
     public void llenarListaMaterias(){
-        listaMaterias.addAll(consulta.llenarLista(select.getListaMateria(), select.getMateria()));
+        listaMaterias.addAll(consulta.llenarLista(3));
     }
     
     public void llenarListaEditoriales(){
-        listaEditoriales.addAll(consulta.llenarLista(select.getListaEditorial(), select.getEditorial()));
+        listaEditoriales.addAll(consulta.llenarLista(4));
     }
     
     private String completarConCeros(int numero){
@@ -736,8 +733,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         hboxMateriasOM.getChildren().add(buscarMateriaOM);
         hboxEditorial.getChildren().add(buscarEditorial);
                 
-        comboClaseMaterial.setItems(consulta.llenarLista(select.getListaClaseMaterial(), select.getClaseMaterial()));
+        comboClaseMaterial.setItems(consulta.llenarLista(1));
         comboClaseMaterialOM.setItems(comboClaseMaterial.getItems());
-        comboTipoMaterial.setItems(consulta.llenarLista(select.getListaTipoLibro(), select.getTipoLibro()));      
+        comboTipoMaterial.setItems(consulta.llenarLista(5));      
     }        
 }

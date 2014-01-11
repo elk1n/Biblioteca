@@ -36,7 +36,6 @@ import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.ConfirmarMaterial;
 import sabga.modelo.Consultas;
-import sabga.modelo.Seleccion;
 import sabga.modelo.ValidarMaterial;
 
 
@@ -66,7 +65,6 @@ public class PrestamoController implements Initializable, ControlledScreen{
     private MenuItem detalleUsuario, multasUsuario, detalleUsuario2, multasUsuario2;
     private final DatePicker fechaDevolucion;
     private final Consultas consulta;
-    private final Seleccion select;
     private final Atributos atributo;
     private final ObservableList<Material> listaMaterial;
     private final ObservableList<Ejemplar> listaEjemplares;
@@ -98,7 +96,6 @@ public class PrestamoController implements Initializable, ControlledScreen{
        listaPrestamo = FXCollections.observableArrayList();
        listaDeReservas = FXCollections.observableArrayList();
        consulta = new Consultas();
-       select = new Seleccion();
        dialogos = new Dialogo(); 
        atributo = new Atributos();
     }
@@ -608,8 +605,8 @@ public class PrestamoController implements Initializable, ControlledScreen{
     
     private void inicio(){
         
-        comboListar.setItems(consulta.llenarLista(select.getListaTipoMaterial(), select.getTipoMaterial()));
-        comboListaUsuario.setItems(consulta.llenarLista(select.getListaUsuarios(), select.getUsuarios()));
+        comboListar.setItems(consulta.llenarLista(2));
+        comboListaUsuario.setItems(consulta.llenarLista(6));
         comboListaUsuario.getItems().add("Todos"); 
         listaDeReservas.add("Vigentes");
         listaDeReservas.add("Canceladas");

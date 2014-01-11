@@ -50,7 +50,6 @@ import javax.print.attribute.PrintRequestAttributeSet;
 import sabga.atributos.Atributos;
 import sabga.configuracion.Dialogo;
 import sabga.modelo.Consultas;
-import sabga.modelo.Seleccion;
 
 /**
  * FXML Controller class
@@ -78,7 +77,6 @@ public class PazySalvoController implements Initializable, ControlledScreen {
     private Label lblBuscarUsuario, lblFecha, lblBibliotecario, lblCoordinacion;
     private final ObservableList<Usuario> listaUsuarios;
     private final Consultas consulta;
-    private final Seleccion select;
     private final Atributos atributo;
     private final Dialogo dialogo;
     private Calendar calendario;
@@ -88,7 +86,6 @@ public class PazySalvoController implements Initializable, ControlledScreen {
     public PazySalvoController() {
         
         consulta = new Consultas();
-        select = new Seleccion();
         atributo = new Atributos();
         dialogo = new Dialogo();
         listaUsuarios = FXCollections.observableArrayList();
@@ -378,11 +375,11 @@ public class PazySalvoController implements Initializable, ControlledScreen {
         
         vistaBusqueda();
         btnBorrar.setVisible(false);
-        comboListar.setItems(consulta.llenarLista(select.getListaUsuarios(), select.getUsuarios()));
+        comboListar.setItems(consulta.llenarLista(6));
         comboListar.getItems().add("Todos");
-        comboGrado.setItems(consulta.llenarLista(select.getListaGrado(), select.getGrado()));
-        comboCurso.setItems(consulta.llenarLista(select.getListaCurso(), select.getCurso()));
-        comboJornada.setItems(consulta.llenarLista(select.getListaJornada(), select.getJornada()));
+        comboGrado.setItems(consulta.llenarLista(7));
+        comboCurso.setItems(consulta.llenarLista(8));
+        comboJornada.setItems(consulta.llenarLista(9));
         lblFecha.setText(formato.format(calendario.getTime()));
     }
     

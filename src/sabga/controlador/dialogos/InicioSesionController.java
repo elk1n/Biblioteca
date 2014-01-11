@@ -1,9 +1,7 @@
 
 package sabga.controlador.dialogos;
 
-import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,14 +10,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import sabga.Sabga;
 import sabga.atributos.Atributos;
-import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.ConfirmarUsuario;
 import sabga.modelo.Consultas;
-import sabga.modelo.Seleccion;
 import sabga.modelo.ValidarUsuario;
 
 
@@ -35,18 +30,12 @@ public class InicioSesionController implements Initializable{
     private Label validarUsuario, validacion;    
     @FXML 
     private ComboBox comboTipoAdmin;
-    @FXML
-    private AnchorPane panel;  
     private final Consultas consulta;
     private final Atributos atributos;
-    private final Seleccion select;
-    private final Dialogo dialogo;
  
     public InicioSesionController(){                
         consulta = new Consultas();
         atributos = new Atributos();
-        select = new Seleccion();
-        dialogo = new Dialogo();
     }
    
     public void setVentanaPrincipal(Sabga ventanaPrincipal) {        
@@ -103,7 +92,7 @@ public class InicioSesionController implements Initializable{
     
     private void inicio(){
        try{
-           comboTipoAdmin.setItems(consulta.llenarLista(select.getListaTipoAdmin(), select.getTipoAdmin()));
+           comboTipoAdmin.setItems(consulta.llenarLista(11));
        }
         catch(Exception ex){            
            atributos.setEstadoBaseDatos(0);
