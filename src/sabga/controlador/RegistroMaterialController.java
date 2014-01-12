@@ -2,8 +2,6 @@
 package sabga.controlador;
 
 import java.net.URL;
-import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -486,7 +484,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         
         ventanaPrincipal = new Sabga();   
         dialogo.dialogoCodigoBarras(ventanaPrincipal.getPrimaryStage(), completarConCeros(id),Utilidades.initCap(txtfTitulo.getText())
-                                    ,"Puede guardar el código de barras para imprimirlo, imprimirlo directamento o cerrar este dialogo"
+                                    ,"Puede guardar el código de barras para imprimirlo, imprimirlo directamente o cerrar este dialogo"
                                             + " y finalizar.", 1);   
     }
           

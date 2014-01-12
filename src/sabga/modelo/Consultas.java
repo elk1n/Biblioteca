@@ -748,7 +748,7 @@ public class Consultas {
                 for(Integer id: id_autores){                    
                     con.procedimiento("{ CALL registrarAutorMaterial(?,?) }");
                     con.getProcedimiento().setInt("material", idMaterial);
-                    con.getProcedimiento().setInt("materia", id);
+                    con.getProcedimiento().setInt("autor", id);
                     con.getProcedimiento().execute();           
                 }                
                 con.getConexion().commit();                

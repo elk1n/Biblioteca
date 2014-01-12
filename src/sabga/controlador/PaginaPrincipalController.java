@@ -54,7 +54,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     @FXML
     private RadioButton radioUsuario, radioMaterial;
     @FXML 
-    private Button botonBorrarBusqueda, btnDetalleUsuario, btnMultas;
+    private Button botonBorrarBusqueda, btnDetalleUsuario, btnMultas, btnCodigoBarras;
     @FXML
     private MenuBar barraMenu;   
     @FXML
@@ -78,7 +78,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     @FXML
     private Menu menuAuxiliar;
     @FXML
-    private MenuItem menuPazysalvo, menuPreferencias, menuMultas, menuDetalleUsuario;
+    private MenuItem menuPazysalvo, menuPreferencias, menuMultas, menuDetalleUsuario, menuCodigoBarras;
     private final ObservableList<Usuario> listaCorreos;
     private final ObservableList<Usuario> listaUsuarios;
     private final ObservableList<Material> listaMaterial;
@@ -139,6 +139,11 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     }
     
     @FXML
+    public void dialogoCodigoDeBarras(ActionEvent evento){
+        codigoDeBarras();
+    }
+    
+    @FXML
     public void dialogoMultasUsuario(){
         multasUsuario();
     }
@@ -163,6 +168,21 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         radioMaterial.setSelected(true);
         ventanaBuscar();
         buscar();    
+    }
+    
+    private void codigoDeBarras(){
+        
+        if(tablaMaterial.getSelectionModel().getSelectedItem() != null){
+            menuCodigoBarras.setDisable(true);
+            btnCodigoBarras.setDisable(true);
+            dialogo.dialogoCodigoBarras(ventanaPrincipal.getPrimaryStage(), completarConCeros(listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getIdMaterial()),
+                                    Utilidades.initCap(listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getTitulo())
+                                    ,"Puede guardar el código de barras para imprimirlo posteriormente o imprimirlo directamente.", 1); 
+            menuCodigoBarras.setDisable(false);
+            btnCodigoBarras.setDisable(false);
+        }else{
+            Utilidades.mensaje(null, "Debe seleccionar un material de la lista. ", "", "Selección Material");
+        }        
     }
     
     private void listarPorAutor(){
@@ -681,6 +701,19 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     private void cancelarReservas(){
         consulta.cancelarReserva();
+    }
+    
+    private String completarConCeros(int numero){
+    
+        String dato = String.valueOf(numero);
+        int longitud = 10-dato.length();
+        
+            if(longitud<10){
+                for(int i=0; i<longitud; i++){
+                    dato="0"+dato;
+                }            
+            }            
+        return dato;
     }
     
     private void tipoUsuario(){
