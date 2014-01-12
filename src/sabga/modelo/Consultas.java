@@ -2,6 +2,8 @@ package sabga.modelo;
 
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sabga.atributos.Autor;
@@ -25,7 +27,7 @@ public class Consultas {
     private final Conexion con;
     private String titulo, clasificacion, publicacion, editorial, tipoMaterial, claseMaterial, mensaje, tipoUsuario, grado,
                    curso, jornada, nombre, apellido, correo, telefono, direccion, estado, documento, usuario;
-    private int paginas, anio, idPrestamo, idDevolucion;
+    private int paginas, anio, idPrestamo, idDevolucion, idMaterial;
     private double multa;
 
     public Consultas() {
@@ -328,8 +330,7 @@ public class Consultas {
     }
     
     public ObservableList<Prestamo> getListaPrestamo(int estado){
-    
-        
+           
         ObservableList<Prestamo> lista = FXCollections.observableArrayList();
         try {
             con.conectar();
@@ -628,6 +629,146 @@ public class Consultas {
      return lista;
     }
     
+    public ObservableList<Integer> obtenerIdMaterias(ObservableList<Materia> listaMaterias){
+    
+        ObservableList<Integer> listaId = FXCollections.observableArrayList();
+        try {
+            for(Materia m :listaMaterias){
+                con.procedimiento("{ ? = CALL getIdMateria(?) }");
+                con.getProcedimiento().registerOutParameter(1, Types.INTEGER);
+                con.getProcedimiento().setString("materia", m.getNombreMateria());            
+                con.getProcedimiento().execute();
+                listaId.add(con.getProcedimiento().getInt(1));
+            }            
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar el código de la materia", "Error Consulta Código");  
+        }
+        return listaId;
+    }
+    
+    public ObservableList<Integer> obtenerIdAutores(ObservableList<Autor> listaAutores){
+    
+        ObservableList<Integer> listaId = FXCollections.observableArrayList();
+        try {
+            for(Autor a :listaAutores){
+                
+                con.procedimiento("{ ? = CALL getIdAutor(?,?) }");
+                con.getProcedimiento().registerOutParameter(1, Types.INTEGER);
+                con.getProcedimiento().setString("nombre", a.getNombreAutor());
+                con.getProcedimiento().setString("apellido", a.getApellidosAutor());
+                con.getProcedimiento().execute();
+                listaId.add(con.getProcedimiento().getInt(1));
+            }            
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar el código de la materia", "Error Consulta Código");  
+        } 
+        return listaId;
+    }
+    
+    public void registrarOtroMaterial(int clase, int tipo, String codigo, String titulo, int copias, ObservableList<Materia> materias){
+    
+        ObservableList<Integer> id_materias = FXCollections.observableArrayList();
+        try {           
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL registrarOtroMaterial(?,?,?,?,?,?,?) }");
+            con.getProcedimiento().setInt("claseMaterial", clase);
+            con.getProcedimiento().setInt("tipoMaterial", tipo);
+            con.getProcedimiento().setString("codigo", codigo);
+            con.getProcedimiento().setString("titulo", titulo);
+            con.getProcedimiento().setInt("numeroCopias", copias);
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("material", Types.INTEGER);
+            con.getProcedimiento().execute();           
+            mensaje = con.getProcedimiento().getString("mensaje");
+            idMaterial = con.getProcedimiento().getInt("material");
+            id_materias.addAll(obtenerIdMaterias(materias));             
+            
+            if(id_materias.size() == materias.size()){                
+                
+                for(Integer id: id_materias){                    
+                    con.procedimiento("{ CALL registrarMaterialMateria(?,?) }");
+                    con.getProcedimiento().setInt("material", idMaterial);
+                    con.getProcedimiento().setInt("materia", id);
+                    con.getProcedimiento().execute();           
+                }                                      
+                con.getConexion().commit();
+            }
+            else{
+                con.getConexion().rollback();
+                mensaje = "No ha sido posible registrar el material.";
+            }
+        } catch (SQLException e) {
+            try {
+                con.getConexion().rollback();
+            } catch (SQLException ex) {
+                mensaje = ex.getMessage();
+            }
+            mensaje = e.getMessage();
+        } finally {
+            con.desconectar();
+        }    
+    }
+  
+    public void registrarLibro(int clase, int tipo, int editorial, String codigo, String titulo, String publicacion, int anio,
+                               int paginas, int ejemplares, ObservableList<Materia> materias, ObservableList<Autor> autores){
+    
+        ObservableList<Integer> id_materias = FXCollections.observableArrayList();
+        ObservableList<Integer> id_autores = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL registrarMaterial(?,?,?,?,?,?,?,?,?,?,?) }");
+            con.getProcedimiento().setInt("claseMaterial", clase);
+            con.getProcedimiento().setInt("tipoMaterial", tipo);
+            con.getProcedimiento().setInt("editorial", editorial);            
+            con.getProcedimiento().setString("codigo", codigo);
+            con.getProcedimiento().setString("titulo", titulo);
+            con.getProcedimiento().setString("publicacion", publicacion);
+            con.getProcedimiento().setInt("anioPublicacion", anio);
+            con.getProcedimiento().setInt("numeroPaginas", paginas);
+            con.getProcedimiento().setInt("cantidadEjemplares", ejemplares);
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("material", Types.INTEGER);
+            con.getProcedimiento().execute();           
+            mensaje = con.getProcedimiento().getString("mensaje");
+            idMaterial = con.getProcedimiento().getInt("material");
+            id_materias.addAll(obtenerIdMaterias(materias));
+            id_autores.addAll(obtenerIdAutores(autores));
+            
+            if(id_materias.size() == materias.size() &&  id_autores.size() == autores.size()){
+                
+                for(Integer id: id_materias){                    
+                    con.procedimiento("{ CALL registrarMaterialMateria(?,?) }");
+                    con.getProcedimiento().setInt("material", idMaterial);
+                    con.getProcedimiento().setInt("materia", id);
+                    con.getProcedimiento().execute();           
+                }
+                
+                for(Integer id: id_autores){                    
+                    con.procedimiento("{ CALL registrarAutorMaterial(?,?) }");
+                    con.getProcedimiento().setInt("material", idMaterial);
+                    con.getProcedimiento().setInt("materia", id);
+                    con.getProcedimiento().execute();           
+                }                
+                con.getConexion().commit();                
+            }
+            else{
+                con.getConexion().rollback();
+                mensaje = "No se ha sido posible registrar el libro.";
+            }         
+        } catch (SQLException e) {
+            try {
+                con.getConexion().rollback();
+            } catch (SQLException ex) {
+                mensaje = ex.getMessage();
+            }
+            mensaje = e.getMessage();
+        } finally {
+            con.desconectar();            
+        } 
+    }
+    
     public void mapearInfoAdmin(int id){
     
         try {
@@ -636,8 +777,7 @@ public class Consultas {
             con.getProcedimiento().setInt("idPrestamo", id);
             con.getProcedimiento().registerOutParameter("nombre", Types.VARCHAR);
             con.getProcedimiento().registerOutParameter("id", Types.VARCHAR);
-            con.getProcedimiento().execute();
-  
+            con.getProcedimiento().execute();  
             nombre = con.getProcedimiento().getString("nombre");
             documento = con.getProcedimiento().getString("id");
            
@@ -719,9 +859,9 @@ public class Consultas {
             con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
             con.getProcedimiento().execute();
             mensaje = con.getProcedimiento().getString("mensaje");
+            con.getConexion().commit();
             if (mensaje != null) {
-            } else {
-                con.getConexion().commit();
+                con.getConexion().rollback();
             }
         } catch (SQLException e) {
             try {
@@ -734,7 +874,6 @@ public class Consultas {
         } finally {
             con.desconectar();
         }
-
     }
 
     public void editarEjemplar(int opcion, int material, int ejemplar, int cantidad, String disponi) {
@@ -924,24 +1063,6 @@ public class Consultas {
             con.desconectar();
         }
 
-    }
-
-    
-    public void eliminarMaterial(int codigo) throws SQLException {
-
-        try {
-            con.conectar();
-            con.getConexion().setAutoCommit(false);
-            con.procedimiento("{ CALL eliminarMaterial(?) }");
-            con.getProcedimiento().setInt("codigo", codigo);
-
-            con.getProcedimiento().execute();
-           // mensaje = con.getProcedimiento().getString("mensaje");
-        } catch (SQLException e) {
-            con.getConexion().rollback();
-        } finally {
-            con.desconectar();
-        }
     }
 
     public void editarUsuario(int opcion, String id, String tipo, String nombre, String apellido, String correo, String documento,
@@ -1152,7 +1273,6 @@ public class Consultas {
             con.getProcedimiento().execute();
             mensaje = con.getProcedimiento().getString("mensaje");
             idPrestamo = con.getProcedimiento().getInt("id");
-
             for (Prestamo p : ejemplares) {
                 con.procedimiento("{ CALL registrarDetalleReserva(?,?,?) }");
                 con.getProcedimiento().setInt("ejemplar", Integer.parseInt(p.getEjemplar()));
@@ -1162,6 +1282,9 @@ public class Consultas {
                 mensaje = con.getProcedimiento().getString("mensaje");
             }
             con.getConexion().commit();
+            if(mensaje != null){
+            con.getConexion().rollback();
+            }
         } catch (SQLException e) {
             try {
                 con.getConexion().rollback();
@@ -1200,6 +1323,9 @@ public class Consultas {
                 mensaje = con.getProcedimiento().getString("mensaje");
             }
             con.getConexion().commit();
+            if(mensaje != null){
+                con.getConexion().rollback();
+            }
         } catch (SQLException e) {
             try {
                 con.getConexion().rollback();
@@ -1229,6 +1355,9 @@ public class Consultas {
                 mensaje = con.getProcedimiento().getString("mensaje");
             }
             con.getConexion().commit();
+            if(mensaje != null){
+                con.getConexion().rollback();
+            }
         } catch (SQLException e) {
             try {
                 con.getConexion().rollback();
@@ -1258,6 +1387,9 @@ public class Consultas {
                 mensaje = con.getProcedimiento().getString("mensaje");
             }            
             con.getConexion().commit();
+            if(mensaje != null){
+                con.getConexion().rollback();
+            }
         } catch (SQLException e) {
             try {
                 con.getConexion().rollback();
@@ -1283,8 +1415,10 @@ public class Consultas {
             con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
             con.getProcedimiento().execute();
             mensaje = con.getProcedimiento().getString("mensaje");
-
             con.getConexion().commit();
+            if(mensaje != null){
+                con.getConexion().rollback();
+            }
         } catch (SQLException e) {
             try {
                 con.getConexion().rollback();
@@ -1514,7 +1648,6 @@ public class Consultas {
             con.desconectar();
         }
         return valorMulta;
-
     }
     
     public int getEstadoCorreos() {
@@ -1697,6 +1830,10 @@ public class Consultas {
     
     public int getIdDevolucion(){
         return idDevolucion;
+    }
+
+    public int getIdMaterial() {
+        return idMaterial;
     }
     
     public double getMulta() {

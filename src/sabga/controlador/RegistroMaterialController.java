@@ -64,8 +64,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     @FXML
     private Button btnNuevoAutor, btnNuevaEditorial, btnNuevaMateria, btnNuevaMateriaOM;
     
-    private int idTipoMaterial, idClaseMaterial, idEditorial, material, idClaseMaterialOM, idTipoMaterialOM, materialOM;
-    private String mensaje;
+    private int idTipoMaterial, idClaseMaterial, idEditorial, idClaseMaterialOM, idTipoMaterialOM;
     private Sabga ventanaPrincipal;  
     private ScreensController controlador;
     private final Dialogo dialogo;
@@ -84,9 +83,6 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private final ObservableList<Autor> autores;
     private final ObservableList<Materia> materias;
     private final ObservableList<Materia> materiasOM;
-    private final ObservableList<Integer> idAutores;
-    private final ObservableList<Integer> idMaterias;
-    private final ObservableList<Integer> idMateriasOM;
          
     public RegistroMaterialController(){
         
@@ -105,9 +101,6 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         listaEditoriales = FXCollections.observableArrayList();
         listaAutores = FXCollections.observableArrayList();
         obtenerAutores = FXCollections.observableArrayList();
-        idAutores = FXCollections.observableArrayList();
-        idMaterias = FXCollections.observableArrayList();
-        idMateriasOM = FXCollections.observableArrayList();
         validar = new Validacion();
    
     }
@@ -136,21 +129,17 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private void procedimientoGuardarLibro(){
         
         if (obtenerIdLibro()) {
-            try {
-                registrarLibro();
-                if (mensaje != null) {
-                    Utilidades.mensajeError(null, mensaje, "Error al registrar el libro.", "Error Guardar Libro");
-                } else {
-                    Utilidades.mensajeOpcion(null, "Para guardar o imprimir el código de barras seleccionar 'Yes'.\n"
-                                                 + "Para finalizar y cerrar este mensaje seleccinar 'No'.",  "El libro se ha registrado correctamente.", "Registro Exitoso");
-                    if(Utilidades.getMensajeOpcion() == DialogResponse.YES){
-                        codigoBarras(material);
-                    }
-                    resetearVariables();
-                    limpiarCamposLibro();
+            registrarLibro();
+            if (consulta.getMensaje() != null) {
+                Utilidades.mensajeError(null, consulta.getMensaje(), "Error al registrar el libro.", "Error Guardar Libro");
+            } else {
+                Utilidades.mensajeOpcion(null, "Para guardar o imprimir el código de barras seleccionar 'Yes'.\n"
+                        + "Para finalizar y cerrar este mensaje seleccinar 'No'.",  "El libro se ha registrado correctamente.", "Registro Exitoso");
+                if(Utilidades.getMensajeOpcion() == DialogResponse.YES){
+                    codigoBarras(consulta.getIdMaterial());
                 }
-            } catch (SQLException ex) {
-                Utilidades.mensajeError(null, ex.getMessage(), "Error registrar el libro.", "Error Guardar Libro");
+                resetearVariables();
+                limpiarCamposLibro();
             }
         } else {
             Utilidades.mensajeError(null, "No se ha registrado el libro.", "Error al registrar el libro.", "Error Guardar Libro");
@@ -160,95 +149,35 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private void procedimientoGuardarOtroMaterial(){
         
         if (obtenerIdOM()) {
-            try {
-                registrarOtroMaterial();
-                if (mensaje != null) {
-                    Utilidades.mensajeError(null, mensaje, "Error al registrar el material.", "Error Guardar Material");
-                } else {                    
-                    Utilidades.mensajeOpcion(null,"Para guardar o imprimir el código de barras seleccionar 'Yes'.\n"
-                                                + "Para finalizar y cerrar este mensaje seleccinar 'No'.",  "El material se ha registrado correctamente.", "Registro Exitoso");
-                    if(Utilidades.getMensajeOpcion() == DialogResponse.YES){
-                        codigoBarras(materialOM);
-                    } 
-                    resetearVariables();
-                    limpiarCamposOtros();
+            registrarOtroMaterial();
+            if (consulta.getMensaje() != null) {
+                Utilidades.mensajeError(null, consulta.getMensaje(), "Error al registrar el material.", "Error Guardar Material");
+            } else {
+                Utilidades.mensajeOpcion(null,"Para guardar o imprimir el código de barras seleccionar 'Yes'.\n"
+                        + "Para finalizar y cerrar este mensaje seleccinar 'No'.",  "El material se ha registrado correctamente.", "Registro Exitoso");
+                if(Utilidades.getMensajeOpcion() == DialogResponse.YES){
+                    codigoBarras(consulta.getIdMaterial());
                 }
-            } catch (SQLException ex) {
-                Utilidades.mensajeError(null, ex.getMessage(), "Error al registrar el material.", "Error Guardar Material");
+                resetearVariables();
+                limpiarCamposOtros();
             }
         } else {
             Utilidades.mensajeError(null, "No se ha registrado el material.", "Error al registrar el material.", "Error Guardar Material");
         }
     }
     
-    private void registrarOtroMaterial() throws SQLException{
+    private void registrarOtroMaterial(){
         
-        try {           
-            con.conectar();
-            con.getConexion().setAutoCommit(false);
-            con.procedimiento("{ CALL registrarOtroMaterial(?,?,?,?,?,?,?) }");
-            con.getProcedimiento().setInt("claseMaterial", idClaseMaterialOM);
-            con.getProcedimiento().setInt("tipoMaterial", idTipoMaterialOM);
-            con.getProcedimiento().setString("codigo", txtfCodigoOM.getText().trim());
-            con.getProcedimiento().setString("titulo", txtfTituloOM.getText().trim());
-            con.getProcedimiento().setInt("numeroCopias", Integer.parseInt(txtfCopias.getText().trim()));
-            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
-            con.getProcedimiento().registerOutParameter("material", Types.INTEGER);
-            con.getProcedimiento().execute();           
-            mensaje = con.getProcedimiento().getString("mensaje");
-            materialOM = con.getProcedimiento().getInt("material");
-            
-            if(obtenerIdMateriasOM() && llenarTablaDetalleOM()){               
-                con.getConexion().commit();
-            }
-            else{
-                con.getConexion().rollback();
-                mensaje = "No se ha guardado el material.";
-            }
-        } catch (SQLException e) {
-            con.getConexion().rollback();
-            mensaje = String.valueOf(e.getErrorCode());
-            Utilidades.mensajeError(null, e.getMessage(), "Error al registrar el material.", "Error Guardar Material");  
-        } finally {
-            con.desconectar();
-        }
+        consulta.registrarOtroMaterial(idClaseMaterialOM, idTipoMaterialOM, txtfCodigoOM.getText().trim(), txtfTituloOM.getText().trim(),
+                                       Integer.parseInt(txtfCopias.getText().trim()), materiasOM);       
     }
     
-    private void registrarLibro() throws SQLException{
+    private void registrarLibro(){
        
-        try {
-            con.conectar();
-            con.getConexion().setAutoCommit(false);
-            con.procedimiento("{ CALL registrarMaterial(?,?,?,?,?,?,?,?,?,?,?) }");
-            con.getProcedimiento().setInt("claseMaterial", idClaseMaterial);
-            con.getProcedimiento().setInt("tipoMaterial", idTipoMaterial);
-            con.getProcedimiento().setInt("editorial", idEditorial);            
-            con.getProcedimiento().setString("codigo", txtfCodigo.getText().trim());
-            con.getProcedimiento().setString("titulo", txtfTitulo.getText().trim());
-            con.getProcedimiento().setString("publicacion", txtfPublicacion.getText().trim());
-            con.getProcedimiento().setInt("anioPublicacion", Integer.parseInt(txtfAnioPublicacion.getText().trim()));
-            con.getProcedimiento().setInt("numeroPaginas", Integer.parseInt(txtfPaginas.getText().trim()));
-            con.getProcedimiento().setInt("cantidadEjemplares", Integer.parseInt(txtfEjemplares.getText().trim()));
-            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
-            con.getProcedimiento().registerOutParameter("material", Types.INTEGER);
-            con.getProcedimiento().execute();           
-            mensaje = con.getProcedimiento().getString("mensaje");
-            material = con.getProcedimiento().getInt("material");
-            
-            if(obtenerIdAutoresMaterias() && llenarTablaDetalle()){               
-                con.getConexion().commit();                
-            }
-            else{
-                con.getConexion().rollback();
-                mensaje = "No se ha guardado el libro.";
-            }         
-        } catch (SQLException e) {
-            con.getConexion().rollback();
-            mensaje = String.valueOf(e.getErrorCode());
-            Utilidades.mensajeError(null, e.getMessage(), "Error al registrar el libro.", "Error Guardar Libro");  
-        } finally {
-            con.desconectar();            
-        }    
+        consulta.registrarLibro(idClaseMaterial, idTipoMaterial, idEditorial, txtfCodigo.getText().trim(), txtfTitulo.getText().trim(), 
+                                txtfPublicacion.getText().trim(), Integer.parseInt(txtfAnioPublicacion.getText().trim()), 
+                                Integer.parseInt(txtfPaginas.getText().trim()), Integer.parseInt(txtfEjemplares.getText().trim()),
+                                materias, autores);   
     }
     
     private Boolean obtenerIdLibro(){
@@ -265,77 +194,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         }        
        return idTipoMaterial != 0 && idClaseMaterial != 0 && idEditorial !=0;
     }
-       
-    private Boolean llenarTablaDetalleOM() throws SQLException{
-              
-          try {            
-            con.getConexion().setAutoCommit(false);
-            for(Integer id: idMateriasOM){
-            con.getStatement().executeUpdate("INSERT INTO tbl_MATERIAL_MATERIA (id_material, id_materia) VALUES ("+materialOM+" ,"+id+")");
-            }
-            return true;
-        } catch (SQLException ex) {
-             con.getConexion().rollback();
-             Utilidades.mensajeError(null, ex.getMessage(), "No se ha asociado la materia con el material.", "Error Registro Materia");
-             return false;              
-        }                  
-    }
-    
-    private Boolean llenarTablaDetalle() throws SQLException{
-    
-       try {
-            con.getConexion().setAutoCommit(false);
-            for (Integer id : idAutores) {
-                con.getStatement().executeUpdate("INSERT INTO tbl_AUTOR_MATERIAL (id_autor, id_material) VALUES (" + id + " ," + material + ")");
-            }
-            for (Integer idMat : idMaterias) {
-                con.getStatement().executeUpdate("INSERT INTO tbl_MATERIAL_MATERIA (id_material, id_materia) VALUES (" + material + " ," + idMat + ")");
-            }
-            return true;
-        } catch (SQLException ex) {
-            con.getConexion().rollback();
-            Utilidades.mensajeError(null, ex.getMessage(), "No se ha asociado el material con la materia.\n"
-                                                         + "No se ha asociado el material con el autor.", "Error");
-            return false;
-        }       
-    }
-    
-    private Boolean obtenerIdMateriasOM() throws SQLException{
-            
-        try {
-            for(Materia mateOM : materiasOM){
-                con.setResultado(con.getStatement().executeQuery("SELECT id_materia FROM tbl_MATERIA WHERE nombre_materia= '" + mateOM.getNombreMateria()+ "'"));
-                if (con.getResultado().first()) {
-                    idMateriasOM.add(con.getResultado().getInt("id_materia"));
-                }
-            }
-        } catch (SQLException ex) {
-            Utilidades.mensajeError(null, ex.getMessage(), "No se obtuvo el código del las materias seleccionadas.", "Error Código");
-        } 
-        return idMateriasOM.size() == materiasOM.size();
-    }
-    
-    private Boolean obtenerIdAutoresMaterias(){
-    
-            try {
-                for (Autor dato : autores) {
-                    con.setResultado(con.getStatement().executeQuery("SELECT id_autor FROM tbl_AUTOR WHERE nombre_autor= '" + dato.getNombreAutor() + "' AND apellidos_autor= '" + dato.getApellidosAutor() + "'"));
-                    if (con.getResultado().first()) {
-                        idAutores.add(con.getResultado().getInt("id_autor"));
-                    }
-                }
-                for (Materia mate : materias) {
-                    con.setResultado(con.getStatement().executeQuery("SELECT id_materia FROM tbl_MATERIA WHERE nombre_materia= '" + mate.getNombreMateria() + "'"));
-                    if (con.getResultado().first()) {
-                        idMaterias.add(con.getResultado().getInt("id_materia"));
-                    }
-                }
-            } catch (SQLException ex) {
-                Utilidades.mensajeError(null, ex.getMessage(), "No se obtuvo los códigos de autores o materias", "Error");
-        }
-            return idAutores.size() == autores.size() && idMaterias.size() == materias.size();
-    }
-    
+                      
     private Boolean obtenerIdOM(){
          
         idTipoMaterialOM = consulta.getId(1, comboTipoMaterial.getSelectionModel().getSelectedItem().toString());
@@ -695,20 +554,15 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     
     private void resetearVariables(){
         
-        mensaje = null;
         idClaseMaterial = 0;
         idClaseMaterialOM = 0;
         idEditorial = 0;
         idTipoMaterial = 0;
         idTipoMaterialOM = 0;
-        idAutores.clear();
-        idMaterias.clear();
-        idMateriasOM.clear();
     }
     
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-            
+    private void inicio(){
+        
         prepararTablas();
         llenarAutores();
         llenarListaMaterias();
@@ -736,5 +590,11 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         comboClaseMaterial.setItems(consulta.llenarLista(1));
         comboClaseMaterialOM.setItems(comboClaseMaterial.getItems());
         comboTipoMaterial.setItems(consulta.llenarLista(5));      
+    
+    }
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+         inicio();        
     }        
 }
