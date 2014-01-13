@@ -164,6 +164,11 @@ public class MultaController implements Initializable {
         
     }
     
+    @FXML
+    public void cerrar(ActionEvent evento){    
+        this.dialogStage.close();    
+    }
+    
     private void resultadoRegistro() {
 
         if (consulta.getMensaje() == null) {

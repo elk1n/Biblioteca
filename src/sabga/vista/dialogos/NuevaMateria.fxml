@@ -32,7 +32,7 @@
     </GridPane>
     <HBox id="HBox" alignment="CENTER" layoutX="33.0" layoutY="183.0" spacing="30.0">
       <children>
-        <Button mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="120.0" text="Cancelar" />
+        <Button mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="120.0" text="Cerrar" />
         <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarNuevaMateria" prefHeight="25.0" prefWidth="125.0" text="Guardar Materia" />
       </children>
     </HBox>

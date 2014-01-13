@@ -32,7 +32,7 @@
     </GridPane>
     <HBox id="HBox" alignment="CENTER" layoutX="27.0" layoutY="184.0" spacing="40.0">
       <children>
-        <Button cancelButton="false" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="120.0" text="Cancelar" />
+        <Button cancelButton="false" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="120.0" text="Cerrar" />
         <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarNuevaEditorial" prefHeight="25.0" prefWidth="130.0" text="Guardar Editorial">
           <tooltip>
             <Tooltip text="Esto es una prueba" />

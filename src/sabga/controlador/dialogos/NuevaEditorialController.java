@@ -47,10 +47,10 @@ public class NuevaEditorialController {
         if(nuevaEditorial.confirmarNuevaEditorial(campoNuevaEditorial.getText())){
             consulta.registrarUnicoValor(2, campoNuevaEditorial.getText().trim());
             if(consulta.getMensaje()!= null){
-                Utilidades.mensajeAdvertencia(null, consulta.getMensaje(), "Error al registrar la editorial", "Error Registrar Editorial");
-                campoNuevaEditorial.clear();
+                Utilidades.mensajeAdvertencia(null, consulta.getMensaje(), "Error al registrar la editorial", "Error Registrar Editorial");                
             }else{
-                Utilidades.mensaje(null, "Editorial registrada correctamente", "Registrando Editorial", "Registro Exitoso");  
+                Utilidades.mensaje(null, "Editorial registrada correctamente", "Registrando Editorial", "Registro Exitoso"); 
+                campoNuevaEditorial.clear();
             }
         }
     }

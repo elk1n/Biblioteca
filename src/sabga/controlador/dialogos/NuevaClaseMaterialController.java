@@ -2,8 +2,6 @@
 package sabga.controlador.dialogos;
 
 import java.net.URL;
-import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sabga.configuracion.Conexion;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.ConfirmarMaterial;
 import sabga.modelo.Consultas;
@@ -52,11 +49,12 @@ public class NuevaClaseMaterialController implements Initializable {
          nuevaClaseM = new ConfirmarMaterial();
         if(nuevaClaseM.confirmarNuevaClaseMaterial(campoNombreClaseM.getText())){           
              consulta.registrarUnicoValor(1, campoNombreClaseM.getText().trim());
-             if(consulta.getMensaje()!=null){
+             if(consulta.getMensaje()!= null){
                  Utilidades.mensajeAdvertencia(null, consulta.getMensaje(), "Error al registrar la nueva clase de material", "Error Registrar Clase Material");
              }
              else{
                  Utilidades.mensaje(null, "Clase de material registrada correctamente", "Registrando nueva clase de material", "Registro Exitoso");
+                 campoNombreClaseM.clear();
              }
         }
     }

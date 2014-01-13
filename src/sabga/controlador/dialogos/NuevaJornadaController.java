@@ -48,10 +48,9 @@ public class NuevaJornadaController implements Initializable {
          nuevaJornada = new ConfirmarUsuario();
         if(nuevaJornada.confirmarJornada(campoNuevaJornada.getText())){
             consulta.registrarUnicoValor(3, campoNuevaJornada.getText().trim());
-            if(consulta.getMensaje()!=null){
+            if(consulta.getMensaje()!= null){
                 Utilidades.mensajeAdvertencia(null, consulta.getMensaje(), "Error al registrar la jornada", "Error Registrar Jornada");
-            }
-            else{
+            }else{
                 Utilidades.mensaje(null, "Jornada registrada correctamente", "Registrando Jornada", "Registro Exitoso");
                 campoNuevaJornada.clear();  
             }
