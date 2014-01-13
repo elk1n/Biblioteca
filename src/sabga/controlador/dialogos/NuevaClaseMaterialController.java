@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import sabga.configuracion.Conexion;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.ConfirmarMaterial;
+import sabga.modelo.Consultas;
 import sabga.modelo.ValidarMaterial;
 
 
@@ -23,83 +24,43 @@ import sabga.modelo.ValidarMaterial;
 
 public class NuevaClaseMaterialController implements Initializable {
     
-    private Stage dialogStage;
-    
+    private Stage dialogStage;    
     @FXML
     private Label validacionClaseM;
     @FXML
-    private TextField campoNombreClaseM;
-    
+    private TextField campoNombreClaseM;    
     private ValidarMaterial validarClaseM;
     private ConfirmarMaterial nuevaClaseM;
-    private final Conexion con;
-    private String mensaje;
+    private final Consultas consulta;
     
     public NuevaClaseMaterialController(){
-    
-        con = new Conexion();
+        consulta = new Consultas();
     }
     
     public void setDialogStage(Stage dialogStage) {
-
         this.dialogStage = dialogStage;
     }
     
     @FXML
-    public void guardarClaseMaterial(ActionEvent evento){
-        
+    public void guardarClaseMaterial(ActionEvent evento){        
         procesarNuevaClaseMaterial();       
     }
     
     public void procesarNuevaClaseMaterial(){
          
-        validarCampos();
+         validarCampos();
          nuevaClaseM = new ConfirmarMaterial();
-        if(nuevaClaseM.confirmarNuevaClaseMaterial(campoNombreClaseM.getText())){
-            
-            try {
-                registarNuevaClaseMaterial();
-                if(mensaje!=null){
-                    
-                     Utilidades.mensajeAdvertencia(null, mensaje, "Error al registrar la nueva clase de material", "Error Registrar Clase Material");
-                }
-                else{
-                    //dialogStage.setOpacity(0);
-                    Utilidades.mensaje(null, "Clase de material registrada correctamente", "Registrando nueva clase de material", "Registro Exitoso");
-                    dialogStage.close();
-                }
-            } catch (SQLException ex) {
-                
-                Utilidades.mensajeError(null, ex.getMessage(), "Error al registrar la nueva clase material", "Error Registrar Clase Material");  
-            }
+        if(nuevaClaseM.confirmarNuevaClaseMaterial(campoNombreClaseM.getText())){           
+             consulta.registrarUnicoValor(1, campoNombreClaseM.getText().trim());
+             if(consulta.getMensaje()!=null){
+                 Utilidades.mensajeAdvertencia(null, consulta.getMensaje(), "Error al registrar la nueva clase de material", "Error Registrar Clase Material");
+             }
+             else{
+                 Utilidades.mensaje(null, "Clase de material registrada correctamente", "Registrando nueva clase de material", "Registro Exitoso");
+             }
         }
     }
-    
-    public void registarNuevaClaseMaterial() throws SQLException {
-  
-        try {
-
-            con.conectar();
-            con.getConexion().setAutoCommit(false);
-            con.procedimiento("{ CALL registrarClaseMaterial(?,?) }");
-
-            con.getProcedimiento().setString("claseMaterial", campoNombreClaseM.getText().trim());
-            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
-
-            con.getProcedimiento().execute();
-            con.getConexion().commit();
-            mensaje=con.getProcedimiento().getString("mensaje");
-
-        } catch (SQLException e) {
-
-            con.getConexion().rollback();
-            Utilidades.mensajeError(null, e.getMessage(), "Error al registrar la nueva clase de material", "Error Registrar Clase Material");  
-
-        } finally {
-            con.desconectar();
-        }
-    }
-    
+        
     public void validarCampos() {
         
         validarClaseM = new ValidarMaterial();

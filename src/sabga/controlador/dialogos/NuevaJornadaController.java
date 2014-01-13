@@ -2,8 +2,6 @@
 package sabga.controlador.dialogos;
 
 import java.net.URL;
-import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,9 +9,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sabga.configuracion.Conexion;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.ConfirmarUsuario;
+import sabga.modelo.Consultas;
 import sabga.modelo.ValidarUsuario;
 
 /**
@@ -26,26 +24,21 @@ public class NuevaJornadaController implements Initializable {
     @FXML
     private Label validarNuevaJornada;
     @FXML
-    private TextField campoNuevaJornada;
-    
+    private TextField campoNuevaJornada;   
     private ValidarUsuario validarJornada;
     private ConfirmarUsuario nuevaJornada;
-    private Conexion con;
-    private String mensaje;
-    
+    private final Consultas consulta;
+        
     public NuevaJornadaController(){
-    
-        con = new Conexion();    
+        consulta = new Consultas();          
     }
     
     public void setDialogStage(Stage dialogStage) {
-
         this.dialogStage = dialogStage;
     }
     
     @FXML
-    public void guardarJoranda(ActionEvent evento){
-        
+    public void guardarJoranda(ActionEvent evento){      
         procesarNuevaJornada();
     }
     
@@ -54,50 +47,17 @@ public class NuevaJornadaController implements Initializable {
         validarCampos();
          nuevaJornada = new ConfirmarUsuario();
         if(nuevaJornada.confirmarJornada(campoNuevaJornada.getText())){
-            
-            try {
-                registarJornada();
-                if(mensaje!=null){
-                    
-                     Utilidades.mensajeAdvertencia(null, mensaje, "Error al registrar la jornada", "Error Registrar Jornada");
-                }
-                else{
-                    //dialogStage.setOpacity(0);
-                    Utilidades.mensaje(null, "Jornada registrada correctamente", "Registrando Jornada", "Registro Exitoso");
-                    dialogStage.close();
-                }
-            } catch (SQLException ex) {
-                
-                Utilidades.mensajeError(null, ex.getMessage(), "Error al registrar la jornada", "Error Registrar Jornada");  
+            consulta.registrarUnicoValor(3, campoNuevaJornada.getText().trim());
+            if(consulta.getMensaje()!=null){
+                Utilidades.mensajeAdvertencia(null, consulta.getMensaje(), "Error al registrar la jornada", "Error Registrar Jornada");
+            }
+            else{
+                Utilidades.mensaje(null, "Jornada registrada correctamente", "Registrando Jornada", "Registro Exitoso");
+                campoNuevaJornada.clear();  
             }
         }
     }
-    
-    public void registarJornada() throws SQLException {
-  
-        try {
-
-            con.conectar();
-            con.getConexion().setAutoCommit(false);
-            con.procedimiento("{ CALL registrarJornada(?,?) }");
-
-            con.getProcedimiento().setString("nuevaJornada", campoNuevaJornada.getText().trim());
-            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
-
-            con.getProcedimiento().execute();
-            con.getConexion().commit();
-            mensaje=con.getProcedimiento().getString("mensaje");
-
-        } catch (SQLException e) {
-
-            con.getConexion().rollback();
-            Utilidades.mensajeError(null, e.getMessage(), "Error al registrar la nueva Jornada", "Error Registrar Jornada");  
-
-        } finally {
-            con.desconectar();
-        }
-    }
-    
+       
     public void validarCampos() {
 
         validarJornada = new ValidarUsuario();

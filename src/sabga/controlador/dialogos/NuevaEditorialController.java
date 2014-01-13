@@ -1,17 +1,15 @@
 package sabga.controlador.dialogos;
 
 import java.net.URL;
-import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sabga.configuracion.Conexion;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.ConfirmarMaterial;
+import sabga.modelo.Consultas;
 import sabga.modelo.ValidarMaterial;
 
 /**
@@ -24,15 +22,13 @@ public class NuevaEditorialController {
     @FXML
     private Label validarNuevaEditorial;
     @FXML
-    private TextField campoNuevaEditorial;
-    
+    private TextField campoNuevaEditorial;    
     private ValidarMaterial validarEditorial;
     private ConfirmarMaterial nuevaEditorial;
-    private final Conexion con;
-    private String mensaje;
+    private final Consultas consulta;
     
     public NuevaEditorialController(){
-        con = new Conexion();    
+        consulta = new Consultas();
     }
 
     public void setDialogStage(Stage dialogStage) {
@@ -49,41 +45,16 @@ public class NuevaEditorialController {
         validarCampos();
          nuevaEditorial = new ConfirmarMaterial();
         if(nuevaEditorial.confirmarNuevaEditorial(campoNuevaEditorial.getText())){
-            
-            try {
-                registarEditorial();
-                if(mensaje!=null){                    
-                     Utilidades.mensajeAdvertencia(null, mensaje, "Error al registrar la editorial", "Error Registrar Editorial");
-                }else{
-                    //dialogStage.setOpacity(0);
-                    Utilidades.mensaje(null, "Editorial registrada correctamente", "Registrando Editorial", "Registro Exitoso");
-                    dialogStage.close();
-                }
-            } catch (SQLException ex) { 
-                Utilidades.mensajeError(null, ex.getMessage(), "Error al registrar la editorial", "Error Registrar Editorial");  
+            consulta.registrarUnicoValor(2, campoNuevaEditorial.getText().trim());
+            if(consulta.getMensaje()!= null){
+                Utilidades.mensajeAdvertencia(null, consulta.getMensaje(), "Error al registrar la editorial", "Error Registrar Editorial");
+                campoNuevaEditorial.clear();
+            }else{
+                Utilidades.mensaje(null, "Editorial registrada correctamente", "Registrando Editorial", "Registro Exitoso");  
             }
         }
     }
-    
-    public void registarEditorial() throws SQLException {
-  
-        try {
-            con.conectar();
-            con.getConexion().setAutoCommit(false);
-            con.procedimiento("{ CALL registrarEditorial(?,?) }");
-            con.getProcedimiento().setString("editorial", campoNuevaEditorial.getText().trim());
-            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
-            con.getProcedimiento().execute();
-            con.getConexion().commit();
-            mensaje=con.getProcedimiento().getString("mensaje");
-        } catch (SQLException e) {
-            con.getConexion().rollback();
-            Utilidades.mensajeError(null, e.getMessage(), "Error al registrar la nueva editorial", "Error Registrar Editorial");  
-        } finally {
-            con.desconectar();
-        }
-    }
-    
+      
     public void validarCampos() {
         validarEditorial = new ValidarMaterial();
         validarEditorial.validarNuevaEditorial(campoNuevaEditorial.getText());

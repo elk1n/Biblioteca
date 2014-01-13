@@ -18,7 +18,7 @@
         </Label>
         <Label text="Nombre o Identificador del Nuevo Curso" GridPane.columnIndex="0" GridPane.rowIndex="1" />
         <Label fx:id="validarNuevoCurso" alignment="CENTER_RIGHT" prefWidth="329.0" text="" textFill="#cc0000" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-        <TextField fx:id="campoNuevoCurso" prefHeight="30.0" prefWidth="250.0" promptText="Nombre o identificador pare el nuevo curso" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="campoNuevoCurso" onAction="#guardarCurso" prefHeight="30.0" prefWidth="250.0" promptText="Nombre o identificador pare el nuevo curso" GridPane.columnIndex="0" GridPane.rowIndex="2" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -30,9 +30,9 @@
         <RowConstraints maxHeight="48.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <HBox id="HBox" alignment="CENTER" layoutX="131.0" layoutY="223.0" spacing="30.0">
+    <HBox id="HBox" alignment="CENTER" layoutX="65.0" layoutY="226.0" spacing="30.0">
       <children>
-        <Button cancelButton="true" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" text="Cancelar" />
+        <Button cancelButton="true" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="120.0" text="Cancelar" />
         <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarCurso" prefHeight="25.0" prefWidth="120.0" text="Guardar Curso" />
       </children>
     </HBox>

@@ -1423,6 +1423,58 @@ public class Consultas {
         }
     }
     
+    public void registrarUnicoValor(int opcion, String valor){
+   
+        try {
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL registrarValorUnico(?,?,?) }");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setString("valor", valor);
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+
+            con.getProcedimiento().execute();
+            con.getConexion().commit();
+            mensaje = con.getProcedimiento().getString("mensaje");
+
+        } catch (SQLException e) {
+            try {
+                con.getConexion().rollback();
+            } catch (SQLException ex) {
+                mensaje = ex.getMessage();
+            }
+            mensaje = e.getMessage();
+        } finally {
+            con.desconectar();
+        }
+    }
+    
+    public void registrarAutor(String nombre, String apellido){
+    
+        try {
+
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL registrarAutor(?,?,?) }");
+            con.getProcedimiento().setString("nombreAutor", nombre);
+            con.getProcedimiento().setString("apellidosAutor", apellido);
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+            con.getProcedimiento().execute();
+            con.getConexion().commit();
+            mensaje = con.getProcedimiento().getString("mensaje");
+
+        } catch (SQLException e) {
+            try {
+                con.getConexion().rollback();
+            } catch (SQLException ex) {
+                mensaje = ex.getMessage();
+            }
+            mensaje = e.getMessage();
+        } finally {
+            con.desconectar();
+        }    
+    }
+    
     public void editarAutor(int id, int opcion, String nombre, String apellido){
     
          try {
