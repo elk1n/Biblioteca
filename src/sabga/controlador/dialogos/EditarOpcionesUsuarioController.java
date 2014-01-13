@@ -94,6 +94,7 @@ public class EditarOpcionesUsuarioController implements Initializable {
                 Utilidades.mensajeAdvertencia(null, consulta.getMensaje(), "Error al eliminar la selección", "Error Guardar Cambios");
             } else {
                 Utilidades.mensaje(null, "La selección se ha eliminado correctamente", "Eliminado Selección", "Actualización Exitosa");
+                listaDatos.clear();
                 listaDatos.addAll(consulta.llenarLista2(lista));
             }
         } else {
@@ -145,6 +146,7 @@ public class EditarOpcionesUsuarioController implements Initializable {
                     Utilidades.mensajeAdvertencia(null, consulta.getMensaje(), "Error al editar la selección", "Error Guardar Cambios");
                 } else {
                     Utilidades.mensaje(null, "Los cambios se han guardado correctamente", "Editando Selección", "Actualización Exitosa");
+                    listaDatos.clear();
                     listaDatos.addAll(consulta.llenarLista2(lista));
                 }
             } else {
@@ -185,14 +187,14 @@ public class EditarOpcionesUsuarioController implements Initializable {
     @FXML
     public void mapearDatos(){
         
-     txtfNombre.setText(tablaResultados.getSelectionModel().getSelectedItem().toString());
-     txtfNombre.setDisable(false);
-     nombre = tablaResultados.getSelectionModel().getSelectedItem().toString();
-    
+       if(tablaResultados.getSelectionModel().getSelectedItem() != null){           
+           txtfNombre.setText(listaDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getNombreAutor());
+           txtfNombre.setDisable(false);
+           nombre = listaDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getNombreAutor();
+       } 
     }
         
-    private void resetear() {
-        
+    private void resetear() {        
         txtfNombre.setText("");
         txtfNombre.setDisable(true);
         nombre = null;    
