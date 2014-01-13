@@ -55,7 +55,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     @FXML 
     private Button  btnBorrar, btnDetalle, btnEditorial, btnAutor, btnMateria, btnCodigoBarras;    
     @FXML 
-    private ComboBox comboClaseMaterial, comboMaterial, comboDispo;    
+    private ComboBox<String> comboClaseMaterial, comboMaterial, comboDispo;    
     @FXML
     private HBox hboxEditorial, hboxAutores, hboxMaterias;
     @FXML
@@ -63,25 +63,37 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     @FXML    
     private Tooltip est;
     @FXML
-    private TableView tablaMaterial, tablaMaterias, tablaAutores, tablaEjemplar;
+    private TableView<Material> tablaMaterial;
     @FXML
-    private TableColumn clmnTitulo, clmnCodigo, clmnClase, clmnMateria, clmnNombre, clmnApellidos, clmnEjemplar, clmnEstado;
-    private final AutoFillTextBox editorial, autores, materias ;    
+    private TableView<Materia> tablaMaterias;
+    @FXML
+    private TableView<Autor> tablaAutores;
+    @FXML
+    private TableView<Ejemplar> tablaEjemplar;
+    @FXML
+    private TableColumn<Material, String> clmnTitulo, clmnCodigo, clmnClase;
+    @FXML
+    private TableColumn<Materia, String> clmnMateria;
+    @FXML
+    private TableColumn<Autor, String>clmnNombre, clmnApellidos;
+    @FXML
+    private TableColumn<Ejemplar, String>clmnEjemplar, clmnEstado;
+    private final AutoFillTextBox<String> editorial, autores, materias ;    
     private final ObservableList<Material> filtrarMaterial;
     private final ObservableList<Material> listaMaterial;
     private final ObservableList<Autor> listaAutores;
     private final ObservableList<Autor> obtenerAutores;
     private final ObservableList<Materia> listaMaterias;
     private final ObservableList<Ejemplar> listaEjemplares;
-    private final ObservableList listaBusquedaMaterias, listaBusquedaAutores, disponibilidad;
+    private final ObservableList<String> listaBusquedaMaterias, listaBusquedaAutores, disponibilidad;
     private final Consultas consulta;
 
     public EditarMaterialController(){
         dialogo = new Dialogo();       
         consulta = new Consultas();
-        editorial = new AutoFillTextBox();
-        autores = new AutoFillTextBox();
-        materias = new AutoFillTextBox();
+        editorial = new AutoFillTextBox<>();
+        autores = new AutoFillTextBox<>();
+        materias = new AutoFillTextBox<>();
         obtenerAutores = FXCollections.observableArrayList();
         listaBusquedaMaterias = FXCollections.observableArrayList();
         listaBusquedaAutores = FXCollections.observableArrayList();

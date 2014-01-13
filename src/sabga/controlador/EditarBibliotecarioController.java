@@ -30,13 +30,13 @@ public class EditarBibliotecarioController implements Initializable, ControlledS
     private ScreensController controlador;
     
     @FXML 
-    private ComboBox comboEstado, comboTipo;  
+    private ComboBox<String> comboEstado, comboTipo;  
     @FXML 
-    private TableView tablaAdmin;    
+    private TableView<Usuario> tablaAdmin;    
     @FXML 
-    private TableColumn tDocumento, tNombre, tApellido, tUsuario, tCorreo, tTelefono, tEstado, clmnTipo;
+    private TableColumn<Usuario, String> tDocumento, tNombre, tApellido, tUsuario, tCorreo, tTelefono, tEstado, clmnTipo;
     private final ObservableList<Usuario> listaAdmin;
-    private final ObservableList estados, tipo;
+    private final ObservableList<String> estados, tipo;
     private final Consultas consulta;
    
     public EditarBibliotecarioController(){ 

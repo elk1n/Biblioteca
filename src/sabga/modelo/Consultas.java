@@ -34,9 +34,9 @@ public class Consultas {
         con = new Conexion();
     }
 
-    public ObservableList llenarLista(int opcion){
+    public ObservableList<String> llenarLista(int opcion){
             
-        ObservableList lista = FXCollections.observableArrayList();
+        ObservableList<String> lista = FXCollections.observableArrayList();
         try {
             con.conectar();
             con.procedimiento("{ CALL getLista(?) }");
@@ -51,6 +51,26 @@ public class Consultas {
             con.desconectar();
         }
         return lista;
+    }
+    
+    public ObservableList<Autor> llenarLista2(int opcion){
+    
+        ObservableList<Autor> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getLista2(?) }");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                lista.add(new Autor(con.getResultado().getInt("id"), con.getResultado().getString("columna")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+        } finally {
+            con.desconectar();
+        }
+        return lista;
+    
     }
    
     public ObservableList<Material> getListaMaterialBusqueda(String parametroBusqueda) {
@@ -1401,6 +1421,65 @@ public class Consultas {
         } finally {
             con.desconectar();
         }
+    }
+    
+    public void editarAutor(int id, int opcion, String nombre, String apellido){
+    
+         try {
+
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL editarAutor(?,?,?,?,?) }");
+
+            con.getProcedimiento().setInt("id", id);
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setString("nombre", nombre);
+            con.getProcedimiento().setString("apellidos", apellido);
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+
+            con.getProcedimiento().execute();
+            con.getConexion().commit();
+            mensaje = con.getProcedimiento().getString("mensaje");
+
+        } catch (SQLException e) {
+             try {
+                 con.getConexion().rollback();
+             } catch (SQLException ex) {
+                 mensaje = ex.getMessage();
+             }
+             mensaje = e.getMessage();
+        } finally {
+            con.desconectar();
+        }     
+    }
+    
+    public void editarAME(int opcion, int id, String nombre){
+    
+         try {
+
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL editarAME(?,?,?,?) }");
+
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setInt("id", id);
+            con.getProcedimiento().setString("nombre", nombre);
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+
+            con.getProcedimiento().execute();
+            con.getConexion().commit();
+            mensaje = con.getProcedimiento().getString("mensaje");
+
+        } catch (SQLException e) {
+             try {
+                 con.getConexion().rollback();
+             } catch (SQLException ex) {
+                 mensaje = ex.getMessage();
+             }
+             mensaje = e.getMessage();
+        } finally {
+            con.desconectar();
+        }     
     }
     
     public void pagarMultas(int opcion, int id, int valor){

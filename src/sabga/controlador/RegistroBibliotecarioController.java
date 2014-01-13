@@ -33,12 +33,12 @@ public class RegistroBibliotecarioController implements Initializable, Controlle
     @FXML 
     private PasswordField campoContrasenia, campoContrasenia2;    
     @FXML 
-    private ComboBox comboTipoAdmin;
+    private ComboBox<String> comboTipoAdmin;
     @FXML 
     private Label validarNombre, validarApellidos, validarUsuario, validarContrasenia, validarConfirmacion, validarCorreo,
                   validarDocumento, validarTelefono, validarTipoAdmin;
     private final Consultas consultar;
-    private final ObservableList listaAdmin;
+    private final ObservableList<String> listaAdmin;
     
     public RegistroBibliotecarioController(){
         consultar = new Consultas();

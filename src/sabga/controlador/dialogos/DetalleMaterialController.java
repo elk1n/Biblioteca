@@ -26,11 +26,15 @@ public class DetalleMaterialController implements Initializable {
     private Stage dialogStage;
     private final Consultas consulta;
     @FXML
-    private ListView <Materia>listaMaterias;
+    private ListView<Materia> listaMaterias;
     @FXML
-    private TableView tblEjemplares, tablaAutores;
+    private TableView<Ejemplar> tblEjemplares;
     @FXML
-    private TableColumn clmnEjemplar, clmnEstado, clmnDispo, clmnNombre, clmnApellido;
+    private TableView<Autor> tablaAutores;
+    @FXML
+    private TableColumn<Ejemplar, String> clmnEjemplar, clmnEstado, clmnDispo;
+    @FXML
+    private TableColumn<Autor, String>clmnNombre, clmnApellido;
     @FXML
     private Label lblTitulo, lblCodigo, lblEditorial, lblPublicacion, lblAnio, lblClase, lblTipo;
                 

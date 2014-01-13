@@ -29,7 +29,7 @@ public class InicioSesionController implements Initializable{
     @FXML 
     private Label validarUsuario, validacion;    
     @FXML 
-    private ComboBox comboTipoAdmin;
+    private ComboBox<String> comboTipoAdmin;
     private final Consultas consulta;
     private final Atributos atributos;
  

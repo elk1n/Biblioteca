@@ -24,11 +24,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.atributos.Autor;
-import sabga.atributos.Listar;
 import sabga.configuracion.Conexion;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.ConfirmarMaterial;
+import sabga.modelo.Consultas;
 import sabga.modelo.ValidarMaterial;
 
 /**
@@ -40,11 +40,13 @@ public class EditarEMAController implements Initializable, ControlledScreen {
     private Sabga ventanaPrincipal;
     private ScreensController controlador;
     @FXML
-    private TableView tablaResultados;
+    private TableView<Autor> tablaResultados;
     @FXML
-    private TableColumn clmnNombre, clmnApellido;
+    private TableColumn<Autor, String> clmnNombre;
     @FXML
-    private ComboBox comboListar;
+    private TableColumn<Autor, String> clmnApellido;
+    @FXML
+    private ComboBox<String> comboListar;
     @FXML
     private Label validarNombreAutor, validarApellidosAutor, validarEditorial, validarMateria, validarClaseMaterial, validarTipoMaterial;
     @FXML
@@ -53,22 +55,21 @@ public class EditarEMAController implements Initializable, ControlledScreen {
     private TitledPane acordeonAutor, acordeonEditorial, acordeonMateria, acordeonTipo, acordeonClase;
     @FXML
     private Button btnBorrar, btnEliminar;
-    private String nombre, apellido, mensaje;
-    private int id;
-    private final ObservableList<Listar> listaDatos;
-    private final ObservableList<Listar> filtrarDatos;
+    private String nombre, apellido;
+    private final ObservableList<Autor> listaDatos;
+    private final ObservableList<Autor> filtrarDatos;
     private final ObservableList<Autor> listaAutores;
     private final ObservableList<Autor> filtrarAutores;
-    private final Conexion con;
+    private final Consultas consulta;
 
     public EditarEMAController() {
 
-        con = new Conexion();
+        consulta = new Consultas();
         filtrarDatos = FXCollections.observableArrayList();
         listaDatos = FXCollections.observableArrayList();
-        listaDatos.addListener(new ListChangeListener<Listar>() {
+        listaDatos.addListener(new ListChangeListener<Autor>() {
             @Override
-            public void onChanged(ListChangeListener.Change<? extends Listar> change) {
+            public void onChanged(ListChangeListener.Change<? extends Autor> change) {
                 updateFilteredData();
             }
         });
@@ -86,316 +87,168 @@ public class EditarEMAController implements Initializable, ControlledScreen {
 
     @Override
     public void setScreenParent(ScreensController screenParent) {
-
         controlador = screenParent;
     }
 
     public void setVentanaPrincipal(Sabga ventanaPrincipal) {
-
         this.ventanaPrincipal = ventanaPrincipal;
     }
 
     @FXML
-    public void guardarCambios(ActionEvent evento) {
-        
-        edicion();
+    public void guardarCambios(ActionEvent evento) {        
+        editarEditorilTipoClaseMateria();
     }
     
     @FXML
-    public void eliminar(ActionEvent evento){
-    
+    public void eliminar(ActionEvent evento){    
        eliminar();
+    }
+    
+    @FXML
+    public void listarDatos(ActionEvent evento){    
+        listar();
+    }
+    
+    @FXML
+    public void setDatos(){    
+        mapearDatos();
     }
     
     private void eliminar(){
         
          if (tablaResultados.getSelectionModel().getSelectedItem() != null) {
-            if (comboListar.getSelectionModel().getSelectedIndex() == 0) {
-                eliminacionAutor();
+            
+             if (comboListar.getSelectionModel().getSelectedIndex() == 0) {                
+                edicionAutor(4);
+                campoNombreAutor.setText(null);
+                campoApellidosAutor.setText(null);
             }
             if (comboListar.getSelectionModel().getSelectedIndex() == 1) {
-                obtenerId("SELECT id_editorial FROM tbl_EDITORIAL WHERE nombre_editorial=", "'" + nombre + "'", "id_editorial");
-                eliminarOtros("{ CALL editarEditorial(?,?,?,?) }", null, 2);
+                eliminarOtros(5, filtrarDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getIdAutor(), 4, "Filtrar Editorial", "Eliminar Editorial");               
                 campoEditorial.setText(null);
-                listarDatos("SELECT * FROM tbl_EDITORIAL", "nombre_editorial");
             }
             if (comboListar.getSelectionModel().getSelectedIndex() == 2) {
-                obtenerId("SELECT id_materia FROM tbl_MATERIA WHERE nombre_materia=", "'" + nombre + "'", "id_materia");
-                eliminarOtros("{ CALL editarMateria(?,?,?,?) }", null, 2);
-                campoMateria.setText(null);
-                listarDatos("SELECT * FROM tbl_MATERIA", "nombre_materia");
+                eliminarOtros( 6, filtrarDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getIdAutor(), 3, "Filtrar Materia", "Eliminar Materia");                                 
+                campoMateria.setText(null);                
             }
             if (comboListar.getSelectionModel().getSelectedIndex() == 3) {
-                obtenerId("SELECT id_tipo_material FROM tbl_TIPO_MATERIAL WHERE tipo_material=", "'" + nombre + "'", "id_tipo_material");
-                eliminarOtros("{ CALL editarTipoMaterial(?,?,?,?) }", null, 2);
+                eliminarOtros(7, filtrarDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getIdAutor(), 2, "Filtrar Tipo de Material", "Eliminar Tipo");  
                 campoTipoMaterial.setText(null);
-                listarDatos("SELECT * FROM tbl_TIPO_MATERIAL", "tipo_material");
             }
             if (comboListar.getSelectionModel().getSelectedIndex() == 4) {
-                obtenerId("SELECT id_clase_material FROM tbl_CLASE_MATERIAL WHERE clase_material=", "'" + nombre + "'", "id_clase_material");
-                eliminarOtros("{ CALL editarClaseMaterial(?,?,?,?) }", null, 2);
+                eliminarOtros(8, filtrarDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getIdAutor(), 1, "Filtrar Clase de Material", "Eliminar Clase");                  
                 campoClaseMaterial.setText(null);
-                listarDatos("SELECT * FROM tbl_CLASE_MATERIAL", "clase_material");
             }
             resetear();
        }
        else{
              Utilidades.mensaje(null, "Debe seleccionar un item de la lista", "Para eliminar un item", "Seleccionar");
-       }        
-        
-    }
+       }                
+    }    
     
-    private void eliminacionAutor(){
-      
-        try {
-            eliminarAutor();
-            if (mensaje != null) {
-                Utilidades.mensajeAdvertencia(null, mensaje, "Error al eliminar el autor", "Error Eliminar Autor");
-            } else {
-                campoNombreAutor.setText(null);
-                campoApellidosAutor.setText(null);
-                llenarAutores();
-                Utilidades.mensaje(null, "El autor se ha eliminado correctamente", "Eliminado Autor", "Eliminación Exitosa");
-            }
-        } catch (SQLException ex) {
-            Utilidades.mensajeError(null, ex.getMessage(), "Error eliminar autor", "Error Eliminar Autor");
-        }
-    }
+    private void eliminarOtros(int opcion, int codigo, int seleccion, String textF, String boton){
     
-    private void eliminarAutor() throws SQLException{
-    
-        obtenerIdAutor();
-        
-        try {
-
-            con.conectar();
-            con.getConexion().setAutoCommit(false);
-            con.procedimiento("{ CALL editarAutor(?,?,?,?,?) }");
-
-            con.getProcedimiento().setInt("id", id);
-            con.getProcedimiento().setInt("opcion", 4);
-            con.getProcedimiento().setString("nombre", null);
-            con.getProcedimiento().setString("apellidos", null);
-            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
-
-            con.getProcedimiento().execute();
-            con.getConexion().commit();
-            mensaje = con.getProcedimiento().getString("mensaje");
-
-        } catch (SQLException e) {
-
-            con.getConexion().rollback();
-            Utilidades.mensajeError(null, e.getMessage(), "Error al tratar de eliminar el autor", "Error Eliminar Autor");  
-
-        } finally {
-            con.desconectar();
-        }
-        
-    }
-   
-    private void eliminarOtros(String procedimiento, String campos, int seleccion){
-        
-        try {
-                guardarEdicion(procedimiento, campos , seleccion);
-                if (mensaje != null) {
-                    Utilidades.mensajeAdvertencia(null, mensaje, "Error al eliminar la selección", "Error Guardar Cambios");
-                } else {                    
-                    Utilidades.mensaje(null, "La selección se ha eliminado correctamente", "Eliminado Selección", "Actualización Exitosa");
+        if (tablaResultados.getSelectionModel().getSelectedItem() != null) {
+                  consulta.editarAME(opcion, codigo, "");
+                if (consulta.getMensaje() != null) {
+                    Utilidades.mensajeAdvertencia(null, consulta.getMensaje(), "Error al editar la selección.", "Error Guardar Cambios");                   
+                } else {
+                    Utilidades.mensaje(null, "Los cambios se han guardado correctamente.", "Editando Selección", "Actualización Exitosa");
+                    listaDatos.clear();
+                    listarOtros(seleccion, textF, boton);
                 }
-            } catch (SQLException ex) {
-                Utilidades.mensajeError(null, ex.getMessage(), "Error al actualizar la información", "Error Guardar Cambios");
-            }        
-    }
-    
-    private void edicionAutor(int seleccion){
-      
-        try {
-            guardarEdicion(seleccion);
-            if (mensaje != null) {
-
-                Utilidades.mensajeAdvertencia(null, mensaje, "Error al editar el autor", "Error Guardar Cambios Autor");
-            } else {
-                Utilidades.mensaje(null, "Los cambios se han guardado correctamente", "Editando Autor", "Actualizacion Exitosa");
-            }
-        } catch (SQLException ex) {
-
-            Utilidades.mensajeError(null, ex.getMessage(), "Error al tratar de actualizar la información del autor", "Error Guardar Cambios Autor");
+        } else {
+            Utilidades.mensaje(null, "Debe seleccionar un item de la lista.", "", "Editar");
         }
     }
     
-     public void edicion() {
+    private void editarEditorilTipoClaseMateria() {
          
-        ConfirmarMaterial verificar = new ConfirmarMaterial();
-        
-        validarCampos();
-       
+        ConfirmarMaterial verificar = new ConfirmarMaterial();        
+        mensajesError();       
         if (acordeonAutor.isExpanded()) {
             if (verificar.confirmarNuevoAutor(campoNombreAutor.getText(), campoApellidosAutor.getText())) {
-                obtenerIdAutor();
-                editar();                
+                editarAutor();                
             }
         } else if (acordeonEditorial.isExpanded()) {
             if (verificar.confirmarNuevaEditorial(campoEditorial.getText())) {
-                obtenerId("SELECT id_editorial FROM tbl_EDITORIAL WHERE nombre_editorial=", "'" + nombre + "'", "id_editorial");
-                editarOtros(campoEditorial.getText().trim(), "{ CALL editarEditorial(?,?,?,?) }",campoEditorial.getText().trim(), 1);               
+                editarOtros(campoEditorial.getText().trim(), 1,
+                        filtrarDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getIdAutor(), 4, "Filtrar Editorial", "Eliminar Editorial");               
             }
 
         } else if (acordeonMateria.isExpanded()) {
             if (verificar.confirmarNuevaMateria(campoMateria.getText())) {
-                obtenerId("SELECT id_materia FROM tbl_MATERIA WHERE nombre_materia=", "'" + nombre + "'", "id_materia");
-                editarOtros(campoMateria.getText().trim(), "{ CALL editarMateria(?,?,?,?) }",campoMateria.getText().trim(), 1);  
+                editarOtros(campoMateria.getText().trim(), 2,
+                            filtrarDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getIdAutor(), 3, "Filtrar Materia", "Eliminar Materia");                 
             }
 
         } else if (acordeonTipo.isExpanded()) {
             if (verificar.confirmarNuevoTipoMaterial(campoTipoMaterial.getText())) {
-                obtenerId("SELECT id_tipo_material FROM tbl_TIPO_MATERIAL WHERE tipo_material=", "'" + nombre + "'", "id_tipo_material");
-                editarOtros(campoTipoMaterial.getText().trim(), "{ CALL editarTipoMaterial(?,?,?,?) }",campoTipoMaterial.getText().trim(), 1);  
+                editarOtros(campoTipoMaterial.getText().trim(), 3, 
+                            filtrarDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getIdAutor(), 2, "Filtrar Tipo de Material", "Eliminar Tipo");  
             }
 
         } else if (acordeonClase.isExpanded()) {
             if (verificar.confirmarNuevaClaseMaterial(campoClaseMaterial.getText())) {
-                obtenerId("SELECT id_clase_material FROM tbl_CLASE_MATERIAL WHERE clase_material=", "'" + nombre + "'", "id_clase_material");
-                editarOtros(campoClaseMaterial.getText().trim(), "{ CALL editarClaseMaterial(?,?,?,?) }",campoClaseMaterial.getText().trim(), 1);
+                editarOtros(campoClaseMaterial.getText().trim(), 4, 
+                           filtrarDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getIdAutor(), 1, "Filtrar Clase de Material", "Eliminar Clase");  
             }
         }
         resetear();
-        listar(null);
     }
     
-    public void editarOtros(String campo, String procedimiento, String campos ,int seleccion ){
+    private void editarOtros(String campo, int opcion, int codigo, int seleccion, String textF, String boton){
         
-           if(!nombre.equalsIgnoreCase(campo)){
-                try {
-                    guardarEdicion(procedimiento, campos , seleccion);
-                    if (mensaje != null) {
-
-                        Utilidades.mensajeAdvertencia(null, mensaje, "Error al editar la selección", "Error Guardar Cambios");
-                    } else {
-                        Utilidades.mensaje(null, "Los cambios se han guardado correctamente", "Editando Selección", "Actualización Exitosa");
-                    }
-                } catch (SQLException ex) {
-
-                    Utilidades.mensajeError(null, ex.getMessage(), "Error al actualizar la información", "Error Guardar Cambios");
-                }            
-            }else {
-                Utilidades.mensaje(null, "No se han presentado cambios", "Editando Selección", "Editar Selección");
+        if (tablaResultados.getSelectionModel().getSelectedItem() != null) {
+            if (!nombre.equalsIgnoreCase(campo)) {
+                  consulta.editarAME(opcion, codigo, campo);
+                if (consulta.getMensaje() != null) {
+                    Utilidades.mensajeAdvertencia(null, consulta.getMensaje(), "Error al editar la selección.", "Error Guardar Cambios");                   
+                } else {
+                    Utilidades.mensaje(null, "Los cambios se han guardado correctamente.", "Editando Selección", "Actualización Exitosa");
+                    listaDatos.clear();
+                    listarOtros(seleccion, textF, boton);
+                }
+            } else {
+                Utilidades.mensaje(null, "No se han presentado cambios.", "Editando Selección", "Editar Selección");
             }
-  
-    }
-    
-    public void editar() {
-
-        int opcion;
-
-        if (!nombre.equalsIgnoreCase(campoNombreAutor.getText().trim()) && !apellido.equalsIgnoreCase(campoApellidosAutor.getText().trim())) {
-            opcion = 3;
-            edicionAutor(opcion);
-        } else if (!nombre.equalsIgnoreCase(campoNombreAutor.getText().trim())) {
-            opcion = 1;
-            edicionAutor(opcion);
-        } else if (!apellido.equalsIgnoreCase(campoApellidosAutor.getText().trim())) {
-            opcion = 2;
-            edicionAutor(opcion);
         } else {
-            Utilidades.mensaje(null, "No se han presentado cambios", "Editando Autor", "Ediatar Autor");
-        }
-
+            Utilidades.mensaje(null, "Debe seleccionar un item de la lista.", "", "Editar");
+        }         
     }
     
-    public void guardarEdicion(String procedimiento, String campo ,int seleccion) throws SQLException{
-    
-        try {
+    private void editarAutor() {
 
-            con.conectar();
-            con.getConexion().setAutoCommit(false);
-            con.procedimiento(procedimiento);
+        if (tablaResultados.getSelectionModel().getSelectedItem() != null) {
 
-            con.getProcedimiento().setInt("id", id);
-            con.getProcedimiento().setInt("opcion", seleccion);
-            con.getProcedimiento().setString("nombre", campo);
-            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
-
-            con.getProcedimiento().execute();
-            con.getConexion().commit();
-            mensaje = con.getProcedimiento().getString("mensaje");
-
-        } catch (SQLException e) {
-
-            con.getConexion().rollback();
-            Utilidades.mensajeError(null, e.getMessage(), "Error al tratar de editar la selección ", "Error");  
-
-        } finally {
-            con.desconectar();
-        }
-    }
-    
-    public void guardarEdicion(int seleccion) throws SQLException{
-    
-        try {
-
-            con.conectar();
-            con.getConexion().setAutoCommit(false);
-            con.procedimiento("{ CALL editarAutor(?,?,?,?,?) }");
-
-            con.getProcedimiento().setInt("id", id);
-            con.getProcedimiento().setInt("opcion", seleccion);
-            con.getProcedimiento().setString("nombre", campoNombreAutor.getText().trim());
-            con.getProcedimiento().setString("apellidos", campoApellidosAutor.getText().trim());
-            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
-
-            con.getProcedimiento().execute();
-            con.getConexion().commit();
-            mensaje = con.getProcedimiento().getString("mensaje");
-
-        } catch (SQLException e) {
-
-            con.getConexion().rollback();
-            Utilidades.mensajeError(null, e.getMessage(), "Error al tratar de editar el autor", "Error Editar Autor");  
-
-        } finally {
-            con.desconectar();
-        }    
-    }
-
-    public void obtenerId(String consulta, String nombre, String columna) {
-
-        try {
-            con.conectar();
-            con.setResultado(con.getStatement().executeQuery(consulta + nombre));
-            
-            if (con.getResultado().first()) {
-                id = con.getResultado().getInt(columna);
+            if (!nombre.equalsIgnoreCase(campoNombreAutor.getText().trim()) && !apellido.equalsIgnoreCase(campoApellidosAutor.getText().trim())) {
+                edicionAutor(3);
+            } else if (!nombre.equalsIgnoreCase(campoNombreAutor.getText().trim())) {
+                edicionAutor(1);
+            } else if (!apellido.equalsIgnoreCase(campoApellidosAutor.getText().trim())) {
+                edicionAutor(2);
+            } else {
+                Utilidades.mensaje(null, "No se han presentado cambios.", "Editando Autor", "Editar Autor");
             }
-
-        } catch (SQLException ex) {
-            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
-        } finally {
-            con.desconectar();
-        }
-
+        } else {
+            Utilidades.mensaje(null, "Debe seleccionar un autor de la lista.", "Editando Autor", "Editar Autor");
+        }  
     }
-
-    public void obtenerIdAutor() {
-
-        try {
-            con.conectar();
-            con.setResultado(con.getStatement().executeQuery("SELECT id_autor FROM tbl_AUTOR WHERE nombre_autor= '" + nombre + "' AND apellidos_autor= '" + apellido + "'"));
-
-            if (con.getResultado().first()) {
-                id = con.getResultado().getInt("id_autor");
-            }
-
-        } catch (SQLException ex) {
-
-            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
-
-        } finally {
-            con.desconectar();
+    
+    private void edicionAutor(int seleccion){
+        
+        consulta.editarAutor(filtrarAutores.get(tablaResultados.getSelectionModel().getSelectedIndex()).getIdAutor(),
+                            seleccion, campoNombreAutor.getText().trim(), campoApellidosAutor.getText().trim());
+        if (consulta.getMensaje() != null) {
+            Utilidades.mensajeAdvertencia(null, consulta.getMensaje(), "Error al editar el autor", "Error Guardar Cambios Autor");           
+        } else {
+            Utilidades.mensaje(null, "Los cambios se han guardado correctamente.", "Editando Autor", "Actualización Exitosa");
+            listaAutores.clear();
+            listaAutores.addAll(consulta.getListaAutores());   
         }
-
     }
-
-    public void validarCampos() {
+        
+    private void mensajesError() {
 
         ValidarMaterial validar = new ValidarMaterial();
 
@@ -421,175 +274,124 @@ public class EditarEMAController implements Initializable, ControlledScreen {
             validarClaseMaterial.setText(validar.getErrorClaseMaterial());
         }
     }
-
-    @FXML
-    public void listar(ActionEvent evento) {
-
-        campoFiltrar.setText(null);
-        resetear();
+    
+    private void listar() {
+        
         if (comboListar.getSelectionModel().getSelectedIndex() == 0) {
-            tablaAutores();
-            llenarAutores();
-            campoFiltrar.setPromptText("Filtrar Autor");
-            btnEliminar.setText("Eliminar Autor");
+            listarAutores();        
         }
-
         if (comboListar.getSelectionModel().getSelectedIndex() == 1) {
-            listarDatos("SELECT * FROM tbl_EDITORIAL", "nombre_editorial");
-            campoFiltrar.setPromptText("Filtrar Editorial");
-            btnEliminar.setText("Eliminar Editorial");
+            listarOtros(4, "Filtrar Editorial", "Eliminar Editorial");
         }
 
         if (comboListar.getSelectionModel().getSelectedIndex() == 2) {
-            listarDatos("SELECT * FROM tbl_MATERIA", "nombre_materia");
-            campoFiltrar.setPromptText("Filtrar Materia");
-            btnEliminar.setText("Eliminar Materia");
+            listarOtros(3, "Filtrar Materia", "Eliminar Materia");
         }
 
         if (comboListar.getSelectionModel().getSelectedIndex() == 3) {
-            listarDatos("SELECT * FROM tbl_TIPO_MATERIAL", "tipo_material");
-            campoFiltrar.setPromptText("Filtrar Tipo de Material");
-            btnEliminar.setText("Eliminar Tipo");
+            listarOtros(2, "Filtrar Tipo de Material", "Eliminar Tipo");
         }
          
         if (comboListar.getSelectionModel().getSelectedIndex() == 4) {
-            listarDatos("SELECT * FROM tbl_CLASE_MATERIAL", "clase_material");
-            campoFiltrar.setPromptText("Filtrar Clase de Material");
-            btnEliminar.setText("Eliminar Clase");
-        }
-      
+            listarOtros(1, "Filtrar Clase de Material", "Eliminar Clase");           
+        } 
     }
+    
+    private void mapearDatos() {
 
-    public void listarDatos(String tabla, String consulta) {
-
-        filtrarDatos.removeAll(filtrarDatos);
-        listaDatos.removeAll(listaDatos);
-        filtrarDatos.addAll(listaDatos);
-
-        try {
-
-            con.conectar();
-            con.setResultado(con.getStatement().executeQuery(tabla));
-
-            while (con.getResultado().next()) {
-                listaDatos.add(new Listar(con.getResultado().getString(consulta)));
+        if (tablaResultados.getSelectionModel().getSelectedItem() != null) {
+            
+            if (comboListar.getSelectionModel().getSelectedIndex() == 0) {
+                acordeonAutor.setExpanded(true);
+                campoNombreAutor.setText(filtrarAutores.get(tablaResultados.getSelectionModel().getSelectedIndex()).getNombreAutor());
+                campoApellidosAutor.setText(filtrarAutores.get(tablaResultados.getSelectionModel().getSelectedIndex()).getApellidosAutor());
+                campoNombreAutor.setDisable(false);
+                campoApellidosAutor.setDisable(false);
+                nombre = filtrarAutores.get(tablaResultados.getSelectionModel().getSelectedIndex()).getNombreAutor();
+                apellido = filtrarAutores.get(tablaResultados.getSelectionModel().getSelectedIndex()).getApellidosAutor();
             }
-            clmnNombre.setCellValueFactory(new PropertyValueFactory<Listar, String>("nombre"));
-            tablaResultados.getColumns().remove(clmnApellido);
-            clmnNombre.setPrefWidth(510);
-            tablaResultados.setEditable(true);
-            tablaResultados.setItems(filtrarDatos);
 
-        } catch (SQLException ex) {
-            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
-        }
-        finally{
-            con.desconectar();
-        }
-    }
+            if (comboListar.getSelectionModel().getSelectedIndex() == 1) {
+                acordeonEditorial.setExpanded(true);
+                campoEditorial.setText(filtrarDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getNombreAutor());
+                campoEditorial.setDisable(false);
+                nombre = filtrarDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getNombreAutor();
+            }
 
-    @FXML
-    public void mapearDatos() {
+            if (comboListar.getSelectionModel().getSelectedIndex() == 2) {
+                acordeonMateria.setExpanded(true);
+                campoMateria.setText(filtrarDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getNombreAutor());
+                campoMateria.setDisable(false);
+                nombre = filtrarDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getNombreAutor();
+            }
 
-        if (comboListar.getSelectionModel().getSelectedIndex() == 0) {
-            acordeonAutor.setExpanded(true);
-            campoNombreAutor.setText(filtrarAutores.get(tablaResultados.getSelectionModel().getSelectedIndex()).getNombreAutor());
-            campoApellidosAutor.setText(filtrarAutores.get(tablaResultados.getSelectionModel().getSelectedIndex()).getApellidosAutor());
-            campoNombreAutor.setDisable(false);
-            campoApellidosAutor.setDisable(false);
-            
-            nombre = filtrarAutores.get(tablaResultados.getSelectionModel().getSelectedIndex()).getNombreAutor();
-            apellido = filtrarAutores.get(tablaResultados.getSelectionModel().getSelectedIndex()).getApellidosAutor();            
-        }
+            if (comboListar.getSelectionModel().getSelectedIndex() == 3) {
+                acordeonTipo.setExpanded(true);
+                campoTipoMaterial.setText(filtrarDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getNombreAutor());
+                campoTipoMaterial.setDisable(false);
+                nombre = filtrarDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getNombreAutor();
+            }
 
-        if (comboListar.getSelectionModel().getSelectedIndex() == 1) {
-            acordeonEditorial.setExpanded(true);
-            campoEditorial.setText(tablaResultados.getSelectionModel().getSelectedItem().toString());
-            campoEditorial.setDisable(false);
-            
-            nombre = tablaResultados.getSelectionModel().getSelectedItem().toString();         
-            // campoEditorial.setText(listaDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).toString());
-            //  System.out.println(listaDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()));
-        }
-
-        if (comboListar.getSelectionModel().getSelectedIndex() == 2) {
-            acordeonMateria.setExpanded(true);
-            campoMateria.setText(tablaResultados.getSelectionModel().getSelectedItem().toString());
-            campoMateria.setDisable(false);
-            
-            nombre = tablaResultados.getSelectionModel().getSelectedItem().toString();
-        }
-
-        if (comboListar.getSelectionModel().getSelectedIndex() == 3) {
-            acordeonTipo.setExpanded(true);
-            campoTipoMaterial.setText(tablaResultados.getSelectionModel().getSelectedItem().toString());
-            campoTipoMaterial.setDisable(false);
-            
-            nombre = tablaResultados.getSelectionModel().getSelectedItem().toString();
-        }
-
-        if (comboListar.getSelectionModel().getSelectedIndex() == 4) {
-            acordeonClase.setExpanded(true);
-            campoClaseMaterial.setText(tablaResultados.getSelectionModel().getSelectedItem().toString());
-            campoClaseMaterial.setDisable(false);
-            
-            nombre = tablaResultados.getSelectionModel().getSelectedItem().toString();
+            if (comboListar.getSelectionModel().getSelectedIndex() == 4) {
+                acordeonClase.setExpanded(true);
+                campoClaseMaterial.setText(filtrarDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getNombreAutor());
+                campoClaseMaterial.setDisable(false);
+                nombre = filtrarDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getNombreAutor();
+            }
         }
     }
+    
+    private void listarAutores() {
 
-    public void tablaAutores() {
-
-        clmnNombre.setCellValueFactory(new PropertyValueFactory<Listar, String>("nombreAutor"));
+        clmnNombre.setCellValueFactory(new PropertyValueFactory<Autor, String>("nombreAutor"));
         clmnNombre.setPrefWidth(240);
-        clmnApellido = new TableColumn("Apellido");
+        clmnApellido = new TableColumn<>("Apellido");
         clmnApellido.setCellValueFactory(new PropertyValueFactory<Autor, String>("apellidosAutor"));
         clmnApellido.setPrefWidth(270);
         tablaResultados.getColumns().add(clmnApellido);
-        tablaResultados.setEditable(true);
         tablaResultados.setItems(filtrarAutores);
-
-    }
-
-    public void llenarAutores() {
-
+        
         filtrarAutores.removeAll(filtrarAutores);
         listaAutores.removeAll(listaAutores);
         filtrarAutores.addAll(listaAutores);
+        listaAutores.addAll(consulta.getListaAutores());   
+        campoFiltrar.setPromptText("Filtrar Autor");
+        btnEliminar.setText("Eliminar Autor");
 
-        try {
-            con.conectar();
-            con.setResultado(con.getStatement().executeQuery("SELECT * FROM tbl_AUTOR"));
-
-            while (con.getResultado().next()) {
-                listaAutores.add(new Autor(con.getResultado().getInt("id_autor"), con.getResultado().getString("nombre_autor"),
-                                           con.getResultado().getString("apellidos_autor")));
-            }
-            con.desconectar();
-        } catch (SQLException ex) {
-            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
-        }
-
+    }
+    
+    private void listarOtros(int opcion, String text, String boton){
+    
+        campoFiltrar.setText(null);
+        resetear();
+        filtrarDatos.removeAll(filtrarDatos);
+        listaDatos.removeAll(listaDatos);
+        filtrarDatos.addAll(listaDatos);
+        listaDatos.addAll(consulta.llenarLista2(opcion));
+        campoFiltrar.setPromptText(text);
+        btnEliminar.setText(boton);
+        clmnNombre.setCellValueFactory(new PropertyValueFactory<Autor, String>("nombreAutor"));
+        tablaResultados.getColumns().remove(clmnApellido);
+        clmnNombre.setPrefWidth(510);
+        tablaResultados.setEditable(true);
+        tablaResultados.setItems(filtrarDatos);
     }
 
     private void updateFilteredData() {
 
         if (comboListar.getSelectionModel().getSelectedIndex() == 0) {
-
             filtrarAutores.clear();
 
             for (Autor a : listaAutores) {
-
                 if (matchesFilterAutor(a)) {
                     filtrarAutores.add(a);
                 }
             }
-
             reapplyTableSortOrderAutor();
         } else {
             filtrarDatos.clear();
 
-            for (Listar p : listaDatos) {
-
+            for (Autor p : listaDatos) {
                 if (matchesFilter(p)) {
                     filtrarDatos.add(p);
                 }
@@ -598,20 +400,18 @@ public class EditarEMAController implements Initializable, ControlledScreen {
         }
     }
 
-    private boolean matchesFilter(Listar nombre) {
+    private boolean matchesFilter(Autor nombre) {
 
         String filterString = campoFiltrar.getText();
 
         if (filterString == null || filterString.isEmpty()) {
             return true;
         }
-
         String lowerCaseFilterString = filterString.toLowerCase();
 
-        if (nombre.getNombre().toLowerCase().indexOf(lowerCaseFilterString) != -1) {
+        if (nombre.getNombreAutor().toLowerCase().indexOf(lowerCaseFilterString) != -1) {
             return true;
         }
-
         return false;
     }
 
@@ -636,7 +436,7 @@ public class EditarEMAController implements Initializable, ControlledScreen {
 
     private void reapplyTableSortOrder() {
 
-        ArrayList<TableColumn<Listar, ?>> sortOrder = new ArrayList<>(tablaResultados.getSortOrder());
+        ArrayList<TableColumn<Autor, ?>> sortOrder = new ArrayList<>(tablaResultados.getSortOrder());
         tablaResultados.getSortOrder().clear();
         tablaResultados.getSortOrder().addAll(sortOrder);
     }
@@ -649,7 +449,7 @@ public class EditarEMAController implements Initializable, ControlledScreen {
     }
 
     @FXML
-    private void borrarCampo(ActionEvent event) {
+    public void borrarCampo(ActionEvent event) {
         campoFiltrar.setText("");
         btnBorrar.setVisible(false);
     }
@@ -676,8 +476,7 @@ public class EditarEMAController implements Initializable, ControlledScreen {
         campoTipoMaterial.setText(null);
         campoTipoMaterial.setDisable(true);
         campoClaseMaterial.setText(null);
-        campoClaseMaterial.setDisable(true);
-    
+        campoClaseMaterial.setDisable(true);    
     }
 
     @Override

@@ -18,6 +18,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -62,17 +63,35 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     @FXML
     private MenuButton menuAdmin;
     @FXML
-    private ComboBox comboListarUsuario, comboListarMaterial, comboListarxMateria, comboListarxAutor;
+    private ComboBox<String> comboListarUsuario, comboListarMaterial, comboListarxMateria, comboListarxAutor;
     @FXML
     private Pane panelInicio, panelBusqueda, panelBuscarUsuario, panelBuscarMaterial;
     @FXML
-    private TableView tablaDevolucion, tablaReservas, tablaUsuarios, tablaMaterial, tablaEjemplar,  tablaAutores;
+    private TableView<Devolucion> tablaDevolucion;
+     @FXML
+    private TableView<Reserva> tablaReservas; 
     @FXML
-    private TableColumn clmnDocumentoD, clmnNombreD, clmnTituloD, clmnEjemplarD, clmnCodigoD, clmnFechaD, clmnDocumentoR,
-                        clmnNombreR, clmnEjemplarR, clmnFechaR, clmnTituloR, clmnCodigoR, clmnTipo, clmnDocumento, clmnNombre,
-                        clmnApellido, clmnCorreo, clmnTelefono, clmnGrado, clmnCurso, clmnJornada, clmnEstado, clmnTituloM,
-                        clmnCodigoM, clmnTipoM, clmnClaseM, clmnEditorialM, clmnPublicacionM, clmnAnioM, clmnNumeroM, clmnEjemplarE,
-                        clmnEstadoE, clmnDispoE, clmnNombreA, clmnApellidoA;
+    private TableView<Usuario>tablaUsuarios;
+    @FXML
+    private TableView<Material>tablaMaterial;
+    @FXML
+    private TableView<Ejemplar>tablaEjemplar;
+    @FXML
+    private TableView<Autor>tablaAutores;
+    @FXML
+    private TableColumn<Devolucion, String> clmnDocumentoD, clmnNombreD, clmnTituloD, clmnEjemplarD, clmnCodigoD, clmnFechaD;
+    @FXML
+    private TableColumn<Reserva, String> clmnDocumentoR, clmnNombreR, clmnEjemplarR, clmnFechaR, clmnTituloR, clmnCodigoR;
+    @FXML
+    private TableColumn<Usuario, String> clmnTipo, clmnDocumento, clmnNombre, clmnApellido, clmnCorreo, clmnTelefono, clmnGrado,
+                                         clmnCurso, clmnJornada, clmnEstado;
+    @FXML
+    private TableColumn<Material, String> clmnTituloM, clmnCodigoM, clmnTipoM, clmnClaseM, clmnEditorialM, clmnPublicacionM,
+                                          clmnAnioM, clmnNumeroM;
+    @FXML
+    private TableColumn<Ejemplar, String> clmnEjemplarE,clmnEstadoE, clmnDispoE;
+    @FXML
+    private TableColumn<Autor, String> clmnNombreA, clmnApellidoA;
     @FXML
     private ListView<Materia>  listaMaterias;
     @FXML

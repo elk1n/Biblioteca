@@ -44,7 +44,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
     private Sabga ventanaPrincipal;
     private ScreensController controlador;
     @FXML 
-    private ComboBox comboListar, comboListaUsuario, comboReservas;
+    private ComboBox<String> comboListar, comboListaUsuario, comboReservas;
     @FXML 
     private TextField txtfBuscar, txtfBuscarUsuario, txtfBuscarReserva;
     @FXML 
@@ -55,12 +55,26 @@ public class PrestamoController implements Initializable, ControlledScreen{
     @FXML
     private HBox hboxFecha;
     @FXML
-    private TableView tablaMaterial, tablaEjemplar, tablaUsuarios, tablaReserva, tablaDetalleReserva, tablaPrestamo;
+    private TableView<Material> tablaMaterial, tablaDetalleReserva;
     @FXML
-    private TableColumn clmnTitulo, clmnCodigo, clmnClase, clmnTipo, clmnEjemplar, clmnEstado, clmnDispo, clmnDocumento,
-                        clmnNombre, clmnApellido, clmnCorreo, clmnTipoUsuario, clmnEstadoUsuario, clmnDocumentoRe, clmnNombreRe,
-                        clmnApellidoRe, clmnFecha, clmnEstadoRe, clmnTituloDe, clmnCodigoDe, clmnAutor, clmnEditorial, clmnMateria,
-                        clmnEjemplarRe, clmnEjemplarPr, clmnTituloPr, clmnCodigoPr, clmnCorreoRe;
+    private TableView<Ejemplar> tablaEjemplar;
+    @FXML
+    private TableView<Usuario> tablaUsuarios;
+    @FXML
+    private TableView<Reserva> tablaReserva;
+    @FXML
+    private TableView<Prestamo> tablaPrestamo;
+    @FXML
+    private TableColumn<Material, String> clmnTitulo, clmnCodigo, clmnClase, clmnTipo, clmnTituloDe, clmnCodigoDe, 
+                                          clmnAutor, clmnEditorial, clmnMateria, clmnEjemplarRe;
+    @FXML
+    private TableColumn<Ejemplar, String> clmnEjemplar, clmnEstado, clmnDispo;
+    @FXML
+    private TableColumn<Usuario, String> clmnDocumento, clmnNombre, clmnApellido, clmnCorreo, clmnTipoUsuario, clmnEstadoUsuario;
+    @FXML
+    private TableColumn<Reserva, String> clmnDocumentoRe, clmnNombreRe, clmnApellidoRe, clmnFecha, clmnEstadoRe, clmnCorreoRe;  
+    @FXML
+    private TableColumn<Prestamo, String> clmnEjemplarPr, clmnTituloPr, clmnCodigoPr;
     @FXML
     private MenuItem detalleUsuario, multasUsuario, detalleUsuario2, multasUsuario2;
     private final DatePicker fechaDevolucion;
@@ -72,7 +86,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
     private final ObservableList<Reserva> listaReservas;
     private final ObservableList<Material> listaDetalleRe;
     private final ObservableList<Prestamo> listaPrestamo;
-    private final ObservableList listaDeReservas;
+    private final ObservableList<String> listaDeReservas;
     private final Dialogo dialogos;
     private String titulo, codigoClasificacion, tipoUsuario;  
     private boolean reserva = false;

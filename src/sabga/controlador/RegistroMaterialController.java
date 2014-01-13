@@ -45,9 +45,13 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     @FXML
     private AnchorPane contenedorAutores, contenedorMaterias, contenedorMateriasOM;
     @FXML
-    private TableView tablaAutores, tablaMaterias, tablaMateriasOM;    
+    private TableView<Autor> tablaAutores;
     @FXML
-    private TableColumn clmnNombre, clmnApellidos, clmnNombreMateria, clmnNombreMateriaOM;           
+    private TableView<Materia> tablaMaterias, tablaMateriasOM;    
+    @FXML
+    private TableColumn<Autor, String> clmnNombre, clmnApellidos;
+    @FXML
+    private TableColumn<Materia, String> clmnNombreMateria, clmnNombreMateriaOM;           
     @FXML 
     private Label validarClasificacion, validarTitulo, validarAnioPublicacion, validarPublicacion, validarPaginas, validarEjemplares, 
                   validarEditorial, validarClaseMaterial, validarAutor, validarMateria, validarTipoMaterialOM, validarClaseMaterialOM, 
@@ -56,7 +60,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private TextField txtfCodigo, txtfTitulo, txtfAnioPublicacion, txtfPublicacion, txtfPaginas, txtfEjemplares, txtfCodigoOM,
                             txtfTituloOM, txtfCopias;    
     @FXML 
-    private ComboBox comboClaseMaterial, comboClaseMaterialOM, comboTipoMaterial;
+    private ComboBox<String> comboClaseMaterial, comboClaseMaterialOM, comboTipoMaterial;
     @FXML
     private TitledPane acordeonAutor, acordeonMateria;
     @FXML
@@ -66,7 +70,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private Sabga ventanaPrincipal;  
     private ScreensController controlador;
     private final Dialogo dialogo;
-    private final AutoFillTextBox buscarAutor, buscarMateria, buscarMateriaOM, buscarEditorial;
+    private final AutoFillTextBox<String> buscarAutor, buscarMateria, buscarMateriaOM, buscarEditorial;
     private final Validacion validar;
     private ValidarMaterial validarMaterial;
     private ConfirmarMaterial confirmar;
@@ -74,10 +78,10 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     
     private final Conexion con;
     
-    private final ObservableList listaAutores;
+    private final ObservableList<String>listaAutores;
     private final ObservableList<Autor> obtenerAutores;
-    private final ObservableList listaMaterias;
-    private final ObservableList listaEditoriales;
+    private final ObservableList<String> listaMaterias;
+    private final ObservableList<String> listaEditoriales;
     private final ObservableList<Autor> autores;
     private final ObservableList<Materia> materias;
     private final ObservableList<Materia> materiasOM;
@@ -87,10 +91,10 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         con = new Conexion();
         dialogo = new Dialogo();
         consulta = new Consultas();
-        buscarAutor = new AutoFillTextBox();
-        buscarMateria = new AutoFillTextBox();
-        buscarMateriaOM = new AutoFillTextBox();
-        buscarEditorial = new AutoFillTextBox();
+        buscarAutor = new AutoFillTextBox<>();
+        buscarMateria = new AutoFillTextBox<>();
+        buscarMateriaOM = new AutoFillTextBox<>();
+        buscarEditorial = new AutoFillTextBox<>();
         
         listaMaterias = FXCollections.observableArrayList();
         autores = FXCollections.observableArrayList();

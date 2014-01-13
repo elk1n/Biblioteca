@@ -33,11 +33,11 @@ public class EditarOpcionesUsuarioController implements Initializable {
     private Stage dialogStage;
     
     @FXML
-    private ComboBox comboListar;
+    private ComboBox<String> comboListar;
     @FXML
-    private TableView tablaResultados;
+    private TableView<Listar> tablaResultados;
     @FXML
-    private TableColumn clmnNombre;
+    private TableColumn<Listar, String> clmnNombre;
     @FXML
     private Button  botonEliminar;
     @FXML
@@ -47,7 +47,7 @@ public class EditarOpcionesUsuarioController implements Initializable {
     
     private String nombre, mensaje;
     private int id;
-    private ObservableList<Listar> listaDatos;    
+    private final ObservableList<Listar> listaDatos;    
     private Conexion con;
     
     public EditarOpcionesUsuarioController(){ 

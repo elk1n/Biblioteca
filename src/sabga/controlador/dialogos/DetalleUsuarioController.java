@@ -24,13 +24,25 @@ public class DetalleUsuarioController {
     @FXML
     private Label lblNombre;
     @FXML
-    private TableView tablaPrestamo, tablaDetallePres, tablaReserva, tablaDetalleRese, tablaDevolucion, tablaDetalleDevo;
+    private TableView<Prestamo> tablaPrestamo; 
     @FXML
-    private TableColumn clmnFechaPres, clmnEstadoPres, clmnReserva, clmnDocumento, clmnNombre, clmnTitulo, clmnEjemplar, clmnCodigo,
-                        clmnEstadoEjem, clmnTipo, clmnClaseMate, clmnFechaRese, clmnEstadoRese, clmnTituloRese, clmnEjemplarRese,
-                        clmnCodigoRese, clmnEstadoEjemRese, clmnTipoRese, clmnClaseRese, clmnFechaDevo, clmnFechaPresDevo, clmnEstadoPresDevo,
-                        clmnEstadoDevo, clmnDocumentoDevo, clmnNombreDevo, clmnTituloDevo, clmnEjemplarDevo, clmnFechaDevolucion,
-                        clmnFechaEntrega, clmnCodigoDevo, clmnEstadoEjemDevo, clmnTipoDevo, clmnClaseDevo;  
+    private TableView<Ejemplar> tablaDetallePres, tablaDetalleRese, tablaDetalleDevo;
+    @FXML
+    private TableView<Reserva>tablaReserva;
+    @FXML
+    private TableView<Devolucion> tablaDevolucion ;
+    @FXML
+    private TableColumn<Prestamo, String> clmnFechaPres, clmnEstadoPres, clmnReserva, clmnDocumento, clmnNombre;
+    @FXML
+    private TableColumn<Ejemplar, String> clmnTitulo, clmnEjemplar, clmnCodigo, clmnEstadoEjem, clmnTipo, clmnClaseMate,
+                                          clmnFechaDevo, clmnTituloRese, clmnEjemplarRese, clmnCodigoRese, clmnEstadoEjemRese, 
+                                          clmnTipoRese, clmnClaseRese, clmnTituloDevo, clmnEjemplarDevo, clmnFechaDevolucion,
+                                          clmnFechaEntrega, clmnCodigoDevo, clmnEstadoEjemDevo, clmnTipoDevo, clmnClaseDevo; 
+    @FXML
+    private TableColumn<Reserva, String>clmnFechaRese, clmnEstadoRese;
+    @FXML
+    private TableColumn<Devolucion, String>  clmnFechaPresDevo, clmnEstadoPresDevo, clmnEstadoDevo, clmnDocumentoDevo, clmnNombreDevo;
+    
     private Stage dialogStage;
     private final Atributos atributo;
     private final Consultas consulta;

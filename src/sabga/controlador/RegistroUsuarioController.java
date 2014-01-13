@@ -33,7 +33,7 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
     @FXML 
     private TextField txtfNombre, txtfApellido, txtfCorreo, txtfDocumento, txtfTelefono, txtfDireccion;  
     @FXML 
-    private ComboBox comboTipoUsuario, comboGrado, comboCurso, comboJornada;    
+    private ComboBox<String> comboTipoUsuario, comboGrado, comboCurso, comboJornada;    
     @FXML 
     private Button botonCancelar, botonGuardarUsuario;   
     @FXML 

@@ -41,17 +41,27 @@ public class ReservaEscritorioController implements Initializable, ControlledScr
     private Sabga ventanaPrincipal;
     private ScreensController controlador;
     @FXML
-    private ComboBox comboListarMaterial, comboListarUsuario;
+    private ComboBox<String> comboListarMaterial, comboListarUsuario;
     @FXML
     private TextField txtfBuscar, txtfBuscarUsuario;
     @FXML
     private Button  btnBorrarMaterial, btnBorrarUsuario, btnDetalle;
     @FXML
-    private TableView tablaMaterial, tablaEjemplar, tablaUsuarios, tablaReserva;
+    private TableView<Material> tablaMaterial;
     @FXML
-    private TableColumn clmnTitulo, clmnCodigo, clmnClase, clmnTipo, clmnEjemplar, clmnEstado, clmnDispo, clmnDocumento,
-                        clmnNombre, clmnApellido, clmnCorreo, clmnTipoUsuario, clmnEstadoUsuario, clmnEjemplarRe,
-                        clmnTituloRe, clmnCodigoRe;
+    private TableView<Ejemplar> tablaEjemplar;
+    @FXML
+    private TableView<Usuario> tablaUsuarios;
+    @FXML
+    private TableView<Prestamo> tablaReserva;
+    @FXML
+    private TableColumn<Material, String> clmnTitulo, clmnCodigo, clmnClase, clmnTipo;
+    @FXML
+    private TableColumn<Ejemplar, String> clmnEjemplar, clmnEstado, clmnDispo;
+    @FXML
+    private TableColumn<Usuario, String>  clmnDocumento, clmnNombre, clmnApellido, clmnCorreo, clmnTipoUsuario, clmnEstadoUsuario;
+    @FXML
+    private TableColumn<Prestamo, String> clmnEjemplarRe, clmnTituloRe, clmnCodigoRe;
     @FXML
     private Label lblNombre, lblDocumento, lblCorreo, lblGrado, lblCurso, lblJornada, lblTelefono, lblDireccion, lblMulta,
                   lblValidarDocumento, lblValidarEjemplar, lblBuscarUsuario, lblBuscarMaterial;

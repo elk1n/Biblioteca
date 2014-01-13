@@ -111,15 +111,46 @@ public class AyudaController implements Initializable {
         devolucion = new TreeItem<>("Devolución de Material");
         reserva = new TreeItem<>("Reserva de Material");
         recibo = new TreeItem<>("Generar Paz y Salvo");
-        ingreso.getChildren().addAll(ingresar, restablecer, inicioSesion);         
-        administrar.getChildren().addAll(miCuenta, contrasenia);
-        auxiliar.getChildren().addAll(registrarAuxiliar, editarAuxiliar);
-        materialBibliotecario.getChildren().addAll(registrarLibro, registrarOtros, listarMaterial, buscarMaterial, filtrarMaterial,
-                                                   edicionGeneral, editarEjemplares, editarAutores, editarMaterias, nuevoAutor,
-                                                   nuevaEditorial, nuevaMateria, nuevoTipo, nuevaClase, editarOpciones, detalleMaterial,
-                                                   codigoBarras);
-        usuarios.getChildren().addAll(registrarUsuario, editarUsuario, nuevoGrado, nuevoCurso, nuevaJornda, nuevoUsuario, editarOpcionesUsuario);
-        ayuda.getChildren().addAll(ingreso, administrar, auxiliar, materialBibliotecario, usuarios, prestamo, devolucion, reserva, recibo);
+        ingreso.getChildren().add(ingresar);
+        ingreso.getChildren().add(restablecer);
+        ingreso.getChildren().add(inicioSesion);         
+        administrar.getChildren().add(miCuenta);
+        administrar.getChildren().add(contrasenia);
+        auxiliar.getChildren().add(registrarAuxiliar);
+        auxiliar.getChildren().add(editarAuxiliar);
+        materialBibliotecario.getChildren().add(registrarLibro);
+        materialBibliotecario.getChildren().add(registrarOtros);
+        materialBibliotecario.getChildren().add(listarMaterial);
+        materialBibliotecario.getChildren().add(buscarMaterial);
+        materialBibliotecario.getChildren().add(filtrarMaterial);
+        materialBibliotecario.getChildren().add(edicionGeneral);
+        materialBibliotecario.getChildren().add(editarEjemplares);
+        materialBibliotecario.getChildren().add(editarAutores);
+        materialBibliotecario.getChildren().add(editarMaterias);
+        materialBibliotecario.getChildren().add(nuevoAutor);
+        materialBibliotecario.getChildren().add(nuevaEditorial);
+        materialBibliotecario.getChildren().add(nuevaMateria);
+        materialBibliotecario.getChildren().add(nuevoTipo);
+        materialBibliotecario.getChildren().add(nuevaClase);
+        materialBibliotecario.getChildren().add(editarOpciones);
+        materialBibliotecario.getChildren().add(detalleMaterial);
+        materialBibliotecario.getChildren().add(codigoBarras);
+        usuarios.getChildren().add(registrarUsuario);
+        usuarios.getChildren().add(editarUsuario);
+        usuarios.getChildren().add(nuevoGrado);
+        usuarios.getChildren().add(nuevoCurso);
+        usuarios.getChildren().add(nuevaJornda);
+        usuarios.getChildren().add(nuevoUsuario);
+        usuarios.getChildren().add(editarOpcionesUsuario);
+        ayuda.getChildren().add(ingreso);
+        ayuda.getChildren().add(administrar);
+        ayuda.getChildren().add(auxiliar);
+        ayuda.getChildren().add(materialBibliotecario);
+        ayuda.getChildren().add(usuarios);
+        ayuda.getChildren().add(prestamo);
+        ayuda.getChildren().add(devolucion);
+        ayuda.getChildren().add(reserva);
+        ayuda.getChildren().add(recibo);
     }
         
     public void setDialogStage(Stage dialogStage) {
@@ -260,10 +291,10 @@ public class AyudaController implements Initializable {
         
         menu.setRoot(ayuda);
         ayuda.setExpanded(true);
-        menu.getSelectionModel().selectedItemProperty().addListener( new ChangeListener() {
+        menu.getSelectionModel().selectedItemProperty().addListener( new ChangeListener<TreeItem<String>>() {            
             @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                TreeItem<String> selectedItem = (TreeItem<String>) newValue;
+            public void changed(ObservableValue<? extends TreeItem<String>> ov, TreeItem<String> t, TreeItem<String> t1) {
+                TreeItem<String> selectedItem = (TreeItem<String>) t1;
                 menuAyuda(selectedItem);
             }
         });        
@@ -670,7 +701,7 @@ public class AyudaController implements Initializable {
                             "•	Seleccionar un usuario.\n" +
                             "•	Hacer clic en el botón Imprimir o\n"+
                             "•	Hacer clic en el Guardar para salvar una imagen del paz y salvo.\n\n"+
-                            "También puede ingresar los datos manualmente en los campos.";
+                            "También puede ingresar los datos manualmente en los campos requiridos.";
                 break;
                 
         }

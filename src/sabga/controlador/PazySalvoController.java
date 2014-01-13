@@ -63,16 +63,16 @@ public class PazySalvoController implements Initializable, ControlledScreen {
     @FXML
     private Pane panelBuscar, panelRecibo, recibo;
     @FXML
-    private ComboBox comboListar, comboJornada, comboGrado, comboCurso;
+    private ComboBox<String> comboListar, comboJornada, comboGrado, comboCurso;
     @FXML
     private TextField txtfBuscar, txtfNombre, txtfApellido;
     @FXML
     private Button btnBorrar;
     @FXML
-    private TableView tablaUsuarios;
+    private TableView<Usuario> tablaUsuarios;
     @FXML
-    private TableColumn clmnTipo, clmnDocumento, clmnNombre, clmnApellido, clmnCorreo, clmnTelefono, clmnGrado, clmnCurso, clmnJornada,
-                        clmnEstado;
+    private TableColumn<Usuario, String> clmnTipo, clmnDocumento, clmnNombre, clmnApellido, clmnCorreo, clmnTelefono, 
+                                         clmnGrado, clmnCurso, clmnJornada, clmnEstado;
     @FXML
     private Label lblBuscarUsuario, lblFecha, lblBibliotecario, lblCoordinacion;
     private final ObservableList<Usuario> listaUsuarios;

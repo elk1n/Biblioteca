@@ -48,23 +48,23 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     @FXML
     private RadioButton radioBuscar, radioFiltrar;
     @FXML
-    private TableView tablaUsuarios;
+    private TableView<Usuario> tablaUsuarios;
     @FXML
-    private TableColumn clmnTipo, clmnDocumento, clmnNombre, clmnApellido, clmnCorreo;
+    private TableColumn<Usuario, String> clmnTipo, clmnDocumento, clmnNombre, clmnApellido, clmnCorreo;
     @FXML
     private AnchorPane panelFondo;
     @FXML 
     private TextField txtfFiltrar, txtfNombre, txtfApellido, txtfDocumento, txtfCorreo, txtfTelefono,
                       txtfDireccion, txtfBuscar;
     @FXML 
-    private ComboBox comboTipo, comboGrado, comboCurso, comboJornada, comboEstado, comboListar;     
+    private ComboBox<String> comboTipo, comboGrado, comboCurso, comboJornada, comboEstado, comboListar;     
     @FXML 
     private Label lblMulta, lblNombre, lblApellido, lblDocumento, lblCorreo, lblTelefono, lblDireccion, 
                   lblGrado, lblCurso, lblJornada, lblResultado;
     
     private final ObservableList<Usuario> listaUsuarios;
     private final ObservableList<Usuario> filtrarUsuarios;
-    private final ObservableList estados;
+    private final ObservableList<String> estados;
     private final Dialogo dialogos;
     private final Atributos atributo;
     

@@ -42,7 +42,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
     @FXML 
     private Label lblBusqueda, lblNombre, lblDocumento, lblValidarFecha;  
     @FXML
-    private ComboBox comboOpcion, comboPrestamos;
+    private ComboBox<String> comboOpcion, comboPrestamos;
     @FXML
     private Button btnBorrar;
     @FXML 
@@ -50,13 +50,16 @@ public class DevolucionController implements Initializable, ControlledScreen {
     @FXML
     private HBox hboxFecha;
     @FXML
-    private TableView tablaPrestamo, tablaDevolucion;
+    private TableView<Devolucion> tablaDevolucion;
     @FXML
-    private TableColumn clmnDocumento, clmnNombre, clmnApellido, clmnFechaPrestamo, clmnEstadoPrestamo, clmnEjemplar, 
-                        clmnTitulo, clmnCodigo, clmnFechaDevolucion, clmnEstadoEjemplar;
+    private TableView<Prestamo> tablaPrestamo;
+    @FXML
+    private TableColumn<Devolucion, String> clmnEjemplar,  clmnTitulo, clmnCodigo, clmnFechaDevolucion, clmnEstadoEjemplar;
+    @FXML
+    private TableColumn<Prestamo, String> clmnDocumento, clmnNombre, clmnApellido, clmnFechaPrestamo, clmnEstadoPrestamo;
     private final ObservableList<Prestamo> listaPrestamos; 
     private final ObservableList<Devolucion> listaEjemplares, ejemplarDevolucion, listaEjemplaresRestantes;
-    private final ObservableList prestamos;
+    private final ObservableList<String> prestamos;
     private final DatePicker fechaDevolucion;
     private final Consultas consulta;
     private int idPrestamo, idEjemplar;

@@ -2,7 +2,6 @@
 package sabga.controlador.dialogos;
 
 import java.net.URL;
-import java.util.Observable;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,10 +34,14 @@ public class MultaController implements Initializable {
     @FXML
     private Label lblNombre, lblDocumento, lblCorreo, lblMulta, lblValidar;
     @FXML
-    private TableView tablaPrestamo, tablaDetalle, tablaDevolucion;
+    private TableView<Devolucion> tablaDevolucion, tablaDetalle;
     @FXML
-    private TableColumn clmnDocumento, clmnNombre, clmnFecha, clmnEstado, clmnValor, clmnEjemplar, clmnTitulo, clmnCodigo,
-                        clmnFechaDevo, clmnEstadoEjem, clmnEjemplarDevo, clmnFechaEntrega;
+    private TableView<Multa> tablaPrestamo;    
+    @FXML
+    private TableColumn<Multa, String> clmnDocumento, clmnNombre, clmnFecha, clmnEstado, clmnValor;
+    @FXML
+    private TableColumn<Devolucion, String> clmnEjemplar, clmnTitulo, clmnCodigo, clmnFechaDevo, clmnEstadoEjem,
+                                            clmnEjemplarDevo, clmnFechaEntrega;
     @FXML
     private TextField txtfMulta;
     
@@ -84,7 +87,7 @@ public class MultaController implements Initializable {
         clmnNombre.setCellValueFactory(new PropertyValueFactory<Multa, String>("nombre"));
         clmnFecha.setCellValueFactory(new PropertyValueFactory<Multa, String>("fecha"));
         clmnEstado.setCellValueFactory(new PropertyValueFactory<Multa, String>("estado"));
-        clmnValor.setCellValueFactory(new PropertyValueFactory<Multa, Double>("valor"));
+        clmnValor.setCellValueFactory(new PropertyValueFactory<Multa, String>("valor"));
         listaPrestamos.addAll(consulta.getMulta(Integer.parseInt(atributo.getDocumentoUsuario())));
         tablaPrestamo.setItems(listaPrestamos);
         for(Multa p: listaPrestamos){

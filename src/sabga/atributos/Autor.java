@@ -12,7 +12,7 @@ public class Autor {
     
     private final SimpleIntegerProperty idAutor;
     private final SimpleStringProperty nombreAutor;
-    private final SimpleStringProperty apellidosAutor;
+    private SimpleStringProperty apellidosAutor;
     
     
     public Autor(int id, String nombre, String apellido){
@@ -21,7 +21,12 @@ public class Autor {
         this.nombreAutor = new SimpleStringProperty(nombre);
         this.apellidosAutor = new SimpleStringProperty(apellido);          
     }
-        
+    
+    public Autor(int id, String nombre){
+        this.idAutor = new SimpleIntegerProperty(id);
+        this.nombreAutor = new SimpleStringProperty(nombre);
+    }
+    
     public String getNombreAutor(){    
         return nombreAutor.get();
     }
