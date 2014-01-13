@@ -2,8 +2,6 @@
 package sabga.controlador.dialogos;
 
 import java.net.URL;
-import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,17 +9,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import sabga.atributos.Listar;
-import sabga.configuracion.Conexion;
+import sabga.atributos.Autor;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.ConfirmarUsuario;
+import sabga.modelo.Consultas;
 import sabga.modelo.ValidarUsuario;
 
 /**
@@ -35,24 +32,21 @@ public class EditarOpcionesUsuarioController implements Initializable {
     @FXML
     private ComboBox<String> comboListar;
     @FXML
-    private TableView<Listar> tablaResultados;
+    private TableView<Autor> tablaResultados;
     @FXML
-    private TableColumn<Listar, String> clmnNombre;
-    @FXML
-    private Button  botonEliminar;
+    private TableColumn<Autor, String> clmnNombre;
     @FXML
     private TextField txtfNombre;
     @FXML
     private Label lblValidacion;
     
-    private String nombre, mensaje;
-    private int id;
-    private final ObservableList<Listar> listaDatos;    
-    private Conexion con;
+    private String nombre;
+    private final ObservableList<Autor> listaDatos; 
+    private final Consultas consulta;
     
     public EditarOpcionesUsuarioController(){ 
         
-        con = new Conexion();
+        consulta = new Consultas();
         listaDatos = FXCollections.observableArrayList();
     }
      
@@ -73,158 +67,94 @@ public class EditarOpcionesUsuarioController implements Initializable {
     }
     
     private void eliminar(){
-        
-         if (tablaResultados.getSelectionModel().getSelectedItem() != null) {
-            
+                    
             if (comboListar.getSelectionModel().getSelectedIndex() == 0) {
-                 obtenerId("SELECT id_grado FROM tbl_GRADO WHERE grado =", "'" + nombre + "'", "id_grado");
-                 eliminar("{ CALL editarGrado(?,?,?,?) }", null, 2);
+                 eliminar(5, listaDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getIdAutor() , 6);
                  txtfNombre.setText(null);
-                 listarDatos("SELECT * FROM tbl_GRADO", "grado");
             }
             if (comboListar.getSelectionModel().getSelectedIndex() == 1) {
-                obtenerId("SELECT id_curso FROM tbl_CURSO WHERE curso=", "'" + nombre + "'", "id_curso");
-                eliminar("{ CALL editarCurso(?,?,?,?) }", null, 2);
+                eliminar(6, listaDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getIdAutor() , 7);
                 txtfNombre.setText(null);
-                listarDatos("SELECT * FROM tbl_CURSO", "curso");
             }
             if (comboListar.getSelectionModel().getSelectedIndex() == 2) {
-                obtenerId("SELECT id_jornada FROM tbl_JORNADA WHERE jornada=", "'" + nombre + "'", "id_jornada");
-                eliminar("{ CALL editarJornada(?,?,?,?) }", null, 2);
+                eliminar(7, listaDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getIdAutor() , 8);
                 txtfNombre.setText(null);
-                listarDatos("SELECT * FROM tbl_JORNADA", "jornada");
             }
             if (comboListar.getSelectionModel().getSelectedIndex() == 3) {
-                obtenerId("SELECT id_tipo_usuario FROM tbl_TIPO_USUARIO WHERE tipo_usuario=", "'" + nombre + "'", "id_tipo_usuario");
-                eliminar("{ CALL editarTipoUsuario(?,?,?,?) }", null, 2);
-                txtfNombre.setText(null);
-                listarDatos("SELECT * FROM tbl_TIPO_USUARIO", "tipo_usuario");
-            }
-       }
-       else{
-             Utilidades.mensaje(null, "Debe seleccionar un item de la lista", "Para eliminar un item", "Seleccionar");
-       }            
+                eliminar(8, listaDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getIdAutor() , 5);
+                txtfNombre.setText(null);            
+            }                
     }
      
-    private void eliminar(String procedimiento, String campos, int seleccion){
+    private void eliminar(int opcion, int codigo, int lista){
         
-        try {
-                guardarEdicion(procedimiento, campos , seleccion);
-                if (mensaje != null) {
-                    Utilidades.mensajeAdvertencia(null, mensaje, "Error al eliminar la selección", "Error Guardar Cambios");
-                } else {                    
-                    Utilidades.mensaje(null, "La selección se ha eliminado correctamente", "Eliminado Selección", "Actualización Exitosa");
-                }
-            } catch (SQLException ex) {
-                Utilidades.mensajeError(null, ex.getMessage(), "Error al eliminar la información", "Error Guardar Cambios");
-            }        
+         if (tablaResultados.getSelectionModel().getSelectedItem() != null) {
+                consulta.editarGCJT(opcion, codigo, "");
+            if (consulta.getMensaje() != null) {
+                Utilidades.mensajeAdvertencia(null, consulta.getMensaje(), "Error al eliminar la selección", "Error Guardar Cambios");
+            } else {
+                Utilidades.mensaje(null, "La selección se ha eliminado correctamente", "Eliminado Selección", "Actualización Exitosa");
+                listaDatos.addAll(consulta.llenarLista2(lista));
+            }
+        } else {
+            Utilidades.mensaje(null, "Debe seleccionar un item de la lista", "Eliminando Selección", "Eliminar Selección");
+        }      
     }
     
     public void edicion() {
          
-        ConfirmarUsuario verificar = new ConfirmarUsuario();
-        
+        ConfirmarUsuario verificar = new ConfirmarUsuario();        
         validarCampo();
        
-        if (comboListar.getSelectionModel().getSelectedIndex() == 0) {
-            
+        if (comboListar.getSelectionModel().getSelectedIndex() == 0) {            
             if (verificar.confirmarCurso(txtfNombre.getText())) {
-                obtenerId("SELECT id_grado FROM tbl_GRADO WHERE grado =", "'" + nombre + "'", "id_grado");
-                editar(txtfNombre.getText().trim(), "{ CALL editarGrado(?,?,?,?) }", txtfNombre.getText().trim(), 1);               
+                editar(1, listaDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getIdAutor(),
+                       txtfNombre.getText(), 6);
                 resetear();
             }            
         } 
-        if (comboListar.getSelectionModel().getSelectedIndex() == 1) {
-            
+        if (comboListar.getSelectionModel().getSelectedIndex() == 1) {            
             if (verificar.confirmarCurso(txtfNombre.getText())) {
-                obtenerId("SELECT id_curso FROM tbl_CURSO WHERE curso=", "'" + nombre + "'", "id_curso");
-                editar(txtfNombre.getText().trim(), "{ CALL editarCurso(?,?,?,?) }", txtfNombre.getText().trim(), 1);
+                editar(2, listaDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getIdAutor(),
+                       txtfNombre.getText(), 7);
                 resetear();
             }
         }
         if (comboListar.getSelectionModel().getSelectedIndex() == 2) {
             if (verificar.confirmarCurso(txtfNombre.getText())) {
-                obtenerId("SELECT id_jornada FROM tbl_JORNADA WHERE jornada=", "'" + nombre + "'", "id_jornada");
-                editar(txtfNombre.getText().trim(), "{ CALL editarJornada(?,?,?,?) }", txtfNombre.getText().trim(), 1);
+                editar(3, listaDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getIdAutor(),
+                       txtfNombre.getText(), 8);
                 resetear();
             }
         } 
         if (comboListar.getSelectionModel().getSelectedIndex() == 3) {
             if (verificar.confirmarCurso(txtfNombre.getText())) {
-                obtenerId("SELECT id_tipo_usuario FROM tbl_TIPO_USUARIO WHERE tipo_usuario=", "'" + nombre + "'", "id_tipo_usuario");
-                editar(txtfNombre.getText().trim(), "{ CALL editarTipoUsuario(?,?,?,?) }", txtfNombre.getText().trim(), 1);
+                editar(4, listaDatos.get(tablaResultados.getSelectionModel().getSelectedIndex()).getIdAutor(),
+                       txtfNombre.getText(), 5);
                 resetear();
             }
-        }
-        
+        }        
     }
-    
-    public void guardarEdicion(String procedimiento, String campo ,int seleccion) throws SQLException{
-    
-        try {
-
-            con.conectar();
-            con.getConexion().setAutoCommit(false);
-            con.procedimiento(procedimiento);
-
-            con.getProcedimiento().setInt("id", id);
-            con.getProcedimiento().setInt("opcion", seleccion);
-            con.getProcedimiento().setString("nombre", campo);
-            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
-
-            con.getProcedimiento().execute();
-            con.getConexion().commit();
-            mensaje = con.getProcedimiento().getString("mensaje");
-
-        } catch (SQLException e) {
-
-            con.getConexion().rollback();
-            Utilidades.mensajeError(null, e.getMessage(), "Error al tratar de editar la selección ", "Error");  
-
-        } finally {
-            con.desconectar();
-        }
-    }
-    
-    public void editar(String campo, String procedimiento, String campos ,int seleccion ){
         
-        if(!nombre.equalsIgnoreCase(campo)){
-            try {
-                guardarEdicion(procedimiento, campos , seleccion);
-                if (mensaje != null) {
-
-                    Utilidades.mensajeAdvertencia(null, mensaje, "Error al editar la selección", "Error Guardar Cambios");
+    public void editar(int opcion, int codigo, String campo, int lista){
+        
+        if (tablaResultados.getSelectionModel().getSelectedItem() != null) {
+            if (!nombre.equalsIgnoreCase(campo)) {
+                consulta.editarGCJT(opcion, codigo, campo);
+                if (consulta.getMensaje() != null) {
+                    Utilidades.mensajeAdvertencia(null, consulta.getMensaje(), "Error al editar la selección", "Error Guardar Cambios");
                 } else {
                     Utilidades.mensaje(null, "Los cambios se han guardado correctamente", "Editando Selección", "Actualización Exitosa");
+                    listaDatos.addAll(consulta.llenarLista2(lista));
                 }
-            } catch (SQLException ex) {
-
-                Utilidades.mensajeError(null, ex.getMessage(), "Error al actualizar la información", "Error Guardar Cambios");
-            }            
-        }else {
-            Utilidades.mensaje(null, "No se han presentado cambios", "Editando Selección", "Editar Selección");
-        }
-    
-    }
-    
-    public void obtenerId(String consulta, String nombre, String columna) {
-
-        try {
-            con.conectar();
-            con.setResultado(con.getStatement().executeQuery(consulta + nombre));
-
-            if (con.getResultado().first()) {
-                id = con.getResultado().getInt(columna);
+            } else {
+                Utilidades.mensaje(null, "No se han presentado cambios", "Editando Selección", "Editar Selección");
             }
-
-        } catch (SQLException ex) {
-            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
-        } finally {
-            con.desconectar();
-        }
-
+        } else {
+            Utilidades.mensaje(null, "Debe seleccionar un item de la lista", "Editando Selección", "Editar Selección");
+        }      
     }
-        
+            
     private void validarCampo(){
         
         ValidarUsuario validar = new ValidarUsuario();
@@ -235,17 +165,18 @@ public class EditarOpcionesUsuarioController implements Initializable {
     @FXML
     public void listar(ActionEvent evento){
         
+        listaDatos.clear();
         if (comboListar.getSelectionModel().getSelectedIndex() == 0) {
-            listarDatos("SELECT grado FROM tbl_GRADO", "grado");
+            listaDatos.addAll(consulta.llenarLista2(6));
         }
         if (comboListar.getSelectionModel().getSelectedIndex() == 1) {
-            listarDatos("SELECT curso FROM tbl_CURSO", "curso");            
+            listaDatos.addAll(consulta.llenarLista2(7));          
         }
         if (comboListar.getSelectionModel().getSelectedIndex() == 2) {
-            listarDatos("SELECT jornada FROM tbl_JORNADA", "jornada");
+            listaDatos.addAll(consulta.llenarLista2(8));
         }
         if (comboListar.getSelectionModel().getSelectedIndex() == 3) {
-            listarDatos("SELECT tipo_usuario FROM tbl_TIPO_USUARIO", "tipo_usuario");
+            listaDatos.addAll(consulta.llenarLista2(5));
         }
         txtfNombre.setText("");
         txtfNombre.setDisable(true);
@@ -259,37 +190,12 @@ public class EditarOpcionesUsuarioController implements Initializable {
      nombre = tablaResultados.getSelectionModel().getSelectedItem().toString();
     
     }
-    
-    public void listarDatos(String tabla, String consulta) {
-
-        listaDatos.removeAll(listaDatos);
-
-        try {
-
-            con.conectar();
-            con.setResultado(con.getStatement().executeQuery(tabla));
-
-            while (con.getResultado().next()) {
-
-                listaDatos.add(new Listar(con.getResultado().getString(consulta)));
-            }
-            con.desconectar();
-            clmnNombre.setCellValueFactory(new PropertyValueFactory<Listar, String>("nombre"));
-            tablaResultados.setEditable(true);
-            tablaResultados.setItems(listaDatos);
-
-        } catch (SQLException ex) {
-            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
-        }
-    }
-    
+        
     private void resetear() {
         
         txtfNombre.setText("");
         txtfNombre.setDisable(true);
-        nombre = null;
-        id = 0;
-        listar(null);
+        nombre = null;    
     }
     
     @FXML
@@ -299,9 +205,9 @@ public class EditarOpcionesUsuarioController implements Initializable {
     }
        
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        
+    public void initialize(URL url, ResourceBundle rb) {        
         txtfNombre.setDisable(true);
-    
+        clmnNombre.setCellValueFactory(new PropertyValueFactory<Autor, String>("nombreAutor"));
+        tablaResultados.setItems(listaDatos);    
     }    
 }

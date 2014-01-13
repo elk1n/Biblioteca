@@ -1482,6 +1482,34 @@ public class Consultas {
         }     
     }
     
+    public void editarGCJT(int opcion, int id, String nombre){
+    
+         try {
+
+            con.conectar();
+            con.getConexion().setAutoCommit(false);
+            con.procedimiento("{ CALL editarGCJT(?,?,?,?) }");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setInt("id", id);
+            con.getProcedimiento().setString("nombre", nombre);
+            con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
+
+            con.getProcedimiento().execute();
+            con.getConexion().commit();
+            mensaje = con.getProcedimiento().getString("mensaje");
+
+        } catch (SQLException e) {
+             try {
+                 con.getConexion().rollback();
+             } catch (SQLException ex) {
+                 mensaje = ex.getMessage();
+             }
+             mensaje = e.getMessage();
+        } finally {
+            con.desconectar();
+        }     
+    }
+    
     public void pagarMultas(int opcion, int id, int valor){
       
         try {
