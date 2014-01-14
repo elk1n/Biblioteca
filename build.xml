@@ -2,22 +2,8 @@
 <project name="Sabga" default="default" basedir="." xmlns:fx="javafx:com.sun.javafx.tools.ant">
     <description>Builds, tests, and runs the project Sabga.</description>
     <import file="nbproject/build-impl.xml"/>
-    
-     <!--
-    <target name="-post-jfx-deploy">
-       <fx:deploy width="${javafx.run.width}" height="${javafx.run.height}" 
-                 nativeBundles="all"
-                 outdir="${basedir}/${dist.dir}" outfile="${application.title}">
-          <fx:application name="${application.title}" mainClass="${javafx.main.class}"/>
-          <fx:resources>
-              <fx:fileset dir="${basedir}/${dist.dir}" includes="Sabga.jar"/>
-          </fx:resources>
-          <fx:info title="${application.title}" vendor="${application.vendor}"/>
-      </fx:deploy>          
-     </target>
-     -->
+          
     <!--
-
     There exist several targets which are by default empty and which can be 
     used for execution of your tasks. These targets are usually executed 
     before and after some main targets. Those of them relevant for JavaFX project are: 

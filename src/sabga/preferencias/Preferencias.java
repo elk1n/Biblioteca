@@ -1,9 +1,11 @@
 
 package sabga.preferencias;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
 import sabga.configuracion.Utilidades;
@@ -17,32 +19,57 @@ public class Preferencias {
     private Properties propiedades;
     private FileInputStream entrada;
     private FileOutputStream salida;
+    private File archivo;
+    private File carpeta;
+    private final String ruta = System.getenv("APPDATA")+"/Sabga/Preferencias.properties";
 
     public Preferencias(){
      
         try {
-            entrada = new FileInputStream("src/sabga/preferencias/preferencias.properties");
-            propiedades = new Properties();
-            propiedades.load(entrada);
-            entrada.close();
+            archivo = new File(ruta);
+            carpeta = new File(System.getenv("APPDATA")+"/Sabga");
+            if(archivo.exists() && carpeta.exists()){
+                entrada = new FileInputStream(ruta);     
+                propiedades = new Properties();
+                propiedades.load(entrada);
+                entrada.close();
+            }else{
+                carpeta.mkdir();
+                archivo.createNewFile();               
+                propiedades = new Properties();
+                propiedades.load(new FileInputStream(archivo));
+                propiedades.setProperty("direccion", "localhost");
+                propiedades.setProperty("numeroMaximoEjemplares", "3");
+                propiedades.setProperty("rutamysqldump", "C\\:/Wamp/bin/mysql/mysql5.6.12/bin/mysqldump.exe");
+                propiedades.setProperty("puerto", "587");
+                propiedades.setProperty("usuario", "root");
+                propiedades.setProperty("puertoBase", "8889");
+                propiedades.setProperty("correo", "bibliotecagilbertoalzate@outlook.com");
+                propiedades.setProperty("baseDatos", "SABGA");
+                propiedades.setProperty("clave", "");
+                propiedades.setProperty("host", "smtp-mail.outlook.com");
+                propiedades.setProperty("contrasenia", "biblioteca1958");                
+                propiedades.store(new FileWriter(archivo), null);
+            }
+            
         } catch (FileNotFoundException e) {
-            Utilidades.mensajeError(null, "El archivo de preferencias no existe", "Archivo no encontrado", "Error");
+            Utilidades.mensajeError(null, e.getMessage(), "El archivo de preferencias no existe", "Error");
         } catch (IOException e) {
-            Utilidades.mensajeError(null, "El archivo de preferencias no puede ser leído", "Archivo no leído", "Error");
+            Utilidades.mensajeError(null, e.getMessage(), "El archivo de preferencias no puede ser leído", "Error");
         }
        
     }
     
     public void setPreferencia(String key, String valor){
         try {
-            salida = new FileOutputStream("src/sabga/preferencias/preferencias.properties");
+            salida = new FileOutputStream(ruta);
             propiedades.setProperty(key, valor);
             propiedades.store(salida, null);
             salida.close();
         } catch (FileNotFoundException ex) {
-            Utilidades.mensajeError(null, "El archivo de preferencias no existe", "Archivo no encontrado", "Error");
+            Utilidades.mensajeError(null, ex.getMessage() , "El archivo de preferencias no existe", "Error");
         } catch (IOException e) {
-            Utilidades.mensajeError(null, "El archivo de preferencias no puede ser leído", "Archivo no leído", "Error");
+            Utilidades.mensajeError(null, e.getMessage(), "El archivo de preferencias no puede ser leído", "Error");
         }
     
     }
