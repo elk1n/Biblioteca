@@ -20,6 +20,7 @@ public class Prestamo {
     private StringProperty apellido;
     private StringProperty fecha;
     private StringProperty estado;
+    private StringProperty correo;
     
     
     public Prestamo(String ejemplar, String titulo, String codigo) {
@@ -29,12 +30,13 @@ public class Prestamo {
         this.codigo = new SimpleStringProperty(codigo);
     }
 
-    public Prestamo(int prestamo, String documento, String nombre, String apellido, String fechaPrestamo, String estadoPrestamo) {
+    public Prestamo(int prestamo, String documento, String nombre, String apellido, String correo, String fechaPrestamo, String estadoPrestamo) {
         
         this.idPrestamo = new SimpleIntegerProperty(prestamo);
         this.documento = new SimpleStringProperty(documento);
         this.nombre = new SimpleStringProperty(nombre);
         this.apellido = new SimpleStringProperty(apellido);
+        this.correo = new SimpleStringProperty(correo);
         this.fecha = new SimpleStringProperty(fechaPrestamo);
         this.estado = new SimpleStringProperty(estadoPrestamo);
     }
@@ -82,6 +84,10 @@ public class Prestamo {
     
     public String getEstado(){
         return this.estado.get();
+    }
+    
+    public String getCorreo(){
+        return this.correo.get();
     }
     
 }

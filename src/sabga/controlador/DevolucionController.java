@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -22,9 +23,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import sabga.Sabga;
 import sabga.ScreensController;
+import sabga.atributos.Atributos;
 import sabga.atributos.Devolucion;
 import sabga.atributos.Prestamo;
 import sabga.configuracion.ControlledScreen;
+import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.ConfirmarMaterial;
 import sabga.modelo.Consultas;
@@ -48,6 +51,8 @@ public class DevolucionController implements Initializable, ControlledScreen {
     @FXML 
     private TextField txtfBuscar;
     @FXML
+    private MenuItem menuMultas, menuDetalle;
+    @FXML
     private HBox hboxFecha;
     @FXML
     private TableView<Devolucion> tablaDevolucion;
@@ -66,6 +71,8 @@ public class DevolucionController implements Initializable, ControlledScreen {
     private String estado;
     private Calendar calendario;
     private final SimpleDateFormat formato;
+    private final Dialogo dialogo;
+    private final Atributos atributos;
     
     public DevolucionController(){
        
@@ -82,6 +89,8 @@ public class DevolucionController implements Initializable, ControlledScreen {
        formato = new SimpleDateFormat("YYYY-MM-dd");
        calendario = Calendar.getInstance();
        calendario = new GregorianCalendar();
+       dialogo = new Dialogo();
+       atributos = new Atributos();
     
     }
     
@@ -106,6 +115,16 @@ public class DevolucionController implements Initializable, ControlledScreen {
     
     public void ejemplarDevolucion(){        
         getEjemplarDevolucion();
+    }
+    
+    @FXML
+    public void verDetalleUsuario(ActionEvent evento){
+        detalleUsuario();
+    }
+    
+    @FXML
+    public void verMultasUsuario(ActionEvent evento){
+        multasUsuario();
     }
     
     private void devolverRenovar() {
@@ -241,6 +260,10 @@ public class DevolucionController implements Initializable, ControlledScreen {
             lblNombre.setText(consulta.getNombre());
             lblDocumento.setText(consulta.getDocumento());
             tablaDevolucion.setItems(listaEjemplares);
+            atributos.setDocumentoUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getDocumento());
+            atributos.setNombreUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getNombre());
+            atributos.setApellidoUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getApellido());
+            atributos.setCorreoUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getCorreo());
         }
     }
     
@@ -305,6 +328,32 @@ public class DevolucionController implements Initializable, ControlledScreen {
                     listaEjemplaresRestantes.add(d);
                 }
             }
+        }
+    }
+    
+    private void detalleUsuario(){
+        
+        if(tablaPrestamo.getSelectionModel().getSelectedItem() != null){            
+            menuDetalle.setDisable(true);
+            //btnDetalleUsuario.setDisable(true);
+            dialogo.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información del Usuario", null , null, 5);           
+            menuDetalle.setDisable(false);  
+            //btnDetalleUsuario.setDisable(false); 
+        }else{
+            Utilidades.mensaje(null, "Debe seleccionar un usuario. ", "", "Selección Usuario");
+        }
+    }
+    
+    private void multasUsuario(){
+        
+        if(tablaPrestamo.getSelectionModel().getSelectedItem() != null){            
+            menuMultas.setDisable(true);
+            // btnMultas.setDisable(true);
+            dialogo.mostrarDialogo("vista/dialogos/Multa.fxml", "Detalle Multas", null , null, 17);           
+            menuMultas.setDisable(false); 
+            //btnMultas.setDisable(false);
+        }else{
+            Utilidades.mensaje(null, "Debe seleccionar un usuario. ", "", "Selección Usuario");
         }
     }
     

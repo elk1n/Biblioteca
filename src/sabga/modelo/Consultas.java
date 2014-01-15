@@ -2,8 +2,6 @@ package sabga.modelo;
 
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sabga.atributos.Autor;
@@ -360,6 +358,7 @@ public class Consultas {
             while (con.getResultado().next()) {
                     lista.add(new Prestamo(con.getResultado().getInt("id"), con.getResultado().getString("documento"),
                                               con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
+                                              con.getResultado().getString("email"),
                                               con.getResultado().getString("fecha"), con.getResultado().getString("estado")));
             }
         } catch (SQLException ex) {
@@ -382,6 +381,7 @@ public class Consultas {
             while (con.getResultado().next()) {
                     lista.add(new Prestamo(con.getResultado().getInt("id"), con.getResultado().getString("documento"),
                                               con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
+                                              con.getResultado().getString("email"),
                                               con.getResultado().getString("fecha"), con.getResultado().getString("estado")));
             }
         } catch (SQLException ex) {
@@ -465,6 +465,7 @@ public class Consultas {
             while (con.getResultado().next()) {
                     lista.add(new Prestamo(con.getResultado().getInt("id"), con.getResultado().getString("fecha"),
                                            con.getResultado().getString("estado"), con.getResultado().getString("reserva"),
+                                           con.getResultado().getString("email"),
                                            con.getResultado().getString("documento"), con.getResultado().getString("nombres")));
             }
         } catch (SQLException ex) {
