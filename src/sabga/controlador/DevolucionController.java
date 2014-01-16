@@ -51,7 +51,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
     @FXML 
     private TextField txtfBuscar;
     @FXML
-    private MenuItem menuMultas, menuDetalle;
+    private MenuItem menuMultas, menuDetalle, menuMultas2, menuDetalle2;
     @FXML
     private HBox hboxFecha;
     @FXML
@@ -180,7 +180,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
                         Utilidades.mensajeError(null, consulta.getMensaje(), "La renovación no ha sido registrada.", "Error Registro Renovación");
                     }
                 } else {
-                    Utilidades.mensajeAdvertencia(null, "Debe seleccionar un ejemplar de la lista.", " ", "Seleccionar Ejemplar");
+                    Utilidades.mensajeAdvertencia(null, "Debe seleccionar un ejemplar de la lista de préstamos vigentes.", " ", "Seleccionar Ejemplar");
                 }
             }
         }           
@@ -208,7 +208,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
                 }
             }
         } else {
-            Utilidades.mensajeAdvertencia(null, "Debe seleccionar un ejemplar de la lista. ", "", "Seleccionar Ejemplar");
+            Utilidades.mensajeAdvertencia(null, "Debe seleccionar un ejemplar de la lista de préstamos vigentes. ", "", "Seleccionar Ejemplar");
         }
     }
 
@@ -235,7 +235,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
                 }
             }
         } else {
-            Utilidades.mensaje(null, "Debe seleccionar un prestamo.", "", "Registro Devolución");
+            Utilidades.mensaje(null, "Debe seleccionar un prestamo vigente.", "", "Registro Devolución");
         }
     }
     
@@ -253,17 +253,13 @@ public class DevolucionController implements Initializable, ControlledScreen {
         
         if(tablaPrestamo.getSelectionModel().getSelectedItem() != null){
             prepararTablaDevolucion();
-            listaEjemplares.addAll(consulta.getListaDetallePrestamo(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo()));
-            idPrestamo = listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo();
-            estado = listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getEstado();
-            consulta.mapearInfoAdmin(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo());
-            lblNombre.setText(consulta.getNombre());
-            lblDocumento.setText(consulta.getDocumento());
-            tablaDevolucion.setItems(listaEjemplares);
-            atributos.setDocumentoUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getDocumento());
-            atributos.setNombreUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getNombre());
-            atributos.setApellidoUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getApellido());
-            atributos.setCorreoUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getCorreo());
+            if(comboPrestamos.getSelectionModel().getSelectedIndex() == 0){
+                listaEjemplares.addAll(consulta.getListaDetallePrestamo(1, listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo()));
+            }
+            else if(comboPrestamos.getSelectionModel().getSelectedIndex() == 1){
+                listaEjemplares.addAll(consulta.getListaDetallePrestamo(2, listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo()));
+            }            
+            mapearDatos();            
         }
     }
     
@@ -335,10 +331,10 @@ public class DevolucionController implements Initializable, ControlledScreen {
         
         if(tablaPrestamo.getSelectionModel().getSelectedItem() != null){            
             menuDetalle.setDisable(true);
-            //btnDetalleUsuario.setDisable(true);
+            menuDetalle2.setDisable(true);
             dialogo.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información del Usuario", null , null, 5);           
             menuDetalle.setDisable(false);  
-            //btnDetalleUsuario.setDisable(false); 
+            menuDetalle2.setDisable(false);
         }else{
             Utilidades.mensaje(null, "Debe seleccionar un usuario. ", "", "Selección Usuario");
         }
@@ -348,13 +344,36 @@ public class DevolucionController implements Initializable, ControlledScreen {
         
         if(tablaPrestamo.getSelectionModel().getSelectedItem() != null){            
             menuMultas.setDisable(true);
-            // btnMultas.setDisable(true);
+            menuMultas2.setDisable(true);
             dialogo.mostrarDialogo("vista/dialogos/Multa.fxml", "Detalle Multas", null , null, 17);           
             menuMultas.setDisable(false); 
-            //btnMultas.setDisable(false);
+            menuMultas2.setDisable(false);            
         }else{
             Utilidades.mensaje(null, "Debe seleccionar un usuario. ", "", "Selección Usuario");
         }
+    }
+    
+    private void mapearDatos(){
+                
+        idPrestamo = listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo();
+        int valor = consulta.getValorMultaPrestamo(idPrestamo);
+        
+        if(valor > 0){
+            Utilidades.mensajeAdvertencia(null, "El préstamo seleccionado preseta una multa de: "+
+                                          valor+" pesos. haga clic en el menú Ver y seleccione la opción Multas para "
+                                          + "obtener más información.",
+                                          "El préstamo presenta una multa.", "Préstamo Con Multa");
+        }
+        estado = listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getEstado();
+        consulta.mapearInfoAdmin(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo());
+        lblNombre.setText(consulta.getNombre());
+        lblDocumento.setText(consulta.getDocumento());
+        tablaDevolucion.setItems(listaEjemplares);
+        atributos.setDocumentoUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getDocumento());
+        atributos.setNombreUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getNombre());
+        atributos.setApellidoUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getApellido());
+        atributos.setCorreoUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getCorreo());
+    
     }
     
     private void inicio() {

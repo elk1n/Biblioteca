@@ -392,12 +392,13 @@ public class Consultas {
         return lista;       
     }
     
-    public ObservableList<Devolucion> getListaDetallePrestamo(int id) {
+    public ObservableList<Devolucion> getListaDetallePrestamo(int opcion, int id) {
 
         ObservableList<Devolucion> lista = FXCollections.observableArrayList();
         try {
             con.conectar();
-            con.procedimiento("{ CALL getListaDetallePrestamo(?)}");
+            con.procedimiento("{ CALL getListaDetallePrestamo(?,?)}");
+            con.getProcedimiento().setInt("opcion", opcion);
             con.getProcedimiento().setInt("idPrestamo", id);
             con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
@@ -1727,7 +1728,7 @@ public class Consultas {
         try {
             con.conectar();
             con.procedimiento("{ ? = CALL getDevolucion(?) }");
-            con.getProcedimiento().registerOutParameter(1, Types.TINYINT);
+            con.getProcedimiento().registerOutParameter(1, Types.INTEGER);
             con.getProcedimiento().setInt("prestamo", prestamo);
             con.getProcedimiento().execute();
             devolucion = con.getProcedimiento().getInt(1);
@@ -1745,7 +1746,7 @@ public class Consultas {
         try {
             con.conectar();
             con.procedimiento("{ ? = CALL getIdDevolucion(?) }");
-            con.getProcedimiento().registerOutParameter(1, Types.TINYINT);
+            con.getProcedimiento().registerOutParameter(1, Types.INTEGER);
             con.getProcedimiento().setInt("prestamo", prestamo);            
             con.getProcedimiento().execute();
             devolucion = con.getProcedimiento().getInt(1);
@@ -1763,8 +1764,26 @@ public class Consultas {
         try {
             con.conectar();
             con.procedimiento("{ ? = CALL getMultaUsuario(?) }");
-            con.getProcedimiento().registerOutParameter(1, Types.TINYINT);
+            con.getProcedimiento().registerOutParameter(1, Types.INTEGER);
             con.getProcedimiento().setString("id", documento);            
+            con.getProcedimiento().execute();
+            valor = con.getProcedimiento().getInt(1);
+        } catch (SQLException e) {
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar la multa", "Error Consulta Multa");  
+        } finally {
+            con.desconectar();
+        }
+        return valor;
+    }
+    
+    public int getValorMultaPrestamo(int prestamo){
+    
+        int valor = 0;
+        try {
+            con.conectar();
+            con.procedimiento("{ ? = CALL getMultaPrestamo(?) }");
+            con.getProcedimiento().registerOutParameter(1, Types.INTEGER);
+            con.getProcedimiento().setInt("prestamo", prestamo);            
             con.getProcedimiento().execute();
             valor = con.getProcedimiento().getInt(1);
         } catch (SQLException e) {
@@ -1799,7 +1818,7 @@ public class Consultas {
         try {
             con.conectar();
             con.procedimiento("{ ? = CALL getValorMulta() }");
-            con.getProcedimiento().registerOutParameter(1, Types.TINYINT);
+            con.getProcedimiento().registerOutParameter(1, Types.INTEGER);
             con.getProcedimiento().execute();
             valorMulta = con.getProcedimiento().getInt(1);
         } catch (SQLException e) {

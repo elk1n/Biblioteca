@@ -100,7 +100,7 @@ public class MultaController implements Initializable {
         
         if(tablaPrestamo.getSelectionModel().getSelectedItem() != null){
             prepararTablaDevolucion();
-            listaEjemplares.addAll(consulta.getListaDetallePrestamo(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getPrestamo()));           
+            listaEjemplares.addAll(consulta.getListaDetallePrestamo(1, listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getPrestamo()));           
             tablaDetalle.setItems(listaEjemplares);
             txtfMulta.setText(String.valueOf(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getValor()));
         }
