@@ -40,7 +40,7 @@ public class Preferencias {
                 propiedades.load(new FileInputStream(archivo));
                 propiedades.setProperty("direccion", "localhost");
                 propiedades.setProperty("numeroMaximoEjemplares", "3");
-                propiedades.setProperty("rutamysqldump", "C\\:/Wamp/bin/mysql/mysql5.6.12/bin/mysqldump.exe");
+                propiedades.setProperty("rutamysqldump", "C:/Wamp/bin/mysql/mysql5.6.12/bin/mysqldump.exe");
                 propiedades.setProperty("puerto", "587");
                 propiedades.setProperty("usuario", "root");
                 propiedades.setProperty("puertoBase", "8889");

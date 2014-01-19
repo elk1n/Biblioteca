@@ -100,7 +100,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
     }
     
     @FXML
-    public void listarPrestamos(ActionEvent evento){    
+    public void listarPrestamos(ActionEvent evento){
         listarPrestamos();
     }
     
@@ -253,10 +253,10 @@ public class DevolucionController implements Initializable, ControlledScreen {
         
         if(tablaPrestamo.getSelectionModel().getSelectedItem() != null){
             prepararTablaDevolucion();
-            if(comboPrestamos.getSelectionModel().getSelectedIndex() == 0){
+            if(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getEstado().toLowerCase().contains("vigente")){
                 listaEjemplares.addAll(consulta.getListaDetallePrestamo(1, listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo()));
             }
-            else if(comboPrestamos.getSelectionModel().getSelectedIndex() == 1){
+            else{
                 listaEjemplares.addAll(consulta.getListaDetallePrestamo(2, listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo()));
             }            
             mapearDatos();            
@@ -283,36 +283,41 @@ public class DevolucionController implements Initializable, ControlledScreen {
             if(listaPrestamos.isEmpty()){
                 comboPrestamos.getSelectionModel().clearSelection();
                 lblBusqueda.setText("No se han encontrado resultados.");
-            }else{
-                lblBusqueda.setText(null);
+            }else{                
                 comboPrestamos.getSelectionModel().clearSelection();
+                lblBusqueda.setText(null);
             }
         }
     }
 
     private void listarPrestamos() {
 
-        preparTablaPrestamo();
-        if (comboPrestamos.getSelectionModel().getSelectedIndex() == 0) {
-            listaPrestamos.addAll(consulta.getListaPrestamo(1));
-        } else if (comboPrestamos.getSelectionModel().getSelectedIndex() == 1) {
-            listaPrestamos.addAll(consulta.getListaPrestamo(2));
+        if (!comboPrestamos.getSelectionModel().isEmpty()) {
+            preparTablaPrestamo();
+            if (comboPrestamos.getSelectionModel().getSelectedIndex() == 0) {
+                listaPrestamos.addAll(consulta.getListaPrestamo(1));
+            } else if (comboPrestamos.getSelectionModel().getSelectedIndex() == 1) {
+                listaPrestamos.addAll(consulta.getListaPrestamo(2));
+            }
+            tablaPrestamo.setItems(listaPrestamos);
         }
-        tablaPrestamo.setItems(listaPrestamos);
-        listaEjemplares.clear();
-        lblDocumento.setText(null);
-        lblNombre.setText(null);
-        lblBusqueda.setText(null);
+
     }
     
     private void preparTablaPrestamo(){
-        
+                
         clmnDocumento.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("documento"));
         clmnNombre.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("nombre"));
         clmnApellido.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("apellido"));
         clmnFechaPrestamo.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("fecha"));
         clmnEstadoPrestamo.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("estado"));
+        tablaPrestamo.setEditable(true);
         listaPrestamos.clear();
+        listaEjemplares.clear();
+        lblDocumento.setText(null);
+        lblNombre.setText(null);
+        lblBusqueda.setText(null);
+        
     }
     
     private void listaEjemplares() {
