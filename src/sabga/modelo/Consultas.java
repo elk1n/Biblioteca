@@ -370,6 +370,31 @@ public class Consultas {
         
     }
     
+    public ObservableList<Prestamo> getListaDePrestamos(int opcion){
+           
+        ObservableList<Prestamo> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaPrestamos(?) }");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                    lista.add(new Prestamo(con.getResultado().getInt("id"), con.getResultado().getString("documento"),
+                                           con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
+                                           con.getResultado().getString("bibliotecario"), con.getResultado().getString("grado"),
+                                           con.getResultado().getString("curso"), con.getResultado().getString("jornada"),
+                                           con.getResultado().getString("reserva"),
+                                           con.getResultado().getString("fecha"), con.getResultado().getString("estado")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+        } finally {
+            con.desconectar();
+        }
+        return lista;
+        
+    }
+    
     public ObservableList<Prestamo> buscarPrestamo(String parametro){
        
         ObservableList<Prestamo> lista = FXCollections.observableArrayList();

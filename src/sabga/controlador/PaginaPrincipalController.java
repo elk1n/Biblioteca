@@ -555,6 +555,16 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     }
        
     @FXML
+    public void ventanaVerPrestamos(ActionEvent evento){
+        ventanaPrincipal.mostrarVistas();
+        ventanaPrincipal.cargarVista("paginaVerPrestamos", "vista/VerPrestamos.fxml");
+        ventanaPrincipal.cambiarVista("paginaVerPrestamos");
+        ventanaPrincipal.setTitle("Listado de Préstamos");
+        ventanaInicio = false;
+        ventanaBusqueda = false;
+    }
+     
+    @FXML
     public void dialogoNuevoAutor(ActionEvent evento){
         dialogo.mostrarDialogo("vista/dialogos/NuevoAutor.fxml", "Nuevo Autor", ventanaPrincipal.getPrimaryStage(), null, 1);
     }

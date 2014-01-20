@@ -289,25 +289,28 @@ public class PrestamoController implements Initializable, ControlledScreen{
 
     private void sumarEjemplar(){
         
-        if(tablaEjemplar.getSelectionModel().getSelectedItem() != null){
+        if (tablaEjemplar.getSelectionModel().getSelectedItem() != null) {
             prepararTablaPrestamo();
             String ejemplar = listaEjemplares.get(tablaEjemplar.getSelectionModel().getSelectedIndex()).getEjemplar();
-            if(!verificarDuplicados(listaPrestamo, ejemplar)){
-                if(listaEjemplares.get(tablaEjemplar.getSelectionModel().getSelectedIndex()).getEstado().equals("Disponible") &&
-                   listaEjemplares.get(tablaEjemplar.getSelectionModel().getSelectedIndex()).getDisponibilidad().equals("Habilitado")){
-                   listaPrestamo.add(new Prestamo(ejemplar, titulo, codigoClasificacion));
-                   reserva = false;
+            if (!verificarDuplicados(listaPrestamo, ejemplar)) {
+                if (!listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getClase().toLowerCase().contains("referencia")) {
+                    if (listaEjemplares.get(tablaEjemplar.getSelectionModel().getSelectedIndex()).getEstado().equals("Disponible")
+                     && listaEjemplares.get(tablaEjemplar.getSelectionModel().getSelectedIndex()).getDisponibilidad().equals("Habilitado")) {
+                        listaPrestamo.add(new Prestamo(ejemplar, titulo, codigoClasificacion));
+                        reserva = false;
+                    } else {
+                        Utilidades.mensaje(null, "El ejemplar se encuentra reservado, prestado, inhabilitado o en mantenimiento y no puede prestarse.",
+                                "", "Seleccionar Ejemplar");
+                    }
+                } else {
+                    Utilidades.mensaje(null, "El ejemplar seleccionado es de referencia y no puede prestarse.", "", "Seleccionar Ejemplar");
                 }
-                else{
-                    Utilidades.mensaje(null, "El ejemplar se encuentra reservado, prestado, inhabilitado o en mantenimiento y no puede prestarse.",
-                                             "", "Seleccionar Ejemplar");
-                }
-            }else{
+            } else {
                 Utilidades.mensaje(null, "El ejemplar seleccionado ya se ecuentra en la lista.", "", "Seleccionar Ejemplar");
             }
-        }    
+        }
     }
-    
+
     private void removerEjemplar(){
          
         if(!listaPrestamo.isEmpty()){
