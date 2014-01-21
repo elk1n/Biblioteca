@@ -407,8 +407,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
         }
         else {
            btnBorrar.setVisible(true); 
-        }
-               
+        }               
     }
     
     @Override

@@ -1,6 +1,7 @@
 
 package sabga.atributos;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -18,7 +19,8 @@ public class Ejemplar {
     private SimpleStringProperty tipo;
     private SimpleStringProperty clase;
     private SimpleStringProperty disponibilidad;
-   
+    private SimpleIntegerProperty idMaterial;
+    private SimpleStringProperty editorial;
    
     public Ejemplar(String ejemplar, String estado, String disponibilidad){
          
@@ -61,6 +63,34 @@ public class Ejemplar {
         this.clase = new SimpleStringProperty(clase);
     }
     
+    public Ejemplar(int id_material, String ejemplar, String titulo, String codigo, String editorial, String tipo, String clase,
+                    String fecha, String estado){
+    
+           this.idMaterial = new SimpleIntegerProperty(id_material);
+           this.ejemplar = new SimpleStringProperty(ejemplar);
+           this.titulo = new SimpleStringProperty(titulo);
+           this.codigo = new SimpleStringProperty(codigo);
+           this.editorial = new SimpleStringProperty(editorial);
+           this.tipo = new SimpleStringProperty(tipo);
+           this.clase = new SimpleStringProperty(clase);
+           this.fecha = new SimpleStringProperty(fecha);
+           this.estado = new SimpleStringProperty(estado);                   
+    }
+    
+    public Ejemplar(int id_material, String ejemplar, String titulo, String codigo, String tipo, String clase,
+                    String fecha, String estado){
+    
+           this.idMaterial = new SimpleIntegerProperty(id_material);
+           this.ejemplar = new SimpleStringProperty(ejemplar);
+           this.titulo = new SimpleStringProperty(titulo);
+           this.codigo = new SimpleStringProperty(codigo);
+           this.tipo = new SimpleStringProperty(tipo);
+           this.clase = new SimpleStringProperty(clase);
+           this.fecha = new SimpleStringProperty(fecha);
+           this.estado = new SimpleStringProperty(estado);   
+
+    }
+    
     public String getFechaEntrega(){
         return this.fechaEntrega.get();
     }
@@ -95,6 +125,14 @@ public class Ejemplar {
     
     public String getDisponibilidad(){
         return this.disponibilidad.get();
+    }
+    
+    public int getIdMaterial(){
+        return  this.idMaterial.get();
+    }
+    
+    public String getEditorial(){
+        return this.editorial.get();
     }
 
 }

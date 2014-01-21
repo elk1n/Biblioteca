@@ -330,7 +330,7 @@
             <Image url="@Imagenes/LogoBiblioteca.png" />
           </image>
         </ImageView>
-        <Label graphicTextGap="6.0" layoutX="151.0" layoutY="37.0" prefWidth="103.00009999999747" text="SABGA">
+        <Label graphicTextGap="6.0" layoutX="135.0" layoutY="38.0" prefWidth="103.00009999999747" text="SABGA">
           <font>
             <Font size="30.0" />
           </font>
@@ -432,6 +432,11 @@
                 <Menu mnemonicParsing="false" text="Reserva">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#ventanaReservaEscritorio" text="Reservar Material" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Multas">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaVerMultas" text="Ver Multas" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Paz y Salvo">

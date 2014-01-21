@@ -563,6 +563,16 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         ventanaInicio = false;
         ventanaBusqueda = false;
     }
+    
+     @FXML
+    public void ventanaVerMultas(ActionEvent evento){
+        ventanaPrincipal.mostrarVistas();
+        ventanaPrincipal.cargarVista("paginaVerMultas", "vista/VerMultas.fxml");
+        ventanaPrincipal.cambiarVista("paginaVerMultas");
+        ventanaPrincipal.setTitle("Multas");
+        ventanaInicio = false;
+        ventanaBusqueda = false;
+    }
      
     @FXML
     public void dialogoNuevoAutor(ActionEvent evento){

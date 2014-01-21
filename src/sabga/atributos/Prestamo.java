@@ -54,7 +54,7 @@ public class Prestamo {
     }
     
     public Prestamo(int id, String documento, String nombre, String apellido, String bibliotecario, String grado, String curso,
-                    String jornada, String fechaReserva, String fechaPrestamo, String estado){
+                    String jornada, String fechaReserva, String fechaPrestamo, String estado, String correo){
         
         this.idPrestamo = new SimpleIntegerProperty(id);
         this.documento = new SimpleStringProperty(documento);
@@ -67,6 +67,7 @@ public class Prestamo {
         this.fechaReserva = new SimpleStringProperty(fechaReserva);
         this.fecha = new SimpleStringProperty(fechaPrestamo);
         this.estado = new SimpleStringProperty(estado);
+        this.correo = new SimpleStringProperty(correo);
     
     }
     

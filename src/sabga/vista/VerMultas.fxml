@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="540.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.VerMultasController">
+  <children>
+    <Label layoutX="24.0" layoutY="17.0" text="Listar Multas">
+      <font>
+        <Font name="System Bold" size="14.0" fx:id="x1" />
+      </font>
+    </Label>
+    <ComboBox id="comboPrestamos" fx:id="comboListar" editable="false" layoutX="21.0" layoutY="54.0" onAction="#listarLasMultas" prefHeight="25.0" prefWidth="140.0" promptText="Listar Multas">
+      <items>
+        <FXCollections fx:factory="observableArrayList" />
+      </items>
+    </ComboBox>
+    <TableView id="tablaPrestamo" fx:id="tablaMultas" editable="true" layoutX="19.0" layoutY="105.0" onKeyTyped="#cargarDetallePrestamo" onMouseClicked="#cargarDetallePrestamo" prefHeight="213.0" prefWidth="1222.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
+      <columns>
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="78.0" text="Documento" fx:id="clmnDocumento" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="160.0" text="Nombre" fx:id="clmnNombre" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="175.0" text="Apellido" fx:id="clmnApellido" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="95.0" text="Fecha Reserva" fx:id="clmnFechaReserva" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="100.0" text="Fecha Préstamo" fx:id="clmnFechaPrestamo" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="102.0" text="Estado Préstamo" fx:id="clmnEstadoPrestamo" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="111.0" text="Valor Alcanzado" fx:id="clmnValorTotal" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="110.0" text="Valor Pagado" fx:id="clmnValorPagado" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="104.0" text="Valor Multa" fx:id="clmnValorMulta" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="84.0" text="Fecha Pago" fx:id="clmnFechaPago" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="88.0" text="Estado Multa" fx:id="clmnEstadoMulta" />
+      </columns>
+      <contextMenu>
+        <ContextMenu>
+          <items>
+            <MenuItem mnemonicParsing="false" text="Ver Detalle Usuario" />
+            <MenuItem mnemonicParsing="false" text="Ver Multas Usuario" />
+          </items>
+        </ContextMenu>
+      </contextMenu>
+    </TableView>
+    <TextField fx:id="txtfMulta" alignment="CENTER_RIGHT" layoutX="1118.0" layoutY="10.0" prefHeight="30.0" prefWidth="120.0" text="" />
+    <Button defaultButton="true" layoutX="1118.0" layoutY="70.0" mnemonicParsing="false" onAction="#pagarMulta" prefHeight="25.0" prefWidth="120.0" text="Pagar Multa" />
+    <HBox id="HBox" alignment="CENTER" layoutX="19.0" layoutY="329.0" prefWidth="1222.0" spacing="30.0">
+      <children>
+        <VBox id="VBox" alignment="CENTER_LEFT" spacing="10.0">
+          <children>
+            <Label font="$x1" text="Detalle Préstamo" />
+            <TableView id="tablaDetalle" fx:id="tablaEjemplar" prefHeight="170.0" prefWidth="877.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
+              <columns>
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="85.0" text="Ejemplar" fx:id="clmnEjemplar" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="231.0" text="Título" fx:id="clmnTitulo" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="130.0" text="Código Clasificación" fx:id="clmnCodigo" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="109.0" text="Tipo Material" fx:id="clmnTipo" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="96.0" text="Clase Material" fx:id="clmnClase" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="113.0" text="Fecha Devolución" fx:id="clmnFechaEntrega" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="98.0" text="Estado" fx:id="clmnEstadoEjemplar" />
+              </columns>
+            </TableView>
+          </children>
+        </VBox>
+        <VBox id="VBox" alignment="CENTER_LEFT" spacing="10.0">
+          <children>
+            <Label font="$x1" text="Devoluciones" />
+            <TableView fx:id="tablaDevolucion" prefHeight="170.0" prefWidth="309.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
+              <columns>
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="173.0" text="Ejemplar" fx:id="clmnEjemplarDevo" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="122.0" text="Fecha Entrega" fx:id="clmnFechaEntregaDevo" />
+              </columns>
+            </TableView>
+          </children>
+        </VBox>
+      </children>
+    </HBox>
+    <Label fx:id="lblValidar" alignment="CENTER_RIGHT" layoutX="1017.0" layoutY="45.0" prefWidth="221.0" text="" textFill="#cc0000" wrapText="true" />
+    <Label layoutX="1017.0" layoutY="17.0" text="Valor Multa:">
+      <font>
+        <Font size="14.0" />
+      </font>
+    </Label>
+  </children>
+</AnchorPane>

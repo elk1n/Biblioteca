@@ -71,7 +71,7 @@ public class ConfirmarMaterial extends ValidarMaterial {
             return false;
         } else if (!validarCampoTexto(titulo, 255)) {
             return false;
-        } else if (!validarAnio(anioPublicacion, 4)) {
+        } else if (!validarAnioNull(anioPublicacion, 4)) {
             return false;
         } else if (!validarCampoTextoNull(publicacion, 255)) {
             return false;
@@ -118,7 +118,7 @@ public class ConfirmarMaterial extends ValidarMaterial {
             return false;
         }else if (!validarCampoTexto(titulo, 255)) {
             return false;
-        }else if (!validarAnio(anioPublicacion, 4)) {
+        }else if (!validarAnioNull(anioPublicacion, 4)) {
             return false;
         }else if (!validarCampoTextoNull(publicacion, 255)) {
             return false;

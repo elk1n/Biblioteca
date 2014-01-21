@@ -370,21 +370,23 @@ public class Consultas {
         
     }
     
-    public ObservableList<Prestamo> getListaDePrestamos(int opcion){
+    public ObservableList<Prestamo> getListaDePrestamos(int opcion, String parametro, String parametro2){
            
         ObservableList<Prestamo> lista = FXCollections.observableArrayList();
         try {
             con.conectar();
-            con.procedimiento("{ CALL getListaPrestamos(?) }");
+            con.procedimiento("{ CALL getListaPrestamos(?,?,?) }");
             con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setString("parametro", parametro);
+            con.getProcedimiento().setString("parametro2", parametro2);
             con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
                     lista.add(new Prestamo(con.getResultado().getInt("id"), con.getResultado().getString("documento"),
                                            con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
                                            con.getResultado().getString("bibliotecario"), con.getResultado().getString("grado"),
                                            con.getResultado().getString("curso"), con.getResultado().getString("jornada"),
-                                           con.getResultado().getString("reserva"),
-                                           con.getResultado().getString("fecha"), con.getResultado().getString("estado")));
+                                           con.getResultado().getString("reserva"), con.getResultado().getString("fecha"),
+                                           con.getResultado().getString("estado"), con.getResultado().getString("email")));
             }
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
@@ -394,6 +396,53 @@ public class Consultas {
         return lista;
         
     }
+    
+    public ObservableList<Ejemplar> getListaDetalleDePrestamos(int opcion, int id) {
+
+        ObservableList<Ejemplar> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaDetallePrestamo(?,?)}");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setInt("idPrestamo", id);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                lista.add(new Ejemplar(con.getResultado().getInt("id"), con.getResultado().getString("ejemplar"),
+                                       con.getResultado().getString("titulo"), con.getResultado().getString("codigo"),
+                                       con.getResultado().getString("editorial"), con.getResultado().getString("tipo"),
+                                       con.getResultado().getString("clase"),  con.getResultado().getString("fecha"),
+                                       con.getResultado().getString("estado")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
+        } finally {
+            con.desconectar();
+        }
+        return lista;
+    }
+     
+    public ObservableList<Ejemplar> getListaDetallePrestamoMulta(int opcion, int id) {
+
+        ObservableList<Ejemplar> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaDetallePrestamo(?,?)}");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setInt("idPrestamo", id);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                lista.add(new Ejemplar(con.getResultado().getInt("id"), con.getResultado().getString("ejemplar"),
+                                       con.getResultado().getString("titulo"), con.getResultado().getString("codigo"),
+                                       con.getResultado().getString("tipo"), con.getResultado().getString("clase"), 
+                                       con.getResultado().getString("fecha"), con.getResultado().getString("estado")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
+        } finally {
+            con.desconectar();
+        }
+        return lista;
+    } 
     
     public ObservableList<Prestamo> buscarPrestamo(String parametro){
        
@@ -674,6 +723,31 @@ public class Consultas {
             con.desconectar();
         }        
      return lista;
+    }
+    
+    public ObservableList<Multa> getListadoMultas(int opcion){
+    
+        ObservableList<Multa> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaDeMultas(?) }");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                    lista.add(new Multa(con.getResultado().getInt("id"), con.getResultado().getInt("prestamo"), 
+                                        con.getResultado().getString("documento"), con.getResultado().getString("nombre"), 
+                                        con.getResultado().getString("apellido"), con.getResultado().getString("fecha_reserva"),
+                                        con.getResultado().getString("fecha_prestamo"), con.getResultado().getString("estado_prestamo"),  
+                                        con.getResultado().getInt("total"), con.getResultado().getInt("pagado"),
+                                        con.getResultado().getInt("deuda"), con.getResultado().getString("fecha_pago"),
+                                        con.getResultado().getString("estado_multa")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+        } finally {
+            con.desconectar();
+        }
+        return lista;   
     }
     
     public ObservableList<Integer> obtenerIdMaterias(ObservableList<Materia> listaMaterias){

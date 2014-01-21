@@ -160,8 +160,7 @@ public class MultaController implements Initializable {
         
         ValidarUsuario validar = new ValidarUsuario();
         validar.validarPagoMulta(txtfMulta.getText());
-        lblValidar.setText(validar.getErrorMulta());
-        
+        lblValidar.setText(validar.getErrorMulta());       
     }
     
     @FXML

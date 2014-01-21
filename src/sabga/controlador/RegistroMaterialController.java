@@ -455,8 +455,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         btnNuevoAutor.setDisable(true);
         dialogo.mostrarDialogo("vista/dialogos/NuevoAutor.fxml", "Nuevo Autor", ventanaPrincipal.getPrimaryStage(), null, 1); 
         listaAutores.clear();
-        listaAutores.addAll(consulta.llenarLista(12));        
-        obtenerAutores.addAll(consulta.getListaAutores());
+        obtenerAutores.clear();
+        llenarAutores();
         btnNuevoAutor.setDisable(false);
     }
     

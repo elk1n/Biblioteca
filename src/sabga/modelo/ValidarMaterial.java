@@ -68,7 +68,7 @@ public class ValidarMaterial extends Validacion{
         if (!validarCampoTexto(titulo, 255)) {
             this.errorTitulo = getMensajeError();
         }
-        if (!validarAnio(anioPublicacion, 4)) {
+        if (!validarAnioNull(anioPublicacion, 4)) {
             this.errorAnioPublicacion = getMensajeError();
         }
         if (!validarCampoTextoNull(publicacion, 255)) {
@@ -124,7 +124,7 @@ public class ValidarMaterial extends Validacion{
         if (!validarCampoTexto(titulo, 255)) {
             this.errorTitulo = getMensajeError();
         }
-        if (!validarAnio(anioPublicacion, 4)) {
+        if (!validarAnioNull(anioPublicacion, 4)) {
             this.errorAnioPublicacion = getMensajeError();
         }
         if (!validarCampoTextoNull(publicacion, 255)) {
