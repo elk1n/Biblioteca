@@ -236,7 +236,7 @@ public class VerPrestamosController implements Initializable, ControlledScreen {
         listaEjemplares.clear();    
     }
     
-       private void detalleUsuario(){
+    private void detalleUsuario(){
         
         if(tablaPrestamo.getSelectionModel().getSelectedItem() != null){            
             menuDetalle.setDisable(true);           

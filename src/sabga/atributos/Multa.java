@@ -24,6 +24,7 @@ public class Multa {
     private SimpleStringProperty apellido;
     private SimpleStringProperty estadoPrestamo;
     private SimpleStringProperty fechaPago;
+    private SimpleStringProperty correo;
     
     public Multa(int id, int prestamo, int documento, String nombre, String fecha, String estado, int valor){
         
@@ -39,7 +40,7 @@ public class Multa {
     public Multa(int id, int prestamo, String documento, String nombre, String apellido, String fechaReserva,
                  String fechaPrestamo,
                  String estadoPrestamo, int valorTotal, int valorPagado, int valorDeuda, String fechaPago,
-                 String estadoMulta){
+                 String estadoMulta, String correo){
     
         this.id = new SimpleIntegerProperty(id);
         this.prestamo = new SimpleIntegerProperty(prestamo);
@@ -54,6 +55,7 @@ public class Multa {
         this.valor = new SimpleIntegerProperty(valorDeuda);
         this.fechaPago = new SimpleStringProperty(fechaPago);
         this.estado = new SimpleStringProperty(estadoMulta);
+        this.correo = new SimpleStringProperty(correo);
         
     }
     
@@ -111,5 +113,9 @@ public class Multa {
 
     public String getFechaPago() {
         return this.fechaPago.get();
+    }
+    
+    public String getCorreo() {
+        return this.correo.get();
     }
 }

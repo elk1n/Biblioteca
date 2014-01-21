@@ -725,13 +725,14 @@ public class Consultas {
      return lista;
     }
     
-    public ObservableList<Multa> getListadoMultas(int opcion){
+    public ObservableList<Multa> getListadoMultas(int opcion, String parametro){
     
         ObservableList<Multa> lista = FXCollections.observableArrayList();
         try {
             con.conectar();
-            con.procedimiento("{ CALL getListaDeMultas(?) }");
+            con.procedimiento("{ CALL getListaDeMultas(?,?) }");
             con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setString("parametro", parametro);
             con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
                     lista.add(new Multa(con.getResultado().getInt("id"), con.getResultado().getInt("prestamo"), 
@@ -740,7 +741,7 @@ public class Consultas {
                                         con.getResultado().getString("fecha_prestamo"), con.getResultado().getString("estado_prestamo"),  
                                         con.getResultado().getInt("total"), con.getResultado().getInt("pagado"),
                                         con.getResultado().getInt("deuda"), con.getResultado().getString("fecha_pago"),
-                                        con.getResultado().getString("estado_multa")));
+                                        con.getResultado().getString("estado_multa"), con.getResultado().getString("email")));
             }
         } catch (SQLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
