@@ -67,7 +67,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     private Pane panelInicio, panelBusqueda, panelBuscarUsuario, panelBuscarMaterial;
     @FXML
     private TableView<Devolucion> tablaDevolucion;
-     @FXML
+    @FXML
     private TableView<Reserva> tablaReservas; 
     @FXML
     private TableView<Usuario>tablaUsuarios;
@@ -104,7 +104,8 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     private final ObservableList<Autor> listaAutor;
     private final ValidarUsuario validar;
 
-    public PaginaPrincipalController(){       
+    public PaginaPrincipalController(){     
+        
         dialogo = new Dialogo();
         atributos = new Atributos();
         consulta = new Consultas();        
@@ -193,8 +194,9 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         if(tablaMaterial.getSelectionModel().getSelectedItem() != null){
             menuCodigoBarras.setDisable(true);
             btnCodigoBarras.setDisable(true);
-            dialogo.dialogoCodigoBarras(ventanaPrincipal.getPrimaryStage(), completarConCeros(listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getIdMaterial()),
-                                    Utilidades.initCap(listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getTitulo())
+            dialogo.dialogoCodigoBarras(ventanaPrincipal.getPrimaryStage(), 
+                                        completarConCeros(listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getIdMaterial()),
+                                        listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getTitulo()
                                     ,"Puede guardar el código de barras para imprimirlo posteriormente o imprimirlo directamente.", 1); 
             menuCodigoBarras.setDisable(false);
             btnCodigoBarras.setDisable(false);
@@ -345,7 +347,10 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
             panelBusqueda.setDisable(false);
             panelBusqueda.setVisible(true);
             ventanaPrincipal.vistaInicial(panelBusqueda);
-            ventanaPrincipal.setTitle("Buscar");            
+            ventanaPrincipal.setTitle("Buscar");
+            comboListarMaterial.setItems(consulta.llenarLista(2));
+            comboListarxMateria.setItems(consulta.llenarLista(3));
+            comboListarxAutor.setItems(consulta.llenarLista(12));
         }
     }
     
@@ -438,7 +443,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     public void ventanaRegistroMaterial(){        
         ventanaPrincipal.cargarVista("paginaRegistroMaterial", "vista/RegistroMaterial.fxml");
         ventanaPrincipal.cambiarVista("paginaRegistroMaterial");
-        ventanaPrincipal.setTitle("Registro de Material");
+        ventanaPrincipal.setTitle("Registrar Material Bibliográfico");
         ventanaPrincipal.mostrarVistas();
         ventanaInicio = false;
         ventanaBusqueda = false;
@@ -448,7 +453,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     public void ventanaActualizarMaterial(ActionEvent evento){        
         ventanaPrincipal.cargarVista("paginaActualizarMaterial", "vista/EditarMaterial.fxml");
         ventanaPrincipal.cambiarVista("paginaActualizarMaterial");
-        ventanaPrincipal.setTitle("Editar Material");
+        ventanaPrincipal.setTitle("Editar Material Bibliográfico");
         ventanaPrincipal.mostrarVistas();
         ventanaInicio = false;
         ventanaBusqueda = false;
@@ -468,7 +473,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     public void ventanaPrestamo(){        
         ventanaPrincipal.cargarVista("paginaPrestamo", "vista/Prestamo.fxml");
         ventanaPrincipal.cambiarVista("paginaPrestamo");
-        ventanaPrincipal.setTitle("Préstamo");
+        ventanaPrincipal.setTitle("Préstamo de Material Bibliográfico");
         ventanaPrincipal.mostrarVistas();
         ventanaInicio = false;
         ventanaBusqueda = false;
@@ -478,7 +483,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     public void ventanaRegistroUsuarios(){        
         ventanaPrincipal.cargarVista("paginaRegistroUsuarios", "vista/RegistroUsuario.fxml");
         ventanaPrincipal.cambiarVista("paginaRegistroUsuarios");
-        ventanaPrincipal.setTitle("Registro de Usuarios");
+        ventanaPrincipal.setTitle("Registrar Usuarios");
         ventanaPrincipal.mostrarVistas();
         ventanaInicio = false;
         ventanaBusqueda = false;
@@ -488,7 +493,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     public void ventanaEstadoUsuario(){        
         ventanaPrincipal.cargarVista("paginaEstadoUsuario", "vista/EditarUsuario.fxml");
         ventanaPrincipal.cambiarVista("paginaEstadoUsuario");
-        ventanaPrincipal.setTitle("Cuentas de Usuario");
+        ventanaPrincipal.setTitle("Editar Información de Usuarios Registrados");
         ventanaPrincipal.mostrarVistas();
         ventanaInicio = false;
         ventanaBusqueda = false;
@@ -518,7 +523,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     public void ventanaDevolucion(){        
         ventanaPrincipal.cargarVista("paginaDevolucion", "vista/Devolucion.fxml");
         ventanaPrincipal.cambiarVista("paginaDevolucion");
-        ventanaPrincipal.setTitle("Devolución o Renovación");
+        ventanaPrincipal.setTitle("Devolución o Renovación de Material Bibliográfico");
         ventanaPrincipal.mostrarVistas();
         ventanaInicio = false;
         ventanaBusqueda = false;
@@ -528,7 +533,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     public void ventanaReservaEscritorio(){        
         ventanaPrincipal.cargarVista("paginaReserva", "vista/ReservaEscritorio.fxml");
         ventanaPrincipal.cambiarVista("paginaReserva");
-        ventanaPrincipal.setTitle("Reservar");
+        ventanaPrincipal.setTitle("Reservar Material Bibliográfico");
         ventanaPrincipal.mostrarVistas();
         ventanaInicio = false;
         ventanaBusqueda = false;
@@ -564,7 +569,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         ventanaBusqueda = false;
     }
     
-     @FXML
+    @FXML
     public void ventanaVerMultas(ActionEvent evento){
         ventanaPrincipal.mostrarVistas();
         ventanaPrincipal.cargarVista("paginaVerMultas", "vista/VerMultas.fxml");
@@ -762,8 +767,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
                 menuPazysalvo.setDisable(true);
                 menuPreferencias.setDisable(true);
             }
-        }
-    
+        }   
     }
     
     private void inicio(){

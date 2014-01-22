@@ -303,7 +303,7 @@
                     </FXCollections>
                   </items>
                 </ComboBox>
-                <ComboBox id="comboListar" fx:id="comboListarxAutor" layoutX="364.0" layoutY="43.0" onAction="#listarMaterialxAutor" prefHeight="25.0" prefWidth="190.0" promptText="Lisatar por Autor">
+                <ComboBox id="comboListar" fx:id="comboListarxAutor" layoutX="364.0" layoutY="43.0" onAction="#listarMaterialxAutor" prefHeight="25.0" prefWidth="190.0" promptText="Listar por Autor">
                   <items>
                     <FXCollections fx:factory="observableArrayList">
                       <String fx:value="Item 1" />

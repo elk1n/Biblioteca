@@ -12,6 +12,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.stage.Stage;
+import sabga.atributos.Atributos;
 
 /**
  * @author Elk1n
@@ -19,6 +20,7 @@ import javafx.stage.Stage;
  
 public class AyudaController implements Initializable {
    
+    private final Atributos atributo;
     private Stage dialogStage;
     @FXML
     private TextArea lblContenido;
@@ -70,6 +72,7 @@ public class AyudaController implements Initializable {
     
     public AyudaController(){
         
+        atributo = new Atributos();
         ayuda = new TreeItem<>("Menú Ayuda SABGA");
         ingreso = new TreeItem<>("Ingreso al Sistema");
         ingresar = new TreeItem<>("Ingresar al Sistema");
@@ -153,10 +156,6 @@ public class AyudaController implements Initializable {
         ayuda.getChildren().add(recibo);
     }
         
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
-
     private void menuAyuda(TreeItem<String> seleccion){
         
         try {
@@ -287,6 +286,21 @@ public class AyudaController implements Initializable {
         
     }
     
+    private void tipoUsuario(){
+        
+        if(atributo.getTipoUsuario()!= null){            
+            if(atributo.getTipoUsuario().contains("auxiliar")){
+                ayuda.getChildren().remove(auxiliar);
+                ayuda.getChildren().remove(recibo);
+            }
+        }   
+    }
+    
+   public void setDialogStage(Stage dialogStage) {
+        this.dialogStage = dialogStage;
+    }
+
+    
     private void inicio(){
         
         menu.setRoot(ayuda);
@@ -309,6 +323,7 @@ public class AyudaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         inicio();
+        tipoUsuario();
     }
     
     private String contenido(int opcion){

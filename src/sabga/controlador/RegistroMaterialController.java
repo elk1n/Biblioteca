@@ -487,7 +487,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private void codigoBarras(int id){
         
         ventanaPrincipal = new Sabga();   
-        dialogo.dialogoCodigoBarras(ventanaPrincipal.getPrimaryStage(), completarConCeros(id),Utilidades.initCap(txtfTitulo.getText())
+        dialogo.dialogoCodigoBarras(ventanaPrincipal.getPrimaryStage(), completarConCeros(id), txtfTitulo.getText()
                                     ,"Puede guardar el código de barras para imprimirlo, imprimirlo directamente o cerrar este dialogo"
                                             + " y finalizar.", 1);   
     }
