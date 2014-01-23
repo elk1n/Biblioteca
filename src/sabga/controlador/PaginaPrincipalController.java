@@ -578,6 +578,16 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         ventanaInicio = false;
         ventanaBusqueda = false;
     }
+    
+    @FXML
+    public void ventanaVerDevoluciones(ActionEvent evento){
+        ventanaPrincipal.mostrarVistas();
+        ventanaPrincipal.cargarVista("paginaVerDevoluciones", "vista/VerDevoluciones.fxml");
+        ventanaPrincipal.cambiarVista("paginaVerDevoluciones");
+        ventanaPrincipal.setTitle("Devoluciones");
+        ventanaInicio = false;
+        ventanaBusqueda = false;
+    }
      
     @FXML
     public void dialogoNuevoAutor(ActionEvent evento){

@@ -34,6 +34,7 @@
         <HBox fx:id="hboxFechaI" maxHeight="25.0" prefHeight="25.0" prefWidth="179.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
         <HBox fx:id="hboxFechaF" maxHeight="25.0" prefHeight="25.0" prefWidth="185.0" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
         <Label font="$x1" text="Buscar Préstamo" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+        <Button defaultButton="true" mnemonicParsing="false" onAction="#listarPrestamosFecha" prefHeight="25.0" prefWidth="120.0" text="Listar" GridPane.columnIndex="3" GridPane.rowIndex="2" />
         <TextField fx:id="txtfBuscar" onAction="#bucarPrestamos" onKeyTyped="#mostrarBoton" prefHeight="30.0" prefWidth="200.0" styleClass="campoBusqueda" GridPane.columnIndex="4" GridPane.rowIndex="2">
           <stylesheets>
             <URL value="@css/estilo.css" />
@@ -47,7 +48,6 @@
             <Insets right="5.0" />
           </GridPane.margin>
         </Button>
-        <Button defaultButton="true" mnemonicParsing="false" onAction="#listarPrestamosFecha" prefHeight="25.0" prefWidth="120.0" text="Listar" GridPane.columnIndex="3" GridPane.rowIndex="2" />
         <Label id="lblValidarFecha" fx:id="lblBusqueda" alignment="CENTER_LEFT" prefWidth="283.0" text="" textFill="#cc0000" wrapText="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
           <font>
             <Font size="14.0" />

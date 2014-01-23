@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="540.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.VerDevolucionesController">
+  <children>
+    <Label layoutX="39.0" layoutY="14.0" text="Listar Devoluciones">
+      <font>
+        <Font name="System Bold" size="14.0" />
+      </font>
+    </Label>
+    <ComboBox id="comboPrestamos" editable="false" layoutX="39.0" layoutY="52.0" onAction="#listarLosPrestamos" prefHeight="25.0" prefWidth="140.0" promptText="Listar Devoluciones">
+      <items>
+        <FXCollections fx:factory="observableArrayList" />
+      </items>
+    </ComboBox>
+    <TableView id="tablaPrestamo" editable="true" layoutX="39.0" layoutY="107.0" onKeyTyped="#cargarEjemplar" onMouseClicked="#cargarEjemplar" prefHeight="218.0" prefWidth="1176.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
+      <columns>
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="84.0" text="Documento" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="144.0" text="Nombre" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="173.0" text="Apellido" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="275.0" text="Nombre Bibliotecario" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="122.0" text="Fecha Reserva" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="118.0" text="Fecha Préstamo" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="128.0" text="Estado Préstamo" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="115.0" text="Estado Devolución" />
+      </columns>
+      <contextMenu>
+        <ContextMenu>
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#verDetalleUsuario" text="Ver Detalle Usuario" />
+            <MenuItem mnemonicParsing="false" onAction="#verMultasUsuario" text="Ver Multas Usuario" />
+          </items>
+        </ContextMenu>
+      </contextMenu>
+    </TableView>
+    <TableView id="tablaDevolucion" layoutX="40.0" layoutY="371.0" prefHeight="145.0" prefWidth="1175.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
+      <columns>
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="108.0" text="Ejemplar" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="327.0" text="Título" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="159.0" text="Código Clasificación" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="118.0" text="Tipo Material" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="98.0" text="Clase Material" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="128.0" text="Fecha Devolución" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Fecha Entrega" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="102.0" text="Estado" />
+      </columns>
+      <contextMenu>
+        <ContextMenu>
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#verDetalleMaterial" text="Ver Detalle Material" />
+          </items>
+        </ContextMenu>
+      </contextMenu>
+    </TableView>
+    <Label layoutX="40.0" layoutY="336.0" prefWidth="170.0" text="Detalle Devolución">
+      <font>
+        <Font name="System Bold" size="16.0" />
+      </font>
+    </Label>
+  </children>
+</AnchorPane>
