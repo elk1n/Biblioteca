@@ -36,7 +36,7 @@ public class DetalleMaterialController implements Initializable {
     @FXML
     private TableColumn<Autor, String>clmnNombre, clmnApellido;
     @FXML
-    private Label lblTitulo, lblCodigo, lblEditorial, lblPublicacion, lblAnio, lblClase, lblTipo;
+    private Label lblTitulo, lblCodigo, lblEditorial, lblPublicacion, lblAnio, lblClase, lblTipo, lblIsbn;
                 
     public DetalleMaterialController(){   
         consulta = new Consultas();          
@@ -47,6 +47,7 @@ public class DetalleMaterialController implements Initializable {
         consulta.mapearMaterial(id);
         lblTitulo.setText(consulta.getTitulo());
         lblCodigo.setText(consulta.getClasificacion());
+        lblIsbn.setText(consulta.getISBN());
         lblEditorial.setText(consulta.getEditorial());
         lblPublicacion.setText(consulta.getPublicacion());
         lblAnio.setText(String.valueOf(consulta.getAnio()));

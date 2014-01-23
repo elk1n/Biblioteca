@@ -61,7 +61,7 @@ public class ConfirmarMaterial extends ValidarMaterial {
         }
     }
     
-    public boolean confirmarNuevoLibro(Object claseMaterial, String codigo, String titulo, String anioPublicacion, 
+    public boolean confirmarNuevoLibro(Object claseMaterial, String codigo, String isbn, String titulo, String anioPublicacion, 
                                        String publicacion, String paginas, String ejemplares, String editorial, 
                                        ObservableList autores, ObservableList materias) {
 
@@ -69,7 +69,9 @@ public class ConfirmarMaterial extends ValidarMaterial {
             return false;
         } else if (!validarCampoTexto(codigo, 45)) {
             return false;
-        } else if (!validarCampoTexto(titulo, 255)) {
+        } else if (!validarCampoTextoNull(isbn, 32)) {
+            return false;
+        }else if (!validarCampoTexto(titulo, 255)) {
             return false;
         } else if (!validarAnioNull(anioPublicacion, 4)) {
             return false;
@@ -111,10 +113,12 @@ public class ConfirmarMaterial extends ValidarMaterial {
         }
     }
     
-    public boolean confirmarEdicionLibro(String codigo, String titulo, String anioPublicacion, String publicacion, 
+    public boolean confirmarEdicionLibro(String codigo, String isbn, String titulo, String anioPublicacion, String publicacion, 
                                          String paginas, String editorial, ObservableList editoriales){
         
         if (!validarCampoTexto(codigo, 45)) {
+            return false;
+        }  else if (!validarCampoTextoNull(isbn, 32)) {
             return false;
         }else if (!validarCampoTexto(titulo, 255)) {
             return false;

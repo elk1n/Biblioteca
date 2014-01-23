@@ -35,7 +35,10 @@ public class Validacion {
 
     public boolean validarCampoTextoNull(String campoTexto, int numeroCaracteres) {
 
-        if (campoTexto.isEmpty() == false) {
+        if(campoTexto == null){
+            campoTexto = "";
+        }
+        if (!campoTexto.isEmpty()) {            
             if (campoTexto.length() > numeroCaracteres) {
                 this.mensajeError = "Máximo " + numeroCaracteres + " caracteres.";
                 return false;
@@ -82,7 +85,7 @@ public class Validacion {
             campoTexto = "";
         }
         Matcher matcher = patron.matcher(campoTexto);
-        if (campoTexto.isEmpty() == false) {
+        if (!campoTexto.isEmpty()) {
             if (campoTexto.length() > numeroCaracteres) {
                 this.mensajeError = "Máximo " + numeroCaracteres + " caracteresa.";
                 return false;
@@ -124,7 +127,7 @@ public class Validacion {
         Pattern patron = Pattern.compile("[\\w-\\.]{3,}@([\\w-]{2,}\\.)*([\\w-]{2,}\\.)[\\w-]{2,4}");
         Matcher matcher = patron.matcher(correoElectronico);
 
-        if (correoElectronico.isEmpty() == false) {
+        if (!correoElectronico.isEmpty()) {
             if (correoElectronico.length() > numeroCaracteres) {
                 this.mensajeError = "Máximo " + numeroCaracteres + " caracteres.";
                 return false;

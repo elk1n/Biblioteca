@@ -15,7 +15,7 @@ public class ValidarMaterial extends Validacion{
 
     private String errorNombreAutor, errorApellidosAutor, errorEditorial, errorNombreMateria, errorCodigoClasificacion, 
                    errorClaseMaterial, errorTitulo, errorAnioPublicacion, errorPublicacion, errorNumeroPaginas, errorEjemplares,
-                   errorAutor, errorMateria, errorTipoMaterial, errorFecha, errorDocumento, errorTipoUsuario = "";
+                   errorAutor, errorMateria, errorTipoMaterial, errorFecha, errorDocumento, errorTipoUsuario = "", errorIsbn;
     private Calendar calendario;
     private static Preferencias pref;                    
     
@@ -55,7 +55,7 @@ public class ValidarMaterial extends Validacion{
        }
     }  
     
-    public void validarNuevoLibro(Object claseMaterial, String codigo, String titulo, String anioPublicacion, 
+    public void validarNuevoLibro(Object claseMaterial, String codigo, String isbn, String titulo, String anioPublicacion, 
                                   String publicacion, String paginas, String ejemplares, String editorial, 
                                   ObservableList autores, ObservableList materias) {
 
@@ -64,6 +64,9 @@ public class ValidarMaterial extends Validacion{
         }
         if (!validarCampoTexto(codigo, 45)) {
             this.errorCodigoClasificacion = getMensajeError();
+        }
+        if(!validarCampoTextoNull(isbn, 32)){
+            this.errorIsbn = getMensajeError();
         }
         if (!validarCampoTexto(titulo, 255)) {
             this.errorTitulo = getMensajeError();
@@ -115,11 +118,14 @@ public class ValidarMaterial extends Validacion{
       
   }
   
-    public void validarEdicionLibro(String codigo, String titulo, String anioPublicacion, String publicacion, 
+    public void validarEdicionLibro(String codigo, String isbn, String titulo, String anioPublicacion, String publicacion, 
                                     String paginas, String editorial, ObservableList editoriales) {
 
         if (!validarCampoTexto(codigo, 45)) {
             this.errorCodigoClasificacion = getMensajeError();
+        }
+        if (!validarCampoTextoNull(isbn, 32)) {
+            this.errorIsbn = getMensajeError();
         }
         if (!validarCampoTexto(titulo, 255)) {
             this.errorTitulo = getMensajeError();
@@ -288,6 +294,9 @@ public class ValidarMaterial extends Validacion{
         return errorTipoUsuario;
     }
     
+    public String getErrorIsbn(){
+        return this.errorIsbn;
+    }
     
     
 }

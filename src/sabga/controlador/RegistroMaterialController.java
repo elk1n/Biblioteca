@@ -55,10 +55,10 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     @FXML 
     private Label validarClasificacion, validarTitulo, validarAnioPublicacion, validarPublicacion, validarPaginas, validarEjemplares, 
                   validarEditorial, validarClaseMaterial, validarAutor, validarMateria, validarTipoMaterialOM, validarClaseMaterialOM, 
-                  validarNumeroClasificacionOM, validarTituloOM, validarMateriaOM, validarNumeroCopiasOM;
+                  validarNumeroClasificacionOM, validarTituloOM, validarMateriaOM, validarNumeroCopiasOM, validarIsbn;
     @FXML 
     private TextField txtfCodigo, txtfTitulo, txtfAnioPublicacion, txtfPublicacion, txtfPaginas, txtfEjemplares, txtfCodigoOM,
-                            txtfTituloOM, txtfCopias;    
+                      txtfTituloOM, txtfCopias, txtfIsbn;    
     @FXML 
     private ComboBox<String> comboClaseMaterial, comboClaseMaterialOM, comboTipoMaterial;
     @FXML
@@ -111,7 +111,8 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         
         validarCamposOM();
         confirmar = new ConfirmarMaterial();
-        if(confirmar.confirmarOtroMaterial(comboTipoMaterial.getSelectionModel().getSelectedItem(), comboClaseMaterialOM.getSelectionModel().getSelectedItem(),
+        if(confirmar.confirmarOtroMaterial(comboTipoMaterial.getSelectionModel().getSelectedItem(), 
+                                           comboClaseMaterialOM.getSelectionModel().getSelectedItem(),
                                            txtfCodigoOM.getText(), txtfTituloOM.getText(), txtfCopias.getText(), materiasOM)){        
            procedimientoGuardarOtroMaterial();                 
         }
@@ -121,9 +122,11 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     
         validarCampos();
         confirmar = new ConfirmarMaterial();     
-        if(confirmar.confirmarNuevoLibro(comboClaseMaterial.getSelectionModel().getSelectedItem(), txtfCodigo.getText(), txtfTitulo.getText(), 
-                                         txtfAnioPublicacion.getText(), txtfPublicacion.getText(), txtfPaginas.getText(),txtfEjemplares.getText(),
-                                         buscarEditorial.getTextbox().getText(), autores, materias) && listaEditoriales.indexOf(buscarEditorial.getText()) !=-1){                         
+        if(confirmar.confirmarNuevoLibro(comboClaseMaterial.getSelectionModel().getSelectedItem(), txtfCodigo.getText(), 
+                                         txtfIsbn.getText(), txtfTitulo.getText(), txtfAnioPublicacion.getText(), 
+                                         txtfPublicacion.getText(), txtfPaginas.getText(),txtfEjemplares.getText(),
+                                         buscarEditorial.getTextbox().getText(), autores, materias) && 
+                                         listaEditoriales.indexOf(buscarEditorial.getText()) !=-1){                         
            procedimientoGuardarLibro();                    
         }          
     }
@@ -176,8 +179,9 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     
     private void registrarLibro(){
        
-        consulta.registrarLibro(idClaseMaterial, idTipoMaterial, idEditorial, txtfCodigo.getText().trim(), txtfTitulo.getText().trim(), 
-                                txtfPublicacion.getText().trim(), Integer.parseInt(txtfAnioPublicacion.getText().trim()), 
+        consulta.registrarLibro(idClaseMaterial, idTipoMaterial, idEditorial, txtfCodigo.getText().trim(), 
+                                txtfIsbn.getText().trim(), txtfTitulo.getText().trim(), 
+                                txtfPublicacion.getText().trim(), Utilidades.setNumero(txtfAnioPublicacion.getText()), 
                                 Integer.parseInt(txtfPaginas.getText().trim()), Integer.parseInt(txtfEjemplares.getText().trim()),
                                 materias, autores);   
     }
@@ -377,12 +381,14 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         
          validarMaterial = new ValidarMaterial();
          
-         validarMaterial.validarNuevoLibro(comboClaseMaterial.getSelectionModel().getSelectedItem(), txtfCodigo.getText(), txtfTitulo.getText(),
-                                           txtfAnioPublicacion.getText(), txtfPublicacion.getText(), txtfPaginas.getText(), txtfEjemplares.getText(),
+         validarMaterial.validarNuevoLibro(comboClaseMaterial.getSelectionModel().getSelectedItem(), txtfCodigo.getText(), 
+                                           txtfIsbn.getText(), txtfTitulo.getText(), txtfAnioPublicacion.getText(), 
+                                           txtfPublicacion.getText(), txtfPaginas.getText(), txtfEjemplares.getText(),
                                            buscarEditorial.getTextbox().getText(), autores, materias);
          
        validarClaseMaterial.setText(validarMaterial.getErrorClaseMaterial());
        validarClasificacion.setText(validarMaterial.getErrorCodigoClasificacion());
+       validarIsbn.setText(validarMaterial.getErrorIsbn());
        validarTitulo.setText(validarMaterial.getErrorTitulo());
        validarAnioPublicacion.setText(validarMaterial.getErrorAnioPublicacion());
        validarPublicacion.setText(validarMaterial.getErrorPublicacion());
@@ -534,6 +540,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     
         comboClaseMaterial.getSelectionModel().clearSelection();
         txtfCodigo.clear();
+        txtfIsbn.clear();
         txtfTitulo.clear();
         txtfAnioPublicacion.clear();
         txtfPublicacion.clear();

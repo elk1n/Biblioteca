@@ -86,7 +86,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
                                          clmnCurso, clmnJornada, clmnEstado;
     @FXML
     private TableColumn<Material, String> clmnTituloM, clmnCodigoM, clmnTipoM, clmnClaseM, clmnEditorialM, clmnPublicacionM,
-                                          clmnAnioM, clmnNumeroM;
+                                          clmnAnioM, clmnNumeroM, clmnISBNM;
     @FXML
     private TableColumn<Ejemplar, String> clmnEjemplarE,clmnEstadoE, clmnDispoE;
     @FXML
@@ -197,7 +197,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
             dialogo.dialogoCodigoBarras(ventanaPrincipal.getPrimaryStage(), 
                                         completarConCeros(listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getIdMaterial()),
                                         listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getTitulo()
-                                    ,"Puede guardar el código de barras para imprimirlo posteriormente o imprimirlo directamente.", 1); 
+                                        ,"Puede guardar el código de barras para imprimirlo posteriormente o imprimirlo directamente.", 1); 
             menuCodigoBarras.setDisable(false);
             btnCodigoBarras.setDisable(false);
         }else{
@@ -296,6 +296,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
         clmnTituloM.setCellValueFactory(new PropertyValueFactory<Material, String>("titulo"));
         clmnCodigoM.setCellValueFactory(new PropertyValueFactory<Material, String>("codigo"));
+        clmnISBNM.setCellValueFactory(new PropertyValueFactory<Material, String>("ISBN"));
         clmnTipoM.setCellValueFactory(new PropertyValueFactory<Material, String>("tipo"));
         clmnClaseM.setCellValueFactory(new PropertyValueFactory<Material, String>("clase"));
         clmnEditorialM.setCellValueFactory(new PropertyValueFactory<Material, String>("editorial"));

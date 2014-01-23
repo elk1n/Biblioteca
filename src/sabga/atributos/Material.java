@@ -23,6 +23,7 @@ public class Material {
    private SimpleStringProperty publicacion;
    private SimpleStringProperty anio;
    private SimpleIntegerProperty paginas;
+   private SimpleStringProperty codigoIsbn;
     
     
     public Material(String titulo, String codigo, String tipo, String clase, String id){
@@ -46,19 +47,19 @@ public class Material {
                
     }
     
-    public Material(int id, String titulo, String codigo, String tipo, String clase, String editorial, String publicacion,
+    public Material(int id, String titulo, String codigo, String ISBN, String tipo, String clase, String editorial, String publicacion,
                     String anioPublicacion, int numeroPaginas){
     
         this.idMaterial = new SimpleIntegerProperty(id);
         this.titulo = new SimpleStringProperty(titulo);
         this.codigo = new SimpleStringProperty(codigo);
+        this.codigoIsbn = new SimpleStringProperty(ISBN);
         this.tipo = new SimpleStringProperty(tipo);
         this.clase = new SimpleStringProperty(clase);
         this.editorial = new SimpleStringProperty(editorial);
         this.publicacion = new SimpleStringProperty(publicacion);
         this.anio = new SimpleStringProperty(anioPublicacion);
-        this.paginas = new SimpleIntegerProperty(numeroPaginas);
-    
+        this.paginas = new SimpleIntegerProperty(numeroPaginas);    
     }
     
     public String getTitulo(){    
@@ -111,6 +112,10 @@ public class Material {
     
     public int getNumeroPaginas(){
         return this.paginas.get();
+    }
+    
+    public String getISBN(){
+        return this.codigoIsbn.get();
     }
     
     @Override

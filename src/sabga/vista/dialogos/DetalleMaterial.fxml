@@ -9,49 +9,53 @@
 
 <AnchorPane id="AnchorPane" prefHeight="516.0" prefWidth="924.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.dialogos.DetalleMaterialController">
   <children>
-    <GridPane id="GridPane" prefHeight="484.0" prefWidth="483.0" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="401.0">
+    <GridPane id="GridPane" prefHeight="484.0" prefWidth="483.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="405.0">
       <children>
         <Label text="Título:" GridPane.columnIndex="0" GridPane.rowIndex="0">
           <font>
-            <Font size="12.0" fx:id="x5" />
+            <Font name="System Bold" size="16.0" fx:id="x1" />
           </font>
         </Label>
-        <Label font="$x5" text="Código de Clasificación:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <Label font="$x5" text="Clase Material:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
-        <Label font="$x5" text="Publicación:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-        <Label font="$x5" text="Año de Publicación:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
-        <Label font="$x5" text="Tipo de Material:" GridPane.columnIndex="0" GridPane.rowIndex="12" />
-        <Label font="$x5" text="Editorial:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <Label font="$x1" text="Código de Clasificación:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label font="$x1" text="Clase Material:" GridPane.columnIndex="0" GridPane.rowIndex="12" />
+        <Label font="$x1" text="Publicación:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+        <Label font="$x1" text="Año de Publicación:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+        <Label font="$x1" text="Tipo de Material:" GridPane.columnIndex="0" GridPane.rowIndex="14" />
+        <Label font="$x1" text="Editorial:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
         <Label id="txtfCodigo" fx:id="lblCodigo" prefWidth="483.0" text="" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3">
           <font>
-            <Font name="System Bold" size="14.0" fx:id="x1" />
+            <Font size="16.0" fx:id="x5" />
           </font>
         </Label>
-        <Label id="txtfEditorial" fx:id="lblEditorial" font="$x1" prefWidth="483.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-        <Label id="txtfAnio" fx:id="lblAnio" font="$x1" prefWidth="483.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="9" />
-        <Label id="txtfClase" fx:id="lblClase" font="$x1" prefWidth="483.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="11" />
-        <Label id="txtfTipo" fx:id="lblTipo" font="$x1" prefWidth="483.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="13" />
-        <Label id="txtfPublicacion" fx:id="lblPublicacion" font="$x1" prefWidth="483.0" text="" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-        <Label fx:id="lblTitulo" font="$x1" prefWidth="483.0" text="" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label id="txtfEditorial" fx:id="lblEditorial" font="$x5" prefWidth="483.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+        <Label id="txtfAnio" fx:id="lblAnio" font="$x5" prefWidth="483.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="11" />
+        <Label id="txtfClase" fx:id="lblClase" font="$x5" prefWidth="483.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="13" />
+        <Label id="txtfTipo" fx:id="lblTipo" font="$x5" prefWidth="483.0" text="" GridPane.columnIndex="0" GridPane.rowIndex="15" />
+        <Label id="txtfPublicacion" fx:id="lblPublicacion" font="$x5" prefWidth="483.0" text="" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+        <Label fx:id="lblTitulo" font="$x5" prefWidth="483.0" text="" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label font="$x1" text="ISBN:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <Label id="txtfCodigo" fx:id="lblIsbn" font="$x5" prefWidth="483.0" text="" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
       </columnConstraints>
       <rowConstraints>
         <RowConstraints maxHeight="17.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="32.0" minHeight="10.0" percentHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="38.72" minHeight="10.0" percentHeight="8.0" prefHeight="38.72" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="17.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="32.0" minHeight="10.0" percentHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="38.72" minHeight="10.0" percentHeight="8.0" prefHeight="38.72" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="17.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="32.0" minHeight="10.0" percentHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="38.72" minHeight="10.0" prefHeight="38.72" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="17.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="32.0" minHeight="10.0" percentHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="38.72" minHeight="10.0" percentHeight="8.0" prefHeight="38.72" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="17.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="32.0" minHeight="10.0" percentHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="38.72" minHeight="10.0" percentHeight="8.0" prefHeight="38.72" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="17.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="30.0" minHeight="10.0" percentHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="31.0" minHeight="0.0" prefHeight="19.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="61.0" minHeight="10.0" percentHeight="8.0" prefHeight="42.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="38.72" minHeight="10.0" percentHeight="8.0" prefHeight="38.72" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="17.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="38.72" minHeight="10.0" percentHeight="8.0" prefHeight="38.72" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="31.0" minHeight="0.0" prefHeight="31.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="61.0" minHeight="10.0" percentHeight="8.0" prefHeight="38.72" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="17.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>

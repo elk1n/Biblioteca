@@ -18,7 +18,7 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="510.0" prefWidth="1260.0">
               <children>
-                <HBox id="HBox" alignment="CENTER" layoutX="55.0" layoutY="41.0" spacing="30.0">
+                <HBox id="HBox" alignment="CENTER" layoutX="55.0" layoutY="31.0" spacing="30.0">
                   <children>
                     <ComboBox fx:id="comboClaseMaterial" prefHeight="25.0" prefWidth="143.0" promptText="Clase de Material">
                       <items>
@@ -36,47 +36,52 @@
                     </Label>
                   </children>
                 </HBox>
-                <GridPane prefHeight="394.0" prefWidth="450.0" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="754.0">
+                <GridPane prefHeight="403.0" prefWidth="450.0" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="754.0">
                   <children>
                     <Label text="Código (CDU) :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                     <TextField id="campoNumeroClasificacion" fx:id="txtfCodigo" depthTest="INHERIT" editable="true" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" promptText="Ingrese el código (CDU)" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                    <Label text="Título:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                    <TextField id="campoTitulo" fx:id="txtfTitulo" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" promptText="Ingrese un título para el libro" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                    <Label text="Año Publicación:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                    <TextField id="campoAnioPublicacion" fx:id="txtfAnioPublicacion" alignment="CENTER_RIGHT" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="250.0" promptText="Año en el que se publico" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                    <Label text="Publicación:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-                    <TextField id="campoPublicacion" fx:id="txtfPublicacion" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" promptText="Ciudad y otros detalles de publicación" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                    <Label text="Número de Páginas:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
-                    <TextField id="campoNumeroPaginas" fx:id="txtfPaginas" alignment="CENTER_RIGHT" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="250.0" promptText="Digite el número de páginas" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                    <Label text="Número de Ejemplares:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
-                    <TextField id="campoEjemplares" fx:id="txtfEjemplares" alignment="CENTER_RIGHT" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="250.0" promptText="Digite el número de ejemplares" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                    <Label text="Título:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                    <TextField id="campoTitulo" fx:id="txtfIsbn" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" promptText="Ingrese el ISBN del libro" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    <Label id="validarTitulo" fx:id="validarIsbn" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <TextField id="campoTitulo" fx:id="txtfTitulo" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" promptText="Ingrese un título para el libro" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                    <Label text="Año Publicación:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                    <TextField id="campoAnioPublicacion" fx:id="txtfAnioPublicacion" alignment="CENTER_RIGHT" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="250.0" promptText="Año en el que se publico" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                    <Label text="Publicación:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                    <TextField id="campoPublicacion" fx:id="txtfPublicacion" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" promptText="Ciudad y otros detalles de publicación" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                    <Label text="Número de Páginas:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+                    <TextField id="campoNumeroPaginas" fx:id="txtfPaginas" alignment="CENTER_RIGHT" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="250.0" promptText="Digite el número de páginas" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                    <Label text="Número de Ejemplares:" GridPane.columnIndex="0" GridPane.rowIndex="12" />
+                    <TextField id="campoEjemplares" fx:id="txtfEjemplares" alignment="CENTER_RIGHT" minWidth="-Infinity" onKeyPressed="#validarNumeros" prefHeight="30.0" prefWidth="250.0" promptText="Digite el número de ejemplares" GridPane.columnIndex="1" GridPane.rowIndex="12" />
                     <Label fx:id="validarClasificacion" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                    <Label fx:id="validarTitulo" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                    <Label fx:id="validarAnioPublicacion" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                    <Label fx:id="validarPublicacion" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                    <Label fx:id="validarPaginas" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                    <Label fx:id="validarEjemplares" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                    <Label fx:id="validarTitulo" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                    <Label fx:id="validarAnioPublicacion" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                    <Label fx:id="validarPublicacion" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                    <Label fx:id="validarPaginas" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                    <Label fx:id="validarEjemplares" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                    <Label text="ISBN:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                   </children>
                   <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="0.0" prefWidth="195.0" />
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="255.0" />
                   </columnConstraints>
                   <rowConstraints>
-                    <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
                     <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="110.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="110.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="110.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="110.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
                     <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="173.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="173.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
                     <RowConstraints maxHeight="128.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="56.0" minHeight="0.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="38.0" minHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="62.0" minHeight="0.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="56.0" minHeight="0.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="38.0" minHeight="0.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="62.0" minHeight="0.0" prefHeight="16.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                 </GridPane>
-                <Group id="Group" fx:id="grupoEditorial" layoutX="614.0" layoutY="18.0" scaleX="1.0" scaleY="1.0">
+                <Group id="Group" fx:id="grupoEditorial" layoutX="614.0" layoutY="23.0" scaleX="1.0" scaleY="1.0">
                   <children>
                     <Label layoutY="8.0" text="Editorial:" />
                     <HBox fx:id="hboxEditorial" layoutX="74.0" layoutY="0.0" prefHeight="30.0" prefWidth="350.0">
@@ -173,7 +178,7 @@
                     </TitledPane>
                   </panes>
                 </Accordion>
-                <HBox id="HBox" alignment="CENTER" layoutX="955.0" layoutY="432.0" spacing="30.0">
+                <HBox id="HBox" alignment="CENTER" layoutX="955.0" layoutY="442.0" spacing="30.0">
                   <children>
                     <Button cancelButton="true" mnemonicParsing="false" onAction="#limpiarCamposLibro" prefHeight="25.0" prefWidth="120.0" text="Cancelar" />
                     <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarLibro" prefHeight="25.0" prefWidth="120.0" text="Registrar Libro">
@@ -183,7 +188,7 @@
                     </Button>
                   </children>
                 </HBox>
-                <Label labelFor="$comboClaseMaterial" layoutX="56.0" layoutY="11.0" text="Clase de Material">
+                <Label labelFor="$comboClaseMaterial" layoutX="56.0" layoutY="8.0" text="Clase de Material">
                   <font>
                     <Font name="System Bold" size="12.0" fx:id="x2" />
                   </font>

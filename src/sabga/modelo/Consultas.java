@@ -24,8 +24,8 @@ public class Consultas {
 
     private final Conexion con;
     private String titulo, clasificacion, publicacion, editorial, tipoMaterial, claseMaterial, mensaje, tipoUsuario, grado,
-                   curso, jornada, nombre, apellido, correo, telefono, direccion, estado, documento, usuario;
-    private int paginas, anio, idPrestamo, idDevolucion, idMaterial;
+                   curso, jornada, nombre, apellido, correo, telefono, direccion, estado, documento, usuario, isbn,  anio;
+    private int paginas, idPrestamo, idDevolucion, idMaterial;
     private double multa;
 
     public Consultas() {
@@ -712,10 +712,10 @@ public class Consultas {
             con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
                 lista.add(new Material(con.getResultado().getInt("id"), con.getResultado().getString("titulo"),
-                                       con.getResultado().getString("codigo"), con.getResultado().getString("tipo"),
-                                       con.getResultado().getString("clase"), con.getResultado().getString("editorial"),
-                                       con.getResultado().getString("publicacion"), con.getResultado().getString("anio_publicacion"),
-                                       con.getResultado().getInt("numero_paginas")));
+                                       con.getResultado().getString("codigo"), con.getResultado().getString("codigo_isbn"),
+                                       con.getResultado().getString("tipo"), con.getResultado().getString("clase"), 
+                                       con.getResultado().getString("editorial"), con.getResultado().getString("publicacion"), 
+                                       con.getResultado().getString("anio_publicacion"), con.getResultado().getInt("numero_paginas")));
             }
         } catch (SQLException e) {
             Utilidades.mensajeError(null, e.getMessage(), "Error al consultar el material. ", "Error Consulta");
@@ -832,7 +832,7 @@ public class Consultas {
         }    
     }
   
-    public void registrarLibro(int clase, int tipo, int editorial, String codigo, String titulo, String publicacion, int anio,
+    public void registrarLibro(int clase, int tipo, int editorial, String codigo, String isbn, String titulo, String publicacion, int anio,
                                int paginas, int ejemplares, ObservableList<Materia> materias, ObservableList<Autor> autores){
     
         ObservableList<Integer> id_materias = FXCollections.observableArrayList();
@@ -840,11 +840,12 @@ public class Consultas {
         try {
             con.conectar();
             con.getConexion().setAutoCommit(false);
-            con.procedimiento("{ CALL registrarMaterial(?,?,?,?,?,?,?,?,?,?,?) }");
+            con.procedimiento("{ CALL registrarMaterial(?,?,?,?,?,?,?,?,?,?,?,?) }");
             con.getProcedimiento().setInt("claseMaterial", clase);
             con.getProcedimiento().setInt("tipoMaterial", tipo);
             con.getProcedimiento().setInt("editorial", editorial);            
             con.getProcedimiento().setString("codigo", codigo);
+            con.getProcedimiento().setString("codigoIsbn", isbn);
             con.getProcedimiento().setString("titulo", titulo);
             con.getProcedimiento().setString("publicacion", publicacion);
             con.getProcedimiento().setInt("anioPublicacion", anio);
@@ -942,12 +943,13 @@ public class Consultas {
 
         try {
             con.conectar();
-            con.procedimiento("{ CALL mapearMaterial(?,?,?,?,?,?,?,?,?) }");
+            con.procedimiento("{ CALL mapearMaterial(?,?,?,?,?,?,?,?,?,?) }");
             con.getProcedimiento().setInt("id", codigo);
             con.getProcedimiento().registerOutParameter("tituloMaterial", Types.VARCHAR);
             con.getProcedimiento().registerOutParameter("clasificacion", Types.VARCHAR);
+            con.getProcedimiento().registerOutParameter("codigoIsbn", Types.VARCHAR);
             con.getProcedimiento().registerOutParameter("publicacionMaterial", Types.VARCHAR);
-            con.getProcedimiento().registerOutParameter("anio", Types.DATE);
+            con.getProcedimiento().registerOutParameter("anio", Types.VARCHAR);
             con.getProcedimiento().registerOutParameter("paginas", Types.INTEGER);
             con.getProcedimiento().registerOutParameter("editorial", Types.VARCHAR);
             con.getProcedimiento().registerOutParameter("tipoMaterial", Types.VARCHAR);
@@ -956,8 +958,9 @@ public class Consultas {
 
             titulo = con.getProcedimiento().getString("tituloMaterial");
             clasificacion = con.getProcedimiento().getString("clasificacion");
+            isbn = con.getProcedimiento().getString("codigoIsbn");
             publicacion = con.getProcedimiento().getString("publicacionMaterial");
-            anio = con.getProcedimiento().getInt("anio");
+            anio = con.getProcedimiento().getString("anio");
             paginas = con.getProcedimiento().getInt("paginas");
             editorial = con.getProcedimiento().getString("editorial");
             tipoMaterial = con.getProcedimiento().getString("tipoMaterial");
@@ -1078,21 +1081,22 @@ public class Consultas {
         }
     }
 
-    public void editarMaterial(int opcion, int material, String clase, String editorial, String codigo,
-                               String titulo, String publicacion, int anio, int paginas) {
+    public void editarMaterial(int opcion, int material, String clase, String editorial, String codigo, String isbn,
+                               String titulo, String publicacion, int anioPublicacion, int paginas) {
 
         try {
             con.conectar();
             con.getConexion().setAutoCommit(false);
-            con.procedimiento("{ CALL editarMaterial(?,?,?,?,?,?,?,?,?,?) }");
+            con.procedimiento("{ CALL editarMaterial(?,?,?,?,?,?,?,?,?,?,?) }");
             con.getProcedimiento().setInt("opcion", opcion);
             con.getProcedimiento().setInt("material", material);
             con.getProcedimiento().setString("clase", clase);
             con.getProcedimiento().setString("editorial", editorial);
             con.getProcedimiento().setString("codigo", codigo);
+            con.getProcedimiento().setString("codigoIsbn", isbn);
             con.getProcedimiento().setString("tituloMaterial", titulo);
             con.getProcedimiento().setString("publicacionMaterial", publicacion);
-            con.getProcedimiento().setInt("anio", anio);
+            con.getProcedimiento().setInt("anio", anioPublicacion);
             con.getProcedimiento().setInt("paginas", paginas);
             con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
             con.getProcedimiento().execute();
@@ -1109,7 +1113,6 @@ public class Consultas {
         } finally {
             con.desconectar();
         }
-
     }
 
     public void registrarUsuario(int opcion, String tipo, String nombre, String apellido, String correo, String documento,
@@ -2035,7 +2038,7 @@ public class Consultas {
         return this.publicacion;
     }
 
-    public int getAnio() {
+    public String getAnio() {
         return this.anio;
     }
 
@@ -2105,6 +2108,10 @@ public class Consultas {
 
     public String getUsuario() {
         return usuario;
+    }
+    
+    public String getISBN(){
+        return isbn;
     }
     
     public int getIdDevolucion(){

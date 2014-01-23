@@ -48,10 +48,12 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     private ScreensController controlador;
     private final Dialogo dialogo; 
     @FXML
-    private Label lblEditorial, lblValidarCodigo, lblValidarTitulo, lblValidarAnio, lblValidarPublicacion, lblValidarEditorial, lblValidarEjemplares,
-                    lblValidarPaginas, lblValidarAutor, lblValidarMateria, lblTipoMaterial, lblResultado;    
+    private Label lblEditorial, lblValidarCodigo, lblValidarTitulo, lblValidarAnio, lblValidarPublicacion, 
+                  lblValidarEditorial, lblValidarEjemplares, lblValidarPaginas, lblValidarAutor, lblValidarMateria,
+                  lblTipoMaterial, lblResultado, lblIsbn;    
     @FXML 
-    private TextField txtfCodigoClasificacion, txtfTitulo, txtfAnio, txtfPublicacion, txtfPaginas, txtfFiltrar, txtfEjemplar, txtfBuscar;
+    private TextField txtfCodigoClasificacion, txtfTitulo, txtfAnio, txtfPublicacion, txtfPaginas, txtfFiltrar, 
+                      txtfEjemplar, txtfBuscar, txtfIsbn;
     @FXML 
     private Button  btnBorrar, btnDetalle, btnEditorial, btnAutor, btnMateria, btnCodigoBarras;    
     @FXML 
@@ -199,7 +201,8 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             consulta.mapearMaterial(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()));
             txtfTitulo.setText(consulta.getTitulo());
             txtfCodigoClasificacion.setText(consulta.getClasificacion());
-            txtfAnio.setText(String.valueOf(consulta.getAnio()));
+            txtfIsbn.setText(consulta.getISBN());
+            txtfAnio.setText(consulta.getAnio());
             txtfPublicacion.setText(consulta.getPublicacion());
             txtfPaginas.setText(String.valueOf(consulta.getPaginas()));
             lblTipoMaterial.setText(consulta.getTipoMaterial());
@@ -403,13 +406,15 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             if(tipo.contains("libro")){
                 validarEdicionLibro();
                 ConfirmarMaterial validar = new ConfirmarMaterial();
-                if(validar.confirmarEdicionLibro(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), txtfAnio.getText(), txtfPublicacion.getText(),
+                if(validar.confirmarEdicionLibro(txtfCodigoClasificacion.getText(), txtfIsbn.getText(),
+                                                 txtfTitulo.getText(), txtfAnio.getText(), txtfPublicacion.getText(),
                                                  txtfPaginas.getText(), editorial.getText(), editorial.getData())){
+                    
                     consulta.editarMaterial(1, Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()), 
                                             comboClaseMaterial.getSelectionModel().getSelectedItem().toString(),  
                                             editorial.getTextbox().getText(), txtfCodigoClasificacion.getText(), 
-                                            txtfTitulo.getText(),txtfPublicacion.getText(),
-                                            Integer.parseInt(txtfAnio.getText()), Integer.parseInt(txtfPaginas.getText()));
+                                            txtfIsbn.getText(), txtfTitulo.getText(), txtfPublicacion.getText(),
+                                            Utilidades.setNumero(txtfAnio.getText()), Integer.parseInt(txtfPaginas.getText()));
                     if(consulta.getMensaje()==null){
                         limpiarCampos();
                         Utilidades.mensaje(null, "Los cambios se han guardado correctamente.", "", "Guardar Cambios");                        
@@ -424,7 +429,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
                 if(validar.confirmarEdicionOM(txtfCodigoClasificacion.getText(), txtfTitulo.getText())){
                     consulta.editarMaterial(2, Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()),
                                             comboClaseMaterial.getSelectionModel().getSelectedItem().toString(),
-                                            null, txtfCodigoClasificacion.getText(), txtfTitulo.getText(), null, 0, 0);
+                                            null, txtfCodigoClasificacion.getText().trim(), null, txtfTitulo.getText(), null, 0, 0);
                     if(consulta.getMensaje()==null){
                         limpiarCampos();
                         Utilidades.mensaje(null, "Los cambios se han guardado correctamente.", "", "Guardar Cambios");                        
@@ -543,14 +548,15 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     public void validarEdicionLibro(){       
         if(!listaMaterial.isEmpty()){
             ValidarMaterial libro = new ValidarMaterial();
-            libro.validarEdicionLibro(txtfCodigoClasificacion.getText(), txtfTitulo.getText(), txtfAnio.getText(), txtfPublicacion.getText(),
-                                      txtfPaginas.getText(), editorial.getText(), editorial.getData());
+            libro.validarEdicionLibro(txtfCodigoClasificacion.getText(), txtfIsbn.getText(), txtfTitulo.getText(), txtfAnio.getText(), 
+                                      txtfPublicacion.getText(),txtfPaginas.getText(), editorial.getText(), editorial.getData());
             lblValidarCodigo.setText(libro.getErrorCodigoClasificacion());
             lblValidarTitulo.setText(libro.getErrorTitulo());
             lblValidarAnio.setText(libro.getErrorAnioPublicacion());
             lblValidarPublicacion.setText(libro.getErrorPublicacion());
             lblValidarPaginas.setText(libro.getErrorNumeroPaginas());
             lblValidarEditorial.setText(libro.getErrorEditorial());
+            lblIsbn.setText(libro.getErrorIsbn());
         }     
     }
     
@@ -624,23 +630,25 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         
         lblTipoMaterial.setText(null);
         comboClaseMaterial.getSelectionModel().clearSelection();
-        txtfCodigoClasificacion.setText("");
-        txtfTitulo.setText("");
-        txtfAnio.setText("");
-        txtfPublicacion.setText("");
-        txtfPaginas.setText("");
-        editorial.getTextbox().setText("");   
+        txtfCodigoClasificacion.clear();
+        txtfIsbn.clear();
+        txtfTitulo.clear();
+        txtfAnio.clear();
+        txtfPublicacion.clear();
+        txtfPaginas.clear();
+        editorial.getTextbox().clear();   
     }
     
     private void limpiarDetalle(){
         
         lblTipoMaterial.setText(null);
-        txtfCodigoClasificacion.setText(null);
-        txtfTitulo.setText(null);
-        txtfPublicacion.setText(null);
-        txtfAnio.setText(null);
+        txtfCodigoClasificacion.clear();
+        txtfTitulo.clear();
+        txtfPublicacion.clear();
+        txtfIsbn.clear();
+        txtfAnio.clear();
         comboClaseMaterial.getSelectionModel().clearSelection();
-        txtfPaginas.setText(null);
+        txtfPaginas.clear();
         lblEditorial.setText(null);
         listaEjemplares.clear();
         listaAutores.clear();

@@ -137,6 +137,18 @@ public class Utilidades {
             
     }
     
+    public static int setNumero(String campoTexto){
+    
+        int numero;
+        if(campoTexto.isEmpty()){
+            numero = 0;
+        }
+        else{
+            numero = Integer.parseInt(campoTexto);
+        }
+       return numero;
+    }
+    
     public static String getDesencadenador(ActionEvent eventos) {
         String objeto = eventos.getSource().toString();
         Pattern patron = Pattern.compile("[id=]([a-zA-Z0-9]+)[,]");
@@ -149,6 +161,7 @@ public class Utilidades {
     public static DialogResponse getMensajeOpcion() {       
         return mensajeOpcion;
    }
+    
     public static DialogResponse getMensajeConfimacion() {
         return mensajeConfimacion;
     }
