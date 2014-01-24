@@ -128,26 +128,29 @@ public class VerPrestamosController implements Initializable, ControlledScreen {
     public void verDetalleMaterial(ActionEvent evento){
         detalleMaterial();
     }
-    
-    
+        
     private void listarPrestamoFecha(){
     
         if(fechaInicio.getSelectedDate() != null && fechaFinal.getSelectedDate() == null){
             prepararTablaPrestamos();
             listaPrestamos.addAll(consulta.getListaDePrestamos(5, formato.format(fechaInicio.getSelectedDate()), ""));
             tablaPrestamo.setItems(listaPrestamos);
-            lblTotal.setText(String.valueOf(listaPrestamos.size()));           
+            lblTotal.setText(String.valueOf(listaPrestamos.size()));
+            lblBusqueda.setText(null);
         }
         if(fechaInicio.getSelectedDate() != null && fechaFinal.getSelectedDate() != null){
             prepararTablaPrestamos();      
             if(fechaInicio.getSelectedDate().before(fechaFinal.getSelectedDate())){
                 listaPrestamos.addAll(consulta.getListaDePrestamos(6, formato.format(fechaInicio.getSelectedDate()),
                                                                       formato.format(fechaFinal.getSelectedDate())));
+                lblBusqueda.setText(null);
             }else if(fechaInicio.getSelectedDate().equals(fechaFinal.getSelectedDate())){
                 listaPrestamos.addAll(consulta.getListaDePrestamos(5, formato.format(fechaInicio.getSelectedDate()), ""));
+                lblBusqueda.setText(null);
             }else if(fechaInicio.getSelectedDate().after(fechaFinal.getSelectedDate())){
                  listaPrestamos.addAll(consulta.getListaDePrestamos(6, formato.format(fechaFinal.getSelectedDate()),
                                                                        formato.format(fechaInicio.getSelectedDate())));
+                 lblBusqueda.setText(null);
             }
             tablaPrestamo.setItems(listaPrestamos);
             lblTotal.setText(String.valueOf(listaPrestamos.size()));    
@@ -176,14 +179,15 @@ public class VerPrestamosController implements Initializable, ControlledScreen {
         if (!comboListar.getSelectionModel().isEmpty()) {
             prepararTablaPrestamos();
             if (comboListar.getSelectionModel().getSelectedIndex() == 0) {
-                listaPrestamos.addAll(consulta.getListaDePrestamos(2, "", "" ));
+                listaPrestamos.addAll(consulta.getListaDePrestamos(2, "", ""));
             } else if (comboListar.getSelectionModel().getSelectedIndex() == 1) {
                 listaPrestamos.addAll(consulta.getListaDePrestamos(3, "", ""));
-            }else if (comboListar.getSelectionModel().getSelectedIndex() == 2) {
+            } else if (comboListar.getSelectionModel().getSelectedIndex() == 2) {
                 listaPrestamos.addAll(consulta.getListaDePrestamos(1, "", ""));
             }
             tablaPrestamo.setItems(listaPrestamos);
             lblTotal.setText(String.valueOf(listaPrestamos.size()));
+            lblBusqueda.setText(null);
         }
     }
     
@@ -221,8 +225,7 @@ public class VerPrestamosController implements Initializable, ControlledScreen {
         atributo.setApellidoUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getApellido());
         atributo.setCorreoUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getCorreo());
     }
-    
-    
+        
     private void prepararTablaEjemplares(){
     
         clmnEjemplar.setCellValueFactory(new PropertyValueFactory<Ejemplar, String>("ejemplar"));
@@ -284,8 +287,7 @@ public class VerPrestamosController implements Initializable, ControlledScreen {
         
         if ("".equals(txtfBuscar.getText())){            
             btnBorrar.setVisible(false);      
-        }
-        else {
+        }else {
            btnBorrar.setVisible(true); 
         }               
     }

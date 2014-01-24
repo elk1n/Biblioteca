@@ -575,7 +575,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         ventanaPrincipal.mostrarVistas();
         ventanaPrincipal.cargarVista("paginaVerMultas", "vista/VerMultas.fxml");
         ventanaPrincipal.cambiarVista("paginaVerMultas");
-        ventanaPrincipal.setTitle("Multas");
+        ventanaPrincipal.setTitle("Listado de Multas");
         ventanaInicio = false;
         ventanaBusqueda = false;
     }
@@ -585,7 +585,17 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         ventanaPrincipal.mostrarVistas();
         ventanaPrincipal.cargarVista("paginaVerDevoluciones", "vista/VerDevoluciones.fxml");
         ventanaPrincipal.cambiarVista("paginaVerDevoluciones");
-        ventanaPrincipal.setTitle("Devoluciones");
+        ventanaPrincipal.setTitle("Listado de Devoluciones");
+        ventanaInicio = false;
+        ventanaBusqueda = false;
+    }
+    
+    @FXML
+    public void ventanaVerReservas(ActionEvent evento){
+        ventanaPrincipal.mostrarVistas();
+        ventanaPrincipal.cargarVista("paginaVerReservas", "vista/VerReservas.fxml");
+        ventanaPrincipal.cambiarVista("paginaVerReservas");
+        ventanaPrincipal.setTitle("Listado de Reservas");
         ventanaInicio = false;
         ventanaBusqueda = false;
     }

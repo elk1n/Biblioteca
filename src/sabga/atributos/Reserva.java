@@ -18,6 +18,10 @@ public class Reserva {
     private final SimpleStringProperty fecha;
     private final SimpleStringProperty estado;
     private SimpleStringProperty tipoUsuario;
+    private SimpleStringProperty grado;
+    private SimpleStringProperty curso;
+    private SimpleStringProperty jornada;
+    
     
     public Reserva (int id, String documento, String nombre, String apellido, String correo, String fecha, String estado, String tipoUsuario){
         
@@ -48,6 +52,21 @@ public class Reserva {
             this.fecha = new SimpleStringProperty(fecha);
     }
     
+    public Reserva(int id, String documento, String nombre, String apellido, String correo, String grado, String curso,
+                   String jornada, String fecha, String estado){
+    
+        this.id = new SimpleIntegerProperty(id);
+        this.documento = new SimpleStringProperty(documento);
+        this.nombre = new SimpleStringProperty(nombre);
+        this.apellido = new SimpleStringProperty(apellido);
+        this.correo = new SimpleStringProperty(correo);
+        this.grado = new SimpleStringProperty(grado);
+        this.curso = new SimpleStringProperty(curso);
+        this.jornada = new SimpleStringProperty(jornada);
+        this.fecha = new SimpleStringProperty(fecha);
+        this.estado = new SimpleStringProperty(estado);
+    }
+    
     public int getId() {
         return this.id.get();
     }    
@@ -71,6 +90,15 @@ public class Reserva {
     }   
     public String getTipoUsuario(){
         return this.tipoUsuario.get();
+    }
+    public String getGrado(){
+        return this.grado.get();
+    }
+    public String getCurso(){
+        return this.curso.get();
+    }
+    public String getJornada(){
+        return this.jornada.get();
     }
 }
 

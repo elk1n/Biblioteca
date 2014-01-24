@@ -126,7 +126,7 @@ public class DetalleUsuarioController {
         clmnEstadoPresDevo.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("estadoPrestamo"));
         clmnEstadoDevo.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("estado"));
         clmnDocumentoDevo.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("documento"));
-        clmnNombreDevo.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("nombre"));
+        clmnNombreDevo.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("bibliotecario"));
         listaDevolucion.addAll(consulta.getListaDevolucionUsuario(atributo.getDocumentoUsuario()));
         tablaDevolucion.setItems(listaDevolucion);        
     }

@@ -725,6 +725,56 @@ public class Consultas {
      return lista;
     }
     
+    public ObservableList<Devolucion> getListaDevoluciones(int opcion, String parametro){
+    
+        ObservableList<Devolucion> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaDevoluciones(?,?)}");
+             con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setString("parametro", parametro );
+                con.setResultado(con.getProcedimiento().executeQuery());
+                while (con.getResultado().next()) {
+                    lista.add(new Devolucion(con.getResultado().getInt("id"), con.getResultado().getInt("prestamo"), 
+                                             con.getResultado().getString("documento"),con.getResultado().getString("nombre"),
+                                             con.getResultado().getString("apellidos"), con.getResultado().getString("bibliotecario"),
+                                             con.getResultado().getString("fecha_reserva"), con.getResultado().getString("fecha_prestamo"),
+                                             con.getResultado().getString("estado_prestamo"), con.getResultado().getString("estado_devolucion"),
+                                             con.getResultado().getString("email")));
+                }
+            } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
+        } finally {
+            con.desconectar();
+        }
+        return lista;  
+    
+    }
+    
+    public ObservableList<Ejemplar> getListaDetalleDevoluciones(int devolucion, int prestamo){
+    
+            ObservableList<Ejemplar> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaDetalleDevoluciones(?,?)}");
+            con.getProcedimiento().setInt("devolucion", devolucion);
+            con.getProcedimiento().setInt("prestamo", prestamo);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                lista.add(new Ejemplar(con.getResultado().getInt("id"), con.getResultado().getString("ejemplar"),
+                                       con.getResultado().getString("titulo"), con.getResultado().getString("codigo"), 
+                                       con.getResultado().getString("tipo"), con.getResultado().getString("clase"),
+                                       con.getResultado().getString("fecha"), con.getResultado().getString("fechaD"),
+                                       con.getResultado().getString("estado")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
+        } finally {
+            con.desconectar();
+        }
+        return lista;    
+    }
+    
     public ObservableList<Multa> getListadoMultas(int opcion, String parametro){
     
         ObservableList<Multa> lista = FXCollections.observableArrayList();
@@ -749,6 +799,53 @@ public class Consultas {
             con.desconectar();
         }
         return lista;   
+    }
+      
+    public ObservableList<Reserva> getListaReservas(int opcion, String parametro){
+       
+        ObservableList<Reserva> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaDeReservas(?,?) }");
+            con.getProcedimiento().setInt("opcion", opcion);
+            con.getProcedimiento().setString("parametro", parametro);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                    lista.add(new Reserva(con.getResultado().getInt("id"), con.getResultado().getString("documento"),
+                                            con.getResultado().getString("nombre"), con.getResultado().getString("apellido"),
+                                            con.getResultado().getString("email"), con.getResultado().getString("grado"),
+                                            con.getResultado().getString("curso"), con.getResultado().getString("jornada"),
+                                            con.getResultado().getString("fecha"), con.getResultado().getString("estado")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+        } finally {
+            con.desconectar();
+        }
+        return lista;       
+    }
+    
+    public ObservableList<Ejemplar> getListaDetalleReservas(int reserva){
+    
+            ObservableList<Ejemplar> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaDetalleReservas(?)}");
+            con.getProcedimiento().setInt("reserva", reserva);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                lista.add(new Ejemplar(con.getResultado().getInt("id"), con.getResultado().getString("ejemplar"),
+                                       con.getResultado().getString("titulo"), con.getResultado().getString("codigo"),
+                                       con.getResultado().getString("isbn"), con.getResultado().getString("editorial"),
+                                       con.getResultado().getString("tipo"), con.getResultado().getString("clase"),
+                                       con.getResultado().getString("estado")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No ha sido posible acceder a la base de datos\nFavor intentar más tarde.", "Error Acceso");
+        } finally {
+            con.desconectar();
+        }
+        return lista;    
     }
     
     public ObservableList<Integer> obtenerIdMaterias(ObservableList<Materia> listaMaterias){

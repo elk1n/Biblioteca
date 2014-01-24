@@ -87,7 +87,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     private final ObservableList<Autor> obtenerAutores;
     private final ObservableList<Materia> listaMaterias;
     private final ObservableList<Ejemplar> listaEjemplares;
-    private final ObservableList<String> listaBusquedaMaterias, listaBusquedaAutores, disponibilidad;
+    private final ObservableList<String> listaBusquedaMaterias, listaBusquedaAutores, disponibilidad, listaEditorial;
     private final Consultas consulta;
 
     public EditarMaterialController(){
@@ -105,6 +105,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         listaMaterias = FXCollections.observableArrayList();
         listaEjemplares = FXCollections.observableArrayList();
         disponibilidad = FXCollections.observableArrayList();
+        listaEditorial = FXCollections.observableArrayList();
         listaMaterial.addListener(new ListChangeListener<Material>() {
             @Override
             public void onChanged(ListChangeListener.Change<? extends Material> change) {
@@ -507,7 +508,8 @@ public class EditarMaterialController implements Initializable, ControlledScreen
          ventanaPrincipal = new Sabga();
          btnEditorial.setDisable(true);
          dialogo.mostrarDialogo("vista/dialogos/NuevaEditorial.fxml", "Nueva Editorial", ventanaPrincipal.getPrimaryStage(), null, 3);
-         editorial.setData(consulta.llenarLista(4));
+         listaEditorial.clear();
+         listaEditorial.addAll(consulta.llenarLista(4));
          btnEditorial.setDisable(false);
      }
     
@@ -516,16 +518,20 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         ventanaPrincipal = new Sabga();
         btnAutor.setDisable(true);
         dialogo.mostrarDialogo("vista/dialogos/NuevoAutor.fxml", "Nuevo Autor", ventanaPrincipal.getPrimaryStage(), null, 1);
+        listaBusquedaAutores.clear();
+        obtenerAutores.clear();
         listaBusquedaAutores.addAll(consulta.llenarLista(12));
         obtenerAutores.addAll(consulta.getListaAutores());
         btnAutor.setDisable(false);
     }
     
     @FXML
-    public void dialogoNuevaMateria(ActionEvent evento){        
+    public void dialogoNuevaMateria(ActionEvent evento){  
+        
         ventanaPrincipal = new Sabga();
         btnMateria.setDisable(true);
         dialogo.mostrarDialogo("vista/dialogos/NuevaMateria.fxml", "Nueva Materia", ventanaPrincipal.getPrimaryStage(), null, 2);
+        listaBusquedaMaterias.clear();
         listaBusquedaMaterias.addAll(consulta.llenarLista(3));
         btnMateria.setDisable(false);
     }
@@ -655,6 +661,10 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         listaMaterias.clear();    
     }
     
+     public void llenarListaEditoriales(){
+        listaEditorial.addAll(consulta.llenarLista(4));
+    }
+    
     @Override
     public void setScreenParent(ScreensController screenParent) {     
          controlador = screenParent;
@@ -668,6 +678,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         
         buscarFiltrar();
         llenarComboBox();
+        llenarListaEditoriales();
         editorial.setPrefSize(250, 30);
         materias.setPrefSize(350, 30);
         autores.setPrefSize(350, 30);
@@ -677,7 +688,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         listaBusquedaMaterias.addAll(consulta.llenarLista(3));
         listaBusquedaAutores.addAll(consulta.llenarLista(12));
         obtenerAutores.addAll(consulta.getListaAutores());
-        editorial.setData(consulta.llenarLista(4));
+        editorial.setData(listaEditorial);
         materias.setData(listaBusquedaMaterias);
         autores.setData(listaBusquedaAutores);        
         hboxEditorial.getChildren().add(editorial);

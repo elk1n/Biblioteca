@@ -434,6 +434,7 @@
                 <Menu mnemonicParsing="false" text="Reserva">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#ventanaReservaEscritorio" text="Reservar Material" />
+                    <MenuItem mnemonicParsing="false" onAction="#ventanaVerReservas" text="Ver Reservas" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Multas">

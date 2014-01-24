@@ -19,7 +19,11 @@ public class Devolucion {
     private SimpleIntegerProperty devolucion;
     private SimpleStringProperty estadoPrestamo;
     private SimpleStringProperty documento;
-    private SimpleStringProperty nombres;
+    private SimpleStringProperty nombre;
+    private SimpleStringProperty apellido;
+    private SimpleStringProperty bibliotecario;
+    private SimpleStringProperty fechaReserva;
+    private SimpleStringProperty correo;
             
     public Devolucion(String ejemplar, String titulo, String codigo, String fecha, String estado){
         
@@ -37,7 +41,7 @@ public class Devolucion {
     }
 
     public Devolucion (int idDevolucion, int idPrestamo, String fecha, String estadoPrestamo, String estadoDevolucion,
-                       String documento, String nombres){
+                       String documento, String bibliotecario){
     
         this.devolucion = new SimpleIntegerProperty(idDevolucion);
         this.prestamo = new SimpleIntegerProperty(idPrestamo);
@@ -45,17 +49,33 @@ public class Devolucion {
         this.estadoPrestamo = new SimpleStringProperty(estadoPrestamo);
         this.estado = new SimpleStringProperty(estadoDevolucion);
         this.documento = new SimpleStringProperty(documento);
-        this.nombres = new SimpleStringProperty(nombres);
+        this.bibliotecario = new SimpleStringProperty(bibliotecario);
     }
     
     public Devolucion(String documento, String nombre, String titulo, String ejemplar, String codigo, String fecha){
     
         this.documento = new SimpleStringProperty(documento);
-        this.nombres = new SimpleStringProperty(nombre);
+        this.bibliotecario = new SimpleStringProperty(nombre);
         this.titulo = new SimpleStringProperty(titulo);
         this.ejemplar = new SimpleStringProperty(ejemplar);
         this.codigo = new SimpleStringProperty(codigo);
         this.fecha = new SimpleStringProperty(fecha);
+    }
+    
+    public Devolucion(int id, int idPrestamo,String documento, String nombre, String apellido, String nombreB, String fechaReserva,
+                      String prestamo, String estadoPrestamo, String estado, String correo){
+    
+        this.devolucion = new SimpleIntegerProperty(id);
+        this.prestamo = new SimpleIntegerProperty(idPrestamo);
+        this.documento = new SimpleStringProperty(documento);
+        this.nombre = new SimpleStringProperty(nombre);
+        this.apellido = new SimpleStringProperty(apellido);
+        this.bibliotecario = new SimpleStringProperty(nombreB);
+        this.fechaReserva = new SimpleStringProperty(fechaReserva);
+        this.fecha = new SimpleStringProperty(prestamo);
+        this.estadoPrestamo = new SimpleStringProperty(estadoPrestamo);
+        this.estado = new SimpleStringProperty(estado);
+        this.correo = new SimpleStringProperty(correo);    
     }
     
     public String getEjemplar(){
@@ -85,7 +105,19 @@ public class Devolucion {
     public String getDocumento(){
         return this.documento.get();
     }
+    public String getBibliotecario(){
+        return this.bibliotecario.get();
+    }
     public String getNombre(){
-        return this.nombres.get();
+        return this.nombre.get();
+    }
+    public String getApellido(){
+        return this.apellido.get();
+    }
+    public String getFechaReserva(){
+        return this.fechaReserva.get();
+    }
+    public String getCorreo(){
+        return this.correo.get();
     }
 }
