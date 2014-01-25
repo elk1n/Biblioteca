@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.web.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.dialogos.ReporteController">
+  <children>
+    <WebView fx:id="webReportes" layoutX="14.0" layoutY="64.0" prefHeight="589.0" prefWidth="996.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" />
+    <HBox id="HBox" alignment="CENTER" layoutX="709.0" layoutY="666.0" spacing="60.0">
+      <children>
+        <Button mnemonicParsing="false" onAction="#cerrar" prefHeight="25.0" prefWidth="120.0" text="Cerrar" />
+        <Button defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Guardar Reporte" />
+      </children>
+    </HBox>
+    <ToolBar layoutX="14.0" layoutY="14.0">
+      <items>
+        <Button mnemonicParsing="false" text="Button" />
+      </items>
+    </ToolBar>
+  </children>
+</AnchorPane>

@@ -28,6 +28,7 @@ import sabga.controlador.dialogos.RestablecerContraseniaController;
 import sabga.controlador.dialogos.EditarOpcionesUsuarioController;
 import sabga.controlador.dialogos.MultaController;
 import sabga.controlador.dialogos.PreferenciasController;
+import sabga.controlador.dialogos.ReporteController;
 
 /**
  * @author Elk1n
@@ -168,6 +169,9 @@ public class Dialogo {
            case 18:
                controladorAcerdaDe();
                break;
+           case 19:
+               controladoReporte();
+               break;
        }
    }
       
@@ -262,6 +266,13 @@ public class Dialogo {
         controller.setDialogStage(dialogStage);
         dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream("vista/Imagenes/LogoBiblioteca1.png")));
         dialogStage.showAndWait();
+    }
+    
+    private void controladoReporte() {
+        ReporteController controller = loader.getController();
+        controller.setDialogStage(dialogStage);
+        dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream("vista/Imagenes/LogoBiblioteca1.png")));
+        dialogStage.show();
     }
     
     private void controladorMulta(){

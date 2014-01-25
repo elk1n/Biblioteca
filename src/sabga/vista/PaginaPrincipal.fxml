@@ -447,6 +447,11 @@
                     <MenuItem mnemonicParsing="false" onAction="#ventanaPazySalvo" text="Expedir Paz y Salvo" fx:id="menuPazysalvo" />
                   </items>
                 </Menu>
+                <Menu mnemonicParsing="false" text="Reportes">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#dialogoReportes" text="Ver Reportes" />
+                  </items>
+                </Menu>
                 <Menu mnemonicParsing="false" text="Ayuda">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#dialogoAyuda" text="Contenidos de Ayuda" />

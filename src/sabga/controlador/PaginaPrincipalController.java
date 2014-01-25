@@ -664,6 +664,11 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     public void dialogoAcercaDe(ActionEvent evento){
         dialogo.mostrarDialogo("vista/dialogos/AcercaDe.fxml", "Acerca de SABGA", ventanaPrincipal.getPrimaryStage(), null, 18);
     }
+    
+    @FXML
+    public void dialogoReportes(ActionEvent evento){
+        dialogo.mostrarDialogo("vista/dialogos/Reporte.fxml", "Reportes", ventanaPrincipal.getPrimaryStage(), null, 19);
+    }
    
     @FXML
     public void salir(ActionEvent evento){
