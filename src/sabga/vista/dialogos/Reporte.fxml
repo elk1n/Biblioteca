@@ -9,17 +9,22 @@
 
 <AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.dialogos.ReporteController">
   <children>
-    <WebView fx:id="webReportes" layoutX="14.0" layoutY="64.0" prefHeight="589.0" prefWidth="996.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" />
-    <HBox id="HBox" alignment="CENTER" layoutX="709.0" layoutY="666.0" spacing="60.0">
+    <Pane fx:id="panelOpciones" disable="true" prefHeight="647.0" prefWidth="1024.0" visible="false" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
+        <Button layoutX="110.0" layoutY="148.0" mnemonicParsing="false" onAction="#verUsuarios" text="Button" />
+      </children>
+    </Pane>
+    <Pane fx:id="panelReporte" disable="false" prefHeight="657.0" prefWidth="1024.0" visible="true" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <WebView fx:id="webReportes" layoutX="14.0" layoutY="14.0" prefHeight="636.0" prefWidth="995.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" />
+      </children>
+    </Pane>
+    <HBox id="HBox" alignment="CENTER" layoutX="529.0" layoutY="663.0" spacing="60.0">
+      <children>
+        <Button fx:id="btnAtras" defaultButton="true" mnemonicParsing="false" onAction="#volverAtras" prefHeight="25.0" prefWidth="120.0" text="Atras" />
         <Button mnemonicParsing="false" onAction="#cerrar" prefHeight="25.0" prefWidth="120.0" text="Cerrar" />
-        <Button defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Guardar Reporte" />
+        <Button fx:id="btnReporte" defaultButton="true" mnemonicParsing="false" onAction="#handleBotonReporte" prefHeight="25.0" prefWidth="120.0" text="Ver Reporte" />
       </children>
     </HBox>
-    <ToolBar layoutX="14.0" layoutY="14.0">
-      <items>
-        <Button mnemonicParsing="false" text="Button" />
-      </items>
-    </ToolBar>
   </children>
 </AnchorPane>
