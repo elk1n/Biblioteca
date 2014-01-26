@@ -6,11 +6,13 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -28,104 +30,63 @@ public class ReporteController implements Initializable {
     @FXML
     private WebView webReportes;
     @FXML
-    private Pane panelOpciones, panelReporte;
-    @FXML
-    private Button btnReporte, btnAtras;
+    private RadioButton radioAllUsers;
     private final Reporte reportes;
-    private File carpeta;
-    private String archivo;
-     private final String ruta = System.getenv("APPDATA")+"/Sabga/Preferencias.properties";
+    private String archivoJasper;
+    Map<String,Object> parametroJasper;
+    private boolean archivoCargado = false;
     
     public ReporteController(){       
         reportes = new Reporte();       
     }
     
     @FXML
-    public void handleBotonReporte(){
-        botonReporte();
+    public void generarReportesUsuario(ActionEvent evento){
+        reportesUsuario();
     }
-    
-    @FXML
-    public void volverAtras(){
-        atras();
-    }
-    
+        
     @FXML
     public void cerrar(ActionEvent evento){
         this.dialogStage.close();
     }
-     
-    private void botonReporte(){
+    
+    @FXML
+    public void guardarReporte(ActionEvent evento){
+        guardar();
+    }
+         
+    private void reportesUsuario(){
         
-        if(btnReporte.getText().equals("Ver Reporte")){
-            verReporte();
-            verUsuarios();
-        }else{
-            guardar();
+        if(radioAllUsers.isSelected()){
+              crearReporte("sabga/reportes/ReporteUsuarios.jasper", null, "ListaUsuarios.html");
         }        
     }
-    @FXML
-    public void verUsuarios(){
-        
-        verReporte();
-        InputStream strea = ClassLoader.getSystemResourceAsStream("sabga/reportes/ReporteUsuarios.jasper");
-              //  getClass().getResourceAsStream("ReporteUsuarios.jasper");
-        //InputStream stream = this.getClass().getResourceAsStream("reportes/ReporteUsuarios.jasper");
-       
-      //  String master = System.getProperty("user.dir")+ "/reportes/ReporteUsuarios.jasper";
-       // File a = new File()
-        reportes.crearReporteHTML(strea, null, "ListaUsuarios.html");
-        cargarReporte("ListaUsuarios.html");
+    
+    private void crearReporte( String ruta, Map<String,Object> parametro, String archivoHTML){
+    
+        reportes.crearReporteHTML(ruta, parametro, archivoHTML);
+        cargarReporte(archivoHTML);
+        archivoJasper = ruta;
+        parametroJasper = parametro;
+        archivoCargado = true;
         
     }
     
-    private void guardar(){
-          InputStream stream = ClassLoader.getSystemResourceAsStream("sabga/reportes/ReporteUsuarios.jasper");
-       String master = System.getProperty("user.dir")+ "/reportes/ReporteUsuarios.jasper";
-        reportes.guardarReportePDF(stream, null);
+    private void guardar() {
+
+        if (archivoCargado) {
+            reportes.guardarReportePDF(archivoJasper, parametroJasper);
+        }
     }
-   
+
     private void cargarReporte(String file){
 
-        archivo = file;
-        carpeta = new File(System.getenv("APPDATA")+"/Sabga/Reportes/"+archivo);   
+      File  carpeta = new File(System.getenv("APPDATA")+"/Sabga/Reportes/"+file);   
         try {
             webReportes.getEngine().load(carpeta.toURI().toURL().toString());
         } catch (MalformedURLException ex) {
             Utilidades.mensajeError(null, ex.getMessage(), "Error al cargar el reporte", "Error Reporte");
         }    
-    }
-        
-    private void verReporte(){
-        
-        panelOpciones.setDisable(true);
-        panelOpciones.setVisible(false);
-        panelReporte.setDisable(false);
-        panelReporte.setVisible(true);
-        btnReporte.setText("Guardar Reporte");
-        btnAtras.setDisable(false);
-        btnAtras.setVisible(true);    
-    }
-    
-    private void atras(){
-        
-        panelOpciones.setDisable(false);
-        panelOpciones.setVisible(true);
-        panelReporte.setDisable(true);
-        panelReporte.setVisible(false);
-        btnReporte.setText("Ver Reporte");
-        btnAtras.setDisable(true);
-        btnAtras.setVisible(false);
-        
-    }
-    
-    private void inicio(){
-        atras();      
-    }
-    
-    private File setArchivoReporte(String ruta){    
-        File reporte = new File(ruta);
-        return reporte;
     }
     
     public void setDialogStage(Stage dialogStage) {
@@ -140,9 +101,7 @@ public class ReporteController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        inicio();
-        
+                
     }    
     
 }

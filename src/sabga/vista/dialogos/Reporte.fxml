@@ -5,26 +5,51 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.web.*?>
 
 <AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.dialogos.ReporteController">
   <children>
-    <Pane fx:id="panelOpciones" disable="true" prefHeight="647.0" prefWidth="1024.0" visible="false" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <WebView fx:id="webReportes" layoutX="329.0" layoutY="14.0" prefHeight="636.0" prefWidth="680.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" />
+    <HBox id="HBox" alignment="CENTER" layoutX="708.0" layoutY="664.0" spacing="60.0">
       <children>
-        <Button layoutX="110.0" layoutY="148.0" mnemonicParsing="false" onAction="#verUsuarios" text="Button" />
-      </children>
-    </Pane>
-    <Pane fx:id="panelReporte" disable="false" prefHeight="657.0" prefWidth="1024.0" visible="true" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <children>
-        <WebView fx:id="webReportes" layoutX="14.0" layoutY="14.0" prefHeight="636.0" prefWidth="995.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" />
-      </children>
-    </Pane>
-    <HBox id="HBox" alignment="CENTER" layoutX="529.0" layoutY="663.0" spacing="60.0">
-      <children>
-        <Button fx:id="btnAtras" defaultButton="true" mnemonicParsing="false" onAction="#volverAtras" prefHeight="25.0" prefWidth="120.0" text="Atras" />
         <Button mnemonicParsing="false" onAction="#cerrar" prefHeight="25.0" prefWidth="120.0" text="Cerrar" />
-        <Button fx:id="btnReporte" defaultButton="true" mnemonicParsing="false" onAction="#handleBotonReporte" prefHeight="25.0" prefWidth="120.0" text="Ver Reporte" />
+        <Button fx:id="btnReporte" defaultButton="true" mnemonicParsing="false" onAction="#guardarReporte" prefHeight="25.0" prefWidth="120.0" text="Guardar Reporte" />
       </children>
     </HBox>
+    <Accordion layoutX="14.0" layoutY="14.0" prefHeight="675.0" prefWidth="304.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
+      <expandedPane>
+        <TitledPane fx:id="x2" animated="false" text="Usuarios">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <RadioButton fx:id="radioAllUsers" layoutX="15.0" layoutY="20.0" mnemonicParsing="false" text="Listar Todos Los Usuarios">
+                  <toggleGroup>
+                    <ToggleGroup fx:id="usuarios" />
+                  </toggleGroup>
+                </RadioButton>
+                <Button defaultButton="true" layoutX="166.0" layoutY="554.0" mnemonicParsing="false" onAction="#generarReportesUsuario" prefHeight="25.0" prefWidth="120.0" text="Generar Reporte" />
+              </children>
+            </AnchorPane>
+          </content>
+          <font>
+            <Font name="System Bold" size="14.0" fx:id="x1" />
+          </font>
+        </TitledPane>
+      </expandedPane>
+      <panes>
+        <TitledPane animated="false" font="$x1" text="Material">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+        </TitledPane>
+        <fx:reference source="x2" />
+        <TitledPane animated="false" expanded="false" font="$x1" text="Préstamos">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+        </TitledPane>
+      </panes>
+    </Accordion>
   </children>
 </AnchorPane>

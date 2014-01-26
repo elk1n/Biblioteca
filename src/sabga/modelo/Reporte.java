@@ -1,19 +1,9 @@
 
 package sabga.modelo;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.URL;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import static javafx.scene.input.DataFormat.URL;
 import javafx.stage.FileChooser;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
@@ -21,7 +11,6 @@ import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.export.JRHtmlExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRXhtmlExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
@@ -49,7 +38,7 @@ public class Reporte {
          }    
     }
 
-    public void guardarReportePDF(InputStream archivoJasper, Map<String,Object> parametro){
+    public void guardarReportePDF(String reporteJasper, Map<String,Object> parametro){
     
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Guardar Reporte");
@@ -64,6 +53,7 @@ public class Reporte {
                     name += ".pdf";
                     file = new File(file.getParentFile(), name);
                 }
+                InputStream archivoJasper = ClassLoader.getSystemResourceAsStream(reporteJasper);
                 JasperReport reporte = (JasperReport) JRLoader.loadObject(archivoJasper);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametro, con.getConexion());
                 JRExporter exporter = new JRPdfExporter();
@@ -76,9 +66,10 @@ public class Reporte {
         }        
     }
     
-    public void crearReporteHTML(InputStream archivoJasper, Map<String,Object> parametro, String nombreArchivo) {        
-        
+    public void crearReporteHTML(String reporteJasper, Map<String,Object> parametro, String nombreArchivo) {  
+                
         try {
+            InputStream archivoJasper = ClassLoader.getSystemResourceAsStream(reporteJasper);
             JasperReport reporte = (JasperReport) JRLoader.loadObject(archivoJasper);
             JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametro, con.getConexion());
             JRExporter exporter = new JRXhtmlExporter();
