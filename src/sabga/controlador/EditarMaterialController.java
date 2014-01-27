@@ -600,8 +600,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
 
         if ("".equals(txtfBuscar.getText()) && "".equals(txtfFiltrar.getText())){            
             btnBorrar.setVisible(false);      
-        }
-        else {
+        }else {
            btnBorrar.setVisible(true); 
         }          
     }
@@ -682,8 +681,8 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         editorial.setPrefSize(250, 30);
         materias.setPrefSize(350, 30);
         autores.setPrefSize(350, 30);
-        materias.getTextbox().setPromptText("Materia");
-        autores.getTextbox().setPromptText("Autor");
+        materias.getTextbox().setPromptText("Buscar Materia");
+        autores.getTextbox().setPromptText("Buscar Autor");
         editorial.getTextbox().setPromptText("Buscar Editorial");
         listaBusquedaMaterias.addAll(consulta.llenarLista(3));
         listaBusquedaAutores.addAll(consulta.llenarLista(12));

@@ -1,19 +1,25 @@
 
 package sabga.controlador.dialogos;
 
+import eu.schudt.javafx.controls.calendar.DatePicker;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
+import javafx.scene.layout.HBox;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import np.com.ngopal.control.AutoFillTextBox;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.Consultas;
 import sabga.modelo.Reporte;
@@ -29,19 +35,41 @@ public class ReporteController implements Initializable {
     @FXML
     private WebView webReportes;
     @FXML
-    private RadioButton radioAllUsers, radioEstadoUsuario, radioListarGrado, radioTipoMaterial;
+    private RadioButton radioAllUsers, radioEstadoUsuario, radioListarGrado, radioTipoMaterial, radioAutor, radioMateria,
+                        radioEstadoPrestamos, radioFecha;
     @FXML
-    private ComboBox<String> comboListarUsuarios, comboEstadoUsuario, comboGrado, comboTipoMaterial;
+    private ComboBox<String> comboListarUsuarios, comboEstadoUsuario, comboGrado, comboTipoMaterial, comboEstadoPrestamos;
+    @FXML
+    private HBox hboxMaterias, hboxAutores, hboxFechaI, hboxFechaF;;
     private final Reporte reportes;
     private String archivoJasper;
     Map<String,Object> parametroJasper;
     private boolean archivoCargado = false;
     private final Consultas consulta;
-    
-    public ReporteController(){       
-        reportes = new Reporte(); 
+    private final AutoFillTextBox<String> autores, materias;
+    private final ObservableList<String> listaBusquedaMaterias, listaBusquedaAutores;
+    private final DatePicker fechaInicio;
+    private final DatePicker fechaFinal;
+    private final SimpleDateFormat formato;
+
+    public ReporteController() {
+        
+        reportes = new Reporte();
         consulta = new Consultas();
-        parametroJasper =  new HashMap<>();
+        autores = new AutoFillTextBox<>();
+        materias = new AutoFillTextBox<>();
+        parametroJasper = new HashMap<>();
+        listaBusquedaAutores = FXCollections.observableArrayList();
+        listaBusquedaMaterias = FXCollections.observableArrayList();
+        fechaInicio = new DatePicker();
+        fechaFinal = new DatePicker();
+        formato = new SimpleDateFormat("YYYY-MM-dd");
+        fechaInicio.setDateFormat(formato);
+        fechaFinal.setDateFormat(formato);
+        fechaInicio.getCalendarView().showTodayButtonProperty().setValue(Boolean.FALSE);
+        fechaInicio.getStylesheets().add("sabga/vista/css/DatePicker.css");
+        fechaFinal.getCalendarView().showTodayButtonProperty().setValue(Boolean.FALSE);
+        fechaFinal.getStylesheets().add("sabga/vista/css/DatePicker.css");
     }
     
     @FXML
@@ -63,7 +91,57 @@ public class ReporteController implements Initializable {
     public void generarReportesMaterial(ActionEvent evento){
         reportesMaterial();
     }
+    
+    @FXML
+    public void generarReportePrestamos(ActionEvent evento){
+        reportesPrestamos();
+    }
 
+    private void reportesPrestamos(){
+        
+        parametroJasper.clear();
+        if(radioEstadoPrestamos.isSelected() && comboEstadoPrestamos.getSelectionModel().getSelectedItem() != null){  
+            
+            if(radioEstadoPrestamos.isSelected() && comboEstadoPrestamos.getSelectionModel().getSelectedIndex() == 0){
+               parametroJasper.put("estado_prestamo", 1);
+               crearReporte("sabga/reportes/ReportePrestamosVigentes.jasper", "ListadoPrestamosEstado.html"); 
+               
+            }else if(radioEstadoPrestamos.isSelected() && comboEstadoPrestamos.getSelectionModel().getSelectedIndex() == 1){
+               parametroJasper.put("estado_prestamo", 2);
+               crearReporte("sabga/reportes/ReportePrestamosVigentes.jasper", "ListadoPrestamosEstado.html"); 
+               
+            }else if(radioEstadoPrestamos.isSelected() && comboEstadoPrestamos.getSelectionModel().getSelectedIndex() == 2){
+               crearReporte("sabga/reportes/ReportePrestamos.jasper", "ListadoPrestamosEstado.html"); 
+            }
+        }
+        
+        if(radioFecha.isSelected() && fechaInicio.getSelectedDate() != null){
+        
+            if(fechaInicio.getSelectedDate() != null && fechaFinal.getSelectedDate() == null){
+                parametroJasper.put("fecha_inicial", fechaInicio.getSelectedDate());
+                parametroJasper.put("fecha_final", fechaInicio.getSelectedDate());
+                crearReporte("sabga/reportes/ReportePrestamosXFecha.jasper", "ListadoPrestamosFecha.html"); 
+            }            
+        }
+        if(radioFecha.isSelected() && fechaInicio.getSelectedDate() != null && fechaFinal.getSelectedDate() != null){
+            if(fechaInicio.getSelectedDate().before(fechaFinal.getSelectedDate())){
+                parametroJasper.put("fecha_inicial", fechaInicio.getSelectedDate());
+                parametroJasper.put("fecha_final", fechaFinal.getSelectedDate());
+                crearReporte("sabga/reportes/ReportePrestamosXFecha.jasper", "ListadoPrestamosFecha.html"); 
+            
+            }else if(fechaInicio.getSelectedDate().equals(fechaFinal.getSelectedDate())){
+                parametroJasper.put("fecha_inicial", fechaInicio.getSelectedDate());
+                parametroJasper.put("fecha_final", fechaInicio.getSelectedDate());
+                crearReporte("sabga/reportes/ReportePrestamosXFecha.jasper", "ListadoPrestamosFecha.html"); 
+            }else if(fechaInicio.getSelectedDate().after(fechaFinal.getSelectedDate())){
+                parametroJasper.put("fecha_inicial", fechaFinal.getSelectedDate());
+                parametroJasper.put("fecha_final", fechaInicio.getSelectedDate());
+                crearReporte("sabga/reportes/ReportePrestamosXFecha.jasper", "ListadoPrestamosFecha.html"); 
+            }
+        }
+    
+    }
+    
     private void reportesMaterial() {
         parametroJasper.clear();
         if (radioTipoMaterial.isSelected() && comboTipoMaterial.getSelectionModel().getSelectedItem() != null) {
@@ -73,6 +151,18 @@ public class ReporteController implements Initializable {
             }else{
                parametroJasper.put("tipo_material", comboTipoMaterial.getSelectionModel().getSelectedItem());
                crearReporte("sabga/reportes/ReporteOtroMaterial.jasper", "ListadoOtroMaterial.html"); 
+            }          
+        }
+        if (radioAutor.isSelected() && autores.getTextbox().getText() != null) {
+            if (listaBusquedaAutores.indexOf(autores.getText()) != -1) {
+                 parametroJasper.put("nombre_autor", autores.getText());
+                 crearReporte("sabga/reportes/ReporteLibrosXAutor.jasper", "ListadoLibrosPorAutor.html");            
+            }            
+        }
+        if (radioMateria.isSelected() && materias.getTextbox().getText() != null) {
+            if (listaBusquedaMaterias.indexOf(materias.getText()) != -1) {
+                parametroJasper.put("nombre_materia", materias.getText());
+                crearReporte("sabga/reportes/ReporteMaterialXMateria.jasper", "ListadoMaterialPorMateria.html");
             }
         }
 
@@ -142,8 +232,24 @@ public class ReporteController implements Initializable {
         comboEstadoUsuario.getItems().add("Habilitados");
         comboEstadoUsuario.getItems().add("Inhabilitados");
         comboEstadoUsuario.getItems().add("Multados");
+        comboEstadoPrestamos.getItems().add("Vigentes");
+        comboEstadoPrestamos.getItems().add("Devueltos");
+        comboEstadoPrestamos.getItems().add("Todos");
         comboGrado.setItems(consulta.llenarLista(7));
+        materias.setPrefSize(240, 30);
+        autores.setPrefSize(240, 30);
         comboTipoMaterial.setItems(consulta.llenarLista(2));
+        listaBusquedaMaterias.addAll(consulta.llenarLista(3));
+        listaBusquedaAutores.addAll(consulta.llenarLista(12));
+        materias.getTextbox().setPromptText("Buscar Materia");
+        autores.getTextbox().setPromptText("Buscar Autor (nombre)");
+        materias.setData(listaBusquedaMaterias);
+        autores.setData(listaBusquedaAutores);  
+        hboxMaterias.getChildren().add(materias);
+        hboxAutores.getChildren().add(autores);
+        hboxFechaI.getChildren().add(fechaInicio);
+        hboxFechaF.getChildren().add(fechaFinal);
+        
     }
     
     public void setDialogStage(Stage dialogStage) {
