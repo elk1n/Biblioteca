@@ -49,13 +49,16 @@
                   <stylesheets>
                     <URL value="@css/estilo.css" />
                   </stylesheets>
+                  <tooltip>
+                    <Tooltip text="Iniciar búsqueda" />
+                  </tooltip>
                 </Button>
                 <Button id="btnBorrarBusqueda" fx:id="btnBorrarMaterial" layoutX="398.0" layoutY="40.0" mnemonicParsing="false" onAction="#borrarCampoMaterial" styleClass="botonBorrar">
                   <stylesheets>
                     <URL value="@css/estilo.css" />
                   </stylesheets>
                 </Button>
-                <Button fx:id="btnDetalle" defaultButton="true" layoutX="500.0" layoutY="37.0" mnemonicParsing="false" onAction="#dialogoDetalleMaterial" prefHeight="25.0" prefWidth="120.0" text="Detalle Material" />
+                <Button fx:id="btnDetalle" defaultButton="true" layoutX="489.0" layoutY="38.0" mnemonicParsing="false" onAction="#dialogoDetalleMaterial" prefHeight="25.0" prefWidth="130.0" text="Ver Detalle Material" />
                 <Label id="lblBuscarUsuario" fx:id="lblBuscarMaterial" layoutX="170.0" layoutY="73.0" prefWidth="244.00009999999747" text="">
                   <textFill>
                     <Color blue="0.000" green="0.000" red="0.800" fx:id="x2" />
@@ -71,7 +74,7 @@
                   <contextMenu>
                     <ContextMenu>
                       <items>
-                        <MenuItem mnemonicParsing="false" onAction="#dialogoDetalleMaterial" text="Ver Detalle Material" />
+                        <MenuItem mnemonicParsing="false" onAction="#dialogoDetalleMaterial" text="Ver Información Detallada del Material" />
                       </items>
                     </ContextMenu>
                   </contextMenu>
@@ -116,6 +119,9 @@
                   <stylesheets>
                     <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
                   </stylesheets>
+                  <tooltip>
+                    <Tooltip text="Iniciar búsqueda" />
+                  </tooltip>
                 </Button>
                 <Button fx:id="btnBorrarUsuario" layoutX="391.0" layoutY="40.0" mnemonicParsing="false" onAction="#borrarCampoUsuario" styleClass="botonBorrar" text="">
                   <stylesheets>
@@ -125,33 +131,33 @@
                 <Label fx:id="lblBuscarUsuario" layoutX="168.0" layoutY="73.0" prefWidth="246.0" text="" textFill="$x2" />
                 <TableView fx:id="tablaUsuarios" layoutX="16.0" layoutY="97.0" onKeyTyped="#seleccionarUsuario" onMouseClicked="#seleccionarUsuario" prefHeight="275.0" prefWidth="609.0">
                   <columns>
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="82.0" text="Tipo Usuario" fx:id="clmnTipoUsuario" />
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="83.0" text="Estado" fx:id="clmnEstadoUsuario" />
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="80.0" text="Documento" fx:id="clmnDocumento" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="137.0" text="Código de Matrícula" fx:id="clmnDocumento" />
                     <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="99.0" text="Nombre" fx:id="clmnNombre" />
                     <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="117.0" text="Apellido" fx:id="clmnApellido" />
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="131.0" text="Correo" fx:id="clmnCorreo" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="77.0" text="Teléfono" fx:id="clmnCorreo" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="82.0" text="Tipo Usuario" fx:id="clmnTipoUsuario" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="83.0" text="Estado" fx:id="clmnEstadoUsuario" />
                   </columns>
                   <contextMenu>
                     <ContextMenu>
                       <items>
-                        <MenuItem mnemonicParsing="false" onAction="#verDetalleUsuario" text="Ver Detalle Usuario" fx:id="detalleUsuario" />
-                        <MenuItem mnemonicParsing="false" onAction="#verMultasUsuario" text="Ver Multas" fx:id="multasUsuario" />
+                        <MenuItem mnemonicParsing="false" onAction="#verDetalleUsuario" text="Ver Información Detallada del Usuario" fx:id="detalleUsuario" />
+                        <MenuItem mnemonicParsing="false" onAction="#verMultasUsuario" text="Ver Multas del Usuario" fx:id="multasUsuario" />
                       </items>
                     </ContextMenu>
                   </contextMenu>
                 </TableView>
-                <MenuButton layoutX="473.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" text="Información Usuario">
+                <MenuButton layoutX="502.0" layoutY="38.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Ver">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#verDetalleUsuario" text="Ver Detalle Usuario" fx:id="detalleUsuario2" />
-                    <MenuItem mnemonicParsing="false" onAction="#verMultasUsuario" text="Ver Multas Usuario" fx:id="multasUsuario2" />
+                    <MenuItem mnemonicParsing="false" onAction="#verDetalleUsuario" text="Información Detallada del Usuario" fx:id="detalleUsuario2" />
+                    <MenuItem mnemonicParsing="false" onAction="#verMultasUsuario" text="Multas del Usuario" fx:id="multasUsuario2" />
                   </items>
                 </MenuButton>
                 <GridPane id="GridPane" hgap="15.0" layoutX="17.0" layoutY="380.0" prefHeight="78.0" prefWidth="605.0">
                   <children>
                     <Label font="$x1" text="Jornada:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                    <Label font="$x1" text="Grado:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                    <Label font="$x1" text="Curso:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <Label font="$x1" text="Curso:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <Label font="$x1" text="Grupo:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                     <Label font="$x1" prefWidth="66.0001220703125" text="Teléfono:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
                     <Label font="$x1" text="Dirección:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                     <Label fx:id="lblGrado" prefHeight="16.0" prefWidth="133.0" text="" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />
@@ -191,15 +197,15 @@
               </font>
             </Label>
             <Label fx:id="lblNombre" prefWidth="346.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-            <Label font="$x3" text="Correo:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <Label font="$x3" text="Documento:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <Label font="$x3" text="Teléfono:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Label font="$x3" text="Código de Matrícula:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
             <Label fx:id="lblDocumento" prefWidth="381.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label fx:id="lblCorreo" prefWidth="346.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label id="lblValidarPrestamo" fx:id="lblValidarDocumento" prefWidth="381.0" text="" textFill="$x2" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
           </children>
           <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="108.0" minWidth="10.0" prefWidth="86.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="406.0" minWidth="10.0" prefWidth="406.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="129.0" minWidth="10.0" prefWidth="119.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="406.0" minWidth="10.0" prefWidth="373.0" />
           </columnConstraints>
           <rowConstraints>
             <RowConstraints maxHeight="26.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />

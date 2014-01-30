@@ -128,11 +128,7 @@ public class PazySalvoController implements Initializable, ControlledScreen {
     public void cargarDatosUsuario(ActionEvent evento){
         setDatosUsuario();
     } 
-    
-    public void seleccionUsuario(){
-        seleccionarUsuario();
-    }
-    
+        
     @FXML
     public void guardarCaptura(ActionEvent evento) {
         
@@ -187,21 +183,12 @@ public class PazySalvoController implements Initializable, ControlledScreen {
         vistaPazySalvo();
         
     }
-    
-    private void seleccionarUsuario(){
         
-        if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
-            atributo.setDocumentoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
-            atributo.setNombreUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getNombre());
-            atributo.setApellidoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getApellido());
-            atributo.setCorreoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getCorreo());   
-        }
-    }
-    
     private void dialogoDetalleUsuario(){
         
         if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
             panelBuscar.setDisable(true);
+            dialogo.setCodigoMatricula(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
             dialogo.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información del Usuario", null , null, 5);           
             panelBuscar.setDisable(false);     
         }else{
@@ -213,6 +200,7 @@ public class PazySalvoController implements Initializable, ControlledScreen {
         
         if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
             panelBuscar.setDisable(true);
+            dialogo.setCodigoMatricula(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
             dialogo.mostrarDialogo("vista/dialogos/Multa.fxml", "Detalle Multas", null , null, 17);           
             panelBuscar.setDisable(false);     
         }else{

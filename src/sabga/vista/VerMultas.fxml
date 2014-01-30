@@ -60,9 +60,9 @@
     </GridPane>
     <TableView id="tablaPrestamo" fx:id="tablaMultas" editable="true" layoutX="19.0" layoutY="105.0" onKeyTyped="#cargarDetallePrestamo" onMouseClicked="#cargarDetallePrestamo" prefHeight="213.0" prefWidth="1222.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
       <columns>
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="78.0" text="Documento" fx:id="clmnDocumento" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="160.0" text="Nombre" fx:id="clmnNombre" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="175.0" text="Apellido" fx:id="clmnApellido" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="127.0" text="Código de Matrícula" fx:id="clmnDocumento" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="139.0" text="Nombre" fx:id="clmnNombre" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="148.0" text="Apellido" fx:id="clmnApellido" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="95.0" text="Fecha Reserva" fx:id="clmnFechaReserva" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="100.0" text="Fecha Préstamo" fx:id="clmnFechaPrestamo" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="102.0" text="Estado Préstamo" fx:id="clmnEstadoPrestamo" />
@@ -75,8 +75,8 @@
       <contextMenu>
         <ContextMenu>
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#verDetalleUsuario" text="Ver Detalle Usuario" fx:id="menuDetalle" />
-            <MenuItem mnemonicParsing="false" onAction="#verMultasUsuario" text="Ver Multas Usuario" fx:id="menuMultas" />
+            <MenuItem mnemonicParsing="false" onAction="#verDetalleUsuario" text="Ver Información Detallada del Usuario" fx:id="menuDetalle" />
+            <MenuItem mnemonicParsing="false" onAction="#verMultasUsuario" text="Ver Multas del Usuario" fx:id="menuMultas" />
           </items>
         </ContextMenu>
       </contextMenu>
@@ -157,6 +157,9 @@
       <stylesheets>
         <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
       </stylesheets>
+      <tooltip>
+        <Tooltip text="Iniciar búsqueda" />
+      </tooltip>
     </Button>
   </children>
 </AnchorPane>

@@ -39,7 +39,7 @@ public class ConfirmarUsuario extends ValidarUsuario {
         else if (!validarCampoTexto(apellido, 90)) {
            return false;
         }
-        else if (!validarCorreo(correo, 90)) {
+        else if (!validarCorreoNull(correo, 90)) {
             return false;
         }
         else if (grado == null) {
@@ -73,7 +73,7 @@ public class ConfirmarUsuario extends ValidarUsuario {
         else if (!validarCampoTexto(apellido, 90)) {
                 return false;
         }
-        else if (!validarCorreo(correo, 90)) {
+        else if (!validarCorreoNull(correo, 90)) {
                return false;
         }
         else if (!validarNumero(documento, 15)) {

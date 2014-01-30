@@ -83,16 +83,23 @@
                 </GridPane>
                 <Group id="Group" fx:id="grupoEditorial" layoutX="614.0" layoutY="23.0" scaleX="1.0" scaleY="1.0">
                   <children>
-                    <Label layoutY="8.0" text="Editorial:" />
+                    <Label layoutY="8.0" text="Editorial:">
+                      <font>
+                        <Font size="14.0" fx:id="x5" />
+                      </font>
+                    </Label>
                     <HBox fx:id="hboxEditorial" layoutX="74.0" layoutY="0.0" prefHeight="30.0" prefWidth="350.0">
                       <stylesheets>
                         <URL value="@css/estilo.css" />
                       </stylesheets>
                     </HBox>
-                    <Button fx:id="btnNuevaEditorial" defaultButton="true" focusTraversable="false" layoutX="443.0" layoutY="3.0" mnemonicParsing="false" onAction="#dialogoNuevaEditorial" prefHeight="24.999900000002526" prefWidth="120.0" text="Nueva Editorial">
+                    <Button fx:id="btnNuevaEditorial" defaultButton="true" focusTraversable="false" layoutX="443.0" layoutY="3.0" mnemonicParsing="false" onAction="#dialogoNuevaEditorial" prefHeight="25.0" prefWidth="130.0" text="Nueva Editorial">
                       <stylesheets>
                         <URL value="@css/estilo.css" />
                       </stylesheets>
+                      <tooltip>
+                        <Tooltip text="Permite registrar una nueva editorial" />
+                      </tooltip>
                     </Button>
                     <Label fx:id="validarEditorial" alignment="CENTER_RIGHT" layoutX="74.0" layoutY="36.0" prefWidth="349.0" text="" textFill="$x1" />
                   </children>
@@ -114,23 +121,27 @@
                                             <URL value="@css/estilo.css" />
                                           </stylesheets>
                                         </HBox>
-                                        <Label layoutX="-14.0" layoutY="2.0" prefWidth="32.9998779296875" text="Autor:" />
+                                        <Label font="$x5" layoutX="-14.0" layoutY="2.0" prefWidth="46.0" text="Autor:" />
                                         <Label fx:id="validarAutor" alignment="CENTER_RIGHT" layoutX="58.0" layoutY="43.0" prefWidth="348.0" text="" textFill="$x1" />
                                       </children>
                                     </Group>
-                                    <Button defaultButton="true" layoutX="467.0" layoutY="21.0" mnemonicParsing="false" onAction="#cargarNombreApellidoAutor" prefHeight="25.0" prefWidth="120.0" text="Seleccionar" />
+                                    <Button defaultButton="true" layoutX="467.0" layoutY="21.0" mnemonicParsing="false" onAction="#cargarNombreApellidoAutor" prefHeight="25.0" prefWidth="130.0" text="Seleccionar Autor" />
                                     <TableView fx:id="tablaAutores" layoutX="42.0" layoutY="108.0" prefHeight="50.0" prefWidth="405.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
                                       <columns>
                                         <TableColumn editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="197.0" text="Nombre" fx:id="clmnNombre" />
-                                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="192.0" text="Apellidos" fx:id="clmnApellidos" />
+                                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="192.0" text="Apellido" fx:id="clmnApellidos" />
                                       </columns>
                                     </TableView>
-                                    <Button defaultButton="true" layoutX="467.0" layoutY="108.0" mnemonicParsing="false" onAction="#removerAutor" prefHeight="25.0" prefWidth="120.0" text="Remover">
+                                    <Button defaultButton="true" layoutX="467.0" layoutY="108.0" mnemonicParsing="false" onAction="#removerAutor" prefHeight="25.0" prefWidth="130.0" text="Remover Autor">
                                       <stylesheets>
                                         <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </Button>
-                                    <Button id="registrarAutor" fx:id="btnNuevoAutor" defaultButton="true" layoutX="467.0" layoutY="63.0" mnemonicParsing="false" onAction="#dialogoNuevoAutor" prefHeight="25.0" prefWidth="120.0" text="Nuevo Autor" />
+                                    <Button id="registrarAutor" fx:id="btnNuevoAutor" defaultButton="true" layoutX="467.0" layoutY="63.0" mnemonicParsing="false" onAction="#dialogoNuevoAutor" prefHeight="25.0" prefWidth="130.0" text="Nuevo Autor">
+                                      <tooltip>
+                                        <Tooltip text="Permite registar un nuevo autor" />
+                                      </tooltip>
+                                    </Button>
                                   </children>
                                 </AnchorPane>
                               </content>
@@ -153,20 +164,24 @@
                               <content>
                                 <AnchorPane id="Content" fx:id="contenedorMaterias" minHeight="0.0" minWidth="0.0" prefHeight="264.0" prefWidth="625.0">
                                   <children>
-                                    <Label layoutX="19.0" layoutY="21.0" text="Materias:" />
+                                    <Label font="$x5" layoutX="19.0" layoutY="21.0" text="Materia:" />
                                     <HBox id="prueba" fx:id="hboxMaterias" alignment="CENTER" layoutX="100.0" layoutY="14.0" prefHeight="30.0" prefWidth="350.0" spacing="5.0">
                                       <stylesheets>
                                         <URL value="@css/estilo.css" />
                                       </stylesheets>
                                     </HBox>
-                                    <Button defaultButton="true" layoutX="464.0" layoutY="17.0" mnemonicParsing="false" onAction="#cargarNombreMateria" prefHeight="25.0" prefWidth="120.0" text="Seleccionar" />
+                                    <Button defaultButton="true" layoutX="464.0" layoutY="17.0" mnemonicParsing="false" onAction="#cargarNombreMateria" prefHeight="25.0" prefWidth="130.0" text="Seleccionar Materia" />
                                     <TableView fx:id="tablaMaterias" layoutX="86.0" layoutY="103.0" prefHeight="48.310638427734375" prefWidth="360.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
                                       <columns>
-                                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="344.0" text="Materia" fx:id="clmnNombreMateria" />
+                                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="344.0" text="Materias" fx:id="clmnNombreMateria" />
                                       </columns>
                                     </TableView>
-                                    <Button defaultButton="true" layoutX="464.0" layoutY="102.0" mnemonicParsing="false" onAction="#removerMateria" prefHeight="25.0" prefWidth="120.0" text="Remover" />
-                                    <Button id="registrarAutor" fx:id="btnNuevaMateria" defaultButton="true" layoutX="464.0" layoutY="59.0" mnemonicParsing="false" onAction="#dialogoNuevaMateria" prefHeight="25.0" prefWidth="120.0" text="Nueva Materia" />
+                                    <Button defaultButton="true" layoutX="464.0" layoutY="102.0" mnemonicParsing="false" onAction="#removerMateria" prefHeight="25.0" prefWidth="130.0" text="Remover Materia" />
+                                    <Button id="registrarAutor" fx:id="btnNuevaMateria" defaultButton="true" layoutX="464.0" layoutY="59.0" mnemonicParsing="false" onAction="#dialogoNuevaMateria" prefHeight="25.0" prefWidth="130.0" text="Nueva Materia">
+                                      <tooltip>
+                                        <Tooltip text="Permite registrar una nueva materia" />
+                                      </tooltip>
+                                    </Button>
                                     <Label fx:id="validarMateria" alignment="CENTER_RIGHT" layoutX="97.0" layoutY="64.0" prefWidth="350.0" text="" textFill="$x1" />
                                   </children>
                                 </AnchorPane>
@@ -258,23 +273,23 @@
                       <children>
                         <Group id="Group" fx:id="grupoMateriaOM" layoutX="7.0" layoutY="18.0">
                           <children>
-                            <Label layoutX="14.0" layoutY="4.0" text="Materias:" />
+                            <Label font="$x5" layoutX="14.0" layoutY="4.0" text="Materia:" />
                             <HBox fx:id="hboxMateriasOM" layoutX="84.0" layoutY="-5.0" prefHeight="30.0" prefWidth="350.0">
                               <stylesheets>
                                 <URL value="@css/estilo.css" />
                               </stylesheets>
                             </HBox>
-                            <Button defaultButton="true" layoutX="449.0" layoutY="-1.0" mnemonicParsing="false" onAction="#cargarNombreMateriaOM" prefHeight="25.0" prefWidth="120.0" text="Seleccionar" />
+                            <Button defaultButton="true" layoutX="449.0" layoutY="-1.0" mnemonicParsing="false" onAction="#cargarNombreMateriaOM" prefHeight="25.0" prefWidth="130.0" text="Seleccionar Materia" />
                             <Label id="validarMateria" fx:id="validarMateriaOM" alignment="CENTER_RIGHT" layoutX="103.0" layoutY="45.0" prefWidth="331.0" text="" textFill="$x1" />
                           </children>
                         </Group>
                         <TableView fx:id="tablaMateriasOM" layoutX="80.0" layoutY="101.0" prefHeight="50.0" prefWidth="360.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
                           <columns>
-                            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="344.0" text="Materia" fx:id="clmnNombreMateriaOM" />
+                            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="344.0" text="Materias" fx:id="clmnNombreMateriaOM" />
                           </columns>
                         </TableView>
-                        <Button id="registrarAutor" defaultButton="true" layoutX="456.0" layoutY="100.0" mnemonicParsing="false" onAction="#removerMateriaOM" prefHeight="25.0" prefWidth="120.0" text="Remover" />
-                        <Button id="registrarAutor" fx:id="btnNuevaMateriaOM" defaultButton="true" layoutX="456.0" layoutY="59.0" mnemonicParsing="false" onAction="#dialogoNuevaMateria" prefHeight="25.0" prefWidth="120.0" text="Nueva Materia" />
+                        <Button id="registrarAutor" defaultButton="true" layoutX="456.0" layoutY="100.0" mnemonicParsing="false" onAction="#removerMateriaOM" prefHeight="25.0" prefWidth="130.0" text="Remover Materia" />
+                        <Button id="registrarAutor" fx:id="btnNuevaMateriaOM" defaultButton="true" layoutX="456.0" layoutY="59.0" mnemonicParsing="false" onAction="#dialogoNuevaMateria" prefHeight="25.0" prefWidth="130.0" text="Nueva Materia" />
                       </children>
                     </AnchorPane>
                   </content>

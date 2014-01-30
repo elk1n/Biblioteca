@@ -33,31 +33,34 @@
       <stylesheets>
         <URL value="@css/estilo.css" />
       </stylesheets>
+      <tooltip>
+        <Tooltip text="Iniciar búsqueda" />
+      </tooltip>
     </Button>
     <HBox id="HBox" alignment="CENTER" layoutX="186.0" layoutY="78.0" spacing="20.0">
       <children>
-        <RadioButton fx:id="radioBuscar" mnemonicParsing="false" onAction="#buscarFiltrar" selected="true" text="Buscar">
+        <RadioButton fx:id="radioBuscar" mnemonicParsing="false" onAction="#buscarFiltrar" selected="true" text="Buscar Usuarios">
           <toggleGroup>
             <ToggleGroup fx:id="buscarFiltrar" />
           </toggleGroup>
         </RadioButton>
-        <RadioButton fx:id="radioFiltrar" mnemonicParsing="false" onAction="#buscarFiltrar" text="Filtrar" toggleGroup="$buscarFiltrar" />
+        <RadioButton fx:id="radioFiltrar" mnemonicParsing="false" onAction="#buscarFiltrar" text="Filtrar Usuarios" toggleGroup="$buscarFiltrar" />
       </children>
     </HBox>
-    <Button fx:id="btnDetalle" defaultButton="true" layoutX="599.0" layoutY="95.0" maxWidth="-1.0" mnemonicParsing="false" onAction="#dialogoDetalleUsuario" prefHeight="25.0" prefWidth="120.0" text="Detalle Usuario" />
+    <Button fx:id="btnDetalle" defaultButton="true" layoutX="569.0" layoutY="93.0" maxWidth="-1.0" mnemonicParsing="false" onAction="#dialogoDetalleUsuario" prefHeight="25.0" prefWidth="150.0" text="Ver Información Usuario" />
     <TableView fx:id="tablaUsuarios" layoutX="28.0" layoutY="129.0" onKeyTyped="#mapearUsuario" onMouseClicked="#mapearUsuario" prefHeight="374.0" prefWidth="691.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
       <columns>
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="105.0" text="Tipo de Usuario" fx:id="clmnTipo" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="95.0" text="Documento" fx:id="clmnDocumento" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="154.0" text="Nombre" fx:id="clmnNombre" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="154.0" text="Apellido" fx:id="clmnApellido" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="168.0" text="Correo Electrónico" fx:id="clmnCorreo" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="118.0" text="Tipo de Usuario" fx:id="clmnTipo" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="148.0" text="Código de Matrícula" fx:id="clmnDocumento" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="162.0" text="Nombre" fx:id="clmnNombre" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="157.0" text="Apellido" fx:id="clmnApellido" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="92.0" text="Teléfono" fx:id="clmnCorreo" />
       </columns>
       <contextMenu>
         <ContextMenu>
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#dialogoDetalleUsuario" text="Ver Detalle de Usuario" />
-            <MenuItem mnemonicParsing="false" onAction="#detalleMultas" text="Ver Multas" />
+            <MenuItem mnemonicParsing="false" onAction="#dialogoDetalleUsuario" text="Ver Información Detallada del Usuario" />
+            <MenuItem mnemonicParsing="false" onAction="#detalleMultas" text="Ver Multas del Usuario" />
           </items>
         </ContextMenu>
       </contextMenu>
@@ -67,7 +70,7 @@
         <Font name="System Bold" size="14.0" fx:id="x2" />
       </font>
     </Label>
-    <ScrollPane layoutX="749.0" layoutY="53.0" prefHeight="374.0" prefWidth="479.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
+    <ScrollPane layoutX="749.0" layoutY="53.0" prefHeight="366.0" prefWidth="479.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
       <content>
         <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="811.0" prefWidth="474.0">
           <children>
@@ -75,13 +78,13 @@
               <children>
                 <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                 <Label text="Apellidos:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                <Label text="Documento:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <Label text="Código de Matrícula:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                 <Label text="Correo Electrónico:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
                 <Label text="Teléfono:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
                 <Label text="Dirección:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
                 <TextField id="campoNombre" fx:id="txtfNombre" prefHeight="30.0" prefWidth="300.0" promptText="Nombre del usuario" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                 <TextField id="campoApellidos" fx:id="txtfApellido" prefHeight="30.0" prefWidth="300.0" promptText="Apellido del usuario" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <TextField id="campoDocumento" fx:id="txtfDocumento" prefHeight="30.0" prefWidth="300.0" promptText="Documento de identificación" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <TextField id="campoDocumento" fx:id="txtfDocumento" prefHeight="30.0" prefWidth="300.0" promptText="Código de Matrícula" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                 <TextField id="campoCorreo" fx:id="txtfCorreo" prefHeight="30.0" prefWidth="300.0" promptText="E-mail" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                 <TextField id="campoTelefono" fx:id="txtfTelefono" prefHeight="30.0" prefWidth="300.0" promptText="Teléfono" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                 <TextField id="campoDireccion" fx:id="txtfDireccion" prefHeight="30.0" prefWidth="300.0" promptText="Dirección" GridPane.columnIndex="1" GridPane.rowIndex="10" />
@@ -95,14 +98,14 @@
                 <Label id="validarCorreo" fx:id="lblCorreo" alignment="CENTER_RIGHT" prefWidth="339.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                 <Label id="validarTelefono" fx:id="lblTelefono" alignment="CENTER_RIGHT" prefWidth="339.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                 <Label id="validarDireccion" fx:id="lblDireccion" alignment="CENTER_RIGHT" prefWidth="351.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                <Label text="Grado:" GridPane.columnIndex="0" GridPane.rowIndex="12" />
-                <ComboBox id="comboCurso" fx:id="comboGrado" maxWidth="150.0" prefHeight="25.0" prefWidth="168.0" promptText="Grado" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="12">
+                <Label text="Curso:" GridPane.columnIndex="0" GridPane.rowIndex="12" />
+                <ComboBox id="comboCurso" fx:id="comboGrado" maxWidth="150.0" prefHeight="25.0" prefWidth="168.0" promptText="Curso" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="12">
                   <items>
                     <FXCollections fx:factory="observableArrayList" />
                   </items>
                 </ComboBox>
-                <Label text="Curso:" GridPane.columnIndex="0" GridPane.rowIndex="14" />
-                <ComboBox id="comboGrupo" fx:id="comboCurso" maxWidth="150.0" prefHeight="25.0" prefWidth="168.0" promptText="Curso" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="14">
+                <Label text="Grupo:" GridPane.columnIndex="0" GridPane.rowIndex="14" />
+                <ComboBox id="comboGrupo" fx:id="comboCurso" maxWidth="150.0" prefHeight="25.0" prefWidth="168.0" promptText="Grupo" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="14">
                   <items>
                     <FXCollections fx:factory="observableArrayList" />
                   </items>
@@ -166,7 +169,11 @@
     </ScrollPane>
     <HBox id="HBox" alignment="CENTER" layoutX="748.0" layoutY="477.0" spacing="240.0">
       <children>
-        <Button alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#detalleMultas" prefHeight="25.0" prefWidth="120.0" text="Ver Multas" />
+        <Button alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#detalleMultas" prefHeight="25.0" prefWidth="120.0" text="Ver Multas">
+          <tooltip>
+            <Tooltip text="Muestra las multas asociadas al usuario seleccionado" />
+          </tooltip>
+        </Button>
         <Button cancelButton="false" defaultButton="true" maxWidth="-1.0" mnemonicParsing="false" onAction="#guardarCambios" prefHeight="25.0" prefWidth="120.0" text="Guardar Cambios" />
       </children>
     </HBox>

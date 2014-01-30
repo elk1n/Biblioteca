@@ -17,9 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sabga.Sabga;
 import sabga.ScreensController;
-import sabga.atributos.Atributos;
 import sabga.atributos.Ejemplar;
-import sabga.atributos.Prestamo;
 import sabga.atributos.Reserva;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Dialogo;
@@ -63,7 +61,6 @@ public class VerReservasController implements Initializable, ControlledScreen {
     private final ObservableList<Ejemplar> listaEjemplares;
     private final Consultas consulta;
     private final Dialogo dialogo;
-    private final Atributos atributo;
 
     public VerReservasController() {
 
@@ -72,7 +69,6 @@ public class VerReservasController implements Initializable, ControlledScreen {
         listaEjemplares = FXCollections.observableArrayList();
         consulta = new Consultas();
         dialogo = new Dialogo();
-        atributo = new Atributos();
     }
 
     @FXML
@@ -146,7 +142,6 @@ public class VerReservasController implements Initializable, ControlledScreen {
             prepararTablaEjemplares();
             listaEjemplares.addAll(consulta.getListaDetalleReservas(listaReservas.get(tablaReserva.getSelectionModel().getSelectedIndex()).getId()));
             tablaEjemplar.setItems(listaEjemplares);
-            setDatosUsuario();
         }
     }
 
@@ -178,18 +173,11 @@ public class VerReservasController implements Initializable, ControlledScreen {
         listaEjemplares.clear();
     }
     
-    private void setDatosUsuario() {   
-        
-        atributo.setDocumentoUsuario(listaReservas.get(tablaReserva.getSelectionModel().getSelectedIndex()).getDocumento());
-        atributo.setNombreUsuario(listaReservas.get(tablaReserva.getSelectionModel().getSelectedIndex()).getNombre());
-        atributo.setApellidoUsuario(listaReservas.get(tablaReserva.getSelectionModel().getSelectedIndex()).getApellido());
-        atributo.setCorreoUsuario(listaReservas.get(tablaReserva.getSelectionModel().getSelectedIndex()).getCorreo());
-    }
-    
     private void detalleUsuario(){
         
         if(tablaReserva.getSelectionModel().getSelectedItem() != null){            
-            menuDetalle.setDisable(true);           
+            menuDetalle.setDisable(true);   
+            dialogo.setCodigoMatricula(listaReservas.get(tablaReserva.getSelectionModel().getSelectedIndex()).getDocumento());
             dialogo.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información del Usuario", null , null, 5);           
             menuDetalle.setDisable(false);  
         }else{
@@ -201,6 +189,7 @@ public class VerReservasController implements Initializable, ControlledScreen {
         
         if(tablaReserva.getSelectionModel().getSelectedItem() != null){            
             menuMultas.setDisable(true);
+            dialogo.setCodigoMatricula(listaReservas.get(tablaReserva.getSelectionModel().getSelectedIndex()).getDocumento());
             dialogo.mostrarDialogo("vista/dialogos/Multa.fxml", "Detalle Multas", null , null, 17);           
             menuMultas.setDisable(false); 
         }else{

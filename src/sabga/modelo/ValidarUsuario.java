@@ -56,7 +56,7 @@ public class ValidarUsuario extends Validacion {
         if (!validarCampoTexto(apellido, 90)) {
             this.errorApellido = getMensajeError();
         }
-        if (!validarCorreo(correo, 90)) {
+        if (!validarCorreoNull(correo, 90)) {
             this.errorCorreo = getMensajeError();
         }
         if (grado == null) {
@@ -87,7 +87,7 @@ public class ValidarUsuario extends Validacion {
         if (!validarCampoTexto(apellido, 90)) {
             this.errorApellido = getMensajeError();
         }
-        if (!validarCorreo(correo, 90)) {
+        if (!validarCorreoNull(correo, 90)) {
             this.errorCorreo = getMensajeError();
         }
         if (!validarNumero(documento, 15)) {

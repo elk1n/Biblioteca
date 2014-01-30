@@ -72,7 +72,6 @@ public class DevolucionController implements Initializable, ControlledScreen {
     private Calendar calendario;
     private final SimpleDateFormat formato;
     private final Dialogo dialogo;
-    private final Atributos atributos;
     
     public DevolucionController(){
        
@@ -90,7 +89,6 @@ public class DevolucionController implements Initializable, ControlledScreen {
        calendario = Calendar.getInstance();
        calendario = new GregorianCalendar();
        dialogo = new Dialogo();
-       atributos = new Atributos();
     
     }
     
@@ -337,6 +335,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
         if(tablaPrestamo.getSelectionModel().getSelectedItem() != null){            
             menuDetalle.setDisable(true);
             menuDetalle2.setDisable(true);
+            dialogo.setCodigoMatricula(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getDocumento());
             dialogo.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información del Usuario", null , null, 5);           
             menuDetalle.setDisable(false);  
             menuDetalle2.setDisable(false);
@@ -350,6 +349,7 @@ public class DevolucionController implements Initializable, ControlledScreen {
         if(tablaPrestamo.getSelectionModel().getSelectedItem() != null){            
             menuMultas.setDisable(true);
             menuMultas2.setDisable(true);
+            dialogo.setCodigoMatricula(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getDocumento());
             dialogo.mostrarDialogo("vista/dialogos/Multa.fxml", "Detalle Multas", null , null, 17);           
             menuMultas.setDisable(false); 
             menuMultas2.setDisable(false);            
@@ -374,10 +374,6 @@ public class DevolucionController implements Initializable, ControlledScreen {
         lblNombre.setText(consulta.getNombre());
         lblDocumento.setText(consulta.getDocumento());
         tablaDevolucion.setItems(listaEjemplares);
-        atributos.setDocumentoUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getDocumento());
-        atributos.setNombreUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getNombre());
-        atributos.setApellidoUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getApellido());
-        atributos.setCorreoUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getCorreo());
     
     }
     

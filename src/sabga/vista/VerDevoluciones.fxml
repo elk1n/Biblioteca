@@ -56,10 +56,10 @@
     </GridPane>
     <TableView id="tablaPrestamo" fx:id="tablaDevolucion" editable="true" layoutX="39.0" layoutY="107.0" onKeyTyped="#cargarEjemplar" onMouseClicked="#cargarEjemplar" prefHeight="218.0" prefWidth="1176.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
       <columns>
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="84.0" text="Documento" fx:id="clmnDocumento" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="144.0" text="Nombre" fx:id="clmnNombre" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="148.0" text="Código de Matrícula" fx:id="clmnDocumento" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="149.0" text="Nombre" fx:id="clmnNombre" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="173.0" text="Apellido" fx:id="clmnApellido" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="275.0" text="Nombre Bibliotecario" fx:id="clmnBibliotecario" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="206.0" text="Nombre Bibliotecario" fx:id="clmnBibliotecario" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="122.0" text="Fecha Reserva" fx:id="clmnFechaReserva" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="118.0" text="Fecha Préstamo" fx:id="clmnFechaPrestamo" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="128.0" text="Estado Préstamo" fx:id="clmnEstadoPrestamo" />
@@ -68,8 +68,8 @@
       <contextMenu>
         <ContextMenu>
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#verDetalleUsuario" text="Ver Detalle Usuario" fx:id="menuDetalle" />
-            <MenuItem mnemonicParsing="false" onAction="#verMultasUsuario" text="Ver Multas Usuario" fx:id="menuMultas" />
+            <MenuItem mnemonicParsing="false" onAction="#verDetalleUsuario" text="Ver Información Detallada del Usuario" fx:id="menuDetalle" />
+            <MenuItem mnemonicParsing="false" onAction="#verMultasUsuario" text="Ver Multas del Usuario" fx:id="menuMultas" />
           </items>
         </ContextMenu>
       </contextMenu>
@@ -102,6 +102,9 @@
       <stylesheets>
         <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
       </stylesheets>
+      <tooltip>
+        <Tooltip text="Iniciar búsqueda" />
+      </tooltip>
     </Button>
   </children>
 </AnchorPane>

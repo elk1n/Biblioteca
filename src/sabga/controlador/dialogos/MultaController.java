@@ -14,9 +14,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import sabga.atributos.Atributos;
 import sabga.atributos.Devolucion;
 import sabga.atributos.Multa;
+import sabga.atributos.Usuario;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.ConfirmarUsuario;
 import sabga.modelo.Consultas;
@@ -32,7 +32,7 @@ public class MultaController implements Initializable {
     
     private Stage dialogStage;
     @FXML
-    private Label lblNombre, lblDocumento, lblCorreo, lblMulta, lblValidar;
+    private Label lblNombre, lblDocumento, lblCorreo, lblMulta, lblValidar, lblCurso, lblGrupo, lblJornada;
     @FXML
     private TableView<Devolucion> tablaDevolucion, tablaDetalle;
     @FXML
@@ -45,10 +45,10 @@ public class MultaController implements Initializable {
     @FXML
     private TextField txtfMulta;
     
-    private final Atributos atributo;
     private final Consultas consulta;
     private final ObservableList<Devolucion> listaEjemplares, listaDevoluciones;
     private final ObservableList<Multa> listaPrestamos;
+    private final ObservableList<Usuario> datosUsuario;
       
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
@@ -56,11 +56,11 @@ public class MultaController implements Initializable {
 
     public MultaController(){
         
-        atributo = new Atributos();
         consulta = new Consultas();
         listaEjemplares = FXCollections.observableArrayList();
         listaPrestamos = FXCollections.observableArrayList();
         listaDevoluciones = FXCollections.observableArrayList();
+        datosUsuario = FXCollections.observableArrayList();
     }
     
     public void setTablaDetalle(){
@@ -72,15 +72,25 @@ public class MultaController implements Initializable {
         pagarMulta();
     }
     
-    private void detalleMulta(){
+    public void verMultasUsuario(String codigo_matricula){
+        
+        
+        datosUsuario.addAll(consulta.getDatosUsuarioMulta(2, codigo_matricula));
+        if (!datosUsuario.isEmpty()) {
+            lblDocumento.setText(codigo_matricula);
+            for (Usuario u : datosUsuario) {
+                lblNombre.setText(u.getTipo());
+                lblCorreo.setText(u.getDocumento());
+                lblCurso.setText(u.getNombre());
+                lblGrupo.setText(u.getApellido());
+                lblJornada.setText(u.getCorreo());
+            }
+        }
+        tabla(codigo_matricula);
     
-        lblNombre.setText(atributo.getNombreUsuario()+" "+atributo.getApellidoUsuario());
-        lblDocumento.setText(atributo.getDocumentoUsuario());
-        lblCorreo.setText(atributo.getCorreoUsuario());
-        tabla();
     }
-    
-    private void tabla(){
+        
+    private void tabla(String codigo_matricula){
          
         int multa=0;
         clmnDocumento.setCellValueFactory(new PropertyValueFactory<Multa, String>("documento"));
@@ -88,7 +98,7 @@ public class MultaController implements Initializable {
         clmnFecha.setCellValueFactory(new PropertyValueFactory<Multa, String>("fecha"));
         clmnEstado.setCellValueFactory(new PropertyValueFactory<Multa, String>("estado"));
         clmnValor.setCellValueFactory(new PropertyValueFactory<Multa, String>("valor"));
-        listaPrestamos.addAll(consulta.getMulta(Integer.parseInt(atributo.getDocumentoUsuario())));
+        listaPrestamos.addAll(consulta.getMulta(Integer.parseInt(codigo_matricula)));
         tablaPrestamo.setItems(listaPrestamos);
         for(Multa p: listaPrestamos){
             multa += p.getValor();
@@ -175,7 +185,7 @@ public class MultaController implements Initializable {
             listaPrestamos.clear();
             listaEjemplares.clear();
             listaDevoluciones.clear();
-            detalleMulta();
+            tabla(lblDocumento.getText());
             txtfMulta.clear();
         } else {
             Utilidades.mensajeError(null, consulta.getMensaje(), "La multa no pudo ser actualizada.", "Error Pago Multa");
@@ -190,7 +200,7 @@ public class MultaController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       detalleMulta();
+  
     }    
     
 }

@@ -36,18 +36,18 @@ public class ReporteController implements Initializable {
     private WebView webReportes;
     @FXML
     private RadioButton radioAllUsers, radioEstadoUsuario, radioListarGrado, radioTipoMaterial, radioAutor, radioMateria,
-                        radioEstadoPrestamos, radioFecha;
+                        radioEstadoPrestamos, radioFecha, radioEditorial;
     @FXML
     private ComboBox<String> comboListarUsuarios, comboEstadoUsuario, comboGrado, comboTipoMaterial, comboEstadoPrestamos;
     @FXML
-    private HBox hboxMaterias, hboxAutores, hboxFechaI, hboxFechaF;;
+    private HBox hboxMaterias, hboxAutores, hboxFechaI, hboxFechaF, hboxEditoriales;
     private final Reporte reportes;
     private String archivoJasper;
     Map<String,Object> parametroJasper;
     private boolean archivoCargado = false;
     private final Consultas consulta;
-    private final AutoFillTextBox<String> autores, materias;
-    private final ObservableList<String> listaBusquedaMaterias, listaBusquedaAutores;
+    private final AutoFillTextBox<String> autores, materias, editoriales;
+    private final ObservableList<String> listaBusquedaMaterias, listaBusquedaAutores, listaBusquedaEditoriales;
     private final DatePicker fechaInicio;
     private final DatePicker fechaFinal;
     private final SimpleDateFormat formato;
@@ -58,9 +58,11 @@ public class ReporteController implements Initializable {
         consulta = new Consultas();
         autores = new AutoFillTextBox<>();
         materias = new AutoFillTextBox<>();
+        editoriales = new AutoFillTextBox<>();
         parametroJasper = new HashMap<>();
         listaBusquedaAutores = FXCollections.observableArrayList();
         listaBusquedaMaterias = FXCollections.observableArrayList();
+        listaBusquedaEditoriales = FXCollections.observableArrayList();
         fechaInicio = new DatePicker();
         fechaFinal = new DatePicker();
         formato = new SimpleDateFormat("YYYY-MM-dd");
@@ -143,6 +145,7 @@ public class ReporteController implements Initializable {
     }
     
     private void reportesMaterial() {
+        
         parametroJasper.clear();
         if (radioTipoMaterial.isSelected() && comboTipoMaterial.getSelectionModel().getSelectedItem() != null) {
 
@@ -165,7 +168,12 @@ public class ReporteController implements Initializable {
                 crearReporte("sabga/reportes/ReporteMaterialXMateria.jasper", "ListadoMaterialPorMateria.html");
             }
         }
-
+        if (radioEditorial.isSelected() && editoriales.getTextbox().getText() != null) {
+            if (listaBusquedaEditoriales.indexOf(editoriales.getText()) != -1) {
+                parametroJasper.put("nombre_editorial", editoriales.getText());
+                crearReporte("sabga/reportes/ReporteMaterialXEditorial.jasper", "ListadoMaterialPorEditorial.html");
+            }
+        }
     }
     
     private void reportesUsuario() {
@@ -238,15 +246,20 @@ public class ReporteController implements Initializable {
         comboGrado.setItems(consulta.llenarLista(7));
         materias.setPrefSize(240, 30);
         autores.setPrefSize(240, 30);
+        editoriales.setPrefSize(240, 30);
         comboTipoMaterial.setItems(consulta.llenarLista(2));
         listaBusquedaMaterias.addAll(consulta.llenarLista(3));
         listaBusquedaAutores.addAll(consulta.llenarLista(12));
+        listaBusquedaEditoriales.addAll(consulta.llenarLista(4));
         materias.getTextbox().setPromptText("Buscar Materia");
         autores.getTextbox().setPromptText("Buscar Autor (nombre)");
+        editoriales.getTextbox().setPromptText("Buscar Editorial");
         materias.setData(listaBusquedaMaterias);
-        autores.setData(listaBusquedaAutores);  
+        autores.setData(listaBusquedaAutores);
+        editoriales.setData(listaBusquedaEditoriales);
         hboxMaterias.getChildren().add(materias);
         hboxAutores.getChildren().add(autores);
+        hboxEditoriales.getChildren().add(editoriales);
         hboxFechaI.getChildren().add(fechaInicio);
         hboxFechaF.getChildren().add(fechaFinal);
         

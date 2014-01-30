@@ -415,7 +415,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
                                             comboClaseMaterial.getSelectionModel().getSelectedItem().toString(),  
                                             editorial.getTextbox().getText(), txtfCodigoClasificacion.getText(), 
                                             txtfIsbn.getText(), txtfTitulo.getText(), txtfPublicacion.getText(),
-                                            Utilidades.setNumero(txtfAnio.getText()), Integer.parseInt(txtfPaginas.getText()));
+                                            Utilidades.setNumero(txtfAnio.getText()), Utilidades.setNumero(txtfPaginas.getText()));
                     if(consulta.getMensaje()==null){
                         limpiarCampos();
                         Utilidades.mensaje(null, "Los cambios se han guardado correctamente.", "", "Guardar Cambios");                        

@@ -77,7 +77,7 @@ public class ConfirmarMaterial extends ValidarMaterial {
             return false;
         } else if (!validarCampoTextoNull(publicacion, 255)) {
             return false;
-        } else if (!validarNumero(paginas, 10)) {
+        } else if (!validarNumeroNull(paginas, 10)) {
             return false;
         } else if (!validarNumero(ejemplares, 10)) {
             return false;
@@ -126,7 +126,7 @@ public class ConfirmarMaterial extends ValidarMaterial {
             return false;
         }else if (!validarCampoTextoNull(publicacion, 255)) {
             return false;
-        }else if (!validarNumero(paginas, 10)) {
+        }else if (!validarNumeroNull(paginas, 10)) {
             return false;
         }else if (!validarDatoArryList(editorial, editoriales)) {
             return false;

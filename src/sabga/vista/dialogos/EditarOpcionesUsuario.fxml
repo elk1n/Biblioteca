@@ -12,8 +12,8 @@
     <ComboBox fx:id="comboListar" layoutX="31.0" layoutY="26.0" onAction="#listar" prefHeight="25.0" prefWidth="170.0" promptText="Listar">
       <items>
         <FXCollections fx:factory="observableArrayList">
-          <String fx:value="Grados" />
           <String fx:value="Cursos" />
+          <String fx:value="Grupos" />
           <String fx:value="Jornadas" />
           <String fx:value="Tipos de Usuarios" />
         </FXCollections>

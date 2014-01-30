@@ -166,11 +166,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     public void dialogoMultasUsuario(){
         multasUsuario();
     }
-    
-    public void seleccionDeUsuario(){
-        seleccionarUsuario();
-    }
-    
+       
     public void listarEjemplar(){
         listarEjemplares();
     }
@@ -409,6 +405,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
             menuDetalleUsuario.setDisable(true);
             btnDetalleUsuario.setDisable(true);
+            dialogo.setCodigoMatricula(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
             dialogo.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información del Usuario", null , null, 5);           
             menuDetalleUsuario.setDisable(false);  
             btnDetalleUsuario.setDisable(false); 
@@ -422,6 +419,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
             menuMultas.setDisable(true);
             btnMultas.setDisable(true);
+            dialogo.setCodigoMatricula(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
             dialogo.mostrarDialogo("vista/dialogos/Multa.fxml", "Detalle Multas", null , null, 17);           
             menuMultas.setDisable(false); 
             btnMultas.setDisable(false);
@@ -429,17 +427,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
             Utilidades.mensaje(null, "Debe seleccionar un usuario. ", "", "Selección Usuario");
         }
     }
-      
-    private void seleccionarUsuario(){
-        
-        if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
-            atributos.setDocumentoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
-            atributos.setNombreUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getNombre());
-            atributos.setApellidoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getApellido());
-            atributos.setCorreoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getCorreo());   
-        }    
-    }
-    
+          
     @FXML
     public void ventanaRegistroMaterial(){        
         ventanaPrincipal.cargarVista("paginaRegistroMaterial", "vista/RegistroMaterial.fxml");
@@ -627,12 +615,12 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
     
     @FXML
     public void dialogoNuevoGrado(ActionEvent evento){
-        dialogo.mostrarDialogo("vista/dialogos/NuevoGrado.fxml", "Nuevo Grado", ventanaPrincipal.getPrimaryStage(), null, 10);
+        dialogo.mostrarDialogo("vista/dialogos/NuevoGrado.fxml", "Nuevo Curso", ventanaPrincipal.getPrimaryStage(), null, 10);
     }
     
     @FXML
     public void dialogoNuevoCurso(ActionEvent evento){
-        dialogo.mostrarDialogo("vista/dialogos/NuevoCurso.fxml", "Nuevo Curso", ventanaPrincipal.getPrimaryStage(), null, 11);
+        dialogo.mostrarDialogo("vista/dialogos/NuevoCurso.fxml", "Nuevo Grupo", ventanaPrincipal.getPrimaryStage(), null, 11);
     }
     
     @FXML
@@ -762,8 +750,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
                 }
                 if(resultado){
                     consulta.setEstadoCorreos(0);
-                }
-                
+                }                
             }
         }  
     }
@@ -813,7 +800,7 @@ public class PaginaPrincipalController implements Initializable, ControlledScree
         panelInicio.setVisible(true);
         panelBusqueda.setDisable(true);
         panelBusqueda.setVisible(false);
-        enviarCorreos();
+       // enviarCorreos();
         tipoUsuario();
     }
     

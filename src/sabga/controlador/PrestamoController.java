@@ -79,7 +79,6 @@ public class PrestamoController implements Initializable, ControlledScreen{
     private MenuItem detalleUsuario, multasUsuario, detalleUsuario2, multasUsuario2;
     private final DatePicker fechaDevolucion;
     private final Consultas consulta;
-    private final Atributos atributo;
     private final ObservableList<Material> listaMaterial;
     private final ObservableList<Ejemplar> listaEjemplares;
     private final ObservableList<Usuario> listaUsuarios;
@@ -111,7 +110,6 @@ public class PrestamoController implements Initializable, ControlledScreen{
        listaDeReservas = FXCollections.observableArrayList();
        consulta = new Consultas();
        dialogos = new Dialogo(); 
-       atributo = new Atributos();
     }
     
     @FXML
@@ -253,10 +251,6 @@ public class PrestamoController implements Initializable, ControlledScreen{
             lblDireccion.setText(consulta.getDireccion());
             lblTelefono.setText(consulta.getTelefono());
             lblMulta.setText(String.valueOf(consulta.getMulta()));
-            atributo.setDocumentoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
-            atributo.setNombreUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getNombre());
-            atributo.setApellidoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getApellido());
-            atributo.setCorreoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getCorreo());   
             if (listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getEstado().equals("Habilitado")) {
                 if (consulta.getMulta() > 0) {
                     Utilidades.mensajeOpcion(null, "Desea continuar con el prestamo?", "El usuario se encuentra multado.", "Seleccionar Usuario");
@@ -541,6 +535,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
         if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
             detalleUsuario.setDisable(true);
             detalleUsuario2.setDisable(true);
+            dialogos.setCodigoMatricula(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
             dialogos.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información del Usuario", null , null, 5);           
             detalleUsuario.setDisable(false);
             detalleUsuario2.setDisable(false);
@@ -554,6 +549,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
         if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
             multasUsuario.setDisable(true);
             multasUsuario2.setDisable(true);
+            dialogos.setCodigoMatricula(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
             dialogos.mostrarDialogo("vista/dialogos/Multa.fxml", "Detalle Multas", null , null, 17);           
             multasUsuario.setDisable(false);
             multasUsuario2.setDisable(false);

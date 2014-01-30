@@ -17,7 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sabga.Sabga;
 import sabga.ScreensController;
-import sabga.atributos.Atributos;
 import sabga.atributos.Devolucion;
 import sabga.atributos.Ejemplar;
 import sabga.atributos.Multa;
@@ -67,8 +66,7 @@ public class VerMultasController implements Initializable, ControlledScreen {
     private final ObservableList<Devolucion> listaDevoluciones;
     private final Consultas consulta;
     private final Dialogo dialogo;
-    private final Atributos atributo;
-
+    
     public VerMultasController() {
 
         multas = FXCollections.observableArrayList();
@@ -77,7 +75,6 @@ public class VerMultasController implements Initializable, ControlledScreen {
         listaDevoluciones = FXCollections.observableArrayList();
         consulta = new Consultas();
         dialogo = new Dialogo();
-        atributo = new Atributos();
     }
 
     @FXML
@@ -150,7 +147,7 @@ public class VerMultasController implements Initializable, ControlledScreen {
             tablaEjemplar.setItems(listaEjemplares);
             tablaDevolucion.setItems(listaDevoluciones);
             txtfMulta.setText(String.valueOf(listaMultas.get(tablaMultas.getSelectionModel().getSelectedIndex()).getValor()));
-            setDatosUsuario();
+       
         }
     }
 
@@ -285,18 +282,11 @@ public class VerMultasController implements Initializable, ControlledScreen {
         }
     }
 
-    private void setDatosUsuario() {
-
-        atributo.setDocumentoUsuario(listaMultas.get(tablaMultas.getSelectionModel().getSelectedIndex()).getIdentificacion());
-        atributo.setNombreUsuario(listaMultas.get(tablaMultas.getSelectionModel().getSelectedIndex()).getNombre());
-        atributo.setApellidoUsuario(listaMultas.get(tablaMultas.getSelectionModel().getSelectedIndex()).getApellido());
-        atributo.setCorreoUsuario(listaMultas.get(tablaMultas.getSelectionModel().getSelectedIndex()).getCorreo());
-    }
-
     private void detalleUsuario() {
 
         if (tablaMultas.getSelectionModel().getSelectedItem() != null) {
             menuDetalle.setDisable(true);
+            dialogo.setCodigoMatricula(listaMultas.get(tablaMultas.getSelectionModel().getSelectedIndex()).getIdentificacion());
             dialogo.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información del Usuario", null, null, 5);
             menuDetalle.setDisable(false);
         } else {
@@ -308,6 +298,7 @@ public class VerMultasController implements Initializable, ControlledScreen {
 
         if (tablaMultas.getSelectionModel().getSelectedItem() != null) {
             menuMultas.setDisable(true);
+            dialogo.setCodigoMatricula(listaMultas.get(tablaMultas.getSelectionModel().getSelectedIndex()).getIdentificacion());
             dialogo.mostrarDialogo("vista/dialogos/Multa.fxml", "Detalle Multas", null, null, 17);
             menuMultas.setDisable(false);
         } else {

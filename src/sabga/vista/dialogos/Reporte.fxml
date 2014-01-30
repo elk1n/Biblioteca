@@ -19,10 +19,9 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="595.9999000000025" prefWidth="300.0">
               <children>
-                <Button defaultButton="true" layoutX="166.0" layoutY="554.0" mnemonicParsing="false" onAction="#generarReportesMaterial" prefHeight="25.0" prefWidth="120.0" text="Generar Reporte" />
-                <GridPane id="GridPane" layoutX="21.0" layoutY="14.0" prefHeight="223.0" prefWidth="268.0">
+                <GridPane id="GridPane" layoutX="21.0" layoutY="14.0" prefHeight="303.0" prefWidth="268.0">
                   <children>
-                    <RadioButton fx:id="radioTipoMaterial" mnemonicParsing="false" text="Listar Material Por Tipo" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <RadioButton fx:id="radioTipoMaterial" mnemonicParsing="false" text="Listar Material Por Tipo:" GridPane.columnIndex="0" GridPane.rowIndex="0">
                       <toggleGroup>
                         <ToggleGroup fx:id="material" />
                       </toggleGroup>
@@ -35,21 +34,32 @@
                         <Insets left="25.0" fx:id="x3" />
                       </GridPane.margin>
                     </ComboBox>
-                    <RadioButton fx:id="radioTipoMaterial" mnemonicParsing="false" text="Listar Material Por Tipo" toggleGroup="$material" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                    <RadioButton fx:id="radioAutor" mnemonicParsing="false" text="Listar Material Por Autor" toggleGroup="$material" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <RadioButton fx:id="radioAutor" mnemonicParsing="false" text="Listar Material Por Autor:" toggleGroup="$material" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                     <HBox id="hboxAutor" fx:id="hboxAutores" minHeight="30.0" prefHeight="30.0" prefWidth="-1.0" styleClass="autofill-text" GridPane.columnIndex="0" GridPane.rowIndex="3">
                       <stylesheets>
                         <URL value="@../css/estilo.css" />
                       </stylesheets>
                       <GridPane.margin>
-                        <Insets left="25.0" fx:id="x3" />
+                        <Insets left="25.0" fx:id="x9" />
                       </GridPane.margin>
                     </HBox>
-                    <RadioButton fx:id="radioMateria" mnemonicParsing="false" text="Listar Material Por Materias" toggleGroup="$material" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                    <HBox id="hboxAutor" fx:id="hboxMaterias" minHeight="30.0" prefHeight="30.0" prefWidth="-1.0" styleClass="autofill-text" GridPane.columnIndex="0" GridPane.margin="$x3" GridPane.rowIndex="5">
+                    <RadioButton fx:id="radioMateria" mnemonicParsing="false" text="Listar Material Por Materia:" toggleGroup="$material" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                    <HBox id="hboxAutor" fx:id="hboxMaterias" minHeight="30.0" prefHeight="30.0" prefWidth="-1.0" styleClass="autofill-text" GridPane.columnIndex="0" GridPane.rowIndex="5">
                       <stylesheets>
                         <URL value="@../css/estilo.css" />
                       </stylesheets>
+                      <GridPane.margin>
+                        <Insets left="25.0" fx:id="x15" />
+                      </GridPane.margin>
+                    </HBox>
+                    <RadioButton fx:id="radioEditorial" mnemonicParsing="false" text="Listar Material Por Editorial:" toggleGroup="$material" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                    <HBox id="hboxAutor" fx:id="hboxEditoriales" minHeight="30.0" prefHeight="30.0" prefWidth="-1.0" styleClass="autofill-text" GridPane.columnIndex="0" GridPane.rowIndex="7">
+                      <stylesheets>
+                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                      </stylesheets>
+                      <GridPane.margin>
+                        <Insets left="25.0" fx:id="x18" />
+                      </GridPane.margin>
                     </HBox>
                   </children>
                   <columnConstraints>
@@ -62,8 +72,11 @@
                     <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                     <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                     <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                 </GridPane>
+                <Button defaultButton="true" layoutX="166.0" layoutY="554.0" mnemonicParsing="false" onAction="#generarReportesMaterial" prefHeight="25.0" prefWidth="120.0" text="Generar Reporte" />
               </children>
             </AnchorPane>
           </content>
@@ -80,7 +93,7 @@
               <children>
                 <GridPane id="GridPane" layoutX="22.0" layoutY="22.0" prefHeight="217.0">
                   <children>
-                    <RadioButton fx:id="radioAllUsers" mnemonicParsing="false" text="Listar Usuarios Por Tipo" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <RadioButton fx:id="radioAllUsers" mnemonicParsing="false" text="Listar Usuarios Por Tipo:" GridPane.columnIndex="0" GridPane.rowIndex="0">
                       <toggleGroup>
                         <ToggleGroup fx:id="usuarios" />
                       </toggleGroup>
@@ -88,22 +101,31 @@
                         <Insets fx:id="x5" />
                       </GridPane.margin>
                     </RadioButton>
-                    <ComboBox id="comboListarUsuario" fx:id="comboListarUsuarios" prefHeight="25.0" prefWidth="120.0" promptText="Tipos de Usuario" GridPane.columnIndex="0" GridPane.margin="$x3" GridPane.rowIndex="1">
+                    <ComboBox id="comboListarUsuario" fx:id="comboListarUsuarios" prefHeight="25.0" prefWidth="120.0" promptText="Tipos de Usuario" GridPane.columnIndex="0" GridPane.rowIndex="1">
                       <items>
                         <FXCollections fx:factory="observableArrayList" />
                       </items>
+                      <GridPane.margin>
+                        <Insets left="25.0" fx:id="x21" />
+                      </GridPane.margin>
                     </ComboBox>
-                    <RadioButton fx:id="radioEstadoUsuario" mnemonicParsing="false" text="Listar Usuarios Por Estado" toggleGroup="$usuarios" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                    <ComboBox id="comboListarUsuario" fx:id="comboEstadoUsuario" prefHeight="25.0" prefWidth="120.0" promptText="Estado Usuario" GridPane.columnIndex="0" GridPane.margin="$x3" GridPane.rowIndex="3">
+                    <RadioButton fx:id="radioEstadoUsuario" mnemonicParsing="false" text="Listar Usuarios Por Estado:" toggleGroup="$usuarios" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <ComboBox id="comboListarUsuario" fx:id="comboEstadoUsuario" prefHeight="25.0" prefWidth="120.0" promptText="Estados Usuario" GridPane.columnIndex="0" GridPane.rowIndex="3">
                       <items>
                         <FXCollections fx:factory="observableArrayList" />
                       </items>
+                      <GridPane.margin>
+                        <Insets left="25.0" fx:id="x23" />
+                      </GridPane.margin>
                     </ComboBox>
-                    <RadioButton id="comboListarGrado" fx:id="radioListarGrado" mnemonicParsing="false" text="Listar Por Grado" toggleGroup="$usuarios" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                    <ComboBox id="comboListarUsuario" fx:id="comboGrado" prefHeight="25.0" prefWidth="120.0" promptText="Grado" GridPane.columnIndex="0" GridPane.margin="$x3" GridPane.rowIndex="5">
+                    <RadioButton id="comboListarGrado" fx:id="radioListarGrado" mnemonicParsing="false" text="Listar Por Curso:" toggleGroup="$usuarios" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                    <ComboBox id="comboListarUsuario" fx:id="comboGrado" prefHeight="25.0" prefWidth="120.0" promptText="Cursos" GridPane.columnIndex="0" GridPane.rowIndex="5">
                       <items>
                         <FXCollections fx:factory="observableArrayList" />
                       </items>
+                      <GridPane.margin>
+                        <Insets left="25.0" fx:id="x26" />
+                      </GridPane.margin>
                     </ComboBox>
                   </children>
                   <columnConstraints>
@@ -123,31 +145,30 @@
             </AnchorPane>
           </content>
         </TitledPane>
-        <TitledPane animated="false" expanded="false" font="$x1" text="Préstamos">
+        <TitledPane fx:id="x6" animated="false" expanded="false" font="$x1" text="Préstamos">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <Button defaultButton="true" layoutX="166.0" layoutY="554.0" mnemonicParsing="false" onAction="#generarReportePrestamos" prefHeight="25.0" prefWidth="120.0" text="Generar Reporte" />
                 <GridPane id="GridPane" layoutX="23.0" layoutY="20.0" prefHeight="239.0" prefWidth="256.0">
                   <children>
-                    <RadioButton fx:id="radioEstadoPrestamos" mnemonicParsing="false" text="Listar Prestamos Por Estado" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <RadioButton fx:id="radioEstadoPrestamos" mnemonicParsing="false" text="Listar Prestamos Por Estado:" GridPane.columnIndex="0" GridPane.rowIndex="0">
                       <toggleGroup>
                         <ToggleGroup fx:id="prestamos" />
                       </toggleGroup>
                     </RadioButton>
-                    <ComboBox id="comboListarUsuario" fx:id="comboEstadoPrestamos" prefHeight="25.0" prefWidth="132.0" promptText="Estado Prestamo" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <ComboBox id="comboListarUsuario" fx:id="comboEstadoPrestamos" prefHeight="25.0" prefWidth="132.0" promptText="Estados Préstamo" GridPane.columnIndex="0" GridPane.rowIndex="1">
                       <items>
                         <FXCollections fx:factory="observableArrayList" />
                       </items>
                       <GridPane.margin>
-                        <Insets left="25.0" fx:id="x3" />
+                        <Insets left="25.0" fx:id="x29" />
                       </GridPane.margin>
                     </ComboBox>
-                    <RadioButton fx:id="radioFecha" mnemonicParsing="false" text="Listar Prestamos Por Fecha" toggleGroup="$prestamos" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <RadioButton fx:id="radioFecha" mnemonicParsing="false" text="Listar Préstamos Por Fecha:" toggleGroup="$prestamos" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                     <Label text="Fecha Inicial:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
                     <HBox id="hbox" fx:id="hboxFechaI" prefHeight="35.0" prefWidth="256.0" GridPane.columnIndex="0" GridPane.margin="$x3" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                       <padding>
-                        <Insets fx:id="x5" />
+                        <Insets fx:id="x25" />
                       </padding>
                     </HBox>
                     <Label text="Fecha Final:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
@@ -166,6 +187,7 @@
                     <RowConstraints maxHeight="30.0" minHeight="10.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                 </GridPane>
+                <Button defaultButton="true" layoutX="166.0" layoutY="554.0" mnemonicParsing="false" onAction="#generarReportePrestamos" prefHeight="25.0" prefWidth="120.0" text="Generar Reporte" />
               </children>
             </AnchorPane>
           </content>

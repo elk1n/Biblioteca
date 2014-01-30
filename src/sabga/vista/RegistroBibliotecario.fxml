@@ -65,8 +65,8 @@
         <Label text="Teléfono:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
         <TextField id="mailTF" fx:id="campoCorreo" prefHeight="30.0" prefWidth="250.0" promptText="E-mail" GridPane.columnIndex="1" GridPane.rowIndex="0" />
         <Label fx:id="validarTelefono" alignment="CENTER_RIGHT" prefWidth="300.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-        <Label text="Documento:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <TextField id="documentoTF" fx:id="campoDocumento" prefHeight="30.0" prefWidth="250.0" promptText="Documento de identidad" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Label fx:id="lblCodigoMatricula" text="Código de Matrícula:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField id="documentoTF" fx:id="campoDocumento" prefHeight="30.0" prefWidth="250.0" promptText="Código de Mátricula o documento de identidad" GridPane.columnIndex="1" GridPane.rowIndex="2" />
         <TextField id="telefonoTF" fx:id="campoTelefono" prefHeight="30.0" prefWidth="250.0" promptText="Teléfono fijo o móvil" GridPane.columnIndex="1" GridPane.rowIndex="4" />
         <Label fx:id="validarDocumento" alignment="CENTER_RIGHT" prefWidth="300.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
         <Label fx:id="validarCorreo" alignment="CENTER_RIGHT" prefWidth="300.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />

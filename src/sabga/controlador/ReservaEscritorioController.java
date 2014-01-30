@@ -20,7 +20,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import sabga.Sabga;
 import sabga.ScreensController;
-import sabga.atributos.Atributos;
 import sabga.atributos.Ejemplar;
 import sabga.atributos.Material;
 import sabga.atributos.Prestamo;
@@ -70,7 +69,6 @@ public class ReservaEscritorioController implements Initializable, ControlledScr
     private String titulo, codigoClasificacion, tipoUsuario;  
     private final Consultas consulta;
     private final Dialogo dialogos;
-    private final Atributos atributo;
     private ValidarMaterial validarReserva;
     private ConfirmarMaterial confirmarMaterial;
     private final ObservableList<Material> listaMaterial;
@@ -82,7 +80,6 @@ public class ReservaEscritorioController implements Initializable, ControlledScr
         
         consulta = new Consultas();
         dialogos = new Dialogo();
-        atributo = new Atributos();
         listaReserva = FXCollections.observableArrayList();
         listaMaterial = FXCollections.observableArrayList();
         listaEjemplares = FXCollections.observableArrayList();
@@ -243,10 +240,6 @@ public class ReservaEscritorioController implements Initializable, ControlledScr
         lblDireccion.setText(consulta.getDireccion());
         lblTelefono.setText(consulta.getTelefono());
         lblMulta.setText(String.valueOf(consulta.getMulta()));
-        atributo.setDocumentoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
-        atributo.setNombreUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getNombre());
-        atributo.setApellidoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getApellido());
-        atributo.setCorreoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getCorreo());
     }
     
     private void buscarUsuario(){
@@ -367,6 +360,7 @@ public class ReservaEscritorioController implements Initializable, ControlledScr
         if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
             detalleUsuario.setDisable(true);
             detalleUsuario2.setDisable(true);
+            dialogos.setCodigoMatricula(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
             dialogos.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información del Usuario", null , null, 5);           
             detalleUsuario.setDisable(false);
             detalleUsuario2.setDisable(false);
@@ -380,6 +374,7 @@ public class ReservaEscritorioController implements Initializable, ControlledScr
         if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
             multasUsuario.setDisable(true);
             multasUsuario2.setDisable(true);
+            dialogos.setCodigoMatricula(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
             dialogos.mostrarDialogo("vista/dialogos/Multa.fxml", "Detalle Multas", null , null, 17);           
             multasUsuario.setDisable(false);
             multasUsuario2.setDisable(false);

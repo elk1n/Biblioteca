@@ -38,7 +38,7 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
     private Button botonCancelar, botonGuardarUsuario;   
     @FXML 
     private Label lblNombre, lblApellido, lblGrado, lblCurso, lblCorreo, lblDocumento, lblJornada,
-                  lblTelefono, lblDireccion, etiquetaCurso, etiquetaGrupo, etiquetaJornada;
+                  lblTelefono, lblDireccion, etiquetaCurso, etiquetaGrupo, etiquetaJornada, lblMatricula;
     private final Consultas consulta;
          
     public RegistroUsuarioController() {
@@ -158,7 +158,9 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
             comboJornada.setVisible(true);
             lblJornada.setVisible(true);
             botonCancelar.setVisible(true);
-            botonGuardarUsuario.setVisible(true);                       
+            botonGuardarUsuario.setVisible(true);
+            lblMatricula.setText("Código de Matrícula:");
+            txtfDocumento.setPromptText("Código de Matrícula");
         }
         else{
             
@@ -176,7 +178,9 @@ public class RegistroUsuarioController implements Initializable, ControlledScree
             gridRegistrar1.setLayoutY(comboTipoUsuario.getLayoutY()+150);
             gridRegistrar2.setLayoutY(comboTipoUsuario.getLayoutY()+82);
             botonCancelar.setVisible(true);
-            botonGuardarUsuario.setVisible(true);            
+            botonGuardarUsuario.setVisible(true);
+            lblMatricula.setText("Documento:");
+            txtfDocumento.setPromptText("Documento de Identificación");
         }
     }
     

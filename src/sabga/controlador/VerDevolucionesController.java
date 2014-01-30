@@ -18,7 +18,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sabga.Sabga;
 import sabga.ScreensController;
-import sabga.atributos.Atributos;
 import sabga.atributos.Devolucion;
 import sabga.atributos.Ejemplar;
 import sabga.configuracion.ControlledScreen;
@@ -61,7 +60,6 @@ public class VerDevolucionesController implements Initializable, ControlledScree
     private final ObservableList<Ejemplar> listaEjemplares;
     private final Consultas consulta;
     private final Dialogo dialogo;
-    private final Atributos atributo;
     
     public VerDevolucionesController(){
     
@@ -70,7 +68,6 @@ public class VerDevolucionesController implements Initializable, ControlledScree
         listaEjemplares = FXCollections.observableArrayList();
         consulta = new Consultas();
         dialogo = new Dialogo();
-        atributo = new Atributos();
     }
     
     @FXML
@@ -144,7 +141,6 @@ public class VerDevolucionesController implements Initializable, ControlledScree
                                    listaDevoluciones.get(tablaDevolucion.getSelectionModel().getSelectedIndex()).getIdDevolucion(),
                                    listaDevoluciones.get(tablaDevolucion.getSelectionModel().getSelectedIndex()).getIdPrestamo()));
             tablaEjemplar.setItems(listaEjemplares);
-            setDatosUsuario();
         }
     }
     
@@ -175,18 +171,11 @@ public class VerDevolucionesController implements Initializable, ControlledScree
         listaEjemplares.clear();    
     }
     
-    private void setDatosUsuario() {   
-        
-        atributo.setDocumentoUsuario(listaDevoluciones.get(tablaDevolucion.getSelectionModel().getSelectedIndex()).getDocumento());
-        atributo.setNombreUsuario(listaDevoluciones.get(tablaDevolucion.getSelectionModel().getSelectedIndex()).getNombre());
-        atributo.setApellidoUsuario(listaDevoluciones.get(tablaDevolucion.getSelectionModel().getSelectedIndex()).getApellido());
-        atributo.setCorreoUsuario(listaDevoluciones.get(tablaDevolucion.getSelectionModel().getSelectedIndex()).getCorreo());
-    }
-
     private void detalleUsuario(){
         
         if(tablaDevolucion.getSelectionModel().getSelectedItem() != null){            
-            menuDetalle.setDisable(true);           
+            menuDetalle.setDisable(true);
+            dialogo.setCodigoMatricula(listaDevoluciones.get(tablaDevolucion.getSelectionModel().getSelectedIndex()).getDocumento());
             dialogo.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información del Usuario", null , null, 5);           
             menuDetalle.setDisable(false);  
         }else{
@@ -198,6 +187,7 @@ public class VerDevolucionesController implements Initializable, ControlledScree
         
         if(tablaDevolucion.getSelectionModel().getSelectedItem() != null){            
             menuMultas.setDisable(true);
+            dialogo.setCodigoMatricula(listaDevoluciones.get(tablaDevolucion.getSelectionModel().getSelectedIndex()).getDocumento());
             dialogo.mostrarDialogo("vista/dialogos/Multa.fxml", "Detalle Multas", null , null, 17);           
             menuMultas.setDisable(false); 
         }else{

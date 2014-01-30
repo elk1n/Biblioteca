@@ -66,15 +66,12 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     private final ObservableList<Usuario> filtrarUsuarios;
     private final ObservableList<String> estados;
     private final Dialogo dialogos;
-    private final Atributos atributo;
-    
-   
+       
     public EditarUsuarioController(){
         
         dialogo = new Dialogo();
         consulta = new Consultas();
         dialogos = new Dialogo();
-        atributo = new Atributos();
         estados = FXCollections.observableArrayList();
         listaUsuarios = FXCollections.observableArrayList();
         filtrarUsuarios = FXCollections.observableArrayList();
@@ -117,6 +114,7 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
         
         if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
             panelFondo.setDisable(true);
+            dialogos.setCodigoMatricula(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
             dialogos.mostrarDialogo("vista/dialogos/Multa.fxml", "Detalle Multas", null , null, 17);           
             panelFondo.setDisable(false);     
         }else{
@@ -202,10 +200,6 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
             comboJornada.getSelectionModel().select(consulta.getJornada());
             comboTipo.getSelectionModel().select(consulta.getTipoUsuario());
             comboEstado.getSelectionModel().select(consulta.getEstado());
-            atributo.setNombreUsuario(consulta.getNombre());
-            atributo.setApellidoUsuario(consulta.getApellido());
-            atributo.setDocumentoUsuario(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
-            atributo.setCorreoUsuario(consulta.getCorreo());            
         }
     }
     
@@ -349,6 +343,7 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
         
         if(tablaUsuarios.getSelectionModel().getSelectedItem() != null){            
             panelFondo.setDisable(true);
+            dialogos.setCodigoMatricula(listaUsuarios.get(tablaUsuarios.getSelectionModel().getSelectedIndex()).getDocumento());
             dialogos.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información del Usuario", null , null, 5);           
             panelFondo.setDisable(false);     
         }else{

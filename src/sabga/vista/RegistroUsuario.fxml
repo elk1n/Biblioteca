@@ -38,19 +38,19 @@
             <Color blue="0.000" green="0.000" red="0.600" fx:id="x1" />
           </textFill>
         </Label>
-        <Label text="Apellidos:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label text="Apellido:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
         <TextField id="apellidoTF" fx:id="txtfApellido" prefHeight="30.0" prefWidth="250.0" promptText="Apellidos del usuario" GridPane.columnIndex="1" GridPane.rowIndex="2" />
         <Label id="validarApellidos" fx:id="lblApellido" alignment="CENTER_RIGHT" prefWidth="295.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <Label fx:id="etiquetaCurso" text="Grado:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <Label fx:id="etiquetaCurso" text="Curso:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
         <TextField id="mailTF" fx:id="txtfCorreo" prefHeight="30.0" prefWidth="250.0" promptText="E-mail" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-        <ComboBox id="cursoCB" fx:id="comboGrado" prefHeight="25.0" prefWidth="158.0" promptText="Seleccione un Grado" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+        <ComboBox id="cursoCB" fx:id="comboGrado" prefHeight="25.0" prefWidth="158.0" promptText="Seleccione un Curso" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
           <items>
             <FXCollections fx:factory="observableArrayList" />
           </items>
         </ComboBox>
         <Label id="validarCurso" fx:id="lblGrado" alignment="CENTER_RIGHT" prefWidth="295.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-        <Label fx:id="etiquetaGrupo" text="Curso:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
-        <ComboBox id="grupoCB" fx:id="comboCurso" prefHeight="25.0" prefWidth="158.0" promptText="Seleccione un Curso" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
+        <Label fx:id="etiquetaGrupo" text="Grupo:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+        <ComboBox id="grupoCB" fx:id="comboCurso" prefHeight="25.0" prefWidth="158.0" promptText="Seleccione un Grupo" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
           <items>
             <FXCollections fx:factory="observableArrayList" />
           </items>
@@ -78,7 +78,7 @@
     </GridPane>
     <GridPane id="camposG" fx:id="gridRegistrar2" layoutY="110.0" prefHeight="282.0" prefWidth="418.0" visible="true" AnchorPane.rightAnchor="140.0">
       <children>
-        <Label text="Documento:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label id="lblDocumento" fx:id="lblMatricula" text="Código de Matrícula:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
         <Label fx:id="etiquetaJornada" text="Jornada:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
         <Label text="Teléfono:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
         <Label text="Dirección:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
@@ -87,7 +87,7 @@
             <FXCollections fx:factory="observableArrayList" />
           </items>
         </ComboBox>
-        <TextField id="documentoTF" fx:id="txtfDocumento" prefHeight="30.0" prefWidth="250.0" promptText="Documento de identidad" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <TextField id="documentoTF" fx:id="txtfDocumento" prefHeight="30.0" prefWidth="250.0" promptText="" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
         <TextField id="telefonoTF" fx:id="txtfTelefono" prefHeight="30.0" prefWidth="250.0" promptText="Teléfono móvil o fijo" GridPane.columnIndex="1" GridPane.rowIndex="4" />
         <TextField id="direccionTF" fx:id="txtfDireccion" prefHeight="30.0" prefWidth="250.0" promptText="Dirección de residencia" GridPane.columnIndex="1" GridPane.rowIndex="6" />
         <Label id="validarDocumento" fx:id="lblDocumento" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />

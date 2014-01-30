@@ -77,7 +77,7 @@ public class ValidarMaterial extends Validacion{
         if (!validarCampoTextoNull(publicacion, 255)) {
             this.errorPublicacion = getMensajeError();
         }
-        if (!validarNumero(paginas, 10)) {
+        if (!validarNumeroNull(paginas, 10)) {
             this.errorNumeroPaginas = getMensajeError();
         }
         if (!validarNumero(ejemplares, 10)) {
@@ -136,7 +136,7 @@ public class ValidarMaterial extends Validacion{
         if (!validarCampoTextoNull(publicacion, 255)) {
             this.errorPublicacion = getMensajeError();
         }
-        if (!validarNumero(paginas, 10)) {
+        if (!validarNumeroNull(paginas, 10)) {
             this.errorNumeroPaginas = getMensajeError();
         }
         if (!validarDatoArryList(editorial, editoriales)){

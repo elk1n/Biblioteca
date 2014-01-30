@@ -17,16 +17,16 @@
   <center>
     <AnchorPane id="panel" fx:id="panelCentral" prefHeight="200.0" prefWidth="200.0">
       <children>
-        <Pane fx:id="panelInicio" disable="true" prefHeight="530.0" prefWidth="1260.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Pane fx:id="panelInicio" disable="false" prefHeight="530.0" prefWidth="1260.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <children>
-            <Pane layoutX="25.0" layoutY="27.0" prefHeight="490.0" prefWidth="500.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" styleClass="resultado">
+            <Pane layoutX="13.0" layoutY="27.0" prefHeight="490.0" prefWidth="464.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" styleClass="resultado">
               <children>
                 <Label layoutX="16.0" layoutY="14.0" text="Inicio">
                   <font>
                     <Font name="System Bold" size="16.0" fx:id="x4" />
                   </font>
                 </Label>
-                <GridPane id="GridPane" hgap="30.0" layoutX="40.0" layoutY="64.0" prefHeight="390.0" prefWidth="425.0" vgap="30.0">
+                <GridPane id="GridPane" hgap="30.0" layoutX="19.0" layoutY="64.0" prefHeight="390.0" prefWidth="425.0" vgap="30.0">
                   <children>
                     <Pane onMouseClicked="#ventanaEstadoUsuario" prefHeight="110.0" prefWidth="140.0" scaleY="1.0" scaleZ="1.0" style="&#10;" styleClass="botonInicio" GridPane.columnIndex="1" GridPane.rowIndex="2">
                       <children>
@@ -140,33 +140,39 @@
                 <URL value="@css/estilo.css" />
               </stylesheets>
             </Pane>
-            <Label font="$x4" layoutX="553.0" layoutY="21.0" text="Entregas del Día" />
-            <TableView id="tabla2" fx:id="tablaDevolucion" layoutX="553.0" layoutY="56.0" onKeyTyped="#entregasDia" onMouseClicked="#entregasDia" prefHeight="219.0" prefWidth="686.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
+            <Label font="$x4" layoutX="497.0" layoutY="20.0" text="Entregas del Día" />
+            <TableView id="tabla2" fx:id="tablaDevolucion" layoutX="497.0" layoutY="56.0" onKeyTyped="#entregasDia" onMouseClicked="#entregasDia" prefHeight="219.0" prefWidth="747.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
               <columns>
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="76.0" text="Documento" fx:id="clmnDocumentoD" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="135.0" text="Código de Matrícula" fx:id="clmnDocumentoD" />
                 <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="138.0" text="Nombre" fx:id="clmnNombreD" />
                 <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="168.0" text="Título" fx:id="clmnTituloD" />
                 <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="71.0" text="Ejemplar" fx:id="clmnEjemplarD" />
                 <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="123.0" text="Código Clasificación" fx:id="clmnCodigoD" />
                 <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="96.0" text="Fecha Préstamo" fx:id="clmnFechaD" />
               </columns>
+              <tooltip>
+                <Tooltip text="Muestra los ejemplares que deben ser entregados el día de hoy" />
+              </tooltip>
             </TableView>
-            <Label font="$x4" layoutX="553.0" layoutY="288.0" text="Reservas Pendientes" />
-            <TableView id="tabla1" fx:id="tablaReservas" layoutX="550.0" layoutY="321.0" onKeyTyped="#reservasDia" onMouseClicked="#reservasDia" prefHeight="194.0" prefWidth="689.0001220703125" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
+            <Label font="$x4" layoutX="497.0" layoutY="288.0" text="Reservas Pendientes" />
+            <TableView id="tabla1" fx:id="tablaReservas" layoutX="497.0" layoutY="321.0" onKeyTyped="#reservasDia" onMouseClicked="#reservasDia" prefHeight="194.0" prefWidth="747.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
               <columns>
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="75.0" text="Documento" fx:id="clmnDocumentoR" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="132.0" text="Código de Matrícula" fx:id="clmnDocumentoR" />
                 <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="143.0" text="Nombre" fx:id="clmnNombreR" />
                 <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="173.0" text="Título" fx:id="clmnTituloR" />
                 <TableColumn prefWidth="75.0" text="Ejemplar" fx:id="clmnEjemplarR" />
                 <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Código Clasificación" fx:id="clmnCodigoR" />
                 <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="89.0" text="Fecha Reserva" fx:id="clmnFechaR" />
               </columns>
+              <tooltip>
+                <Tooltip text="Muestra las reservas vigentes que aún no han sido reclamadas" />
+              </tooltip>
             </TableView>
           </children>
         </Pane>
-        <Pane fx:id="panelBusqueda" disable="false" prefHeight="540.0" prefWidth="1260.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Pane fx:id="panelBusqueda" disable="true" prefHeight="540.0" prefWidth="1260.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <children>
-            <Pane fx:id="panelBuscarUsuario" disable="true" layoutX="0.0" layoutY="0.0" prefHeight="540.0" prefWidth="1260.0" visible="false">
+            <Pane fx:id="panelBuscarUsuario" disable="false" layoutX="0.0" layoutY="0.0" prefHeight="540.0" prefWidth="1260.0" visible="true">
               <children>
                 <ComboBox id="comboListaUsuario" fx:id="comboListarUsuario" layoutX="47.0" layoutY="63.0" onAction="#listarLosUsuarios" prefHeight="25.0" prefWidth="120.0" promptText="Listar Usuarios">
                   <items>
@@ -177,32 +183,40 @@
                     </FXCollections>
                   </items>
                 </ComboBox>
-                <TableView fx:id="tablaUsuarios" layoutX="47.0" layoutY="114.0" onKeyTyped="#seleccionDeUsuario" onMouseClicked="#seleccionDeUsuario" prefHeight="384.0" prefWidth="1167.0" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); &#10;">
+                <TableView fx:id="tablaUsuarios" layoutX="47.0" layoutY="114.0" prefHeight="384.0" prefWidth="1167.0" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); &#10;">
                   <columns>
                     <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="100.0" text="Tipo Usuario" fx:id="clmnTipo" />
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="87.0" text="Documento" fx:id="clmnDocumento" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="139.0" text="Código de Matrícula" fx:id="clmnDocumento" />
                     <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="167.0" text="Nombre" fx:id="clmnNombre" />
                     <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="170.0" text="Apellido" fx:id="clmnApellido" />
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="227.0" text="Correo" fx:id="clmnCorreo" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="199.0" text="Correo" fx:id="clmnCorreo" />
                     <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="103.0" text="Teléfono" fx:id="clmnTelefono" />
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="68.0" text="Grado" fx:id="clmnGrado" />
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="66.0" text="Curso" fx:id="clmnCurso" />
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="80.0" text="Jornada" fx:id="clmnJornada" />
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="83.0" text="Estado" fx:id="clmnEstado" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="66.0" text="Curso" fx:id="clmnGrado" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="62.0" text="Grupo" fx:id="clmnCurso" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="73.0" text="Jornada" fx:id="clmnJornada" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="72.0" text="Estado" fx:id="clmnEstado" />
                   </columns>
                   <contextMenu>
                     <ContextMenu>
                       <items>
-                        <MenuItem mnemonicParsing="false" onAction="#dialogoDetalleUsuario" text="Ver Detalle" fx:id="menuDetalleUsuario" />
-                        <MenuItem mnemonicParsing="false" onAction="#dialogoMultasUsuario" text="Ver Multas" fx:id="menuMultas" />
+                        <MenuItem mnemonicParsing="false" onAction="#dialogoDetalleUsuario" text="Ver Información Detallada del Usuario" fx:id="menuDetalleUsuario" />
+                        <MenuItem mnemonicParsing="false" onAction="#dialogoMultasUsuario" text="Ver Multas del Usuario" fx:id="menuMultas" />
                       </items>
                     </ContextMenu>
                   </contextMenu>
                 </TableView>
-                <HBox id="HBox" alignment="CENTER" layoutX="934.0" layoutY="63.0" spacing="40.0">
+                <HBox id="HBox" alignment="CENTER" layoutX="904.0" layoutY="63.0" spacing="40.0">
                   <children>
-                    <Button fx:id="btnDetalleUsuario" defaultButton="true" mnemonicParsing="false" onAction="#dialogoDetalleUsuario" prefHeight="25.0" prefWidth="120.0" text="Detalle Usuario" />
-                    <Button fx:id="btnMultas" defaultButton="true" mnemonicParsing="false" onAction="#dialogoMultasUsuario" prefHeight="25.0" prefWidth="120.0" text="Ver Multas" />
+                    <Button fx:id="btnDetalleUsuario" defaultButton="true" mnemonicParsing="false" onAction="#dialogoDetalleUsuario" prefHeight="25.0" prefWidth="150.0" text="Ver Información Usuario">
+                      <tooltip>
+                        <Tooltip text="Muestra la información detallada del usuario (préstamos, reservas, devoluciones y datos del usuario)" />
+                      </tooltip>
+                    </Button>
+                    <Button fx:id="btnMultas" defaultButton="true" mnemonicParsing="false" onAction="#dialogoMultasUsuario" prefHeight="25.0" prefWidth="120.0" text="Ver Multas">
+                      <tooltip>
+                        <Tooltip text="Muestra las multas asociadas a un usuario seleccionado" />
+                      </tooltip>
+                    </Button>
                   </children>
                 </HBox>
                 <Label layoutX="47.0" layoutY="22.0" text="Listar Usuarios">
@@ -220,7 +234,7 @@
                 </Label>
               </children>
             </Pane>
-            <Pane fx:id="panelBuscarMaterial" disable="false" layoutX="0.0" layoutY="0.0" prefHeight="540.0" prefWidth="1260.0" visible="true">
+            <Pane fx:id="panelBuscarMaterial" disable="true" layoutX="0.0" layoutY="0.0" prefHeight="540.0" prefWidth="1260.0" visible="false">
               <children>
                 <VBox id="VBox" alignment="CENTER_LEFT" layoutX="39.0" layoutY="9.0" spacing="15.0">
                   <children>
@@ -256,7 +270,11 @@
                     </ContextMenu>
                   </contextMenu>
                 </TableView>
-                <Button fx:id="btnCodigoBarras" defaultButton="true" layoutX="1090.0" layoutY="47.0" mnemonicParsing="false" onAction="#dialogoCodigoDeBarras" prefHeight="25.0" prefWidth="-1.0" text="Ver Código de Barras" />
+                <Button fx:id="btnCodigoBarras" defaultButton="true" layoutX="1090.0" layoutY="47.0" mnemonicParsing="false" onAction="#dialogoCodigoDeBarras" prefHeight="25.0" prefWidth="-1.0" text="Ver Código de Barras">
+                  <tooltip>
+                    <Tooltip text="Muestra el código de barras del material seleccionado" />
+                  </tooltip>
+                </Button>
                 <Label fx:id="lblResultadoMaterial" layoutX="396.0" layoutY="9.0" prefWidth="400.0" text="" textFill="$x2">
                   <font>
                     <Font size="15.0" />
@@ -264,7 +282,7 @@
                 </Label>
                 <HBox id="HBox" alignment="CENTER" layoutX="41.0" layoutY="319.0" spacing="50.0">
                   <children>
-                    <VBox id="VBox" alignment="CENTER" spacing="10.0">
+                    <VBox id="VBox" alignment="CENTER_LEFT" spacing="10.0">
                       <children>
                         <Label font="$x1" text="Ejemplares" />
                         <TableView id="tblEjemplares" fx:id="tablaEjemplar" editable="true" prefHeight="170.0" prefWidth="370.0" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); &#10;">
@@ -276,7 +294,7 @@
                         </TableView>
                       </children>
                     </VBox>
-                    <VBox id="VBox" alignment="CENTER" spacing="10.0">
+                    <VBox id="VBox" alignment="CENTER_LEFT" spacing="10.0">
                       <children>
                         <Label font="$x1" text="Autores" />
                         <TableView fx:id="tablaAutores" prefHeight="170.0" prefWidth="355.0" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); &#10;">
@@ -287,7 +305,7 @@
                         </TableView>
                       </children>
                     </VBox>
-                    <VBox id="VBox" alignment="CENTER" spacing="10.0">
+                    <VBox id="VBox" alignment="CENTER_LEFT" spacing="10.0">
                       <children>
                         <Label font="$x1" text="Materias" />
                         <ListView fx:id="listaMaterias" prefHeight="170.0" prefWidth="355.0" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); &#10;" />
@@ -303,6 +321,9 @@
                       <String fx:value="Item 3" />
                     </FXCollections>
                   </items>
+                  <tooltip>
+                    <Tooltip text="Lista el material asociado a la materia seleccionada" />
+                  </tooltip>
                 </ComboBox>
                 <ComboBox id="comboListar" fx:id="comboListarxAutor" layoutX="364.0" layoutY="43.0" onAction="#listarMaterialxAutor" prefHeight="25.0" prefWidth="190.0" promptText="Listar por Autor">
                   <items>
@@ -312,6 +333,9 @@
                       <String fx:value="Item 3" />
                     </FXCollections>
                   </items>
+                  <tooltip>
+                    <Tooltip text="Lista el material asociado al autor seleccionado" />
+                  </tooltip>
                 </ComboBox>
               </children>
             </Pane>
@@ -363,6 +387,9 @@
           <stylesheets>
             <URL value="@css/estilo.css" />
           </stylesheets>
+          <tooltip>
+            <Tooltip text="Iniciar búsquda" />
+          </tooltip>
         </Button>
         <Button fx:id="botonBorrarBusqueda" contentDisplay="CENTER" graphicTextGap="2.0" layoutX="764.0" layoutY="76.0" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#borrarCampo" opacity="0.79" prefHeight="20.0" prefWidth="20.0" styleClass="botonBorrarBusqueda">
           <stylesheets>
@@ -413,8 +440,8 @@
                     <MenuItem mnemonicParsing="false" onAction="#ventanaEstadoUsuario" text="Editar Usuario" />
                     <Menu mnemonicParsing="false" text="Opciones de Usuario">
                       <items>
-                        <MenuItem mnemonicParsing="false" onAction="#dialogoNuevoGrado" text="Registrar Grado" />
-                        <MenuItem mnemonicParsing="false" onAction="#dialogoNuevoCurso" text="Registrar Curso" />
+                        <MenuItem mnemonicParsing="false" onAction="#dialogoNuevoGrado" text="Registrar Curso" />
+                        <MenuItem mnemonicParsing="false" onAction="#dialogoNuevoCurso" text="Registrar Grupo" />
                         <MenuItem mnemonicParsing="false" onAction="#dialogoNuevaJornada" text="Registrar Jornada" />
                         <MenuItem mnemonicParsing="false" onAction="#dialogoNuevoTipoUsuario" text="Registrar Tipo de Usuario" />
                         <MenuItem mnemonicParsing="false" onAction="#dialogoEditarOpcionesUsuario" text="Editar Opciones de Usuario" />
@@ -483,6 +510,9 @@
               <stylesheets>
                 <URL value="@css/estilo.css" />
               </stylesheets>
+              <tooltip>
+                <Tooltip text="Muestra el contenido de ayuda" />
+              </tooltip>
               <HBox.margin>
                 <Insets fx:id="x10" />
               </HBox.margin>

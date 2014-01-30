@@ -55,10 +55,10 @@ public class Devolucion {
     public Devolucion(String documento, String nombre, String titulo, String ejemplar, String codigo, String fecha){
     
         this.documento = new SimpleStringProperty(documento);
-        this.bibliotecario = new SimpleStringProperty(nombre);
+        this.nombre = new SimpleStringProperty(nombre);
         this.titulo = new SimpleStringProperty(titulo);
         this.ejemplar = new SimpleStringProperty(ejemplar);
-        this.codigo = new SimpleStringProperty(codigo);
+        this.codigo = new SimpleStringProperty(codigo);        
         this.fecha = new SimpleStringProperty(fecha);
     }
     

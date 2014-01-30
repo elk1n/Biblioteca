@@ -11,13 +11,13 @@
   <children>
     <GridPane layoutX="38.0" layoutY="14.0" prefHeight="180.0" prefWidth="324.0">
       <children>
-        <Label alignment="CENTER" prefWidth="351.0" text="Nuevo Grado" GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <Label alignment="CENTER" prefWidth="351.0" text="Nuevo Curso" GridPane.columnIndex="0" GridPane.rowIndex="0">
           <font>
             <Font name="System Bold" size="18.0" />
           </font>
         </Label>
-        <Label prefWidth="289.0" text="Nombre o Identificador del Nuevo Grado " GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <TextField fx:id="campoNuevoGrado" onAction="#guardarGrado" prefHeight="30.0" prefWidth="250.0" promptText="Nombre o Identificador para el nuevo grado" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label prefWidth="289.0" text="Nombre o Identificador del Nuevo Curso" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="campoNuevoGrado" onAction="#guardarGrado" prefHeight="30.0" prefWidth="250.0" promptText="Nombre o Identificador para el nuevo curso" GridPane.columnIndex="0" GridPane.rowIndex="2" />
         <Label fx:id="validarNuevoGrado" alignment="CENTER_RIGHT" prefWidth="351.0" text="" textFill="#cc0000" GridPane.columnIndex="0" GridPane.rowIndex="3" />
       </children>
       <columnConstraints>
@@ -33,7 +33,7 @@
     <HBox id="HBox" alignment="CENTER" layoutX="65.0" layoutY="225.0" spacing="30.0">
       <children>
         <Button cancelButton="true" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="120.0" text="Cerrar" />
-        <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarGrado" prefHeight="25.0" prefWidth="120.0" text="Guardar Grado" />
+        <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarGrado" prefHeight="25.0" prefWidth="120.0" text="Guardar Curso" />
       </children>
     </HBox>
   </children>

@@ -38,15 +38,18 @@
       <stylesheets>
         <URL value="@css/estilo.css" />
       </stylesheets>
+      <tooltip>
+        <Tooltip text="Iniciar búsqueda" />
+      </tooltip>
     </Button>
-    <HBox id="HBox" alignment="CENTER" layoutX="174.0" layoutY="69.0" spacing="20.0">
+    <HBox id="HBox" alignment="CENTER" layoutX="174.0" layoutY="69.0" prefWidth="243.0" spacing="20.0">
       <children>
-        <RadioButton id="raidoBuscar" fx:id="radioBuscar" alignment="CENTER_LEFT" contentDisplay="LEFT" mnemonicParsing="false" onAction="#buscarFiltrar" selected="true" text="Buscar">
+        <RadioButton id="raidoBuscar" fx:id="radioBuscar" alignment="CENTER_LEFT" contentDisplay="LEFT" mnemonicParsing="false" onAction="#buscarFiltrar" selected="true" text="Buscar Material">
           <toggleGroup>
             <ToggleGroup fx:id="opcionesTxtf" />
           </toggleGroup>
         </RadioButton>
-        <RadioButton fx:id="radioFiltrar" contentDisplay="LEFT" mnemonicParsing="false" onAction="#buscarFiltrar" prefWidth="49.000091552734375" text="Filtrar" toggleGroup="$opcionesTxtf" />
+        <RadioButton fx:id="radioFiltrar" contentDisplay="LEFT" mnemonicParsing="false" onAction="#buscarFiltrar" prefWidth="120.0" text="Filtrar Material" toggleGroup="$opcionesTxtf" />
       </children>
     </HBox>
     <TableView fx:id="tablaMaterial" layoutX="16.0" layoutY="117.0" onKeyTyped="#mapearDatos" onMouseClicked="#mapearDatos" prefHeight="385.0" prefWidth="588.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" tableMenuButtonVisible="false">
@@ -58,7 +61,7 @@
       <contextMenu>
         <ContextMenu>
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#dialogoDetalleMaterial" text="Detalle del Material" />
+            <MenuItem mnemonicParsing="false" onAction="#dialogoDetalleMaterial" text="Ver Información Detallada del Material" />
             <MenuItem mnemonicParsing="false" onAction="#codigoBarras" text="Ver Código de Barras" />
           </items>
         </ContextMenu>
@@ -151,7 +154,7 @@
                             <Font name="System Bold" size="12.0" fx:id="x1" />
                           </font>
                         </Label>
-                        <Label font="$x1" layoutX="323.0" layoutY="15.0" prefWidth="143.0" text="Clase de Material" />
+                        <Label font="$x1" layoutX="322.0" layoutY="15.0" prefWidth="143.0" text="Clase de Material" />
                       </children>
                     </AnchorPane>
                   </content>
@@ -170,13 +173,13 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <TableView id="tblEjemplar" fx:id="tablaEjemplar" layoutX="57.0" layoutY="47.0" onMouseClicked="#disponibilidadMaterial" prefHeight="253.0" prefWidth="274.0">
+                <TableView id="tblEjemplar" fx:id="tablaEjemplar" layoutX="13.0" layoutY="47.0" onMouseClicked="#disponibilidadMaterial" prefHeight="253.0" prefWidth="274.0">
                   <columns>
                     <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="145.0" text="Ejemplar" fx:id="clmnEjemplar" />
                     <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="115.0" text="Estado" fx:id="clmnEstado" />
                   </columns>
                 </TableView>
-                <GridPane id="GridPane" hgap="20.0" layoutX="352.0" layoutY="-1.0" prefHeight="218.0">
+                <GridPane id="GridPane" hgap="0.0" layoutX="308.0" layoutY="0.0" prefHeight="225.0" prefWidth="292.0">
                   <children>
                     <ComboBox fx:id="comboDispo" prefHeight="25.0" prefWidth="120.0" promptText="Disponibilidad " GridPane.columnIndex="0" GridPane.rowIndex="1">
                       <items>
@@ -187,25 +190,24 @@
                         </FXCollections>
                       </items>
                     </ComboBox>
-                    <Button defaultButton="true" mnemonicParsing="false" onAction="#cambiarEstado" prefHeight="25.0" prefWidth="73.0" text="Cambiar" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                    <TextField fx:id="txtfEjemplar" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="50.0" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                    <Button defaultButton="true" mnemonicParsing="false" onAction="#cambiarEstado" prefHeight="25.0" prefWidth="150.0" text="Cambiar Disponibilidad" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <TextField fx:id="txtfEjemplar" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="54.0" GridPane.columnIndex="0" GridPane.rowIndex="3">
                       <GridPane.margin>
-                        <Insets right="30.0" />
+                        <Insets right="70.0" />
                       </GridPane.margin>
                     </TextField>
-                    <Button defaultButton="true" mnemonicParsing="false" onAction="#adicionarEjemplar" prefHeight="25.0" prefWidth="73.0" text="Añadir" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                    <Button cancelButton="false" defaultButton="true" mnemonicParsing="false" onAction="#eliminarEjemplar" prefHeight="25.0" prefWidth="120.0" text="Eliminar Ejemplar" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
+                    <Button defaultButton="true" mnemonicParsing="false" onAction="#adicionarEjemplar" prefHeight="25.0" prefWidth="150.0" text="Añadir Ejemplar" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                     <Label prefWidth="107.0" text="Adicionar Ejemplar:" GridPane.columnIndex="0" GridPane.rowIndex="2">
                       <font>
                         <Font size="12.0" />
                       </font>
                     </Label>
                     <Label font="$x1" text="Disponibilidad Ejemplar" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <Button cancelButton="false" defaultButton="true" mnemonicParsing="false" onAction="#eliminarEjemplar" prefHeight="25.0" prefWidth="150.0" text="Eliminar Ejemplar" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
                   </children>
                   <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="10.0" prefWidth="142.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
                   </columnConstraints>
                   <rowConstraints>
                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
@@ -215,8 +217,8 @@
                     <RowConstraints minHeight="35.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                 </GridPane>
-                <Label font="$x1" layoutX="57.0" layoutY="16.0" text="Listado de Ejemplares" />
-                <Label id="validarEstadoAC" fx:id="lblValidarEjemplares" alignment="CENTER_RIGHT" layoutX="55.0" layoutY="308.0" prefWidth="274.0" text="" textFill="$x2" wrapText="true" />
+                <Label font="$x1" layoutX="13.0" layoutY="16.0" text="Listado de Ejemplares" />
+                <Label id="validarEstadoAC" fx:id="lblValidarEjemplares" alignment="CENTER_RIGHT" layoutX="11.0" layoutY="308.0" prefWidth="274.0" text="" textFill="$x2" wrapText="true" />
               </children>
             </AnchorPane>
           </content>
@@ -225,22 +227,26 @@
           <content>
             <AnchorPane id="Content" fx:id="contenedorAutores" minHeight="0.0" minWidth="0.0" prefHeight="369.0" prefWidth="599.0">
               <children>
-                <Label layoutX="35.0" layoutY="21.0" text="Autores:" />
-                <HBox fx:id="hboxAutores" layoutX="89.0" layoutY="14.0" prefHeight="30.0" prefWidth="350.0">
+                <Label layoutX="13.0" layoutY="21.0" text="Autor:">
+                  <font>
+                    <Font size="14.0" fx:id="x5" />
+                  </font>
+                </Label>
+                <HBox fx:id="hboxAutores" layoutX="69.0" layoutY="14.0" prefHeight="30.0" prefWidth="350.0">
                   <stylesheets>
                     <URL value="@css/estilo.css" />
                   </stylesheets>
                 </HBox>
                 <Button defaultButton="true" layoutX="460.0" layoutY="17.0" mnemonicParsing="false" onAction="#adicionarAutor" prefHeight="25.0" prefWidth="120.0" text="Añadir Autor" />
-                <Label id="validarAutoresAC" fx:id="lblValidarAutor" alignment="CENTER_RIGHT" layoutX="90.0" layoutY="60.0" prefWidth="350.0" text="">
+                <Label id="validarAutoresAC" fx:id="lblValidarAutor" alignment="CENTER_RIGHT" layoutX="70.0" layoutY="60.0" prefWidth="350.0" text="">
                   <textFill>
                     <Color blue="0.000" green="0.000" red="0.600" fx:id="x9" />
                   </textFill>
                 </Label>
-                <TableView fx:id="tablaAutores" layoutX="34.0" layoutY="101.0" prefHeight="241.0" prefWidth="416.0">
+                <TableView fx:id="tablaAutores" layoutX="14.0" layoutY="101.0" prefHeight="241.0" prefWidth="416.0">
                   <columns>
                     <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="211.0" text="Nombre" fx:id="clmnNombre" />
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="186.0" text="Apellidos" fx:id="clmnApellidos" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="186.0" text="Apellido" fx:id="clmnApellidos" />
                   </columns>
                 </TableView>
                 <Button defaultButton="true" layoutX="460.0" layoutY="101.0" mnemonicParsing="false" onAction="#removerAutor" prefHeight="25.0" prefWidth="120.0" text="Remover Autor" />
@@ -255,17 +261,17 @@
               <children>
                 <AnchorPane id="Content" fx:id="contenedorMaterias" layoutX="7.0" layoutY="5.0" minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="599.0">
                   <children>
-                    <Label layoutX="27.0" layoutY="20.0" text="Materias:" />
-                    <Label id="validarMateriasAC" fx:id="lblValidarMateria" alignment="CENTER_RIGHT" layoutX="76.0" layoutY="55.0" prefWidth="361.0" text="" textFill="$x9" />
-                    <HBox fx:id="hboxMaterias" layoutX="88.0" layoutY="15.0" prefHeight="30.0" prefWidth="350.0">
+                    <Label font="$x5" layoutX="6.0" layoutY="20.0" text="Materia:" />
+                    <Label id="validarMateriasAC" fx:id="lblValidarMateria" alignment="CENTER_RIGHT" layoutX="55.0" layoutY="55.0" prefWidth="361.0" text="" textFill="$x9" />
+                    <HBox fx:id="hboxMaterias" layoutX="67.0" layoutY="15.0" prefHeight="30.0" prefWidth="350.0">
                       <stylesheets>
                         <URL value="@css/estilo.css" />
                       </stylesheets>
                     </HBox>
                     <Button defaultButton="true" layoutX="456.0" layoutY="18.0" mnemonicParsing="false" onAction="#adicionarMateria" prefHeight="25.0" prefWidth="120.0" text="Añadir Materia" />
-                    <TableView fx:id="tablaMaterias" layoutX="27.0" layoutY="98.0" prefHeight="239.0" prefWidth="419.0">
+                    <TableView fx:id="tablaMaterias" layoutX="6.0" layoutY="98.0" prefHeight="239.0" prefWidth="419.0">
                       <columns>
-                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="400.0" text="Materia" fx:id="clmnMateria" />
+                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="400.0" text="Materias" fx:id="clmnMateria" />
                       </columns>
                     </TableView>
                     <Button defaultButton="true" layoutX="456.0" layoutY="97.0" mnemonicParsing="false" onAction="#removerMateria" prefHeight="25.0" prefWidth="120.0" text="Remover Materia" />
@@ -280,7 +286,11 @@
     </Accordion>
     <HBox id="HBox" alignment="CENTER" prefWidth="612.0" spacing="330.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="631.0" AnchorPane.rightAnchor="17.0">
       <children>
-        <Button id="btn" fx:id="btnCodigoBarras" defaultButton="true" mnemonicParsing="false" onAction="#codigoBarras" prefHeight="25.0" prefWidth="120.0" text="Código de Barras" />
+        <Button id="btn" fx:id="btnCodigoBarras" defaultButton="true" mnemonicParsing="false" onAction="#codigoBarras" prefHeight="25.0" prefWidth="154.0" text="Ver Código de Barras">
+          <tooltip>
+            <Tooltip text="Muestra el código de barras del material seleccionado" />
+          </tooltip>
+        </Button>
         <Button defaultButton="true" mnemonicParsing="false" onAction="#guardarCambios" prefHeight="25.0" prefWidth="160.0" text="Guardar Cambios" />
       </children>
     </HBox>
@@ -289,7 +299,11 @@
         <URL value="@css/estilo.css" />
       </stylesheets>
     </Button>
-    <Button fx:id="btnDetalle" defaultButton="true" layoutX="498.0" layoutY="83.0" mnemonicParsing="false" onAction="#dialogoDetalleMaterial" prefHeight="25.0" text="Detalle Material" />
+    <Button fx:id="btnDetalle" defaultButton="true" layoutX="479.0" layoutY="84.0" mnemonicParsing="false" onAction="#dialogoDetalleMaterial" prefHeight="25.0" text="Ver Detalle Material">
+      <tooltip>
+        <Tooltip text="Muestra la información detallada del material seleccionado" />
+      </tooltip>
+    </Button>
     <Label font="$x4" layoutX="17.0" layoutY="6.0" text="Listar Material" />
     <Label font="$x4" layoutX="171.0" layoutY="5.0" text="Buscar Material" />
     <Label fx:id="lblResultado" layoutX="174.0" layoutY="91.0" prefWidth="252.0001220703125" text="" textFill="$x2" />

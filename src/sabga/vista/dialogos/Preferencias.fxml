@@ -173,7 +173,11 @@
                     <Label font="$x1" labelFor="$txtfUsuario" text="Nombre Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
                     <fx:reference source="txtfContrasenia" />
                     <Label font="$x1" text="Crear copia de seguridad de la base de datos: " wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="12" />
-                    <Button defaultButton="true" maxWidth="-1.0" mnemonicParsing="false" onAction="#guardarCopiaSeguridad" prefHeight="25.0" prefWidth="120.0" text="Crear Copia" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="12" />
+                    <Button defaultButton="true" maxWidth="-1.0" mnemonicParsing="false" onAction="#guardarCopiaSeguridad" prefHeight="25.0" prefWidth="120.0" text="Crear Copia" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="12">
+                      <tooltip>
+                        <Tooltip text="Crea una copia de seguridad de la base de datos en la ubicación seleccionada por el usuario" wrapText="false" />
+                      </tooltip>
+                    </Button>
                     <Label font="$x1" prefHeight="47.0" prefWidth="222.0" text="Ruta de &quot;mysqldump&quot;, que realiza la copia de seguridad:" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="10">
                       <labelFor>
                         <PasswordField id="txtfContrasenia" prefHeight="30.0" prefWidth="200.0" />
@@ -210,6 +214,7 @@
                     <Button defaultButton="true" mnemonicParsing="false" onAction="#cambiarDatosBase" prefHeight="25.0" prefWidth="120.0" text="Guardar Cambios" />
                   </children>
                 </HBox>
+                <Separator layoutX="48.0" layoutY="465.0" prefWidth="511.9998779296875" />
               </children>
             </AnchorPane>
           </content>

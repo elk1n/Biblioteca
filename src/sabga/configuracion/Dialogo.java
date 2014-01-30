@@ -41,6 +41,7 @@ public class Dialogo {
     private Stage dialogStage;
     private Scene scene;
     private int id;
+    private String codigoMatricula;
 
     public Stage getDialogStage() {
         return dialogStage;
@@ -177,24 +178,28 @@ public class Dialogo {
       
     private void controladorAutor() {
         NuevoAutorController controller = loader.getController();
+        dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream("vista/Imagenes/LogoBiblioteca1.png")));
         controller.setDialogStage(dialogStage);
         dialogStage.showAndWait();
     }
 
     private void controladorMateria(){    
         NuevaMateriaController controller = loader.getController();
+        dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream("vista/Imagenes/LogoBiblioteca1.png")));
         controller.setDialogStage(dialogStage);
         dialogStage.showAndWait();
     }
     
     private void controladorEditorial(){    
         NuevaEditorialController controller = loader.getController();
+        dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream("vista/Imagenes/LogoBiblioteca1.png")));
         controller.setDialogStage(dialogStage);
         dialogStage.showAndWait();
     }
     
     private void controladorDetalleMaterial(){    
         DetalleMaterialController controller = loader.getController();
+        dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream("vista/Imagenes/LogoBiblioteca1.png")));
         controller.setDialogStage(dialogStage);
         controller.detalleMaterial(id);
         dialogStage.showAndWait();
@@ -202,54 +207,64 @@ public class Dialogo {
     
     private void controladorDetalleUsuario(){
         DetalleUsuarioController controller = loader.getController();
+        dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream("vista/Imagenes/LogoBiblioteca1.png")));
         controller.setDialogStage(dialogStage);
+        controller.datosDelUsuario(codigoMatricula);
         dialogStage.showAndWait();
     }
     
     private void controladorNuevoTipoMaterial(){    
         NuevoTipoMaterialController controller = loader.getController();
+        dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream("vista/Imagenes/LogoBiblioteca1.png")));
         controller.setDialogStage(dialogStage);
         dialogStage.showAndWait();
     }
      
     private void controladorNuevaClaseMaterial(){
         NuevaClaseMaterialController controller = loader.getController();
+        dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream("vista/Imagenes/LogoBiblioteca1.png")));
         controller.setDialogStage(dialogStage);
         dialogStage.showAndWait();
     }
     
     private void controladorNuevoGrado(){
         NuevoGradoController controller = loader.getController();
+        dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream("vista/Imagenes/LogoBiblioteca1.png")));
         controller.setDialogStage(dialogStage);
         dialogStage.showAndWait();
     }
     
     private void controladorNuevoCurso(){
         NuevoCursoController controller = loader.getController();
+        dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream("vista/Imagenes/LogoBiblioteca1.png")));
         controller.setDialogStage(dialogStage);
         dialogStage.showAndWait();
     }
     
     private void controladorNuevaJornada(){    
         NuevaJornadaController controller = loader.getController();
+        dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream("vista/Imagenes/LogoBiblioteca1.png")));
         controller.setDialogStage(dialogStage);
         dialogStage.showAndWait();
     }
     
     private void controladorNuevoTipoUsu(){
         NuevoTipoUsuarioController controller = loader.getController();
+        dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream("vista/Imagenes/LogoBiblioteca1.png")));
         controller.setDialogStage(dialogStage);
         dialogStage.showAndWait();
     }
     
     private void controladorEditarOpcionesUsuario(){
         EditarOpcionesUsuarioController controller= loader.getController();
+        dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream("vista/Imagenes/LogoBiblioteca1.png")));
         controller.setDialogStage(dialogStage);
         dialogStage.show();
     }
     
      private void controladorPreferencias(){
         PreferenciasController controller= loader.getController();
+         dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream("vista/Imagenes/LogoBiblioteca1.png")));
         controller.setDialogStage(dialogStage);
         dialogStage.show();
     }
@@ -277,7 +292,9 @@ public class Dialogo {
     
     private void controladorMulta(){
         MultaController controller = loader.getController();
+        dialogStage.getIcons().add(new Image(Sabga.class.getResourceAsStream("vista/Imagenes/LogoBiblioteca1.png")));
         controller.setDialogStage(dialogStage);
+        controller.verMultasUsuario(codigoMatricula);
         dialogStage.showAndWait();   
     }
     
@@ -297,6 +314,10 @@ public class Dialogo {
      
     public void setId(int codigo){
         this.id = codigo;
+    }
+    
+    public void setCodigoMatricula(String codigo_matricula){
+        this.codigoMatricula = codigo_matricula;
     }
     
       

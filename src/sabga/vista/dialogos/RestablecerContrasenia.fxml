@@ -54,6 +54,9 @@
       <stylesheets>
         <URL value="@../css/estilo.css" />
       </stylesheets>
+      <tooltip>
+        <Tooltip text="Muestra el contenido de ayuda" />
+      </tooltip>
     </ToggleButton>
     <Pane fx:id="panelAyuda" layoutX="163.0" layoutY="39.0" prefHeight="100.0" prefWidth="311.0" styleClass="panelAyuda" visible="false">
       <children>

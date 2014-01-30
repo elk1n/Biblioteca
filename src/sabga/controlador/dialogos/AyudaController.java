@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -105,8 +106,8 @@ public class AyudaController implements Initializable {
         usuarios = new TreeItem<>("Usuarios");
         registrarUsuario = new TreeItem<>("Registrar Usuario");
         editarUsuario = new TreeItem<>("Editar Información del Usuario");
-        nuevoGrado = new TreeItem<>("Nuevo Grado");
-        nuevoCurso = new TreeItem<>("Nuevo Curso");
+        nuevoGrado = new TreeItem<>("Nuevo Curso");
+        nuevoCurso = new TreeItem<>("Nuevo Grupo");
         nuevaJornda = new TreeItem<>("Nueva Jornada");
         nuevoUsuario = new TreeItem<>("Nuevo Tipo de Usuario");
         editarOpcionesUsuario = new TreeItem<>("Editar Opciones Usuario");
@@ -253,10 +254,10 @@ public class AyudaController implements Initializable {
                 lblTitulo.setText("Editar Información del Usuario");
                 lblContenido.setText(contenido(31));
             }else if (seleccion.getValue().equals(nuevoGrado.getValue())) {
-                lblTitulo.setText("Registrar Nuevo Grado");
+                lblTitulo.setText("Registrar Nuevo Curso");
                 lblContenido.setText(contenido(32));
             }else if (seleccion.getValue().equals(nuevoCurso.getValue())) {
-                lblTitulo.setText("Registrar Nuevo Curso");
+                lblTitulo.setText("Registrar Nuevo Grupo");
                 lblContenido.setText(contenido(33));
             }else if (seleccion.getValue().equals(nuevaJornda.getValue())) {
                 lblTitulo.setText("Registrar Nueva Jornada");
@@ -286,18 +287,23 @@ public class AyudaController implements Initializable {
         
     }
     
-    private void tipoUsuario(){
-        
-        if(atributo.getTipoUsuario()!= null){            
-            if(atributo.getTipoUsuario().contains("auxiliar")){
+    private void tipoUsuario() {
+
+        if (atributo.getTipoUsuario() != null) {
+            if (atributo.getTipoUsuario().contains("auxiliar")) {
                 ayuda.getChildren().remove(auxiliar);
                 ayuda.getChildren().remove(recibo);
             }
-        }   
+        }
     }
-    
-   public void setDialogStage(Stage dialogStage) {
+
+    public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
+    }
+
+    @FXML
+    public void cerrar(ActionEvent evento) {
+        this.dialogStage.close();
     }
 
     
@@ -394,6 +400,7 @@ public class AyudaController implements Initializable {
                             "•	Hacer clic en el botón Clase de material para seleccionar la categoría del libro.\n" +
                             "•	Ingresar el código de clasificación que se le asignará al libro. Es un código"+
                             " que se\n        asigna según las tablas de Cutter y el sistema de clasificación Dewey.\n" +
+                            "•	Ingresar el ISBN del libro.\n" +
                             "•	Ingresar el título del libro.\n" +
                             "•	Ingresar el año de publicación del libro.\n" +
                             "•	Ingresar la publicación. Ciudad y país de publicación y otros detalles.\n" +
@@ -486,6 +493,7 @@ public class AyudaController implements Initializable {
                 contenido = "Permite editar la información básica o general, previamente la información debe estar cargada.\n\n"+
                             "•	Hacer clic en el botón Clase de Material para seleccionar la categoría del libro.\n" +
                             "•	Modificar el código que se le asignará al material o código de clasificación.\n" +
+                            "•	Modificar el ISBN del material.\n" +
                             "•	Modificar el título del material.\n" +
                             "•	Modificar el año de publicación del libro (solo libros).\n" +
                             "•	Modificar la publicación. Ciudad y país de publicación y otros detalles cualquiera\n        (solo libros).\n" +
@@ -617,20 +625,20 @@ public class AyudaController implements Initializable {
                             "•	Presionar el botón Actualizar Información.";
                 break;
             case 32:
-                contenido = "Esta opción permite ingresar un nuevo grado a la aplicación.\n\n"+
-                            "•	Hacer clic en el menú Usuarios.\n"+
-                            "•	Seleccionar Opciones de Usuario.\n"+
-                            "•	Seleccionar Registrar Grado.\n"+
-                            "•	Ingresar un nombre o identificador para el grado.\n"+
-                            "•	Hacer clic en el botón Guardar Grado.";
-                break;
-            case 33:
                 contenido = "Esta opción permite ingresar un nuevo curso a la aplicación.\n\n"+
                             "•	Hacer clic en el menú Usuarios.\n"+
                             "•	Seleccionar Opciones de Usuario.\n"+
                             "•	Seleccionar Registrar Curso.\n"+
                             "•	Ingresar un nombre o identificador para el curso.\n"+
                             "•	Hacer clic en el botón Guardar Curso.";
+                break;
+            case 33:
+                contenido = "Esta opción permite ingresar un nuevo grupo a la aplicación.\n\n"+
+                            "•	Hacer clic en el menú Usuarios.\n"+
+                            "•	Seleccionar Opciones de Usuario.\n"+
+                            "•	Seleccionar Registrar Grupo.\n"+
+                            "•	Ingresar un nombre o identificador para el grupo.\n"+
+                            "•	Hacer clic en el botón Guardar Grupo.";
                 break;
             case 34:
                 contenido = "Esta opción permite ingresar una nueva jornada a la aplicación.\n\n"+
@@ -649,7 +657,7 @@ public class AyudaController implements Initializable {
                             "•	Hacer clic en el botón Guardar Tipo Usuario.";  
                 break;
             case 36:
-                contenido = "Este sub-menú permite modificar y eliminar  el grado, curso, jornada y tipo del usuario.\n\n"+
+                contenido = "Este sub-menú permite modificar y eliminar  el curso, grupo, jornada y tipo del usuario.\n\n"+
                             "•	Seleccionar la opción que desea modificar.\n" +
                             "•	Automáticamente se cargan los datos en la tabla, seleccionar uno.\n" +
                             "•	El dato aparece en un campo, allí se modifica.\n" +

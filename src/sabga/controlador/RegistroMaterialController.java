@@ -29,7 +29,6 @@ import np.com.ngopal.control.AutoFillTextBox;
 import sabga.configuracion.Utilidades;
 import sabga.atributos.Autor;
 import sabga.atributos.Materia;
-import sabga.configuracion.Conexion;
 import sabga.modelo.ConfirmarMaterial;
 import sabga.modelo.Consultas;
 import sabga.modelo.Validacion;
@@ -74,10 +73,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private final Validacion validar;
     private ValidarMaterial validarMaterial;
     private ConfirmarMaterial confirmar;
-    private final Consultas consulta;
-    
-    private final Conexion con;
-    
+    private final Consultas consulta;    
     private final ObservableList<String>listaAutores;
     private final ObservableList<Autor> obtenerAutores;
     private final ObservableList<String> listaMaterias;
@@ -88,7 +84,6 @@ public class RegistroMaterialController implements Initializable, ControlledScre
          
     public RegistroMaterialController(){
         
-        con = new Conexion();
         dialogo = new Dialogo();
         consulta = new Consultas();
         buscarAutor = new AutoFillTextBox<>();
@@ -182,7 +177,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         consulta.registrarLibro(idClaseMaterial, idTipoMaterial, idEditorial, txtfCodigo.getText().trim(), 
                                 txtfIsbn.getText().trim(), txtfTitulo.getText().trim(), 
                                 txtfPublicacion.getText().trim(), Utilidades.setNumero(txtfAnioPublicacion.getText()), 
-                                Integer.parseInt(txtfPaginas.getText().trim()), Integer.parseInt(txtfEjemplares.getText().trim()),
+                                Utilidades.setNumero(txtfPaginas.getText()), Integer.parseInt(txtfEjemplares.getText().trim()),
                                 materias, autores);   
     }
     

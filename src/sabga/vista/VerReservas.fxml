@@ -58,15 +58,18 @@
       <stylesheets>
         <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
       </stylesheets>
+      <tooltip>
+        <Tooltip text="Iniciar búsqueda" />
+      </tooltip>
     </Button>
     <TableView id="tablaPrestamo" fx:id="tablaReserva" editable="true" layoutX="42.0" layoutY="113.0" onKeyTyped="#cargarEjemplar" onMouseClicked="#cargarEjemplar" prefHeight="218.0" prefWidth="1176.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
       <columns>
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="97.0" text="Documento" fx:id="clmnDocumento" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="150.0" text="Código de Matrícula" fx:id="clmnDocumento" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="179.0" text="Nombre" fx:id="clmnNombre" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="195.0" text="Apellido" fx:id="clmnApellido" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="161.0" text="Correo Electrónico" fx:id="clmnCorreo" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="90.0" text="Grado" fx:id="clmnGrado" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="92.0" text="Curso" fx:id="clmnCurso" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="110.0" text="Teléfono" fx:id="clmnCorreo" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="90.0" text="Curso" fx:id="clmnGrado" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="92.0" text="Grupo" fx:id="clmnCurso" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="103.0" text="Jornada" fx:id="clmnJornada" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="125.0" text="Fecha Reserva" fx:id="clmnFechaReserva" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="118.0" text=" Estado Reserva" fx:id="clmnEstado" />
@@ -74,8 +77,8 @@
       <contextMenu>
         <ContextMenu>
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#verDetalleUsuario" text="Ver Detalle Usuario" fx:id="menuDetalle" />
-            <MenuItem mnemonicParsing="false" onAction="#verMultasUsuario" text="Ver Multas Usuario" fx:id="menuMultas" />
+            <MenuItem mnemonicParsing="false" onAction="#verDetalleUsuario" text="Ver Información Detallada del Usuario" fx:id="menuDetalle" />
+            <MenuItem mnemonicParsing="false" onAction="#verMultasUsuario" text="Ver Multas del Usuario" fx:id="menuMultas" />
           </items>
         </ContextMenu>
       </contextMenu>

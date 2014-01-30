@@ -8,11 +8,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import sabga.atributos.Atributos;
 import sabga.atributos.Devolucion;
 import sabga.atributos.Ejemplar;
 import sabga.atributos.Prestamo;
 import sabga.atributos.Reserva;
+import sabga.atributos.Usuario;
 import sabga.modelo.Consultas;
 
 /**
@@ -22,7 +22,8 @@ import sabga.modelo.Consultas;
 public class DetalleUsuarioController {
 
     @FXML
-    private Label lblNombre;
+    private Label lblCodigo, lblNombre, lblApellido, lblTelefono, lblCorreo, lblDireccion, lblCurso, lblGrupo, lblJornada,
+                  lblTipoUsuario, lblEstado;
     @FXML
     private TableView<Prestamo> tablaPrestamo; 
     @FXML
@@ -44,17 +45,18 @@ public class DetalleUsuarioController {
     private TableColumn<Devolucion, String>  clmnFechaPresDevo, clmnEstadoPresDevo, clmnEstadoDevo, clmnDocumentoDevo, clmnNombreDevo;
     
     private Stage dialogStage;
-    private final Atributos atributo;
     private final Consultas consulta;
     private final ObservableList<Prestamo> listaPrestamos;
     private final ObservableList<Reserva> listaReservas;
     private final ObservableList<Devolucion> listaDevolucion;
+    private final ObservableList<Usuario> datosUsuario;
     
     public DetalleUsuarioController(){
-        atributo = new Atributos();
+        
         listaPrestamos = FXCollections.observableArrayList();
         listaReservas = FXCollections.observableArrayList();
         listaDevolucion = FXCollections.observableArrayList();
+        datosUsuario = FXCollections.observableArrayList();
         consulta = new Consultas();
     }
     
@@ -70,8 +72,30 @@ public class DetalleUsuarioController {
         detalleDevolucion();
     }
     
+    public void datosDelUsuario(String idUsuario) {
+
+        datosUsuario.addAll(consulta.getDatosUsuario(1, idUsuario));
+        if (!datosUsuario.isEmpty()) {
+            lblCodigo.setText(idUsuario);
+            for (Usuario u : datosUsuario) {
+                lblNombre.setText(u.getNombre());
+                lblApellido.setText(u.getApellido());
+                lblTelefono.setText(u.getTelefono());
+                lblCorreo.setText(u.getCorreo());
+                lblDireccion.setText(u.getDocumento());
+                lblCurso.setText(u.getGrado());
+                lblGrupo.setText(u.getCurso());
+                lblJornada.setText(u.getJornada());
+                lblTipoUsuario.setText(u.getTipo());
+                lblEstado.setText(u.getEstado());
+            }
+        }
+        prestamos(idUsuario);
+        reservas(idUsuario);
+        devoluciones(idUsuario);
+    }
     
-    private void prestamos(){
+    private void prestamos(String idUsuario){
         
         listaPrestamos.clear();
         clmnFechaPres.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("documento"));
@@ -79,7 +103,7 @@ public class DetalleUsuarioController {
         clmnReserva.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("apellido"));
         clmnDocumento.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("fecha"));
         clmnNombre.setCellValueFactory(new PropertyValueFactory<Prestamo, String>("estado"));
-        listaPrestamos.addAll(consulta.getListaPrestamoUsusario(atributo.getDocumentoUsuario()));
+        listaPrestamos.addAll(consulta.getListaPrestamoUsusario(idUsuario));
         tablaPrestamo.setItems(listaPrestamos);
     }
    
@@ -97,12 +121,12 @@ public class DetalleUsuarioController {
         }
     }
     
-    private void reservas(){
+    private void reservas(String idUsuario){
         
         listaReservas.clear();
         clmnFechaRese.setCellValueFactory(new PropertyValueFactory<Reserva, String>("fecha"));
         clmnEstadoRese.setCellValueFactory(new PropertyValueFactory<Reserva, String>("estado"));
-        listaReservas.setAll(consulta.getListaReservaUsuario(atributo.getDocumentoUsuario()));
+        listaReservas.setAll(consulta.getListaReservaUsuario(idUsuario));
         tablaReserva.setItems(listaReservas);
     }
     
@@ -119,7 +143,7 @@ public class DetalleUsuarioController {
         }
     }
    
-    private void devoluciones(){
+    private void devoluciones(String idUsuario){
         
         listaDevolucion.clear();
         clmnFechaPresDevo.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("fecha"));
@@ -127,7 +151,7 @@ public class DetalleUsuarioController {
         clmnEstadoDevo.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("estado"));
         clmnDocumentoDevo.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("documento"));
         clmnNombreDevo.setCellValueFactory(new PropertyValueFactory<Devolucion, String>("bibliotecario"));
-        listaDevolucion.addAll(consulta.getListaDevolucionUsuario(atributo.getDocumentoUsuario()));
+        listaDevolucion.addAll(consulta.getListaDevolucionUsuario(idUsuario));
         tablaDevolucion.setItems(listaDevolucion);        
     }
     
@@ -156,16 +180,9 @@ public class DetalleUsuarioController {
     public void cerrar(){
         this.dialogStage.close();
     }
-    
-    public void inicio(){
-        lblNombre.setText(atributo.getNombreUsuario()+" "+atributo.getApellidoUsuario());
-        prestamos();
-        reservas();
-        devoluciones();
-    }
-    
+        
     @FXML
     public void initialize() {
-        inicio();
+
     }
 }

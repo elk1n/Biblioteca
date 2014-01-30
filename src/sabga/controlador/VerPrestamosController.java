@@ -29,7 +29,6 @@ import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Dialogo;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.Consultas;
-import sabga.atributos.Atributos;
 
 /**
  * FXML Controller class
@@ -72,7 +71,6 @@ public class VerPrestamosController implements Initializable, ControlledScreen {
     private final ObservableList<Ejemplar> listaEjemplares;
     private final Consultas consulta;
     private final Dialogo dialogo;
-    private final Atributos atributo;
     
     public VerPrestamosController(){
         
@@ -92,7 +90,7 @@ public class VerPrestamosController implements Initializable, ControlledScreen {
         listaEjemplares = FXCollections.observableArrayList();
         consulta = new Consultas();    
         dialogo = new Dialogo();
-        atributo = new Atributos();
+   
     }
     
     @FXML
@@ -214,16 +212,7 @@ public class VerPrestamosController implements Initializable, ControlledScreen {
             listaEjemplares.addAll(consulta.getListaDetalleDePrestamos(3,
                                    listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getIdPrestamo()));
             tablaEjemplar.setItems(listaEjemplares);
-            setDatosUsuario();
         }
-    }
-     
-    private void setDatosUsuario() {   
-        
-        atributo.setDocumentoUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getDocumento());
-        atributo.setNombreUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getNombre());
-        atributo.setApellidoUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getApellido());
-        atributo.setCorreoUsuario(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getCorreo());
     }
         
     private void prepararTablaEjemplares(){
@@ -242,7 +231,8 @@ public class VerPrestamosController implements Initializable, ControlledScreen {
     private void detalleUsuario(){
         
         if(tablaPrestamo.getSelectionModel().getSelectedItem() != null){            
-            menuDetalle.setDisable(true);           
+            menuDetalle.setDisable(true);
+            dialogo.setCodigoMatricula(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getDocumento());
             dialogo.mostrarDialogo("vista/dialogos/DetalleUsuario.fxml", "Información del Usuario", null , null, 5);           
             menuDetalle.setDisable(false);  
         }else{
@@ -254,6 +244,7 @@ public class VerPrestamosController implements Initializable, ControlledScreen {
         
         if(tablaPrestamo.getSelectionModel().getSelectedItem() != null){            
             menuMultas.setDisable(true);
+            dialogo.setCodigoMatricula(listaPrestamos.get(tablaPrestamo.getSelectionModel().getSelectedIndex()).getDocumento());
             dialogo.mostrarDialogo("vista/dialogos/Multa.fxml", "Detalle Multas", null , null, 17);           
             menuMultas.setDisable(false); 
         }else{
