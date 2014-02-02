@@ -47,9 +47,9 @@ public class NuevoCursoController implements Initializable {
         if (nuevaCurso.confirmarCurso(campoNuevoCurso.getText())) {
             consulta.registrarUnicoValor(5, campoNuevoCurso.getText().trim());
             if (consulta.getMensaje() != null) {
-                Utilidades.mensajeAdvertencia(null, consulta.getMensaje(), "Error al registrar el curso", "Error Registrar Curso");
+                Utilidades.mensajeAdvertencia(null, consulta.getMensaje(), "Error al registrar el grado", "Error Registrar Grado");
             } else {
-                Utilidades.mensaje(null, "Curso registrado correctamente", "Registrando Curso", "Registro Exitoso");
+                Utilidades.mensaje(null, "Grado registrado correctamente", "Registrando Grado", "Registro Exitoso");
                 campoNuevoCurso.clear();
             }
         }
