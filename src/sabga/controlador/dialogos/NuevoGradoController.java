@@ -14,6 +14,7 @@ import sabga.modelo.Consultas;
 import sabga.modelo.ValidarUsuario;
 
 /**
+ * 
  * @author Elk1n
  */
 
@@ -48,9 +49,9 @@ public class NuevoGradoController implements Initializable {
         if(nuevoGrado.confirmarGrado(campoNuevoGrado.getText())){
             consulta.registrarUnicoValor(6, campoNuevoGrado.getText().trim());
             if(consulta.getMensaje() != null){
-                Utilidades.mensajeAdvertencia(null, consulta.getMensaje(), "Error al registrar el grupo", "Error Registrar Grupo");
+                Utilidades.mensajeAdvertencia(null, consulta.getMensaje(), "Error al registrar el curso", "Error Registrar Curso");
             }else{
-                Utilidades.mensaje(null, "Grupo registrado correctamente", "Registrando Grupo", "Registro Exitoso");
+                Utilidades.mensaje(null, "Curso registrado correctamente", "Registrando Curso", "Registro Exitoso");
                 campoNuevoGrado.clear();  
             }
         }
