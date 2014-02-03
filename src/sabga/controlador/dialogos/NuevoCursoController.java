@@ -16,6 +16,7 @@ import sabga.modelo.ValidarUsuario;
 /*
  * @author Elk1n
  */
+
 public class NuevoCursoController implements Initializable {
 
     private Stage dialogStage;

@@ -1,4 +1,3 @@
-
 package sabga.atributos;
 
 import javafx.beans.property.SimpleIntegerProperty;
