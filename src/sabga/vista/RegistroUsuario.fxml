@@ -10,9 +10,9 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="520.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.RegistroUsuarioController">
+<AnchorPane id="AnchorPane" prefHeight="540.0" prefWidth="1260.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sabga.controlador.RegistroUsuarioController">
   <children>
-    <HBox id="HBox" alignment="CENTER" spacing="100.0" AnchorPane.bottomAnchor="470.0" AnchorPane.rightAnchor="370.0">
+    <HBox id="HBox" alignment="CENTER" spacing="100.0" AnchorPane.bottomAnchor="465.0" AnchorPane.rightAnchor="431.0">
       <children>
         <Label prefWidth="210.0" text="Registrar Nuevo Usuario">
           <font>
@@ -29,18 +29,18 @@
         </ComboBox>
       </children>
     </HBox>
-    <GridPane fx:id="gridRegistrar1" alignment="TOP_RIGHT" layoutY="110.0" prefHeight="338.0" prefWidth="410.0" AnchorPane.rightAnchor="700.0">
+    <GridPane fx:id="gridRegistrar1" alignment="TOP_RIGHT" layoutX="90.0" layoutY="116.0" prefHeight="338.0" prefWidth="485.0">
       <children>
         <Label prefWidth="145.0" text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
         <TextField id="nombreTF" fx:id="txtfNombre" prefHeight="30.0" prefWidth="250.0" promptText="Nombre del usuario" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-        <Label id="validarNombre" fx:id="lblNombre" alignment="CENTER_RIGHT" prefWidth="295.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <Label id="validarNombre" fx:id="lblNombre" alignment="CENTER_RIGHT" prefWidth="347.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="1">
           <textFill>
             <Color blue="0.000" green="0.000" red="0.600" fx:id="x1" />
           </textFill>
         </Label>
         <Label text="Apellido:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
         <TextField id="apellidoTF" fx:id="txtfApellido" prefHeight="30.0" prefWidth="250.0" promptText="Apellidos del usuario" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <Label id="validarApellidos" fx:id="lblApellido" alignment="CENTER_RIGHT" prefWidth="295.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label id="validarApellidos" fx:id="lblApellido" alignment="CENTER_RIGHT" prefWidth="347.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
         <Label fx:id="etiquetaCurso" text="Curso:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
         <TextField id="mailTF" fx:id="txtfCorreo" prefHeight="30.0" prefWidth="250.0" promptText="E-mail" GridPane.columnIndex="1" GridPane.rowIndex="4" />
         <ComboBox id="cursoCB" fx:id="comboGrado" prefHeight="25.0" prefWidth="158.0" promptText="Seleccione un Curso" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
@@ -48,35 +48,35 @@
             <FXCollections fx:factory="observableArrayList" />
           </items>
         </ComboBox>
-        <Label id="validarCurso" fx:id="lblGrado" alignment="CENTER_RIGHT" prefWidth="295.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <Label id="validarCurso" fx:id="lblGrado" alignment="CENTER_RIGHT" prefWidth="347.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
         <Label fx:id="etiquetaGrupo" text="Grupo:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
         <ComboBox id="grupoCB" fx:id="comboCurso" prefHeight="25.0" prefWidth="158.0" promptText="Seleccione un Grupo" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
           <items>
             <FXCollections fx:factory="observableArrayList" />
           </items>
         </ComboBox>
-        <Label id="validarGrupo" fx:id="lblCurso" alignment="CENTER_RIGHT" prefWidth="295.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+        <Label id="validarGrupo" fx:id="lblCurso" alignment="CENTER_RIGHT" prefWidth="347.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
         <Label fx:id="etiquetaCorreo" text="Correo Electrónico:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-        <Label id="validarCorreo" fx:id="lblCorreo" alignment="CENTER_RIGHT" prefWidth="263.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Label id="validarCorreo" fx:id="lblCorreo" alignment="CENTER_RIGHT" prefWidth="347.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       </children>
       <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.0" minWidth="10.0" prefWidth="147.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="369.0" minWidth="10.0" prefWidth="263.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.0" minWidth="10.0" prefWidth="138.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="369.0" minWidth="10.0" prefWidth="347.0" />
       </columnConstraints>
       <rowConstraints>
+        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <GridPane id="camposG" fx:id="gridRegistrar2" layoutY="110.0" prefHeight="282.0" prefWidth="418.0" visible="true" AnchorPane.rightAnchor="140.0">
+    <GridPane id="camposG" fx:id="gridRegistrar2" layoutX="642.0" layoutY="119.0" prefHeight="285.0" prefWidth="500.0" visible="true">
       <children>
         <Label id="lblDocumento" fx:id="lblMatricula" text="Código de Matrícula:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
         <Label fx:id="etiquetaJornada" text="Jornada:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
@@ -90,18 +90,18 @@
         <TextField id="documentoTF" fx:id="txtfDocumento" prefHeight="30.0" prefWidth="250.0" promptText="" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
         <TextField id="telefonoTF" fx:id="txtfTelefono" prefHeight="30.0" prefWidth="250.0" promptText="Teléfono móvil o fijo" GridPane.columnIndex="1" GridPane.rowIndex="4" />
         <TextField id="direccionTF" fx:id="txtfDireccion" prefHeight="30.0" prefWidth="250.0" promptText="Dirección de residencia" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-        <Label id="validarDocumento" fx:id="lblDocumento" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label id="validarDocumento" fx:id="lblDocumento" alignment="CENTER_RIGHT" prefWidth="333.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
         <Label id="validarJornada" fx:id="lblJornada" alignment="CENTER_RIGHT" prefWidth="263.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <Label id="valiarTelefono" fx:id="lblTelefono" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5">
+        <Label id="valiarTelefono" fx:id="lblTelefono" alignment="CENTER_RIGHT" prefWidth="333.0" text="" textAlignment="LEFT" textFill="$x1" wrapText="false" GridPane.columnIndex="1" GridPane.rowIndex="5">
           <GridPane.margin>
             <Insets />
           </GridPane.margin>
         </Label>
-        <Label id="validarDireccion" fx:id="lblDireccion" alignment="CENTER_RIGHT" prefWidth="250.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <Label id="validarDireccion" fx:id="lblDireccion" alignment="CENTER_RIGHT" prefWidth="333.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
       </children>
       <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="142.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="250.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="119.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="333.0" minWidth="10.0" prefWidth="333.0" />
       </columnConstraints>
       <rowConstraints>
         <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
@@ -110,11 +110,11 @@
         <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="13.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="14.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="18.0" minHeight="0.0" prefHeight="18.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <HBox id="HBox" alignment="CENTER" layoutX="748.0" layoutY="431.0" spacing="100.0">
+    <HBox id="HBox" alignment="CENTER" layoutX="771.0" layoutY="442.0" spacing="100.0">
       <children>
         <Button fx:id="botonCancelar" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="120.0" text="Cancelar" />
         <Button id="registrar" fx:id="botonGuardarUsuario" defaultButton="true" focusTraversable="true" mnemonicParsing="false" onAction="#registrarUsuario" prefHeight="25.0" text="Guardar Nuevo Usuario" visible="true" />

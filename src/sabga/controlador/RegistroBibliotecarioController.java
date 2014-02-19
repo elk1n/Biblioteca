@@ -47,7 +47,8 @@ public class RegistroBibliotecarioController implements Initializable, Controlle
     
     @FXML 
     public void registrarBibliotecario(ActionEvent evento){
-       registrarBiblitecario();          
+        
+       registrarBiblitecario();        
    }
     
     private void registrarBiblitecario(){

@@ -71,7 +71,7 @@ public class ValidarUsuario extends Validacion {
         if (!validarNumero(documento, 15)) {
             this.errorDocumento= getMensajeError();
         }
-        if (!validarNumeroNull(telefono, 15)) {
+        if (!validarTelefonoNull(telefono, 15)) {
             this.errorTelefono = getMensajeError();
         }
         if (!validarCampoTextoNull(direccion, 45)) {
@@ -93,7 +93,7 @@ public class ValidarUsuario extends Validacion {
         if (!validarNumero(documento, 15)) {
             this.errorDocumento = getMensajeError();
         }
-        if (!validarNumeroNull(telefono, 15)) {
+        if (!validarTelefonoNull(telefono, 15)) {
             this.errorTelefono = getMensajeError();
         }
         if (!validarCampoTextoNull(direccion, 45)) {
@@ -125,7 +125,7 @@ public class ValidarUsuario extends Validacion {
         if(!validarNumero(documento, 15)){
             this.errorDocumento = getMensajeError();
         }
-        if(!validarNumeroNull(telefono, 15)){
+        if(!validarTelefonoNull(telefono, 15)){
             this.errorTelefono = getMensajeError();
         }
     }
@@ -154,7 +154,7 @@ public class ValidarUsuario extends Validacion {
          if(!validarCampoTexto(correo, 90)){
             this.errorCorreo = getMensajeError();
         }
-        if(!validarNumeroNull(telefono, 15)){
+        if(!validarTelefonoNull(telefono, 15)){
             this.errorTelefono = getMensajeError();
         } 
         if(!validarCampoTexto(usuario, 20)){
@@ -242,7 +242,5 @@ public class ValidarUsuario extends Validacion {
     public String getErrorMulta() {
         return this.errorMulta;
     }
-    
-    
-    
+       
 }

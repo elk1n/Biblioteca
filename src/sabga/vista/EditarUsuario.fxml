@@ -65,12 +65,12 @@
         </ContextMenu>
       </contextMenu>
     </TableView>
-    <Label layoutX="751.0" layoutY="18.0" text="Datos del Usuario">
+    <Label layoutX="750.0" layoutY="18.0" text="Datos del Usuario">
       <font>
         <Font name="System Bold" size="14.0" fx:id="x2" />
       </font>
     </Label>
-    <ScrollPane layoutX="749.0" layoutY="53.0" prefHeight="366.0" prefWidth="479.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
+    <ScrollPane layoutX="749.0" layoutY="53.0" prefHeight="362.0" prefWidth="479.0" style=" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );">
       <content>
         <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="811.0" prefWidth="474.0">
           <children>
@@ -96,7 +96,7 @@
                 <Label id="validarApellidos" fx:id="lblApellido" alignment="CENTER_RIGHT" prefWidth="339.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                 <Label id="validarDocumento" fx:id="lblDocumento" alignment="CENTER_RIGHT" prefWidth="339.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 <Label id="validarCorreo" fx:id="lblCorreo" alignment="CENTER_RIGHT" prefWidth="339.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                <Label id="validarTelefono" fx:id="lblTelefono" alignment="CENTER_RIGHT" prefWidth="339.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                <Label id="validarTelefono" fx:id="lblTelefono" alignment="CENTER_RIGHT" prefWidth="339.0" text="" textAlignment="RIGHT" textFill="$x1" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="9" GridPane.valignment="TOP" />
                 <Label id="validarDireccion" fx:id="lblDireccion" alignment="CENTER_RIGHT" prefWidth="351.0" text="" textFill="$x1" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                 <Label text="Curso:" GridPane.columnIndex="0" GridPane.rowIndex="12" />
                 <ComboBox id="comboCurso" fx:id="comboGrado" maxWidth="150.0" prefHeight="25.0" prefWidth="168.0" promptText="Curso" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="12">
@@ -148,8 +148,8 @@
                 <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="34.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />

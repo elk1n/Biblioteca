@@ -87,7 +87,7 @@ public class Validacion {
         Matcher matcher = patron.matcher(campoTexto);
         if (!campoTexto.isEmpty()) {
             if (campoTexto.length() > numeroCaracteres) {
-                this.mensajeError = "Máximo " + numeroCaracteres + " caracteresa.";
+                this.mensajeError = "Máximo " + numeroCaracteres + " caracteres.";
                 return false;
             } else if (!matcher.matches()) {
                 this.mensajeError = "Debe ser un número.";
@@ -100,6 +100,31 @@ public class Validacion {
             this.mensajeError = "";
             return true;
         }
+    }
+    
+    public boolean validarTelefonoNull(String campoTexto, int numeroCaracteres) {
+
+        Pattern patron = Pattern.compile("^(?!\\s)[0-9\\s\\-]+");
+        if (campoTexto == null) {
+            campoTexto = "";
+        }
+        Matcher matcher = patron.matcher(campoTexto);
+        if (!campoTexto.isEmpty()) {
+            if (campoTexto.length() > numeroCaracteres) {
+                this.mensajeError = "Máximo " + numeroCaracteres + " caracteres.";
+                return false;
+            } else if (!matcher.matches()) {
+                this.mensajeError = "Unicamente admite números, espacios y guiones.";
+                return false;
+            } else {
+                this.mensajeError = "";
+                return true;
+            }
+        } else {
+            this.mensajeError = "";
+            return true;
+        }
+
     }
 
     public boolean validarCorreo(String correoElectronico, int numeroCaracteres) {
@@ -175,7 +200,7 @@ public class Validacion {
             if (validarNumero(campoTexto, numeroCaracteres)) {
                 anio = Integer.parseInt(campoTexto);
                 if (anio > calendario.get(Calendar.YEAR)) {
-                    this.mensajeError = "El año es mayor al actual.";
+                    this.mensajeError = "El año ingresado es mayor al actual.";
                     return false;
                 }
                 return true;
@@ -238,8 +263,7 @@ public class Validacion {
                 this.mensajeError = "La editorial debe ser seleccionada de la lista.";
                 return false;
             }
-        }
-        else{
+        }else{
             return true;
         }
     }

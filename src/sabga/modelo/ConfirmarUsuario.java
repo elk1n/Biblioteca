@@ -54,7 +54,7 @@ public class ConfirmarUsuario extends ValidarUsuario {
         else if (!validarNumero(documento, 15)) {
             return false;
         }
-        else if (!validarNumeroNull(telefono, 15)) {
+        else if (!validarTelefonoNull(telefono, 15)) {
             return false;
         }
         else if (!validarCampoTextoNull(direccion, 45)) {
@@ -79,7 +79,7 @@ public class ConfirmarUsuario extends ValidarUsuario {
         else if (!validarNumero(documento, 15)) {
                 return false;
         }
-        else if (!validarNumeroNull(telefono, 15)) {
+        else if (!validarTelefonoNull(telefono, 15)) {
               return false;
         }
         else if (!validarCampoTextoNull(direccion, 45)) {
@@ -114,7 +114,7 @@ public class ConfirmarUsuario extends ValidarUsuario {
         else if(!validarNumero(documento, 15)){
             return false;
         }
-        else if(!validarNumeroNull(telefono, 15)){
+        else if(!validarTelefonoNull(telefono, 15)){
             return false;
         }
         else{
@@ -136,7 +136,7 @@ public class ConfirmarUsuario extends ValidarUsuario {
         else if(!validarCampoTexto(correo, 90)){
            return false;
         }
-        else if(!validarNumeroNull(telefono, 15)){
+        else if(!validarTelefonoNull(telefono, 15)){
             return false;
         } 
         else if(!validarCampoTexto(usuario, 20)){

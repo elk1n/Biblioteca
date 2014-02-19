@@ -77,14 +77,13 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     @FXML
     private TableColumn<Materia, String> clmnMateria;
     @FXML
-    private TableColumn<Autor, String>clmnNombre, clmnApellidos;
+    private TableColumn<Autor, String>clmnNombre;
     @FXML
     private TableColumn<Ejemplar, String>clmnEjemplar, clmnEstado;
     private final AutoFillTextBox<String> editorial, autores, materias ;    
     private final ObservableList<Material> filtrarMaterial;
     private final ObservableList<Material> listaMaterial;
     private final ObservableList<Autor> listaAutores;
-    private final ObservableList<Autor> obtenerAutores;
     private final ObservableList<Materia> listaMaterias;
     private final ObservableList<Ejemplar> listaEjemplares;
     private final ObservableList<String> listaBusquedaMaterias, listaBusquedaAutores, disponibilidad, listaEditorial;
@@ -96,7 +95,6 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         editorial = new AutoFillTextBox<>();
         autores = new AutoFillTextBox<>();
         materias = new AutoFillTextBox<>();
-        obtenerAutores = FXCollections.observableArrayList();
         listaBusquedaMaterias = FXCollections.observableArrayList();
         listaBusquedaAutores = FXCollections.observableArrayList();
         filtrarMaterial = FXCollections.observableArrayList();
@@ -308,14 +306,13 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         if (lblTipoMaterial.getText() != null && !"".equals(lblTipoMaterial.getText())) {
             if (!listaMaterial.isEmpty() && lblTipoMaterial.getText().toLowerCase().contains("libro")) {
                 if (listaBusquedaAutores.indexOf(autores.getText()) != -1) {
-                    if (!verificarDuplicados(listaAutores, autores.getText())) {
+                    if (!verificarDuplicadosAutor(listaAutores, autores.getText())) {
                         consulta.editarAutorMaterial(2, Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()),
-                                                     obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getIdAutor());
+                                                     autores.getText());
                         if (consulta.getMensaje() == null) {
                             Utilidades.mensaje(null, "El autor se ha añadido correctamente.", "Adición exitosa.", "Añadir Autor");
-                            listaAutores.add(new Autor(obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getIdAutor(),
-                                                       obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getNombreAutor(),
-                                                       obtenerAutores.get(listaBusquedaAutores.indexOf(autores.getText())).getApellidosAutor()));
+                            listaAutores.clear();
+                            listaAutores.addAll(consulta.getListaAutoresMaterial(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId())));
                             autores.getTextbox().setText("");
                         } else {
                             Utilidades.mensajeAdvertencia(null, "No ha sido posible añadir el autor.", "Error al añadir el autor.", "Añadir Autor");
@@ -338,7 +335,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
          if(tablaAutores.getSelectionModel().getSelectedItem()!=null && tablaMaterial.getSelectionModel().getSelectedItem() != null){
              if(listaAutores.size() >1){
                  consulta.editarAutorMaterial(1, Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()),
-                                                 listaAutores.get(tablaAutores.getSelectionModel().getSelectedIndex()).getIdAutor());
+                                                 listaAutores.get(tablaAutores.getSelectionModel().getSelectedIndex()).getNombreAutor());
                  if(consulta.getMensaje() == null){
                        Utilidades.mensaje(null, "El autor ha sido removido correctamente.", "Remover un  autor.", "Remover Autor");
                        listaAutores.remove(tablaAutores.getSelectionModel().getSelectedIndex());
@@ -350,8 +347,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
              }      
        }else{
            Utilidades.mensajeAdvertencia(null, "Debe seleccionar un autor de la lista.", "Pare remover un autor.", "Remover Autor");
-       } 
-    
+       }     
     }
     
     private void sumarMateria(){
@@ -448,10 +444,9 @@ public class EditarMaterialController implements Initializable, ControlledScreen
          listaMaterias.clear();
          clmnMateria.setCellValueFactory(new PropertyValueFactory<Materia, String>("nombreMateria"));
          clmnNombre.setCellValueFactory(new PropertyValueFactory<Autor, String>("nombreAutor"));
-         clmnApellidos.setCellValueFactory(new PropertyValueFactory<Autor, String>("apellidosAutor"));
          tablaMaterias.setEditable(true);
          tablaAutores.setEditable(true);
-         listaAutores.addAll(consulta.listaAutores(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId())));
+         listaAutores.addAll(consulta.getListaAutoresMaterial(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId())));
          listaMaterias.addAll(consulta.listaMaterias(Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId())));
          tablaAutores.setItems(listaAutores);
          tablaMaterias.setItems(listaMaterias);     
@@ -493,6 +488,16 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         comboMaterial.setItems(consulta.llenarLista(2));           
     }
     
+    private Boolean verificarDuplicadosAutor(ObservableList<Autor> lista, String datos){
+    
+        for(Autor dato: lista){
+           if(dato.getNombreAutor().equals(datos)){
+               return true;
+           }            
+        }
+        return false;
+    }
+    
     private Boolean verificarDuplicados(ObservableList lista, String datoVefificar){
         
         for(Object dato: lista){
@@ -519,9 +524,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         btnAutor.setDisable(true);
         dialogo.mostrarDialogo("vista/dialogos/NuevoAutor.fxml", "Nuevo Autor", ventanaPrincipal.getPrimaryStage(), null, 1);
         listaBusquedaAutores.clear();
-        obtenerAutores.clear();
         listaBusquedaAutores.addAll(consulta.llenarLista(12));
-        obtenerAutores.addAll(consulta.getListaAutores());
         btnAutor.setDisable(false);
     }
     
@@ -686,7 +689,6 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         editorial.getTextbox().setPromptText("Buscar Editorial");
         listaBusquedaMaterias.addAll(consulta.llenarLista(3));
         listaBusquedaAutores.addAll(consulta.llenarLista(12));
-        obtenerAutores.addAll(consulta.getListaAutores());
         editorial.setData(listaEditorial);
         materias.setData(listaBusquedaMaterias);
         autores.setData(listaBusquedaAutores);        

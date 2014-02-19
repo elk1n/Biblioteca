@@ -10,8 +10,9 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Autor {
     
-    private final SimpleIntegerProperty idAutor;
-    private final SimpleStringProperty nombreAutor;
+    private SimpleIntegerProperty idAutor;
+    private SimpleStringProperty nombreAutor;
+    private SimpleStringProperty datosAutor;
     private SimpleStringProperty apellidosAutor;
     
     
@@ -27,6 +28,10 @@ public class Autor {
         this.nombreAutor = new SimpleStringProperty(nombre);
     }
     
+    public Autor(String datos){
+        this.datosAutor = new SimpleStringProperty(datos);
+    }
+    
     public String getNombreAutor(){    
         return nombreAutor.get();
     }
@@ -39,9 +44,8 @@ public class Autor {
         return this.idAutor.get();
     }
     
-    @Override
-    public String toString() {
-        return this.getNombreAutor()+" "+this.getApellidosAutor();
+    public String getDatosAutor(){
+        return this.datosAutor.get();
     }
-    
+        
 }

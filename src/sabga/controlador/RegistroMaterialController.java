@@ -48,7 +48,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     @FXML
     private TableView<Materia> tablaMaterias, tablaMateriasOM;    
     @FXML
-    private TableColumn<Autor, String> clmnNombre, clmnApellidos;
+    private TableColumn<Autor, String> clmnNombre;
     @FXML
     private TableColumn<Materia, String> clmnNombreMateria, clmnNombreMateriaOM;           
     @FXML 
@@ -75,7 +75,6 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     private ConfirmarMaterial confirmar;
     private final Consultas consulta;    
     private final ObservableList<String>listaAutores;
-    private final ObservableList<Autor> obtenerAutores;
     private final ObservableList<String> listaMaterias;
     private final ObservableList<String> listaEditoriales;
     private final ObservableList<Autor> autores;
@@ -97,7 +96,6 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         materiasOM = FXCollections.observableArrayList();
         listaEditoriales = FXCollections.observableArrayList();
         listaAutores = FXCollections.observableArrayList();
-        obtenerAutores = FXCollections.observableArrayList();
         validar = new Validacion();
    
     }
@@ -304,10 +302,10 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         return false;  
     }
     
-    private Boolean verificarDuplicados(String datoDe){
+    private Boolean verificarDuplicadosAutor(ObservableList<Autor> lista, String datos){
     
-        for(Autor dato: autores){
-           if(dato.toString().equals(datoDe)){
+        for(Autor dato: lista){
+           if(dato.getDatosAutor().equals(datos)){
                return true;
            }            
         }
@@ -315,11 +313,10 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     }
         
     public void obtenerAutor(){
-        
+      
         if (listaAutores.indexOf(buscarAutor.getText()) != -1) {
-            if (!verificarDuplicados(buscarAutor.getText())) {
-                autores.add(new Autor(0, obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getNombreAutor(), 
-                                         obtenerAutores.get(listaAutores.indexOf(buscarAutor.getText())).getApellidosAutor()));
+            if (!verificarDuplicadosAutor(autores, buscarAutor.getText())) {
+                autores.add(new Autor(listaAutores.get(listaAutores.indexOf(buscarAutor.getText())).toString()));
                 contenedorAutores.setPrefHeight(contenedorAutores.getPrefHeight() + 25);
                 tablaAutores.setPrefHeight(tablaAutores.getPrefHeight() + 25);
                 buscarAutor.getTextbox().setText("");
@@ -328,7 +325,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
                 buscarAutor.getTextbox().setText("");
             }
         } else {
-            Utilidades.mensaje(null, "El autor debe ser no de la lista.", "", "Seleccionar Autor");
+            Utilidades.mensaje(null, "El autor debe ser seleccionado de la lista.", "", "Seleccionar Autor");
             buscarAutor.getTextbox().setText("");
         }    
     }
@@ -347,8 +344,7 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     @FXML 
     public void prepararTablas(){
     
-        clmnNombre.setCellValueFactory(new PropertyValueFactory<Autor,String>("nombreAutor"));
-        clmnApellidos.setCellValueFactory(new PropertyValueFactory<Autor,String>("apellidosAutor"));
+        clmnNombre.setCellValueFactory(new PropertyValueFactory<Autor,String>("datosAutor"));
         tablaAutores.setEditable(true);	
         tablaAutores.setItems(autores);
         
@@ -456,7 +452,6 @@ public class RegistroMaterialController implements Initializable, ControlledScre
         btnNuevoAutor.setDisable(true);
         dialogo.mostrarDialogo("vista/dialogos/NuevoAutor.fxml", "Nuevo Autor", ventanaPrincipal.getPrimaryStage(), null, 1); 
         listaAutores.clear();
-        obtenerAutores.clear();
         llenarAutores();
         btnNuevoAutor.setDisable(false);
     }
@@ -506,7 +501,6 @@ public class RegistroMaterialController implements Initializable, ControlledScre
     
     public void llenarAutores(){     
         listaAutores.addAll(consulta.llenarLista(12));        
-        obtenerAutores.addAll(consulta.getListaAutores());
     }
     
     public void llenarListaMaterias(){

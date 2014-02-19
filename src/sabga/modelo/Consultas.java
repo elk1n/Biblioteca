@@ -151,6 +151,25 @@ public class Consultas {
         }
         return listaEjemplares;
     }
+    
+    public ObservableList<Autor> getListaAutoresMaterial(int id) {
+
+        ObservableList<Autor> lista = FXCollections.observableArrayList();
+        try {
+            con.conectar();
+            con.procedimiento("{ CALL getListaAutoresMaterial2(?) }");
+            con.getProcedimiento().setInt("id", id);
+            con.setResultado(con.getProcedimiento().executeQuery());
+            while (con.getResultado().next()) {
+                lista.add(new Autor(con.getResultado().getInt("id"), con.getResultado().getString("nombre")));
+            }
+        } catch (SQLException ex) {
+            Utilidades.mensajeError(null, ex.getMessage(), "No se pudo acceder a la base de datos\nFavor intente más tarde", "Error");
+        } finally {
+            con.desconectar();
+        }
+        return lista;
+    }
 
     public ObservableList<Autor> listaAutores(int id) {
 
@@ -871,19 +890,18 @@ public class Consultas {
         try {
             for(Autor a :listaAutores){
                 
-                con.procedimiento("{ ? = CALL getIdAutor(?,?) }");
+                con.procedimiento("{ ? = CALL getIdAutor(?) }");
                 con.getProcedimiento().registerOutParameter(1, Types.INTEGER);
-                con.getProcedimiento().setString("nombre", a.getNombreAutor());
-                con.getProcedimiento().setString("apellido", a.getApellidosAutor());
+                con.getProcedimiento().setString("datos", a.getDatosAutor());
                 con.getProcedimiento().execute();
                 listaId.add(con.getProcedimiento().getInt(1));
             }            
         } catch (SQLException e) {
-            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar el código de la materia", "Error Consulta Código");  
+            Utilidades.mensajeError(null, e.getMessage(), "Error al consultar el código del autor", "Error Consulta Código");  
         } 
         return listaId;
     }
-    
+        
     public ObservableList<Usuario> getDatosUsuario(int opcion, String idUsuario){
     
          ObservableList<Usuario> lista = FXCollections.observableArrayList();
@@ -1200,7 +1218,7 @@ public class Consultas {
         }
     }
 
-    public void editarAutorMaterial(int opcion, int material, int autor) {
+    public void editarAutorMaterial(int opcion, int material, String autor) {
 
         try {
             con.conectar();
@@ -1208,7 +1226,7 @@ public class Consultas {
             con.procedimiento("{ CALL editarAutorMaterial(?,?,?,?) }");
             con.getProcedimiento().setInt("opcion", opcion);
             con.getProcedimiento().setInt("material", material);
-            con.getProcedimiento().setInt("autor", autor);
+            con.getProcedimiento().setString("datosAutor", autor);
             con.getProcedimiento().registerOutParameter("mensaje", Types.VARCHAR);
             con.getProcedimiento().execute();
             mensaje = con.getProcedimiento().getString("mensaje");
