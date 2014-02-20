@@ -68,7 +68,7 @@ public class RegistroBibliotecarioController implements Initializable, Controlle
             }    
         }        
    }
-   
+    
     private void mensajes(){
        
         ValidarUsuario bibliotecario = new ValidarUsuario();
