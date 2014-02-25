@@ -24,7 +24,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import sabga.Sabga;
 import sabga.ScreensController;
-import sabga.atributos.Atributos;
 import sabga.atributos.Usuario;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Dialogo;
@@ -204,6 +203,7 @@ public class EditarUsuarioController implements Initializable, ControlledScreen 
     }
     
     private void buscarUsuario(){
+        
         limpiarDetalle();
         if (!"".equals(txtfBuscar.getText()) && radioBuscar.isSelected()) {
             tablaUsuarios();

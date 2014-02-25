@@ -165,7 +165,6 @@ public class EditarMaterialController implements Initializable, ControlledScreen
    
     @FXML
     public void listarMaterial(ActionEvent evento){                        
-        prepararTablaMaterial();
         listar();    
     }
     
@@ -221,6 +220,17 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         }
     }
     
+    private void listar() {
+
+        limpiarDetalle();
+        if (!comboMaterial.getSelectionModel().isEmpty()) {
+            prepararTablaMaterial();
+            filtrarMaterial.addAll(listaMaterial);
+            listaMaterial.addAll(consulta.getListaMaterial(comboMaterial.getSelectionModel().getSelectedItem().toString()));
+            tablaMaterial.setItems(filtrarMaterial);
+        }
+    }
+
     private void mapearDatos(){
       
         if (tablaMaterial.getSelectionModel().getSelectedItem()!= null) {
@@ -481,20 +491,9 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         clmnCodigo.setCellValueFactory(new PropertyValueFactory<Material, String>("codigo"));        
         clmnClase.setCellValueFactory(new PropertyValueFactory<Material, String>("clase"));     
         tablaMaterial.setEditable(true);
-        filtrarMaterial.clear();
         listaMaterial.clear();
     }
-    
-    private void listar(){  
-        
-        limpiarDetalle();
-        if(!comboMaterial.getSelectionModel().isEmpty()){
-            filtrarMaterial.addAll(listaMaterial);
-            listaMaterial.addAll(consulta.getListaMaterial(comboMaterial.getSelectionModel().getSelectedItem().toString()));
-            tablaMaterial.setItems(filtrarMaterial);
-        }        
-    }
-    
+       
     private void llenarComboBox(){
         
         comboClaseMaterial.setItems(consulta.llenarLista(1));
