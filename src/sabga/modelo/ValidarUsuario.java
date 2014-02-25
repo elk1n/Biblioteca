@@ -68,7 +68,7 @@ public class ValidarUsuario extends Validacion {
         if (jornada == null) {
             this.errorJornada = "Debe seleccionar una opción.";
         }
-        if (!validarNumero(documento, 15)) {
+        if (!validarCampoTexto(documento, 15)) {
             this.errorDocumento= getMensajeError();
         }
         if (!validarTelefonoNull(telefono, 15)) {
@@ -90,7 +90,7 @@ public class ValidarUsuario extends Validacion {
         if (!validarCorreoNull(correo, 90)) {
             this.errorCorreo = getMensajeError();
         }
-        if (!validarNumero(documento, 15)) {
+        if (!validarCampoTexto(documento, 15)) {
             this.errorDocumento = getMensajeError();
         }
         if (!validarTelefonoNull(telefono, 15)) {
@@ -119,10 +119,10 @@ public class ValidarUsuario extends Validacion {
         if(!validarNuevaContrasenia(contrasenia, confirmar, 20)){
             this.errorContrasenia = getMensajeError();
         }        
-        if(!validarCampoTexto(correo, 90)){
+        if(!validarCorreo(correo, 90)){
             this.errorCorreo = getMensajeError();
         }
-        if(!validarNumero(documento, 15)){
+        if(!validarCampoTexto(documento, 15)){
             this.errorDocumento = getMensajeError();
         }
         if(!validarTelefonoNull(telefono, 15)){
@@ -142,7 +142,7 @@ public class ValidarUsuario extends Validacion {
     
     public void validarEditarBibliotecario(String documento, String nombre, String apellido, String correo, String telefono, String usuario){
     
-        if(!validarNumero(documento, 15)){
+        if(!validarCampoTexto(documento, 15)){
             this.errorDocumento = getMensajeError();
         }
         if(!validarCampoTexto(nombre, 90)){
@@ -151,7 +151,7 @@ public class ValidarUsuario extends Validacion {
         if(!validarCampoTexto(apellido, 90)){
             this.errorApellido = getMensajeError();
         }
-         if(!validarCampoTexto(correo, 90)){
+         if(!validarCorreo(correo, 90)){
             this.errorCorreo = getMensajeError();
         }
         if(!validarTelefonoNull(telefono, 15)){

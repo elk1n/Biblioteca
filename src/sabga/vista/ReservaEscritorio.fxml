@@ -112,12 +112,12 @@
                 </ComboBox>
                 <TextField fx:id="txtfBuscarUsuario" layoutX="166.0" layoutY="36.0" onAction="#buscarUsuario" onKeyTyped="#mostrarBotonUsuario" prefHeight="30.0" prefWidth="250.0" promptText="Buscar Usuario" styleClass="campoBusqueda">
                   <stylesheets>
-                    <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                    <URL value="@css/estilo.css" />
                   </stylesheets>
                 </TextField>
                 <Button layoutX="425.0" layoutY="38.0" mnemonicParsing="false" onAction="#buscarUsuario" prefHeight="25.0" prefWidth="25.0" styleClass="botonBuscar" text="">
                   <stylesheets>
-                    <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                    <URL value="@css/estilo.css" />
                   </stylesheets>
                   <tooltip>
                     <Tooltip text="Iniciar búsqueda" />
@@ -125,7 +125,7 @@
                 </Button>
                 <Button fx:id="btnBorrarUsuario" layoutX="391.0" layoutY="40.0" mnemonicParsing="false" onAction="#borrarCampoUsuario" styleClass="botonBorrar" text="">
                   <stylesheets>
-                    <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                    <URL value="@css/estilo.css" />
                   </stylesheets>
                 </Button>
                 <Label fx:id="lblBuscarUsuario" layoutX="168.0" layoutY="73.0" prefWidth="246.0" text="" textFill="$x2" />
@@ -234,7 +234,7 @@
         <Label font="$x1" layoutX="22.0" layoutY="154.0" text="Ejemplares:" />
       </children>
       <stylesheets>
-        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+        <URL value="@css/estilo.css" />
       </stylesheets>
     </Pane>
   </children>

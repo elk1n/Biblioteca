@@ -140,10 +140,10 @@ public class Utilidades {
     public static int setNumero(String campoTexto){
     
         int numero;
-        if(campoTexto.isEmpty()){
+        
+        if(campoTexto == null || campoTexto.isEmpty() ){
             numero = 0;
-        }
-        else{
+        }else{
             numero = Integer.parseInt(campoTexto);
         }
        return numero;

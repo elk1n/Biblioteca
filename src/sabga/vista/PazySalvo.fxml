@@ -37,12 +37,12 @@
         </ComboBox>
         <TextField id="txtfBuscarUsuario" fx:id="txtfBuscar" layoutX="242.0" layoutY="56.0" onAction="#buscarUsuario" onKeyTyped="#mostrarBoton" prefHeight="30.0" prefWidth="250.0" promptText="Buscar Usuario" styleClass="campoBusqueda">
           <stylesheets>
-            <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+            <URL value="@css/estilo.css" />
           </stylesheets>
         </TextField>
         <Button layoutX="501.0" layoutY="58.0" mnemonicParsing="false" onAction="#buscarUsuario" prefHeight="25.0" prefWidth="25.0" styleClass="botonBuscar" text="">
           <stylesheets>
-            <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+            <URL value="@css/estilo.css" />
           </stylesheets>
           <tooltip>
             <Tooltip text="Iniciar búsqueda" />
@@ -50,7 +50,7 @@
         </Button>
         <Button id="btnBorrarUsuario" fx:id="btnBorrar" layoutX="462.0" layoutY="60.0" mnemonicParsing="false" onAction="#borrarCampo" prefWidth="25.0001220703125" styleClass="botonBorrar" text="">
           <stylesheets>
-            <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+            <URL value="@css/estilo.css" />
           </stylesheets>
         </Button>
         <Label fx:id="lblBuscarUsuario" layoutX="246.0" layoutY="93.0" prefWidth="246.0" text="" textFill="#cc0000" />

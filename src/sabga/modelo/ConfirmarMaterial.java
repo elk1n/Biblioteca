@@ -14,6 +14,7 @@ import sabga.preferencias.Preferencias;
 public class ConfirmarMaterial extends ValidarMaterial {
     private Calendar fechas;
     private Preferencias pref;
+    
     public boolean confirmarNuevoAutor(String nombre, String apellidos) {
 
         if (!validarCampoTexto(nombre, 90)) {
@@ -122,7 +123,7 @@ public class ConfirmarMaterial extends ValidarMaterial {
             return false;
         }else if (!validarCampoTexto(titulo, 255)) {
             return false;
-        }else if (!validarAnioNull(anioPublicacion, 4)) {
+        }else if (!validarAnioNull2(anioPublicacion, 4)) {
             return false;
         }else if (!validarCampoTextoNull(publicacion, 255)) {
             return false;

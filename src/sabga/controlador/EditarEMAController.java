@@ -1,8 +1,6 @@
 package sabga.controlador;
 
 import java.net.URL;
-import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -24,7 +22,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import sabga.Sabga;
 import sabga.ScreensController;
 import sabga.atributos.Autor;
-import sabga.configuracion.Conexion;
 import sabga.configuracion.ControlledScreen;
 import sabga.configuracion.Utilidades;
 import sabga.modelo.ConfirmarMaterial;

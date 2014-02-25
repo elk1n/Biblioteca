@@ -195,7 +195,7 @@ public class Validacion {
         this.calendario = Calendar.getInstance();
         this.calendario = new GregorianCalendar();
         int anio;
-
+        
         if (!campoTexto.isEmpty()) {
             if (validarNumero(campoTexto, numeroCaracteres)) {
                 anio = Integer.parseInt(campoTexto);
@@ -212,6 +212,34 @@ public class Validacion {
             return true;
         }    
     }
+    
+    public boolean validarAnioNull2(String campoTexto, int numeroCaracteres) {
+
+        this.calendario = Calendar.getInstance();
+        this.calendario = new GregorianCalendar();
+        int anio;
+        
+        if (campoTexto == null) {
+            campoTexto = "";
+        }
+        
+        if (!campoTexto.isEmpty()) {
+            if (validarNumero(campoTexto, numeroCaracteres)) {
+                anio = Integer.parseInt(campoTexto);
+                if (anio > calendario.get(Calendar.YEAR)) {
+                    this.mensajeError = "El año ingresado es mayor al actual.";
+                    return false;
+                }
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            this.mensajeError = "";
+            return true;
+        }    
+    }
+    
     
     public boolean validarNumero(String texto){
         

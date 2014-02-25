@@ -41,7 +41,7 @@
                         <Point3D z="1.0" />
                       </rotationAxis>
                       <stylesheets>
-                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                        <URL value="@css/estilo.css" />
                       </stylesheets>
                     </Pane>
                     <Pane onMouseClicked="#ventanaPrestamo" prefHeight="110.0" prefWidth="140.0" scaleY="1.0" scaleZ="1.0" style="&#10;" styleClass="botonInicio" GridPane.columnIndex="0" GridPane.rowIndex="0">
@@ -57,7 +57,7 @@
                         <Point3D z="1.0" />
                       </rotationAxis>
                       <stylesheets>
-                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                        <URL value="@css/estilo.css" />
                       </stylesheets>
                     </Pane>
                     <Pane onMouseClicked="#ventanaDevolucion" prefHeight="110.0" prefWidth="140.0" scaleY="1.0" scaleZ="1.0" style="&#10;" styleClass="botonInicio" GridPane.columnIndex="1" GridPane.rowIndex="0">
@@ -73,7 +73,7 @@
                         <Point3D z="1.0" />
                       </rotationAxis>
                       <stylesheets>
-                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                        <URL value="@css/estilo.css" />
                       </stylesheets>
                     </Pane>
                     <Pane onMouseClicked="#ventanaRegistroMaterial" prefHeight="110.0" prefWidth="140.0" scaleY="1.0" scaleZ="1.0" style="&#10;" styleClass="botonInicio" GridPane.columnIndex="0" GridPane.rowIndex="1">
@@ -105,7 +105,7 @@
                         <Point3D z="1.0" />
                       </rotationAxis>
                       <stylesheets>
-                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                        <URL value="@css/estilo.css" />
                       </stylesheets>
                     </Pane>
                     <Pane onMouseClicked="#ventanaReservaEscritorio" prefHeight="110.0" prefWidth="140.0" scaleY="1.0" scaleZ="1.0" style="&#10;" styleClass="botonInicio" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -121,7 +121,7 @@
                         <Point3D z="1.0" />
                       </rotationAxis>
                       <stylesheets>
-                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                        <URL value="@css/estilo.css" />
                       </stylesheets>
                     </Pane>
                   </children>

@@ -55,7 +55,7 @@
                     <RadioButton fx:id="radioEditorial" mnemonicParsing="false" text="Listar Material Por Editorial:" toggleGroup="$material" GridPane.columnIndex="0" GridPane.rowIndex="6" />
                     <HBox id="hboxAutor" fx:id="hboxEditoriales" minHeight="30.0" prefHeight="30.0" prefWidth="-1.0" styleClass="autofill-text" GridPane.columnIndex="0" GridPane.rowIndex="7">
                       <stylesheets>
-                        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+                        <URL value="@../css/estilo.css" />
                       </stylesheets>
                       <GridPane.margin>
                         <Insets left="25.0" fx:id="x18" />

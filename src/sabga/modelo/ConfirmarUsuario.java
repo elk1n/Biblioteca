@@ -51,7 +51,7 @@ public class ConfirmarUsuario extends ValidarUsuario {
         else if (jornada == null) {
             return false;
         }
-        else if (!validarNumero(documento, 15)) {
+        else if (!validarCampoTexto(documento, 15)) {
             return false;
         }
         else if (!validarTelefonoNull(telefono, 15)) {
@@ -76,7 +76,7 @@ public class ConfirmarUsuario extends ValidarUsuario {
         else if (!validarCorreoNull(correo, 90)) {
                return false;
         }
-        else if (!validarNumero(documento, 15)) {
+        else if (!validarCampoTexto(documento, 15)) {
                 return false;
         }
         else if (!validarTelefonoNull(telefono, 15)) {
@@ -108,10 +108,10 @@ public class ConfirmarUsuario extends ValidarUsuario {
         else if(!validarNuevaContrasenia(contrasenia, confirmar, 20)){
             return false;
         }        
-        else if(!validarCampoTexto(correo, 90)){
+        else if(!validarCorreo(correo, 90)){
             return false;
         }
-        else if(!validarNumero(documento, 15)){
+        else if(!validarCampoTexto(documento, 15)){
             return false;
         }
         else if(!validarTelefonoNull(telefono, 15)){
@@ -124,7 +124,7 @@ public class ConfirmarUsuario extends ValidarUsuario {
     
     public boolean editarBibliotecario(String documento, String nombre, String apellido, String correo, String telefono, String usuario){
     
-        if(!validarNumero(documento, 15)){
+        if(!validarCampoTexto(documento, 15)){
            return false;
         }
         else if(!validarCampoTexto(nombre, 90)){
@@ -133,7 +133,7 @@ public class ConfirmarUsuario extends ValidarUsuario {
         else if(!validarCampoTexto(apellido, 90)){
             return false;
         }
-        else if(!validarCampoTexto(correo, 90)){
+        else if(!validarCorreo(correo, 90)){
            return false;
         }
         else if(!validarTelefonoNull(telefono, 15)){

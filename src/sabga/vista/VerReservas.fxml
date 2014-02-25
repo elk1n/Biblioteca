@@ -27,12 +27,12 @@
         <Label font="$x1" text="Buscar Reservas" GridPane.columnIndex="1" GridPane.rowIndex="0" />
         <TextField fx:id="txtfBuscar" onAction="#bucarReservas" onKeyTyped="#mostrarBoton" prefHeight="30.0" prefWidth="283.0" styleClass="campoBusqueda" GridPane.columnIndex="1" GridPane.rowIndex="1">
           <stylesheets>
-            <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+            <URL value="@css/estilo.css" />
           </stylesheets>
         </TextField>
         <Button fx:id="btnBorrar" mnemonicParsing="false" onAction="#borrarCampo" styleClass="botonBorrar" text="" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
           <stylesheets>
-            <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+            <URL value="@css/estilo.css" />
           </stylesheets>
           <GridPane.margin>
             <Insets right="5.0" />
@@ -56,7 +56,7 @@
     </GridPane>
     <Button layoutX="563.0" layoutY="53.0" maxWidth="-1.0" mnemonicParsing="false" onAction="#bucarReservas" prefHeight="25.0" prefWidth="25.0" styleClass="botonBuscar" text="">
       <stylesheets>
-        <URL value="file:/F:/Proyecto/Sabga/src/sabga/vista/css/estilo.css" />
+        <URL value="@css/estilo.css" />
       </stylesheets>
       <tooltip>
         <Tooltip text="Iniciar búsqueda" />

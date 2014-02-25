@@ -145,35 +145,37 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     @FXML
     public void removerMateria(ActionEvent evento){        
         removerMateria();            
-   }
+    }
     
     @FXML
     public void buscarMaterial(ActionEvent evento){
-        buscarMaterial();
-       
-     
-    }
-   
-    private void buscarMaterial() {
-
-        limpiarDetalle();
-        if (!"".equals(txtfBuscar.getText()) && radioBuscar.isSelected()) {
-            prepararTablaMaterial();
-            filtrarMaterial.addAll(listaMaterial);
-            listaMaterial.addAll(consulta.getListaMaterialBusqueda(txtfBuscar.getText().trim()));
-            tablaMaterial.setItems(filtrarMaterial);
-            if(filtrarMaterial.isEmpty()){
-                comboMaterial.getSelectionModel().clearSelection();
-                lblResultado.setText("No se han encontrado resultados.");
-            }else{
-                lblResultado.setText(null);
-                comboMaterial.getSelectionModel().clearSelection();
-            }
-        }
+        buscarMaterial();            
     }
     
     @FXML
-    private void buscarFiltrar(){
+    public void removerEjemplar(ActionEvent evento){
+    
+        eliminarEjemplar();
+    }
+    
+    @FXML
+    public void verCodigoBarras(ActionEvent evento){
+        codigoBarras();
+    }
+   
+    @FXML
+    public void listarMaterial(ActionEvent evento){                        
+        prepararTablaMaterial();
+        listar();    
+    }
+    
+    @FXML
+    public void mapearDatosMaterial(){
+        mapearDatos();
+    }
+            
+    @FXML
+    public void buscarFiltrar(){
         
         if(radioBuscar.isSelected()){
             txtfFiltrar.setText("");
@@ -194,6 +196,31 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     }
     
     @FXML
+    public void disponibilidadMaterial(){
+        
+        if(!listaEjemplares.isEmpty() && tablaEjemplar.getSelectionModel().getSelectedItem() != null){
+            comboDispo.getSelectionModel().select(listaEjemplares.get(tablaEjemplar.getSelectionModel().getSelectedIndex()).getDisponibilidad());
+        }
+    }
+
+    private void buscarMaterial() {
+
+        limpiarDetalle();
+        if (!"".equals(txtfBuscar.getText()) && radioBuscar.isSelected()) {
+            prepararTablaMaterial();
+            filtrarMaterial.addAll(listaMaterial);
+            listaMaterial.addAll(consulta.getListaMaterialBusqueda(txtfBuscar.getText().trim()));
+            tablaMaterial.setItems(filtrarMaterial);
+            if(filtrarMaterial.isEmpty()){
+                comboMaterial.getSelectionModel().clearSelection();
+                lblResultado.setText("No se han encontrado resultados.");
+            }else{
+                lblResultado.setText(null);
+                comboMaterial.getSelectionModel().clearSelection();
+            }
+        }
+    }
+    
     private void mapearDatos(){
       
         if (tablaMaterial.getSelectionModel().getSelectedItem()!= null) {
@@ -215,15 +242,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             lblValidarEjemplares.setText("");            
         }              
     }
-    
-    @FXML
-    private void disponibilidadMaterial(){
-        if(!listaEjemplares.isEmpty() && tablaEjemplar.getSelectionModel().getSelectedItem() != null){
-            comboDispo.getSelectionModel().select(listaEjemplares.get(tablaEjemplar.getSelectionModel().getSelectedIndex()).getDisponibilidad());
-        }
-    }
-
-    @FXML
+        
     private void eliminarEjemplar() {
         
         if (!listaEjemplares.isEmpty() && tablaEjemplar.getSelectionModel().getSelectedItem() != null) {
@@ -232,10 +251,11 @@ public class EditarMaterialController implements Initializable, ControlledScreen
                 int idMaterial = Integer.parseInt(listaMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId());
                 consulta.eliminarEjemplar(idEjemplar, idMaterial);
                 lblValidarEjemplares.setText("");
-                if(consulta.getMensaje()!=null){
+                if(consulta.getMensaje() != null){
                     Utilidades.mensajeError(null, consulta.getMensaje(),"No se ha eliminado el ejemplar", "Error Eliminar Ejemplar");
                 }else{
                      listaEjemplares.remove(listaEjemplares.get(tablaEjemplar.getSelectionModel().getSelectedIndex()));
+                     txtfEjemplar.clear();
                 }            
             }else{
                 lblValidarEjemplares.setText("El material debe tener como mínimo un ejemplar.");
@@ -245,8 +265,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         }       
     }
 
-    @FXML
-    private void codigoBarras(ActionEvent evento) {
+    private void codigoBarras() {
         
         if(tablaMaterial.getSelectionModel().getSelectedItem() != null) {
             ventanaPrincipal = new Sabga();
@@ -260,13 +279,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
             Utilidades.mensaje(null,"Debe seleccionar un material de la lista.", "Antes de volver a crear el código de barras.", "Código Barras");
         }
     }
-  
-    @FXML
-    private void listarMaterial(ActionEvent evento){                        
-        prepararTablaMaterial();
-        listar();    
-    }
-    
+      
     private void cambiarEstadoEjemplar(){
     
         if(tablaEjemplar.getSelectionModel().getSelectedItem()!=null && tablaMaterial.getSelectionModel().getSelectedItem()!=null){
@@ -332,7 +345,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     
     private void removerAutor(){
         
-         if(tablaAutores.getSelectionModel().getSelectedItem()!=null && tablaMaterial.getSelectionModel().getSelectedItem() != null){
+         if(tablaAutores.getSelectionModel().getSelectedItem()!= null && tablaMaterial.getSelectionModel().getSelectedItem() != null){
              if(listaAutores.size() >1){
                  consulta.editarAutorMaterial(1, Integer.parseInt(filtrarMaterial.get(tablaMaterial.getSelectionModel().getSelectedIndex()).getId()),
                                                  listaAutores.get(tablaAutores.getSelectionModel().getSelectedIndex()).getNombreAutor());
@@ -412,7 +425,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
                                             editorial.getTextbox().getText(), txtfCodigoClasificacion.getText(), 
                                             txtfIsbn.getText(), txtfTitulo.getText(), txtfPublicacion.getText(),
                                             Utilidades.setNumero(txtfAnio.getText()), Utilidades.setNumero(txtfPaginas.getText()));
-                    if(consulta.getMensaje()==null){
+                    if(consulta.getMensaje() == null){
                         limpiarCampos();
                         Utilidades.mensaje(null, "Los cambios se han guardado correctamente.", "", "Guardar Cambios");                        
                     }else {
@@ -554,7 +567,8 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         }
     }
     
-    public void validarEdicionLibro(){       
+    public void validarEdicionLibro(){    
+        
         if(!listaMaterial.isEmpty()){
             ValidarMaterial libro = new ValidarMaterial();
             libro.validarEdicionLibro(txtfCodigoClasificacion.getText(), txtfIsbn.getText(), txtfTitulo.getText(), txtfAnio.getText(), 
@@ -569,7 +583,8 @@ public class EditarMaterialController implements Initializable, ControlledScreen
         }     
     }
     
-    public void validarEdicionOM(){        
+    public void validarEdicionOM(){     
+        
          if(!listaMaterial.isEmpty()){             
              ValidarMaterial om = new ValidarMaterial();
              om.validarEdicionOM(txtfCodigoClasificacion.getText(), txtfTitulo.getText());

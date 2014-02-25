@@ -297,9 +297,10 @@ public class PreferenciasController implements Initializable {
                 " --port=" + configuracion.getPuertoBaseDatos() +
                 " --user=" + configuracion.getUsuarioBase() + 
                 " --password=" + configuracion.getContraseniaBase() +
-                " --compact --complete-insert --extended-insert --databases" +
-                " --default-character-set=utf8 --routines --add-drop-table " +
+                " --compact --complete-insert --extended-insert --add-drop-database --add-locks --comments" +
+                " --default-character-set=utf8 --single-transaction=TRUE --routines --add-drop-table " +
                 configuracion.getNombreBaseDatos());
+                
                 //se guarda en memoria el backup
                 InputStream in = run.getInputStream();
                 BufferedReader br = new BufferedReader(new InputStreamReader(in));
