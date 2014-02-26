@@ -642,6 +642,7 @@ public class PrestamoController implements Initializable, ControlledScreen{
         reserva = false;
         tipoUsuario = null;
         listaPrestamo.clear();
+      
     }
     
     private void limpiarDatos(){

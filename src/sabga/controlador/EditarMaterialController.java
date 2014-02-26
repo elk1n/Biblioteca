@@ -90,6 +90,7 @@ public class EditarMaterialController implements Initializable, ControlledScreen
     private final Consultas consulta;
 
     public EditarMaterialController(){
+        
         dialogo = new Dialogo();       
         consulta = new Consultas();
         editorial = new AutoFillTextBox<>();

@@ -507,17 +507,17 @@ public class Consultas {
         return lista;
     }
     
-    public ObservableList<Multa> getMulta(int id){
+    public ObservableList<Multa> getMulta(String id){
     
         ObservableList<Multa> lista = FXCollections.observableArrayList();
         try {
             con.conectar();
             con.procedimiento("{ CALL getListaMultas(?) }");
-            con.getProcedimiento().setInt("id", id);
+            con.getProcedimiento().setString("id", id);
             con.setResultado(con.getProcedimiento().executeQuery());
             while (con.getResultado().next()) {
                     lista.add(new Multa(con.getResultado().getInt("id"), con.getResultado().getInt("prestamo"), 
-                                        con.getResultado().getInt("documento"), con.getResultado().getString("nombre"), 
+                                        con.getResultado().getString("documento"), con.getResultado().getString("nombre"), 
                                         con.getResultado().getString("fecha"), con.getResultado().getString("estado"),
                                         con.getResultado().getInt("valor")));
             }
@@ -1314,12 +1314,12 @@ public class Consultas {
 
     }
 
-    public void mapearUsuarios(String id) {
+    public void mapearUsuarios(String codigo) {
 
         try {
             con.conectar();
             con.procedimiento("{ CALL mapearUsuario(?,?,?,?,?,?,?,?,?,?,?,?) }");
-            con.getProcedimiento().setString("id", id);
+            con.getProcedimiento().setString("id", codigo);
             con.getProcedimiento().registerOutParameter("tipo", Types.VARCHAR);
             con.getProcedimiento().registerOutParameter("grado", Types.VARCHAR);
             con.getProcedimiento().registerOutParameter("curso", Types.VARCHAR);

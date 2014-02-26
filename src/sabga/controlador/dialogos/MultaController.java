@@ -98,7 +98,7 @@ public class MultaController implements Initializable {
         clmnFecha.setCellValueFactory(new PropertyValueFactory<Multa, String>("fecha"));
         clmnEstado.setCellValueFactory(new PropertyValueFactory<Multa, String>("estado"));
         clmnValor.setCellValueFactory(new PropertyValueFactory<Multa, String>("valor"));
-        listaPrestamos.addAll(consulta.getMulta(Integer.parseInt(codigo_matricula)));
+        listaPrestamos.addAll(consulta.getMulta(codigo_matricula));
         tablaPrestamo.setItems(listaPrestamos);
         for(Multa p: listaPrestamos){
             multa += p.getValor();

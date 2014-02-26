@@ -52,14 +52,14 @@ public class Sabga extends Application {
 //        rootLayout = (BorderPane) cargador.load();
 //        Scene scene = new Scene(rootLayout);        
 //        primaryStage.setScene(scene);
-        //Quitar el comentario para habilitar la pàgina de login o inicio de sesión
+
         dialogoInicioSesion();        
-        //primaryStage.show();
+//        primaryStage.show();
         
-       // PaginaPrincipalController controller = cargador.getController();
-       // controller.setVentanaPrincipal(this);
-        //controladores();
-        //mostrarVistas();        
+//        PaginaPrincipalController controller = cargador.getController();
+//        controller.setVentanaPrincipal(this);
+//        controladores();
+//        mostrarVistas();        
     }
     
     public void controladores(){       
